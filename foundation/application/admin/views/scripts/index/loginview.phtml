@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<title>登录管理中心</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>css/login.css" type="text/css" media="all">
+</head>
+<body><script language="JavaScript">
+	if(self.parent.frames.length != 0) {
+		self.parent.location=document.location;
+	}
+</script>
+<table class="logintb">
+<tbody><tr>
+	<td class="login">
+		<h1>MyCMS - 天津北洋大学基金会管理后台</h1>
+		<p>天津北洋大学基金会管理后台! 是一个采用 PHP 和 MySQL 等多种数据库构建的高效解决方案!</p>
+	</td>
+
+	<td>
+	<form action="/admin/index/login" method="post" name="">
+
+		<p class="logintitle">用户名: </p>
+		<p class="loginform"><input name="user_name" tabindex="1" class="txt" autocomplete="off" type="text"></p>
+		<p class="logintitle">密　码:</p>
+		<p class="loginform"><input name="user_password" tabindex="1" class="txt" autocomplete="off" type="password"></p>
+		<p class="logintitle">提　问:</p>
+		<p class="loginform">
+			<select id="questionid" name="admin_questionid" tabindex="2">
+				<option selected="selected" value="0">无安全提问</option>
+				<option value="1">您所在的机构名称</option>
+			</select>
+		</p>
+		<p class="logintitle">回　答:</p>
+		<p class="loginform"><input name="admin_answer" tabindex="3" class="txt" autocomplete="off" type="text"></p>
+		<p class="loginnofloat"><input name="submit" value="提交" tabindex="3" class="btn" type="submit"></p>
+		</form><script type="text/JavaScript">document.getElementById('loginform').user_password.focus();</script>
+	</td>
+</tr>
+</tbody></table>
+<table class="logintb">
+<tbody><tr>
+	<td colspan="2" class="footer">
+		<div class="copyright">
+			<p>Powered by <a href="http://www.tengxuntong.com/" target="_blank">MyCMS!</a> X2.0 </p>
+			<p>&#169; 2006-2011, <a href="http://www.tengxuntong.com/" target="_blank">感知科技</a> Inc.</p>
+		</div>
+	</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>

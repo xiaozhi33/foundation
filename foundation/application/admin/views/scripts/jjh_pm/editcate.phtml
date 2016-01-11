@@ -1,0 +1,53 @@
+<?= $this->partial("index/header.phtml");?>
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>捐赠项目管理<span class="font_red"> >> </span><span class="font_red_big">修改项目</span></h4>
+			<div class="detailedbox">
+			<form action="/admin/jjhpm/savecate" method="post" encType="multipart/form-data">
+				<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠项目标题：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="title" value="<?php echo $this->my_jjh[0]['c_name'];?>"/><font color="red" > * </font>
+						</td>
+					</tr>	
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠项目描述：</td>
+						<td width="80%" style="text-align:left;">
+							<textarea class="ckeditor" name="describe">
+								<?php echo $this->my_jjh[0]['c_describe'];?>
+							</textarea>
+						</td>
+					</tr>				
+										
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠项目进展：</td>
+						<td width="80%" style="text-align:left;">
+							<textarea class="ckeditor" name="content">
+								<?php echo $this->my_jjh[0]['c_content'];?>
+							</textarea>
+						</td>
+					</tr>
+					<input type="hidden" name="cid" value="<?php echo $this->my_jjh[0]['c_id'];?>"/>
+					<!--<tr>
+					    <td width="20%" style="text-align:right;">捐赠项目封面图片：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="file" name="pic" /> 
+						</td>
+					</tr>-->
+					
+					
+					
+					<tr>
+					    <td width="20%" style="text-align:right;"> </td>
+						<td width="80%" style="text-align:left;">
+							<input type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="重 置" /> 
+						</td>
+					</tr>
+				</table>
+			</form>
+		  </div>
+		</div>
+	<?= $this->partial("index/footer.phtml");?>

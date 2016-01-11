@@ -1,0 +1,201 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+	
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>项目资金管理<span class="font_red"> >> </span><span class="font_red_big">添加资金信息</span></h4>
+			<div class="detailedbox">
+			<form action="addrszijin" method="post" encType="multipart/form-data">
+				<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+			  
+					  <tr>
+					    <td width="20%" style="text-align:right;">项目名称：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="pname">
+							<?php if($this->pmlist != ""){
+									foreach ($this->pmlist as $k => $v){
+								?>
+								<option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+							<?php }}?>
+						</select><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">项目捐赠者：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text"  name="pm_pp"  size="14"/><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠者类型：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="pm_pp_cate">
+								<option value="" >请选择类型</option>
+								<option value="个人" >个人</option>
+								<option value="企业" > 企业</option>
+								<option value="事业单位" >事业单位</option>
+								<option value="基金会" > 基金会</option>
+								<option value="其他组织" >其他组织</option>
+							</select><font color="#0474d6" > * 个人、企业、事业单位、基金会、其他组织</font>
+						</td>
+					</tr>
+					
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠级别：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="pm_juanzeng_jibie">
+								<option value="" >请选择类型</option>
+								<option value="校级" >校级</option>
+								<option value="院级" >院级</option>
+								<option value="其他" >其他</option>
+							</select><font color="#0474d6" > * 校级、院级、其他</font>
+						</td>
+					</tr>
+					
+					
+					 <tr>
+					    <td width="20%" style="text-align:right;">项目捐赠类型：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="pm_cate">
+								<option value="" >请选择类型</option>
+								<?php if($this->pcatelist != ""){
+								foreach ($this->pcatelist as $k => $v){?>
+									<option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
+								<?php }}?>
+							</select><font color="#0474d6" > * 教育基金、研究基金等</font>
+						</td>
+					  </tr>
+					  
+					  <tr>
+					    <td width="20%" style="text-align:right;">捐赠用途：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="pm_juanzeng_yongtu">
+								<option value="" >请选择类型</option>
+								<option value="资助家庭经济困难学生" >资助家庭经济困难学生</option>
+								<option value="奖励优秀学生" >奖励优秀学生</option>
+								<option value="支持毕业生就业" >支持毕业生就业</option>
+								<option value="奖励教师" >奖励教师</option>
+								<option value="教学科研及学科发展" >教学科研及学科发展</option>
+								<option value="学校基建项目" >学校基建项目</option>
+								<option value="其他指定用途" >其他指定用途</option>
+								<option value="非指定用途" >非指定用途</option>
+							</select><font color="#0474d6" > * 资助家庭经济困难学生、奖励优秀学生、支持毕业生就业、奖励教师等</font>
+						</td>
+					</tr>
+					  
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠到账日期：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text"  id="dateinput"  name="zijin_daozhang_datetime"  size="14"/><font color="#0474d6" > * </font>
+						</td>
+					</tr>  
+					  
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠到账金额：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="zijin_daozheng_jiner"  size="14"/><font color="#0474d6" > * </font>
+						</td>
+					</tr>  
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">资金来源渠道：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="zijin_laiyuan_qudao">
+								<option value="" >请选择类型</option>
+								<option value="境内" >境内</option>
+								<option value="境外" >境外</option>
+							</select><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">是否是校友：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="radio" name="pm_is_school" value="1"/> 是
+							<input type="radio" name="pm_is_school" value="0" checked="checked"/> 否
+						</td>
+					</tr>
+					
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">配比状态：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="radio" name="peibi" value="1"/> 是
+							<input type="radio" name="peibi" value="0" checked="checked"/> 否
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">票据状态：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="radio" name="piaoju" value="0" /> 未开票（默认）
+							<input type="radio" name="piaoju" value="1" checked="checked"/> 已开票
+							<input type="radio" name="piaoju" value="2"/> 借票
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">证书状态：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="radio" name="zhengshu" value="1" checked="checked"/> 已开证书
+							<input type="radio" name="zhengshu" value="0" /> 未开证书
+						</td>
+					</tr>
+
+					<tr>
+					    <td width="20%" style="text-align:right;">相关文档：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="file" name="pm_files"  size="14"/><font color="#0474d6" > * 相关文档已打包形式上传 格式为*.rar</font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠单位介绍：</td>
+						<td width="80%" style="text-align:left;">
+							<textarea class="ckeditor" name="pm_pp_company"></textarea>
+						</td>
+					</tr>
+
+					<tr>
+					    <td width="20%" style="text-align:right;">备注：</td>
+						<td width="80%" style="text-align:left;">
+							<textarea class="ckeditor" name="beizhu"></textarea>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;"> </td>
+						<td width="80%" style="text-align:left;">
+							<input type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="重 置" /> 
+						</td>
+					</tr>
+				</table>
+			</form>
+		  </div>
+		</div>
+		
+		<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>
+
+		

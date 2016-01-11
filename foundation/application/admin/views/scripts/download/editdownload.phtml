@@ -1,0 +1,44 @@
+<div id="main">
+		<div id="rightstyle02">
+		<h4>下载中心<span class="font_red"> >> </span><span class="font_red_big">编辑下载文档</span></h4>
+			<div class="detailedbox">
+			<form action="editrs" method="post" encType="multipart/form-data">
+				<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					<tr>
+					    <td width="20%" style="text-align:right;">下载文章名称：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" value="<?php echo $this->downloadinfo[0]['download_title'];?>" name="title"/><font color="red" > * </font>
+						</td>
+					</tr>
+					<tr>
+					    <td width="20%" style="text-align:right;">下载文章内容：</td>
+						<td width="80%" style="text-align:left;">
+							<textarea class="ckeditor" name="content">
+								<?php echo $this->downloadinfo[0]['download_content'];?>
+							</textarea>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">文章附件：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="file" name="filesinfo"/><font color="red" > * </font>
+						</td>
+					</tr>
+					
+					<input type="hidden" name="oldfiles" value="<?php echo $this->downloadinfo[0]['download_file'];?>"/>
+					<input type="hidden" name="id" value="<?php echo $this->downloadinfo[0]['did'];?>"/>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">
+							<input type="submit" value="提 交"/>
+						</td>
+						<td width="80%" style="text-align:left;">
+							<input type="reset" value="重 置"/>
+						</td>
+					</tr>
+					
+				</table>
+			</form>
+		  </div>
+		</div>

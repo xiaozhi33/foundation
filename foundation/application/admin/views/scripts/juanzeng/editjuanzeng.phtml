@@ -1,0 +1,46 @@
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>捐赠信息管理<span class="font_red"> >> </span><span class="font_red_big">修改捐赠信息</span></h4>
+			<div class="detailedbox">
+			<form action="editrs" method="post" encType="multipart/form-data">
+				<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠单位/个人：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="name" value="<?php echo $this->jjh_juanzeng_info[0]['jjh_juanzeng_danwei'];?>"/><font color="red" > * </font>
+						</td>
+					</tr>
+										  
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠项目：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="pm" value="<?php echo $this->jjh_juanzeng_info[0]['jjh_juanzeng_pm'];?>" /><font color="red" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠金额：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="jiner" value="<?php echo $this->jjh_juanzeng_info[0]['jjh_juanzeng_jiner'];?>" /><font color="red" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠日期：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="riqi" value="<?php echo $this->jjh_juanzeng_info[0]['jjh_juanzeng_datetime'];?>" /><font color="red" > * </font> 格式：“2011-06-07 12:12:12”
+						</td>
+					</tr>							
+					
+					<input type="hidden" name="id" value="<?php echo $this->jjh_juanzeng_info[0]['id'];?>"/>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;"> </td>
+						<td width="80%" style="text-align:left;">
+							<input type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="重 置" /> 
+						</td>
+					</tr>
+				</table>
+			</form>
+		  </div>
+		</div>

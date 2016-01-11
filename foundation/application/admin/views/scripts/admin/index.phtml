@@ -1,0 +1,49 @@
+
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>管理组成员管理<span class="font_red"> >> </span><span class="font_red_big">管理员列表</span></h4>
+			<div class="detailedbox">
+
+				<?php if($this->adminlist != ""){?>
+					<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  
+					  <tr>
+						<td width="30%" bgcolor="#f5f5f5">管理员类型</td>
+						<td width="30%" bgcolor="#f5f5f5">管理员姓名</td>
+						<td width="20%" bgcolor="#f5f5f5">操作</td>
+					  </tr>
+					
+					  <?php 
+						foreach($this->adminlist as $k=>$v){?>
+						 <tr>
+						 	<td><?php 
+						 		if($v['admin_type'] == 0){
+						 			echo "系统管理员";
+						 		}elseif($v['admin_type'] == 1){
+						 			echo "项目筹资管理员";
+						 		}elseif($v['admin_type'] == 2){
+						 			echo "项目资金管理员";
+						 		}elseif($v['admin_type'] == 3){
+						 			echo "项目使用管理员";
+						 		}elseif($v['admin_type'] == 4){
+						 			echo "项目管理员";
+						 		}elseif($v['admin_type'] == 5){
+						 			echo "统计管理员";
+						 		}elseif($v['admin_type'] == 6){
+						 			echo "网站管理员";
+						 		}
+						 	?></td>
+							<td><?php echo $v['admin_name'];?></td>
+							<td><a href="/admin/admin/edit?id=<?php echo $v['id'];?>">编辑</a> || <a href="/admin/admin/del?id=<?php echo $v['id'];?>">删除</a></td>
+						 </tr>
+					   <?php }?>
+					</table>
+					
+					<div align="right" style="margin-right: 10px;margin-top: 5px;"></div>
+					
+				 <?php }else{?>
+				 	<div>暂无管理员信息！<a href="/admin/admin/add">点击添加</a></div>
+				 <?php }?>
+		  </div>
+		</div> 
+		

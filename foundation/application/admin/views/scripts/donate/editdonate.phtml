@@ -1,0 +1,127 @@
+<?= $this->partial("index/header.phtml");?>
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>捐赠信息管理<span class="font_red"> >> </span><span class="font_red_big">查看修改捐赠信息</span></h4>
+			<div class="detailedbox">
+			<form action="editinformation" method="post" encType="multipart/form-data">
+				<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠项目：</td>
+						<td width="80%" style="text-align:left;">
+							<?php echo $this->jjh_order[0]['jjh_donors_cname'];?><font color="red" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠金额：</td>
+						<td width="80%" style="text-align:left;">
+							<font color="red" ><?php echo $this->jjh_order[0]['jjh_money'];?></font>  元     （金额不到10元不显示）
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠日期：</td>
+						<td width="80%" style="text-align:left;">
+							<?php echo $this->jjh_order[0]['jjh_rdero_datetime'];?>
+						</td>
+					</tr>
+										  
+					  <tr>
+					    <td width="20%" style="text-align:right;">捐赠人名称：</td>
+						<td width="80%" style="text-align:left;">
+							<?php echo $this->jjh_order[0]['jjh_donors_name'];?>
+						</td>
+					</tr>
+					
+										
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠人电话：</td>
+						<td width="80%" style="text-align:left;">
+							<?php echo $this->jjh_order[0]['jjh_donors_phone'];?>
+						</td>
+					  </tr>
+					
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠人手机：</td>
+						<td width="80%" style="text-align:left;">
+							<?php echo $this->jjh_order[0]['jjh_donors_mobile'];?>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">电子邮箱：</td>
+						<td width="80%" style="text-align:left;">
+							<?php echo $this->jjh_order[0]['jjh_donors_email'];?>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">校友信息：</td>
+						<td width="80%" style="text-align:left;">
+							<?php if($this->jjh_order[0]['jjh_donors_alumni'] != "格式：2000-2006 中文系 中文专业"){
+								echo $this->jjh_order[0]['jjh_donors_alumni'];
+							}?>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">是否是需要证书：</td>
+						<td width="80%" style="text-align:left;">
+							<?php if($this->jjh_order[0]['jjh_is_zhengshu'] == 1){
+								echo "是";
+							}else{
+								echo "否";
+							}?>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">是否是匿名捐赠：</td>
+						<td width="80%" style="text-align:left;">
+							<?php if($this->jjh_order[0]['jjh_donors_anonymous'] == 1){
+								echo "是";
+							}else{
+								echo "否";
+							}?>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">是否是需要收据：</td>
+						<td width="80%" style="text-align:left;">
+							<?php if($this->jjh_order[0]['jjh_is_shouju'] == 1){
+								echo "是";
+							}else{
+								echo "否";
+							}?>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠方式：</td>
+						<td width="80%" style="text-align:left;">
+							<?php if($this->jjh_order[0]['jjh_price_cate'] == 1){
+								echo "在线支付";
+							}else{
+								echo "线下汇款";
+							}?>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">订单状态：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="statue">
+								<option <?php if($this->jjh_order[0]['jjh_order_statue'] == 0){?>selected="selected"<?php }?> value="0">未付款</option>
+								<option <?php if($this->jjh_order[0]['jjh_order_statue'] == 1){?>selected="selected"<?php }?> value="1">已付款</option>
+								<option <?php if($this->jjh_order[0]['jjh_order_statue'] == 2){?>selected="selected"<?php }?> value="2">退款</option>
+							</select>
+						</td>
+					</tr>
+					
+				</table>
+			</form>
+		  </div>
+		</div>
+<?= $this->partial("index/footer.phtml");?>

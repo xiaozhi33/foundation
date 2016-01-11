@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>admin管理后台</title>
+
+<link href="<?= __ADMININCLUDEPATH__;?>css/common.css" rel="stylesheet" type="text/css" />
+<link href="<?= __ADMININCLUDEPATH__;?>css/submain.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/include/ckeditor/ckeditor.js"></script>
+
+</head>
+<body>
+	<div id="wrapper">
+	<div id="header">	
+	</div>
+	<div id="container">
+		<div id="sidebar">
+		
+			<div class="leftbox">
+				<h4>欢迎您：<?php $admininfo = SessionUtil::getAdmininfo();print_r($admininfo['admin_name']);?></h4>
+				<div class="menubox">
+					<h5 class="on">网站基本操作</h5>
+					<ul>
+						<li><a href="/" target="_blank">浏览网站首页</a></li>
+						<li><a href="/admin/index/logout">安全退出</a></li>
+					</ul>
+				</div>
+			</div>
+			
+			<?php if($admininfo['admin_info']['admin_type']==0 || $admininfo['admin_info']['admin_type']==6){?>
+			
+			<div class="leftbox">
+				<h4>在线捐赠管理</h4>				
+				<div class="menubox">
+					<h5 class="on">捐赠项目管理</h5>
+					<ul>
+						<li><a href="/admin/Jjhpm/index">捐赠项目列表</a></li>
+					</ul>
+				</div>
+				
+				<div class="menubox">
+					<h5 class="on">捐赠信息管理</h5>
+					<ul>
+						<li><a href="/admin/donate/index">最新订单信息</a></li>
+						<li><a href="/admin/juanzeng/index">最新捐赠信息</a></li>
+						<li><a href="/admin/juanzeng/addjuanzeng">添加捐赠信息</a></li>
+					</ul>
+				</div>
+				
+				<div class="menubox">
+					<h5 class="on">下载中心</h5>
+					<ul>
+						<li><a href="/admin/download">下载文档列表</a></li>
+						<li><a href="/admin/download/adddownload">添加下载文档</a></li>
+					</ul>
+				</div>
+			</div>
+			
+			
+			<div class="leftbox">
+				<h4>网站信息管理</h4>	
+				
+			<!--<div class="menubox">
+					<h5 class="on">管理组成员管理</h5>
+					<ul>
+						<li><a href="/admin/admin">管理员列表</a></li>
+						<li><a href="/admin/admin/add">添加管理员</a></li>
+						<li><a href="/admin/admin/editpwd">编辑管理员密码</a></li>
+					</ul>
+				</div>-->
+							
+				<div class="menubox">
+					<h5 class="on">网站资讯管理</h5>
+					<ul>
+						<li><a href="/admin/information">资讯列表</a></li>
+						<li><a href="/admin/information/addinformation">添加资讯文章</a></li>
+					</ul>
+				</div>
+				<div class="menubox">
+					<h5 class="on">广告管理</h5>
+					<ul>
+						<li><a href="/admin/ad">网站首页动态广告</a></li>
+						<li><a href="/admin/ad/addad">添加动态广告</a></li>
+					</ul>
+				</div>
+			</div>
+			
+			<?php }?>
+		
+	</div>

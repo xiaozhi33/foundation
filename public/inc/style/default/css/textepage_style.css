@@ -1,0 +1,95 @@
+@charset "utf-8";
+/* CSS Document */
+
+.cs_jdsl_con {
+    background-color: #FFFFFF;
+    float: none;
+    margin: 0 auto;
+    padding: 0;
+    width: 970px;
+	overflow:hidden;
+	padding-bottom:50px;
+}
+.cs_jdsl_con_left {
+    background-color: #FFFFFF;
+    float: left;
+    padding-left: 10px;
+    padding-top: 15px;
+    width: 695px;
+}
+.cs_jdsl_con_top {
+    background-color: #EFF9F2;
+    border-bottom: 1px dashed #AAB1AC;
+    color: #004E86;
+    width: 100%;
+}
+.cs_jdsl_con_tzt {
+    line-height: 35px;
+}
+.cs_jdsl_con_tzt_bt {
+    float: left;
+    font-family: "Times New Roman",Times,serif;
+    font-size: 24px;
+}
+.cs_jdsl_con_tzt_hx {
+    float: right;
+    margin-right: 5px;
+}
+.cs_jdsl_con_tzt_hx a {
+    color: #2A5192;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.cs_jdsl_con_top_nr {
+    color: #333333;
+    font-size: 14px;
+    line-height: 18px;
+    margin: 10px 0;
+}
+/*list_text*/
+.cs_text_list{
+	padding:15px 0px;
+	margin:0;
+	display:block;
+	border-bottom:1px dashed #ccc;
+	overflow:hidden;
+}
+.cs_text_list span{
+	 display: block;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+.cs_text_list li{
+	border: 1px solid #CCCCCC;
+    float: left;
+    margin: 0px 2px;
+}
+.cs_text_list li a{
+	padding:0px 4px;
+	background:#fff;
+}
+.cs_text_list li.hover a{
+	color:#ffffff;
+	background-color:#006699;
+}
+.cs_text_listtext{
+	padding:0;
+	margin:20px 0;
+	overflow:hidden;
+	float:none;
+}
+.cs_text_listtext li{
+	float:left;
+	width:340px;
+	margin:5px 5px 5px 0px;
+	font-weight:bold;
+	
+}
+.cs_textlist_conr{
+    float: right;
+    margin-right: 10px;
+    width: 242px;
+}
+	

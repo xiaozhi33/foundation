@@ -1,0 +1,72 @@
+
+<div id="main" class="main">
+	<div id="rightstyle02" class="row">
+		<h4 class="col-md-12">项目联系人管理<span class="font_red"> >> </span><span class="font_red_big">项目联系人列表</span></h4>
+		<div class="col-md-12">
+			<section class="tile color transparent-black">
+			<div class="tile-body">
+				<form class="form-horizontal" method="post" action="#">
+                    <div class="form-group">
+                    	<div class="col-sm-12">
+                            <label class="col-sm-2 control-label" for="input01">联系人姓名：</label>
+                            <div class="col-sm-2">
+                               <input type="text" name="ppname" />
+                            </div>
+                            <label class="col-sm-2 control-label" for="input01">相关项目名称：</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="pp_pm_id">
+                                <?php if($this->pmlist != ""){
+                                        foreach ($this->pmlist as $k => $v){
+                                    ?>
+                                    <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                <?php }}?>
+                            </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <input class="btn btn-primary" type="submit" value="搜索">
+                            </div>
+                        </div>
+                    </div>
+					</form>
+			</div>
+			</section>
+            <section class="tile color transparent-black">	
+                <div class="tile-body nopadding">				
+				<?php if($this->pplist != ""){?>
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  <thead>
+					  <tr>
+						<td width="15%">联系人姓名</td>
+						<td width="25%">相关项目</td>
+						<td width="20%">移动电话</td>
+						<td width="20%">电子邮箱</td>
+						<td width="20%">操作</td>
+					  </tr>
+						</thead>
+                      <tbody>
+					  <?php 
+						foreach($this->pplist as $k=>$v){?>
+						 <tr>
+						 	<td><?php echo $v['ppname'];?></td>
+							<td><?php echo $v['pp_pm_id'];?></td>
+							<td><?php echo $v['ppmobile'];?></td>
+							<td><?php echo $v['ppemail'];?></td>
+							<td><a href="/management/admin/editpp?id=<?php echo $v['pid'];?>">编辑</a> || <a href="#">删除</a></td>
+						 </tr>
+					   <?php }?>
+                       </tbody>
+					</table>
+				</div>
+				<div class="tile-footer bg-transparent-black-2">
+				<div class="row">
+					<div class="page col-md-12" align="right">
+						共  <?php echo $this->total;?> 条          <?php echo $this->page;?></div>
+					
+				 <?php }else{?>
+				 	<div>暂无项目联系人信息！<a href="/management/admin/adddepartment">点击添加</a></div>
+				 <?php }?>
+		  </div>
+		</div> 
+			</section>
+        </div>
+    </div>

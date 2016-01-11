@@ -1,0 +1,50 @@
+<?= $this->partial("common/header.phtml");?>
+<div class="jjh_content_sub" style="height:480px;">
+         <div class="jjh_content_sub_left">
+              <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/news_top_img.jpg" /></div>
+              <div class="jjh_sub_nav_tit"><span>新闻中心</span></div>
+              <div class="jjh_sub_nav_con">
+                   <ul>
+                      <li><a href="/news/index?cid=gonggao">
+                      <?php if($this->c_name == "基金会公告"){?>
+                      <span>基金会公告</span>
+                      <?php }else{?>
+                     	 基金会公告
+                      <?php }?>
+                      </a></li>
+                      <li><a href="/news/index?cid=zizhuxinxi"><?php if($this->c_name == "资助信息"){?>
+                      <span>资助信息</span>
+                      <?php }else{?>
+                     	 资助信息
+                      <?php }?></a></li>
+                      <li><a href="/news/index?cid=xinwen"><?php if($this->c_name == "基金会新闻"){?>
+                      <span>基金会新闻</span>
+                      <?php }else{?>
+                     	基金会新闻
+                      <?php }?></a></li>
+                      <li><a href="/news/index?cid=gongshi"><?php if($this->c_name == "捐赠公示"){?>
+                      <span>捐赠公示</span>
+                      <?php }else{?>
+                     	捐赠公示
+                      <?php }?></a></li>
+                   </ul>
+              </div>
+         </div>
+         <div class="jjh_content_sub_right">
+              <div class="jjh_sub_con_tit"><em><?php echo $this->c_name;?></em><span>当前位置：<a href="/news">新闻中心</a> > <?php echo $this->c_name;?> </span></div>
+              <div class="jjh_sub_con_content" style="height:300px;">
+                <ul class="jjh_report">
+                <?php foreach ($this->informationlist as $k => $v){?>
+                    <li><a href="/news/newsinfo?id=<?php echo $v['my_infor_id'];?>"><?php echo $v['my_infor_title'];?> </a><span>[ <?php echo $v['my_infor_datetime'];?> ]</span></li>
+                <?php }?>
+                </ul>
+                <div class="jjh_pagebar">
+                	<?php echo $this->page;?>&nbsp;&nbsp;
+                	<?php if($this->page != ""){?>
+                	共<?php echo $this->total;?>/页
+                	<?php }?>
+                </div>
+              </div>
+         </div>
+     </div>
+<?= $this->partial('common/footer.phtml'); ?>   

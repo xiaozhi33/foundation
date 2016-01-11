@@ -1,0 +1,225 @@
+/*-------------------------------- CSS 椤甸潰甯冨眬寮�-------------------------------- */
+
+*{
+    margin:0;
+	padding:0;
+}
+body{
+    font-family:"瀹嬩綋";
+	font-size:12px;
+	colo:#333;
+	background:#fff;
+	line-height:20px;
+}
+p{
+    margin:8px 0;
+}
+img{
+    display:block;
+	overflow:hidden;
+    border:0;
+}
+li{
+    list-style:none;
+}
+a{
+    color:#333;
+	text-decoration:none;
+	/*blr:expression(this.onFocus=this.blur());
+	outline: none;*/
+}
+a:hover{
+    color:#d5161a;
+	text-decoration: none;
+}
+#wrapper{
+    width:1004px;
+	height:auto;
+	overflow:hidden;
+	margin:0 auto;
+	position: relative;
+}
+#header{
+    width:982px;
+	height:118px;
+	overflow:hidden;
+	/* background:url(/include/management/images/style.gif) 0 0 no-repeat; */
+	margin:0 auto;
+}
+#header #topnav{
+	width:962px;
+	float:right;
+	text-align:right;
+	color:#fff;
+	padding:10px;
+}
+#header #topnav a{
+	color:#fff;
+	text-decoration:none;
+}
+#header #topnav a:hover{
+	color:#fff000;
+}
+#header #nav{
+	float:right;
+	padding:50px 30px 0 0;
+	font-size:14px;
+	font-weight:bold;
+}
+#header #nav li{
+	float:left;
+	padding:0 0 0 10px;
+	color:#ffe102;
+	
+}
+#header #nav li a{
+	margin-right:10px;
+	color:#ffe102;
+}
+#header #nav li a:hover{
+	color:#fff;
+	text-decoration:none;
+}
+#container{
+    width:982px;
+	height:auto;
+	overflow:hidden;
+	margin:0 auto;
+	padding:8px 0;
+}
+#container #sidebar{
+	width:201px;
+	height:auto;
+	overflow:hidden;
+	float:left;
+	border:1px solid #04509a;
+}
+.leftbox{
+	width:201px;
+	height:auto;
+	overflow:hidden;
+	padding-bottom:8px;
+}
+.leftbox h4{
+	height:20px;
+	padding:6px 0;
+	padding-left:30px;
+	color:#fff;
+	font-size:14px;
+	background:url(/include/management/images/style.gif) 0 -137px no-repeat;
+}
+.leftbox .menubox{
+	height:auto;
+	overflow:hidden;
+	padding:0px 30px 0 30px;
+}
+.leftbox .menubox h5{
+	height:20px;
+	padding-top:6px;
+	overflow:hidden;
+	background:url(/include/management/images/style.gif) 0 -170px no-repeat;
+	font-size:14px;
+	color:#04509a;
+	padding-left:20px;
+}
+
+.leftbox .menubox h5 a{
+	color:#04509a;
+}
+.leftbox .menubox .on{
+	height:24px;
+	padding-top:6px;
+	overflow:hidden;
+	background:url(/include/management/images/style.gif) 0 -225px no-repeat;
+	font-size:14px;
+	color:#04509a;
+	padding-left:20px;
+}
+.leftbox .menubox h6{
+	font-size:14px;
+	color:#04509a;
+	padding:6px 0 6px 20px;
+}
+.leftbox .menubox h6 a{
+	color:#04509a;
+}
+/*.leftbox .menubox .jicheng li a{
+	padding-left:36px;
+}*/
+.leftbox .menubox ul li{
+	width:141px;
+	height:24px;
+	overflow:hidden;
+	line-height:24px;
+	display: inline;
+	background:url(/include/management/images/style.gif) 0 -194px no-repeat;
+	float:left;
+}
+.leftbox .menubox ul li a{
+	padding-left:20px;
+}
+.email{
+	display:block;
+	width:141px;
+	height:auto;
+	overflow:hidden;
+	background:url(/include/management/images/style.gif) 15px -274px no-repeat;
+}
+.leftbox .menubox .email li{
+	width:141px;
+	height:24px;
+	overflow:hidden;
+	line-height:24px;
+	display: inline;
+	background:url(/include/management/images/style.gif) -171px -194px no-repeat;
+	float:left;
+}
+.leftbox .menubox .email li a{
+	padding-left:45px;
+}
+.L{
+	width:200px;
+	float:left;
+	line-height:22px;
+	text-align:left;
+}
+.L0{
+	width:60px;
+	float:left;
+	line-height:22px;
+	text-align:left;
+}
+.R{
+	width:300px;
+	float:left;
+	line-height:22px;
+	text-align:left;
+}
+.R0{
+	float:left;
+	line-height:22px;
+	text-align:left;
+}
+#container #main{
+	width:771px;
+	height:auto;
+	overflow:hidden;
+	float:right;
+}
+#footer{
+    width:982px;
+	height:auto;
+	overflow:hidden;
+	margin:0 auto;
+	border-top:2px solid #04509a;
+	color:#04509a;
+	text-align:center;
+	padding:20px 0;
+}
+
+#jjh_pm_div{
+	margin:10px;
+	font-size:14px;
+}
+
+/*-------------------------------- CSS 椤甸潰甯冨眬缁撴潫 --------------------------------*/

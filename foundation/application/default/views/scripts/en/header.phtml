@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Tianjin University Peiyang Education Eevelopment Foundation</title>
+<meta name="description" content="Tianjin University Peiyang Education Eevelopment Foundation" />
+<meta name="keywords" content="Tianjin University Peiyang Education Eevelopment Foundation" />
+<link rel="stylesheet" href="<?php echo __DEFAULTINCLUDEPATH__;?>css/enstyle.css" type="text/css" />
+</head>
+<body>
+<?php 
+	  $front = Zend_Controller_Front::getInstance(); 
+	  $controller_name = $front->getRequest()->getActionName();
+	  //var_dump($controller_name);
+	?>
+<div class="jjh_en_container" <?php if ($controller_name == "about"){?>style="height:1240px;"<?php }?>
+<?php if ($controller_name == "projects"){?>style="height:950px;"<?php }?>
+<?php if ($controller_name == "donate"){?>style="height:840px;"<?php }?>
+>
+   <div class="jjh_en_header"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/logotop.jpg" border="0" usemap="#Map" />
+     <map name="Map" id="Map">
+       <area shape="rect" coords="3,37,382,100" href="/" />
+     </map>
+   </div>  
+   
+   <div class="jjh_en_content" <?php if ($controller_name == "about"){?>style="height:1050px;"<?php }?>
+   <?php if ($controller_name == "projects"){?>style="height:770px;"<?php }?>
+   <?php if ($controller_name == "donate"){?>style="height:650px;"<?php }?>>
+       <div class="jjh_en_nav">
+            <ul>
+               <li><a href="/en/index" <?php if($controller_name == "index"){?>id="linkon"<?php }?>>Home</a></li>
+               <li><a href="/en/about" <?php if($controller_name == "about"){?>id="linkon"<?php }?>>About PYEDF</a></li>
+               <li><a href="/en/projects" <?php if($controller_name == "projects"){?>id="linkon"<?php }?>>Donation Project</a></li>
+               <li><a href="/en/recognition" <?php if($controller_name == "recognition"){?>id="linkon"<?php }?>>Donor Recognition</a></li>
+               <li><a href="/en/donate" <?php if($controller_name == "donate"){?>id="linkon"<?php }?>>Ways of Giving</a></li>
+               <li><a href="/en/tax" <?php if($controller_name == "tax"){?>id="linkon"<?php }?>>Tax-Exemption Policy</a></li>
+               <li><a href="/en/contact" <?php if($controller_name == "contact"){?>id="linkon"<?php }?> style="border:0px;">Contact Us</a></li>
+               <li style="float:right"><a href="/" style="border:0px; color:#901823;">中文版</a></li>
+            </ul>
+       </div>

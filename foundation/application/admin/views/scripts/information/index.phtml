@@ -1,0 +1,66 @@
+
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>网站资讯管理<span class="font_red"> >> </span><span class="font_red_big">资讯列表</span></h4>
+			<div class="detailedbox">
+				<div class="search">
+					<form action="#" method="post">
+						资讯类型：
+						<select name="cate">
+							<option value="" >请选择类型</option>
+								<option value="gonggao" >基金会公告 </option>
+								<option value="zizhuxinxi" >资助信息</option>
+								<option value="xinwen" >基金会新闻</option>
+								<option value="gongshi" >捐赠公示</option>
+								<option value="baogao" >年度报告</option>
+								<option value="tuwen" >图文新闻</option>
+						</select>
+						
+						关键字：<input type="text" name="keyword" />
+						<input type="submit" value="搜索"/>
+					</form>
+				</div>
+	
+				<?php if($this->informationlist != ""){?>
+					<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  
+					  <tr>
+						<td width="10%" bgcolor="#f5f5f5">序号</td>
+						<td width="25%" bgcolor="#f5f5f5">信息类别名称</td>
+						<td width="45%" bgcolor="#f5f5f5">信息标题</td>
+						<td width="20%" bgcolor="#f5f5f5">操作</td>
+					  </tr>
+					
+					  <?php 
+						foreach($this->informationlist as $k=>$v){?>
+						 <tr>
+						 	<td><?php echo $v['my_infor_id'];?></td>
+							<td><?php if($v['my_infor_cateid'] == "gonggao"){ 
+										echo "基金会公告";
+									}elseif ($v['my_infor_cateid'] == "zizhuxinxi"){
+										echo "资助信息";
+									}elseif ($v['my_infor_cateid'] == "xinwen"){
+										echo "基金会新闻";
+									}elseif ($v['my_infor_cateid'] == "gongshi"){
+										echo "捐赠公示";
+									}elseif ($v['my_infor_cateid'] == "baogao"){
+										echo "年度报告";
+									}elseif ($v['my_infor_cateid'] == "tuwen"){
+										echo "图文新闻";
+									}
+								?></td>
+							<td><?php echo $v['my_infor_title'];?></td>
+							<td><a href="/admin/information/editinformation?id=<?php echo $v['my_infor_id'];?>">编辑</a> || <a href="/admin/information/delinformation?id=<?php echo $v['my_infor_id'];?>">删除</a></td>
+						 </tr>
+					   <?php }?>
+					</table>
+					
+					<div align="right" style="margin-right: 10px;margin-top: 5px;">
+						共  <?php echo $this->total;?> 条资讯          <?php echo $this->page;?></div>
+					
+				 <?php }else{?>
+				 	<div>暂无网站资讯！<a href="/admin/information/addinformation">点击添加</a></div>
+				 <?php }?>
+		  </div>
+		</div> 
+		

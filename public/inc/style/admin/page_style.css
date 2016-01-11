@@ -1,0 +1,88 @@
+/*lang-list*/
+#lang-list #add_lang {
+	float: right;
+}
+#lang-list #edit {
+	display: none;
+}
+#lang-list #edit p {
+	margin-bottom: 10px;
+}
+#lang-list #edit p.submit {
+	margin-left: 30px;
+	margin-top: 15px;
+}
+/*spec-category*/
+#spec-category #scate {
+	margin-left: 5px;
+}
+#spec-category #scate ul {
+	list-style: none;
+	/*background-color: white;*/
+	margin-top: 4px;
+}
+#spec-category #scate .hitarea {
+	background: url(/inc/style/admin/images/treeview-gray.gif) -64px -25px no-repeat;
+	height: 16px;
+	width: 16px;
+	margin-left: -16px;
+	float: left;
+	cursor: pointer;
+}
+/* fix for IE6 */
+* html .hitarea {
+	display: inline;
+	float:none;
+}
+#spec-category #scate li { 
+	margin: 0;
+	padding: 3px 0pt 3px 16px;
+	background: url(/inc/style/admin/images/treeview-gray-line.gif) no-repeat;
+}
+#spec-category #scate li p.hover {
+	background: #ccc;
+}
+#spec-category #scate li .ctrl {
+	float: right;
+}
+#spec-category #scate li .ctrl a {
+	margin-left: 10px;
+}
+#spec-category #scate li .ctrl a.is_show {
+	color:blue;
+}
+#spec-category #scate li.collapsable, #spec-category #scate  li.expandable {
+	background-position: 0 -176px;
+}
+#spec-category #scate .expandable-hitarea {
+	background-position: -80px -3px;
+}
+#spec-category #scate li.last {
+	background-position: 0 -1766px
+}
+#spec-category #scate li.lastCollapsable, #spec-category #scate li.lastExpandable {
+	background-image: url(/inc/style/admin/images/treeview-gray.gif);
+}  
+#spec-category #scate li.lastCollapsable {
+	background-position: 0 -111px
+}
+#spec-category #scate li.lastExpandable {
+	background-position: -32px -67px
+}
+#spec-category #scate div.lastCollapsable-hitarea, #spec-category #scate div.lastExpandable-hitarea {
+	background-position: 0;
+}
+#spec-category #edit_dia .content {
+	margin-top: 15px;
+}
+#spec-category #edit_dia,#info_dia,#addSub_dia {
+	display: none;
+}
+#spec-category #root {
+	line-height: 30px;
+	overflow: hidden;
+	background: url(/inc/style/admin/images/home.png) no-repeat center left;
+}
+#spec-category #root a {
+	float: right;
+}

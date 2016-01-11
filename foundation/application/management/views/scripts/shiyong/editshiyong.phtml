@@ -1,0 +1,122 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+	
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>项目使用管理<span class="font_#0474d6"> >> </span><span class="font_#0474d6_big">编辑使用信息</span></h4>
+			<div class="detailedbox">
+			<form action="editrsshiyong" method="post" encType="multipart/form-data">
+				<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+			  
+					  <tr>
+					    <td width="20%" style="text-align:right;">项目名称：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="pname">
+							<?php if($this->pmlist != ""){
+									foreach ($this->pmlist as $k => $v){
+								?>
+								<option value="<?php echo $v['pname'];?>" <?php if($v['pname'] == $this->pm_mg_info[0]['pm_name']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
+							<?php }}?>
+						</select><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">项目捐赠类型：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="pm_cate">
+								<option value="" >请选择类型</option>
+								<?php if($this->pcatelist != ""){
+								foreach ($this->pcatelist as $k => $v){?>
+									<option value="<?php echo $v['id']?>" <?php if ($this->pm_mg_info[0]['pm_juanzheng_cate'] == $v['id']){echo "selected='selected'";}?>><?php echo $v['catename']?></option>
+								<?php }}?>
+							</select><font color="#0474d6" > * 教育基金、研究基金等</font>
+						</td>
+					  </tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">项目支出日期：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text"  id="dateinput1"  value="<?php echo $this->pm_mg_info[0]['shiyong_zhichu_datetime'];?>"  name="shiyong_zhichu_datetime"  size="14"/><font color="#0474d6" > * </font>
+						</td>
+					</tr> 
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">项目支出金额：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="shiyong_zhichu_jiner"  value="<?php echo $this->pm_mg_info[0]['shiyong_zhichu_jiner'];?>"  size="14"/><font color="#0474d6" > * </font>
+						</td>
+					</tr>  
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠范围：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="fanwei">
+								<option value="" >请选择类型</option>
+								<option value="本科生" <?php if($this->pm_mg_info[0]['jiangli_fanwei'] == "本科生"){echo "selected='selected'";}?>>本科生</option>
+								<option value="研究生"  <?php if($this->pm_mg_info[0]['jiangli_fanwei'] == "研究生"){echo "selected='selected'";}?>>研究生</option>
+								<option value="本科研究生"  <?php if($this->pm_mg_info[0]['jiangli_fanwei'] == "本科研究生"){echo "selected='selected'";}?>>本科研究生</option>
+								<option value="其他"  <?php if($this->pm_mg_info[0]['jiangli_fanwei'] == "其他"){echo "selected='selected'";}?>>其他</option>
+							</select><font color="#0474d6" > * 本科生、研究生、本科研究生、其他</font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">奖励人数：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="jiangli_renshu"  value="<?php echo $this->pm_mg_info[0]['jiangli_renshu'];?>"  size="14"/><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">相关文档：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="file" name="pm_files"  size="14"/><font color="#0474d6" > * 相关文档已打包形式上传 格式为*.rar</font><br/>
+							<?php if($this->pm_mg_info[0]['pm_file'] != ""){?>
+								<a href="<?php echo $this->pm_mg_info[0]['pm_file'];?>">已经存在该文件如果再次上传,那么之前文件将被覆盖    -- 点击下载源文件</a>
+							<?php }?>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">备注：</td>
+						<td width="80%" style="text-align:left;">
+							<textarea class="ckeditor" name="beizhu">
+								<?php echo $this->pm_mg_info[0]['beizhu'];?>
+							</textarea>
+						</td>
+					</tr>
+					
+					<input type="hidden" name="id" value="<?php echo $this->pm_mg_info[0]['id'];?>"/>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;"> </td>
+						<td width="80%" style="text-align:left;">
+							<input type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="重 置" /> 
+						</td>
+					</tr>
+				</table>
+			</form>
+		  </div>
+		</div>
+	
+			<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput1').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>
+		

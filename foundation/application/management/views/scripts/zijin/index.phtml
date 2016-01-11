@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+		<h4 class="col-md-12">项目资金管理<span class="font_red"> >> </span><span class="font_red_big">资金列表</span></h4>
+        	<div class="col-md-12">
+                <section class="tile color transparent-black">
+                	<div class="tile-body">
+                    	<form class="form-horizontal" action="#" method="post">
+                        	<div class="form-group">
+                            	<div class="row"> 
+                            	<div class="form-group col-sm-12">
+                                    <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" name="pname">
+                                            <?php if($this->pmlist != ""){
+                                                    foreach ($this->pmlist as $k => $v){
+                                                ?>
+                                                <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                            <?php }}?>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                                    </div>
+                                </div>
+                        	</div>
+                        	</div>
+                    	</form>
+                    </div>
+        		</section>
+                <section class="tile color transparent-black">
+					<div class="tile-body nopadding">
+                    <?php if(count($this->zijinlist) != 0){?>
+                        <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center"> 
+                        <thead>
+					  		<tr>
+                            <td width="24%">项目名称</td>
+                            <td width="24%">项目捐赠者</td>
+                            <td width="12%">捐赠级别</td>
+                            <td width="14%">捐赠到账日期</td>
+                            <td width="13%">捐赠到账金额</td>
+                            <td width="13%">操作</td>
+                           </tr>
+						</thead>
+                        <tbody>
+                          <?php 
+                            foreach($this->zijinlist as $k=>$v){?>
+                             <tr>
+                                <td><?php echo $v['pm_name'];?>&nbsp;</td>
+                                <td><?php echo $v['pm_pp'];?>&nbsp;</td>
+                                <td><?php echo $v['pm_juanzeng_jibie'];?>&nbsp;</td>
+                                <td><?php echo substr($v['zijin_daozhang_datetime'],0,10);?>&nbsp;</td>
+                                <td><?php echo $v['zijin_daozheng_jiner'];?>&nbsp;元</td>
+                                <td><a href="/management/zijin/editzijin?id=<?php echo $v['id'];?>">编辑</a> || <a href="#">删除</a></td>
+                             </tr>
+                           <?php }?>
+                        </tbody>
+                        </table>
+                    </div>
+                    <div class="tile-footer bg-transparent-black-2">
+					<div class="row">
+					<div class="page col-md-12" align="right">
+                            共  <?php echo $this->total;?> 条资金信息          <?php echo $this->page;?></div>
+                        
+                     <?php }else{?>
+                        <div>暂无资金信息！<a href="/admin/zijin/addzijin">点击添加</a></div>
+                     <?php }?>
+              		 </div>
+				 	 </div>
+				</section>  
+			</div> 
+		</div>
+		<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>
+			
+			<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput2').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>

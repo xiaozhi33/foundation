@@ -1,0 +1,36 @@
+
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>网站广告管理<span class="font_red"> >> </span><span class="font_red_big">广告列表</span></h4>
+			<div class="detailedbox">
+
+				<?php if($this->ad_list != ""){?>
+					<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  
+					  <tr>
+						<td width="30%" bgcolor="#f5f5f5">广告名称</td>
+						<td width="30%" bgcolor="#f5f5f5">广告链接</td>
+						<td width="20%" bgcolor="#f5f5f5">广告内容</td>
+						<td width="20%" bgcolor="#f5f5f5">操作</td>
+					  </tr>
+					
+					  <?php 
+						foreach($this->ad_list as $k=>$v){?>
+						 <tr>
+						 	<td><?php echo $v['ad_name'];?></td>
+							<td><?php echo $v['ad_link'];?></td>
+							<td><?php echo $v['ad_content'];?></td>
+							<td><a href="/admin/ad/editad?id=<?php echo $v['ad_id'];?>">编辑</a> || <a href="/admin/ad/delad?id=<?php echo $v['ad_id'];?>">删除</a></td>
+						 </tr>
+					   <?php }?>
+					</table>
+					
+					<div align="right" style="margin-right: 10px;margin-top: 5px;">
+						共  <?php echo $this->total;?> 条广告          <?php echo $this->page;?></div>
+					
+				 <?php }else{?>
+				 	<div>暂无网站广告！<a href="/admin/ad/addad">点击添加</a></div>
+				 <?php }?>
+		  </div>
+		</div> 
+		

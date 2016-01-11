@@ -1,0 +1,42 @@
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+		<h4 class="col-md-12">项目分类管理<span class="font_red"> >> </span><span class="font_red_big">项目分类列表</span></h4>
+			<div class="col-md-8">
+				<section class="tile color transparent-black">
+					<div class="tile-body nopadding">
+
+					<?php if($this->catelist != ""){?>
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  <thead>
+					  <tr>
+						<td width="20%">项目分类id</td>
+						<td width="40%">项目分类名称</td>
+						<td width="20%">操作</td>
+					  </tr>
+					</thead>
+                    <tbody>
+					  <?php 
+						foreach($this->catelist as $k=>$v){?>
+						 <tr>
+						 	<td><?php echo $v['id'];?></td>
+							<td><?php echo $v['catename'];?></td>
+							<td><a href="/management/admin/editcate?id=<?php echo $v['id'];?>">编辑</a> || <a href="#">删除</a></td>
+						 </tr>
+					   <?php }?>
+                     </tbody>
+					</table>
+					</div>
+					<div class="tile-footer bg-transparent-black-2">
+						<div class="row">
+                        <div align="right" class="page col-md-12">
+                            共  <?php echo $this->total;?> 条          <?php echo $this->page;?></div>
+                        
+                     <?php }else{?>
+                        <div>暂无项目分类信息！<a href="/management/admin/addcate">点击添加</a></div>
+                     <?php }?>
+		  			</div>
+					</div> 
+        		</section>
+			</div>
+		</div>

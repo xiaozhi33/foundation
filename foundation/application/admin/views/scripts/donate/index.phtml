@@ -1,0 +1,51 @@
+<?= $this->partial("index/header.phtml");?>
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>捐赠信息管理<span class="font_red"> >> </span><span class="font_red_big">捐赠信息列表</span></h4>
+			<div class="detailedbox">
+				<div class="search">
+					<form action="#" method="post">
+						捐赠订单ID：
+						<input type="text" name="orderid" />
+						
+						捐赠人姓名：<input type="text" name="uname" />
+						<input type="submit" value="搜索"/>
+					</form>
+				</div>
+	
+				<?php if($this->jjh_order != ""){?>
+					<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  
+					  <tr>
+						<td width="20%" bgcolor="#f5f5f5">订单号</td>
+						<td width="30%" bgcolor="#f5f5f5">捐赠项目名称</td>
+						<td width="15%" bgcolor="#f5f5f5">捐赠金额</td>
+						<td width="15%" bgcolor="#f5f5f5">捐赠状态</td>
+						<td width="20%" bgcolor="#f5f5f5">操作</td>
+					  </tr>
+					
+					  <?php 
+						foreach($this->jjh_order as $k=>$v){?>
+						 <tr>
+						 	<td><?php echo $v['jjh_order_id'];?></td>
+						 	<td><?php echo $v['jjh_donors_cname'];?></td>
+							<td><?php echo $v['jjh_money'];?></td>
+							<td><?php if($v['jjh_order_statue'] == 0){
+										echo "未付款";
+									   }elseif ($v['jjh_order_statue'] == 1){
+											echo "已付款";
+									   }?></td>
+							<td><a href="/admin/donate/editdonate?id=<?php echo $v['jjh_order_id'];?>">编辑查看</a></td>
+						 </tr>
+					   <?php }?>
+					</table>
+					
+					<div align="right" style="margin-right: 10px;margin-top: 5px;">
+						共  <?php echo $this->total;?> 条捐赠信息          <?php echo $this->page;?></div>
+					
+				 <?php }else{?>
+				 	<div>暂无捐赠信息！</div>
+				 <?php }?>
+		  </div>
+		</div> 
+<?php echo $this->partial("index/footer.phtml");?>		

@@ -1,0 +1,41 @@
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+		<h4 class="col-md-12">所属部门管理<span class="font_red"> >> </span><span class="font_red_big">所属部门列表</span></h4>
+		<div class="col-md-8">
+				<section class="tile color transparent-black">
+					<div class="tile-body nopadding">
+				<?php if($this->departmentlist != ""){?>
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  <thead>
+					  <tr>
+						<td width="20%">所属部门id</td>
+						<td width="40%">所属部门名称</td>
+						<td width="20%">操作</td>
+					  </tr>
+					</thead>
+                    <tbody>
+					  <?php 
+						foreach($this->departmentlist as $k=>$v){?>
+						 <tr>
+						 	<td><?php echo $v['id'];?></td>
+							<td><?php echo $v['pname'];?></td>
+							<td><a href="/management/admin/editdepartment?id=<?php echo $v['id'];?>">编辑</a> || <a href="#">删除</a></td>
+						 </tr>
+					   <?php }?>
+                      </tbody>
+					</table>
+					</div>
+					<div class="tile-footer bg-transparent-black-2">
+					<div class="row">
+					<div align="right" class="page col-md-12">
+						共  <?php echo $this->total;?> 条          <?php echo $this->page;?></div>
+					
+				 <?php }else{?>
+				 	<div>暂无所属部门信息！<a href="/management/admin/adddepartment">点击添加</a></div>
+				 <?php }?>
+		  </div>
+		</div> 
+        </section>
+        	</div>
+		</div>

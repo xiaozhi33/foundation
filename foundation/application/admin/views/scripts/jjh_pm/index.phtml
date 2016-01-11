@@ -1,0 +1,179 @@
+<style type="text/css">
+hidden_body{ margin:0px; padding:0px;}
+#cover{ 
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	background-color:#000;
+	filter:alpha(opacity=70);/*对应IE*/
+	-moz-opacity: 0.7;/*对应FF*/
+	opacity: 0.7;/*对应Opera*/
+	display:none;
+}
+
+#cover1{ 
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	background-color:#000;
+	filter:alpha(opacity=70);/*对应IE*/
+	-moz-opacity: 0.7;/*对应FF*/
+	opacity: 0.7;/*对应Opera*/
+	display:none;
+}
+
+#tb_window{
+	width:300px; 
+	height:100px; 
+	border:2px #C60 solid; 
+	position:absolute; 
+	top:50%;left:50%; 
+	margin-left:-150px;
+	margin-top:-50px;
+	z-index:3; 
+	background:#FFF;
+	
+	filter:alpha(opacity=100);/*对应IE*/
+	-moz-opacity: 10;/*对应FF*/
+	opacity: 10;/*对应Opera*/
+}
+
+#tb_window1{
+	width:300px; 
+	height:100px; 
+	border:2px #C60 solid; 
+	position:absolute; 
+	top:50%;left:50%; 
+	margin-left:-150px;
+	margin-top:-50px;
+	z-index:3; 
+	background:#FFF;
+	
+	filter:alpha(opacity=100);/*对应IE*/
+	-moz-opacity: 10;/*对应FF*/
+	opacity: 10;/*对应Opera*/
+}
+
+</style>
+
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>捐赠项目管理<span class="font_red"> >> </span><span class="font_red_big">捐赠项目列表</span></h4>
+			<div class="detailedbox">
+				
+				<div>
+					<?php 
+						foreach($this->catelist as $k => $v){
+							$count_info = count(explode(',',$v['new_path']));
+							for($i=0;$i<$count_info-1;$i++){
+								$fgf .= "&nbsp;&nbsp;&nbsp;&nbsp;|----";
+							}
+							$print_str .= "<div id='jjh_pm_div'>".$fgf;
+							$print_str .= "<input readonly='readonly' size='30' name='c_name' value='".$v['c_name']."'/>";
+							
+							$print_str .= "<span align='right' style='float:right;color:#FF6600;font-size:12px;'>";
+							$print_str .= "<a onclick='show(";
+							$new_path = '"'.$v['c_path'].",".$v['c_id'].'"';
+							
+							$print_str .= $v['c_id'].",".$new_path;
+							$print_str .= ");' style='padding-right:5px;color:#FF6600;font-size:12px;' href='#'>添加子分类</a>";
+							//$print_str .= "<a onclick='show1(";
+							//$new_name = '"'.str_replace(",","",$v['c_name']).'"';
+							//$print_str .= $v['c_id'].",".$new_name;
+							//$print_str .= ");' ";
+							$print_str .= "<a style='padding-right:5px;color:#FF6600;font-size:12px;' href='/admin/Jjhpm/editcate?cid=";
+							$print_str .= $v['c_id'];
+							$print_str .= "'>编辑</a>";
+							$print_str .= "<a style='padding-right:5px;color:#FF6600;font-size:12px;' href='#'";
+							$print_str .= " onclick='s_submit(".$v['c_id'].")'";
+							$print_str .= ">删除</a></span>";
+							$print_str .= "</div>";
+							
+							echo $print_str;
+							$print_str = "";
+							$fgf = "";
+							$new_path = "";
+							$new_name = "";
+						}
+					?>
+				</div>
+			
+		  </div>
+		</div> 
+	
+<div id="hidden_body">
+	<div id="cover">
+		<div id="tb_window">
+			<div id="addsmallcate" style="margin:20px 0 0 15px;">
+				<form action="/admin/jjhpm/addsmallcate" method="post" />
+					<div>添加子分类</div>
+					分类名称: <input type="text" name="c_name" />
+					<input id="p_id" type="hidden" name="p_id" value=""/>
+					<input id="new_p" type="hidden" name="new_p" value=""/>
+					<br/>
+					<div><input type="submit" value="提交" /> || <a href="javascript:hidden()" >关闭</a></div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="hidden_body">
+	<div id="cover1">
+		<div id="tb_window1">
+			<div id="changecname" style="margin:20px 0 0 15px;">
+				<form action="/admin/jjhpm/removename" method="post" />
+					<div>修改分类名称</div>
+					分类名称: <input type="text" id="c_name" name="c_name" />
+					<input type="hidden" id="cid" name="id" value=""/>
+					<br/>
+					<div><input type="submit" value="提交" /> || <a href="javascript:hidden1()" >关闭</a></div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" language="javascript">
+var pid;
+var new_path = String(new_path);
+var id;
+var c_name;
+var s_id;
+function show(pid,new_path)
+{
+	document.getElementById("p_id").value = pid;
+	document.getElementById("new_p").value = new_path;
+	document.getElementById("cover").style.display = "block";
+
+}
+function hidden()
+{
+	document.getElementById("cover").style.display = "none";
+}
+
+function show1(id,c_name)
+{
+	document.getElementById("cid").value = id;
+	document.getElementById("c_name").value = c_name;
+	document.getElementById("cover1").style.display = "block";
+
+}
+function hidden1()
+{
+	document.getElementById("cover1").style.display = "none";
+}
+
+function s_submit(s_id)
+{
+	if(confirm("确认删除此分类？如果删除，则该分类下属分类同时也会被删除！您确认要删除么？")) 
+	{ 
+		window.location.href="/admin/jjhpm/delcate?sid="+s_id; 
+	} 
+}
+</script>

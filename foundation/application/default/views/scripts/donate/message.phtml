@@ -1,0 +1,54 @@
+<?= $this->partial("common/header.phtml");?>
+<div class="jjh_content_sub" style="height:500px;">
+         <div class="jjh_content_sub_left">
+              <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/donate_top_img.jpg" /></div>
+              <div class="jjh_sub_nav_tit"><span>在线捐赠</span></div>
+              <div class="jjh_sub_nav_con">
+                   <ul>
+                   	  <li><a href="/donate/fangshi">捐赠方式</a></li>
+                      <li><a href="/donate/zhanghu">基金会账户</a></li>
+                      <li><a href="/donate/mianshui">免税政策</a></li>
+                      <li><a href="/donate/shuoming">捐赠说明</a></li>
+                      <li><a href="/donate"><span>我要捐赠</span></a></li>
+                      <li><a href="/donate/query">捐款到账查询</a></li>
+                      <li><a href="/donate/wuxie">捐赠鸣谢</a></li>
+                   </ul>
+              </div>
+              <div><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/serline.jpg" /></div>
+         </div>
+         <div class="jjh_content_sub_right">
+              <div class="jjh_sub_con_tit"><em>我要捐赠</em><span>当前位置：<a href="/donate">在线捐赠</a> > 我要捐赠</span></div>
+              <div class="cle"></div>
+              <div class="jjh_sub_con_content" style="height:320px;">
+                  <span class="jjh_font4">正在完成的捐赠</span><br /><br />
+                  <span class="jjh_font2"><?php echo $this->orderinfo['UserName'];?> <?php echo $this->orderinfo['Gender'];?>：</span><br />
+                  感谢您对<span class="jjh_font4"><?php echo $this->orderinfo['jjh_pm'];?></span>项目的支持！您本次捐赠金额为 <span class="jjh_font2"><?php echo $this->orderinfo['Amount'];?></span> 元。<br />
+                  请点击<span class="jjh_font2">
+                  【<a href="">确定</a>】
+                  </span>转向银联电子支付平台完成支付。<br />
+                  请确认您的银行卡已经开通在线支付功能，并且有足够的支付额度。<br />
+                  如果支付失败，请点击<span class="jjh_font2">【<a href="">重新支付</a>】</span><br />
+                  我们也同时发送一封电子邮件到您的邮箱<span class="jjh_font2"> <?php echo $this->orderinfo['Email'];?></span><br /><br />
+                  <div >
+                  <form action="http://pay.beijing.com.cn/prs/user_payment.checkit" target="_blank" method="post">
+                        <input type="hidden" name="v_mid" value="5653"/> 
+                        <input type="hidden" name="v_oid" value="<?php echo $this->jjh_order_id;?>"/> 
+                        <input type="hidden" name="v_rcvname" value="<?php echo $this->orderinfo['UserName'];?>"/> 
+                        <input type="hidden" name="v_rcvaddr" value="<?php echo $this->orderinfo['Address'];?>"/> 
+                        <input type="hidden" name="v_rcvtel" value="<?php echo $this->orderinfo['Mobile'];?>"/>
+                        <input type="hidden" name="v_rcvpost" value="<?php echo $this->orderinfo['Postcode'];?>"/> 
+                        <input type="hidden" name="v_amount" value="<?php echo $this->orderinfo['Amount'];?>"/> 
+                        <input type="hidden" name="v_ymd" value="<?php echo $this->jjh_datetime;?>"/> 
+                        <input type="hidden" name="v_orderstatus" value="1"/> 
+                        <input type="hidden" name="v_ordername" value="<?php echo $this->orderinfo['UserName'];?>"/> 
+                        <input type="hidden" name="v_moneytype" value="0"/>
+                        <input type="hidden" name="v_url" value="<?php //echo __BASEURL__;
+                        echo "http://www.mycms.com";?>/order/urlreturn"/>   <!-- 支付返回地址 -->
+                        <input type="hidden" name="v_md5info" value="<?php echo $this->result[0];?>">
+                        <input type="submit" class="jjh_donate_submit_bt1" value="确定" /> <input type="button" class="jjh_donate_submit_bt1" value="重新支付" onclick="window.open('/donate', '_blank')" />
+                 </form>    
+                  </div>
+              </div>
+         </div>
+     </div>
+<?= $this->partial("common/footer.phtml");?>

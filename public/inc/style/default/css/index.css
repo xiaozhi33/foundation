@@ -1,0 +1,182 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/*chinaseach_content*/
+.cs_index_search {
+    background: none repeat scroll 0 0 #FFF;
+    float: none;
+    margin: 0 auto;
+    padding: 20px 10px 0;
+    position: relative;
+    width: 950px;
+    z-index: 1;
+	overflow:hidden;
+}
+.cs_index_searcon{
+    float: left;
+    height: 67px;
+    width: 542px;
+	padding:110px 20px 50px;
+	background:url("../images/chinasearch_bgseach.jpg") scroll no-repeat 70px 30px transparent;
+	position:relative;
+}
+.cs_index_beta{
+	position:absolute;
+	top:29px;
+	right:46px;
+}
+.cs_index_searbar{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #DEDEDE;
+    height:37px;
+    width: 538px;
+	overflow:hidden;
+}
+.cs_index_searbarcon {
+    background: url("../images/seariocn.png") no-repeat scroll 5px center transparent;
+    border: 0 none;
+    color: #999;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 14px;
+    padding-left: 30px;
+    text-align: left;
+    width:463px;
+}
+.cs_index_searbarbtn {
+    background: url("../images/chinasearch_botton.jpg") repeat-x scroll left center transparent;
+    border: 0 none;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size:14px;
+    height:37px;
+    line-height:37px;
+    text-align: center;
+    width: 45px;
+	overflow:hidden;
+}
+.cs_index_searhot {
+    float: right;
+    width: 336px;
+	background:url("../images/hot_bg.jpg") left top scroll no-repeat transparent;
+	height:255px;
+}
+.cs_hottag {
+    height: 216px;
+    overflow: hidden;
+    position: relative;
+    width: 278px;
+}
+.cs_hottag_tit {
+    border-bottom: 5px solid #00558d;
+    color: #344678;
+    font-family: "Times New Roman", Times, serif;
+    font-size:24px;
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    width: 100%;
+	padding-top:10px;
+}
+.cs_hottag_tit span {
+    float: right;
+    padding-top: 0px;
+}
+.cs_hottag_con {
+    margin: 0 5px;
+    width: 268px;
+}
+
+/*hotlist*/
+.cs_index_hotlist {
+	background-color:#FFF;
+    float: none;
+    margin:0 auto;
+    overflow: hidden;
+    width: 950px;
+	padding:20px 10px;
+}
+.cs_index_hotlist ul {
+    float: left;
+    list-style: none outside none;
+    margin: 0 20px 60px 0;
+    padding: 0;
+    width: 222px;
+}
+.cs_index_hotlist ul.linkulr{
+  	float: left;
+    margin: 0 0px 20px 0;
+}
+.cs_index_hotlist ul li {
+	border-bottom: 1px dashed #CCCCCC;
+    float: none;
+    text-align: left;
+    width: 100%;
+}
+.cs_index_hotlist ul li.link_limore{
+	border-bottom: 0px dashed #CCCCCC;}
+.cs_index_hotlist ul li a {
+	display:block;
+    color: #344678;
+    font-size: 12px;
+    line-height: 24px;
+    text-decoration: none;
+	background: url("../images/txt_navlisticon.jpg") no-repeat scroll 0 9px transparent;
+	padding-left:15px;
+	height:24px;
+	overflow:hidden;
+}
+.cs_index_hotlist ul li a:hover {
+    color: #5BB3EF;
+    text-decoration:none;
+}
+.cs_index_hotlist ul li.linktit {
+    border-bottom: 2px solid #28ad1d;
+    display: block;
+    width: 100%;  
+}
+.cs_index_hotlist ul li.linktit a{
+	color: #28ad1d;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 5px;
+    text-decoration: none;    
+	font-family:"Times New Roman", Times, serif;
+	background:none;
+	padding:0;
+}
+.cs_index_hotlist ul li a.linktit:hover {
+    color: #666666;
+    text-decoration: underline;
+}
+.cs_index_hotlist ul li a.cs_linkcat_more {
+    border-bottom: 0 none;
+    color: #344678;
+    font-size: 10px;
+    font-weight: normal;
+	font-weight:bold;
+	font-family:Verdana, Geneva, sans-serif;
+	background:none;
+	padding:0;
+}
+
+
+/*cs_index_searbar_gj*/
+.cs_index_searbar_gj{
+	height: 20px;
+    margin-top: 10px;
+    width: 538px;
+}
+.cs_index_searbar_gj a{
+	color: #344678;
+    float: right;
+    font-family: "Times New Roman",Times,serif;
+    font-size: 14px;
+    text-decoration: none;
+	cursor:pointer;
+}
+.cs_index_searbar_gj a:hover{
+	color:#5BB3EF;
+	text-decoration: none;
+}
+

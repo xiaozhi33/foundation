@@ -1,0 +1,188 @@
+@charset "utf-8";
+/* CSS Document */
+* { margin:0px; padding:0px;}
+body{ width:100%; background:#f8f8f8; font-family:Arial, Sans-Serif; font-size:12px;}
+.font1{ color:#7a7a7a; font-size:14px; font-weight: bold; line-height:31px;}
+.clearb{ clear:both;}
+a{ color:#214185; text-decoration:none;}
+a:hover{ text-decoration:underline;}
+
+textarea{font-family:Arial, Sans-Serif; font-size:12px;}
+
+/*loginpage*/
+.loginlink:link, .loginactive, .loginlinkvisited{color:#214185; text-decoration:underline; font-size:12px; vertical-align:middle; font-weight:bold;}
+.loginlink:hover{ text-decoration:none;}
+.container{ width:586px; height:220px; margin:0px auto; float:none; background:url(images/logconbg.jpg) no-repeat; margin-top:240px;}
+.contentl{ width:235px; height:220px; float:left; margin:0px; background:url(images/border.png) right center no-repeat;}
+.contentr{ width:350px; float:left; height:220px;}
+#logo{ text-align:center; margin-top:50px;}
+.pagename{ text-align:center; color:#214185; font-size:20px; line-height:24px; font-weight:bold; }
+.pagename span{ color:#7a7a7a; font-size:12px; text-align:left;}
+.loginform{ width:260px; margin:0px auto; margin-top:50px;}
+.loginform .inputstyle{ background: url(images/inputbg.png) no-repeat; border:0px; width:199px; height:31px; line-height:31px; color:#7a7a7a; font-size:14px;}
+.loginform .loginbtn{ background:url(images/loginbtn.png) no-repeat; width:74px; height:32px; text-align:center; color:#7a7a7a; line-height:32px; border:0; cursor:pointer; vertical-align:middle;}
+.loginform .loginbtn span{ font-weight:bold; color:#7a7a7a; font-size:14px;}
+.footerinfo{  width:586px; margin:0px auto; margin-top:10px; text-align:center; font-size:12px; color:#7a7a7a; line-height:24px; }
+
+
+/*mainpage*/
+.maintop{ width:100%; height:89px; background:url(images/mptopbg.png) repeat-x; position:relative; }
+.mainlogo{ width:180px; float:left; text-align:center; margin-top:20px;}
+.mainnav{
+	position:absolute;
+	left:180px;
+	top:58px;
+	width: 1024px;
+}
+.mainnav ul{ list-style:none; float:none; margin:0px; padding:0px;}
+.mainnav ul li{ height:32px; float:left; list-style:none; padding:0px; margin:0px; background:url(images/bodericon.png) no-repeat 0px 0px;}
+.mainnav ul li a{ line-height:32px; text-align:center; text-decoration:none; font-size:14px; color:#f8f8f8; padding:0px 20px; display:inline-block; margin:0px -1px 0px 0px !important; margin:0px -2px 0px 0px;  }
+.mainnav ul li a:hover{ /*color:#214185;*/ color: #ccc;}
+.mainnav ul li a.navonlink, .mainnav ul li a.navonlink:hover{ background:#f8f8f8; border:0px; color:#214185; font-weight:bold; text-decoration:none;}
+
+.mainuserinfo{ position:absolute; right:20px; top:15px; text-align:left; color:#f8f8f8;}
+.mainuserinfo a{ color:#f8f8f8; text-decoration:none;}
+.mainuserinfo a:hover{ text-decoration:underline;}
+
+.maincontent{ width:100%; position:relative; float:none;}
+.mainmenutd{ width:180px; background:url(images/leftmenubg.jpg) no-repeat right top scroll; }
+.maincontentleft{ width:175px; margin-left:5px; float:left; background:#e2e9ef; height:620px; display:inline;}
+.maincontentleft ul{ list-style:none; width:155px !important; width:135px; margin:0px; padding:0px; margin-left:20px; margin-top:20px; float:none;}
+.maincontentleft ul li{ list-style:none; float:none; margin:0px; padding:0px; display:inline;}
+.maincontentleft ul li a{ color:#7a7a7a; text-decoration:none; font-size:12px; line-height:28px; width:130px; height:28px; padding-left:25px; background:url(images/lefticon.jpg) no-repeat 10px center; display:block;}
+.maincontentleft ul li a:hover{  color:#214185; background:url(images/leftmenuon.png) no-repeat left top; }
+.maincontentleft ul li a.navleftonlink, .maincontentleft ul li a.navleftonlink:hover{ background:url(images/leftnavbg.jpg) no-repeat; border:0px; color:#214185; font-weight:bold;}
+.maincontentright{ padding:10px 0px 0px 20px; }
+.position{ width:100%; float:none; height:32px; line-height:32px; color:#7a7a7a; font-size:12px;}
+.condetail{ width:100%; float:none; margin:10px 0px 0px 0px;}
+.condetailtit{ background:url(images/contitbg.jpg) repeat-x; height:32px; line-height:32px; color:#035a9f; padding-left:10px; width:100%; font-weight:bold;}
+.condetailcon{ margin:10px !important; margin:10px 5px; color:#7a7a7a; line-height:28px; font-size:12px;}
+.conborder{ border-bottom:1px solid #e2e9ef;}
+
+
+.zt_modle_choose{
+	list-style:none;
+	padding:0px;
+	margin:10px;
+}
+.zt_modle_choose li{
+	list-style:none;
+	padding:0px;
+	margin:0px 0px 10px;
+	float:left;
+	width:180px;
+}
+.zt_modle_choose li img{
+	width:160px;
+	height:120px;
+	padding:1px;
+	border:1px solid #ccc;
+}
+.zt_modle_choose li p{
+	padding:0px;
+	margin:0px;
+}
+.zt_modle_choose li span{
+	color:#666;
+	font-size:12px;
+	font-weight:normal;	
+}
+.zt_modle_choose li a{
+	color:#333;
+	text-decoration:none;
+	font-size:14px;
+	font-weight:bold;
+	line-height:24px;
+}
+.zt_modle_choose li a:hover{
+	text-decoration:underline;
+}
+/*navagition page*/
+.nav_fxb{
+	margin:0px auto;
+	float:none;
+	padding:0px;
+}
+.nav_fxb_left{
+	float:left;
+	width:30%;
+}
+.nav_fxb_right{
+	float:right;
+	width:65%;
+	padding:20px 0px 0px 0px;
+}
+.nav_fxb_right_tit{
+	color:#035A9F;
+	font-size:12px;
+	line-height:24px;
+	padding:0px 10px;
+	background:#fff;
+	font-weight:bold;
+}
+.nav_fxb_right_tit a{
+	padding-left:10px;
+	color:#7a7a7a;
+}
+.nav_fxb_right_con{
+	padding:10px;
+	line-height:24px;
+	font-size:12px;
+	color:#7a7a7a;
+}
+.nav_fxb_right_con p{
+	display:block;
+	width:100%;
+	overflow:hidden;
+}
+.nav_fxb_right_con a{
+	display:block;
+	float:left;
+	text-decoration:none;
+	color:#7A7A7A;
+	font-size:12px;
+	font-weight:bold;
+	margin:0px 15px 10px 0px; 
+}
+.nav_fxb_right_con a:hover{
+	text-decoration:underline;
+	color:#035A9F;
+}
+.nav_fxb_right_con ul{
+	list-style:none;
+	float:none;
+	margin:0px;
+	padding:0px;
+	width:100%;
+	overflow:hidden;
+}
+.nav_fxb_right_con ul li{
+	list-style:none;
+	float:left;
+	width:25%;
+	margin:0px 0px 10px 0px;
+	padding:0px;
+}
+.nav_fxb_right_con ul li a{
+	color:#7a7a7a;
+	text-decoration:none;
+	font-size:12px;
+	margin:0px;
+	font-weight:bold;
+	float:none;
+	display:inline;
+}
+.nav_fxb_right_con ul li a:hover{
+	text-decoration:underline;
+	color:#035A9F;
+}
+.nav_fxb_right_con ul li span{
+	font-size:12px;
+	font-weight:bold;
+	font-family:Arial,sans-serif;
+	width:24px;
+	float:left;
+	color:#666;
+}
+
+

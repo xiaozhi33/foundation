@@ -1,0 +1,518 @@
+/*启动编辑按钮*/
+#edit_page_btn {
+	background: url("images/black.gif") repeat scroll 0 0 #333333;
+    line-height: 20px;
+    padding: 5px 15px;
+    position:absolute;
+    right: 0;
+    top: 0;
+	z-index:500;
+}
+#edit_page_btn a{
+	color:white;
+	text-decoration:none;
+}
+#edit_page_btn a:hover{
+	text-decoration:underline;
+}
+/*顶部控制栏样式*/
+#top_control {
+	background:url(images/control.png) repeat-x top left;
+	position:relative;
+}
+#top_control .control_box {
+	margin:0 auto;
+	width:985px;
+	height:230px;
+	padding:8px 0px;
+}
+
+#top_control .control_nav {
+	border-right: 1px solid #CDD8E9;
+    color: #888888;
+    float: left;
+    font-size: 14px;
+    overflow: hidden;
+    padding: 0;
+    width: 75px;
+	height:230px;
+}
+#top_control .control_nav li {
+	cursor: pointer;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    margin: 5px 0 !important;
+    overflow: hidden;
+    padding: 0 5px;
+    text-align: right;
+}
+#top_control .control_nav li.active {
+	background: url("images/icon.png") no-repeat scroll -520px -330px transparent;
+}
+
+#top_control .control_save {
+    background: url("images/icon.png") no-repeat scroll right -317px transparent;
+    height: 121px;
+    line-height: 25px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 80px;
+    width: 73px;
+}
+#top_control .control_save input {
+    border: 1px solid #999999;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: block;
+    font-size: 12px;
+    height: 24px;
+    line-height: 24px;
+    margin: 10px auto 0px;
+    text-align: center;
+    width: 55px;
+}
+#top_control .control_save .save {
+    background: #FF9900;
+}
+#top_control .control_save .cancel {
+    background: #999999;
+}
+
+#top_control .control_div {
+	float: left;
+    line-height: 25px;
+    margin-left: 5px;
+    overflow: hidden;
+    width: 900px;
+}
+#top_control .control_skin {
+    background: url("images/block.png") no-repeat scroll 0 -230px transparent;
+    clear: both;
+    float: left;
+    height: 207px;
+    line-height: 25px;
+    margin: 5px;
+    overflow: hidden;
+    padding: 8px;
+    width: 838px;
+}
+#top_control .control_skin ul {
+	height:190px;
+	overflow:auto;
+}
+#top_control .control_skin ul li {
+	float:left;
+	padding:11px 11px 33px;
+	margin:0 5px 10px;
+	background:url("images/icon.png") no-repeat scroll -510px -747px;
+	cursor:pointer;
+}
+#top_control .control_skin ul li.hover,#top_control .control_skin ul li.active {
+	background:url("images/icon.png") no-repeat scroll -321px -747px;
+}
+
+#top_control .control_layout {
+    background: url("images/block.png") no-repeat scroll 0 -230px transparent;
+    float: left;
+    height: 213px;
+    line-height: 25px;
+    list-style: none outside none;
+    margin: 5px;
+    overflow: hidden;
+    padding: 5px;
+    width: 838px;
+}
+#top_control .control_layout ul {
+    height: 193px;
+    line-height: 20px;
+    padding: 0;
+}
+#top_control .control_layout li {
+    float: left;
+    height: 59px;
+    margin: 1px;
+    overflow: hidden;
+    width: 55px;
+}
+#top_control .control_layout li a {
+    background: url("images/icon.png") no-repeat scroll 0 -198px transparent;
+    display: block;
+    height: 54px;
+    margin: 5px 1px;
+    overflow: hidden;
+    padding: 2px;
+    width: 52px;
+}
+#top_control .control_layout li a:hover {
+    background: url("images/icon.png") no-repeat scroll -59px -198px transparent;
+}
+#top_control .control_layout li a.active {
+    background: url("images/icon.png") no-repeat scroll -59px -198px transparent;
+}
+#top_control .control_layout li a span {
+	display:block;
+	width:86%;
+	height:40px;
+	background: url("images/icon.png") no-repeat scroll -440px -191px transparent;
+	margin:0 auto;
+	margin-top:5px;
+}
+#top_control .control_layout li a.custom-2 span {
+    background: url("images/icon.png") no-repeat scroll -322px -191px transparent;
+}
+#top_control .control_layout li a.custom-3 span {
+    background: url("images/icon.png") no-repeat scroll -440px -130px transparent;
+}
+#top_control .control_layout .framebox {
+	display:none;
+}
+
+#top_control .control_module {
+    background: url("images/block.png") no-repeat scroll 0 -230px transparent;
+    display: inline;
+    float: left;
+    height: 211px;
+    line-height: 25px;
+    margin: 5px;
+    overflow: hidden;
+    padding: 8px;
+    width: 838px;
+}
+#top_control .control_module ul {
+    font-size: 12px;
+    height: 190px;
+    line-height: 16px;
+    overflow: auto;
+    width: 780px;
+}
+#top_control .control_module ul li {
+    float: left;
+    overflow: hidden;
+    padding: 2px 4px;
+}
+#top_control .control_module ul li a {
+    background: url("images/icon.png") no-repeat scroll -510px -747px transparent;
+    color: #536780;
+    display: block;
+    height: 175px;
+    overflow: hidden;
+    padding: 8px;
+    text-decoration: none;
+    width: 165px;
+}
+#top_control .control_module ul li a:hover {
+    background: url("images/icon.png") no-repeat scroll -321px -747px transparent;
+}
+#control-module ul li img {
+    display:block;
+    height: 121px;
+    margin-bottom: 8px;
+    width: 165px;
+}
+/*对话框样式*/
+.ui-dialog div.ui-dialog-content {
+	background:white;
+	text-align:left;
+}
+.dialog .form {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 5px;
+	padding-bottom:15px;
+}
+.dialog .form p {
+    line-height: 22px;
+    margin: 0;
+    padding: 5px 0px;
+}
+.dialog .form input {
+    height: 16px;
+}
+.dialog .form a {
+    color: #336699;
+    margin-left: 4px;
+}
+.dialog .form textarea {
+	width:100%;
+}
+
+/*页头banner图片修改*/
+.change_img {
+	background: url("images/icon.png") no-repeat scroll -250px -200px transparent;
+    cursor: pointer;
+    height: 15px;
+    overflow: hidden;
+    position: absolute;
+    width: 15px;
+	z-index:1500;
+}
+#header {
+	position:relative;
+}
+#header .change_img {
+	top:0;
+	right:0;
+}
+
+/*页面seo修改*/
+#page_body {
+	position:relative;
+}
+#page_body .set_icon {
+	background: url("images/icon.png") no-repeat scroll -250px -230px transparent;
+    cursor: pointer;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    width: 16px;
+	top:10px;
+	left:10px;
+}
+
+
+
+
+/*模板选择弹出框*/
+/*#select_skin_dialog {*/
+/*	padding:0.5em 6px*/
+/*}*/
+/*#select_skin_dialog .skin_nav {*/
+/*	line-height:30px;*/
+/*	background:#efefef;*/
+/*	padding:0 5px;*/
+/*	height:30px;*/
+/*	border:1px solid #aaa;*/
+/*}*/
+/*#select_skin_dialog .skin_nav a {*/
+/*	color:gray;*/
+/*	padding:0 5px;*/
+/*	line-height:30px;*/
+/*	float:left;*/
+/*}*/
+/*#select_skin_dialog .skin_nav a.on {*/
+/*	background:white;*/
+/*}*/
+/*#select_skin_dialog .skin_list {*/
+/*	border:1px solid #aaa;*/
+/*	height:350px;*/
+/*	overflow:auto;*/
+/*	margin-top:2px;*/
+/*}*/
+/*#select_skin_dialog .skin_list .skin_img {*/
+/*	float:left;*/
+/*	margin:15px 10px;*/
+/*	border:1px solid #efefef;*/
+/*	padding:3px;*/
+/*	cursor:pointer;*/
+/*}*/
+/*#select_skin_dialog .skin_list p.on {*/
+/*	border:1px solid gray;*/
+/*}*/
+/*#select_skin_dialog .skin_select_btn {*/
+/*	margin-top:15px;*/
+/*	margin-left:195px;*/
+/*	width:100px;*/
+/*	height:25px;*/
+/*	line-height:25px;*/
+/*}*/
+/*.select_skin_dialog .ui-dialog-titlebar-close {*/
+/*	display:none;*/
+/*}*/
+
+
+
+/*框架*/
+#content .framebox {
+	position:relative;
+}
+#content .frame {
+	overflow:hidden;
+}
+#content .frame .message {
+	background:#efefef;
+	color: gray;
+	line-height:100px;
+	text-align:center;
+	height:100px;
+}
+#content .framebox1 .slide {
+	display:none;
+}
+
+/*分栏框架排序*/
+#content .ui-state-frame-highlight {
+	background:#FBF9EE;
+	border:1px solid #FCEFA1;
+	height:150px;
+}
+
+/*编辑框架菜单*/
+#content .framebox .frame_menu * {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+#content .framebox .frame_menu {
+	position:absolute;
+	top:25px;
+	right:-135px;
+	width:128px;
+	height:60px;
+	background:url(images/icon.png) no-repeat -537px -440px;
+}
+#content .framebox .frame_menu ul {
+	padding-left:15px;
+}
+#content .framebox .frame_menu li {
+	float:left;
+	line-height:25px;
+}
+#content .framebox .frame_menu li a {
+	color:white;
+	text-decoration:none;
+	margin:0 5px;
+}
+#content .framebox .frame_menu li a:hover {
+	text-decoration:underline;
+}
+
+/*模块配置按钮*/
+#module_set {
+	position:absolute;
+	z-index:10000;
+	overflow:hidden;
+	display:none;
+}
+#module_set * {
+	margin:0;
+	padding:0;
+}
+#module_set li {
+	list-style:none;
+	float:left;
+	margin-right:3px;
+}
+
+/*模块排序投影*/
+#content .ui-state-module-highlight {
+	margin:3px;
+	height:100px;
+	background:#bcdbf8;
+	border:1px dashed #599EC9;
+}
+
+/*模块样式编辑弹出框*/
+#module_css_config {
+	color: #414141;
+    font-family: "微软雅黑",Arial,sans-serif;
+    font-size: 12px;
+    line-height: 24px;
+}
+#module_css_config .nav {
+	line-height:30px;
+	padding:3px;
+	padding-bottom:0;
+}
+#module_css_config .nav li {
+	float:left;
+	margin-right:3px;
+	border-bottom:0;
+}
+#module_css_config .nav li a {
+	display:block;
+	font-size:14px;
+	padding:0 5px;
+	text-decoration:none;
+}
+#module_css_config table {
+	width:100%;
+}
+#module_css_config table td {
+	padding:7px 0;
+}
+#module_css_config table .label {
+	width:25%;
+	padding-left:10px;
+}
+#module_css_config table select {
+	padding: 2px 4px;
+	margin-right:3px;
+}
+#module_css_config .px,#module_css_config .color {
+	line-height: 17px;
+    padding: 2px 4px;
+	border-color: #848484 #E0E0E0 #E0E0E0 #848484;
+    border-style: solid;
+    border-width: 1px;
+	width:60px;
+	margin-right:3px;
+}
+#module_css_config .color {
+	margin-left:5px;
+	margin-right:5px;
+}
+#module_css_config .colorwd {
+	border:0;
+	border: 1px solid #999999;
+	background:#666 url(images/pn_color.png) no-repeat;
+	height:23px;
+	width:23px;
+	cursor:pointer;
+}
+#module_css_config .txt {
+	width:235px;
+	line-height: 17px;
+    padding: 2px 4px;
+	border-color: #848484 #E0E0E0 #E0E0E0 #848484;
+    border-style: solid;
+    border-width: 1px;
+}
+#module_css_config .margin,#module_css_config .padding {
+	width:25px;
+}
+#module_css_config #bgimage {
+	width:166px;
+}
+#color_panel {
+	padding-top:25px;
+	z-index:1005;
+	display:none;
+}
+#color_panel p {
+	width:10px;
+	height:10px;
+	cursor:pointer;
+	border-bottom:1px solid black;
+	border-right:1px solid black;
+}
+#color_panel .color_panel_left {
+	width:10px;
+	float:left;
+	border-left:1px solid #DDF0DF;
+	border-bottom:1px solid #DDF0DF;
+}
+#color_panel .color_panel_right {
+	width:198px;
+	float:left;
+	border-bottom:1px solid #DDF0DF;
+	border-right:1px solid #DDF0DF;
+}
+#color_panel .color_panel_right p {
+	float:left;
+}
+#color_panel .color_panel_top {
+	border:1px solid #DDF0DF;
+	border-bottom:0;
+}
+#color_panel .color_panel_top p {
+	width:100%;
+	background:url(images/transcolor.gif) repeat-x;
+	border-right:0;
+}
+
+/*现在可编辑的模块*/
+.curr_module {
+	border:2px solid black;
+}

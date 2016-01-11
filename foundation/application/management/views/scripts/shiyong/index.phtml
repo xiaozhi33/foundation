@@ -1,0 +1,101 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+		<h4 class="col-md-12">项目使用管理<span class="font_#0474d6"> >> </span><span class="font_#0474d6_big">使用列表</span></h4>
+		<div class="col-md-12">
+                <section class="tile color transparent-black">
+                	<div class="tile-body">
+					<form class="form-horizontal" action="#" method="post">
+                    <div class="form-group">
+                    	<div class="row"> 
+                        <div class="form-group col-sm-12">
+							<label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                        	<div class="col-sm-4">
+                                <select class="form-control" name="pname">
+                                    <?php if($this->pmlist != ""){
+                                            foreach ($this->pmlist as $k => $v){
+                                        ?>
+                                        <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                    <?php }}?>
+                                </select>
+							</div>
+							<label class="col-sm-2 control-label" for="input01">项目支出日期：</label>
+                            <div class="col-sm-2">
+                                <input class="form-control" type="text"  id="dateinput"  name="zhichudate"  size="14"/>
+                            </div>
+                            <div class="col-sm-2">
+                                <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                            </div>
+                       </div>
+                        </div>
+                     </div>
+					</form>
+					<span class="shiyong-zj"> * 项目资金和使用必须在拥有具体项目以后才可以进行操作，如目前还没有项目请添加筹资项目。</span>
+				   </div>
+        		</section>
+				<section class="tile color transparent-black">
+					<div class="tile-body nopadding">
+				<?php if($this->shiyonglist != ""){?>
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  <thead>
+                          <tr>
+                            <td width="30%">项目名称</td>
+                            <td width="12%">奖励范围</td>
+                            <td width="13%">奖励人数</td>
+                            <td width="13%">项目支出日期</td>
+                            <td width="13%">项目支出金额</td>
+                            <td width="13%">操作</td>
+                          </tr>
+					</thead>
+                      <tbody>
+					  <?php 
+						foreach($this->shiyonglist as $k=>$v){?>
+						 <tr>
+						 	<td><?php echo $v['pm_name'];?>&nbsp;</td>
+							<td><?php echo $v['jiangli_fanwei'];?>&nbsp;</td>
+							<td><?php echo $v['jiangli_renshu'];?>&nbsp;人</td>
+								
+							<td><?php echo substr($v['shiyong_zhichu_datetime'],0,10);?>&nbsp;</td>
+							<td><?php echo $v['shiyong_zhichu_jiner'];?>&nbsp;元</td>
+							<td><a href="/management/shiyong/editshiyong?id=<?php echo $v['id'];?>">编辑</a> || <a href="#">删除</a></td>
+						 </tr>
+					   <?php }?>
+                       </tbody>
+					</table>
+				</div>
+					<div class="tile-footer bg-transparent-black-2">
+					<div class="row">
+					<div align="right" class="page col-md-12">
+						共  <?php echo $this->total;?> 条使用信息          <?php echo $this->page;?></div>
+					
+				 <?php }else{?>
+				 	<div>暂无使用信息！<a href="/admin/shiyong/addshiyong">点击添加</a></div>
+				 <?php }?>
+		  			</div>
+				</div> 
+				</section>
+         </div>
+        </div>    
+		<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>
+			

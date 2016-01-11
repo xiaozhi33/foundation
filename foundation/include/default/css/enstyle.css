@@ -1,0 +1,52 @@
+body{ margin:0px; padding:0px;  font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#333; background:#c0c0c0;}
+a{ color:#333; text-decoration:none;}
+a:hover{ text-decoration:underline;}
+.jjh_cle{ clear:both;}
+.jjh_en_font1{ color:#333; font-size:12px; font-style:italic; font-weight:bold; margin-right:10px;}
+.jjh_en_font2{ color:#901823; font-size:11px; font-style:italic; font-weight:bold; margin-right:10px;}
+.jjh_en_font3{ color:#333; font-size:12px; font-style:italic; font-weight:bold; line-height:40px; margin-left:30px;}
+
+
+
+
+
+.jjh_en_fleft{ float:left; width:48px; font-weight:bold; font-style:italic; line-height:18px; font-size:12px;}
+.jjh_en_fright{ float:right; margin-left:0px; width:150px;}
+.jjh_en_container{ width:960px; float:none; margin:0px auto; background:#f7f7f7 url(../images/enindexbg.jpg) repeat-x; height:735px;}
+.jjh_en_header{ width:885px; height:135px; float:none; margin:0px auto;}
+.jjh_en_content{ width:885px; float:none; background:#fff url(../images/contentop.jpg) no-repeat top left; height:550px; margin:0px auto;}
+.jjh_en_nav{ margin:0px auto; width:865px; padding:20px 10px 10px 10px;}
+.jjh_en_nav ul{ list-style:none; margin:0px; padding:0px; float:none;}
+.jjh_en_nav ul li{ list-style:none; margin:0px; padding:0px; float:left;}
+.jjh_en_nav ul li #linkon:link, #linkon:active, #linkon:visited, #linkon:hover{ color:#901823;}
+.jjh_en_nav ul li a{ display:block; padding:0px 15px; border-right:1px solid #333; font-size:12px; font-weight:bold; color:#333; text-decoration:none;}
+.jjh_en_nav ul li a:hover{ color:#901823;}
+.jjh_en_con{ width:835px; float:none; margin:0px auto; padding:0px;}
+.jjh_en_con_left{ float:left; width:596px; margin-right:15px;}
+.jjh_en_spolight{ width:590px; height:160px; float:none; background:#f0f0f0; margin:15px 0px; padding:3px;}
+.jjh_en_con_spe{ width:596px; float:none;}
+.jjh_en_con_spe_tit{ color:#901823; font-size:12px; font-weight:bold; line-height:24px;  border-bottom:2px solid #901823;}
+.jjh_en_con_spe_tit span{ float:right; font-size:11px; color:#333; font-weight:normal;}
+.jjh_en_con_spe_con{ color:#333; font-size:12px; line-height:18px; padding:10px 0px;}
+.jjh_en_con_img{ width:200px; float:left; margin-right:15px; height:50px; background:#f0f0f0; margin-top:2px;}
+.jjh_en_con_right{ float:right; width:224px;}
+.jjh_en_con_right_content{ width:224px; background:#f0f0f0 url(../images/rightbg.jpg) no-repeat left top; float:none; margin-top:15px;}
+.jjh_en_con_right_tit{ line-height:31px; color:#fff; font-weight:bold; padding-left:16px; }
+.jjh_en_con_right_con{ background:#f0f0f0; padding:5px 10px 15px 16px;}
+.jjh_en_con_right_con ul{ list-style:none; padding:0px; margin:0px;}
+.jjh_en_con_right_con ul li{ list-style:none; padding:0px; margin:0px; float:none; font-size:11px; color:#333; line-height:18px;}
+.jjh_en_con_right_con ul li span{ font-weight:bold; font-style:italic; line-height:30px; font-size:12px;}
+.jjh_en_con_right_tit1{ line-height:24px; color:#901823; font-weight:bold; margin:0px 15px; border-bottom:1px dashed #ccc; padding-top:5px; }
+.jjh_en_footer{ font-weight:bold; line-height:30px; width:885px; margin:0px auto; background:#fff; padding:10px 0px 5px 0px; }
+.jjh_en_footer span{ margin:0px 25px; border-top:1px dashed #ccc; width:835px; display:block;}
+.jjh_en_sub_left{ float:left; width:180px; margin-right:15px; margin-top:32px;}
+.jjh_en_sub_left_tit{ background:#f0f0f0 url(../images/ensubltit.jpg) no-repeat left top; width:150px; height:32px; padding-left:30px; color:#901823; line-height:32px; font-weight:bold; border-bottom:1px dashed #ccc;}
+.jjh_en_sub_left_con{ width:180px; margin:0px; float:none; background:#f0f0f0;}
+.jjh_en_sub_left_con ul{ list-style:none; float:none; margin:0px auto; padding:10px 0px;}
+.jjh_en_sub_left_con ul li{ list-style:none; margin:0px; padding:0px; padding-left:30px; }
+.jjh_en_sub_left_con ul li a{ display:block; background:url(../images/methodicon.png) no-repeat 0px 10px; padding-left:10px; color:#333; line-height:24px; font-weight:bold; font-style:italic; font-size:11px; padding-right:10px;}
+.jjh_en_sub_left_con ul li a:hover{ text-decoration:underline;}
+
+.jjh_en_sub_right{ float:right; width:635px; margin-top:24px;}
+.jjh_en_sub_right_tit{ color:#901823; font-size:12px; font-weight:bold; line-height:24px;  border-bottom:2px solid #901823;}
+.jjh_en_sub_right_con{ color:#333; font-size:12px; line-height:18px; padding:10px 0px;}

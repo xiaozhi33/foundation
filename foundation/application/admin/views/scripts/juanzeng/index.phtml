@@ -1,0 +1,44 @@
+
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>捐赠信息管理<span class="font_red"> >> </span><span class="font_red_big">捐赠列表</span></h4>
+			<div class="detailedbox">
+				<!-- <div class="search">
+					<form action="#" method="post">
+						单位/个人名称：<input type="text" name="keyword" />
+						<input type="submit" value="搜索"/>
+					</form>
+				</div> -->
+	
+				<?php if($this->juanzenglist != ""){?>
+					<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  
+					  <tr>
+						<td width="30%" bgcolor="#f5f5f5">捐赠单位/个人</td>
+						<td width="25%" bgcolor="#f5f5f5">捐赠项目</td>
+						<td width="10%" bgcolor="#f5f5f5">捐赠金额</td>
+						<td width="20%" bgcolor="#f5f5f5">捐赠日期</td>
+						<td width="15%" bgcolor="#f5f5f5">操作</td>
+					  </tr>
+					
+					  <?php 
+						foreach($this->juanzenglist as $k=>$v){?>
+						 <tr>
+						 	<td><?php echo $v['jjh_juanzeng_danwei'];?></td>
+							<td><?php echo $v['jjh_juanzeng_pm'];?></td>
+							<td><?php echo $v['jjh_juanzeng_jiner'];?></td>
+							<td><?php echo $v['jjh_juanzeng_datetime'];?></td>
+							<td><a href="/admin/juanzeng/editjuanzeng?id=<?php echo $v['id'];?>">编辑</a> || <a href="/admin/juanzeng/deljuanzeng?id=<?php echo $v['id'];?>">删除</a></td>
+						 </tr>
+					   <?php }?>
+					</table>
+					
+					<div align="right" style="margin-right: 10px;margin-top: 5px;">
+						共  <?php echo $this->total;?> 条捐赠信息          <?php echo $this->page;?></div>
+					
+				 <?php }else{?>
+				 	<div>暂无捐赠信息！<a href="/admin/juanzeng/addjuanzeng">点击添加</a></div>
+				 <?php }?>
+		  </div>
+		</div> 
+		

@@ -1,0 +1,99 @@
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>项目联系人管理<span class="font_red"> >> </span><span class="font_red_big">添加联系人</span></h4>
+			<div class="detailedbox">
+			<form action="addrspp" method="post" encType="multipart/form-data">
+				<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					
+					 <tr>
+					    <td width="20%" style="text-align:right;">联系人姓名：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="ppname" /><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">相关项目名称：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="pp_pm_id">
+							<?php if($this->pmlist != ""){
+									foreach ($this->pmlist as $k => $v){
+								?>
+								<option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+							<?php }}?>
+							</select>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">联系人类型：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="pp_cate">
+								<option value="筹资联系人">筹资联系人</option>
+								<option value="资金联系人">资金联系人</option>
+								<option value="使用联系人">使用联系人</option>
+							</select>
+						</td>
+					</tr>
+					
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">联系人email：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="ppemail" /><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">联系人QQ：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="pp_qq" /><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">联系人MSN：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="pp_msn" /><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">联系人移动电话：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="ppmobile" /><font color="#0474d6" > * </font>
+						</td>
+					</tr>	
+				    
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">联系人电话：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="ppphone"  size="40"/><font color="#0474d6" > * 可添加多个，以“,”号隔开</font>
+						</td>
+					</tr>			
+							
+					<tr>
+					    <td width="20%" style="text-align:right;">联系人地址：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="pp_address" size="40"/><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">备注：</td>
+						<td width="80%" style="text-align:left;">
+							<textarea class="ckeditor" name="pp_beizhu"></textarea>
+						</td>
+					</tr>
+										
+					<tr>
+					    <td width="20%" style="text-align:right;"> </td>
+						<td width="80%" style="text-align:left;">
+							<input type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="重 置" /> 
+						</td>
+					</tr>
+				</table>
+			</form>
+		  </div>
+		</div>

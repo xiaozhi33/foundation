@@ -1,0 +1,35 @@
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+		<h4 class="col-md-12">捐赠项目统计管理<span class="font_red"> >> </span><span class="font_red_big">查看项目统计报表</span></h4>
+		<div class="col-md-12">
+        <section class="tile color transparent-black">
+			<div class="tile-header">
+				<h1>根据时间统计项目收支明细</h1>
+			</div>
+			<div class="tile-body">
+					<form class="form-horizontal" role="form" action="/management/report/reportinfo" method="post" target="_blank">
+                    	<div class="row">
+							<h4 class="col-sm-4">统计明细时间区间：</h4>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2 control-label">开始时间：</label>
+                            <div class="col-sm-3">
+                            <input class="form-control" name="start_datetime" data-date-format="YYYY-MM-DD HH:mm:ss"  type="text" id="datepicker">
+                            </div>
+                            <label class="col-sm-2 control-label">结束时间：</label>
+                            <div class="col-sm-3">
+                            <input class="form-control" name="end_datetime" data-date-format="YYYY-MM-DD HH:mm:ss"  type="text" id="datepicker1">
+                            </div>
+						<div class="col-sm-2">
+						<input class="btn btn-default" type="submit" value="查看excel报表"/>
+                        </div>
+						<input type="hidden" name="style" value="style1"/>
+                        </div>
+					</form>
+				</div>
+			</div>
+        </section>
+		</div>	
+
+	</div>	

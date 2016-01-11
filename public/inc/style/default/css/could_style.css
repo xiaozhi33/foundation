@@ -1,0 +1,71 @@
+@charset "utf-8";
+/* CSS Document */
+.ui-datepicker{
+	width:18em;
+}
+.cs_could_tit {
+    color:#344678;
+	margin-bottom:10px;
+	margin-top:20px;
+    font-size: 24px;
+    line-height: 24px;
+	font-family:"Times New Roman", Times, serif;
+}
+.cs_could_list {
+    background: none repeat scroll 0 0 #F5F7F9;
+    float:left;
+    list-style: none outside none;
+    margin: 0 0 20px;
+    padding: 0 10px;
+}
+.cs_could_list li {
+    border-bottom: 1px dotted #CCCCCC;
+    float:left;
+    list-style: none outside none;
+    margin: 10px 0px;
+}
+.cs_could_list_con {
+    color: #666666;
+    font-size: 13px;
+    line-height: 22px;
+    margin: 10px 0px;
+    padding:0px;
+	list-style:none;
+	overflow:hidden;
+}
+.cs_could_list_con li{
+    float:left;
+    list-style: none outside none;
+    margin: 0;
+	width:332px;
+	line-height:18px;
+	overflow:hidden;
+	border:0;
+}
+.cs_could_list_con li span{
+	color:#344678;
+	font-size:14px;
+	font-family:"Times New Roman", Times, serif;
+	margin-right:5px;
+}
+.cs_could_list_con li a{
+	font-size:14px;
+	color: #666;
+	text-decoration:none;
+}
+.cs_could_list_con li a:hover{
+	color:#5bb3ef;
+}
+.cs_clould_list_tit{
+	line-height:20px;
+	font-size:11px;
+	color:#004678;
+	margin-bottom:10px;
+	text-align:left;
+	background:#E1F4FD;
+	width:140px;
+	padding:0px 10px;
+}
+.hasDatepicker{
+	margin-top:20px;
+}
