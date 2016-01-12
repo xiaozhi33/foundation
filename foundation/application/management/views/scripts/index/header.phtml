@@ -538,6 +538,29 @@
                   </li>
 				
 				<?php }?>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-users"></i> 会议管理 <b class="fa fa-plus dropdown-plus"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/management/meeting">
+                                    <i class="fa fa-caret-right"></i> 会议列表
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/management/meeting/add">
+                                    <i class="fa fa-caret-right"></i> 添加会议
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/management /meeting/edit">
+                                    <i class="fa fa-caret-right"></i> 编辑会议
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 			
 				<?php if (in_array($admininfo['admin_info']['admin_type'],array(0))){?>
 				<li class="dropdown">
