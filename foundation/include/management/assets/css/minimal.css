@@ -7080,7 +7080,7 @@ body #content .modal .modal-dialog .modal-content input[type="color"] {
   font-size: 13px;
   vertical-align: top;
   background-color: #fff;
-  min-height: 37px;
+  min-height: 30px;
   filter: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;

@@ -366,64 +366,53 @@
       
     </script>
 
+    <!-- //遮罩层效果 -->
+    <style>
+        .theme-popover-mask {
+            z-index: 9998;  position:fixed;  top:0;  left:0;  width:100%;  height:100%;  background:#000;  opacity:0.4;  filter:alpha(opacity=40);  display:none;
+        }
+        .theme-popover {
+            z-index:9999;  position:fixed;  top:50%;  left:50%;  width:660px;  height:360px;  margin:-180px 0 0 -330px;  border-radius:5px;  border:solid 2px #666;  background-color:#fff;  display:none;  box-shadow: 0 0 10px #666;
+        }
+    </style>
+
+    <div class="theme-popover">
+        <div class="theme-poptit">
+            <a href="javascript:void(0);" title="关闭" class="close">×</a>
+            <h3>Alert消息提示</h3>
+        </div>
+        <div class="theme-popbod dform">
+            <form class="theme-signin" name="loginform" action="" method="post">
+                <ol>
+                    <li>提示图片</li>
+                    <li><?php echo $mess = "系统消息提示";?></li>
+                </ol>
+            </form>
+        </div>
+    </div>
+    <div class="theme-popover-mask"></div>
+
+
+    <script>
+        jQuery(document).ready(function($) {
+            $('.theme-login').click(function(){
+                $('.theme-popover-mask').fadeIn(100);
+                $('.theme-popover').slideDown(200);
+            })
+            $('.theme-poptit .close').click(function(){
+                $('.theme-popover-mask').fadeOut(100);
+                $('.theme-popover').slideUp(200);
+            });
+        });
+    </script>
+    <!-- //遮罩层效果 -->
+
+
 
             <style>
-                .theme-popover-mask {
-                    z-index: 9998;
-                    position:fixed;
-                    top:0;
-                    left:0;
-                    width:100%;
-                    height:100%;
-                    background:#000;
-                    opacity:0.4;
-                    filter:alpha(opacity=40);
-                    display:none
-                }
-                .theme-popover {
-                    z-index:9999;
-                    position:fixed;
-                    top:50%;
-                    left:50%;
-                    width:660px;
-                    height:360px;
-                    margin:-180px 0 0 -330px;
-                    border-radius:5px;
-                    border:solid 2px #666;
-                    background-color:#fff;
-                    display:none;
-                    box-shadow: 0 0 10px #666;
+                .margin-bottom-20{
+                    margin-bottom: 0px;
+                    padding: 2px 12px;
+                    font-size: 12px;
                 }
             </style>
-            
-            <div class="theme-popover">
-                <div class="theme-poptit">
-                    <a href="javascript:void(0);" title="关闭" class="close">×</a>
-                    <h3>登录 是一种态度</h3>
-                </div>
-                <div class="theme-popbod dform">
-                    <form class="theme-signin" name="loginform" action="" method="post">
-                        <ol>
-                            <li><h4>你必须先登录！</h4></li>
-                            <li><strong>用户名：</strong><input class="ipt" type="text" name="log" value="lanrenzhijia" size="20" /></li>
-                            <li><strong>密码：</strong><input class="ipt" type="password" name="pwd" value="***" size="20" /></li>
-                            <li><input class="btn btn-primary" type="submit" name="submit" value=" 登 录 " /></li>
-                        </ol>
-                    </form>
-                </div>
-            </div>
-            <div class="theme-popover-mask"></div>
-
-
-            <script>
-                jQuery(document).ready(function($) {
-                    $('.theme-login').click(function(){
-                        $('.theme-popover-mask').fadeIn(100);
-                        $('.theme-popover').slideDown(200);
-                    })
-                    $('.theme-poptit .close').click(function(){
-                        $('.theme-popover-mask').fadeOut(100);
-                        $('.theme-popover').slideUp(200);
-                    });
-                });
-            </script>

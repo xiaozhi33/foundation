@@ -3,10 +3,27 @@
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
 
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>筹资列表</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目筹资管理</li>
+            <li class="active">筹资列表</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
 
 	<div id="main" class="main">
 		<div id="rightstyle02" class="row">
-			<h4 class="col-md-12">项目筹资管理<span class="font_red"> >> </span><span class="font_red_big">筹资列表</span></h4>
+			<!--<h4 class="col-md-12">项目筹资管理<span class="font_red"> >> </span><span class="font_red_big">筹资列表</span></h4>-->
 			<div class="col-md-12">
 			<section class="tile color transparent-black">
 			<div class="tile-body">
@@ -66,7 +83,7 @@
 						<td width="24%">项目名称</td>
 						<td width="12%">部门名称</td>
 						<td width="20%">项目分类</td>
-						<td width="18%">项目签约日期</td>
+						<!--<td width="18%">项目签约日期</td>-->
 						<td width="13%">协议捐赠金额</td>
 						<td width="13%">操作</td>
 					  </tr>
@@ -83,9 +100,17 @@
 								if($vv['id'] == $v['cate']){ echo $vv['catename'];}
 								}?>&nbsp;</td>
 								
-							<td><?php echo substr($v['pm_qianyue_datetime'],0,10);?>&nbsp;</td>
+							<!--<td><?php /*echo substr($v['pm_qianyue_datetime'],0,10);*/?>&nbsp;</td>-->
 							<td><?php echo $v['pm_xieyi_juanzeng_jiner'];?>&nbsp;元</td>
-							<td><a href="/management/chouzi/editchouzi?id=<?php echo $v['id'];?>">编辑</a> || <a href="#">删除</a></td>
+							<td>
+                                <a href="/management/chouzi/editchouzi?id=<?php echo $v['id'];?>">
+                                    <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                                </a>
+                                &nbsp;&nbsp;
+                                <a href="#">
+                                    <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
+                                </a>
+                            </td>
 						 </tr>
 					   <?php }?>
                      </tbody>
