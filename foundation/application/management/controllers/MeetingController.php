@@ -32,7 +32,7 @@
                 $meeting_content = HttpUtil::postString("meeting_content");
 
                 if($meeting_name == "" || $meeting_cate == "" || $meeting_joiner == "" || $meeting_content == ""){
-                    alert_back("您输入的信息不完整，请查正后继续添加");
+                    alert_back("您输入的信息不完整，请查正后继续添加！！！！！");
                 }
                 $meetingDAO = $this->orm->createDAO('jjh_meeting');
                 $meetingDAO ->meeting_name = $meeting_name;
@@ -52,7 +52,14 @@
         }
 
 		public function editAction(){
+            $id = $_GET['id'];
             $meetingDAO = $this->orm->createDAO('jjh_meeting')->order('id DESC');
+
+            $this->view->assign("meeting_info", $meetingDAO);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("meeting/addmeeting.phtml");
+            echo $this->view->render("index/footer.phtml");
 		}
 
         public function saveActiono(){
