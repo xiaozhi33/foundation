@@ -379,21 +379,37 @@
     <div class="theme-popover">
         <div class="theme-poptit">
             <a href="javascript:void(0);" title="关闭" class="close">×</a>
-            <h3>Alert消息提示</h3>
+            <h3 id="theme-popover-h3"></h3>
         </div>
         <div class="theme-popbod dform">
             <form class="theme-signin" name="loginform" action="" method="post">
                 <ol>
-                    <li>提示图片</li>
-                    <li><?php echo $mess = "系统消息提示";?></li>
+                    <li id="theme-popover-img">提示图片</li>
+                    <li id="theme-popover-messages"></li>
                 </ol>
             </form>
         </div>
     </div>
+	
     <div class="theme-popover-mask"></div>
 
-
     <script>
+		function noTips(){  
+			var formParam = $("#form1").serialize();//序列化表格内容为字符串  
+			$.ajax({  
+				type:'post',      
+				url:'Notice_noTipsNotice',  
+				data:formParam,  
+				cache:false,  
+				dataType:'json',  
+				success:function(data){  
+					$('.theme-popover-mask').fadeIn(100);  //弹出遮罩层提示
+					$('.theme-popover').slideDown(200);
+				}  
+				error:function(){}  
+			});  
+		}  
+
         jQuery(document).ready(function($) {
             $('.theme-login').click(function(){
                 $('.theme-popover-mask').fadeIn(100);
@@ -407,12 +423,10 @@
     </script>
     <!-- //遮罩层效果 -->
 
-
-
-            <style>
-                .margin-bottom-20{
-                    margin-bottom: 0px;
-                    padding: 2px 12px;
-                    font-size: 12px;
-                }
-            </style>
+	<style>
+		.margin-bottom-20{
+			margin-bottom: 0px;
+			padding: 2px 12px;
+			font-size: 12px;
+		}
+	</style>

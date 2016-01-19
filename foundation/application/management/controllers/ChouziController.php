@@ -186,6 +186,108 @@
 			}
 		}
 		
+		// =========================================================================================
+		/*
+		 * pm_mg_pp List
+		 */
+		public function pplistAction()
+		(
+			$meetingDAO = $this->orm->createDAO('jjh_mg_pp')->order('pid DESC');
+			$meetingDAO->getPager(array('path'=>'/management/chouzi/pplist/'))->assignTo($this->view);
+
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("chouzi/pplist.phtml");
+			echo $this->view->render("index/footer.phtml");
+		)
+		
+		/*
+		 * pm_mg_pp addppAction
+		 */
+		public function addppAction()
+		(
+			echo $this->view->render("index/header.phtml");
+            echo $this->view->render("chouzi/addpp.phtml");
+            echo $this->view->render("index/footer.phtml");
+		)
+		
+		/*
+		 * pm_mg_pp toaddppAction
+		 */
+		public function toaddppAction()
+		(
+			echo $this->view->render("index/header.phtml");
+            echo $this->view->render("chouzi/addpp.phtml");
+            echo $this->view->render("index/footer.phtml");
+		)
+		
+		/*
+		 * pm_mg_pp editppAction
+		 */
+		public function editppAction()
+		(
+			$meetingDAO = $this->orm->createDAO('jjh_mg_pp')->order('pid DESC');
+			$meetingDAO->getPager(array('path'=>'/management/chouzi/pplist/'))->assignTo($this->view);
+
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("chouzi/pplist.phtml");
+			echo $this->view->render("index/footer.phtml");
+		)
+		
+		/*
+		 * pm_mg_pp toeditppAction
+		 */
+		public function toeditppAction()
+		(
+			$meetingDAO = $this->orm->createDAO('jjh_mg_pp')->order('pid DESC');
+			$meetingDAO->getPager(array('path'=>'/management/chouzi/pplist/'))->assignTo($this->view);
+
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("chouzi/pplist.phtml");
+			echo $this->view->render("index/footer.phtml");
+		)
+		
+		//=======================================================================
+
+		public function addppcompanyAction()
+		{
+			$company_name = HttpUtil::postString("company_name");
+            $company_contector = HttpUtil::postString("company_contector");
+            $company_cont_style = HttpUtil::postString("company_cont_style");
+			
+			$jjh_mg_pp_companyDAO = $this->orm->createDAO('jjh_mg_pp_company');
+			$jjh_mg_pp_companyDAO ->company_name = $company_name;
+			$jjh_mg_pp_companyDAO ->company_contector = $company_contector;
+			$jjh_mg_pp_companyDAO ->company_cont_style = $company_cont_style;
+	
+			$jjh_mg_pp_companyDAO ->save();
+		}
+		
+		public function edigppompanyAction()
+		{
+			$id = HttpUtil::postString("id");
+			$company_name = HttpUtil::postString("company_name");
+            $company_contector = HttpUtil::postString("company_contector");
+            $company_cont_style = HttpUtil::postString("company_cont_style");
+			
+			$jjh_mg_pp_companyDAO = $this->orm->createDAO('jjh_mg_pp_company');
+			$jjh_mg_pp_companyDAO ->findId($id);
+			$jjh_mg_pp_companyDAO ->company_name = $company_name;
+			$jjh_mg_pp_companyDAO ->company_contector = $company_contector;
+			$jjh_mg_pp_companyDAO ->company_cont_style = $company_cont_style;
+	
+			$jjh_mg_pp_companyDAO ->save();
+		}
+		
+		public function delppcompanyAction()
+		{
+			$id = HttpUtil::postString("id");
+			$jjh_mg_pp_companyDAO = $this->orm->createDAO('jjh_mg_pp_company');
+			$jjh_mg_pp_companyDAO ->findId($id);
+			$jjh_mg_pp_companyDAO ->delete();
+		}
+		
+		//==============================================================================
+		
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
 			$this ->dbhelper ->connect();

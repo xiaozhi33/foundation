@@ -17,31 +17,56 @@
             echo $this->view->render("index/footer.phtml");
 		}
         public function toAddAction(){
+			$id = HttpUtil::postString("id");
             $meeting_name = HttpUtil::postString("meeting_name");
             $meeting_cate = HttpUtil::postString("meeting_cate");
             $meeting_joiner = HttpUtil::postString("meeting_joiner");
             $meeting_content = HttpUtil::postString("meeting_content");
+			$meeting_start_time = HttpUtil::postString("meeting_start_time");
+			$meeting_end_time = HttpUtil::postString("meeting_end_time");
+			$meeting_address = HttpUtil::postString("meeting_address");
 
-            if($meeting_name == "" || $meeting_cate == "" || $meeting_joiner == "" || $meeting_content == ""){
+            if($meeting_name == "" || $meeting_cate == "" || $meeting_joiner == "" || $meeting_content == "" || $meeting_start_time == "" || $meeting_end_time == "" || $meeting_address == ""){
                 alert_back("您输入的信息不完整，请查正后继续添加");
             }
             $meetingDAO = $this->orm->createDAO('jjh_meeting');
+			if(!empty($id))  //修改流程
+			{
+				$meetingDAO ->findId = $id;
+			}
             $meetingDAO ->meeting_name = $meeting_name;
             $meetingDAO ->meeting_cate = $meeting_cate;
             $meetingDAO ->meeting_joiner = $meeting_joiner;
             $meetingDAO ->meeting_content = $meeting_content;
+			$meetingDAO ->meeting_start_time = $meeting_start_time;
+			$meetingDAO ->meeting_end_time = $meeting_end_time;
+			$meetingDAO ->meeting_address = $meeting_address;
             $rs = $meetingDAO ->save();
-            var_dump($rs);exit();
         }
+		
 		public function editAction(){
-            $meetingDAO = $this->orm->createDAO('jjh_meeting')->order('id DESC');
+			$id = HttpUtil::getString("id");
+            $meetingDAO = $this->orm->createDAO('jjh_meeting');
+			$meetingDAO ->findId($id);
+			$meetingDAO = $meetingDAO ->get();
+			
+			if($meetingDAO != "")
+			{
+				$this->view->assign("meeting_info", $meetingDAO);
+				echo $this->view->render("index/header.phtml");
+				echo $this->view->render("meeting/edit.phtml");
+				echo $this->view->render("index/footer.phtml");
+			}
+			
 		}
-        public function saveActiono(){
-
-        }
+		
 		public function delAction(){
-            $meetingDAO = $this->orm->createDAO('jjh_meeting')->order('id DESC');
+			$id = HttpUtil::getString("id");
+            $meetingDAO = $this->orm->createDAO('jjh_meeting');
+			$meetingDAO ->findId($id);
+			$meetingDAO = $meetingDAO ->delete();
 		}
+		
 		public function addConnectorAction(){
             $meetingDAO = $this->orm->createDAO('jjh_meeting')->order('id DESC');
 		}
