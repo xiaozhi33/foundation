@@ -1,7 +1,23 @@
 
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>项目分类列表</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目分类管理</li>
+            <li class="active">项目分类列表</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
 	<div id="main" class="main">
 		<div id="rightstyle02" class="row">
-		<h4 class="col-md-12">项目分类管理<span class="font_red"> >> </span><span class="font_red_big">项目分类列表</span></h4>
 			<div class="col-md-8">
 				<section class="tile color transparent-black">
 					<div class="tile-body nopadding">
@@ -21,7 +37,11 @@
 						 <tr>
 						 	<td><?php echo $v['id'];?></td>
 							<td><?php echo $v['catename'];?></td>
-							<td><a href="/management/admin/editcate?id=<?php echo $v['id'];?>">编辑</a> || <a href="#">删除</a></td>
+							<td><a href="/management/admin/editcate?id=<?php echo $v['id'];?>">
+                            <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
+                            &nbsp;&nbsp;
+                             <a href="#"><button type="button" class="btn btn-danger margin-bottom-20">删除</button></a>
+                            </td>
 						 </tr>
 					   <?php }?>
                      </tbody>

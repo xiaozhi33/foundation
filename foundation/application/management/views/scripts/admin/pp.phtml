@@ -55,8 +55,8 @@
 						<td width="15%">捐赠方</td>
 						<td width="25%">相关项目</td>
 						<td width="20%">移动电话</td>
-						<td width="20%">电子邮箱</td>
-						<td width="20%">操作</td>
+						<td width="10%">操作</td>
+                          <td width="10%">其他操作</td>
 					  </tr>
 						</thead>
                       <tbody>
@@ -66,8 +66,25 @@
 						 	<td><?php echo $v['ppname'];?></td>
 							<td><?php echo $v['pp_pm_id'];?></td>
 							<td><?php echo $v['ppmobile'];?></td>
-							<td><?php echo $v['ppemail'];?></td>
-							<td><a href="/management/admin/editpp?id=<?php echo $v['pid'];?>">编辑</a> || <a href="#">删除</a></td>
+							<!--<td><?php /*echo $v['ppemail'];*/?></td>-->
+                             <td>
+                                 <a href="/management/admin/ppinfo?id=<?php echo $v['pid'];?>">
+                                     <button type="button" class="btn btn-greensea margin-bottom-20">查看</button>
+                                 </a>
+
+                                 <a href="#">
+                                     <button type="button" class="btn btn-danger margin-bottom-20">删除</button>
+                                 </a>
+                             </td>
+                             <td>
+                                 <a href="/management/admin/editpp?id=<?php echo $v['pid'];?>">
+                                     <button type="button" class="btn btn-greensea margin-bottom-20">编辑捐赠方信息</button>
+                                 </a>
+
+                                 <a href="/management/admin/editpp?id=<?php echo $v['pid'];?>">
+                                     <button type="button" class="btn btn-greensea margin-bottom-20">编辑子公司信息</button>
+                                 </a>
+                             </td>
 						 </tr>
 					   <?php }?>
                        </tbody>

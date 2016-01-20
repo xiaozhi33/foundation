@@ -1,0 +1,152 @@
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>编辑联系人</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目联系人管理</li>
+            <li class="active">编辑联系人</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->		
+    <div id="main" class="main">
+
+
+
+        <div class="row">
+
+            <!-- col 4 -->
+            <div class="col-md-4">
+
+
+
+                <!-- tile -->
+                <section class="tile color transparent-black">
+
+                    <!-- tile header -->
+                    <div class="tile-header">
+                        <h4><strong>下属子公司</strong> information</h4>
+                        <div class="controls">
+                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile body -->
+                    <div class="tile-body">
+
+                        <?php
+                            if(!empty($this->pp_company_list)){
+                                foreach($this->pp_company_list as $key => $value) {
+                        ?>
+                            <h4 class="filled"><?php echo $value['company_name'];?></h4>
+                            <p class="filled">
+                                <small>
+                                    联系人：<?php echo $value['company_contector'];?></br>
+                                    联系方式：<?php echo $value['company_cont_style'];?></br>
+                                </small>
+                            </p>
+                        <?php }
+                        }
+                        ?>
+
+                        <!--<h4>Emphasis Classes</h4>
+                        <p class="text-muted">Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.</p>
+                        <p class="color-red">Etiam porta sem malesuada magna mollis euismod.</p>
+                        <p class="color-cyan">Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p class="color-green">Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis.</p>
+                        <p class="color-orange">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+                        <p class="color-amethyst">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+                        <p class="thin">Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.</p>
+                        <p class="uppercase">Etiam porta sem malesuada magna mollis euismod.</p>
+                        <p class="italic">Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p class="bold">Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis.</p>-->
+
+                    </div>
+                    <!-- /tile body -->
+
+
+
+
+                </section>
+                <!-- /tile -->
+
+            </div>
+            <!-- /col 4 -->
+
+            <!-- col 8 -->
+            <div class="col-md-8">
+
+                <!-- tile -->
+                <section class="tile color transparent-black">
+
+
+                    <!-- tile header -->
+                    <div class="tile-header">
+                        <h4><strong>捐赠方信息</strong> Info</h4>
+                        <div class="controls">
+                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile body -->
+                    <div class="tile-body">
+
+                        <!--<h4><strong>捐赠方：<?php echo $this->ppinfo[0]['ppname']?></strong> </h4>
+                        <p></p>
+
+                        <h4><strong>相关项目名称：
+                            <?php if($this->pmlist != ""){
+                                foreach ($this->pmlist as $k => $v){
+                                    if ($this->ppinfo[0]['pp_pm_id'] == $v['pname']){echo $v['pname'];}}}?></strong></h4>
+
+                        <h5 class="filled">联系人类型</h5>
+                        <p class="filled"></p>-->
+
+                        <h5 class="filled blue">捐赠方</h5>
+                        <p class="filled blue"><?php echo $this->ppinfo[0]['ppname']?></p>
+
+                        <h5 class="filled greensea">相关项目名称</h5>
+                        <p class="filled greensea"> <?php if($this->pmlist != ""){
+                                foreach ($this->pmlist as $k => $v){
+                                    if ($this->ppinfo[0]['pp_pm_id'] == $v['pname']){echo $v['pname'];}}}?></p>
+
+                        <h5 class="filled slategray">联系人email</h5>
+                        <p class="filled slategray"><?php echo $this->ppinfo[0]['ppemail']?></p>
+
+                        <h5 class="filled redbrown">联系人QQ</h5>
+                        <p class="filled redbrown"><?php echo $this->ppinfo[0]['pp_qq']?></p>
+
+                        <h5 class="filled orange">联系人MSN</h5>
+                        <p class="filled orange"><?php echo $this->ppinfo[0]['pp_msn']?></p>
+
+                        <h5 class="filled blue">联系人移动电话</h5>
+                        <p class="filled blue"><?php echo $this->ppinfo[0]['ppmobile']?></p>
+
+                        <h5 class="filled greensea">联系人电话</h5>
+                        <p class="filled greensea"><?php echo $this->ppinfo[0]['ppphone']?></p>
+
+                        <h5 class="filled slategray">联系人地址</h5>
+                        <p class="filled slategray"><?php echo $this->ppinfo[0]['pp_address']?></p>
+
+                        <h5 class="filled redbrown">备注</h5>
+                        <p class="filled redbrown"><?php echo strip_tags($this->ppinfo[0]['pp_beizhu']);?></p>
+
+                    </div>
+                    <!-- /tile body -->
+
+                </section>
+                <!-- /tile -->
+
+            </div>
+            <!-- /col 8 -->
+
+        </div>

@@ -3,10 +3,26 @@
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
 
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>使用列表</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目使用管理</li>
+            <li class="active">使用列表</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
 
 	<div id="main" class="main">
 		<div id="rightstyle02" class="row">
-		<h4 class="col-md-12">项目使用管理<span class="font_#0474d6"> >> </span><span class="font_#0474d6_big">使用列表</span></h4>
 		<div class="col-md-12">
                 <section class="tile color transparent-black">
                 	<div class="tile-body">
@@ -62,7 +78,10 @@
 								
 							<td><?php echo substr($v['shiyong_zhichu_datetime'],0,10);?>&nbsp;</td>
 							<td><?php echo $v['shiyong_zhichu_jiner'];?>&nbsp;元</td>
-							<td><a href="/management/shiyong/editshiyong?id=<?php echo $v['id'];?>">编辑</a> || <a href="#">删除</a></td>
+							<td><a href="/management/shiyong/editshiyong?id=<?php echo $v['id'];?>">
+                            <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                            </a>&nbsp;&nbsp;
+                            <a href="#"><button class="btn btn-danger margin-bottom-20" type="button">删除</button></a></td>
 						 </tr>
 					   <?php }?>
                        </tbody>

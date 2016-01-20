@@ -3,10 +3,26 @@
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
 
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>资金列表</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目资金管理</li>
+            <li class="active">资金列表</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
 
 	<div id="main" class="main">
 		<div id="rightstyle02" class="row">
-		<h4 class="col-md-12">项目资金管理<span class="font_red"> >> </span><span class="font_red_big">资金列表</span></h4>
+		
         	<div class="col-md-12">
                 <section class="tile color transparent-black">
                 	<div class="tile-body">
@@ -56,7 +72,12 @@
                                 <td><?php echo $v['pm_juanzeng_jibie'];?>&nbsp;</td>
                                 <td><?php echo substr($v['zijin_daozhang_datetime'],0,10);?>&nbsp;</td>
                                 <td><?php echo $v['zijin_daozheng_jiner'];?>&nbsp;元</td>
-                                <td><a href="/management/zijin/editzijin?id=<?php echo $v['id'];?>">编辑</a> || <a href="#">删除</a></td>
+                                <td>
+                                <a href="/management/zijin/editzijin?id=<?php echo $v['id'];?>">
+                                <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                                </a> 
+                                &nbsp;&nbsp;
+                                <a href="#"><button class="btn btn-danger margin-bottom-20" type="button">删除</button></a></td>
                              </tr>
                            <?php }?>
                         </tbody>

@@ -2,103 +2,129 @@
 <link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>编辑使用信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目使用管理</li>
+            <li class="active">编辑使用信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
 	
-	<div id="main">
-		<div id="rightstyle02">
-		<h4>项目使用管理<span class="font_#0474d6"> >> </span><span class="font_#0474d6_big">编辑使用信息</span></h4>
-			<div class="detailedbox">
-			<form action="editrsshiyong" method="post" encType="multipart/form-data">
-				<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
-			  
-					  <tr>
-					    <td width="20%" style="text-align:right;">项目名称：</td>
-						<td width="80%" style="text-align:left;">
-							<select name="pname">
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+        
+		<div class="col-md-12">
+        <section class="tile color transparent-black">
+			<div class="detailedbox tile-body" >
+			<form class="form-horizontal" action="editrsshiyong" method="post" encType="multipart/form-data">
+				<div class="form-group">
+            <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+            <div class="col-sm-8">
+            	<select class="form-control" name="pname">
 							<?php if($this->pmlist != ""){
 									foreach ($this->pmlist as $k => $v){
 								?>
 								<option value="<?php echo $v['pname'];?>" <?php if($v['pname'] == $this->pm_mg_info[0]['pm_name']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
 							<?php }}?>
-						</select><font color="#0474d6" > * </font>
-						</td>
-					</tr>
-					
-					<tr>
-					    <td width="20%" style="text-align:right;">项目捐赠类型：</td>
-						<td width="80%" style="text-align:left;">
-							<select name="pm_cate">
+						</select>
+            </div>
+            <span class="col-sm-2" > * </span>
+            </div>	
+
+
+			  <div class="form-group">
+            <label class="col-sm-2 control-label" for="input01">项目捐赠类型：</label>
+            <div class="col-sm-8">
+            <select class="form-control" name="pm_cate">
 								<option value="" >请选择类型</option>
 								<?php if($this->pcatelist != ""){
 								foreach ($this->pcatelist as $k => $v){?>
 									<option value="<?php echo $v['id']?>" <?php if ($this->pm_mg_info[0]['pm_juanzheng_cate'] == $v['id']){echo "selected='selected'";}?>><?php echo $v['catename']?></option>
 								<?php }}?>
-							</select><font color="#0474d6" > * 教育基金、研究基金等</font>
-						</td>
-					  </tr>
-					
-					<tr>
-					    <td width="20%" style="text-align:right;">项目支出日期：</td>
-						<td width="80%" style="text-align:left;">
-							<input type="text"  id="dateinput1"  value="<?php echo $this->pm_mg_info[0]['shiyong_zhichu_datetime'];?>"  name="shiyong_zhichu_datetime"  size="14"/><font color="#0474d6" > * </font>
-						</td>
-					</tr> 
-					
-					<tr>
-					    <td width="20%" style="text-align:right;">项目支出金额：</td>
-						<td width="80%" style="text-align:left;">
-							<input type="text" name="shiyong_zhichu_jiner"  value="<?php echo $this->pm_mg_info[0]['shiyong_zhichu_jiner'];?>"  size="14"/><font color="#0474d6" > * </font>
-						</td>
-					</tr>  
-					
-					<tr>
-					    <td width="20%" style="text-align:right;">捐赠范围：</td>
-						<td width="80%" style="text-align:left;">
-							<select name="fanwei">
+							</select>
+            </div>
+            <span class="col-sm-2" >* 教育基金、研究基金等</span>
+            </div>	
+
+			<div class="form-group">
+            <label class="col-sm-2 control-label" for="input01">项目支出日期：</label>
+            <div class="col-sm-8">
+            	<input class="form-control" type="text"  id="dateinput1"  value="<?php echo $this->pm_mg_info[0]['shiyong_zhichu_datetime'];?>"  name="shiyong_zhichu_datetime"  size="14"/>
+            </div>
+            <span class="col-sm-2" > * </span>
+            </div>	
+
+			<div class="form-group">
+            <label class="col-sm-2 control-label" for="input01">项目支出金额：</label>
+            <div class="col-sm-8">
+            	<input class="form-control" type="text" name="shiyong_zhichu_jiner"  value="<?php echo $this->pm_mg_info[0]['shiyong_zhichu_jiner'];?>"  size="14"/>
+            </div>
+            <span class="col-sm-2" > * </span>
+            </div>	
+
+					<div class="form-group">
+            <label class="col-sm-2 control-label" for="input01">捐赠范围：</label>
+            <div class="col-sm-8">
+            <select class="form-control" name="fanwei">
 								<option value="" >请选择类型</option>
 								<option value="本科生" <?php if($this->pm_mg_info[0]['jiangli_fanwei'] == "本科生"){echo "selected='selected'";}?>>本科生</option>
 								<option value="研究生"  <?php if($this->pm_mg_info[0]['jiangli_fanwei'] == "研究生"){echo "selected='selected'";}?>>研究生</option>
 								<option value="本科研究生"  <?php if($this->pm_mg_info[0]['jiangli_fanwei'] == "本科研究生"){echo "selected='selected'";}?>>本科研究生</option>
 								<option value="其他"  <?php if($this->pm_mg_info[0]['jiangli_fanwei'] == "其他"){echo "selected='selected'";}?>>其他</option>
-							</select><font color="#0474d6" > * 本科生、研究生、本科研究生、其他</font>
-						</td>
-					</tr>
-					
-					<tr>
-					    <td width="20%" style="text-align:right;">奖励人数：</td>
-						<td width="80%" style="text-align:left;">
-							<input type="text" name="jiangli_renshu"  value="<?php echo $this->pm_mg_info[0]['jiangli_renshu'];?>"  size="14"/><font color="#0474d6" > * </font>
-						</td>
-					</tr>
-					
-					<tr>
-					    <td width="20%" style="text-align:right;">相关文档：</td>
-						<td width="80%" style="text-align:left;">
-							<input type="file" name="pm_files"  size="14"/><font color="#0474d6" > * 相关文档已打包形式上传 格式为*.rar</font><br/>
+							</select>
+            </div>
+            <span class="col-sm-2" > * 本科生、研究生、本科研究生、其他</span>
+            </div>	
+
+				<div class="form-group">
+            <label class="col-sm-2 control-label" for="input01">奖励人数：</label>
+            <div class="col-sm-8">
+            <input class="form-control" type="text" name="jiangli_renshu"  value="<?php echo $this->pm_mg_info[0]['jiangli_renshu'];?>"  size="14"/>
+            </div>
+            <span class="col-sm-2" > * </span>
+            </div>	
+
+				<div class="form-group">
+            <label class="col-sm-2 control-label" for="input01">相关文档：</label>
+            <div class="col-sm-8">
+            	<input class="form-control" type="file" name="pm_files"  size="14"/><font color="#0474d6" > * 相关文档已打包形式上传 格式为*.rar</font><br/>
 							<?php if($this->pm_mg_info[0]['pm_file'] != ""){?>
 								<a href="<?php echo $this->pm_mg_info[0]['pm_file'];?>">已经存在该文件如果再次上传,那么之前文件将被覆盖    -- 点击下载源文件</a>
 							<?php }?>
-						</td>
-					</tr>
-					
-					<tr>
-					    <td width="20%" style="text-align:right;">备注：</td>
-						<td width="80%" style="text-align:left;">
-							<textarea class="ckeditor" name="beizhu">
+            </div>
+            </div>	
+
+
+				<div class="form-group">
+            <label class="col-sm-2 control-label" for="input01">备注：</label>
+            <div class="col-sm-8">
+            	<textarea class="ckeditor" name="beizhu">
 								<?php echo $this->pm_mg_info[0]['beizhu'];?>
 							</textarea>
-						</td>
-					</tr>
-					
+            </div>
+            </div>	
+
 					<input type="hidden" name="id" value="<?php echo $this->pm_mg_info[0]['id'];?>"/>
-					
-					<tr>
-					    <td width="20%" style="text-align:right;"> </td>
-						<td width="80%" style="text-align:left;">
-							<input type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="重 置" /> 
-						</td>
-					</tr>
-				</table>
+		<div class="form-group form-footer">
+							<div class="col-sm-offset-5 col-sm-7">
+								<input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp; 
+								<input class="btn btn-default" type="reset" value="重 置" /> 
+							</div>
+					</div>
+                
 			</form>
+            </div>
+            </section>
 		  </div>
 		</div>
 	

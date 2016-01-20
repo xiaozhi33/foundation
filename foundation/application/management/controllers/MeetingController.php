@@ -34,39 +34,32 @@
 			$meeting_end_time = HttpUtil::postString("meeting_end_time");
 			$meeting_address = HttpUtil::postString("meeting_address");
 
-                if($meeting_name == "" || $meeting_cate == "" || $meeting_joiner == "" || $meeting_content == ""){
-                    alert_back("您输入的信息不完整，请查正后继续添加！！！！！");
-                }
-                $meetingDAO = $this->orm->createDAO('jjh_meeting');
-                $meetingDAO ->meeting_name = $meeting_name;
-                $meetingDAO ->meeting_cate = $meeting_cate;
-                $meetingDAO ->meeting_joiner = $meeting_joiner;
-                $meetingDAO ->meeting_content = $meeting_content;
-                $rs = $meetingDAO ->save();
-                if($rs){
-                    echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/meeting/'));
-                    exit;
-                }else {
-                    alert_back("保存失败，请联系系统管理员");
-                }
-            }catch (Exception $e){
-                throw $e;
-            if($meeting_name == "" || $meeting_cate == "" || $meeting_joiner == "" || $meeting_content == "" || $meeting_start_time == "" || $meeting_end_time == "" || $meeting_address == ""){
-                alert_back("您输入的信息不完整，请查正后继续添加");
+            if($meeting_name == "" || $meeting_cate == "" || $meeting_joiner == "" || $meeting_content == ""){
+                alert_back("您输入的信息不完整，请查正后继续添加！！！！！");
             }
+
             $meetingDAO = $this->orm->createDAO('jjh_meeting');
-			if(!empty($id))  //修改流程
-			{
-				$meetingDAO ->findId = $id;
-			}
+            if(!empty($id))  //修改流程
+            {
+                $meetingDAO ->findId($id);
+            }
             $meetingDAO ->meeting_name = $meeting_name;
             $meetingDAO ->meeting_cate = $meeting_cate;
             $meetingDAO ->meeting_joiner = $meeting_joiner;
             $meetingDAO ->meeting_content = $meeting_content;
-			$meetingDAO ->meeting_start_time = $meeting_start_time;
-			$meetingDAO ->meeting_end_time = $meeting_end_time;
-			$meetingDAO ->meeting_address = $meeting_address;
+            $meetingDAO ->meeting_start_time = $meeting_start_time;
+            $meetingDAO ->meeting_end_time = $meeting_end_time;
+            $meetingDAO ->meeting_address = $meeting_address;
             $rs = $meetingDAO ->save();
+
+            if($rs){
+                echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/meeting/'));
+                exit;
+            }else {
+                alert_back("保存失败，请联系系统管理员");
+            }
+
+
         }
 		
 		public function editAction(){
