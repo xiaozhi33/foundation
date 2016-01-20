@@ -33,12 +33,14 @@ function go_back(){
 	exit;
 }
 function alert_back($msg){
-	echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+	/*echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
 	echo('<script language="JavaScript">');
 	echo("alert('$msg');");
 	echo('history.back();');
 	echo('</script>');
-	exit;
+	exit;*/
+    echo json_encode(array('error'=>true, 'msg'=>$msg ));
+    exit;
 }
 function alert_go($msg,$url){
 	echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');

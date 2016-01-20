@@ -2,6 +2,7 @@
 	require_once("BaseController.php");
 	class Management_MeetingController extends BaseController
     {
+
 		public function indexAction(){
             //$this->_redirect('/admin/editor/spec-list');
             $meetingDAO = $this->orm->createDAO('jjh_meeting')->order('id DESC');
@@ -11,11 +12,18 @@
             echo $this->view->render("meeting/index.phtml");
             echo $this->view->render("index/footer.phtml");
 		}
+        /*
+         *  add meeting
+         */
 		public function addAction(){
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("meeting/addmeeting.phtml");
             echo $this->view->render("index/footer.phtml");
 		}
+
+        /*
+         *  toSave meeting information
+         */
         public function toAddAction(){
 			$id = HttpUtil::postString("id");
             $meeting_name = HttpUtil::postString("meeting_name");

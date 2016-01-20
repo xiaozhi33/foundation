@@ -369,64 +369,111 @@
     <!-- //遮罩层效果 -->
     <style>
         .theme-popover-mask {
-            z-index: 9998;  position:fixed;  top:0;  left:0;  width:100%;  height:100%;  background:#000;  opacity:0.4;  filter:alpha(opacity=40);  display:none;
+            z-index: 9998;
+            position:fixed;
+            top:0;  left:0;  width:100%;
+            height:100%;  background:#000;  opacity:0.4;
+            filter:alpha(opacity=40);  display:none;
         }
         .theme-popover {
-            z-index:9999;  position:fixed;  top:50%;  left:50%;  width:660px;  height:360px;  margin:-180px 0 0 -330px;  border-radius:5px;  border:solid 2px #666;  background-color:#fff;  display:none;  box-shadow: 0 0 10px #666;
+            z-index:9999;  position:fixed;
+            top:20%;  left:35%;
+            width:45%;
+            height:220px;
+            /*margin:-180px 0 0 -330px;*/
+            border-radius:5px;  border:solid 2px #666;
+            display:none;
+            box-shadow: 0 0 10px #666;
+            background-color: #f7f7f7;
+            border-bottom: 1px solid #ebebeb;
+            border-radius: 5px 5px 0 0;
+            font-size: 14px;
         }
+        .theme-signin{
+            margin-top: 40px;
+        }
+        #popover-close{
+            float: right;
+            margin-right: 12px;
+            margin-top: 12px;
+        }
+        #popover-msg{
+            margin-top: 12px;
+            align-content: center;
+            text-align: center;
+        }
+        #popover-img{
+            margin: 0 auto;
+            text-align: center;
+        }
+        #popover-img img{
+             display: inline;
+         }
     </style>
 
     <div class="theme-popover">
         <div class="theme-poptit">
-            <a href="javascript:void(0);" title="关闭" class="close">×</a>
-            <h3 id="theme-popover-h3"></h3>
+            <a href="javascript:void(0);" title="关闭" class="close" id="popover-close" name="">×</a>
         </div>
         <div class="theme-popbod dform">
             <form class="theme-signin" name="loginform" action="" method="post">
                 <ol>
-                    <li id="theme-popover-img">提示图片</li>
-                    <li id="theme-popover-messages"></li>
+                    <li id="popover-img"><img src="/include/management/images/warning.png" width="100" height="100" alt=""></li>
+                    <li id="popover-msg"><?php echo $mess = "系统消息提示";?></li>
                 </ol>
             </form>
         </div>
     </div>
-	
     <div class="theme-popover-mask"></div>
 
+
     <script>
-		function noTips(){  
-			var formParam = $("#form1").serialize();//序列化表格内容为字符串  
-			$.ajax({  
-				type:'post',      
-				url:'Notice_noTipsNotice',  
-				data:formParam,  
-				cache:false,  
-				dataType:'json',  
-				success:function(data){  
-					$('.theme-popover-mask').fadeIn(100);  //弹出遮罩层提示
-					$('.theme-popover').slideDown(200);
-				}  
-				error:function(){}  
-			});  
-		}  
+        function noTips(){
+            var formParam = $("#form1").serialize();//序列化表格内容为字符串
+            $.ajax({
+                type:'post',
+                url: $("#form1").attr("action"),
+                data:formParam,
+                cache:false,
+                dataType:'json',
+                success:function(data){
+                    $('.theme-popover-mask').fadeIn(100);
+                    $('.theme-popover').slideDown(200);
+                    $('#popover-msg').html(data['msg']);
+                    if(data['return_url'] != ''){
+                        $('#popover-close').attr("name", data['return_url']);
+                    }
+                    if(data['error'] != true){
+                        $('#popover-img img').attr("src", "/include/management/images/yes.png");
+                    }
+                },
+                complete:function(data){
+
+                },
+                error:function(data){
+                    $('.theme-popover-mask').fadeIn(100);
+                    $('.theme-popover').slideDown(200);
+                    $('#popover-msg').html(data['msg']);
+                }
+            });
+        }
 
         jQuery(document).ready(function($) {
-            $('.theme-login').click(function(){
-                $('.theme-popover-mask').fadeIn(100);
-                $('.theme-popover').slideDown(200);
-            })
             $('.theme-poptit .close').click(function(){
                 $('.theme-popover-mask').fadeOut(100);
                 $('.theme-popover').slideUp(200);
+                if($('#popover-close').attr("name") != '') {
+                    location.href = $('#popover-close').attr("name");
+                }
             });
         });
     </script>
     <!-- //遮罩层效果 -->
 
-	<style>
-		.margin-bottom-20{
-			margin-bottom: 0px;
-			padding: 2px 12px;
-			font-size: 12px;
-		}
-	</style>
+    <style>
+        .margin-bottom-20{
+            margin-bottom: 0px;
+            padding: 2px 12px;
+            font-size: 12px;
+        }
+    </style>

@@ -67,7 +67,7 @@
 								
 							<td><?php echo $v['meeting_joiner'];?>&nbsp;</td>
 							<td><?php echo $v['meeting_content'];?>&nbsp;</td>
-							<td><a href="/management/meeting/edit?id=<?php echo $v['id'];?>">编辑</a> || <a href="#">删除</a></td>
+							<td><a href="/management/meeting/edit?id=<?php echo $v['id'];?>">编辑</a> || <a href="/management/meeting/del?id=<?php echo $v['id'];?>">删除</a></td>
 						 </tr>
 					   <?php }?>
                      </tbody>
@@ -88,8 +88,9 @@
 		</div>
 
 		
-		<script language="javascript"> 
-			$(document).ready(function() {   
+		<script language="javascript">
+            $(".menu li:eq(24)").addClass("open");
+			/*$(document).ready(function() {
 			       $('#dateinput').datepicker({   
 			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
 			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
@@ -103,5 +104,5 @@
 			       currentText:' ', 
 			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
 			       });   
-			   });   
+			   });   */
 		</script>
