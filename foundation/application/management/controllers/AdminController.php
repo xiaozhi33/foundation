@@ -233,6 +233,12 @@
 			if($_REQUEST['id'] != ""){
 				$ppinfo = new jjh_mg_ppDAO($_REQUEST['id']);
 				$ppinfo = $ppinfo->get($this->dbhelper);
+
+                $meeting_pp_companyDAO = $this->orm->createDAO('jjh_mg_pp_company');
+                $meeting_pp_companyDAO ->findPp_id($ppinfo[0]['pid']);
+                $meeting_pp_companyDAO = $meeting_pp_companyDAO->get();
+
+                $this->view->assign("pp_company_list",$meeting_pp_companyDAO);
 				$this->view->assign("ppinfo",$ppinfo);
 				
 				echo $this->view->render("index/header.phtml");

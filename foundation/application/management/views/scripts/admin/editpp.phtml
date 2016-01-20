@@ -6,7 +6,7 @@
 				<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					
 					 <tr>
-					    <td width="20%" style="text-align:right;">联系人姓名：</td>
+					    <td width="20%" style="text-align:right;">捐赠方名称：</td>
 						<td width="80%" style="text-align:left;">
 							<input type="text" name="ppname" value="<?php echo $this->ppinfo[0]['ppname']?>"/><font color="#0474d6" > * </font>
 						</td>
@@ -79,7 +79,7 @@
 							<input type="text" name="pp_address" size="40" value="<?php echo $this->ppinfo[0]['pp_address']?>"/><font color="#0474d6" > * </font>
 						</td>
 					</tr>
-					
+
 					<tr>
 					    <td width="20%" style="text-align:right;">备注：</td>
 						<td width="80%" style="text-align:left;">
@@ -88,13 +88,30 @@
 							</textarea>
 						</td>
 					</tr>
+
+                    <tr>
+                        <td>
+                            <?php
+                            if(!empty($this->pp_company_list)){
+                                foreach($this->pp_company_list as $key => $value)
+                                {
+                                    echo ($key+1).",子公司名称：".$value['company_name'];
+                                    echo "</br>";
+                                    echo "&nbsp;&nbsp;&nbsp;联系人：".$value['company_contector'];echo "</br>";
+                                    echo "&nbsp;&nbsp;&nbsp;联系方式：".$value['company_cont_style'];echo "</br>";
+                                    echo "编辑 || 删除</br>";
+                                }
+                            }
+                            ?>
+                        </td>
+                    </tr>
 					
 					<input type="hidden" name="pid" value="<?php echo $this->ppinfo[0]['pid'];?>" />
 										
 					<tr>
 					    <td width="20%" style="text-align:right;"> </td>
 						<td width="80%" style="text-align:left;">
-							<input type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="重 置" /> 
+                            <input type="submit" value="添加子公司信息" /> &nbsp;&nbsp;&nbsp;&nbsp; <input type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="重 置" />
 						</td>
 					</tr>
 				</table>
