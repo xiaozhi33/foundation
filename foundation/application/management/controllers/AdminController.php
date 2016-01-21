@@ -26,7 +26,7 @@
 			if($_REQUEST['name'] != "" && $_REQUEST['pwd'] != "" && $_REQUEST['type'] != ""){
 				$adminlist = new my_adminDAO();
 				$adminlist ->admin_name = $_REQUEST['name'];
-				$adminlist ->admin_pwd = $_REQUEST['pwd'];
+				$adminlist ->admin_pwd = substr(md5(serialize($_REQUEST['pwd'])), 0, 32);
 				$adminlist ->admin_type = $_REQUEST['type'];
 				$adminlist ->save($this->dbhelper);
 				alert_go("添加成功。","/management/admin");
@@ -327,7 +327,7 @@
 			
 			if($name !="" && $pwd != ""){
 				$my_admin = new my_adminDAO($name);
-				$my_admin ->admin_pwd = $pwd;
+				$my_admin ->admin_pwd = substr(md5(serialize($pwd)), 0, 32);
 				$my_admin ->save($this->dbhelper);
 				alert_go("密码修改成功","/management/admin/editpwd");
 			}else{
