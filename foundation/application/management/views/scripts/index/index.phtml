@@ -15,7 +15,7 @@
 
                       <div class="media-body">
                         <small>未认领项目</small>
-                        <h2 class="media-heading animate-number" data-value="10" data-animation-duration="1500">0</h2>
+                        <h2 class="media-heading animate-number" data-value="<?php echo count($this->renling_weirenling_list);?>" data-animation-duration="1500"><?php echo count($this->renling_weirenling_list);?></h2>
                       </div>
                     </div> 
 
@@ -54,7 +54,7 @@
 
                       <div class="media-body">
                         <small>捐赠项目总数</small>
-                        <h2 class="media-heading animate-number" data-value="19214" data-animation-duration="1500">0</h2>
+                        <h2 class="media-heading animate-number" data-value="19214" data-animation-duration="1500"><?php echo count($this->renling_list);?></h2>
                       </div>
                     </div> 
 
@@ -63,7 +63,7 @@
                         <div class="title">本月完成计划  %</div>
                       </div>
                       <div class="status pull-right bg-transparent-black-1">
-                        <span class="animate-number" data-value="100" data-animation-duration="1500">0</span>%
+                        <span class="animate-number" data-value="100" data-animation-duration="1500"><?php echo count($this->renling_list);?></span>%
                       </div>
                       <div class="clearfix"></div>
                       <div class="progress progress-little progress-transparent-black">

@@ -17,11 +17,17 @@
 			$this->view ->addScriptPath('application/management/views/scripts');
             $this->orm = ORM::getInstance();
             //$this->WhiteIP();
+
+            //获取认领信息
+            $renling_weirenling_list = $this->orm->createDAO("jjh_mg_info")->findIs_renling(0)->get();
+            $renling = $this->orm->createDAO("jjh_mg_info")->get();
 			
 			$this->view->assign(array(
 				"module" => $request_mod['module'],
 				"controller" => $request_mod['controller'],
 				"action" => $request_mod['action'],
+                'renling_weirenling_list' => $renling_weirenling_list,
+                'renling_list' => $renling,
 			));
 			
 		    $this->_init();
