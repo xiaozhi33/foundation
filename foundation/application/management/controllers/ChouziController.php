@@ -72,6 +72,9 @@
             $yishi = HttpUtil::postString("yishi");         //项目仪式
             $beizhu = HttpUtil::postString("beizhu");         //备注
 
+            $parent_pm_id = HttpUtil::postString("parent_pm_id");  //直属关系项目id
+            $parent_pm_id_path = HttpUtil::postString("parent_pm_id_path");   //id_path
+
             if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
                 alert_back("您输入的信息不完整，请查正后继续添加");
             }
@@ -92,6 +95,13 @@
             $pm_chouziDAO->pm_xieyi_juanzeng_jiner = $jiner;
             $pm_chouziDAO->pm_yishi = $yishi;
             $pm_chouziDAO->pname = $pname;
+
+            $pm_chouziDAO->parent_pm_id = $parent_pm_id;              //直属关系项目id
+            if(!$parent_pm_id_path){
+                $pm_chouziDAO->parent_pm_id_path = 0;
+            }else {
+                $pm_chouziDAO->parent_pm_id_path = $parent_pm_id_path.",".$parent_pm_id;    //id_path
+            }
 
             if ($_FILES['xieyidianzi']['name'] != "") {
                 if ($_FILES['xieyidianzi']['error'] != 4) {
@@ -124,7 +134,6 @@
             } else {
                 alert_back("操作失败");
             }
-
         }
 
         public function editrschouziAction()
@@ -137,7 +146,7 @@
                 $tuidongqi = HttpUtil::postString("tuidongqi");     //项目推动期
                 $fuhuaqi = HttpUtil::postString("fuhuaqi");  //项目孵化期
                 $liuben = HttpUtil::postString("liuben");  //项目孵化期
-                $qianyuedate = HttpUtil::postString("qianyuedate"); //项目签约日期
+                //$qianyuedate = HttpUtil::postString("qianyuedate"); //项目签约日期
                 $fankui = HttpUtil::postString("fankui");    //项目反馈日期
                 $qishi = HttpUtil::postString("qishi");         //项目起始日期
                 $xianqi = HttpUtil::postString("xianqi");         //项目限期
@@ -145,6 +154,9 @@
                 $jiner = HttpUtil::postString("jiner");         //协议捐赠金额
                 $yishi = HttpUtil::postString("yishi");         //项目仪式
                 $beizhu = HttpUtil::postString("beizhu");         //备注
+
+                $parent_pm_id = HttpUtil::postString("parent_pm_id");  //直属关系项目id
+                $parent_pm_id_path = HttpUtil::postString("parent_pm_id_path");   //id_path
 
                 if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
@@ -159,13 +171,20 @@
                 $pm_chouziDAO->pm_fuhuaqi = $fuhuaqi;
                 $pm_chouziDAO->pm_jiezhi_datetime = $jiezhi;
                 $pm_chouziDAO->pm_liuben = $liuben;
-                $pm_chouziDAO->pm_qianyue_datetime = $qianyuedate;
-                $pm_chouziDAO->pm_qishi_datetime = $qianyuedate;
+                //$pm_chouziDAO->pm_qianyue_datetime = $qianyuedate;
+                $pm_chouziDAO->pm_qishi_datetime = $qishi;
                 $pm_chouziDAO->pm_qixian = $xianqi;
                 $pm_chouziDAO->pm_tuidongqi = $tuidongqi;
                 $pm_chouziDAO->pm_xieyi_juanzeng_jiner = $jiner;
                 $pm_chouziDAO->pm_yishi = $yishi;
                 $pm_chouziDAO->pname = $pname;
+
+                $pm_chouziDAO->parent_pm_id = $parent_pm_id;              //直属关系项目id
+                if(!$parent_pm_id_path){
+                    $pm_chouziDAO->parent_pm_id_path = 0;
+                }else {
+                    $pm_chouziDAO->parent_pm_id_path = $parent_pm_id_path.",".$parent_pm_id;    //id_path
+                }
 
                 if ($_FILES['xieyidianzi']['name'] != "") {
                     if ($_FILES['xieyidianzi']['error'] != 4) {
@@ -191,6 +210,52 @@
             } else {
                 alert_back("操作失败");
             }
+        }
+        //=========================================================================================
+
+        /**
+         * 获取项目协议
+         * @param $pm_id
+         * @return array
+         */
+        public function getsignbypmidAction($pm_id){
+            if(!empty($pm_id)){
+                $signDAO = $this->orm->createDAO('pm_mg_sing')->findPm_id($pm_id);
+                return($signDAO);
+            }else {
+                return array();
+            }
+        }
+
+        /**
+         * 保存项目协议
+         * @param $pm_id
+         * @param bool|string $sign_time
+         * @param $sign_files
+         * @return bool
+         */
+        public function toaddsignAction($pm_id, $sign_time, $sign_files){
+            if(!empty($pm_id)){
+                $signDAO = $this->orm->createDAO('pm_mg_sing');
+                if(!$sign_time){$sign_time=date("Y-m-d H:i:s", time());}  //取当前时间
+                $signDAO->pm_id = $pm_id;
+                $signDAO->sign_time = $sign_time;
+                $signDAO->sign_files($sign_files);
+                $signDAO = $signDAO->save();
+                return $signDAO;
+            }else {
+                return false;
+            }
+        }
+
+        /**
+         * 删除项目协议 -- 此功能可暂时不开放
+         * @param $id
+         * @return mixed
+         */
+        public function delsignAction($id){
+            $signDAO = $this->orm->createDAO('pm_mg_sing')->findId($id)->delete();
+            return $signDAO;
         }
 
         // =========================================================================================
