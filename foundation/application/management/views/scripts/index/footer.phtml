@@ -68,7 +68,7 @@
         });
 
         $("#datepicker").on("dp.show",function (e) {
-          	var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;      
+          	var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;
           	$('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
         });
 
@@ -82,9 +82,39 @@
           }
         });
 
-        $("#datepicker").on("dp.show",function (e) {
-          	var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;      
+        $("#datepicker1").on("dp.show",function (e) {
+          	var newtop = $('#datepicker1').position().top - 45;
           	$('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker2').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker2").on("dp.show",function (e) {
+            var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker3').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker3").on("dp.show",function (e) {
+            var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
         });
 
       // Initialize flot chart
@@ -115,7 +145,6 @@
                 [12, 1320]
       ];
       var months = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
-
 
       <?php if($this->module == "management" && $this->controller == "index" && $this->action == "index"){?>
       // flot chart generate

@@ -41,6 +41,17 @@ class pageDAO{
         $pageArray['pageRecordNum'] = $pager->numItems();
         return $pageArray;
     }
+
+    /**
+     * @param null $data
+     * @param $totalItems
+     * @param $url
+     * @param null $total
+     * @param string $httpMethod
+     * @param $RECORDPERPAGE
+     * @param $PAGESIZE
+     * @return mixed
+     */
     public function pageHelper($data=null,$totalItems,$url,$total=null,$httpMethod = 'GET',$RECORDPERPAGE = __RECORDPERPAGE__,$PAGESIZE = __PAGESIZE__){
     	$params = array(
 	    	'mode'			=> 'Jumping',

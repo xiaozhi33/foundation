@@ -33,7 +33,7 @@
             $chouziinfo = $chouziinfo->get($this->dbhelper);
             $total = count($chouziinfo);
             $pageDAO = new pageDAO();
-            $pageDAO = $pageDAO->pageHelper($chouziinfo, null, "index", null, 'get', 20, 20);
+            $pageDAO = $pageDAO->pageHelper($chouziinfo, null, "/management/chouzi/index", null, 'get', 25, 8);
             $pages = $pageDAO['pageLink']['all'];
             $pages = str_replace("/index.php", "", $pages);
             $this->view->assign('chouzilist', $pageDAO['pageData']);
@@ -54,72 +54,82 @@
 
         public function addrschouziAction()
         {
-            //$bianhao = HttpUtil::postString("bianhao");  //项目编号
-            $bianhao = "jjh" . date("Yhdhis");  //项目编号 自动编号
+            try{
+                $pname = HttpUtil::postString("pname");      //项目名称
+                //check项目是否已经建立
+                $is_pname = $this->checkPname($pname);
+                if($is_pname === true){
+                    alert_back("该项目已经被添加，请查正后重新添加！");
+                }
 
-            $pname = HttpUtil::postString("pname");      //项目名称
-            $department = HttpUtil::postString("department");   //相关部门
-            $pm_cate = HttpUtil::postString("pm_cate");  //项目分类
-            $tuidongqi = HttpUtil::postString("tuidongqi");     //项目推动期
-            $fuhuaqi = HttpUtil::postString("fuhuaqi");  //项目孵化期
-            $liuben = HttpUtil::postString("liuben");  //项目孵化期
-            $qianyuedate = HttpUtil::postString("qianyuedate"); //项目签约日期
-            $fankui = HttpUtil::postString("fankui");    //项目反馈日期
-            $qishi = HttpUtil::postString("qishi");         //项目起始日期
-            $xianqi = HttpUtil::postString("xianqi");         //项目限期
-            $jiezhi = HttpUtil::postString("jiezhi");         //项目截止日期
-            $jiner = HttpUtil::postString("jiner");         //协议捐赠金额
-            $yishi = HttpUtil::postString("yishi");         //项目仪式
-            $beizhu = HttpUtil::postString("beizhu");         //备注
+                $bianhao = "jjh" . date("Yhdhis");  //项目编号 自动编号 编号内容为年月日时分秒
 
-            $parent_pm_id = HttpUtil::postString("parent_pm_id");  //直属关系项目id
-            $parent_pm_id_path = HttpUtil::postString("parent_pm_id_path");   //id_path
+                $department = HttpUtil::postString("department");   //相关部门
+                $pm_cate = HttpUtil::postString("pm_cate");  //项目分类
+                $tuidongqi = HttpUtil::postString("tuidongqi");     //项目推动期
+                $fuhuaqi = HttpUtil::postString("fuhuaqi");  //项目孵化期
+                $liuben = HttpUtil::postString("liuben");  //项目孵化期
+                $qianyuedate = HttpUtil::postString("qianyuedate"); //项目签约日期
+                $fankui = HttpUtil::postString("fankui");    //项目反馈日期
+                $qishi = HttpUtil::postString("qishi");         //项目起始日期
+                $xianqi = HttpUtil::postString("xianqi");         //项目限期
+                $jiezhi = HttpUtil::postString("jiezhi");         //项目截止日期
+                $jiner = HttpUtil::postString("jiner");         //协议捐赠金额
+                $yishi = HttpUtil::postString("yishi");         //项目仪式
+                $beizhu = HttpUtil::postString("beizhu");         //备注
 
-            if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
-                alert_back("您输入的信息不完整，请查正后继续添加");
-            }
+                $parent_pm_id = HttpUtil::postString("parent_pm_id");  //直属关系项目id
+                $parent_pm_id_path = HttpUtil::postString("parent_pm_id_path");   //id_path
 
-            $pm_chouziDAO = new pm_mg_chouziDAO();
-            $pm_chouziDAO->beizhu = $beizhu;
-            $pm_chouziDAO->cate = $pm_cate;
-            $pm_chouziDAO->department = $department;
-            $pm_chouziDAO->pid = $bianhao;
-            $pm_chouziDAO->pm_fankui_datetime = $fankui;
-            $pm_chouziDAO->pm_fuhuaqi = $fuhuaqi;
-            $pm_chouziDAO->pm_jiezhi_datetime = $jiezhi;
-            $pm_chouziDAO->pm_liuben = $liuben;
-            $pm_chouziDAO->pm_qianyue_datetime = $qianyuedate;
-            $pm_chouziDAO->pm_qishi_datetime = $qianyuedate;
-            $pm_chouziDAO->pm_qixian = $xianqi;
-            $pm_chouziDAO->pm_tuidongqi = $tuidongqi;
-            $pm_chouziDAO->pm_xieyi_juanzeng_jiner = $jiner;
-            $pm_chouziDAO->pm_yishi = $yishi;
-            $pm_chouziDAO->pname = $pname;
+                if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
+                    alert_back("您输入的信息不完整，请查正后继续添加");
+                }
 
-            $pm_chouziDAO->parent_pm_id = $parent_pm_id;              //直属关系项目id
-            if(!$parent_pm_id_path){
-                $pm_chouziDAO->parent_pm_id_path = 0;
-            }else {
-                $pm_chouziDAO->parent_pm_id_path = $parent_pm_id_path.",".$parent_pm_id;    //id_path
-            }
+                $pm_chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
+                $pm_chouziDAO->beizhu = $beizhu;
+                $pm_chouziDAO->cate = $pm_cate;
+                $pm_chouziDAO->department = $department;
+                $pm_chouziDAO->pid = $bianhao;
+                $pm_chouziDAO->pm_fankui_datetime = $fankui;
+                $pm_chouziDAO->pm_fuhuaqi = $fuhuaqi;
+                $pm_chouziDAO->pm_jiezhi_datetime = $jiezhi;
+                $pm_chouziDAO->pm_liuben = $liuben;
+                $pm_chouziDAO->pm_qianyue_datetime = $qianyuedate;
+                $pm_chouziDAO->pm_qishi_datetime = $qianyuedate;
+                $pm_chouziDAO->pm_qixian = $xianqi;
+                $pm_chouziDAO->pm_tuidongqi = $tuidongqi;
+                $pm_chouziDAO->pm_xieyi_juanzeng_jiner = $jiner;
+                $pm_chouziDAO->pm_yishi = $yishi;
+                $pm_chouziDAO->pname = $pname;
 
-            if ($_FILES['xieyidianzi']['name'] != "") {
-                if ($_FILES['xieyidianzi']['error'] != 4) {
-                    if (!is_dir(__UPLOADPICPATH__ . "jjh_download/")) {
-                        mkdir(__UPLOADPICPATH__ . "jjh_download/");
-                    }
-                    $uploadpic = new uploadPic($_FILES['xieyidianzi']['name'], $_FILES['xieyidianzi']['error'], $_FILES['xieyidianzi']['size'], $_FILES['xieyidianzi']['tmp_name'], $_FILES['xieyidianzi']['type'], 2);
-                    $uploadpic->FILE_PATH = __UPLOADPICPATH__ . "jjh_download/";
-                    $result = $uploadpic->uploadPic();
-                    if ($result['error'] != 0) {
-                        alert_back($result['msg']);
-                    } else {
-                        $pm_chouziDAO->pm_xieyii_dianziban = __GETPICPATH__ . "jjh_download/" . $result['picname'];
+                $pm_chouziDAO->parent_pm_id = $parent_pm_id;              //直属关系项目id
+                if(!$parent_pm_id_path){
+                    $pm_chouziDAO->parent_pm_id_path = 0;
+                }else {
+                    $pm_chouziDAO->parent_pm_id_path = $parent_pm_id_path.",".$parent_pm_id;    //id_path
+                }
+
+                if ($_FILES['xieyidianzi']['name'] != "") {
+                    if ($_FILES['xieyidianzi']['error'] != 4) {
+                        if (!is_dir(__UPLOADPICPATH__ . "jjh_download/")) {
+                            mkdir(__UPLOADPICPATH__ . "jjh_download/");
+                        }
+                        $uploadpic = new uploadPic($_FILES['xieyidianzi']['name'], $_FILES['xieyidianzi']['error'], $_FILES['xieyidianzi']['size'], $_FILES['xieyidianzi']['tmp_name'], $_FILES['xieyidianzi']['type'], 2);
+                        $uploadpic->FILE_PATH = __UPLOADPICPATH__ . "jjh_download/";
+                        $result = $uploadpic->uploadPic();
+                        if ($result['error'] != 0) {
+                            alert_back($result['msg']);
+                        } else {
+                            $pm_chouziDAO->pm_xieyii_dianziban = __GETPICPATH__ . "jjh_download/" . $result['picname'];
+                        }
                     }
                 }
+
+                $pm_chouziDAO->save();
+                alert_go("添加成功", "/management/chouzi");
+            }catch (Exception $e){
+                throw $e;
             }
-            $pm_chouziDAO->save($this->dbhelper);
-            alert_go("添加成功", "/management/chouzi");
         }
 
         public function editchouziAction()
@@ -133,6 +143,20 @@
                 echo $this->view->render("index/footer.phtml");
             } else {
                 alert_back("操作失败");
+            }
+        }
+
+        /**
+         * check项目是否已经建立
+         * @param $pname  项目名称
+         * @return bool
+         */
+        public function checkPname($pname){
+            $pm_chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->findPname($pname)->get();
+            if(!empty($pm_chouziDAO)){
+                return true;
+            }else {
+                return false;
             }
         }
 

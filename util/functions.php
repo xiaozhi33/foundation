@@ -42,12 +42,13 @@ function alert_back($msg){
     echo json_encode(array('error'=>true, 'msg'=>$msg ));
     exit;
 }
-function alert_go($msg,$url){
-	echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+function alert_go($msg, $url, $error=false){
+	/*echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
 	echo('<script language="JavaScript">');
 	echo("alert('$msg');");
 	echo("location.href='$url';");
-	echo('</script>');
+	echo('</script>');*/
+    echo json_encode(array('error'=>$error, 'msg'=>$msg, 'return_url'=>$url ));
 	exit;
 }
 

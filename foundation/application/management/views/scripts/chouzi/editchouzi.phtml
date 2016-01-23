@@ -25,7 +25,7 @@
 			<div class="col-md-12">
 				<section class="tile color transparent-black">
 				<div class="detailedbox tile-body">
-				<form class="form-horizontal" action="editrschouzi" method="post" encType="multipart/form-data">
+				<form class="form-horizontal" action="editrschouzi" id="form1"  method="post" encType="multipart/form-data">
 					<div class="form-group">
 							<label class="col-sm-2 control-label" for="input00">项目编号：</label>
 							<div class="col-sm-8">
@@ -168,28 +168,28 @@
 							</div>
 							<span class="col-sm-1" > * </span>
 					</div>
-						
-					<div class="form-group">
-							<label class="col-sm-2 control-label" for="input13">捐赠仪式：</label>
-							<div class="col-sm-9">
-								<textarea class="ckeditor" name="yishi"><?php echo $this->chouzi[0]['pm_yishi'];?></textarea>
-							</div>
-					</div>
-						
-						
-					<div class="form-group transparent-editor">
-							<label class="col-sm-2 control-label" for="input14">备注：</label>
-							<div class="col-sm-9">
-								<textarea class="ckeditor" name="beizhu"><?php echo $this->chouzi[0]['beizhu'];?></textarea>
-							</div>
-					</div>
-						
+
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">捐赠仪式：</label>
+                        <div class="col-sm-9">
+                            <textarea parsley-validation-minlength="1" name="yishi" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->chouzi[0]['pm_yishi'];?></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">备注：</label>
+                        <div class="col-sm-9">
+                            <textarea parsley-validation-minlength="1" name="beizhu" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->chouzi[0]['beizhu'];?></textarea>
+                        </div>
+                    </div>
+
 						<input type="hidden" name="id" value="<?php echo $this->chouzi[0]['id'];?>"/>
 						<input type="hidden" name="oldpic" value="<?php echo $this->chouzi[0]['pm_xieyii_dianziban'];?>"/>
 						
 					<div class="form-group form-footer">
 							<div class="col-sm-offset-5 col-sm-7">
-								<input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp; 
+								<input class="btn btn-primary" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
 								<input class="btn btn-default" type="reset" value="重 置" /> 
 							</div>
 					</div>
@@ -198,76 +198,6 @@
 			  </section>
 			</div>
 		</div>
-		<script language="javascript"> 
-			$(document).ready(function() {   
-			       $('#dateinput').datepicker({   
-			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
-			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
-			           buttonImageOnly: true,  //Show an image trigger without any button. 
-			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
-			       yearRange: '2008:2020',//年份范围 
-			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
-			       closeText:'关闭', 
-			       prevText:'前一月', 
-			       nextText:'后一月', 
-			       currentText:' ', 
-			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
-			       });   
-			   });   
-			</script>
-			
-			<script language="javascript"> 
-			$(document).ready(function() {   
-			       $('#dateinput1').datepicker({   
-			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
-			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
-			           buttonImageOnly: true,  //Show an image trigger without any button. 
-			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
-			       yearRange: '2008:2020',//年份范围 
-			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
-			       closeText:'关闭', 
-			       prevText:'前一月', 
-			       nextText:'后一月', 
-			       currentText:' ', 
-			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
-			       });   
-			   });   
-			</script>
-			
-			
-			<script language="javascript"> 
-			$(document).ready(function() {   
-			       $('#dateinput2').datepicker({   
-			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
-			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
-			           buttonImageOnly: true,  //Show an image trigger without any button. 
-			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
-			       yearRange: '2008:2020',//年份范围 
-			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
-			       closeText:'关闭', 
-			       prevText:'前一月', 
-			       nextText:'后一月', 
-			       currentText:' ', 
-			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
-			       });   
-			   });   
-			</script>
-			
-			
-			<script language="javascript"> 
-			$(document).ready(function() {   
-			       $('#dateinput3').datepicker({   
-			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
-			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
-			           buttonImageOnly: true,  //Show an image trigger without any button. 
-			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
-			       yearRange: '2008:2020',//年份范围 
-			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
-			       closeText:'关闭', 
-			       prevText:'前一月', 
-			       nextText:'后一月', 
-			       currentText:' ', 
-			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
-			       });   
-			   });   
-			</script>
+        <script language="javascript">
+            $(".menu li:eq(1)").addClass("open");
+        </script>

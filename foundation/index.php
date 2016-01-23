@@ -17,7 +17,10 @@ date_default_timezone_set('PRC');
 			Zend_Loader::loadFile($class.'.php',"Models/");
 		}
 	}
-	
+
+    //$pwd = "tjdxjjh";
+    //echo substr(md5(serialize( $pwd)), 0, 32);exit();
+
 	require_once("configs.php");
 	
     $controller = Zend_Controller_Front::getInstance();

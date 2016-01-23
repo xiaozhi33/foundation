@@ -19,15 +19,14 @@
             //$this->WhiteIP();
 
             //获取认领信息
-            $renling_weirenling_list = $this->orm->createDAO("jjh_mg_info")->findIs_renling(0)->get();
-            $renling = $this->orm->createDAO("jjh_mg_info")->get();
+            $renling_weirenling_list = $this->orm->createDAO("pm_mg_chouzi")->findIs_renling("")->get();
+            $renling = $this->orm->createDAO("pm_mg_chouzi")->get();
 			
 			$this->view->assign(array(
 				"module" => $request_mod['module'],
 				"controller" => $request_mod['controller'],
 				"action" => $request_mod['action'],
-                'renling_weirenling_list' => $renling_weirenling_list,
-                'renling_list' => $renling,
+                'renling_weirenling_list' => $renling,
 			));
 			
 		    $this->_init();
