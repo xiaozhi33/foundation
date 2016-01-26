@@ -383,7 +383,27 @@
 		}
 		
 		//==============================================================================
-		
+
+        /**
+         * 绑定认领
+         * @param string $pm_id
+         * @param string $member_id
+         * @param string $member_name
+         */
+        public function bindingClaim($pm_id='', $member_id='', $member_name=''){
+            if($member_id =='' || $pm_id == '' || $member_name ==''){
+                alert_back("认领失败，请重新认领！");
+            }
+
+            $ClaimDAO = $this->orm->createDAO("pm_mg_info")->findPm_id($pm_id);
+            $ClaimDAO ->is_claim = 1;
+            $ClaimDAO ->claim = $member_name;
+            $ClaimDAO ->claim_time = time();
+            $ClaimDAO ->lastmodify = time();
+            $ClaimDAO ->save();
+            alert_go("");
+        }
+
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
 			$this ->dbhelper ->connect();

@@ -32,7 +32,22 @@
                           <input class="form-control" type="text" name="pname" />
                         </div>
 						<span class="col-sm-1" > * </span>
-				</div>	
+				</div>
+
+                <div>
+                    <label class="col-sm-2 control-label" for="input02">所属项目：</label>
+                    <div class="col-sm-6">
+                        <select class="chosen-select chosen-transparent form-control" name="department">
+                            <option value="" >请选择项目名称</option>
+                            <?php if($this->departmentlist != ""){
+                                foreach ($this->departmentlist as $k => $v){?>
+                                    <option value="<?php echo $v['id']?>" ><?php echo $v['pname']?></option>
+                                <?php }}?>
+                        </select>
+                    </div>
+                    <span class="col-sm-1" > * 如果有父类项目请选择此项 选填</span>
+                </div>
+
 				<div class="form-group">
 					    <label class="col-sm-2 control-label" for="input02">所属部门：</label>
 						<div class="col-sm-6">
