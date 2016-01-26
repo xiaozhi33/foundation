@@ -46,11 +46,11 @@
                     <div>
                         <label class="col-sm-2 control-label" for="input02">所属项目：</label>
                         <div class="col-sm-6">
-                            <select class="chosen-select chosen-transparent form-control" name="department">
-                                <option value="" >请选择项目名称</option>
-                                <?php if($this->departmentlist != ""){
-                                    foreach ($this->departmentlist as $k => $v){?>
-                                        <option value="<?php echo $v['id']?>" ><?php echo $v['pname']?></option>
+                            <select class="chosen-select chosen-transparent form-control" name="pm_id">
+                                <option value="0" >请选择项目名称</option>
+                                <?php if($this->zhouzi_lists != ""){
+                                    foreach ($this->zhouzi_lists as $k => $v){?>
+                                        <option value="<?php echo $v['id']?>" <?php if($v['id'] ==$this->chouzi[0]['pm_id']) "selected='selected'";?>><?php echo $v['pname']?></option>
                                     <?php }}?>
                             </select>
                         </div>

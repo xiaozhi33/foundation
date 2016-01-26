@@ -400,9 +400,15 @@
             $ClaimDAO ->claim = $member_name;
             $ClaimDAO ->claim_time = time();
             $ClaimDAO ->lastmodify = time();
-            $ClaimDAO ->save();
-            alert_go("");
+            $rs = $ClaimDAO ->save();
+            if($rs){
+                alert_go("绑定成功！", "/management/Chouzi/index");
+            }else {
+                alert_back("绑定失败！");
+            }
         }
+
+        //==============================================================================
 
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
@@ -419,6 +425,10 @@
 			$departmentlist = new jjh_mg_departmentDAO();
 			$departmentlist = $departmentlist->get($this->dbhelper);
 			$this->view->assign("departmentlist",$departmentlist);
+
+            //获取筹资项目list
+            $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->get();
+            $this->view->assign("chouzi_lists",$chouziDAO);
 		}
 	}
 ?>
