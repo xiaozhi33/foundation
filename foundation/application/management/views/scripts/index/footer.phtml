@@ -56,7 +56,6 @@
     
     <script>
     $(function(){
-
     	//initialize datepicker
         $('#datepicker').datetimepicker({
           	icons: {
@@ -83,8 +82,9 @@
         });
 
         $("#datepicker1").on("dp.show",function (e) {
-          	var newtop = $('#datepicker1').position().top - 45;
-          	$('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
+          	var newtop1 = $(".bootstrap-datetimepicker-widget").position(relative).top - 45;
+            alert(newtop1);
+          	$('.bootstrap-datetimepicker-widget').css('top', newtop1 + 'px');
         });
 
         //initialize datepicker
@@ -98,8 +98,8 @@
         });
 
         $("#datepicker2").on("dp.show",function (e) {
-            var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;
-            $('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
+            var newtop2 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop2 + 'px');
         });
 
         //initialize datepicker
@@ -113,8 +113,8 @@
         });
 
         $("#datepicker3").on("dp.show",function (e) {
-            var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;
-            $('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
+            var newtop3 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop3 + 'px');
         });
 
       // Initialize flot chart
@@ -378,17 +378,6 @@
 
         //multiselect input
         $(".chosen-select").chosen({disable_search_threshold: 10});
-
-
-        //initialize datepicker
-        $('#datepicker').datetimepicker({
-            icons: {
-                time: "fa fa-clock-o",
-                date: "fa fa-calendar",
-                up: "fa fa-arrow-up",
-                down: "fa fa-arrow-down"
-            }
-        });
 
         <?php }?>
     })

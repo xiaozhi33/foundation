@@ -427,7 +427,7 @@
 			$this->view->assign("departmentlist",$departmentlist);
 
             //获取筹资项目list
-            $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->get();
+            $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->select("id, pname")->get();
             $this->view->assign("chouzi_lists",$chouziDAO);
 		}
 	}
