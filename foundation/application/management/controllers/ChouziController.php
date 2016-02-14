@@ -283,8 +283,9 @@
         }
 
         // =========================================================================================
-        /*
+        /**
          * pm_mg_pp List
+         * 联系人管理
          */
         public function pplistAction()
         {
@@ -296,8 +297,9 @@
             echo $this->view->render("index/footer.phtml");
         }
 
-        /*
+        /**
          * pm_mg_pp addppAction
+         * 添加项目联系人
          */
         public function addppAction()
         {
@@ -306,8 +308,9 @@
             echo $this->view->render("index/footer.phtml");
         }
 
-		/*
+        /**
 		 * pm_mg_pp toaddppAction
+		 * 添加联系人
 		 */
 		public function toaddppAction()
         {
@@ -316,8 +319,9 @@
             echo $this->view->render("index/footer.phtml");
         }
 
-		/*
+        /**
 		 * pm_mg_pp editppAction
+		 * 编辑联系人
 		 */
 		public function editppAction()
         {
@@ -329,8 +333,9 @@
 			echo $this->view->render("index/footer.phtml");
         }
 
-		/*
+        /**
 		 * pm_mg_pp toeditppAction
+		 * 编辑联系人
 		 */
 		public function toeditppAction()
         {
@@ -344,6 +349,9 @@
 		
 		//=======================================================================
 
+        /**
+         * 添加子公司
+         */
 		public function addppcompanyAction()
 		{
 			$company_name = HttpUtil::postString("company_name");
@@ -357,7 +365,10 @@
 	
 			$jjh_mg_pp_companyDAO ->save();
 		}
-		
+
+        /**
+         * 编辑子公司
+         */
 		public function edigppompanyAction()
 		{
 			$id = HttpUtil::postString("id");
@@ -402,9 +413,9 @@
             $ClaimDAO ->lastmodify = time();
             $rs = $ClaimDAO ->save();
             if($rs){
-                alert_go("绑定成功！", "/management/Chouzi/index");
+                alert_go("认领成功！", "/management/Chouzi/index");
             }else {
-                alert_back("绑定失败！");
+                alert_back("认领失败！");
             }
         }
 
