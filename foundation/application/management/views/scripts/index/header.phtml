@@ -334,7 +334,7 @@
 
                   <li class="divider"></li>
 
-                  <li>
+                  <!--<li>
                     <a href="#"><i class="fa fa-user"></i> 个人中心Profile</a>
                   </li>
 
@@ -344,7 +344,7 @@
 
                   <li>
                     <a href="#"><i class="fa fa-envelope"></i> 消息Indexs <span class="badge badge-red" id="user-inbox">3</span></a>
-                  </li>
+                  </li>-->
 
                   <li class="divider"></li>
 
@@ -377,7 +377,7 @@
                 <ul class="menu">
                   
                   <li class="active">
-                    <a href="/management">
+                    <a href="/management/chouzi/claimlist">
                       <i class="fa fa-tachometer"></i> 未认领目
                       <span class="badge badge-red"><?php echo count($this->renling_weirenling_list);?></span>
                     </a>
@@ -401,19 +401,10 @@
                             </a>
                           </li>
                         <li>
-                            <a href="/management/zijin/index">
-                                <i class="fa fa-caret-right"></i> 项目资金列表
+                            <a href="/management/chouzi/claimlist">
+                                <i class="fa fa-caret-right"><span class="badge badge-red"><?php echo count($this->renling_weirenling_list);?></span></i> 项目认领
                             </a>
-                        </li>
-                        <li>
-                            <a href="/management/zijin/addzijin">
-                                <i class="fa fa-caret-right"></i> 添加项目资金
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/management/zijin">
-                                <i class="fa fa-caret-right"></i> 项目认领
-                            </a>
+
                         </li>
                     </ul>
                   </li>
@@ -432,15 +423,16 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="/management/shiyong/index">
-                                    <i class="fa fa-caret-right"></i> 项目进度列表
+                                <a href="/management/zijin/index">
+                                    <i class="fa fa-caret-right"></i> 项目进度（资金）列表
                                 </a>
                             </li>
                             <li>
-                                <a href="/management/shiyong/addshiyong">
-                                    <i class="fa fa-caret-right"></i> 添加项目进度
+                                <a href="/management/zijin/addzijin">
+                                    <i class="fa fa-caret-right"></i> 添加项目进度（资金）
                                 </a>
                             </li>
+
                         </ul>
                     </li>
 				

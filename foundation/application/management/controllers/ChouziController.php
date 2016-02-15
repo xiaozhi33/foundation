@@ -395,6 +395,22 @@
 		
 		//==============================================================================
 
+        public function claimlistAction()
+        {
+            $total = count($this->renling_weirenling_list);
+            $pageDAO = new pageDAO();
+            $pageDAO = $pageDAO->pageHelper($this->renling_weirenling_list, null, "/management/chouzi/claimlist", null, 'get', 25, 8);
+            $pages = $pageDAO['pageLink']['all'];
+            $pages = str_replace("/index.php", "", $pages);
+            $this->view->assign('claimlist', $pageDAO['pageData']);
+            $this->view->assign('page', $pages);
+            $this->view->assign('total', $total);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("chouzi/claimlist.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
         /**
          * 绑定认领
          * @param string $pm_id
@@ -406,7 +422,7 @@
                 alert_back("认领失败，请重新认领！");
             }
 
-            $ClaimDAO = $this->orm->createDAO("pm_mg_info")->findPm_id($pm_id);
+            $ClaimDAO = $this->orm->createDAO("pm_mg_chouzi")->findPm_id($pm_id);
             $ClaimDAO ->is_claim = 1;
             $ClaimDAO ->claim = $member_name;
             $ClaimDAO ->claim_time = time();

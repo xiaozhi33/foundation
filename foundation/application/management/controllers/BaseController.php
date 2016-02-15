@@ -10,23 +10,27 @@
 	class BaseController extends Zend_Controller_Action
 	{
         protected $orm;
+        public $admininfo = '';
+        public $renling_weirenling_list = "";
 		public function init()
 	    {
 	    	$request_mod = $this->getRequest()->getParams();
 			$this->view = new Zend_View();
 			$this->view ->addScriptPath('application/management/views/scripts');
             $this->orm = ORM::getInstance();
-            //$this->WhiteIP();
+            //$this->WhiteIP();  //设置白名单
 
             //获取认领信息
-            $renling_weirenling_list = $this->orm->createDAO("pm_mg_chouzi")->findIs_renling("")->get();
-            $renling = $this->orm->createDAO("pm_mg_chouzi")->get();
+            $this->renling_weirenling_list = $renling_weirenling_list = $this->orm->createDAO("pm_mg_chouzi")->findIs_renling("0")->get();
+            $admininfo = SessionUtil::getAdmininfo();
+            $this->admininfo = $admininfo;
 			
 			$this->view->assign(array(
 				"module" => $request_mod['module'],
 				"controller" => $request_mod['controller'],
 				"action" => $request_mod['action'],
-                'renling_weirenling_list' => $renling,
+                'renling_weirenling_list' => $renling_weirenling_list,
+                'admininfo' => $admininfo,
 			));
 			
 		    $this->_init();
