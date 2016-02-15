@@ -41,7 +41,7 @@
                                 <option value="0" >请选择所属项目名称</option>
                                 <?php if($this->chouzi_lists != ""){
                                     foreach ($this->chouzi_lists as $k => $v){?>
-                                        <option value="<?php echo $v['id']?>" <?php if($v['id'] ==$this->chouzi[0]['pm_id']) "selected='selected'";?>><?php echo $v['pname']?></option>
+                                        <option value="<?php echo $v['id']?>" <?php if($v['id'] ==$this->chouzi[0]['parent_pm_id']) echo "selected='selected'";?>><?php echo $v['pname']?></option>
                                     <?php }}?>
                             </select>
                         </div>

@@ -78,9 +78,6 @@
                 $yishi = HttpUtil::postString("yishi");         //项目仪式
                 $beizhu = HttpUtil::postString("beizhu");         //备注
 
-                $parent_pm_id = HttpUtil::postString("parent_pm_id");  //直属关系项目id
-                $parent_pm_id_path = HttpUtil::postString("parent_pm_id_path");   //id_path
-
                 if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
                 }
@@ -102,11 +99,21 @@
                 $pm_chouziDAO->pm_yishi = $yishi;
                 $pm_chouziDAO->pname = $pname;
 
-                $pm_chouziDAO->parent_pm_id = $parent_pm_id;              //直属关系项目id
-                if(!$parent_pm_id_path){
-                    $pm_chouziDAO->parent_pm_id_path = 0;
+                $pid = HttpUtil::postString("pm_id");
+                if(!empty($pid)){
+                    $parent_pm_info = $this->orm->createDAO("pm_mg_chouzi")->findId($pid)->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
+                    $parent_pm_id = $parent_pm_info[0]['id'];  //直属关系项目id
+                    $parent_pm_id_path = $parent_pm_info[0]['parent_pm_id_path'];   //id_path
+
+                    $pm_chouziDAO->parent_pm_id = $parent_pm_id;              //直属关系项目id
+                    if(!empty($parent_pm_id_path)){
+                        $pm_chouziDAO->parent_pm_id_path = 0;
+                    }else {
+                        $pm_chouziDAO->parent_pm_id_path = $parent_pm_id.",".$_REQUEST['id'];    //id_path
+                    }
                 }else {
-                    $pm_chouziDAO->parent_pm_id_path = $parent_pm_id_path.",".$parent_pm_id;    //id_path
+                    $pm_chouziDAO->parent_pm_id = 0;
+                    $pm_chouziDAO->parent_pm_id_path = 0;
                 }
 
                 if ($_FILES['xieyidianzi']['name'] != "") {
@@ -179,9 +186,6 @@
                 $yishi = HttpUtil::postString("yishi");         //项目仪式
                 $beizhu = HttpUtil::postString("beizhu");         //备注
 
-                $parent_pm_id = HttpUtil::postString("parent_pm_id");  //直属关系项目id
-                $parent_pm_id_path = HttpUtil::postString("parent_pm_id_path");   //id_path
-
                 if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
                 }
@@ -203,11 +207,21 @@
                 $pm_chouziDAO->pm_yishi = $yishi;
                 $pm_chouziDAO->pname = $pname;
 
-                $pm_chouziDAO->parent_pm_id = $parent_pm_id;              //直属关系项目id
-                if(!$parent_pm_id_path){
-                    $pm_chouziDAO->parent_pm_id_path = 0;
+                $pid = HttpUtil::postString("pm_id");
+                if(!empty($pid)){
+                    $parent_pm_info = $this->orm->createDAO("pm_mg_chouzi")->findId($pid)->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
+                    $parent_pm_id = $parent_pm_info[0]['id'];  //直属关系项目id
+                    $parent_pm_id_path = $parent_pm_info[0]['parent_pm_id_path'];   //id_path
+
+                    $pm_chouziDAO->parent_pm_id = $parent_pm_id;              //直属关系项目id
+                    if(!empty($parent_pm_id_path)){
+                        $pm_chouziDAO->parent_pm_id_path = 0;
+                    }else {
+                        $pm_chouziDAO->parent_pm_id_path = $parent_pm_id.",".$_REQUEST['id'];    //id_path
+                    }
                 }else {
-                    $pm_chouziDAO->parent_pm_id_path = $parent_pm_id_path.",".$parent_pm_id;    //id_path
+                    $pm_chouziDAO->parent_pm_id = 0;
+                    $pm_chouziDAO->parent_pm_id_path = 0;
                 }
 
                 if ($_FILES['xieyidianzi']['name'] != "") {
@@ -453,7 +467,7 @@
 			$this->view->assign("departmentlist",$departmentlist);
 
             //获取筹资项目list
-            $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->select("id, pname")->get();
+            $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
             $this->view->assign("chouzi_lists",$chouziDAO);
 		}
 	}
