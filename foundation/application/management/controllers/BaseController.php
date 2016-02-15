@@ -23,7 +23,7 @@
             //获取认领信息
             $this->renling_weirenling_list = $renling_weirenling_list = $this->orm->createDAO("pm_mg_chouzi")->findIs_renling("0")->get();
             $admininfo = SessionUtil::getAdmininfo();
-            $this->admininfo = $admininfo;
+            $this->admininfo = SessionUtil::getAdmininfo();
 			
 			$this->view->assign(array(
 				"module" => $request_mod['module'],

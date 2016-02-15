@@ -77,10 +77,9 @@
 							<!--<td><?php /*echo substr($v['pm_qianyue_datetime'],0,10);*/?>&nbsp;</td>-->
 							<td><?php echo $v['pm_xieyi_juanzeng_jiner'];?>&nbsp;元</td>
 							<td>
-                                <a href="/management/chouzi/editchouzi?id=<?php echo $v['id'];?>">
+                                <a onclick="javascript:noTips_click(<?php echo $v['id'];?>);">
                                     <button class="btn btn-greensea margin-bottom-20" type="button">认领该项目</button>
                                 </a>
-
                             </td>
 						 </tr>
 					   <?php }?>
@@ -100,6 +99,48 @@
 				 </section>
 		  </div>
 		</div>
+
+        <script>
+            var pm_id;
+            function noTips_click(pm_id){
+                $.ajax({
+                    type:'get',
+                    url: "/management/chouzi/binding-claim",
+                    data:"pm_id="+pm_id,
+                    cache:false,
+                    dataType:'json',
+                    success:function(data){
+                        $('.theme-popover-mask').fadeIn(100);
+                        $('.theme-popover').slideDown(200);
+                        $('#popover-msg').html(data['msg']);
+                        if(data['return_url'] != ''){
+                            $('#popover-close').attr("name", data['return_url']);
+                        }
+                        if(data['error'] != true){
+                            $('#popover-img img').attr("src", "/include/management/images/yes.png");
+                        }
+                    },
+                    complete:function(data){
+
+                    },
+                    error:function(data){
+                        $('.theme-popover-mask').fadeIn(100);
+                        $('.theme-popover').slideDown(200);
+                        $('#popover-msg').html(data['msg']);
+                    }
+                });
+            }
+
+            jQuery(document).ready(function($) {
+                $('.theme-poptit .close').click(function(){
+                    $('.theme-popover-mask').fadeOut(100);
+                    $('.theme-popover').slideUp(200);
+                    if($('#popover-close').attr("name") != '') {
+                        location.href = $('#popover-close').attr("name");
+                    }
+                });
+            });
+        </script>
 
 		
 		    <script language="javascript">

@@ -395,6 +395,9 @@
 		
 		//==============================================================================
 
+        /**
+         * 未认领列表
+         */
         public function claimlistAction()
         {
             $total = count($this->renling_weirenling_list);
@@ -413,26 +416,21 @@
 
         /**
          * 绑定认领
-         * @param string $pm_id
-         * @param string $member_id
-         * @param string $member_name
          */
-        public function bindingClaim($pm_id='', $member_id='', $member_name=''){
-            if($member_id =='' || $pm_id == '' || $member_name ==''){
+        public function bindingClaimAction(){
+            $pm_id = HttpUtil::getString('pm_id');
+            if($this->admininfo['admin_info'] ==''|| $pm_id == ''){
                 alert_back("认领失败，请重新认领！");
             }
 
-            $ClaimDAO = $this->orm->createDAO("pm_mg_chouzi")->findPm_id($pm_id);
-            $ClaimDAO ->is_claim = 1;
-            $ClaimDAO ->claim = $member_name;
+            $ClaimDAO = $this->orm->createDAO("pm_mg_chouzi")->findId($pm_id);
+            $ClaimDAO ->is_renling = 1;
+            $ClaimDAO ->renling_name = $this->admininfo['admin_info']['admin_name'];
+            $ClaimDAO ->claim = $this->admininfo['admin_info']['id'];
             $ClaimDAO ->claim_time = time();
             $ClaimDAO ->lastmodify = time();
-            $rs = $ClaimDAO ->save();
-            if($rs){
-                alert_go("认领成功！", "/management/Chouzi/index");
-            }else {
-                alert_back("认领失败！");
-            }
+            $ClaimDAO ->save();
+            alert_go("认领成功！", "/management/Chouzi/claimlist");
         }
 
         //==============================================================================
@@ -442,6 +440,7 @@
 			$this ->dbhelper ->connect();
 			SessionUtil::sessionStart();
 			SessionUtil::checkmanagement();
+            $this->admininfo = SessionUtil::getAdmininfo();
 			
 			//项目分类
 			$pcatelist = new jjh_mg_cateDAO();
