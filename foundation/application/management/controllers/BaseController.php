@@ -29,6 +29,9 @@
             //捐赠项目金额
             $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findCate_id(0)->select(" sum(zijin_daozheng_jiner) as allsum")->get();
 
+            //会议活动
+            $meetingDAO = $this->orm->createDAO("jjh_meeting")->get();
+
 			$this->view->assign(array(
 				"module" => $request_mod['module'],
 				"controller" => $request_mod['controller'],
@@ -36,6 +39,7 @@
                 'renling_weirenling_list' => $renling_weirenling_list,
                 "pm_count" => count($this->pm_count),
                 "allsum" => (int)$pm_mg_infoDAO[0]['allsum'],
+                "meeting_count" => count($meetingDAO),
                 'admininfo' => $admininfo,
 			));
 			
