@@ -414,6 +414,16 @@
          */
         public function claimlistAction()
         {
+            $keywords = HttpUtil::postString("pname");
+
+            if($keywords != ""){
+                $like_sql = " and pname like '%".$keywords."%'";
+                $this->renling_weirenling_list = $this->orm->createDAO("pm_mg_chouzi");
+                $this->renling_weirenling_list->selectLimit = $like_sql;
+                $this->renling_weirenling_list->findIs_renling("0");
+                $this->renling_weirenling_list = $this->renling_weirenling_list->get();
+            }
+
             $total = count($this->renling_weirenling_list);
             $pageDAO = new pageDAO();
             $pageDAO = $pageDAO->pageHelper($this->renling_weirenling_list, null, "/management/chouzi/claimlist", null, 'get', 25, 8);

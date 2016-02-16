@@ -21,15 +21,21 @@
             //$this->WhiteIP();  //设置白名单
 
             //获取认领信息
+            $this->pm_count = $this->orm->createDAO("pm_mg_chouzi")->get();
             $this->renling_weirenling_list = $renling_weirenling_list = $this->orm->createDAO("pm_mg_chouzi")->findIs_renling("0")->get();
             $admininfo = SessionUtil::getAdmininfo();
             $this->admininfo = SessionUtil::getAdmininfo();
-			
+
+            //捐赠项目金额
+            $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findCate_id(0)->select(" sum(zijin_daozheng_jiner) as allsum")->get();
+
 			$this->view->assign(array(
 				"module" => $request_mod['module'],
 				"controller" => $request_mod['controller'],
 				"action" => $request_mod['action'],
                 'renling_weirenling_list' => $renling_weirenling_list,
+                "pm_count" => count($this->pm_count),
+                "allsum" => (int)$pm_mg_infoDAO[0]['allsum'],
                 'admininfo' => $admininfo,
 			));
 			

@@ -50,7 +50,7 @@
 			</section>
 			<section class="tile color transparent-black">
 				<div class="tile-body nopadding">
-				<?php if($this->renling_weirenling_list != ""){?>
+				<?php if($this->claimlist != ""){?>
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
@@ -64,7 +64,7 @@
 					</thead>
                     <tbody>
 					  <?php 
-						foreach($this->renling_weirenling_list as $k=>$v){?>
+						foreach($this->claimlist as $k=>$v){?>
 						 <tr>
 						 	<td><?php echo $v['pname'];?>&nbsp;</td>
 							<td><?php  foreach ($this->departmentlist as $kk => $vv){

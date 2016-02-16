@@ -54,7 +54,7 @@
 
                       <div class="media-body">
                         <small>捐赠项目总数</small>
-                        <h2 class="media-heading animate-number" data-value="19214" data-animation-duration="1500"><?php echo count($this->renling_list);?></h2>
+                        <h2 class="media-heading animate-number" data-value="<?php echo $this->pm_count;?>" data-animation-duration="1500"><?php echo $this->pm_count;?></h2>
                       </div>
                     </div> 
 
@@ -63,7 +63,7 @@
                         <div class="title">本月完成计划  %</div>
                       </div>
                       <div class="status pull-right bg-transparent-black-1">
-                        <span class="animate-number" data-value="100" data-animation-duration="1500"><?php echo count($this->renling_list);?></span>%
+                        <span class="animate-number" data-value="10" data-animation-duration="1500"><?php echo $this->pm_count;?></span>%
                       </div>
                       <div class="clearfix"></div>
                       <div class="progress progress-little progress-transparent-black">
@@ -94,7 +94,7 @@
 
                       <div class="media-body">
                         <small>捐赠项目金额</small>
-                        <h2 class="media-heading animate-number" data-value="169541" data-animation-duration="1500">0</h2>
+                        <h2 class="media-heading animate-number" data-value="<?php echo $this->allsum;?>" data-animation-duration="1500">allsum</h2>
                       </div>
                     </div>
 
@@ -170,29 +170,21 @@
             <!-- row -->
             <div class="row">
 
-
               <!-- col 8 -->
               <div class="col-lg-8 col-md-12">
-
-
-
 
                 <!-- tile -->
                 <section class="tile transparent">
 
-
-
-
                   <!-- tile header -->
                   <div class="tile-header color transparent-black textured rounded-top-corners">
-                    <h1><strong>Statistic</strong> Chart</h1>
+                    <h1><strong>Statistic Chart</strong> 静态统计图</h1>
                     <div class="controls">
                       <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                       <a href="#" class="remove"><i class="fa fa-times"></i></a>
                     </div>
                   </div>
                   <!-- /tile header -->
-
 
                   <!-- tile widget -->
                   <div class="tile-widget color transparent-black textured">
@@ -205,11 +197,11 @@
                   <div class="tile-body color transparent-white rounded-bottom-corners">
                     <div class="row">
                       <ul class="inline">
-                        
+
                         <li class="col-md-8 col-sm-12 col-xs-12 text-center">
-                          
-                          <h4 class="underline text-left"><strong>Actual</strong> Statistics</h4>
-                          
+
+                          <h4 class="underline text-left"><strong>Actual Statistics</strong> 访问者</h4>
+
                           <div class="inner-container inline">
                             <div data-percent="100" data-size="140" class="pie-chart inline" data-scale-color="false" data-track-color="rgba(0,0,0,0)" data-bar-color="#ffffff" data-line-width="5">
                               <div class="text-center">
@@ -297,7 +289,7 @@
                               <div class="progress progress-little">
                                 <div class="progress-bar progress-bar-red animate-progress-bar" data-percentage="6%" style="width: 0%;"></div>
                               </div>
-                            </li>       
+                            </li>
                           </ul>
                         </li>
                       </ul>
@@ -320,7 +312,7 @@
 
                   <!-- tile header -->
                   <div class="tile-header">
-                    <h1><strong>Projects</strong> Progress</h1>
+                    <h1><strong>Projects  Progress</strong> 项目进程</h1>
                     <div class="search">
                       <input type="text" placeholder="Search...">
                     </div>
@@ -476,7 +468,7 @@
 
                   <!-- tile header -->
                   <div class="tile-header">
-                    <h1><strong>Server</strong> Load</h1>
+                    <h1><strong>Server</strong> 系统信息</h1>
                     <div class="controls">
                       <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                       <a href="#" class="remove"><i class="fa fa-times"></i></a>
@@ -499,7 +491,7 @@
                         <div class="progress-bar animate-progress-bar" data-percentage="42%"></div>
                       </div>
                     </div>  
-                    <p class="description"><strong>394GB</strong> used of <strong class="white-text">2,048GB</strong> on File Server</p>
+                    <p class="description"><strong>394GB</strong> 已用 <strong class="white-text">2,048GB</strong> 在服务器中</p>
                   </div>
                   <!-- /tile widget -->
 
@@ -523,7 +515,7 @@
 
                   <!-- tile header -->
                   <div class="tile-header">
-                    <h1><strong>Browser</strong> Usage</h1>
+                    <h1><strong>Browser</strong> 浏览器使用</h1>
                     <div class="controls">
                       <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                       <a href="#" class="remove"><i class="fa fa-times"></i></a>
@@ -536,10 +528,10 @@
                     <div id="browser-usage" style="height: 230px;" class="morris-chart"></div>
                     <ul class="inline text-center chart-legend">
                       <li><span class="badge badge-outline" style="border-color: #00a3d8"></span> Chrome <small>25%</small>,</li>
-                      <li><span class="badge badge-outline" style="border-color: #1693A5"></span> Other <small>25%</small>,</li>
-                      <li><span class="badge badge-outline" style="border-color: #2fbbe8"></span> Safari <small>20%</small>,</li>
+                      <li><span class="badge badge-outline" style="border-color: #1693A5"></span> Other <small>10%</small>,</li>
+                      <li><span class="badge badge-outline" style="border-color: #2fbbe8"></span> Safari <small>5%</small>,</li>
                       <li><span class="badge badge-outline" style="border-color: #72cae7"></span> Firefox <small>15%</small>,</li>
-                      <li><span class="badge badge-outline" style="border-color: #ffc100"></span> Internet Explorer <small>10%</small>,</li>
+                      <li><span class="badge badge-outline" style="border-color: #ffc100"></span> Internet Explorer <small>40%</small>,</li>
                       <li><span class="badge badge-outline" style="border-color: #d9544f"></span> Opera <small>5%</small></li>
                     </ul>
                   </div>
@@ -562,7 +554,7 @@
                   <!-- tile header -->
                   <div class="tile-header color redbrown rounded-top-corners text-center">               
                     <button class="btn pull-left btn-black-transparent" type="button"><i class="fa fa-caret-square-o-down"></i></button>
-                    <h2><strong>Todo</strong> List</h2>
+                    <h2><strong>Todo List</strong> 代办事宜</h2>
                     <div class="controls">
                       <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                       <a href="#" class="remove"><i class="fa fa-times"></i></a>
@@ -572,42 +564,42 @@
 
                   <!-- tile body -->
                   <div class="tile-body color transparent-black rounded-bottom-corners">
-                    <input type="text" placeholder="Add new todo..." class="w100p bottommargin">
+                    <input type="text" placeholder="添加新任务..." class="w100p bottommargin">
                     <ul class="nolisttypes" id="todolist">
                       <li>
                         <div class="checkbox check-transparent">
                           <input type="checkbox" value="1" id="todo-01">
-                          <label for="todo-01">Make a backup</label>
+                          <label for="todo-01">日常备份</label>
                         </div>
                       </li>
                       <li>
                         <div class="checkbox check-transparent">
                           <input type="checkbox" checked="checked" value="1" id="todo-02">
-                          <label for="todo-02" class="done">Send e-mail to Ici</label>
+                          <label for="todo-02" class="done">给领导发送简报</label>
                         </div>
                       </li>
                       <li>
                         <div class="checkbox check-transparent">
                           <input type="checkbox" value="1" id="todo-03">
-                          <label for="todo-03">Buy tickets</label>
+                          <label for="todo-03">购买办公用品</label>
                         </div>
                       </li>
                       <li>
                         <div class="checkbox check-transparent">
                           <input type="checkbox" value="1" id="todo-04">
-                          <label for="todo-04">Resolve issues</label>
+                          <label for="todo-04">购买回馈礼品</label>
                         </div>
                       </li>
                       <li>
                         <div class="checkbox check-transparent">
                           <input type="checkbox" value="1" id="todo-05">
-                          <label for="todo-05">Compile new version</label>
+                          <label for="todo-05">拜访客户</label>
                         </div>
                       </li>
                       <li>
                         <div class="checkbox check-transparent">
                           <input type="checkbox" value="1" id="todo-06">
-                          <label for="todo-06">Upload new version</label>
+                          <label for="todo-06">制作新简报</label>
                         </div>
                       </li>
                     </ul>
@@ -634,363 +626,8 @@
 
 
 
-              <!-- col 6 -->
-              <div class="col-md-6">
-
-                
-                <!-- tile -->
-                <section class="tile transparent recent-activity">
 
 
-
-
-                  <!-- tile header -->
-                  <div class="tile-header transparent">               
-                    <h1><strong>Recent</strong> Activity</h1>
-                    <div class="controls">
-                      <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
-                      <a href="#" class="remove"><i class="fa fa-times"></i></a>
-                    </div>
-                  </div>
-                  <!-- /tile header -->
-
-
-                  
-                  <!-- tile widget -->
-                  <div class="tile-widget color transparent-black rounded-top-corners nopadding">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs tabdrop">
-                      <li class="active"><a href="#users-tab" data-toggle="tab">Users</a></li>
-                      <li><a href="#orders-tab" data-toggle="tab">Orders</a></li>
-                      <li><a href="#messages-tab" data-toggle="tab">Messages</a></li>
-                      <li><a href="#tasks-tab" data-toggle="tab">Tasks</a></li>
-                      <li><a href="#comments-tab" data-toggle="tab">Comments</a></li>
-                    </ul>
-                    <!-- / Nav tabs -->
-                  </div>
-                  <!-- /tile widget -->
-
-
-
-
-                  <!-- tile body -->
-                  <div class="tile-body tab-content nopadding rounded-bottom-corners">
-                    <!-- Tab panes -->
-                    
-                    <ul id="users-tab" class="tab-pane fade in active">
-                      <li>
-                        <img src="assets/images/peter-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Peter <strong>Kay</strong></span>
-                        <span class="subject">has been <strong>unbanned</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 15 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/arnold-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Arnold <strong>Karlsberg</strong></span>
-                        <span class="subject">has been <strong>unbanned</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 1 hour ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/arnold-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Arnold <strong>Karlsberg</strong></span>
-                        <span class="subject">has been <strong>banned</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 2 hours ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/ici-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Ing. Imrich <strong>Kamarel</strong></span>
-                        <span class="subject">has been <strong>updated</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 4 hours ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/arnold-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Arnold <strong>Karlsberg</strong></span>
-                        <span class="subject">has been <strong>registered</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 8 hours ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/peter-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Peter <strong>Kay</strong></span>
-                        <span class="subject">has been <strong>banned</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 12 hours ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/peter-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Peter <strong>Kay</strong></span>
-                        <span class="subject">has been <strong>registered</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> yesterday</span>
-                      </li>
-                    </ul>
-
-                    <ul id="orders-tab" class="tab-pane fade">
-                      <li>
-                        <img src="assets/images/arnold-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Arnold <strong>Karlsberg</strong></span>
-                        <span class="subject">send new order <strong>OR_00012014</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 15 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/george-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">George <strong>McCain</strong></span>
-                        <span class="subject">change order <strong>OR_02172013</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 27 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/george-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">George <strong>McCain</strong></span>
-                        <span class="subject">send new order <strong>OR_02172013</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 35 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/peter-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Peter <strong>Kay</strong></span>
-                        <span class="subject">cancelled order <strong>OR_02162013</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 2 hours ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/peter-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Peter <strong>Kay</strong></span>
-                        <span class="subject">send new order <strong>OR_02162013</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 3 hours ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/ici-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Ing. Imrich <strong>Kamarel</strong></span>
-                        <span class="subject">send new order <strong>OR_02152013</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 5 hours ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/ici-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Ing. Imrich <strong>Kamarel</strong></span>
-                        <span class="subject">send new order <strong>OR_02142013</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 5 hours ago</span>
-                      </li>
-                    </ul>
-
-                    <ul id="messages-tab" class="tab-pane fade">
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab"><strong>You</strong></span>
-                        <span class="subject">received new message from <strong>Peter Kay</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 15 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab"><strong>You</strong></span>
-                        <span class="subject">received new message from <strong>Peter Kay</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 30 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab"><strong>You</strong></span>
-                        <span class="subject">received new message from <strong>Ing. Imrich Kamarel</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 35 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab"><strong>You</strong></span>
-                        <span class="subject">received new message from <strong>Arnold Arnold</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 42 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab"><strong>You</strong></span>
-                        <span class="subject">received new message from <strong>George McCain</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 1 hour ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab"><strong>You</strong></span>
-                        <span class="subject">received new message from <strong>Ing. Imrich Kamarel</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 1 hour ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab"><strong>You</strong></span>
-                        <span class="subject">received new message from <strong>Ing. Imrich Kamarel</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 1 hour ago</span>
-                      </li>
-                    </ul>
-
-                    <ul id="tasks-tab" class="tab-pane fade">
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab"><strong>You</strong></span>
-                        <span class="subject">cancelled task <strong>Get drunk</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 15 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab"><strong>You</strong></span>
-                        <span class="subject">finished task <strong>Gifts!</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 59 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab"><strong>You</strong></span>
-                        <span class="subject">finished task <strong>Make backup</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 3 hours ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab"><strong>You</strong></span>
-                        <span class="subject">have a new task <strong>Gifts!</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> yesterday</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab"><strong>You</strong></span>
-                        <span class="subject">finished task <strong>Send emails</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> yesterday</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab"><strong>You</strong></span>
-                        <span class="subject">have a new task <strong>Send emails</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> yesterday</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab"><strong>You</strong></span>
-                        <span class="subject">have a new task <strong>Make backup</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> yesterday</span>
-                      </li>
-                    </ul>
-
-                    <ul id="comments-tab" class="tab-pane fade">
-                      <li>
-                        <img src="assets/images/arnold-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Arnold <strong>Karlsberg</strong></span>
-                        <span class="subject">deleted comment <strong>CM_00019</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 5 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/arnold-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Arnold <strong>Karlsberg</strong></span>
-                        <span class="subject">posted a new comment <strong>CM_00019</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 8 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab">John <strong>Douey</strong></span>
-                        <span class="subject">posted a new comment <strong>CM_00018</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 9 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/peter-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Peter <strong>Kay</strong></span>
-                        <span class="subject">posted a new comment <strong>CM_00017</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 18 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/arnold-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Ing. Imrich <strong>Kamarel</strong></span>
-                        <span class="subject">updated comment <strong>CM_00016</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 25 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/arnold-avatar.jpg" class="w35" alt>
-                        <span class="user font-slab">Ing. Imrich <strong>Kamarel</strong></span>
-                        <span class="subject">posted a new comment <strong>CM_00016</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 42 minutes ago</span>
-                      </li>
-                      <li>
-                        <img src="assets/images/profile-photo.jpg" class="w35" alt>
-                        <span class="user font-slab">John <strong>Douey</strong></span>
-                        <span class="subject">posted a new comment <strong>CM_00015</strong></span>
-                        <span class="time"><i class="fa fa-clock-o"></i> 56 minutes ago</span>
-                      </li>
-                    </ul>
-
-                    <!-- / Tab panes -->
-                  </div>
-                  <!-- /tile body -->
-                
-
-
-                </section>
-                <!-- /tile -->
-
-
-              </div>
-              <!-- /col 6 -->
-
-
-
-
-              <!-- col 6 -->
-              <div class="col-md-6">
-
-
-
-                <!-- tile -->
-                <section class="tile transparent">
-
-
-
-
-                  <!-- tile header -->
-                  <div class="tile-header transparent">               
-                    <h1><strong>Quick</strong> Message</h1>
-                    <div class="controls">
-                      <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
-                      <a href="#" class="remove"><i class="fa fa-times"></i></a>
-                    </div>
-                  </div>
-                  <!-- /tile header -->
-
-
-
-                  <!-- tile widget -->
-                  <div class="tile-widget color transparent-black rounded-top-corners">
-                    <form class="form-horizontal" role="form">
-                      <div class="form-group">
-                        <label for="message-to" class="col-sm-2 control-label font-slab">Recipients</label>
-                        <div class="col-sm-10">
-                          <select data-placeholder="Select recipients..." multiple="" tabindex="3" class="chosen-select form-control chosen-transparent" id="message-to">
-                            <option value="http://tattek.com/minimal/ici@gmail.com">ici@gmail.com</option>
-                            <option value="http://tattek.com/minimal/johny@gmail.com">johny@gmail.com</option>
-                            <option value="http://tattek.com/minimal/arnie@gmail.com">arnie@gmail.com</option>
-                            <option value="http://tattek.com/minimal/pete@gmail.com">pete@gmail.com</option>
-                            <option value="http://tattek.com/minimal/gorge@gmail.com">gorge@gmail.com</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group no-bottom-margin">
-                        <label for="subject" class="col-sm-2 control-label font-slab">Subject</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control transparent" id="subject" placeholder="Type subject here...">
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <!-- /tile widget -->
-
-
-
-                  <!-- tile body -->
-                  <div class="tile-body nopadding">
-                    <div id="quick-message-content"></div>
-                  </div>
-                  <!-- /tile body -->
-
-
-                  <!-- tile footer -->
-                  <div class="tile-footer rounded-bottom-corners text-right">
-                    <a class="submit font-slab" href="#"><strong>Send</strong> message <i class="fa fa-comment"></i></a>
-                  </div>
-                  <!-- /tile footer -->
-
-
-                </section>
-                <!-- /tile -->
-
-              
-
-
-              </div>
-              <!-- /col 6 -->
-              
 
 
 
@@ -1032,7 +669,7 @@
                 <li class="online">
                   <div class="media">
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/ici-avatar.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/ici-avatar.jpg" alt>
                     </a>
                     <div class="media-body">
                       <h6 class="media-heading">Ing. Imrich <strong>Kamarel</strong></h6>
@@ -1046,7 +683,7 @@
                   <div class="media">
                     
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/arnold-avatar.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/arnold-avatar.jpg" alt>
                     </a>
                     <span class="badge badge-red unread">3</span>
 
@@ -1062,7 +699,7 @@
                 <li class="online">
                   <div class="media">
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/peter-avatar.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/peter-avatar.jpg" alt>
 
                     </a>
                     <div class="media-body">
@@ -1076,7 +713,7 @@
                 <li class="online">
                   <div class="media">
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/george-avatar.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/george-avatar.jpg" alt>
                     </a>
                     <div class="media-body">
                       <h6 class="media-heading">George <strong>McCain</strong></h6>
@@ -1089,7 +726,7 @@
                 <li class="busy">
                   <div class="media">
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/random-avatar1.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/random-avatar1.jpg" alt>
                     </a>
                     <div class="media-body">
                       <h6 class="media-heading">Lucius <strong>Cashmere</strong></h6>
@@ -1102,7 +739,7 @@
                 <li class="busy">
                   <div class="media">
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/random-avatar2.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/random-avatar2.jpg" alt>
                     </a>
                     <div class="media-body">
                       <h6 class="media-heading">Jesse <strong>Phoenix</strong></h6>
@@ -1121,7 +758,7 @@
                 <li class="offline">
                   <div class="media">
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/random-avatar4.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/random-avatar4.jpg" alt>
                     </a>
                     <div class="media-body">
                       <h6 class="media-heading">Dell <strong>MacApple</strong></h6>
@@ -1135,7 +772,7 @@
                   <div class="media">
                     
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/random-avatar5.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/random-avatar5.jpg" alt>
                     </a>
 
                     <div class="media-body">
@@ -1150,7 +787,7 @@
                 <li class="offline">
                   <div class="media">
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/random-avatar6.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/random-avatar6.jpg" alt>
 
                     </a>
                     <div class="media-body">
@@ -1164,7 +801,7 @@
                 <li class="offline">
                   <div class="media">
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/random-avatar7.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/random-avatar7.jpg" alt>
                     </a>
                     <div class="media-body">
                       <h6 class="media-heading">Bobby <strong>Socks</strong></h6>
@@ -1177,7 +814,7 @@
                 <li class="offline">
                   <div class="media">
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/random-avatar8.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/random-avatar8.jpg" alt>
                     </a>
                     <div class="media-body">
                       <h6 class="media-heading">Anna <strong>Opichia</strong></h6>
@@ -1199,7 +836,7 @@
                 <li class="online">
                   <div class="media">
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/ici-avatar.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/ici-avatar.jpg" alt>
                     </a>
                     <div class="media-body">
                       <h6 class="media-heading">Ing. Imrich <strong>Kamarel</strong></h6>
@@ -1213,7 +850,7 @@
                   <div class="media">
                     
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/arnold-avatar.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/arnold-avatar.jpg" alt>
                     </a>
                     <span class="badge badge-red unread">3</span>
 
@@ -1229,7 +866,7 @@
                 <li class="offline">
                   <div class="media">
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/peter-avatar.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/peter-avatar.jpg" alt>
 
                     </a>
                     <div class="media-body">
@@ -1252,7 +889,7 @@
                   <div class="media">
                     
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/arnold-avatar.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/arnold-avatar.jpg" alt>
                     </a>
                     <span class="badge badge-red unread">3</span>
 
@@ -1268,7 +905,7 @@
                 <li class="offline">
                   <div class="media">
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/random-avatar8.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/random-avatar8.jpg" alt>
                     </a>
                     <div class="media-body">
                       <h6 class="media-heading">Anna <strong>Opichia</strong></h6>
@@ -1281,7 +918,7 @@
                 <li class="busy">
                   <div class="media">
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/random-avatar1.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/random-avatar1.jpg" alt>
                     </a>
                     <div class="media-body">
                       <h6 class="media-heading">Lucius <strong>Cashmere</strong></h6>
@@ -1294,7 +931,7 @@
                 <li class="online">
                   <div class="media">
                     <a class="pull-left profile-photo" href="#">
-                      <img class="media-object" src="assets/images/ici-avatar.jpg" alt>
+                      <img class="media-object" src="/include/management/assets/images/ici-avatar.jpg" alt>
                     </a>
                     <div class="media-body">
                       <h6 class="media-heading">Ing. Imrich <strong>Kamarel</strong></h6>
