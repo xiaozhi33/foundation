@@ -21,8 +21,8 @@
             //$this->WhiteIP();  //设置白名单
 
             //获取认领信息
-            $this->pm_count = $this->orm->createDAO("pm_mg_chouzi")->get();
-            $this->renling_weirenling_list = $renling_weirenling_list = $this->orm->createDAO("pm_mg_chouzi")->findIs_renling("0")->get();
+            $this->pm_count = $this->orm->createDAO("pm_mg_info")->get();
+            $this->renling_weirenling_list = $renling_weirenling_list = $this->orm->createDAO("pm_mg_info")->findCate_id("0")->findIs_renling("0")->get();
             $admininfo = SessionUtil::getAdmininfo();
             $this->admininfo = SessionUtil::getAdmininfo();
 

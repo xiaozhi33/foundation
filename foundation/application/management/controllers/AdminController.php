@@ -299,7 +299,7 @@
 			
 			$total = count($ppinfo);
 			$pageDAO = new pageDAO();
-			$pageDAO = $pageDAO ->pageHelper($ppinfo,null,"pp",null,'get',20,20);						
+			$pageDAO = $pageDAO ->pageHelper($ppinfo,null,"pp",null,'get',20,8);
 			$pages = $pageDAO['pageLink']['all'];
 			$pages = str_replace("/index.php","",$pages);	
 			$this->view->assign('pplist',$pageDAO['pageData']);

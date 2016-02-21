@@ -12,8 +12,8 @@
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
-            <li>项目基本信息（筹资）管理</li>
-            <li class="active">筹资列表</li>
+            <li>项目进度管理</li>
+            <li class="active">认领列表</li>
         </ol>
     </div>
 
@@ -23,7 +23,6 @@
 
 	<div id="main" class="main">
 		<div id="rightstyle02" class="row">
-			<!--<h4 class="col-md-12">项目筹资管理<span class="font_red"> >> </span><span class="font_red_big">筹资列表</span></h4>-->
 			<div class="col-md-12">
 			<section class="tile color transparent-black">
 			<div class="tile-body">
@@ -32,17 +31,26 @@
                     <div class="form-group">
 
                         <div class="row">
-                            <div class="form-group col-sm-6">
+                            <div class="form-group col-sm-4">
                                 <label for="input05">项目名称：</label>
-                                <input type="text" class="form-control" name="pname" />
+                                <input type="text" class="form-control" name="pm_name" />
                             </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="form-group col-sm-3">
+                                <label for="input01">是否已认领：</label>
+                                <select name="is_renling" class="form-control">
+                                    <option value="0">未认领</option>
+                                    <option value="1">已认领</option>
+                                </select>
+                            </div>
                             <div class="form-group col-sm-3">
                                 <label for="input02"> </label>
                                 <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
                             </div>
                         </div>
-
+                        <span class="col-sm-3" >* 默认按照来款日期倒序排序 </span>
                     </div>
                 </form>
 
@@ -55,10 +63,10 @@
 					 <thead>
 					  <tr>
 						<td width="24%">项目名称</td>
-						<td width="12%">部门名称</td>
-						<td width="20%">项目分类</td>
-						<!--<td width="18%">项目签约日期</td>
-						<td width="13%">协议捐赠金额</td>-->
+						<td width="12%">捐赠者</td>
+                          <td width="18%">到帐日期</td>
+						<td width="20%">到帐金额</td>
+						<!--<td width="13%">协议捐赠金额</td>-->
 						<td width="13%">操作</td>
 					  </tr>
 					</thead>
@@ -66,16 +74,18 @@
 					  <?php 
 						foreach($this->claimlist as $k=>$v){?>
 						 <tr>
-						 	<td><?php echo $v['pname'];?>&nbsp;</td>
-							<td><?php  foreach ($this->departmentlist as $kk => $vv){
-								if($vv['id'] == $v['department']){ echo $vv['pname'];}
-								}?>&nbsp;</td>
-							<td><?php  foreach ($this->pcatelist as $kk => $vv){
-								if($vv['id'] == $v['cate']){ echo $vv['catename'];}
-								}?>&nbsp;</td>
-								
-							<!--<td><?php /*echo substr($v['pm_qianyue_datetime'],0,10);*/?>&nbsp;</td>
-							<td><?php echo $v['pm_xieyi_juanzeng_jiner'];?>&nbsp;元</td>-->
+						 	<td>
+                                <?php echo $v['pm_name'];?>&nbsp;
+                            </td>
+                             <td>
+                                 <?php echo $v['pm_pp'];?>
+                             </td>
+                             <td>
+                                 <?php echo $v['zijin_daozhang_datetime'];?>
+                             </td>
+                             <td>
+                                 <?php echo $v['zijin_daozheng_jiner'];?> 元
+                             </td>
 							<td>
                                 <a onclick="javascript:noTips_click(<?php echo $v['id'];?>);">
                                     <button class="btn btn-greensea margin-bottom-20" type="button">认领该项目</button>
@@ -105,7 +115,7 @@
             function noTips_click(pm_id){
                 $.ajax({
                     type:'get',
-                    url: "/management/chouzi/binding-claim",
+                    url: "/management/zijin/binding-claim",
                     data:"pm_id="+pm_id,
                     cache:false,
                     dataType:'json',
@@ -144,5 +154,5 @@
 
 		
 		    <script language="javascript">
-                $(".menu li:eq(1)").addClass("open");
+                $(".menu li:eq(4)").addClass("open");
 			</script>

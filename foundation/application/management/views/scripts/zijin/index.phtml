@@ -12,7 +12,7 @@
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
-            <li>项目资金管理</li>
+            <li>项目进度管理</li>
             <li class="active">资金列表</li>
         </ol>
     </div>
@@ -57,7 +57,7 @@
 					  		<tr>
                             <td width="24%">项目名称</td>
                             <td width="24%">项目捐赠者</td>
-                            <td width="12%">捐赠级别</td>
+                            <!--<td width="12%">捐赠级别</td>-->
                             <td width="14%">捐赠到账日期</td>
                             <td width="13%">捐赠到账金额</td>
                             <td width="13%">操作</td>
@@ -69,7 +69,7 @@
                              <tr>
                                 <td><?php echo $v['pm_name'];?>&nbsp;</td>
                                 <td><?php echo $v['pm_pp'];?>&nbsp;</td>
-                                <td><?php echo $v['pm_juanzeng_jibie'];?>&nbsp;</td>
+                               <!-- <td><?php /*echo $v['pm_juanzeng_jibie'];*/?>&nbsp;</td>-->
                                 <td><?php echo substr($v['zijin_daozhang_datetime'],0,10);?>&nbsp;</td>
                                 <td><?php echo $v['zijin_daozheng_jiner'];?>&nbsp;元</td>
                                 <td>
@@ -133,5 +133,5 @@
 			</script>
 
         <script language="javascript">
-            $(".menu li:eq(5)").addClass("open");
+            $(".menu li:eq(4)").addClass("open");
         </script>

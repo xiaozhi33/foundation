@@ -377,8 +377,8 @@
                 <ul class="menu">
                   
                   <li class="active">
-                    <a href="/management/chouzi/claimlist">
-                      <i class="fa fa-tachometer"></i> 未认领目
+                    <a href="/management/zijin/claimlist">
+                      <i class="fa fa-tachometer"></i> 未认的领目来款
                       <span class="badge badge-red"><?php echo count($this->renling_weirenling_list);?></span>
                     </a>
                   </li>
@@ -400,12 +400,6 @@
                               <i class="fa fa-caret-right"></i> 添加项目
                             </a>
                           </li>
-                        <li>
-                            <a href="/management/chouzi/claimlist">
-                                <i class="fa fa-caret-right"><span class="badge badge-red"><?php echo count($this->renling_weirenling_list);?></span></i> 项目认领
-                            </a>
-
-                        </li>
                     </ul>
                   </li>
 					
@@ -423,16 +417,28 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="/management/zijin/rate">
+                                    <i class="fa fa-caret-right"></i> 项目进度管理
+                                </a>
+                            </li>
+                            <li>
                                 <a href="/management/zijin/index">
-                                    <i class="fa fa-caret-right"></i> 项目进度（资金）列表
+                                    <i class="fa fa-caret-right"></i> 项目资金列表（财务推送）
                                 </a>
                             </li>
                             <li>
                                 <a href="/management/zijin/addzijin">
-                                    <i class="fa fa-caret-right"></i> 添加项目进度（资金）
+                                    <i class="fa fa-caret-right"></i> 添加项目资金（系统追加）
                                 </a>
                             </li>
-
+                            <li>
+                                <a href="/management/zijin/claimlist">
+                                    <i class="fa fa-caret-right">
+                                        <span class="badge badge-red">
+                                            <?php echo count($this->renling_weirenling_list);?></span>
+                                    </i> 认领项目来款
+                                </a>
+                            </li>
                         </ul>
                     </li>
 				
@@ -453,8 +459,6 @@
                       </li>
                     </ul>
                   </li>
-
-
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
