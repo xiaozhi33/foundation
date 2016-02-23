@@ -47,20 +47,25 @@
             </div>
             <span class="col-sm-2" >* </span>
             </div>
-            <div class="form-group">
+
+
+
+            <!--<div class="form-group">
             <label class="col-sm-2 control-label" for="input00">捐赠者类型：</label> 
             <div class="col-sm-4">
             <select class="form-control" name="pm_pp_cate">
 								<option value="" >请选择类型</option>
-								<option value="个人" <?php if($this->zijin[0]['pm_pp_cate']=='个人'){echo "selected='selected'";}?>>个人</option>
-								<option value="企业" <?php if($this->zijin[0]['pm_pp_cate']=='企业'){echo "selected='selected'";}?>>企业</option>
-								<option value="事业单位" <?php if($this->zijin[0]['pm_pp_cate']=='事业单位'){echo "selected='selected'";}?>>事业单位</option>
-								<option value="基金会" <?php if($this->zijin[0]['pm_pp_cate']=='基金会'){echo "selected='selected'";}?>> 基金会</option>
-								<option value="其他组织" <?php if($this->zijin[0]['pm_pp_cate']=='其他组织'){echo "selected='selected'";}?>>其他组织</option>
+								<option value="个人" <?php /*if($this->zijin[0]['pm_pp_cate']=='个人'){echo "selected='selected'";}*/?>>个人</option>
+								<option value="企业" <?php /*if($this->zijin[0]['pm_pp_cate']=='企业'){echo "selected='selected'";}*/?>>企业</option>
+								<option value="事业单位" <?php /*if($this->zijin[0]['pm_pp_cate']=='事业单位'){echo "selected='selected'";}*/?>>事业单位</option>
+								<option value="基金会" <?php /*if($this->zijin[0]['pm_pp_cate']=='基金会'){echo "selected='selected'";}*/?>> 基金会</option>
+								<option value="其他组织" <?php /*if($this->zijin[0]['pm_pp_cate']=='其他组织'){echo "selected='selected'";}*/?>>其他组织</option>
 			</select>
             </div>
             <span class="col-sm-2" >* 个人、企业、事业单位、基金会、其他组织</span>
-            </div>		
+            </div>-->
+
+
 			<div class="form-group">
             <label class="col-sm-2 control-label" for="input01">捐赠级别：</label>
             <div class="col-sm-4">
@@ -145,11 +150,49 @@
 					
 			<div class="form-group">
             <label class="col-sm-2 control-label" for="input01">配比状态：</label>
-            <div class="col-sm-4">
-            	<input  type="radio" name="peibi" value="1" <?php if ($this->zijin[0]['peibi'] == 1)echo "checked='checked'";?>/> 是
-				<input type="radio" name="peibi" value="0" <?php if ($this->zijin[0]['peibi'] == 0)echo "checked='checked'";?>/> 否
+                <div class="col-sm-4">
+                    <input  type="radio" name="peibi" value="1" <?php if ($this->zijin[0]['peibi'] == 1)echo "checked='checked'";?>/> 是
+                    <input type="radio" name="peibi" value="0" <?php if ($this->zijin[0]['peibi'] == 0)echo "checked='checked'";?>/> 否
+                </div>
             </div>
-            </div>			
+
+                <div class="form-group peibi_1">
+                    <label class="col-sm-2 control-label" for="input01">配比金额：</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" value="<?php echo $this->zijin[0]['peibi_jiner'];?>" type="text" name="peibi_jiner"  size="14"/>
+                    </div>
+                </div>
+
+                <div class="form-group peibi_1">
+                    <label class="col-sm-2 control-label" for="input01">划拨部门：</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" value="<?php echo $this->zijin[0]['peibi_department'];?>" type="text" name="peibi_department"  size="14"/>
+                    </div>
+                </div>
+
+                <div class="form-group peibi_1">
+                    <label class="col-sm-2 control-label" for="input01">卡号：</label>
+
+                    <div class="col-sm-4">
+                        <input class="form-control" value="<?php echo $this->zijin[0]['peibi_card'];?>" type="text" name="peibi_card"  size="14"/>
+                    </div>
+
+                </div>
+
+                <div class="form-group peibi_1">
+                    <label class="col-sm-2 control-label" for="input01">负责人：</label>
+
+                    <div class="col-sm-4">
+                        <input class="form-control" value="<?php echo $this->zijin[0]['peibi_pp'];?>"  type="text" name="peibi_pp"  size="14"/>
+                    </div>
+                </div>
+
+                <div class="form-group peibi_2">
+                    <label class="col-sm-2 control-label" for="input01">拒批原因：</label>
+                    <div class="col-sm-8">
+                        <textarea id="input05" class="form-control parsley-validated" rows="6" parsley-trigger="keyup" parsley-rangelength="[20,200]" name="peibi_jupi" parsley-validation-minlength="1">value="<?php echo $this->zijin[0]['peibi_jupi'];?>" </textarea>
+                    </div>
+                </div>
 					
 			<div class="form-group">
             <label class="col-sm-2 control-label" for="input01">票据状态：</label>
@@ -185,6 +228,29 @@
                 </textarea>
                 </div>
                 </div>	-->
+
+                <div class="form-group peibi_2">
+                    <label class="col-sm-2 control-label" for="input01">捐赠仪式：</label>
+                    <div class="col-sm-8">
+                        <textarea id="input05" class="form-control parsley-validated" rows="6" parsley-trigger="keyup" parsley-rangelength="[20,200]" name="yishi" parsley-validation-minlength="1"><?php echo $this->zijin[0]['yishi'];?></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group peibi_2">
+                    <label class="col-sm-2 control-label" for="input01">纪念品情况：</label>
+                    <div class="col-sm-8">
+                        <textarea id="input05" class="form-control parsley-validated" rows="6" parsley-trigger="keyup" parsley-rangelength="[20,200]" name="jinianpin" parsley-validation-minlength="1"><?php echo $this->zijin[0]['jinianpin'];?></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group transparent-editor">
+                    <label class="col-sm-2 control-label" for="input14">捐赠用途：</label>
+                    <div class="col-sm-8">
+                        <textarea parsley-validation-minlength="1" name="pm_juanzeng_yongtu" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->zijin[0]['pm_juanzeng_yongtu'];?></textarea>
+                    </div>
+                    <span class="col-sm-2" > * 资助家庭经济困难学生、奖励优秀学生、支持毕业生就业、奖励教师等</span>
+                </div>
+
 			<div class="form-group">
             <label class="col-sm-2 control-label" for="input01">备注：</label>
             <div class="col-sm-8">

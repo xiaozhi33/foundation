@@ -50,6 +50,13 @@
 			$zijin_laiyuan_qudao = HttpUtil::postString("zijin_laiyuan_qudao");		 //捐赠渠道
 			$pm_is_school = HttpUtil::postString("pm_is_school");		 //是否校友
 			$peibi = HttpUtil::postString("peibi");		 				 //配比状态
+			
+			$peibi_jiner = HttpUtil::postString("peibi_jiner");
+			$peibi_department = HttpUtil::postString("peibi_department");
+			$peibi_card = HttpUtil::postString("peibi_card");
+			$peibi_pp = HttpUtil::postString("peibi_pp");
+			$peibi_jupi = HttpUtil::postString("peibi_jupi");
+			
 			$piaoju = HttpUtil::postString("piaoju");				     //票据
 			$zhengshu = HttpUtil::postString("zhengshu");		         //证书
 			$pm_pp_company = HttpUtil::postString("pm_pp_company");      //捐赠人公司介绍
@@ -75,6 +82,12 @@
 			$pm_zijinDAO ->zijin_laiyuan_qudao = $zijin_laiyuan_qudao;
 			$pm_zijinDAO ->pm_pp_cate = $pm_pp_cate;
 			$pm_zijinDAO ->pm_juanzeng_cate = $pm_cate;
+			
+			$pm_zijinDAO ->peibi_jiner = $peibi_jiner;
+			$pm_zijinDAO ->peibi_department = $peibi_department;
+			$pm_zijinDAO ->peibi_card = $peibi_card;
+			$pm_zijinDAO ->peibi_pp = $peibi_pp;
+			$pm_zijinDAO ->peibi_jupi = $peibi_jupi;
 			
 			$pm_zijinDAO ->cate_id = 0;
 
@@ -142,6 +155,13 @@
 				$pm_zijinDAO ->zijin_daozheng_jiner = $zijin_daozheng_jiner;
 				$pm_zijinDAO ->pm_is_school = $pm_is_school;
 				$pm_zijinDAO ->peibi =$peibi;
+				
+				$peibi_jiner = HttpUtil::postString("peibi_jiner");
+				$peibi_department = HttpUtil::postString("peibi_department");
+				$peibi_card = HttpUtil::postString("peibi_card");
+				$peibi_pp = HttpUtil::postString("peibi_pp");
+				$peibi_jupi = HttpUtil::postString("peibi_jupi");
+			
 				$pm_zijinDAO ->piaoju = $piaoju;
 				$pm_zijinDAO ->zhengshu = $zhengshu;
 				$pm_zijinDAO ->pm_pp_company = $pm_pp_company;
@@ -149,6 +169,12 @@
 				$pm_zijinDAO ->zijin_laiyuan_qudao = $zijin_laiyuan_qudao;
 				$pm_zijinDAO ->pm_juanzeng_cate = $pm_cate;
 				$pm_zijinDAO ->pm_pp_cate = $pm_pp_cate;
+				
+				$pm_zijinDAO ->peibi_jiner = $peibi_jiner;
+				$pm_zijinDAO ->peibi_department = $peibi_department;
+				$pm_zijinDAO ->peibi_card = $peibi_card;
+				$pm_zijinDAO ->peibi_pp = $peibi_pp;
+				$pm_zijinDAO ->peibi_jupi = $peibi_jupi;
 	
 				if($_FILES['pm_files']['name']!=""){
 					if($_FILES['pm_files']['error'] != 4){
