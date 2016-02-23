@@ -57,6 +57,10 @@
 			$peibi_pp = HttpUtil::postString("peibi_pp");
 			$peibi_jupi = HttpUtil::postString("peibi_jupi");
 			
+			
+			$yishi = HttpUtil::postString("yishi");
+			$jinianpin = HttpUtil::postString("jinianpin");
+			
 			$piaoju = HttpUtil::postString("piaoju");				     //票据
 			$zhengshu = HttpUtil::postString("zhengshu");		         //证书
 			$pm_pp_company = HttpUtil::postString("pm_pp_company");      //捐赠人公司介绍
@@ -88,6 +92,9 @@
 			$pm_zijinDAO ->peibi_card = $peibi_card;
 			$pm_zijinDAO ->peibi_pp = $peibi_pp;
 			$pm_zijinDAO ->peibi_jupi = $peibi_jupi;
+			
+			$pm_zijinDAO ->yishi = $yishi;
+			$pm_zijinDAO ->jinianpin = $jinianpin;
 			
 			$pm_zijinDAO ->cate_id = 0;
 
@@ -294,6 +301,52 @@
             echo $this->view->render("zijin/rate.phtml");
             echo $this->view->render("index/footer.phtml");
         }
+		
+		/**
+		 * pm_mg_sign 签约
+		 */
+		public function getsign($pm_id)
+		{
+			if(!empty($pm_id))
+			{
+				$pm_signDAO = $this->orm->createDAO("pm_mg_sign");
+				$pm_signDAO ->findPm_id($pm_id);
+				$pm_signDAO = $pm_signDAO ->get();
+				
+				return $pm_signDAO;
+			}else{
+				return array();
+			}	
+		}
+		
+		public function editsign()
+		{
+			$pm_signDAO = $this->orm->createDAO("pm_mg_sign");
+			if(!empty($id)){
+				$pm_signDAO ->findId($id);
+			}
+			$pm_signDAO ->pm_id = $pm_id;
+			$pm_signDAO ->sign_time = $sign_time;
+			
+			if($_FILES['pm_files']['name']!=""){
+				if($_FILES['pm_files']['error'] != 4){
+					if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+						 mkdir(__UPLOADPICPATH__ ."jjh_download/");
+					}
+					$uploadpic = new uploadPic($_FILES['pm_files']['name'],$_FILES['pm_files']['error'],$_FILES['pm_files']['size'],$_FILES['pm_files']['tmp_name'],$_FILES['pm_files']['type'],2);
+					$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+					$result = $uploadpic->uploadPic();
+					if($result['error']!=0){					    	
+						alert_back($result['msg']);
+					}else{				             
+						$pm_signDAO->sign_file =  __GETPICPATH__."jjh_download/".$result['picname'];
+					}		            	    
+				}
+			}
+			$pm_signDAO = $pm_signDAO ->save();
+				
+			return $pm_signDAO;
+		}
 
 
 		public function _init(){
