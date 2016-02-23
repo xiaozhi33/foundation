@@ -3,30 +3,33 @@
 	class Management_shiyongController extends BaseController {
 		private $dbhelper;
 		public function indexAction(){
+            $type = $_REQUEST["type"];
 			$pname = HttpUtil::postString("pname");
 			$zhichudate = HttpUtil::postString("zhichudate");
 			$pminfo = new pm_mg_infoDAO();
-			
+
 			if($pname != ""){
-				$pminfo ->pm_name = $pname;
+                $pminfo ->selectLimit .= " and pm_name like '%".$pname."%'";
 			}
 			
 			if($zhichudate != ""){
 				$pminfo ->shiyong_zhichu_datetime = $zhichudate;
 			}
+            $pminfo ->shiyong_type = $type;
 			
-			$pminfo ->selectLimit = " and cate_id = 1 order by id desc";
-			//$pminfo ->debugSql =true;
+			$pminfo ->selectLimit .= " and cate_id = 1 order by shiyong_zhichu_datetime desc";
+			//$pminfo ->debugSql = true;
 			
 			$pminfo = $pminfo->get($this->dbhelper);
 			$total = count($pminfo);
 			$pageDAO = new pageDAO();
-			$pageDAO = $pageDAO ->pageHelper($pminfo,null,"index",null,'get',20,20);						
+			$pageDAO = $pageDAO ->pageHelper($pminfo,null,"index",null,'get',20,8);
 			$pages = $pageDAO['pageLink']['all'];
 			$pages = str_replace("/index.php","",$pages);	
 			$this->view->assign('shiyonglist',$pageDAO['pageData']);
 			$this->view->assign('page',$pages);	
 			$this->view->assign('total',$total);
+            $this->view->assign('type',$type);
 
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render("shiyong/index.phtml");
@@ -34,12 +37,15 @@
 		}
 		
 		public function addshiyongAction(){
+            $type = $_REQUEST["type"];
+            $this->view->assign('type',$type);
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render("shiyong/addshiyong.phtml");
 			echo $this->view->render("index/footer.phtml");
 		}
 		
 		public function addrsshiyongAction(){
+            $shiyong_type = HttpUtil::postString("shiyong_type");
 			$pname = HttpUtil::postString("pname");  //项目编号
 			$shiyong_zhichu_datetime = HttpUtil::postString("shiyong_zhichu_datetime");		 //项目支出日期
 			$shiyong_zhichu_jiner = HttpUtil::postString("shiyong_zhichu_jiner");  //项目支出金额
@@ -59,6 +65,7 @@
 			$pm_mg_infoDAO ->shiyong_zhichu_datetime = $shiyong_zhichu_datetime;
 			$pm_mg_infoDAO ->shiyong_zhichu_jiner = $shiyong_zhichu_jiner;
 			$pm_mg_infoDAO ->pm_juanzeng_cate = HttpUtil::postString("pm_cate");
+            $pm_mg_infoDAO ->shiyong_type = $shiyong_type;
 			
 			$pm_mg_infoDAO ->cate_id = 1;
 			
@@ -161,6 +168,7 @@
 			
 			//项目名称列表
 			$pm_chouzi = new pm_mg_chouziDAO();
+            $pm_chouzi ->selectLimit .= " order by id desc";
 			$pm_chouzi = $pm_chouzi ->get($this->dbhelper);
 			$this->view->assign("pmlist",$pm_chouzi);
 		}

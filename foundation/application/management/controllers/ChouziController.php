@@ -29,6 +29,8 @@
                 $chouziinfo->selectLimit = " and pm_qishi_datetime<'$starttime' and pm_jiezhi_datetime>'$endtime'";
             }
 
+            $chouziinfo ->selectLimit .= " order by id desc";
+
             //$chouziinfo ->debugSql =true;
             $chouziinfo = $chouziinfo->get($this->dbhelper);
             $total = count($chouziinfo);

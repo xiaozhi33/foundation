@@ -7,13 +7,13 @@
 <div class="pageheader">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
-        <span>添加使用信息</span></h2>
+        <span>添加支出信息</span></h2>
 
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
-            <li>项目使用管理</li>
-            <li class="active">添加使用信息/li>
+            <li>项目支出管理</li>
+            <li class="active">添加支出信息</li>
         </ol>
     </div>
 
@@ -25,96 +25,111 @@
 		<div class="col-md-12">
 				<section class="tile color transparent-black">
 			<div class="detailedbox tile-body">
-			<form class="form-horizontal" action="addrsshiyong" method="post" encType="multipart/form-data">
+			<form  class="form-horizontal" id="form1" action="addrsshiyong" method="post" encType="multipart/form-data">
             
 			<div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">项目名称：</label>
-            <div class="col-sm-8">
-            <select class="form-control" name="pname">
-							<?php if($this->pmlist != ""){
-									foreach ($this->pmlist as $k => $v){
-								?>
-								<option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
-							<?php }}?>
-						</select>
+                <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                    <div class="col-sm-4">
+                            <select class="form-control" name="pname">
+                                    <?php if($this->pmlist != ""){
+                                            foreach ($this->pmlist as $k => $v){
+                                        ?>
+                                        <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                    <?php }}?>
+                                </select>
+                    </div>
+                <span class="col-sm-2" > * </span>
             </div>
-            <span class="col-sm-2" > * </span>
-            </div>	
 
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">项目支出类型：</label>
+                    <div class="col-sm-4">
+                        <!--<label class="radio-inline"><input type="radio" size="14" <?php if($this->type == 1){?> checked="checked"<?php }?> value="1" name="shiyong_type"> 转财务处 </label>
+                        <label class="radio-inline"><input type="radio" size="14" <?php if($this->type == 2){?> checked="checked"<?php }?>  value="2" name="shiyong_type"> 基金会列支 </label>-->
+                        <?php if($this->type == 1){?>
+                            <input class="form-control" type="text" value="转财务处" readonly="readonly" name=""  size="14"/>
+                            <input class="form-control" type="hidden" value="1" readonly="readonly" name="shiyong_type"  size="14"/>
+                        <?php }else {?>
+                            <input class="form-control" type="text" value="基金会列支" readonly="readonly" name=""  size="14"/>
+                            <input class="form-control" type="hidden" value="2" readonly="readonly" name="shiyong_type"  size="14"/>
+                        <?php }?>
 
-			  <div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">项目捐赠类型：</label>
-            <div class="col-sm-8">
-            <select class="form-control" name="pm_cate">
-								<option value="" >请选择类型</option>
-								<?php if($this->pcatelist != ""){
-								foreach ($this->pcatelist as $k => $v){?>
-									<option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
-								<?php }}?>
-							</select>
-            </div>
-            <span class="col-sm-2" > * 教育基金、研究基金等</span>
-            </div>	
+                    </div>
+                    <span class="col-sm-2" > </span>
+                </div>
+
+			  <!--<div class="form-group">
+                <label class="col-sm-2 control-label" for="input01">项目捐赠类型：</label>
+                    <div class="col-sm-4">
+                            <select class="form-control" name="pm_cate">
+                                    <option value="" >请选择类型</option>
+                                    <?php /*if($this->pcatelist != ""){
+                                    foreach ($this->pcatelist as $k => $v){*/?>
+                                        <option value="<?php /*echo $v['id']*/?>" ><?php /*echo $v['catename']*/?></option>
+                                    <?php /*}}*/?>
+                                </select>
+                    </div>
+                    <span class="col-sm-2" > * 教育基金、研究基金等</span>
+                </div>-->
 
 
 					  <div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">项目支出日期：</label>
-            <div class="col-sm-8">
-            <input class="form-control" type="text"  id="dateinput1"  name="shiyong_zhichu_datetime"  size="14"/>
-            </div>
-            <span class="col-sm-2" > * </span>
-            </div>	
+                            <label class="col-sm-2 control-label" for="input01">项目支出日期：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" data-date-format="YYYY-MM-DD HH:mm:ss" type="text"  id="datepicker"  name="shiyong_zhichu_datetime" size="14"/>
+                            </div>
+                            <span class="col-sm-2" > * </span>
+                            </div>
 
-				<div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">项目支出金额：</label>
-            <div class="col-sm-8">
-            <input class="form-control" type="text" name="shiyong_zhichu_jiner"  size="14"/>
-            </div>
-            <span class="col-sm-2" > * </span>
-            </div>	
-
-
+             <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">项目支出金额：</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" name="shiyong_zhichu_jiner"  size="14"/>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
 					
-					<div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">捐赠范围：</label>
-            <div class="col-sm-8">
-            <select class="form-control" name="fanwei">
-								<option value="" >请选择类型</option>
-								<option value="本科生" >本科生</option>
-								<option value="研究生" >研究生</option>
-								<option value="本科研究生" >本科研究生</option>
-								<option value="其他" >其他</option>
-							</select>
-            </div>
-            <span class="col-sm-2" > 本科生、研究生、本科研究生、其他 </span>
-            </div>	
-
-
-					 <div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">奖励人数：</label>
-            <div class="col-sm-8">
-            	<input class="form-control" type="text" name="jiangli_renshu"  size="14"/>
-            </div>
-            </div>	
-
-					<div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">相关文档：</label>
-            <div class="col-sm-8">
-            <input type="file" name="pm_files"  size="14"/>
-            </div>
-            <span class="col-sm-2" >* 相关文档已打包形式上传 格式为*.rar </span>
-            </div>	
-
 				<div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">备注：</label>
-            <div class="col-sm-8">
-            	<textarea class="ckeditor" name="beizhu"></textarea>
-            </div>
+                    <label class="col-sm-2 control-label" for="input01">捐赠范围：</label>
+                    <div class="col-sm-4">
+                    <select class="form-control" name="fanwei">
+                                        <option value="" >请选择类型</option>
+                                        <option value="本科生" >本科生</option>
+                                        <option value="研究生" >研究生</option>
+                                        <option value="本科研究生" >本科研究生</option>
+                                        <option value="其他" >其他</option>
+                                    </select>
+                    </div>
+                    <span class="col-sm-2" > 本科生、研究生、本科研究生、其他 </span>
+                </div>
+
+                <?php if($this->type == 2){?>
+					 <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">资助人数：</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" name="jiangli_renshu"  size="14"/>
+                        </div>
+                    </div>
+                <?php }?>
+
+			<!--<div class="form-group">
+                <label class="col-sm-2 control-label" for="input01">相关文档：</label>
+                <div class="col-sm-4">
+                <input type="file" name="pm_files"  size="14"/>
+                </div>
+                <span class="col-sm-2" >* 相关文档已打包形式上传 格式为*.rar </span>
+            </div>	-->
+
+			<div class="form-group">
+                <label class="col-sm-2 control-label" for="input01">备注：</label>s
+                <div class="col-sm-8">
+                    <textarea parsley-validation-minlength="1" name="beizhu" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea>
+                </div>
             </div>	
 					
 					<div class="form-group form-footer">
 						<div class="col-sm-offset-5 col-sm-7">
-							<input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp; 
+							<input class="btn btn-primary" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
 							<input class="btn btn-default" type="reset" value="重 置" /> 
 						</div>
 					</div>
@@ -123,22 +138,8 @@
             </section>
 		  </div>
 		</div>
-	
-			<script language="javascript"> 
-			$(document).ready(function() {   
-			       $('#dateinput1').datepicker({   
-			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
-			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
-			           buttonImageOnly: true,  //Show an image trigger without any button. 
-			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
-			       yearRange: '2008:2020',//年份范围 
-			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
-			       closeText:'关闭', 
-			       prevText:'前一月', 
-			       nextText:'后一月', 
-			       currentText:' ', 
-			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
-			       });   
-			   });   
-			</script>
+
+        <script language="javascript">
+            $(".menu li:eq(9)").addClass("open");
+        </script>
 		
