@@ -1,11 +1,7 @@
-
-
 <!-- page header -->
 <div class="pageheader">
-
     <h2><i class="fa fa-tachometer"></i> Dashboard
         <span>项目分类列表</span></h2>
-
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
@@ -13,15 +9,14 @@
             <li class="active">项目分类列表</li>
         </ol>
     </div>
-
 </div>
 <!-- /page header -->
-	<div id="main" class="main">
-		<div id="rightstyle02" class="row">
-			<div class="col-md-8">
-				<section class="tile color transparent-black">
-					<div class="tile-body nopadding">
 
+<div id="main" class="main">
+	<div id="rightstyle02" class="row">
+		<div class="col-md-8">
+			<section class="tile color transparent-black">
+				<div class="tile-body nopadding">
 					<?php if($this->catelist != ""){?>
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					  <thead>
@@ -46,17 +41,16 @@
 					   <?php }?>
                      </tbody>
 					</table>
-					</div>
-					<div class="tile-footer bg-transparent-black-2">
-						<div class="row">
+				</div>
+				<div class="tile-footer bg-transparent-black-2">
+					<div class="row">
                         <div align="right" class="page col-md-12">
-                            共  <?php echo $this->total;?> 条          <?php echo $this->page;?></div>
-                        
+                         共  <?php echo $this->total;?> 条          <?php echo $this->page;?></div>
                      <?php }else{?>
                         <div>暂无项目分类信息！<a href="/management/admin/addcate">点击添加</a></div>
                      <?php }?>
 		  			</div>
-					</div> 
-        		</section>
-			</div>
+				</div> 
+        	</section>
 		</div>
+	</div>

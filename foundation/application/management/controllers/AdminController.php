@@ -10,7 +10,7 @@
 			echo $this->view->render('admin/index.phtml');
 			echo $this->view->render("index/footer.phtml");
 		}
-		
+
 		public function addAction(){
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render('admin/add.phtml');
