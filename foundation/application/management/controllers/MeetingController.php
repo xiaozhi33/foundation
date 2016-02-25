@@ -25,7 +25,7 @@
          *  toSave meeting information
          */
         public function toAddAction(){
-			$id = HttpUtil::postString("id");
+			$id = $_REQUEST['id'];
             $meeting_name = HttpUtil::postString("meeting_name");
             $meeting_cate = HttpUtil::postString("meeting_cate");
             $meeting_joiner = HttpUtil::postString("meeting_joiner");
@@ -37,29 +37,26 @@
             if($meeting_name == "" || $meeting_cate == "" || $meeting_joiner == "" || $meeting_content == ""){
                 alert_back("您输入的信息不完整，请查正后继续添加！！！！！");
             }
-
             $meetingDAO = $this->orm->createDAO('jjh_meeting');
             if(!empty($id))  //修改流程
             {
                 $meetingDAO ->findId($id);
             }
-            $meetingDAO ->meeting_name = $meeting_name;
-            $meetingDAO ->meeting_cate = $meeting_cate;
-            $meetingDAO ->meeting_joiner = $meeting_joiner;
-            $meetingDAO ->meeting_content = $meeting_content;
-            $meetingDAO ->meeting_start_time = $meeting_start_time;
-            $meetingDAO ->meeting_end_time = $meeting_end_time;
-            $meetingDAO ->meeting_address = $meeting_address;
-            $rs = $meetingDAO ->save();
-
-            if($rs){
-                echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/meeting/'));
+            try{
+                $meetingDAO ->meeting_name = $meeting_name;
+                $meetingDAO ->meeting_cate = $meeting_cate;
+                $meetingDAO ->meeting_joiner = $meeting_joiner;
+                $meetingDAO ->meeting_content = $meeting_content;
+                $meetingDAO ->meeting_start_time = $meeting_start_time;
+                $meetingDAO ->meeting_end_time = $meeting_end_time;
+                $meetingDAO ->meeting_address = $meeting_address;
+                $meetingDAO ->save();
+            }catch (Exception $e){
+                alert_back("保存失败！");
                 exit;
-            }else {
-                alert_back("保存失败，请联系系统管理员");
             }
-
-
+            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/meeting/'));
+            exit;
         }
 		
 		public function editAction(){
@@ -72,18 +69,18 @@
 			{
 				$this->view->assign("meeting_info", $meetingDAO);
 				echo $this->view->render("index/header.phtml");
-				echo $this->view->render("meeting/edit.phtml");
+				echo $this->view->render("meeting/editmeeting.phtml");
 				echo $this->view->render("index/footer.phtml");
+                exit();
 			}
-			
-            $id = $_GET['id'];
             $meetingDAO = $this->orm->createDAO('jjh_meeting')->order('id DESC');
 
             $this->view->assign("meeting_info", $meetingDAO);
 
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("meeting/addmeeting.phtml");
+            echo $this->view->render("meeting/editmeeting.phtml");
             echo $this->view->render("index/footer.phtml");
+            exit();
 		}
 		
 		public function delAction(){

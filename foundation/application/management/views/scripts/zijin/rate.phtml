@@ -63,8 +63,8 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="24%">项目名称</td>
-                        <td width="24%">项目进度</td>
+						<td width="7%">项目名称</td>
+                        <td width="10%">项目进度</td>
 						<td width="13%">操作</td>
 					  </tr>
 					</thead>
@@ -85,8 +85,11 @@
                                  <?php }?>
                               </td>
 							<td>
-                                <a href="/management/chouzi/editchouzi?id=<?php echo $v['id'];?>">
-                                    <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                                <a href="/management/?id=<?php echo $v['id'];?>">
+                                    <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
+                                </a>
+                                <a href="/management/?id=<?php echo $v['id'];?>">
+                                    <button class="btn btn-greensea margin-bottom-20" type="button">查看协议</button>
                                 </a>
                                 &nbsp;&nbsp;
                                 <a href="#" onclick="alert('对不起，项目清单不提供删除功能，请联系管理员');">
