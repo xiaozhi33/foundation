@@ -335,6 +335,63 @@
 				alert_back("请输入管理员名称或密码");
 			}
 		}
+
+        ////////////////////////////////////////////////////////////////
+        /**
+         * 联系人子公司列表
+         */
+        public function ppcompanyAction()
+        {
+            $pp_id = $_REQUEST['pp_id'];
+            $pp_id = (int)$pp_id;
+            if(!empty($pp_id))
+            {
+                $jjh_mg_pp_companyDAO = $this->orm->createDAO("jjh_mg_pp_company");
+                $jjh_mg_pp_companyDAO ->findPp_id($pp_id);
+                $jjh_mg_pp_companyDAO = $jjh_mg_pp_companyDAO ->get();
+
+                $this->view->assign("company_list",$jjh_mg_pp_companyDAO);
+                echo $this->view->render("index/header.phtml");
+                echo $this->view->render("admin/ppcompany.phtml");
+                echo $this->view->render("index/footer.phtml");
+            }
+        }
+
+        /**
+         * 添加联系人子公司信息
+         */
+        public function addppcompanyAction()
+        {
+            $pp_id = $_REQUEST['pp_id'];
+            $pp_id = (int)$pp_id;
+            if(!empty($pp_id)) {
+                $jjh_mg_pp_companyDAO = $this->orm->createDAO("jjh_mg_pp_company");
+                $jjh_mg_pp_companyDAO->findPp_id($pp_id);
+                $jjh_mg_pp_companyDAO = $jjh_mg_pp_companyDAO->get();
+                $this->view->assign("ppcompany", $jjh_mg_pp_companyDAO);
+            }
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("admin/ppcompany.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        /**
+         * 编辑联系人子公司信息
+         */
+        public function editppcompanyAction()
+        {
+            $pp_id = $_REQUEST['pp_id'];
+            $pp_id = (int)$pp_id;
+            if(!empty($pp_id)) {
+                $jjh_mg_pp_companyDAO = $this->orm->createDAO("jjh_mg_pp_company");
+                $jjh_mg_pp_companyDAO->findPp_id($pp_id);
+                $jjh_mg_pp_companyDAO = $jjh_mg_pp_companyDAO->get();
+                $this->view->assign("ppcompany", $jjh_mg_pp_companyDAO);
+            }
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("admin/ppcompany.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
 		
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
