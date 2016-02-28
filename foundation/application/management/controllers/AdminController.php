@@ -293,8 +293,9 @@
 		public function ppAction(){
 			$ppinfo = new jjh_mg_ppDAO();
 			if($_REQUEST['ppname'] != ""){
-				$ppinfo->selectLimit = " and ppname='$_REQUEST[ppname]' and pp_pm_id='$_REQUEST[pp_pm_id]'";
+				$ppinfo->selectLimit .= " and ppname='$_REQUEST[ppname]' and pp_pm_id='$_REQUEST[pp_pm_id]'";
 			}
+            $ppinfo->selectLimit .= " order by pid DESC";
 			$ppinfo = $ppinfo->get($this->dbhelper);
 			
 			$total = count($ppinfo);
