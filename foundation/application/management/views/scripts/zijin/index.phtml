@@ -29,22 +29,22 @@
                     	<form class="form-horizontal" action="#" method="post">
                         	<div class="form-group">
                             	<div class="row"> 
-                            	<div class="form-group col-sm-12">
-                                    <label class="col-sm-2 control-label" for="input01">项目名称：</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control" name="pname">
-                                            <?php if($this->pmlist != ""){
-                                                    foreach ($this->pmlist as $k => $v){
-                                                ?>
-                                                <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
-                                            <?php }}?>
-                                        </select>
+                                    <div class="form-group col-sm-2">
+                                        <label class="control-label" for="input01">项目名称：</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" name="pname">
+                                                <?php if($this->pmlist != ""){
+                                                        foreach ($this->pmlist as $k => $v){
+                                                    ?>
+                                                    <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                                <?php }}?>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-2">
-                                        <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
-                                    </div>
-                                </div>
-                        	</div>
+                        		</div>
                         	</div>
                     	</form>
                     </div>

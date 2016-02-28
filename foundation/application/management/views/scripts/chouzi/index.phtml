@@ -23,7 +23,7 @@
 
 	<div id="main" class="main">
 		<div id="rightstyle02" class="row">
-			<!--<h4 class="col-md-12">项目筹资管理<span class="font_red"> >> </span><span class="font_red_big">筹资列表</span></h4>-->
+
 			<div class="col-md-12">
 			<section class="tile color transparent-black">
 			<div class="tile-body">
@@ -84,7 +84,7 @@
 					 <thead>
 					  <tr>
 						<td width="24%">项目名称</td>
-						<td width="12%">部门名称</td>
+						<!--<td width="12%">部门名称</td>
                           <!--<td width="20%">项目分类</td>
                           <td width="18%">项目签约日期</td>-->
 						<td width="13%">协议捐赠金额</td>
@@ -96,7 +96,7 @@
 						foreach($this->chouzilist as $k=>$v){?>
 						 <tr>
 						 	<td><?php echo $v['pname'];?>&nbsp;</td>
-							<td><?php  foreach ($this->departmentlist as $kk => $vv){
+							<!--<td><?php  foreach ($this->departmentlist as $kk => $vv){
 								if($vv['id'] == $v['department']){ echo $vv['pname'];}
 								}?>&nbsp;</td>
                              <!--<td><?php  foreach ($this->pcatelist as $kk => $vv){
