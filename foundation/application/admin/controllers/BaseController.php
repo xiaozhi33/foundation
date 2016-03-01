@@ -1,7 +1,7 @@
 <?php
 	require_once("sessionutil.php");
 	require_once("httputil.php");
-	require_once("functions.php");
+	require_once("functions_old.php");
 	require_once 'resizepic.php'; //创建缩略图
 	require_once 'uploadpic.php';
 	

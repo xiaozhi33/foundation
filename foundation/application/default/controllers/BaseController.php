@@ -1,7 +1,7 @@
 <?php
 	require_once("../util/sessionutil.php");
 	require_once("../util/httputil.php");
-	require_once("../util/functions.php");
+	require_once("../util/functions_old.php");
 
 	class BaseController extends Zend_Controller_Action
 	{
