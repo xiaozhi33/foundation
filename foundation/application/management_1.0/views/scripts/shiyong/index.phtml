@@ -1,0 +1,217 @@
+<link rel="stylesheet" href="/include/management/datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="/include/management/datepicker/ui.datepicker.css" type="text/css"  /> 
+<!--<script src="/include/management/datepicker/jquery.js"></script>-->
+
+<link rel="stylesheet" href="/include/management/jiansuo/base/jquery.ui.all.css">
+<script src="/include/management/jiansuo/jquery-1.6.2.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.core.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.widget.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.button.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.position.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.autocomplete.js"></script>
+
+<script src="/include/management/jiansuo/ui/jquery.ui.datepicker.js"></script>
+<!--<script src="/include/management/datepicker/ui.datepicker.js"></script>-->
+
+<style>
+	.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text{
+		padding:0em;
+	}
+	.ui-widget .ui-widget{
+		font-size: 12px;
+	}
+	.ui-menu .ui-menu-item a{
+		font-size: 12px;
+	}
+
+</style>
+<script>
+	(function( $ ) {
+		$.widget( "ui.combobox", {
+			_create: function() {
+				var self = this,
+					select = this.element.hide(),
+					selected = select.children( ":selected" ),
+					value = selected.val() ? selected.text() : "";
+				var input = this.input = $( "<input>" )
+					.insertAfter( select )
+					.val( value )
+					.autocomplete({
+						delay: 0,
+						minLength: 0,
+						source: function( request, response ) {
+							var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+							response( select.children( "option" ).map(function() {
+								var text = $( this ).text();
+								if ( this.value && ( !request.term || matcher.test(text) ) )
+									return {
+										label: text.replace(
+											new RegExp(
+												"(?![^&;]+;)(?!<[^<>]*)(" +
+												$.ui.autocomplete.escapeRegex(request.term) +
+												")(?![^<>]*>)(?![^&;]+;)", "gi"
+											), "<strong style='color:red'>$1</strong>" ),
+										value: text,
+										option: this
+									};
+							}) );
+						},
+						select: function( event, ui ) {
+							ui.item.option.selected = true;
+							self._trigger( "selected", event, {
+								item: ui.item.option
+							});
+						},
+						change: function( event, ui ) {
+							if ( !ui.item ) {
+								var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
+									valid = false;
+								select.children( "option" ).each(function() {
+									if ( $( this ).text().match( matcher ) ) {
+										this.selected = valid = true;
+										return false;
+									}
+								});
+								if ( !valid ) {
+									// remove invalid value, as it didn't match anything
+									$( this ).val( "" );
+									select.val( "" );
+									input.data( "autocomplete" ).term = "";
+									return false;
+								}
+							}
+						}
+					})
+					.addClass( "ui-widget ui-widget-content ui-corner-left" );
+
+				input.data( "autocomplete" )._renderItem = function( ul, item ) {
+					return $( "<li></li>" )
+						.data( "item.autocomplete", item )
+						.append( "<a>" + item.label + "</a>" )
+						.appendTo( ul );
+				};
+
+				this.button = $( "<button type='button'>&nbsp;</button>" )
+					.attr( "tabIndex", -1 )
+					.attr( "title", "Show All Items" )
+					.insertAfter( input )
+					.button({
+						icons: {
+							primary: "ui-icon-triangle-1-s"
+						},
+						text: false
+					})
+					.removeClass( "ui-corner-all" )
+					.addClass( "ui-corner-right ui-button-icon" )
+					.click(function() {
+						// close if already visible
+						if ( input.autocomplete( "widget" ).is( ":visible" ) ) {
+							input.autocomplete( "close" );
+							return;
+						}
+
+						// work around a bug (likely same cause as #5265)
+						$( this ).blur();
+
+						// pass empty string as value to search for, displaying all results
+						input.autocomplete( "search", "" );
+						input.focus();
+					});
+			},
+
+			destroy: function() {
+				this.input.remove();
+				this.button.remove();
+				this.element.show();
+				$.Widget.prototype.destroy.call( this );
+			}
+		});
+	})( jQuery );
+
+	$(function() {
+		$( "#combobox" ).combobox();
+		$( "#toggle" ).click(function() {
+			$( "#combobox" ).toggle();
+		});
+	});
+	</script>
+	
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>项目使用管理<span class="font_#0474d6"> >> </span><span class="font_#0474d6_big">使用列表</span></h4>
+			<div class="detailedbox">
+				<div class="search">
+					<form action="#" method="get">
+					<div class="ui-widget">
+						项目名称：
+						<select name="pname" id="combobox">
+							<?php if($this->pmlist != ""){
+									foreach ($this->pmlist as $k => $v){
+								?>
+								<option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+							<?php }}?>
+						</select>
+						
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						项目支出日期：<input type="text"  id="dateinput"  name="zhichudate"  size="14"/>
+						<input type="submit" value="搜索"/>
+					</div>
+					</form>
+					<br/>
+					<font style="color:#0474d6;"> * 项目资金和使用必须在拥有具体项目以后才可以进行操作，如目前还没有项目请添加筹资项目。</font>
+				</div>
+	
+				<?php if($this->shiyonglist != ""){?>
+					<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  
+					  <tr>
+						<td width="30%" bgcolor="#f5f5f5">项目名称</td>
+						<td width="12%" bgcolor="#f5f5f5">奖励范围</td>
+						<td width="13%" bgcolor="#f5f5f5">奖励人数</td>
+						<td width="13%" bgcolor="#f5f5f5">项目支出日期</td>
+						<td width="13%" bgcolor="#f5f5f5">项目支出金额</td>
+						<td width="13%" bgcolor="#f5f5f5">操作</td>
+					  </tr>
+					
+					  <?php 
+						foreach($this->shiyonglist as $k=>$v){?>
+						 <tr>
+						 	<td><?php echo $v['pm_name'];?>&nbsp;</td>
+							<td><?php echo $v['jiangli_fanwei'];?>&nbsp;</td>
+							<td><?php echo $v['jiangli_renshu'];?>&nbsp;人</td>
+								
+							<td><?php echo substr($v['shiyong_zhichu_datetime'],0,10);?>&nbsp;</td>
+							<td><?php echo $v['shiyong_zhichu_jiner'];?>&nbsp;元</td>
+							<td><a href="/management/shiyong/editshiyong?id=<?php echo $v['id'];?>">编辑</a> || <a href="#">删除</a></td>
+						 </tr>
+					   <?php }?>
+					</table>
+					
+					<div align="right" style="margin-right: 10px;margin-top: 5px;">
+						共  <?php echo $this->total;?> 条使用信息          <?php echo $this->page;?></div>
+					
+				 <?php }else{?>
+				 	<div>暂无使用信息！<a href="/admin/shiyong/addshiyong">点击添加</a></div>
+				 <?php }?>
+		  </div>
+		</div> 
+		
+		<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>
+			
+			

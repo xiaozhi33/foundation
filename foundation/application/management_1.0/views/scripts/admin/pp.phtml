@@ -1,0 +1,56 @@
+
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>项目联系人管理<span class="font_red"> >> </span><span class="font_red_big">项目联系人列表</span></h4>
+			<div class="detailedbox">
+			
+			<div class="search">
+					<form method="post" action="#">
+						联系人姓名：
+						<input type="text" name="ppname" />
+						&nbsp;&nbsp;&nbsp;
+						相关项目名称：
+						<select name="pp_pm_id">
+							<?php if($this->pmlist != ""){
+									foreach ($this->pmlist as $k => $v){
+								?>
+								<option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+							<?php }}?>
+						</select>
+						&nbsp;&nbsp;&nbsp;
+						<input type="submit" value="搜索">
+					</form>
+				</div>
+
+				<?php if($this->pplist != ""){?>
+					<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  
+					  <tr>
+						<td width="15%" bgcolor="#f5f5f5">联系人姓名</td>
+						<td width="25%" bgcolor="#f5f5f5">相关项目</td>
+						<td width="20%" bgcolor="#f5f5f5">移动电话</td>
+						<td width="20%" bgcolor="#f5f5f5">电子邮箱</td>
+						<td width="20%" bgcolor="#f5f5f5">操作</td>
+					  </tr>
+					
+					  <?php 
+						foreach($this->pplist as $k=>$v){?>
+						 <tr>
+						 	<td><?php echo $v['ppname'];?></td>
+							<td><?php echo $v['pp_pm_id'];?></td>
+							<td><?php echo $v['ppmobile'];?></td>
+							<td><?php echo $v['ppemail'];?></td>
+							<td><a href="/management/admin/editpp?id=<?php echo $v['pid'];?>">编辑</a> || <a href="#">删除</a></td>
+						 </tr>
+					   <?php }?>
+					</table>
+					
+					<div align="right" style="margin-right: 10px;margin-top: 5px;">
+						共  <?php echo $this->total;?> 条          <?php echo $this->page;?></div>
+					
+				 <?php }else{?>
+				 	<div>暂无项目联系人信息！<a href="/management/admin/adddepartment">点击添加</a></div>
+				 <?php }?>
+		  </div>
+		</div> 
+		

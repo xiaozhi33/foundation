@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>admin管理后台</title>
+
+<link href="/include/management/css/common.css" rel="stylesheet" type="text/css" />
+<link href="/include/management/css/submain.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/include/ckeditor/ckeditor.js"></script>
+
+</head>
+<body>
+	<div id="wrapper">
+	<div id="header">	
+	</div>
+	<div id="container">
+		<div id="sidebar">
+		
+			<div class="leftbox">
+				<h4>欢迎您：<?php $admininfo = SessionUtil::getAdmininfo();print_r($admininfo['admin_name']);?></h4>
+				<div class="menubox">
+					<h5 class="on">网站基本操作</h5>
+					<ul>
+						<li><a href="/" target="_blank">浏览网站首页</a></li>
+						<li><a href="/management/index/logout">安全退出</a></li>
+					</ul>
+				</div>
+			</div>
+			
+
+			<?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,4))){?>
+				
+			<div class="leftbox">
+				<h4>项目筹资管理</h4>				
+				<div class="menubox">
+					<h5 class="on">项目筹资管理</h5>
+					<ul>
+						<li><a href="/management/chouzi/index">筹资项目列表</a></li>
+						<li><a href="/management/chouzi/addchouzi">添加筹资项目</a></li>
+					</ul>
+				</div>
+			</div>
+			
+			<?php }?>
+			
+			<?php if (in_array($admininfo['admin_info']['admin_type'],array(0,2,4))){?>
+				
+			<div class="leftbox">
+				<h4>项目资金管理</h4>				
+				<div class="menubox">
+					<h5 class="on">项目资金管理</h5>
+					<ul>
+						<li><a href="/management/zijin/index">项目资金列表</a></li>
+						<li><a href="/management/zijin/addzijin">添加项目资金</a></li>
+					</ul>
+				</div>
+			</div>
+			
+			<?php }?>
+			
+			<?php if (in_array($admininfo['admin_info']['admin_type'],array(0,3,4))){?>
+				
+			<div class="leftbox">
+				<h4>项目使用管理</h4>				
+				<div class="menubox">
+					<h5 class="on">项目使用管理</h5>
+					<ul>
+						<li><a href="/management/shiyong/index">项目使用列表</a></li>
+						<li><a href="/management/shiyong/addshiyong">添加项目使用</a></li>
+					</ul>
+				</div>
+			</div>
+			
+			<?php }?>
+			
+			
+			
+
+			<?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4))){?>
+			<div class="leftbox">
+			
+				<h4>参数配置</h4>				
+				<div class="menubox">	
+
+					<h5 class="on">所属本门管理</h5>
+					<ul>
+						<li><a href="/management/admin/department">所属本门列表</a></li>
+						<li><a href="/management/admin/adddepartment">添加所属本门</a></li>
+					</ul>
+					
+					<h5 class="on">项目分类管理</h5>
+					<ul>
+						<li><a href="/management/admin/cate">项目分类列表</a></li>
+						<li><a href="/management/admin/addcate">添加项目分类</a></li>
+					</ul>
+					
+					<!--<h5 class="on">项目编号管理</h5>
+					<ul>
+						<li><a href="/management/admin/cate">制定项目编号规则</a></li>
+					</ul>
+															
+					--><h5 class="on">联系人管理</h5>
+					<ul>
+						<li><a href="/management/admin/pp">项目联系人列表</a></li>
+						<li><a href="/management/admin/addpp">添加项目联系人</a></li>
+					</ul>
+									
+				</div>
+			</div>
+
+			<?php }?>
+			
+			<?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
+			
+			<div class="leftbox">
+				<h4>统计功能</h4>				
+				<div class="menubox">	
+				
+				<h5 class="on">捐赠项目统计管理</h5>
+					<ul>
+						<li><a href="/management/report/index">项目管理统计</a></li>
+						<li><a href="/management/report/chouzi">项目筹资管理统计</a></li>
+						<li><a href="/management/report/zijin">项目资金管理统计</a></li>
+						<li><a href="/management/report/shiyong">项目使用管理统计</a></li>
+						<li><a href="/management/report/pmshouzhi">项目收支统计</a></li>
+					</ul>
+					
+				</div>
+			</div>
+			
+			<?php }?>
+			
+			<?php if (in_array($admininfo['admin_info']['admin_type'],array(0))){?>
+			<div class="leftbox">
+				<h4>网站信息管理</h4>	
+				
+				<div class="menubox">
+					<h5 class="on">管理组成员管理</h5>
+					<ul>
+						<li><a href="/management/admin">管理员列表</a></li>
+						<li><a href="/management/admin/add">添加管理员</a></li>
+						<li><a href="/management/admin/editpwd">编辑管理员密码</a></li>
+					</ul>
+				</div>
+							
+				<div class="menubox">
+					<h5 class="on">日志管理</h5>
+					<ul>
+						<li><a href="/management/log">网站日志列表</a></li>
+					</ul>
+				</div>
+				
+			</div>
+			<?php }?>
+	</div>

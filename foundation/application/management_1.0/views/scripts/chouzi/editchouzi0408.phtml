@@ -1,0 +1,240 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+	
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>项目筹资管理<span class="font_#0474d6"> >> </span><span class="font_#0474d6_big">编辑筹资信息</span></h4>
+			<div class="detailedbox">
+			<form action="editrschouzi" method="post" encType="multipart/form-data">
+				<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					<tr>
+					    <td width="20%" style="text-align:right;">项目编号：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="bianhao" value="<?php echo $this->chouzi[0]['pid'];?>"/><font color="#0474d6" > * 例如：jjh20010902jj</font>
+						</td>
+					</tr>
+										  
+					  <tr>
+					    <td width="20%" style="text-align:right;">项目名称：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="pname"  value="<?php echo $this->chouzi[0]['pname'];?>"/><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+										
+					<tr>
+					    <td width="20%" style="text-align:right;">所属部门：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="department">
+								<option value="" >请选择类型</option>
+								<?php if($this->departmentlist != ""){
+								foreach ($this->departmentlist as $k => $v){?>
+									<option value="<?php echo $v['id']?>" <?php if($this->chouzi[0]['department'] == $v['id']){echo "selected='selected'";}?>><?php echo $v['pname']?></option>
+								<?php }}?>
+							</select><font color="#0474d6" > * </font>
+						</td>
+					  </tr>
+					  
+					  
+					  <tr>
+					    <td width="20%" style="text-align:right;">项目分类：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="pm_cate">
+								<option value="" >请选择类型</option>
+								<?php if($this->pcatelist != ""){
+								foreach ($this->pcatelist as $k => $v){?>
+									<option value="<?php echo $v['id']?>" <?php if($this->chouzi[0]['cate'] == $v['id']){echo "selected='selected'";}?>><?php echo $v['catename']?></option>
+								<?php }}?>
+							</select><font color="#0474d6" > * </font>
+						</td>
+					  </tr>
+					
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">宣传推动期：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="tuidongqi">
+								<option value="" >请选择类型</option>
+								<option value="初期" <?php if($this->chouzi[0]['pm_tuidongqi'] == "初期"){echo "selected='selected'";}?>>初期</option>
+								<option value="中期" <?php if($this->chouzi[0]['pm_tuidongqi'] == "中期"){echo "selected='selected'";}?>>中期</option>
+								<option value="末期" <?php if($this->chouzi[0]['pm_tuidongqi'] == "末期"){echo "selected='selected'";}?>>末期</option>
+							</select><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">项目孵化期：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="fuhuaqi">
+								<option value="" >请选择类型</option>
+								<option value="初期" <?php if($this->chouzi[0]['pm_fuhuaqi'] == "初期"){echo "selected='selected'";}?>>初期</option>
+								<option value="中期" <?php if($this->chouzi[0]['pm_fuhuaqi'] == "中期"){echo "selected='selected'";}?>>中期</option>
+								<option value="末期" <?php if($this->chouzi[0]['pm_fuhuaqi'] == "末期"){echo "selected='selected'";}?>>末期</option>
+							</select><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">项目签约日期：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text"  id="dateinput"  value="<?php echo $this->chouzi[0]['pm_qianyue_datetime'];?>"  name="qianyuedate"  size="14"/><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">项目协议电子版：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="file" name="xieyidianzi" /><font color="#0474d6" > * </font>
+							<?php if($this->chouzi[0]['pm_xieyii_dianziban'] != ""){?><a target="_blank" href="<?php echo $this->chouzi[0]['pm_xieyii_dianziban'];?>"><strong>点击下载</strong></a><?php }else{?>
+								暂无项目协议电子版
+							<?php }?>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">项目反馈日期：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text"  id="dateinput1"  value="<?php echo $this->chouzi[0]['pm_fankui_datetime'];?>"  name="fankui"  size="14"/><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">项目起始日期：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text"  id="dateinput2"  value="<?php echo $this->chouzi[0]['pm_qishi_datetime'];?>"  name="qishi"  size="14"/><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">项目限期：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="xianqi"   value="<?php echo $this->chouzi[0]['pm_qixian'];?>" size="14"/><font color="#0474d6" > * 例如：45天。</font>
+						</td> 
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">项目截止日期：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text"  id="dateinput3"  value="<?php echo $this->chouzi[0]['pm_jiezhi_datetime'];?>" name="jiezhi"  size="14"/><font color="#0474d6" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">协议捐赠金额：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text"  name="jiner"  value="<?php echo $this->chouzi[0]['pm_xieyi_juanzeng_jiner'];?>" size="14"/> 元<font color="#0474d6" > * 例如：3000000元</font> 
+						</td>
+					</tr>
+					
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">留本基金：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="radio" name="liuben" value="1" <?php if($this->chouzi[0]['pm_liuben'] == 1){echo " checked='checked'";}?> size="14"/> 是  <input type="radio" name="liuben" value="0" <?php if($this->chouzi[0]['pm_liuben'] == 0){echo " checked='checked'";}?> size="14"/> 否  <font color="#0474d6" > * </font> 
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">捐赠仪式：</td>
+						<td width="80%" style="text-align:left;">
+							<textarea class="ckeditor" name="yishi"><?php echo $this->chouzi[0]['pm_yishi'];?></textarea>
+						</td>
+					</tr>
+					
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">备注：</td>
+						<td width="80%" style="text-align:left;">
+							<textarea class="ckeditor" name="beizhu"><?php echo $this->chouzi[0]['beizhu'];?></textarea>
+						</td>
+					</tr>
+					
+					<input type="hidden" name="id" value="<?php echo $this->chouzi[0]['id'];?>"/>
+					<input type="hidden" name="oldpic" value="<?php echo $this->chouzi[0]['pm_xieyii_dianziban'];?>"/>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;"> </td>
+						<td width="80%" style="text-align:left;">
+							<input type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="重 置" /> 
+						</td>
+					</tr>
+				</table>
+			</form>
+		  </div>
+		</div>
+		
+		<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>
+			
+			<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput1').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>
+			
+			
+			<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput2').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>
+			
+			
+			<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput3').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>

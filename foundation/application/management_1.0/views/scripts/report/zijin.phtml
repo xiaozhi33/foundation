@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>捐赠项目统计管理<span class="font_red"> >> </span><span class="font_red_big">资金统计管理
+</span></h4>
+
+		<div class="detailedbox">
+			<div class="search">
+					<form action="zijintoexcel" method="post">
+					
+						项目名称：
+						<select name="pname" size="10">
+							<?php if($this->pmlist != ""){
+									foreach ($this->pmlist as $k => $v){
+								?>
+								<option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+							<?php }}?>
+						</select>
+						
+						
+						
+						<br/><br/>
+					
+						捐赠级别：
+						<select name="pm_juanzeng_jibie">
+							<option value="">请选择类型</option>
+							<option value="校级">校级</option>
+							<option value="院级">院级</option>
+							<option value="其他">其他</option>
+						</select>
+						
+						<br/><br/>
+						
+						配比状态：是<input type="radio" name="peibi" value="1"/> 否<input type="radio" name="peibi" value="0"/>
+						<br/><br/>
+						
+						是否校友：是<input type="radio" name="pm_is_school"  value="1" /> 否<input type="radio" name="pm_is_school"  value="0"/>
+						<br/><br/>
+						
+						捐赠用途：
+						<select name="pm_juanzeng_yongtu">
+								<option value="">请选择类型</option>
+								<option value="资助家庭经济困难学生">资助家庭经济困难学生</option>
+								<option value="奖励优秀学生">奖励优秀学生</option>
+								<option value="支持毕业生就业">支持毕业生就业</option>
+								<option value="奖励教师">奖励教师</option>
+								<option value="教学科研及学科发展">教学科研及学科发展</option>
+								<option value="学校基建项目">学校基建项目</option>
+								<option value="其他指定用途">其他指定用途</option>
+								<option value="非指定用途">非指定用途</option>
+						</select>
+
+						<br/>
+						<br/>
+						
+						项目捐赠者：
+						<input type="text" name="pm_pp" size="14"/>
+						
+						<br/><br/>
+												
+						捐赠到账日期区间：<input type="text"  id="dateinput"  name="zijin_daozhang_datetime"  size="14"/> 至
+						<input type="text"  id="dateinput1"  name="zijin_daozhang_datetime1"  size="14"/><br/><br/>
+						捐赠到账金额：<input type="text" size="14" name="zijin_daozheng_jiner" value="">
+						
+						<br/>
+						<br/>
+						<input type="submit" value="下载excel报表"/>
+					</form>
+				</div>
+		</div>	
+	</div>	
+	
+	
+			<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>
+			
+			<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput1').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>
+			
+		

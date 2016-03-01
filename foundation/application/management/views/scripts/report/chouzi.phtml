@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>捐赠项目统计管理<span class="font_red"> >> </span><span class="font_red_big">筹资统计管理
+</span></h4>
+
+		<div class="detailedbox">
+			<!--<div style="padding-top:10px;"><b>筹资统计管理</b></div>
+			--><div class="search">
+					<form action="chouzitoexcel" method="post">
+						所属部门：
+						<select name="department">
+							<option value="" >请选择类型</option>
+								<?php if($this->departmentlist != ""){
+								foreach ($this->departmentlist as $k => $v){?>
+									<option value="<?php echo $v['id']?>" ><?php echo $v['pname']?></option>
+								<?php }}?>
+						</select>
+						
+						&nbsp;&nbsp;&nbsp;
+						项目类型：
+						<select name="cate">
+							<option value="" >请选择类型</option>
+								<?php if($this->pcatelist != ""){
+								foreach ($this->pcatelist as $k => $v){?>
+									<option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
+								<?php }}?>
+						</select>
+						<br/>
+						<br/>
+						<!--						
+						项目起始日期：<input type="text"  id="dateinput"  name="starttime"  size="14"/>
+						项目截止日期：<input type="text"  id="dateinput2"  name="endtime"  size="14"/>-->
+						
+						项目签订日期区间：</br><br/>
+						开始时间 ：<input type="text"  id="dateinput"  name="starttime"  size="14"/></br><br/>
+						结束时间 ：<input type="text"  id="dateinput2"  name="endtime"  size="14"/>
+						</br><br/>
+						项目名称：<input type="text" name="pname" />
+						<input type="submit" value="下载excel报表"/>
+					</form>
+				</div>
+			
+			</div>
+		</div>	
+	</div>	
+	
+	
+			<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>
+			
+			<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput2').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>
+			
+		
