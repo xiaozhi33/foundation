@@ -1,7 +1,6 @@
 <?php
 	require_once("BaseController.php");
 	require_once("./util/httputil.php");
-	require_once("./util/functions.php");
 	require_once("./util/sessionutil.php");
 	require_once("./util/isonline.php");
 	

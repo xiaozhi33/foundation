@@ -7,7 +7,6 @@ date_default_timezone_set('PRC');
     set_include_path('.' .PATH_SEPARATOR .'../library'.PATH_SEPARATOR .'./application/models/'.PATH_SEPARATOR .'./include/'.PATH_SEPARATOR .'./Models/'.PATH_SEPARATOR .'../public/'.PATH_SEPARATOR .'../util/');
 
     require_once("Zend/Loader.php");
-    require_once("functions.php");
 	
     function __autoload($class){
 		$Module = explode('_',$class);
