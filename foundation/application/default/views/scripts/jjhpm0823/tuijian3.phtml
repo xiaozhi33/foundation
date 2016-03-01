@@ -1,0 +1,58 @@
+<?= $this->partial("common/header.phtml");?>
+<div class="jjh_content_sub" style="height:710px;">
+         <div class="jjh_content_sub_left">
+              <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/images/project_top_img.jpg" /></div>
+              <div class="jjh_sub_nav_tit"><span>筹资项目</span></div>
+              <div class="jjh_sub_nav_con">
+                   <ul>
+                   	  <?php foreach ($this->my_jjh_pm as $key => $value){
+                   	  		if ($value['c_name'] != "推荐项目"){?>
+                      	<li>
+	                      	<a href="/jjhpm/index?cid=<?php echo $value['c_id'];?>">
+	                      		<?php if($this->pm_info[0]['c_id'] == $value['c_id']){?><span><?php }?>
+	                      			<?php echo $value['c_name'];?>
+	                      		<?php if($this->pm_info[0]['c_id'] == $value['c_id']){?></span><?php }?>
+	                      	</a>
+                      	</li>
+                      <?php }}?>
+                   </ul>
+                   <div class="jjh_sub_nav_recommond"><a href="/jjhpm/tuijian">推荐项目</a></div>
+              </div>
+         </div>
+
+         <div class="jjh_content_sub_right">
+             <!--<div class="jjh_sub_con_tit"><em>校友年度捐赠--1985校友基金</em><span>当前位置：<a href="news.html">筹资项目</a> > 推荐项目</span></div>--> 
+             <div class="jjh_sub_con_content" style="height:580px; padding:0px; width:690px;">
+               <div><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/procomadv3.jpg" /></div><br />
+               <div class="jjh_prorecom_detail_left">
+                <div class="jjh_prorecom_detit1">项目介绍</div> 
+                <div class="jjh_prorecom_decon">
+                <span class="jjh_font9">“北洋励学金”是天津大学学生奖助体系中的“品牌”。其设立的目的是鼓励和帮助家庭经济比较困难的本科生（特别是新生），以勤奋自强的精神完成学业。</span><br />它不同于学校已有的奖学金、助学金模式，将创造一种全新理念：<span class="jjh_font9">“社会捐资、奉献励学，学生勤勉、自强成才，饮水思源、回报社会”</span>。通过社会捐资助学的义举，不仅使特困生减轻学费生活费负担，而且受到社会之爱心激励树自强之精神。获助学生学成之后步入社会，用自己所学的知识和聪明才智努力工作，回报社会，使励学金项目成为良性循环、可持续性项目。<br /><br />北洋励学金由以下两部分组成：<br /><span  class="jjh_font4">知名教授冠名励学金—弘扬精神 传承文化</span><br />“北洋－郭鹤桐励学金”、“北洋－陈洪钫励学金”、“北洋－黎明励学金”分别由天津大学化工学院郭鹤桐教授、陈洪钫教授管理学院黎明教授及他们的弟子、学生、海内外校友倡议捐款设立。这几项励学金的设立，不仅能激励、勉励、鼓励家庭经济困难学生努力学习、成才报国，此外更加希望通过为知名教授设立冠名励学金的方式，传承老一辈科学家为人为学的崇高精神，让学生铭记我校曾经为国家科学发展做出过突出贡献的知名教授们。<br /><span class="jjh_font4">学院命名励学金</span><br />该奖项的设立在吸引更多优秀生源的同时，以爱心支持帮助经济困难学生顺利完成学业。目前已经建立的项目有：金属之光励学金（材料学院）、设计总院励学金、公共管理励学金等。
+                </div>
+
+               </div>
+               <div class="jjh_prorecom_detail_right1">
+                    <div class="jjh_prorecom_detail_btn">
+                    <a href="/donate/index?cid=32&cname=北洋励学金">我要捐赠</a></div>
+                    <div class="jjh_prorecom_detail_news">
+                         <div class="jjh_prorecom_detail_news_tit">最新动态</div>
+                           <marquee direction="up" height="200" scrollamount="2" style="margin-top:10px;">
+                              <ul>
+                                <li>张洁莹 ￥100</li>
+                                <li>戴晓橙 ￥200</li>
+                                <li>匿名 ￥100</li>
+                                <li>谌敦华 ￥500 </li>
+                                <li>匿名 ￥1500 </li>
+                                <li>匿名 ￥100 </li>
+                                <li>孙闻宇 ￥3500 </li>
+                                <li>胡腾 ￥200 </li>
+                                <li>郑悦 ￥1000 </li>
+                                <li>陈华青 ￥200 </li>
+                              </ul>
+                           </marquee>
+                    </div>
+               </div>
+             </div>
+         </div>
+     </div>
+<?= $this->partial("common/footer.phtml");?>

@@ -1,0 +1,23 @@
+<?= $this->partial("common/header.phtml");?>
+<div class="jjh_content_sub">
+         <div class="jjh_content_sub_left">
+              <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/guide_top_img.jpg" /></div>
+              <div class="jjh_sub_nav_tit"><span>服务指南</span></div>
+              <div class="jjh_sub_nav_con">
+                   <ul>
+                     <!--<li><a href="/service">基金会工作流程</a></li>-->
+                      <li><a href="/service/guide1">基金捐赠流程</a></li>
+                      <li><a href="/service/guide2"><span>基金使用流程</span></a></li>
+                      <li><a href="/service/download">下载专区</a></li>
+                   </ul>
+              </div>
+         </div>
+         <div class="jjh_content_sub_right">
+              <div class="jjh_sub_con_tit"><span>当前位置：<a href="/service">服务指南</a> > 基金使用流程</span><em>基金使用流程</em></div>
+              <!--<div class="jjh_sub_con_content" style="height:500px;">
+              <div><span class="jjh_font4">天津大学北洋教育发展基金会工作流程</span></div> 
+              </div>-->
+         <?= $this->info[0]['content'];?></div>
+         <div class="cle">&nbsp;</div>
+     </div>
+<?= $this->partial('common/footer.phtml'); ?>   

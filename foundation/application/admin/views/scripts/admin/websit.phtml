@@ -1,0 +1,83 @@
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>网站基本信息<span class="font_red"> >> </span><span class="font_red_big">网站基本信息</span></h4>
+			<div class="detailedbox">
+			<form action="editrslianxifangshi" method="post" encType="multipart/form-data">
+				<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+
+					<input type="hidden" name="action" value="editrss"/>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">电话：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="web_tel" value="<?php echo $this->info[0]['web_tel']?>"/><font color="red" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">传真：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="web_fax" value="<?php echo $this->info[0]['web_fax']?>"/><font color="red" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">E-mail：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="web_email" value="<?php echo $this->info[0]['web_email']?>"/><font color="red" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">网址：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="web_url" value="<?php echo $this->info[0]['web_url']?>"/><font color="red" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">地址：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="web_address" value="<?php echo $this->info[0]['web_address']?>"/><font color="red" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">邮编：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="web_weibo" value="<?php echo $this->info[0]['web_weibo']?>"/><font color="red" > * </font>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">联系人：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="web_recall" value="<?php echo $this->info[0]['web_recall']?>"/><font color="red" > * </font>
+						</td>
+					</tr>	
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">copyright：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="web_copyright" value="<?php echo $this->info[0]['web_copyright']?>"/><font color="red" > * </font>
+						</td>
+					</tr>
+					
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">网站名称：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="web_name" value="<?php echo $this->info[0]['web_name']?>"/><font color="red" > * </font>
+						</td>
+					</tr>
+														
+					<tr>
+					    <td width="20%" style="text-align:right;"> </td>
+						<td width="80%" style="text-align:left;">
+							<input type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="重 置" /> 
+						</td>
+					</tr>
+				</table>
+			</form>
+		  </div>
+		</div>

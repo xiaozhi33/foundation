@@ -1,0 +1,26 @@
+<?= $this->partial("common/header.phtml");?>
+ <div class="jjh_content_sub" style="height:500px;">
+         <div class="jjh_content_sub_left">
+              <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/contact_top_img.jpg" /></div>
+              <div class="jjh_sub_nav_tit"><span>联系我们</span></div>
+              <div class="jjh_sub_nav_con">
+                   <ul>
+                      <li><a href="/contact">联系方式</a></li>
+                       <li><a href="/contact/frilink"><span>友情链接</span></a></li>
+                   </ul>
+              </div>
+         </div>
+         <div class="jjh_content_sub_right">
+              <div class="jjh_sub_con_tit"><span>当前位置：<a href="/contact">联系我们</a> > 友情链接</span><em>友情链接</em></div>
+              <div class="cle"></div>
+              <div class="jjh_sub_con_content">
+                  <ul class="jjh_friden_link">
+                      <li><a href="http://www.tju.edu.cn/" target="_blank"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/link1.jpg" border="0" /></a></li>
+                      <li><a href="http://alum.tju.edu.cn/" target="_blank"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/link2.jpg" border="0" /></a></li>
+                      <li><a href="http://www.chinanpo.gov.cn/web/index.do" target="_blank"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/link3.jpg" border="0" /></a></li>
+                      <li><a href="http://www.tjstj.gov.cn/" target="_blank"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/link4.jpg" border="0" /></a></li>
+                  </ul>
+              </div>
+         </div>
+     </div>
+<?= $this->partial("common/footer.phtml");?>

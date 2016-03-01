@@ -1,0 +1,30 @@
+<div id="main">
+		<div id="rightstyle02">
+		<h4><?php echo $this->name1;?><span class="font_red"> >> </span><span class="font_red_big"><?php echo $this->name2;?></span></h4>
+			<div class="detailedbox">
+			<form action="editsurvey" method="post" encType="multipart/form-data">
+				<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					<tr>
+					    <td width="20%" style="text-align:right;"><?php echo $this->survey[0]['name'];?>内容：</td>
+						<td width="80%" style="text-align:left;">
+							<textarea class="ckeditor" name="content">
+								<?php echo $this->survey[0]['content'];?>
+							</textarea>
+						</td>
+					</tr>
+
+					<input type="hidden" name="id" value="<?php echo $this->survey[0]['id'];?>"/>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">
+							<input type="submit" value="提 交"/>
+						</td>
+						<td width="80%" style="text-align:left;">
+							<input type="reset" value="重 置"/>
+						</td>
+					</tr>
+					
+				</table>
+			</form>
+		  </div>
+		</div>

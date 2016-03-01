@@ -1,0 +1,22 @@
+<?= $this->partial("common/header.phtml");?>
+<div class="jjh_content_sub">
+         <div class="jjh_content_sub_left">
+              <div class="jjh_sub_topimg"><img src="<?= __DEFAULTINCLUDEPATH__;?>images/about_top_img.jpg" /></div>
+              <div class="jjh_sub_nav_tit"><span>捐赠使用</span></div>
+               <div class="jjh_sub_nav_con">
+                   <ul>
+                      <li><a href="/pmuse">学生资助</a></li>
+                      <li><a href="/pmuse/usage1">教师发展</a></li>
+                      <li><a href="/pmuse/usage2"><span>校友（校庆）活动</span></a></li>
+                      <li><a href="/pmuse/usage3">校园文化</a></li>
+                      <li><a href="/pmuse/usage4">天津大学发展</a></li>
+                   </ul>
+              </div>
+         </div>
+         <div class="jjh_content_sub_right">
+              <div class="jjh_sub_con_tit"><span>当前位置：<a href="/pmuse">捐赠使用</a> > 校友（校庆）活动</span><em>校友（校庆）活动</em></div>
+              <?= $this->info[0]['content'];?>
+         </div>
+	<div class="cle">&nbsp;</div>
+     </div>
+<?= $this->partial('common/footer.phtml'); ?>   

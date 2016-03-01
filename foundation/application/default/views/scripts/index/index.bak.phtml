@@ -1,0 +1,239 @@
+<?= $this->partial('common/header.phtml'); ?>
+
+     <div class="jjh_content">
+         <div class="jjh_content_left">
+            <div class="jjh_top_news">  
+               <div class="jjh_top_news_left">
+                    <div class="container" id="idTransformView2">
+                         <ul class="slider slider2" id="idSlider2">
+                         <?php if($this->tuwen_list != ""){
+                         		foreach ($this->tuwen_list as $key => $value){
+                         	?>
+                             <li><a href="/news/newsinfo?id=<?php echo $value['my_infor_id'];?>">
+                             <img src="<?php echo $value['my_infor_images'];?>" border="0"/>
+                             </a></li>
+                         <?php }}?>
+                         </ul>
+                         <ul class="num" id="idNum2">
+                             <li>1</li>
+                             <li>2</li>
+                             <li>3</li>
+                             <li>4</li>
+                      </ul>
+                 </div>          
+               </div>
+               <div class="jjh_top_news_right">
+                    <div class="jjh_news_tit">公告•新闻<span><a href="/news/index?cid=gonggao">更多>></a></span></div>
+                    <div class="jjh_news_con">
+                         <ul>
+                         	<?php if($this->gonggao_list != ""){
+                         		foreach ($this->gonggao_list as $key => $value){
+                         	?>
+                             <li><a href="/news/newsinfo?id=<?php echo $value['my_infor_id'];?>">
+                             	<?php echo mb_substr($value['my_infor_title'],0,18);?></a><span>[<?php echo mb_substr($value['my_infor_datetime'],0,10);?>]</span></li>
+                            <?php }}?>
+                         </ul>
+                    </div>
+               </div>
+            </div>
+          
+          
+           <div class="cle"></div>
+            <div class="jjh_proadv">
+                 <table width="640" border="0" align="center" cellpadding="0" cellspacing="0">
+				  <tr>
+				    <td width="640"><script language="javascript">
+				var marqueeContent=new Array();   //滚动主题
+
+			    <?php 
+			    	for ($i=0;$i<4;$i++){
+			    ?>              	
+				marqueeContent[<?php echo $i;?>]='<a href="<?php echo $this->ad_list[$i]['ad_link'];?>"><img src="<?php echo $this->ad_list[$i]['ad_image'];?>" border="0"/></a>';
+				<?php }?>
+				var marqueeInterval=new Array();  //定义一些常用而且要经常用到的变量
+				var marqueeId=0;
+				var marqueeDelay=8000;
+				var marqueeHeight=80;
+				function initMarquee() {
+				 var str=marqueeContent[0];
+				 document.write('<div id=marqueeBox style="overflow:hidden;height:'+marqueeHeight+'px" onmouseover="clearInterval(marqueeInterval[0])" onmouseout="marqueeInterval[0]=setInterval(\'startMarquee()\',marqueeDelay)"><div>'+str+'</div></div>');
+				 marqueeId++;
+				 marqueeInterval[0]=setInterval("startMarquee()",marqueeDelay);
+				 }
+				function startMarquee() {
+				 var str=marqueeContent[marqueeId];
+				 var marqueeboxdiv1=document.getElementById("marqueeBox");
+				  marqueeId++;
+				 if(marqueeId>=marqueeContent.length) marqueeId=0;
+				 if(marqueeboxdiv1.childNodes.length==1) {
+				  var nextLine=document.createElement('DIV');
+				  nextLine.innerHTML=str;
+				  marqueeboxdiv1.appendChild(nextLine);
+				  }
+				 else {
+				  marqueeboxdiv1.childNodes[0].innerHTML=str;
+				  marqueeboxdiv1.appendChild(marqueeboxdiv1.childNodes[0]);
+				  marqueeboxdiv1.scrollTop=0;
+				  }
+				 clearInterval(marqueeInterval[1]);
+				 marqueeInterval[1]=setInterval("scrollMarquee()",10);
+				 }
+				function scrollMarquee() {
+					var marqueeboxdiv=document.getElementById("marqueeBox");
+				        marqueeboxdiv.scrollTop++;
+				 if(marqueeboxdiv.scrollTop%marqueeHeight==marqueeHeight){
+				  clearInterval(marqueeInterval[1]);
+				  }
+				 }
+				initMarquee();
+				</script></td>
+				  </tr>
+				</table>
+            </div>
+            <div class="jjh_donate">
+               <div class="jjh_donate_left">
+                    <div class="jjh_donate_tit">最新捐赠<span><a href="/news/indexinfo?c_name=zijin">更多>></a></span></div>
+                    <div class="jjh_donate_con">
+                         <ul>
+                             <?php if($this->zizhuinfo != ""){
+                         		foreach ($this->zizhuinfo as $key => $value){
+                         	?>
+                             	<li><a href=""><?php echo $value['pm_pp'];?> 捐赠 ￥<?php echo $value['zijin_daozheng_jiner'];?></a><span>[<?php echo mb_substr($value['zijin_daozhang_datetime'],0,10);?>]</span></li>
+                              <?php }}?>
+                         </ul>
+                    </div>
+               </div>
+               <div class="jjh_donate_right">
+                    <div class="jjh_donate_tit">资助信息<span><a href="/news/indexinfo?c_name=shiyong">更多>></a></span></div>
+                    <div class="jjh_donate_con">
+                         <ul>
+                            <?php if($this->shiyonginfo != ""){
+                         		foreach ($this->shiyonginfo as $key => $value){
+                         	?>
+                             <li><a href=""><?php echo mb_substr($value['pm_name'],0,8);?>
+                             <?php if($value['jiangli_renshu'] != ""){?>
+                            	 资助 <?php echo $value['jiangli_renshu'];?>人 
+                             <?php }?>
+                             共<?php echo $value['shiyong_zhichu_jiner'];?>元</a><span>[<?php echo mb_substr($value['shiyong_zhichu_datetime'],0,10);?>]</span></li>
+                             <?php }}?>
+                         </ul>
+                    </div>
+               </div>
+            </div>
+         </div>
+         <div class="jjh_content_right">
+
+            <div class="jjh_donate_adv">
+            <img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/donateadv.jpg" border="0" usemap="#Map" />
+              <map name="Map" id="Map">
+                <area shape="rect" coords="115,42,221,74" href="/donate" />
+              </map>
+            </div>
+            <div class="jjh_tab">
+              <table  border="0"  cellpadding="0"  cellspacing="0"  id="secTable1"  >
+              <tr>
+                <td class="seca2"  onmouseover="secBoard(0)">捐款方式</td>
+                <td class="seca1"  onmouseover="secBoard(1)">基金会账号</td>
+                <td class="seca1"  onmouseover="secBoard(2)">服务指南</td>
+              </tr>
+            </table>
+            <table cellspacing="0" cellpadding="0" border="0" class="jjh_tabcon" id="mainTable1">
+            <tbody style="display: block;">
+              <tr>
+                <td valign="top" class="jjh_tabconent">
+                <span class="jjh_font1">您可以通过以下方式为我们捐款：</span>
+                <ul class="jjh_donate_method">
+                  <li><a href="/donate/fangshi">现金</a></li>
+                  <li><a href="/donate/fangshi">银行转账</a></li>
+                  <li><a href="/donate/fangshi">实物</a></li>
+                  <li><a href="/donate/fangshi">支票</a></li>
+                  <li><a href="/donate/fangshi">邮政汇款</a></li>
+                  <li><a href="/donate">在线支付（银联|VISA|MASTERCARD）</a></li>
+                </ul>
+                </td>
+              </tr>
+            </tbody>
+            <tbody style="display: none;">
+              <tr>
+                <td class="jjh_tabconent">
+                银行账户名称：<span class="jjh_font2">天津大学北洋教育发展基金会</span><br> 开户银行：<span class="jjh_font2">天津银行兴科支行</span><br> 银行账号：<span class="jjh_font2">103601201090035769</span> 
+                  </td>
+              </tr>
+            </tbody>
+            <tbody style="display: none;">
+              <tr>
+                <td class="jjh_tabconent">
+                  <ul class="jjh_service_quick">
+                     <li><a href="/service">天津大学北洋教育发展基金会工作流程</a></li>
+                     <li><a href="/service">天津大学北洋教育发展基金会基金捐赠流程</a></li>
+                     <li><a href="/service">天津大学北洋教育发展基金会基金使用流程</a></li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+            </div>
+            <div class="jjh_story">
+                <div class="jjh_story_left">
+				    <ul>
+					   <li><a href="#">新鸿基地产郭氏基金助学金受益人&mdash;&mdash;肖珊感言 </a></li>
+					   <li><a href="#">新鸿基地产郭氏基金助学金受益人&mdash;&mdash;肖珊感言 </a></li> 
+					</ul>
+                  <!--<div style="width:275px;margin:0px auto;padding:10px 0 0; float:left; position:relative;" id="imgroll_wrap" class="imgroll_wrap">-->
+<script type="text/javascript">
+//<!--
+/*if(typeof $=="undefined"){$=function(a){return document.getElementById(a)}}if(typeof $C=="undefined"){$C=function(a){return document.createElement(a)}}Function.prototype.Bind=function(){var d=this,b=arguments[0],a=new Array();for(var c=1;c<arguments.length;c++){a.push(arguments[c])}return function(){return d.apply(b,a)}};var ImgRoll_Ctrl=function(){this.Init.apply(this,arguments)};ImgRoll_Ctrl.prototype={_aLeft:[25,25,25,60,114,114,114],_aTop:[30,25,18,0,18,25,30],_aWidth:[36,45,54,75,54,45,36],_aHeight:[48,58,72,93,72,58,48],_aZIndex_toR:[0,10,20,30,40,31,21,11,0],_aZIndex_toL:[0,11,21,31,40,30,20,10,0],_nPace:5,_nMove:0,_nInterval:60,_liFix:0,Init:function(a){this._container=$(a);this._getPace()},start:function(){if(!this._opt){alert("请填写图片参数！");return}this._genNodes()},_genNodes:function(){this._opt=this._opt.concat(this._opt);var p=$C("DIV");p.className="img_series";var a=$C("UL");a.className="ir_pages";if(this._opt[0][2]){var d=$C("DIV");d.className="ir_text"}var n=$C("DL");n.className="ir_bt_wrap";var m=["l","r"];for(var l=0;l<m.length;l++){var f=$C("DD");var e=$C("A");e.href="javascript:void(0);";e.hideFocus="true";e.className="btn_to_"+m[l];e.onclick=this._moveStart.Bind(this,m[l]);f.appendChild(e);n.appendChild(f)}p.appendChild(n);var o=$C("UL");this._LIs=[];for(var h=0;h<this._opt.length;h++){var tempH=h-3;if(tempH<0){tempH=tempH+5}var k=$C("LI");k._link=$C("a");k._link.href=this._opt[tempH][3];k._link.target="_blank";k._img=new Image();k._img.src=this._opt[tempH][0];k._link.appendChild(k._img);k.appendChild(k._link);o.appendChild(k);if(h<7){k.style.top=[this._aTop[h],"px"].join("");k.style.left=[this._aLeft[h],"px"].join("");k.style.width=[this._aWidth[h],"px"].join("");k.style.height=[this._aHeight[h],"px"].join("");k._img.style.width=[this._aWidth[h],"px"].join("");k._img.style.height=[this._aHeight[h],"px"].join("");k.style.zIndex=100-Math.abs(3-h)}else{k.style.top=[this._aTop[6],"px"].join("");k.style.left=[this._aLeft[6],"px"].join("");k.style.width=[this._aWidth[6],"px"].join("");k.style.height=[this._aHeight[6],"px"].join("");k._img.style.width=[this._aWidth[6],"px"].join("");k._img.style.height=[this._aHeight[6],"px"].join("")}this._LIs.push(k);if(h<this._opt.length/2){var j=$C("LI");j.innerHTML=h+1;j.className=h!=3?"":"active";a.appendChild(j);if(d){var c=$C("DIV");c.innerHTML=this._opt[tempH][2];c.style.display=h!=3?"none":"block";var b=$C("H3");b._link=$C("a");b._link.href=this._opt[tempH][3];b._link.target="_blank";b.appendChild(b._link);b._link.innerHTML=this._opt[tempH][1];c.insertBefore(b,c.firstChild);c.style.display=h!=3?"none":"block";d.appendChild(c)}}}p.appendChild(o);this._container.appendChild(p);this._container.appendChild(a);this._pageBtns=a.getElementsByTagName("LI");if(d){this._container.appendChild(d);this._textNode=d.getElementsByTagName("DIV")}},_getPace:function(){var f=["_aLeft","_aTop","_aWidth","_aHeight"];for(var d in f){this[f[d]+"_d"]=[];for(var c=0;c<this[f[d]].length-1;c++){var a=(this[f[d]][c+1]-this[f[d]][c])/this._nPace;var e=[];for(var b=0;b<this._nPace;b++){e.push(this[f[d]][c]+a*b)}e.push(this[f[d]][c+1]);this[f[d]+"_d"].push(e)}}},_moveStart:function(e){if(this._moving){return}for(var b=0;b<this._LIs.length;b++){var d=(e=="r"?b-(this._liFix-2):d=b-(this._liFix));if(d>this._LIs.length-1){d-=this._LIs.length}else{if(d<0){d+=this._LIs.length}}this._LIs[b].style.zIndex=e=="r"?(this._aZIndex_toR[d]||0):(this._aZIndex_toL[d]||0)}var a=this._getIndex(3+this._liFix,true);var c=this._getIndex(3+(e=="r"?this._liFix-1:this._liFix+1),true);if(this._textNode){this._textNode[a].style.display="none";this._textNode[c].style.display=""}this._pageBtns[a].className="";this._pageBtns[c].className="active";this._moving=true;this._directNow=e;this._move(this._directNow);this._moveInterval=setInterval(this._move.Bind(this,this._directNow),this._nInterval)},_getIndex:function(c,b){var a=b?this._LIs.length/2:this._LIs.length;if(-1<c&&c<a){return c}else{if(c<0){while(c<0){c+=a}return c}else{while(c>a-1){c-=a}return c}}},_move:function(a){if(this._nMove>=this._nPace){this._nMove=0;clearTimeout(this._moveInterval);this._moving=false;this._liFix=a=="r"?this._liFix-1:this._liFix+1;this._liFix=this._getIndex(this._liFix);return}switch(a){case"r":this._setStyle(this._nMove+1,[0,6],0);break;case"l":this._setStyle(this._nPace-(this._nMove+1),[1,7],-1);break}this._nMove++},_setStyle:function(c,b,a){for(var d=b[0];d<b[1];d++){var e=this._getIndex(d+this._liFix);this._LIs[e].style.top=[this._aTop_d[d+a][c],"px"].join("");this._LIs[e].style.left=[this._aLeft_d[d+a][c],"px"].join("");this._LIs[e].style.width=[this._aWidth_d[d+a][c],"px"].join("");this._LIs[e].style.height=[this._aHeight_d[d+a][c],"px"].join("");this._LIs[e]._img.style.width=[this._aWidth_d[d+a][c],"px"].join("");this._LIs[e]._img.style.height=[this._aHeight_d[d+a][c],"px"].join("")}}};
+
+var _ir_1 = new ImgRoll_Ctrl("imgroll_wrap");
+_ir_1._opt = [
+	[
+		'<?php echo __DEFAULTINCLUDEPATH__;?>images/jjhjz1.jpg', 
+		'', 
+		'同汇八方之涓流，共襄天大之伟业',
+		'/heart'
+	],
+	[
+		'<?php echo __DEFAULTINCLUDEPATH__;?>images/jjhjz2.jpg', 
+		'', 
+		'同汇八方之涓流，共襄天大之伟业',
+		'/heart'
+	],
+	[
+		'<?php echo __DEFAULTINCLUDEPATH__;?>images/jjhjz3.jpg', 
+		'', 
+		'同汇八方之涓流，共襄天大之伟业',
+		'/heart'
+	],
+	[
+		'<?php echo __DEFAULTINCLUDEPATH__;?>images/jjhjz4.jpg', 
+		'', 
+		'同汇八方之涓流，共襄天大之伟业',
+		'/heart'
+	],
+	[
+		'<?php echo __DEFAULTINCLUDEPATH__;?>images/jjhjz5.jpg', 
+		'', 
+		'同汇八方之涓流，共襄天大之伟业',
+		'/heart'
+	]
+];
+_ir_1.start();*/
+////-->
+</script>
+<!--</div>-->
+                </div>
+                <div class="jjh_story_right">
+                   <div class="jjh_story_tit">捐赠故事</div>
+                </div>
+                
+            </div>
+            <div class="jjh_quickmenu">
+               <div class="jjh_fleft"><a href="/service/download"><img border="0" src="<?php echo __DEFAULTINCLUDEPATH__;?>images/quickmenu1.jpg"></a></div>
+               <div style="margin:0px 8px;" class="jjh_fleft"><a href="/donate/mianshui"><img border="0" src="<?php echo __DEFAULTINCLUDEPATH__;?>images/quickmenu2.jpg"></a></div>
+               <div class="jjh_fleft"><a href="/contact/frilink"><img border="0" src="<?php echo __DEFAULTINCLUDEPATH__;?>images/quickmenu3.jpg"></a></div>
+            </div>
+         </div>
+	     <div class="cle"></div>
+	 </div>
+  
+  <?= $this->partial('common/footer.phtml'); ?>   

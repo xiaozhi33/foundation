@@ -1,0 +1,78 @@
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>资讯管理<span class="font_red"> >> </span><span class="font_red_big">修改网站资讯</span></h4>
+			<div class="detailedbox">
+			<form action="editinformation" method="post" encType="multipart/form-data">
+				<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					<tr>
+					    <td width="20%" style="text-align:right;">资讯标题：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="title" value="<?php echo $this->my_information[0]['my_infor_title'];?>"/><font color="red" > * </font>
+						</td>
+					</tr>
+										  
+					  <tr>
+					    <td width="20%" style="text-align:right;">资讯副标题：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="text" name="ctitle"  value="<?php echo $this->my_information[0]['my_infor_ctitle'];?>"/><font color="red" > * </font>
+						</td>
+					</tr>
+					
+										
+					<tr>
+					    <td width="20%" style="text-align:right;">资讯类型：</td>
+						<td width="80%" style="text-align:left;">
+							<select name="cate">
+								<option <?php if($this->my_information[0]['my_infor_cateid']=="gonggao")echo " SELECTED ";?> value="gonggao" >基金会公告 </option>
+								<option <?php if($this->my_information[0]['my_infor_cateid']=="zizhuxinxi")echo " SELECTED ";?> value="zizhuxinxi" >资助信息</option>
+								<option <?php if($this->my_information[0]['my_infor_cateid']=="xinwen")echo " SELECTED ";?> value="xinwen" >基金会新闻</option>
+								<option <?php if($this->my_information[0]['my_infor_cateid']=="gongshi")echo " SELECTED ";?> value="gongshi" >捐赠公示</option>
+								<option <?php if($this->my_information[0]['my_infor_cateid']=="baogao")echo " SELECTED ";?> value="baogao" >年度报告</option>
+								<option <?php if($this->my_information[0]['my_infor_cateid']=="tuwen")echo " SELECTED ";?> value="tuwen" >图文新闻</option>
+								<option <?php if($this->my_information[0]['my_infor_cateid']=="renwu")echo " SELECTED ";?> value="renwu" >人物故事</option>
+								<option <?php if($this->my_information[0]['my_infor_cateid']=="shouyi")echo " SELECTED ";?> value="shouyi" >受益感言</option>
+							</select><font color="red" > * </font>
+						</td>
+					  </tr>
+					
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">资讯图片：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="file" name="pic" /> <?php if($this->my_information[0]['my_infor_images']!='')echo "（目前已有该图片，如上传则替换原有图片。)"?>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">资讯是否显示：</td>
+						<td width="80%" style="text-align:left;">
+							默认显示<input type="radio" name="display" <?php if($this->my_information[0]['my_infor_isdisplay']==1)echo " checked='checked' ";?> value="1"/>
+							不显示<input type="radio" name="display"  <?php if($this->my_information[0]['my_infor_isdisplay']==0)echo " checked='checked' ";?>  value="0"/>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">资讯内容：</td>
+						<td width="80%" style="text-align:left;">
+							<textarea class="ckeditor" name="content"><?php echo $this->my_information[0]['my_infor_content'];?></textarea>
+						</td>
+					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">资讯描述：</td>
+						<td width="80%" style="text-align:left;">
+							<textarea class="ckeditor" name="miaoshu"><?php echo $this->my_information[0]['my_infor_sumary'];?></textarea>
+						</td>
+					</tr>
+						<input type="hidden" name="act" value="gosave"/>
+						<input type="hidden" name="id" value="<?php echo $this->my_information[0]['my_infor_id'];?>"/>
+					<tr>
+					    <td width="20%" style="text-align:right;"> </td>
+						<td width="80%" style="text-align:left;">
+							<input type="submit" value="修  改" /> &nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" value="重 置" /> 
+						</td>
+					</tr>
+				</table>
+			</form>
+		  </div>
+		</div>

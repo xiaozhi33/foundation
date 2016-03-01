@@ -1,0 +1,50 @@
+<?= $this->partial("common/header.phtml");?>
+<div class="jjh_content_sub">
+         <div class="jjh_content_sub_left">
+              <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/project_top_img.jpg" /></div>
+              <div class="jjh_sub_nav_tit"><span>筹资项目</span></div>
+              <div class="jjh_sub_nav_con">
+                   <ul>
+                   	  <?php foreach ($this->my_jjh_pm as $key => $value){
+                   	  		if ($value['c_name'] != "推荐项目"){?>
+                      	<li>
+	                      	<a href="/jjhpm/index?cid=<?php echo $value['c_id'];?>">
+	                      		<?php if($this->pm_info[0]['c_id'] == $value['c_id']){?><span><?php }?>
+	                      			<?php echo $value['c_name'];?>
+	                      		<?php if($this->pm_info[0]['c_id'] == $value['c_id']){?></span><?php }?>
+	                      	</a>
+                      	</li>
+                      <?php }}?>
+                   </ul>
+                   <div class="jjh_sub_nav_recommond"><a href="/jjhpm/tuijian">推荐项目</a></div>
+              </div>
+         </div>
+         <div class="jjh_content_sub_right">
+              <div class="jjh_sub_con_tit"><span>当前位置：
+              <a href="/jjhpm">筹资项目</a> > <?php echo $this->pm_info[0]['c_name']?></span><em><?php echo $this->pm_info[0]['c_name']?></em></div>
+              <div class="jjh_sub_con_content">
+              <div><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/projectadv.jpg" /></div>
+                
+
+			  <div class="jjh_content_sub_right" style="margin-left:-10px;">	         
+	              <div class="jjh_sub_con_content" >
+	                <div class="jjh_news_detail_tit">
+	               	 <font class="jjh_font3"><?php echo $this->pm_info[0]['c_name']?></font>
+	              	  <br /> 
+	                </div>
+	                <div class="jjh_news_detail_con">
+	                 	<?php echo $this->pm_info[0]['c_describe']?><br />
+	                  	<?php echo $this->pm_info[0]['c_content']?>
+	                </div>
+	              </div>
+	         </div>
+				
+
+
+
+              </div>
+         </div>
+	<div class="cle">&nbsp;</div>
+     </div>
+     
+<?= $this->partial("common/footer.phtml");?>

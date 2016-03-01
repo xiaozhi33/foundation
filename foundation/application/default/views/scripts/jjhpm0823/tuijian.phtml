@@ -1,0 +1,68 @@
+<?= $this->partial("common/header.phtml");?>
+<div class="jjh_content_sub">
+         <div class="jjh_content_sub_left">
+              <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/project_top_img.jpg" /></div>
+              <div class="jjh_sub_nav_tit"><span>筹资项目</span></div>
+              <div class="jjh_sub_nav_con">
+                   <ul>
+                      <?php foreach ($this->my_jjh_pm as $key => $value){
+                   	  		if ($value['c_name'] != "推荐项目"){?>
+                      	<li>
+	                      	<a href="/jjhpm/index?cid=<?php echo $value['c_id'];?>">
+	                      		<?php if($this->pm_info[0]['c_id'] == $value['c_id']){?><span><?php }?>
+	                      			<?php echo $value['c_name'];?>
+	                      		<?php if($this->pm_info[0]['c_id'] == $value['c_id']){?></span><?php }?>
+	                      	</a>
+                      	</li>
+                      <?php }}?>
+                   </ul>
+                   <div class="jjh_sub_nav_recommond"><a href="/jjhpm/tuijian">推荐项目</a></div>
+              </div>
+         </div>
+         <div class="jjh_content_sub_right">
+              <div class="jjh_sub_con_tit"><span>当前位置：<a href="/jjhpm">筹资项目</a> > 推荐项目</span><em>推荐项目</em></div>
+              <div class="jjh_sub_con_content">
+              <div><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/procomadv.jpg" /></div>
+                <ul class="jjh_prorecom">
+                    <li>
+                      <div class="jjh_prorecom_left">
+                      <a href="/jjhpm/tuijiancate?id=1">
+                      <img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/tjpic1.jpg" border="0"/>
+                      </a></div>
+                      <div class="jjh_prorecom_right">
+                          <div class="jjh_prorecom_tit"><a href="/jjhpm/tuijiancate?id=1">校友年度捐赠--1985校友基金</a></div>
+                          <div class="jjh_prorecom_con"><p>点滴汇聚，情系北洋。将母校建设成为一流大学，是全体校友的共同愿望。</p>以感情为纽带，以信息交流为基础，以开展合作为载体，以事业发展为目标。支持校友建功立业，鼓励校友关爱母校，形成母校关心校友，校友关心母校，互相支持，共同发展的局面。</div>
+                      </div>
+                      <div class="cle"></div>
+                    </li>
+                    <li>
+                      <div class="jjh_prorecom_left"><a href="/jjhpm/tuijiancate?id=2"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/tjpic2.jpg" border="0"/></a></div>
+                      <div class="jjh_prorecom_right">
+                          <div class="jjh_prorecom_tit"><a href="/jjhpm/tuijiancate?id=2">李曙森教育基金</a></div>
+                          <div class="jjh_prorecom_con"><p>缅怀李曙森校长，弘扬他的先进思想和崇高品质，引导和培养创新型人才。</p>为了弘扬和传承李曙森校长的教育思想，缅怀他对我国高等教育事业和对天津大学发展作出的重要贡献，引导和激励广大师生勇于改革，大胆创新，积极探索，取得佳绩，加快我校培养拔尖创新人才的步伐，特设立“李曙森教育基金”。</div>
+                      </div>
+                      <div class="cle"></div>
+                    </li>
+                    <li>
+                      <div class="jjh_prorecom_left"><a href="/jjhpm/tuijiancate?id=3"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/tjpic3.jpg" border="0"/></a></div>
+                      <div class="jjh_prorecom_right">
+                          <div class="jjh_prorecom_tit"><a href="/jjhpm/tuijiancate?id=3">北洋励学金</a></div>
+                          <div class="jjh_prorecom_con"><p>社会捐资，奉献励学，学生勤勉，自强成才，饮水思源，回报社会。</p>该计划主要针对鼓励和帮助家庭经济比较困难的本科生（特别是新生）以勤奋自强的精神完成学业。通过社会捐资助学的义举，不仅使特困生减轻学费生活费负担，而且受到社会之爱心激励树自强之精神。</div>
+                      </div>
+                      <div class="cle"></div>
+                    </li>
+                    <li>
+                      <div class="jjh_prorecom_left"><a href="/jjhpm/tuijiancate?id=4"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/tjpic4.jpg" border="0"/></a></div>
+                      <div class="jjh_prorecom_right">
+                          <div class="jjh_prorecom_tit"><a href="/jjhpm/tuijiancate?id=4">校园基本建设基金（校园建筑物新建或冠名）</a></div>
+                          <div class="jjh_prorecom_con"><p>点滴汇聚，情系北洋。将母校建设成为一流大学，是全体校友的共同愿望。</p>以感情为纽带，以信息交流为基础，以开展合作为载体，以事业发展为目标。支持校友建功立业，鼓励校友关爱母校，形成母校关心校友，校友关心母校，互相支持，共同发展的局面。</div>
+                      </div>
+                      <div class="cle">&nbsp;</div>
+                    </li>
+                </ul>
+              </div>
+         </div>
+	<div class="cle">&nbsp;</div>
+     </div>
+
+<?= $this->partial("common/footer.phtml");?>

@@ -1,0 +1,58 @@
+<?= $this->partial("common/header.phtml");?>
+<div class="jjh_content_sub" style="height:710px;">
+         <div class="jjh_content_sub_left">
+              <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/project_top_img.jpg" /></div>
+              <div class="jjh_sub_nav_tit"><span>筹资项目</span></div>
+              <div class="jjh_sub_nav_con">
+                   <ul>
+                   	  <?php foreach ($this->my_jjh_pm as $key => $value){
+                   	  		if ($value['c_name'] != "推荐项目"){?>
+                      	<li>
+	                      	<a href="/jjhpm/index?cid=<?php echo $value['c_id'];?>">
+	                      		<?php if($this->pm_info[0]['c_id'] == $value['c_id']){?><span><?php }?>
+	                      			<?php echo $value['c_name'];?>
+	                      		<?php if($this->pm_info[0]['c_id'] == $value['c_id']){?></span><?php }?>
+	                      	</a>
+                      	</li>
+                      <?php }}?>
+                   </ul>
+                   <div class="jjh_sub_nav_recommond"><a href="/jjhpm/tuijian">推荐项目</a></div>
+              </div>
+         </div>
+         <div class="jjh_content_sub_right">
+             <!--<div class="jjh_sub_con_tit"><em>校友年度捐赠--1985校友基金</em><span>当前位置：<a href="news.html">筹资项目</a> > 推荐项目</span></div>--> 
+             <div class="jjh_sub_con_content" style="height:580px; padding:0px; width:690px;">
+               <div><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/procomadv4.jpg" /></div><br />
+               <div class="jjh_prorecom_detail_left">
+                <div class="jjh_prorecom_detit1">项目介绍</div> 
+                <div class="jjh_prorecom_decon">
+                校园基本建设基金主要包括：<span class="jjh_font4">校园基本建设、新老校区建设、新老建筑物冠名项目</span>等。<br />
+                	天津大学历来重视为教师和学生创造浓厚的学术氛围以及健康、活泼、高雅的校园环境。幽美的校园景观，不仅提供了惬意的学习生活环境，更是天津大学校园文化的视觉诠释。为此，学校特别设立基本建设基金，全部款项将用于校园建筑物、校区道路、园林绿化等景观建设。
+                </div>
+
+               </div>
+               <div class="jjh_prorecom_detail_right1">
+                    <div class="jjh_prorecom_detail_btn">
+                    <a href="/donate/index?cid=34&cname=校园基本建设基金（校园建筑物新建或冠名）">我要捐赠</a></div>
+                    <div class="jjh_prorecom_detail_news">
+                         <div class="jjh_prorecom_detail_news_tit">最新动态</div>
+                           <marquee direction="up" height="200" scrollamount="2" style="margin-top:10px;">
+                              <ul>
+                                <li>张洁莹 ￥100</li>
+                                <li>戴晓橙 ￥200</li>
+                                <li>匿名 ￥100</li>
+                                <li>谌敦华 ￥500 </li>
+                                <li>匿名 ￥1500 </li>
+                                <li>匿名 ￥100 </li>
+                                <li>孙闻宇 ￥3500 </li>
+                                <li>胡腾 ￥200 </li>
+                                <li>郑悦 ￥1000 </li>
+                                <li>陈华青 ￥200 </li>
+                              </ul>
+                           </marquee>
+                    </div>
+               </div>
+             </div>
+         </div>
+     </div>
+<?= $this->partial("common/footer.phtml");?>

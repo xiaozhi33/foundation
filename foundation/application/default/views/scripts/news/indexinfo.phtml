@@ -1,0 +1,55 @@
+<?= $this->partial("common/header.phtml");?>
+<div class="jjh_content_sub">
+         <div class="jjh_content_sub_left">
+              <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/news_top_img.jpg" /></div>
+              <div class="jjh_sub_nav_tit"><span>捐赠信息</span></div>
+              <div class="jjh_sub_nav_con">
+                   <ul>
+                      <li><a href="/news/indexinfo?c_name=zijin"><span>最新捐赠</span></a></li>
+                      <li><a href="/news/indexinfo?c_name=shiyong"><span>资助信息</span></a></li>
+                   </ul>
+              </div>
+         </div>
+         <div class="jjh_content_sub_right">
+              <div class="jjh_sub_con_tit"><span>当前位置：<a href="/news/indexinfo">捐赠信息</a> > <?php echo $this->c_name;?> </span><em>捐赠信息</em></div>
+              <div class="jjh_sub_con_content" style="height:400px;">
+              	<?php 
+              		if($_GET['c_name'] == "zijin"){
+              			?>
+              		<form action="/news/indexinfo" method="get">
+	              		捐赠人：<input name="pname" type="text" /> 
+	              		<input name="c_name" type="hidden" value="zijin"/>
+	              		<input name="" type="submit" value="查询"/>
+	              	</form>
+              	<?php 
+              		}
+              	?>
+              	
+                <ul class="jjh_report">
+                <?php 
+                foreach ($this->informationlist as $k => $value){?>
+                <?php
+                if($value['zijin_daozheng_jiner'] != ""){?>
+                
+                
+                
+                <li><a href=""><?php echo $value['pm_pp'];?> 捐赠 ￥<?php echo $value['zijin_daozheng_jiner'];?></a><span>[<?php echo mb_substr($value['zijin_daozhang_datetime'],0,10);?>]</span></li>
+                <?php }elseif($value['jiangli_renshu']!=""){?>
+                <li><a href=""><?php echo $value['pm_name'];?> 
+				资助<?php if($value['jiangli_renshu'] != 0){?><?php echo $value['jiangli_renshu'];?>人<?php }else{?>项目<?php }?>
+				
+				
+				共<?php echo $value['shiyong_zhichu_jiner'];?>元</a><span>[<?php echo mb_substr($value['shiyong_zhichu_datetime'],0,10);?>]</span></li>  
+                <?php }}?>
+                </ul>
+                <div class="jjh_pagebar">
+                	<?php echo $this->page;?>&nbsp;&nbsp;
+                	<?php if($this->page != ""){?>
+                	共<?php echo $this->total;?>/页
+                	<?php }?>
+                </div>
+              </div>
+         </div>
+	<div class="cle">&nbsp;</div>
+     </div>
+<?= $this->partial('common/footer.phtml'); ?>   

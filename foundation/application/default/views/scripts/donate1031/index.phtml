@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php echo $this->websiteinfo[0]['web_name'];?></title>
+<meta name="description" content="天津大学北洋教育发展基金会" />
+<meta name="keywords" content="天津大学，天津大学北洋教育发展基金会，基金会" />
+<link href="<?php echo __DEFAULTINCLUDEPATH__;?>css/style.css" rel="stylesheet"  type="text/css"/>
+<script src="<?php echo __DEFAULTINCLUDEPATH__;?>js/jquery1.6.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="jjh_container">
+     <div class="jjh_header">
+         <div class="jjh_topadv"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/topadv.jpg" /></div>
+         <div class="jjh_nav">
+            <ul>
+               <li><a href="/"><span>首页</span></a></li>
+               <li><a href="/about">基金会概况</a></li>
+               <li><a href="/news/index?cid=gonggao">新闻中心</a></li>
+               <li><a href="/jjhpm">筹资项目</a></li>
+               <li><a href="/pmuse">捐赠使用</a></li>
+               <li><a href="/service">服务指南</a></li>
+               <li><a href="/heart">心声•感恩</a></li>
+               <li><a id="linkon" href="/donate">在线捐赠</a></li>
+               <li><a href="/contact">联系我们</a></li>
+               <li style="background:none;"><a href="/en">English</a></li>
+            </ul>
+         </div>
+     </div>
+
+<div class="jjh_content_sub" style="height:1030px;">
+         <div class="jjh_content_sub_left">
+              <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/donate_top_img.jpg" /></div>
+              <div class="jjh_sub_nav_tit"><span>在线捐赠</span></div>
+              <div class="jjh_sub_nav_con">
+                   <ul>
+                   	  <li><a href="/donate/fangshi">捐赠方式</a></li>
+                      <li><a href="/donate/zhanghu">基金会账户</a></li>
+                      <li><a href="/donate/mianshui">免税政策</a></li>
+                      <li><a href="/donate/shuoming">捐赠说明</a></li>
+                      <li><a href="/donate"><span>我要捐赠</span></a></li>
+                      <li><a href="/donate/query">捐款到账查询</a></li>
+                      <li><a href="/donate/wuxie">捐赠鸣谢</a></li>
+                   </ul>
+              </div>
+              <div><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/serline.jpg" /></div>
+         </div>
+         <div class="jjh_content_sub_right">
+              <div class="jjh_sub_con_tit"><em>我要捐赠</em><span>当前位置：<a href="/donate">在线捐赠</a> > 我要捐赠</span></div>
+              <div class="cle"></div>
+              <div class="jjh_sub_con_content" style="height:850px;">
+                   <div class="jjh_donate_online_spe">感谢您慷慨捐赠，我们将根据您的意愿，用好每一分钱，支持天津大学的发展。 成功捐赠后您将获得：<br />
+1、 <span class="jjh_font4">捐赠发票</span>（可根据相关规定用于个人抵税）&nbsp;&nbsp;&nbsp;&nbsp;2、 <span class="jjh_font4">捐赠证书</span>（捐赠100元及以上）&nbsp;&nbsp;&nbsp;&nbsp;3、 <span class="jjh_font4">捐赠牌</span>（捐赠10万元及以上） </div>
+                   <div class="jjh_donate_online_con">
+                   <form action="/order/addorder" method="post">
+                        <table width="100%" align="center" cellpadding="0" cellspacing="0">
+                           
+                           <?php if($this->jjh_pm != ""){?>
+                           	<tr>
+                              <td width="18%" class="jjh_font2"  height="35">捐赠项目：</td>
+                              <td width="82%" align="left">
+                                  <select name="cate_1" id="cate_1" style="color:#333; font-family:'微软雅黑', '宋体'; font-size:12px;">
+									  <option value="<?php echo $this->jjh_pm[0]['c_id'];?>" selected="selected"><?php echo $this->jjh_pm[0]['c_name'];?></option> 
+                                  </select>
+                              </td>
+                           </tr>
+                           <?php }else{?>
+                           <tr>
+                              <td width="18%" class="jjh_font2"  height="35">捐赠分类：</td>
+                              <td width="82%" align="left">
+                                  <select name="cate_1" id="cate_1" style="color:#333; font-family:'微软雅黑', '宋体'; font-size:12px;">
+									  <option value="" selected="selected">---请选择捐赠分类---</option> 
+									  <?php if($this->my_jjh_pm != ""){
+	   	                              	foreach ($this->my_jjh_pm as $key => $value){
+	   	                              	?>
+	   	                              <option value="<?php echo $value['c_id'];?>"><?php echo $value['c_name'];?></option>
+	                                  <?php }}?>
+	                                  
+                                  </select>
+                              </td>
+                           </tr>
+                           
+                           <tr id="juanzengxiangmu"><!-- 捐赠项目 --></tr>
+                           <tr id="zixiangmu"><!-- 子项目： --></tr>
+                           
+                           <?php }?>
+
+                           <tr>
+   	                           <td class="jjh_font2" height="35">您的捐款总额为： </td>
+                               <td>
+                                    <input onkeyup="value=this.value.replace(/\D+/g,'')" class="input_donate" id="Amount" name="Amount" style="width:64px;text-align:center; height:18px;" type="text" value="" /> 元（人民币）<span class="red">*</span>
+                             		<!-- <input class="input_donate" id="Amount" name="Amount" style="width:64px;text-align:center; height:18px;" type="text" value="" /> 元（人民币）<span class="red">*</span> -->
+                             		如果外币捐赠  <a href="/donate/fangshi"><b>请点击这里</b></a>  进行汇款或者转账
+                               </td>
+   	                       </tr>
+                        </table>
+                        <table width="100%" align="center" cellpadding="0" cellspacing="0">
+                           <tr>
+                              <td width="18%" class="jjh_font2" height="35">捐赠说明：</td>
+                              <td width="82%">
+                               <textarea class="input_donate" cols="20" id="SpecialRequest" name="SpecialRequest" rows="2" style="width:360px; height:18px; font-family:'微软雅黑', '宋体'; font-size:12px;"></textarea>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="jjh_font2" height="35">相关活动：</td>
+                              <td>
+                                <select id="EventName" name="EventName" style="color:#333; font-family:'微软雅黑', '宋体'; font-size:12px;">
+                                <option value="">--无--</option>
+                                </select>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="jjh_font2"  valign="top">是否需要捐赠证书：</td>
+                              <td style="line-height:30px;">
+                                <span class="jjh_font5">( 无论是否，我们均将发送电子版证书给您 )</span><br />
+                                <input type=radio name="zs" value="1"   /><strong>是</strong>（请填妥您的联系地址，以便证书准确到达您的手中）<br />
+                                <input type=radio name="zs" value="0"  Checked/><strong>否</strong>（制作证书的成本约3元，邮寄成本0.8-2元，感谢您为天大发展节省每一分钱）<br />
+                                
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="jjh_font2" valign="top">是否需要收据：</td>
+                              <td style="line-height:30px; ">
+                               <input type=radio name="sj" value="1" /><strong>是</strong>（请填妥您的联系地址，以便收据准确到达您的手中）<br />
+                               <input type=radio name="sj" value="0" Checked/><strong>否</strong>（基金会将为您保管您的收据，您可随时索要）<br />  
+                              </td>
+                           </tr>
+                        </table>
+                        <br />
+                        <table width="100%" cellpadding="0" cellspacing="0" align="center">
+                           <tr> 
+                             <td colspan="2" height="30"><span class="jjh_font2">请填写您的个人信息</span>&nbsp;&nbsp;<span class="jjh_font5">( 本页已使用SSL加密 ）</span></td>
+                           </tr>
+                           <tr>
+                             <td width="18%" class="jjh_font4" height="35">姓名：</td>
+                             <td>
+                               <input class="input_donate" id="UserName" name="UserName" style="width:174px; height:18px" type="text" value="" /> <span class="red">*</span>
+                             </td>
+                           </tr>
+                           <tr>
+                             <td width="18%" class="jjh_font4" height="35">称谓：</td>
+                             <td>
+                               先生 <input checked="checked" id="Gender" name="Gender" type="radio" value="先生" /> 女士 <input id="Gender" name="Gender" type="radio" value="女士" /> 
+                             </td>
+                           </tr>
+                           <tr>
+                             <td width="18%" class="jjh_font4" height="35">校友信息：</td>
+                             <td>
+                              是 <input checked="checked" id="showInfo" name="IsAlumni" type="radio" value="1" />
+                              否 <input id="hideInfo" name="IsAlumni" type="radio" value="0" />
+                              <textarea id="AlumniInfo" name="AlumniInfo" class="input_donate" style="width:220px;height:18px; font-size:12px; font-family:'微软雅黑', '宋体'; color:#333;">格式：2000-2006 中文系 中文专业</textarea> <span class="red">*</span>
+                             </td>
+                           </tr>
+                           <tr>
+                             <td width="18%" class="jjh_font4" height="35">电子邮件：</td>
+                             <td>
+                               <input class="input_donate" id="Email" name="Email" style="width:174px;height:18px" type="text" value="" /> <span class="red">*</span>
+                             </td>
+                           </tr>
+                           <tr>
+                             <td width="18%" class="jjh_font4" height="35">联系电话：</td>
+                             <td>
+                               <input class="input_donate" id="Phone" name="Phone" style="width:174px;height:18px;" type="text" value="" /> <span class="red">*</span>
+                             </td>
+                           </tr>
+                           <tr>
+                             <td width="18%" class="jjh_font4" height="35">移动电话：</td>
+                             <td>
+                               <input class="input_donate" id="Mobile" name="Mobile" style="width:174px;height:18px;" type="text" value="" /> <span class="red">*</span>
+                             </td>
+                           </tr>
+                           <tr>
+                             <td width="18%" class="jjh_font4" height="35">联系地址：</td>
+                             <td>
+                               <input class="input_donate" id="Address" name="Address" style="width:300px;height:18px;" type="text" value="" />
+                             </td>
+                           </tr>
+                           <tr>
+                             <td width="18%" class="jjh_font4" height="35">邮编：</td>
+                             <td>
+                               <input class="input_donate" id="Postcode" name="Postcode" style="width:174px;height:18px;" type="text" value="" />
+                             </td>
+                           </tr>
+                           <tr>
+                             <td width="18%" class="jjh_font4" height="35">工作单位/职务：</td>
+                             <td>
+                               <input class="input_donate" id="CareerInfo" name="CareerInfo" style="width:300px;height:18px;" type="text" value="" />
+                             </td>
+                           </tr>
+                           <tr>
+                             <td width="18%" class="jjh_font4" height="35">是否匿名捐赠：</td>
+                             <td>
+                               是 <input id="IsAnonymous" name="IsAnonymous" type="radio" value="1" /> 
+                               否 <input checked="checked" id="IsAnonymous" name="IsAnonymous" type="radio" value="0" />
+                             </td>
+                           </tr>
+                           <tr>
+                             <td width="18%" class="jjh_font4" >选择捐赠方式：</td>
+                             <td style="line-height:30px;">
+                               <input checked="checked" id="PayType" name="PayType" type="radio" value="1" />
+                                <img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/donate_cu.gif" style="vertical-align:middle" />在线支付(支持银联 VISA MasterCard)<br /><input id="PayType" name="PayType" type="radio" value="2" /> 其他支付方式 (邮汇 转帐 支票等)
+                             </td>
+                           </tr>
+                           <tr>
+                              <td></td>
+                              <td><br /><span id="plswait" style="font-weight:700;color:red;"></span>
+                              <input type="submit" class="jjh_donate_submit_bt" style="font-weight:700" value="我要捐赠" /> 
+</td>
+                                    </tr>
+                        </table>
+                        </form>
+                   </div>
+                
+              </div>
+         </div>
+     </div>
+<style>
+	#cate_2{
+		color:#333; font-family:'微软雅黑', '宋体'; font-size:12px;
+	}
+	#cate_3{
+		color:#333; font-family:'微软雅黑', '宋体'; font-size:12px;
+	}
+</style>
+ 
+ 
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#cate_1").change(function() {
+			verify();
+		});
+		$("#cate_2").change(function() {
+			changecate();
+		});
+	});
+	function verify(){
+		//1.获取文本框的数据
+		//通过JQuery的方式获取
+		var jqueryObj = $("#cate_1");
+		//获取节点的值
+		var cate_1 = jqueryObj.val();
+		//2.将文本框的数据发送到服务器端的servlet
+		$.ajax({
+			type:"POST",
+			url:"/donate/getsmallcate",
+			data:"cid="+cate_1,
+			dataType:"json",
+			success:function(data){
+				//遍历JSON中的每个entry
+				if(data == null){
+					$("#juanzengxiangmu").html("");
+					$("#zixiangmu").html("");
+				}else{
+					var cate_2='<td class="jjh_font2" height="35">捐赠项目：</td><td><select onchange="changecate();" name="cate_2" id="cate_2">';
+					$.each(data,function(index,content){
+						//alert("Object Property Name Is: " + index + ",And Its Property Value is: " + content);
+						cate_2+='<option value="'+content['c_id']+'">'+content['c_name']+'</option>';	
+					});
+					cate_2+="</select></td>";
+					$("#juanzengxiangmu").html(cate_2);
+					//填充三级菜单
+					if(data[0]['c_id'] != null){
+						defaultarray(data[0]['c_id']);
+					}
+				}
+			}
+		});
+	} 
+
+	function defaultarray(cid){
+		$.ajax({
+			type:"POST",
+			url:"/donate/getsmallcate",
+			data:"cid="+cid,
+			dataType:"json",
+			success:function(data){
+				//遍历JSON中的每个entry
+				if(data == null){
+					$("#zixiangmu").html("");
+				}else{
+					var cate_3='<td class="jjh_font2" height="35">子项目：</td><td><select name="cate_3" id="cate_3">';
+					$.each(data,function(index,content){
+						cate_3+='<option value="'+content['c_id']+'">'+content['c_name']+'</option>';	
+					});
+					cate_3+="</select></td>";
+					$("#zixiangmu").html(cate_3);
+				}
+			}
+		});
+	}
+	
+	function changecate(){
+		//1.获取文本框的数据
+		//通过JQuery的方式获取
+		var jqueryObj = $("#cate_2");
+		//获取节点的值
+		var cate_2 = jqueryObj.val();
+		//2.将文本框的数据发送到服务器端的servlet
+		$.ajax({
+			type:"POST",
+			url:"/donate/getsmallcate",
+			data:"cid="+cate_2,
+			dataType:"json",
+			success:function(data){
+				//遍历JSON中的每个entry
+				if(data == null){
+					$("#zixiangmu").html("");
+				}else{
+					var cate_3='<td class="jjh_font2" height="35">子项目：</td><td><select name="cate_3" id="cate_3">';
+					$.each(data,function(index,content){
+						cate_3+='<option value="'+content['c_id']+'">'+content['c_name']+'</option>';	
+					});
+					cate_3+="</select></td>";
+					$("#zixiangmu").html(cate_3);
+				}
+			}
+		});
+	} 
+</script>    
+     
+     
+<?= $this->partial("common/footer.phtml");?>

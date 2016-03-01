@@ -1,0 +1,57 @@
+<?= $this->partial("common/header.phtml");?>
+<div class="jjh_content_sub" style="height:710px;">
+         <div class="jjh_content_sub_left">
+              <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/project_top_img.jpg" /></div>
+              <div class="jjh_sub_nav_tit"><span>筹资项目</span></div>
+              <div class="jjh_sub_nav_con">
+                   <ul>
+                   	  <?php foreach ($this->my_jjh_pm as $key => $value){
+                   	  		if ($value['c_name'] != "推荐项目"){?>
+                      	<li>
+	                      	<a href="/jjhpm/index?cid=<?php echo $value['c_id'];?>">
+	                      		<?php if($this->pm_info[0]['c_id'] == $value['c_id']){?><span><?php }?>
+	                      			<?php echo $value['c_name'];?>
+	                      		<?php if($this->pm_info[0]['c_id'] == $value['c_id']){?></span><?php }?>
+	                      	</a>
+                      	</li>
+                      <?php }}?>
+                   </ul>
+                   <div class="jjh_sub_nav_recommond"><a href="/jjhpm/tuijian">推荐项目</a></div>
+              </div>
+         </div>
+<div class="jjh_content_sub_right">
+             <!--<div class="jjh_sub_con_tit"><em>校友年度捐赠--1985校友基金</em><span>当前位置：<a href="news.html">筹资项目</a> > 推荐项目</span></div>--> 
+             <div class="jjh_sub_con_content" style="height:520px; padding:0px; width:690px;">
+               <div><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/procomadv2.jpg" /></div><br />
+               <div class="jjh_prorecom_detail_left">
+                <div class="jjh_prorecom_detit1">项目介绍</div> 
+                <div class="jjh_prorecom_decon">
+                <span class="jjh_font3">“李曙森教育基金”是由天津大学倡议发起，以李曙森校长名字命名的留本型公益性专项基金。该基金将重点奖励天津大学成绩突出的教师和学生。</span>旨在通过对教师和学生的表彰，鼓励他们在科学探索的道路上勇于改革，大胆创新，以加快培养科技创新人才的步伐，推动天津大学教育事业发展，为国家的经济建设和社会进步做出突出贡献。同时，通过设立"李曙森教育基金"，更好的宣传和弘扬李曙森校长的崇高精神，缅怀其对我国高等教育事业和天津大学教育事业做出的贡献，激励天津大学师生传承他的办学理念和教育思想，也为天津大学广大校友和社会各界人士搭建一个纪念李曙森校长的渠道和平台。<br /><br />“李曙森教育基金”主要由天津大学教师和广大校友，社会各界有好单位和个人的捐款，以及基金增值两部分组成，学校将设立基金管理委员会，负责基金的募集组织，项目评选和奖金发放等管理事项。同时，该专项基金将本着公开公正透明的原则，及时向社会各界公布财政情况及基金的日常管理情况，并接受社会监督。
+                </div>
+
+               </div>
+               <div class="jjh_prorecom_detail_right1">
+                    <div class="jjh_prorecom_detail_btn">
+                    <a href="/donate/index?cid=31&cname=李曙森教育基金">我要捐赠</a></div>
+                    <div class="jjh_prorecom_detail_news">
+                         <div class="jjh_prorecom_detail_news_tit">最新动态</div>
+                           <marquee direction="up" height="200" scrollamount="2" style="margin-top:10px;">
+                              <ul>
+                                <li>张洁莹 ￥100</li>
+                                <li>戴晓橙 ￥200</li>
+                                <li>匿名 ￥100</li>
+                                <li>谌敦华 ￥500 </li>
+                                <li>匿名 ￥1500 </li>
+                                <li>匿名 ￥100 </li>
+                                <li>孙闻宇 ￥3500 </li>
+                                <li>胡腾 ￥200 </li>
+                                <li>郑悦 ￥1000 </li>
+                                <li>陈华青 ￥200 </li>
+                              </ul>
+                           </marquee>
+                    </div>
+               </div>
+             </div>
+         </div>
+     </div>
+<?= $this->partial("common/footer.phtml");?>

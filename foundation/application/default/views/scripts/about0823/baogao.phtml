@@ -1,0 +1,32 @@
+<?= $this->partial("common/header.phtml");?>
+<div class="jjh_content_sub">
+         <div class="jjh_content_sub_left">
+              <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/about_top_img.jpg" /></div>
+              <div class="jjh_sub_nav_tit"><span>基金会概况</span></div>
+              <div class="jjh_sub_nav_con">
+                   <ul>
+                       <li><a href="/about">基金会简介</a></li>
+                      <li><a href="/about/lingdaotici">领导致辞</a></li>
+                      <li><a href="/about/zhangcheng">基金会章程</a></li>
+                      <li><a href="/about/zuzhi">组织机构设置</a></li>
+                      <li><a href="/about/baogao"><span>年度报告</span></a></li>
+                   </ul>
+              </div>
+         </div>
+         <div class="jjh_content_sub_right">
+              <div class="jjh_sub_con_tit"><span>当前位置：<a href="/about">基金会概况</a> > 年度报告</span><em>年度报告</em></div>
+              <div class="jjh_sub_con_content" >
+                <font class="jjh_font4">天津大学北洋教育发展基金会年度报告列表</font><br />
+                <ul class="jjh_report">
+                	<?php foreach ($this->informationlist as $key => $value){?>
+                    	<li>
+                    	<a href="/news/newsinfo?id=<?php echo $value['my_infor_id'];?>"><?php echo $value['my_infor_title'];?></a>
+                    	<span>[ <?php echo mb_substr($value['my_infor_datetime'],0,10);?> ]</span></li>
+               		<?php }?>
+                </ul>
+
+              </div>
+         </div>
+	<div class="cle">&nbsp;</div>
+     </div>
+<?= $this->partial('common/footer.phtml'); ?>   
