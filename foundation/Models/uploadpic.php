@@ -17,6 +17,7 @@ class uploadPic{
     function __construct($file_name,$file_error,$file_size,$file_tmp_name,$file_type,$type=0,$rename = null){
         $this->handledate=date('m-d-Y');
         if (!empty($file_name)){
+			
             $this->file_name = $file_name;
             $this->file_error = $file_error;
             $this->file_size = $file_size;
@@ -24,10 +25,11 @@ class uploadPic{
             $this->file_type = $file_type;
             $this->type = $type;
             $this->rename = $rename;
+
             if($type == 2){//flash
-                $this->file_type_array = array('/','application/x-shockwave-flash' , 'image/gif', 'image/jpg', 'image/jpeg', 'image/bmp', 'image/png','image/pjpeg','application/rar','application/x-rar-compressed','application/msword');
+                $this->file_type_array = array('/','application/x-shockwave-flash', 'application/octet-stream' , 'image/gif', 'image/jpg', 'image/jpeg', 'image/bmp', 'image/png','image/pjpeg','application/rar','application/x-rar-compressed','application/msword','application/pdf');
             }else{//image
-                $this->file_type_array = array('/', 'image/gif', 'image/jpg', 'image/jpeg', 'image/bmp', 'image/png','image/pjpeg');
+                $this->file_type_array = array('/', 'image/gif', 'image/jpg', 'image/jpeg', 'image/bmp', 'image/png','image/pjpeg','application/rar','application/x-rar-compressed');
             }
             $this->file_type_real_array = '';//array(0.1, 'jpg'=>74707370, 'gif'=>7173, 'bmp'=>6677, 'png'=>807871);
              
@@ -67,6 +69,7 @@ class uploadPic{
 
         }else{
             $smfiletypeflag = array_search($smfiletype,$this->file_type_array);
+			//echo $smfiletype;exit;
             if($smfiletypeflag == false){
                 if($type == 2){
                     $smfilemessage='上传不成功,请选择相关文件上传';
