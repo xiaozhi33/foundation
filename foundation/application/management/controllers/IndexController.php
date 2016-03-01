@@ -21,7 +21,13 @@
 			
 			//判定用户名密码的正确性			
 			if(!$passwordpost = $this->getpasswordpostAction($username,$password)){
-				alert_go('您输入的密码有误！','/management/index/loginview');
+				//alert_go('您输入的密码有误！','/management/index/loginview');
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('您输入的密码有误');");
+                echo("location.href='/management/index/loginview';");
+                echo('</script>');
+                exit;
 			}else{
 				SessionUtil::initSession($passwordpost);
 
