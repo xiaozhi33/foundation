@@ -1,35 +1,36 @@
 <?= $this->partial("common/header.phtml");?>
-<div class="jjh_content_sub" style="height:480px;">
+<div class="jjh_content_sub" >
          <div class="jjh_content_sub_left">
               <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/heart_top_img.jpg" /></div>
               <div class="jjh_sub_nav_tit"><span>捐赠故事</span></div>
               <div class="jjh_sub_nav_con">
                    <ul>
-                      <li><a href="/heart/renwu">心声感恩</a></li>
-                      <li><a href="/heart/shouyi"><span>捐赠故事</span></a></li>
+                      <li><a href="/heart/shouyi">心声感恩</a></li>
+                      <li><a href="/heart/renwu">捐赠故事</a></li>
                    </ul>
               </div>
          </div>
          <div class="jjh_content_sub_right">
-              <div class="jjh_sub_con_tit"><em>捐赠故事</em><span>当前位置：<a href="/heart">捐赠故事</a></span></div>
-              <div class="jjh_sub_con_content" style="height:400px;">
-              	  <div class="jjh_heart_tit">心声感恩<span><a href="/heart/renwu">更多>></a></span></div>
-                  <div class="jjh_heart_con">
-                      <ul class="jjh_heart_rwsty">
-                          <li><a href="newdetail.html"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/heartimg.jpg" border="0"/></a><a href="newdetail.html">”天津大学北洋教育发展基金会，作为与社会各界沟通的桥梁，愿以更加规范之....”</a><br /><br />---李家俊</li>
-                          <li><a href="newdetail.html"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/heartimg.jpg" border="0"/></a><a href="newdetail.html">”天津大学北洋教育发展基金会，作为与社会各界沟通的桥梁，愿以更加规....”</a><br /><br />---李家俊</li>
-                      </ul>
-                  </div>
-              	  <div class="jjh_heart_tit">捐赠故事<span><a href="/heart/shouyi">更多>></a></span></div>
+              <div class="jjh_sub_con_tit"><span>当前位置：<a href="/heart">捐赠故事</a></span><em>捐赠故事</em></div>
+              <div class="jjh_sub_con_content">
+              	  <div class="jjh_heart_tit">捐赠故事<span><a href="/heart/renwu">更多>></a></span></div>
                   <div class="jjh_heart_con">
                       <ul class="jjh_report">
-                        <li><a href="newdetail.html">新鸿基地产郭氏基金助学金受益人——肖珊感言 </a><span>[ 2010-02-08 ]</span></li>
-                        <li><a href="#">“袁天凡西吉农村教师培训”学员—吕晓燕学习心得</a><span>[ 2009-03-12 ]</span></li>
-                        <li><a href="#">2011年新鸿基地产郭氏基金英国剑桥大学博士/硕士奖学金申请启动 </a><span>[ 2008-03-05 ]</span></li>
-                        <li><a href="#">关于本基金会基本户账号变更的通知 </a><span>[ 2010-02-08 ]</span></li>
+						<?php foreach ($this->renwu as $k => $v){?>
+                      		<li><a href="/heart/renwuinfo?id=<?php echo $v['my_infor_id'];?>"><?php echo $v['my_infor_title'];?> </a><span>[ <?php echo $v['my_infor_datetime'];?> ]</span></li>
+                      	<?php }?>
+                      </ul>
+                  </div>
+              	  <div class="jjh_heart_tit" style="margin-top:10px;">心声感恩<span><a href="/heart/shouyi">更多>></a></span></div>
+                  <div class="jjh_heart_con">
+                      <ul class="jjh_report">
+                      	<?php foreach ($this->info as $k => $v){?>
+                      		<li><a href="/heart/shouyiinfo?id=<?php echo $v['my_infor_id'];?>"><?php echo $v['my_infor_title'];?> </a><span>[ <?php echo $v['my_infor_datetime'];?> ]</span></li>
+                      	<?php }?>
                       </ul>
                   </div>
               </div>
          </div>
+	<div class="cle">&nbsp;</div>
      </div>
 <?= $this->partial('common/footer.phtml'); ?>

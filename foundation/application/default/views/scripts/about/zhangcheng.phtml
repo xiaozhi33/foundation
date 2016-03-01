@@ -6,16 +6,18 @@
               <div class="jjh_sub_nav_con">
                    <ul>
                       <li><a href="/about">基金会简介</a></li>
-                      <li><a href="/about/lingdaotici">领导题词</a></li>
+                      <li><a href="/about/lingdaotici">领导致辞</a></li>
                       <li><a href="/about/zhangcheng"><span>基金会章程</span></a></li>
                       <li><a href="/about/zuzhi">组织机构设置</a></li>
-                      <li><a href="/about/baogao">年度报告</a></li>
+                      <li><a href="/about/baogao">年度工作报告</a></li>
+                      <li><a href="/about/caiwushenji">财务审计报告</a></li>
+                      <li><a href="/about/guanlizhidu">项目管理制度</a></li>
                    </ul>
               </div>
          </div>
          <div class="jjh_content_sub_right">
               <div class="jjh_sub_con_tit"><em>基金会章程</em><span>当前位置：<a href="/about">基金会概况</a> > 基金会章程</span></div>
-              <div class="jjh_sub_con_content" style="height:3800px;">
+              <!--<div class="jjh_sub_con_content" style="height:3800px;">
                  <div align="center"><font class="jjh_font3">《天津大学北洋教育发展基金会章程》2009年修订版</font><br /><font class="jjh_font4">【2009年12月16日天津大学北洋教育发展基金会第三次理事会第一次会议通过并施行】</font></div>
               	<br /><font class="jjh_font4">第一章 总则</font><br />
 第一条 本基金会的名称是天津大学北洋教育发展基金会。<br />第二条 本基金会属于非公募基金会。<br />
@@ -143,6 +145,6 @@
 第七章附则<br />
 第四十八条 本章程经2004年11月 16 日理事会表决通过。<br />第四十九条 本章程的解释权属于本基金会理事会。<br />第五十条本章程自登记管理机关核准之日起生效。
               </div>
-         </div>
+         --><?php echo $this->info[0]['content'];?></div>
      </div>
 <?= $this->partial('common/footer.phtml'); ?>   

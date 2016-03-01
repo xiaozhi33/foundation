@@ -10,7 +10,16 @@
 						<td width="80%" style="text-align:left;">
 							<input type="text" name="title" value="<?php echo $this->my_jjh[0]['c_name'];?>"/><font color="red" > * </font>
 						</td>
-					</tr>	
+					</tr>
+
+					<tr>
+					    <td width="20%" style="text-align:right;">在线捐赠项目：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="radio" name="c_online" value="1" <?php if($this->my_jjh[0]['c_online'] == 1){?> checked="checked" <?php }?>/> 是
+							<input type="radio" name="c_online" value="0" <?php if($this->my_jjh[0]['c_online'] == 0){?> checked="checked" <?php }?>/> 否
+							<font color="red" > * </font>
+						</td>
+					</tr>
 					
 					<tr>
 					    <td width="20%" style="text-align:right;">捐赠项目描述：</td>

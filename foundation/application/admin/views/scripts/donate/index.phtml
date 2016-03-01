@@ -10,7 +10,11 @@
 						
 						捐赠人姓名：<input type="text" name="uname" />
 						<input type="submit" value="搜索"/>
+						
+						<a href="/admin/donate/index?excel=yes">导出Excel文件(所有订单信息)</a>
 					</form>
+					
+					
 				</div>
 	
 				<?php if($this->jjh_order != ""){?>
@@ -31,14 +35,18 @@
 						 	<td><?php echo $v['jjh_donors_cname'];?></td>
 							<td><?php echo $v['jjh_money'];?></td>
 							<td><?php if($v['jjh_order_statue'] == 0){
-										echo "未付款";
-									   }elseif ($v['jjh_order_statue'] == 1){
+											echo "未付款";
+									   }elseif ($v['jjh_order_statue'] != 0 && $v['jjh_order_statue']!="-1" ){
 											echo "已付款";
+									   }elseif ($v['jjh_order_statue'] == "-1"){
+									   		echo "已退款";
 									   }?></td>
 							<td><a href="/admin/donate/editdonate?id=<?php echo $v['jjh_order_id'];?>">编辑查看</a></td>
 						 </tr>
 					   <?php }?>
 					</table>
+					
+					
 					
 					<div align="right" style="margin-right: 10px;margin-top: 5px;">
 						共  <?php echo $this->total;?> 条捐赠信息          <?php echo $this->page;?></div>

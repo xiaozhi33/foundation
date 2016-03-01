@@ -7,6 +7,9 @@
 	class contactController extends BaseController {
 		private $dbhelper;
 		public function indexAction(){
+			$my_websit = new my_website_infoDAO();
+			$my_websit = $my_websit->get($this->dbhelper);
+			$this->view->assign("info",$my_websit);
 			echo $this->view->render("contact/index.phtml");
 		}
 		

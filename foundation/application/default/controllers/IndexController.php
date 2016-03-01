@@ -24,7 +24,7 @@
 			$this->view->assign("ad_list",$ad_list);
 			
 			//公告新闻
-			$gonggao_list = new my_informationDAO(null,"gonggao");
+			$gonggao_list = new my_informationDAO(null,"xinwen");
 			$gonggao_list ->selectLimit = " and my_infor_isdisplay=1 and my_infor_state=1 order by my_infor_id desc limit 0,6";
 			$gonggao_list = $gonggao_list->get($this->dbhelper);
 			$this->view->assign("gonggao_list",$gonggao_list);
@@ -41,12 +41,36 @@
 			$juanzenglist = $juanzeng ->get($this->dbhelper);
 			$this->view->assign("juanzenglist",$juanzenglist);
 			
+			//var_dump($juanzenglist);
+			
+			/////////////////////////////////////////////////////////////////////////
+			
+			/*
+			 * 2012-10-23 更新 最新捐赠
+			 * 只显示订单状态为 已支付
+			 */
+			//$jjh_order = new jjh_ordersDAO();
+			//$jjh_order ->joinTable(" left join jjh_orders_info on jjh_orders_info.jjh_order_id = jjh_orders.jjh_order_id");
+			//$jjh_order ->selectField(" jjh_orders_info.jjh_donors_name as pm_pp,jjh_orders_info.jjh_money as zijin_daozheng_jiner,jjh_orders.jjh_rdero_datetime as zijin_daozhang_datetime");
+			//$jjh_order ->selectLimit .= " and jjh_orders.jjh_order_statue>0 ";
+			//$jjh_order ->selectLimit .= " order by jjh_orders.jjh_id desc limit 0,6";
+			//$jjh_order = $jjh_order ->get($this->dbhelper);
+			//$this->view->assign("zizhuinfo",$jjh_order);
+			
+			//new最新捐赠
+			//$zizhuinfo = new pm_mg_infoDAO();
+			//$zizhuinfo ->selectLimit = " and zijin_daozheng_jiner != '' order by zijin_daozhang_datetime desc limit 0,6";
+			//$zizhuinfo = $zizhuinfo ->get($this->dbhelper);
+			//$this->view->assign("zizhuinfo",$zizhuinfo);
+			
+			///////////////////////////////////////////////////////////////////////////
 			
 			//new最新捐赠
 			$zizhuinfo = new pm_mg_infoDAO();
 			$zizhuinfo ->selectLimit = " and zijin_daozheng_jiner != '' order by zijin_daozhang_datetime desc limit 0,6";
 			$zizhuinfo = $zizhuinfo ->get($this->dbhelper);
 			$this->view->assign("zizhuinfo",$zizhuinfo);
+			
 			//new资助信息
 			$shiyonginfo = new pm_mg_infoDAO();
 			$shiyonginfo ->selectLimit = "and shiyong_zhichu_jiner != '' order by shiyong_zhichu_datetime desc limit 0,6";

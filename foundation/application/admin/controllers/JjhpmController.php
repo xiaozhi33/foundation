@@ -67,11 +67,13 @@
 			}
 			$describe = HttpUtil::postInsString("describe");
 			$content = HttpUtil::postInsString("content");
+			$c_online = HttpUtil::postInsString("c_online");
 			
 			$my_jjh_pm = new my_categoryDAO($cid);
 			$my_jjh_pm ->c_name = $title;
 			$my_jjh_pm ->c_describe = $describe;
 			$my_jjh_pm ->c_content = $content;
+			$my_jjh_pm ->c_online = $c_online;
 			$my_jjh_pm ->save($this->dbhelper);
 			alert_go("修改成功！","/admin/jjhpm");
 		}

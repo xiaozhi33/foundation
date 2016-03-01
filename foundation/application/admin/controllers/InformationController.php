@@ -20,7 +20,7 @@
 			
 			$total = count($information);
 			$pageDAO = new pageDAO();
-			$pageDAO = $pageDAO ->pageHelper($information,null,"index",null,'get',20,20);						
+			$pageDAO = $pageDAO ->pageHelper($information,null,"information",null,'get',20,20);						
 			$pages = $pageDAO['pageLink']['all'];
 			$pages = str_replace("/index.php","",$pages);	
 			$this->view->assign('informationlist',$pageDAO['pageData']);
@@ -45,13 +45,13 @@
 			if(HttpUtil::postString("ctitle") == ""){
 				alert_back("请填写文章的副标题！");
 			}
-			if(HttpUtil::postString("content") == ""){
+			if($_REQUEST['content'] == ""){
 				alert_back("请填写文章的内容！");
 			}
 			if(HttpUtil::postString("cate") == ""){
 				alert_back("请填写文章的类型！");
 			}
-			if(HttpUtil::postString("miaoshu") == ""){
+			if($_REQUEST['miaoshu'] == ""){
 				alert_back("请填写文章的简介！");
 			}
 
@@ -78,7 +78,26 @@
 			    }
 			}
 			
-			$my_informationDAO ->my_infor_content = HttpUtil::postString("content");
+			//附件上传
+			if($_FILES['downloadfile']['name']!=""){
+					if($_FILES['downloadfile']['error'] != 4){
+					    if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+					       mkdir(__UPLOADPICPATH__ ."jjh_download/");
+					    }
+						$uploadpic = new uploadPic($_FILES['downloadfile']['name'],$_FILES['downloadfile']['error'],$_FILES['downloadfile']['size'],$_FILES['downloadfile']['tmp_name'],$_FILES['downloadfile']['type'],2);
+						$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+						$result = $uploadpic->uploadPic();
+						if($result['error']!=0){					    	
+						   	alert_back($result['msg']);
+						}else{				             
+					        $my_informationDAO->my_infor_file =  __GETPICPATH__."jjh_download/".$result['picname'];
+					    }		            	    
+				    }else{
+				       	alert_back('上传文件错误，请重试！');
+				    }
+			}
+			
+			$my_informationDAO ->my_infor_content = $_REQUEST['content'];
 			$my_informationDAO ->my_infor_title = HttpUtil::postString("title");
 			$my_informationDAO ->my_infor_ctitle = HttpUtil::postString("ctitle");
 			$my_informationDAO ->my_infor_cateid = HttpUtil::postString("cate");
@@ -99,13 +118,13 @@
 				if(HttpUtil::postString("ctitle") == ""){
 					alert_back("请填写文章的副标题！");
 				}
-				if(HttpUtil::postString("content") == ""){
+				if($_REQUEST["content"] == ""){
 					alert_back("请填写文章的内容！");
 				}
 				if(HttpUtil::postString("cate") == ""){
 					alert_back("请填写文章的类型！");
 				}
-				if(HttpUtil::postString("miaoshu") == ""){
+				if($_REQUEST["miaoshu"] == ""){
 					alert_back("请填写文章的简介！");
 				}
 				$id = HttpUtil::postString('id');
@@ -113,11 +132,11 @@
 					alert_back("您要编辑的资讯不存在");
 				}
 				$my_informationDAO = new my_informationDAO($id);
-				$my_informationDAO->my_infor_content = HttpUtil::postString("content");
+				$my_informationDAO->my_infor_content = $_REQUEST["content"];
 				$my_informationDAO->my_infor_title = HttpUtil::postString("title");
 				$my_informationDAO->my_infor_ctitle = HttpUtil::postString("ctitle");
 				$my_informationDAO->my_infor_cateid = HttpUtil::postString("cate");
-				$my_informationDAO->my_infor_sumary = HttpUtil::postString("miaoshu");
+				$my_informationDAO->my_infor_sumary = $_REQUEST["miaoshu"];
 				$my_informationDAO->my_infor_isdisplay = HttpUtil::postString("display");
 				if($_FILES['pic']['name']!=""){
 					if($_FILES['pic']['error'] != 4){
@@ -136,6 +155,30 @@
 				       	alert_back('上传文件错误，请重试！');
 				    }
 				}
+				
+				if($_FILES['filesinfo'] != ""){
+					
+					if($_FILES['filesinfo']['name']!=""){
+						if($_FILES['filesinfo']['error'] != 4){
+						    if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+						       mkdir(__UPLOADPICPATH__ ."jjh_download/");
+						    }
+							$uploadpic = new uploadPic($_FILES['filesinfo']['name'],$_FILES['filesinfo']['error'],$_FILES['filesinfo']['size'],$_FILES['filesinfo']['tmp_name'],$_FILES['filesinfo']['type'],2);
+							$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+							$result = $uploadpic->uploadPic();
+							if($result['error']!=0){					    	
+							   	alert_back($result['msg']);
+							}else{				             
+						        $my_informationDAO->my_infor_file =  __GETPICPATH__."jjh_download/".$result['picname'];
+						    }		            	    
+					    }else{
+					       	alert_back('上传文件错误，请重试！');
+					    }
+					}
+				}else{
+					$my_informationDAO->my_infor_file = $_REQUEST['oldfiles'];
+				}
+
 				//$my_informationDAO->debugSql = true;
 				$my_informationDAO->save($this->dbhelper);
 				alert_go('修改成功！',"/admin/information");

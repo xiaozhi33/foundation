@@ -1,5 +1,5 @@
 <?= $this->partial("common/header.phtml");?>
-<div class="jjh_content_sub" style="height:710px;">
+<div class="jjh_content_sub" style="min-height:810px;">
          <div class="jjh_content_sub_left">
               <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/images/project_top_img.jpg" /></div>
               <div class="jjh_sub_nav_tit"><span>筹资项目</span></div>
@@ -22,7 +22,7 @@
 
          <div class="jjh_content_sub_right">
              <!--<div class="jjh_sub_con_tit"><em>校友年度捐赠--1985校友基金</em><span>当前位置：<a href="news.html">筹资项目</a> > 推荐项目</span></div>--> 
-             <div class="jjh_sub_con_content" style="height:580px; padding:0px; width:690px;">
+             <div class="jjh_sub_con_content" style="min-height:780px; padding:0px; width:690px;">
                <div><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/procomadv3.jpg" /></div><br />
                <div class="jjh_prorecom_detail_left">
                 <div class="jjh_prorecom_detit1">项目介绍</div> 
@@ -31,10 +31,13 @@
                 </div>
 
                </div>
+			   <style>
+				.jjh_prorecom_detail_right1{background:none;}
+			   </style>
                <div class="jjh_prorecom_detail_right1">
                     <div class="jjh_prorecom_detail_btn">
                     <a href="/donate/index?cid=32&cname=北洋励学金">我要捐赠</a></div>
-                    <div class="jjh_prorecom_detail_news">
+                    <!--<div class="jjh_prorecom_detail_news">
                          <div class="jjh_prorecom_detail_news_tit">最新动态</div>
                            <marquee direction="up" height="200" scrollamount="2" style="margin-top:10px;">
                               <ul>
@@ -50,7 +53,7 @@
                                 <li>陈华青 ￥200 </li>
                               </ul>
                            </marquee>
-                    </div>
+                    </div>-->
                </div>
              </div>
          </div>

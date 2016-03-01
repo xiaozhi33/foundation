@@ -27,10 +27,13 @@
 								<option <?php if($this->my_information[0]['my_infor_cateid']=="zizhuxinxi")echo " SELECTED ";?> value="zizhuxinxi" >资助信息</option>
 								<option <?php if($this->my_information[0]['my_infor_cateid']=="xinwen")echo " SELECTED ";?> value="xinwen" >基金会新闻</option>
 								<option <?php if($this->my_information[0]['my_infor_cateid']=="gongshi")echo " SELECTED ";?> value="gongshi" >捐赠公示</option>
-								<option <?php if($this->my_information[0]['my_infor_cateid']=="baogao")echo " SELECTED ";?> value="baogao" >年度报告</option>
+								<option <?php if($this->my_information[0]['my_infor_cateid']=="baogao")echo " SELECTED ";?> value="baogao" >年度工作报告</option>
 								<option <?php if($this->my_information[0]['my_infor_cateid']=="tuwen")echo " SELECTED ";?> value="tuwen" >图文新闻</option>
 								<option <?php if($this->my_information[0]['my_infor_cateid']=="renwu")echo " SELECTED ";?> value="renwu" >人物故事</option>
 								<option <?php if($this->my_information[0]['my_infor_cateid']=="shouyi")echo " SELECTED ";?> value="shouyi" >受益感言</option>
+								
+								<option <?php if($this->my_information[0]['my_infor_cateid']=="caiwushenji")echo " SELECTED ";?> value="caiwushenji" >财务审计报告</option>
+								<option <?php if($this->my_information[0]['my_infor_cateid']=="guanlizhidu")echo " SELECTED ";?> value="guanlizhidu" >项目管理制度</option>
 							</select><font color="red" > * </font>
 						</td>
 					  </tr>
@@ -42,6 +45,14 @@
 							<input type="file" name="pic" /> <?php if($this->my_information[0]['my_infor_images']!='')echo "（目前已有该图片，如上传则替换原有图片。)"?>
 						</td>
 					</tr>
+					
+					<tr>
+					    <td width="20%" style="text-align:right;">资讯附件：</td>
+						<td width="80%" style="text-align:left;">
+							<input type="file" name="filesinfo" /> <?php if($this->my_information[0]['my_infor_file']!='')echo "（目前已有该附件，如上传则替换原有附件。)"?>
+						</td>
+					</tr>
+					<input type="hidden" name="oldfiles" value="<?php echo $this->my_information[0]['my_infor_file'];?>"/>
 					
 					<tr>
 					    <td width="20%" style="text-align:right;">资讯是否显示：</td>

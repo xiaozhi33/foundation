@@ -1,23 +1,23 @@
 <?= $this->partial("common/header.phtml");?>
-<div class="jjh_content_sub" style="height:680px;">
+<div class="jjh_content_sub">
          <div class="jjh_content_sub_left">
               <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/guide_top_img.jpg" /></div>
               <div class="jjh_sub_nav_tit"><span>服务指南</span></div>
               <div class="jjh_sub_nav_con">
                    <ul>
-                      <li><a href="guide.html"><span>基金会工作流程</span></a></li>
-                      <li><a href="guide1.html">基金捐赠流程</a></li>
-                      <li><a href="guide2.html">基金使用流程</a></li>
-                      <li><a href="/service/download">下载专区</a></li>
+                      <!--<li><a href="/service/guide"><span>基金会工作流程</span></a></li>-->
+                      <li><a href="/service/guide1">基金捐赠流程</a></li>
+                      <li><a href="/service/guide2">基金使用流程</a></li>
+                      <li><a href="/service/download"><span>下载专区</span></a></li>
                    </ul>
               </div>
          </div>
          <div class="jjh_content_sub_right">
-              <div class="jjh_sub_con_tit"><em>基金会工作流程</em><span>当前位置：<a href="/service">服务指南</a> > 基金会工作流程</span></div>
-              <div class="jjh_sub_con_content" style="height:500px;">
+              <div class="jjh_sub_con_tit"><span>当前位置：<a href="/service">服务指南</a> > 下载专区</span><em>基金会下载专区</em></div>
+              <div class="jjh_sub_con_content">
               <div><span class="jjh_font4">下载专区</span></div>
               
-              <div style="height:300px;" class="jjh_sub_con_content">
+              <div class="jjh_sub_con_content">
                 <ul class="jjh_report">
                 	<?php if($this->my_downloadlist != ""){?>
                 		<?php foreach($this->my_downloadlist as $k => $v){?>
@@ -28,8 +28,10 @@
                 	&nbsp;&nbsp;<?php echo $this->page;?>
                 </div>
               </div>
+			  <div class="cle">&nbsp;</div>
                 
               </div>
          </div>
+	<div class="cle">&nbsp;</div>
      </div>
 <?= $this->partial('common/footer.phtml'); ?>   

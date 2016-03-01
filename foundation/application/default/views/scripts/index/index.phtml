@@ -30,7 +30,7 @@
                          		foreach ($this->gonggao_list as $key => $value){
                          	?>
                              <li><a href="/news/newsinfo?id=<?php echo $value['my_infor_id'];?>">
-                             	<?php echo $value['my_infor_title'];?></a><span>[<?php echo mb_substr($value['my_infor_datetime'],0,10);?>]</span></li>
+                             	<?php echo mb_substr($value['my_infor_title'],0,18);?></a><span>[<?php echo mb_substr($value['my_infor_datetime'],0,10);?>]</span></li>
                             <?php }}?>
                          </ul>
                     </div>
@@ -90,32 +90,39 @@
 				  </tr>
 				</table>
             </div>
-            <div class="jjh_donate">
+
+			<div class="jjh_donate">
                <div class="jjh_donate_left">
-                    <div class="jjh_donate_tit">最新捐赠<span><a href="/news/index?cid=gongshi">更多>></a></span></div>
+                    <div class="jjh_donate_tit">最新捐赠<span><a href="/news/indexinfo?c_name=zijin">更多>></a></span></div>
                     <div class="jjh_donate_con">
                          <ul>
                              <?php if($this->zizhuinfo != ""){
                          		foreach ($this->zizhuinfo as $key => $value){
                          	?>
-                             	<li><a href=""><?php echo $value['pm_pp'];?> 捐赠 ￥<?php echo $value['zijin_daozheng_jiner'];?></a><span>[<?php echo mb_substr($value['zijin_daozhang_datetime'],0,10);?>]</span></li>
+                             	<li><a href=""><?php echo mb_substr($value['pm_pp'],0,8);?> 捐赠 ￥<?php echo $value['zijin_daozheng_jiner'];?></a><span>[<?php echo mb_substr($value['zijin_daozhang_datetime'],0,10);?>]</span></li>
                               <?php }}?>
                          </ul>
                     </div>
                </div>
                <div class="jjh_donate_right">
-                    <div class="jjh_donate_tit">资助信息<span><a href="/news/index?cid=zizhuxinxi">更多>></a></span></div>
+                    <div class="jjh_donate_tit">资助信息<span><a href="/news/indexinfo?c_name=shiyong">更多>></a></span></div>
                     <div class="jjh_donate_con">
                          <ul>
                             <?php if($this->shiyonginfo != ""){
                          		foreach ($this->shiyonginfo as $key => $value){
                          	?>
-                             <li><a href=""><?php echo $value['pm_name'];?> 资助 <?php echo $value['jiangli_renshu'];?>人 共<?php echo $value['shiyong_zhichu_jiner'];?>元</a><span>[<?php echo mb_substr($value['shiyong_zhichu_datetime'],0,10);?>]</span></li>
+                             <li><a href=""><?php echo mb_substr($value['pm_name'],0,6);?>
+                             <?php if($value['jiangli_renshu'] != ""){?>
+                            	 资助<?php if($value['jiangli_renshu'] != 0){?> <?php echo $value['jiangli_renshu'];?>人 <?php }else{?>项目<?php }?>
+                             <?php }?>
+                             共<?php echo $value['shiyong_zhichu_jiner'];?>元</a><span>[<?php echo mb_substr($value['shiyong_zhichu_datetime'],0,10);?>]</span></li>
                              <?php }}?>
                          </ul>
                     </div>
                </div>
             </div>
+			
+			
          </div>
          <div class="jjh_content_right">
             <div class="jjh_donate_adv">
@@ -129,7 +136,7 @@
               <tr>
                 <td class="seca2"  onClick="secBoard(0)">捐款方式</td>
                 <td class="seca1"  onClick="secBoard(1)">基金会账号</td>
-                <td class="seca1"  onClick="secBoard(2)">服务指南</td>
+                <td class="seca1"><a target="_blank" href="/service">服务指南</a></td>
               </tr>
             </table>
             <table cellspacing="0" cellpadding="0" border="0" class="jjh_tabcon" id="mainTable1">

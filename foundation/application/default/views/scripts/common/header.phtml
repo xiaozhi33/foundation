@@ -21,11 +21,11 @@
          <div class="jjh_nav">
             <ul>
                <li><a <?php if($controller_name == "index"){?>id="linkon"<?php }?> href="/">首页</a></li>
-               <li><a <?php if($controller_name == "about"){?>id="linkon"<?php }?> href="/about">基金会概况</a></li>
+               <li><a <?php if($controller_name == "about" && $_GET['true'] != 1){?>id="linkon"<?php }?> href="/about">基金会概况</a></li>
                <li><a <?php if($controller_name == "news"){?>id="linkon"<?php }?> href="/news/index?cid=gonggao">新闻中心</a></li>
                <li><a <?php if($controller_name == "jjhpm"){?>id="linkon"<?php }?> href="/jjhpm">筹资项目</a></li>
                <li><a <?php if($controller_name == "pmuse"){?>id="linkon"<?php }?> href="/pmuse">捐赠使用</a></li>
-               <li><a <?php if($controller_name == "service"){?>id="linkon"<?php }?> href="/service">服务指南</a></li>
+               <li><a <?php if($controller_name == "about"  && $_GET['true'] == 1){?>id="linkon"<?php }?> href="/about?true=1">信息披露</a></li>
                <li><a <?php if($controller_name == "heart"){?>id="linkon"<?php }?> href="/heart">捐赠故事</a></li>
                <li><a <?php if($controller_name == "donate"){?>id="linkon"<?php }?> href="/donate">在线捐赠</a></li>
                <li><a <?php if($controller_name == "contact"){?>id="linkon"<?php }?> href="/contact">联系我们</a></li>

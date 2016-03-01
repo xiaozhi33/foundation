@@ -10,8 +10,8 @@
                       <li><a href="/donate/mianshui">免税政策</a></li>
                       <li><a href="/donate/shuoming">捐赠说明</a></li>
                       <li><a href="/donate"><span>我要捐赠</span></a></li>
-                      <li><a href="/donate/query">捐款到账查询</a></li>
-                      <li><a href="/donate/wuxie">捐赠鸣谢</a></li>
+                      <!--<li><a href="/donate/query">捐款到账查询</a></li>
+                      --><li><a href="/donate/wuxie">捐赠鸣谢</a></li>
                    </ul>
               </div>
               <div><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/serline.jpg" /></div>
@@ -28,9 +28,12 @@
                   </span>转向银联电子支付平台完成支付。<br />
                   请确认您的银行卡已经开通在线支付功能，并且有足够的支付额度。<br />
                   如果支付失败，请点击<span class="jjh_font2">【<a href="">重新支付</a>】</span><br />
-                  我们也同时发送一封电子邮件到您的邮箱<span class="jjh_font2"> <?php echo $this->orderinfo['Email'];?></span><br /><br />
+       <!--
+                  我们也同时发送一封电子邮件到您的邮箱<span class="jjh_font2"> <?php echo $this->orderinfo['Email'];?></span><br />-->
+                  如果在支付过程中遇到什么问题请及时联系校方：电话0086－022－27403247
+                  <br />
                   <div >
-                  <form action="http://pay.beijing.com.cn/prs/user_payment.checkit" target="_blank" method="post">
+                  <form name="form1" action="http://pay.beijing.com.cn/prs/user_payment.checkit" accept-charset="gb2312" target="_blank" method="post">
                         <input type="hidden" name="v_mid" value="5653"/> 
                         <input type="hidden" name="v_oid" value="<?php echo $this->jjh_order_id;?>"/> 
                         <input type="hidden" name="v_rcvname" value="<?php echo $this->orderinfo['UserName'];?>"/> 
@@ -42,10 +45,16 @@
                         <input type="hidden" name="v_orderstatus" value="1"/> 
                         <input type="hidden" name="v_ordername" value="<?php echo $this->orderinfo['UserName'];?>"/> 
                         <input type="hidden" name="v_moneytype" value="0"/>
-                        <input type="hidden" name="v_url" value="<?php //echo __BASEURL__;
-                        echo "http://www.mycms.com";?>/order/urlreturn"/>   <!-- 支付返回地址 -->
-                        <input type="hidden" name="v_md5info" value="<?php echo $this->result[0];?>">
-                        <input type="submit" class="jjh_donate_submit_bt1" value="确定" /> <input type="button" class="jjh_donate_submit_bt1" value="重新支付" onclick="window.open('/donate', '_blank')" />
+                        <input type="hidden" name="v_url" value="<?php echo "http://pyedf.tju.edu.cn";?>/order/urlreturn"/>   <!-- 支付返回地址 -->
+                        <input type="hidden" name="v_md5info" value="<?php echo $this->result;?>">
+                        <input type="button" class="jjh_donate_submit_bt1" onclick="onsubmiting();" value="确定" /> 
+						<input type="button" class="jjh_donate_submit_bt1" value="重新支付" onclick="window.open('/donate', '_blank')" />
+						<script>
+							function onsubmiting(){
+								document.charset="gb2312";
+								document.form1.submit();
+							}
+						</script>
                  </form>    
                   </div>
               </div>

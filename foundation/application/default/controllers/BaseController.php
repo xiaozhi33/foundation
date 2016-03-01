@@ -5,10 +5,8 @@
 
 	class BaseController extends Zend_Controller_Action
 	{
-		protected $orm;
 		public function init()
 	    {    	
-			$this->orm = ORM::getInstance();
 	    	$this->view = new Zend_View();
 			//$this->view ->addScriptPath('application/default/views/scripts');
 			

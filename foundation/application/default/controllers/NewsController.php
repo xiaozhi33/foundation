@@ -9,7 +9,7 @@
 		public function indexAction(){
 			$cid = HttpUtil::getString("cid");
 			$information = new my_informationDAO(null,$cid);
-			$information ->selectLimit = " and my_infor_isdisplay = 1 and my_infor_state = 1";
+			$information ->selectLimit = " and my_infor_isdisplay = 1 and my_infor_state = 1 order by my_infor_datetime desc";
 			$information = $information ->get($this->dbhelper);
 			
 			$total = count($information);
@@ -56,6 +56,31 @@
 
 			$this->view->assign('c_name',$c_name);
 			echo $this->view->render("news/newsinfo.phtml");
+		}
+		
+		public function indexinfoAction(){
+			$indexinfo = new pm_mg_infoDAO();
+			if(HttpUtil::getString("c_name")=="zijin"){
+				if(HttpUtil::getString("pname")!=""){
+					$indexinfo ->selectLimit .= " and pm_pp like '%".HttpUtil::getString("pname")."%'";
+				}
+				
+				$indexinfo ->selectLimit .= " and zijin_daozheng_jiner != '' order by zijin_daozhang_datetime desc";
+			}elseif(HttpUtil::getString("c_name")=="shiyong"){
+				$indexinfo ->selectLimit = "and shiyong_zhichu_jiner != '' order by shiyong_zhichu_datetime desc";
+			}
+			//$indexinfo ->debugSql = true;
+			$indexinfo = $indexinfo ->get($this->dbhelper);
+			
+			$total = count($indexinfo);
+			$pageDAO = new pageDAO();
+			$pageDAO = $pageDAO ->pageHelper($indexinfo,null,"indexinfo",null,'get',14,14);						
+			$pages = $pageDAO['pageLink']['all'];
+			$pages = str_replace("/index.php","",$pages);	
+			$this->view->assign('informationlist',$pageDAO['pageData']);
+			$this->view->assign('page',$pages);	
+			$this->view->assign('total',$total);		
+			echo $this->view->render("news/indexinfo.phtml");
 		}
 		
 		public function _init(){

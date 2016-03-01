@@ -6,15 +6,17 @@
               <div class="jjh_sub_nav_con">
                    <ul>
                       <li><a href="/about">基金会简介</a></li>
-                      <li><a href="/about/lingdaotici">领导题词</a></li>
+                      <li><a href="/about/lingdaotici">领导致辞</a></li>
                       <li><a href="/about/zhangcheng">基金会章程</a></li>
                       <li><a href="/about/zuzhi"><span>组织机构设置</span></a></li>
-                      <li><a href="/about/baogao">年度报告</a></li>
+                      <li><a href="/about/baogao">年度工作报告</a></li>
+                      <li><a href="/about/caiwushenji">财务审计报告</a></li>
+                      <li><a href="/about/guanlizhidu">项目管理制度</a></li>
                    </ul>
               </div>
          </div>
          <div class="jjh_content_sub_right">
-              <div class="jjh_sub_con_tit"><em>组织机构设置</em><span>当前位置：<a href="/about">基金会概况</a> > 组织机构设置</span></div>
+              <div class="jjh_sub_con_tit"><em>组织机构设置</em><span>当前位置：<a href="/about">基金会概况</a> > 组织机构设置</span></div><!--
               <div class="jjh_sub_con_content" style="height:780px;">
               	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;天津大学北洋教育发展基金会的决策机构为理事会，并有监事行使监督职权。理事会由理事长、副理事长、理事组成。理事分别由学校领导，学院和机关部处负责人，校友代表组成。秘书处负责基金会的日常工作。<br /><br />
                 <font class="jjh_font4">天津大学北洋教育发展基金会第三届理事会名单</font><br />
@@ -29,6 +31,6 @@
                 <p><br /><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/zzjg.jpg" /></p>
 
               </div>
-         </div>
+         --><?php echo $this->info[0]['content'];?></div>
      </div>
 <?= $this->partial('common/footer.phtml'); ?>   

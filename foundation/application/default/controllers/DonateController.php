@@ -24,6 +24,12 @@
 					alert_back("暂无此捐赠项目。");
 				}
 			}
+			
+			$c_list = new my_categoryDAO();
+			$c_list -> selectLimit = "  and c_online = 1 ";
+			$c_list = $c_list ->get($this->dbhelper);
+			
+			$this->view->assign("c_list",$c_list);
 			$this->view->assign("jjh_pm",$jjh_pm);
 			echo $this->view->render("donate/index.phtml");
 		}

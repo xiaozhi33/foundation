@@ -1,5 +1,5 @@
 <?= $this->partial("common/header.phtml");?>
-<div class="jjh_content_sub" style="height:480px;">
+<div class="jjh_content_sub">
          <div class="jjh_content_sub_left">
               <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/news_top_img.jpg" /></div>
               <div class="jjh_sub_nav_tit"><span>新闻中心</span></div>
@@ -12,27 +12,34 @@
                      	 基金会公告
                       <?php }?>
                       </a></li>
-                      <li><a href="/news/index?cid=zizhuxinxi"><?php if($this->c_name == "资助信息"){?>
+					  
+					  <!--<li><a href="/news/index?cid=zizhuxinxi">
+					  <?php if($this->c_name == "资助信息"){?>
                       <span>资助信息</span>
                       <?php }else{?>
                      	 资助信息
-                      <?php }?></a></li>
-                      <li><a href="/news/index?cid=xinwen"><?php if($this->c_name == "基金会新闻"){?>
+                      <?php }?></a></li> -->
+					  
+                      <li><a href="/news/index?cid=xinwen">
+					  <?php if($this->c_name == "基金会新闻"){?>
                       <span>基金会新闻</span>
                       <?php }else{?>
                      	基金会新闻
                       <?php }?></a></li>
-                      <li><a href="/news/index?cid=gongshi"><?php if($this->c_name == "捐赠公示"){?>
+					  
+                      <!--<li><a href="/news/index?cid=gongshi">
+					  <?php if($this->c_name == "捐赠公示"){?>
                       <span>捐赠公示</span>
                       <?php }else{?>
                      	捐赠公示
-                      <?php }?></a></li>
+                      <?php }?>
+					  </a></li> -->
                    </ul>
               </div>
          </div>
          <div class="jjh_content_sub_right">
-              <div class="jjh_sub_con_tit"><em><?php echo $this->c_name;?></em><span>当前位置：<a href="/news">新闻中心</a> > <?php echo $this->c_name;?> </span></div>
-              <div class="jjh_sub_con_content" style="height:300px;">
+              <div class="jjh_sub_con_tit"><span>当前位置：<a href="/news">新闻中心</a> > <?php echo $this->c_name;?> </span><em><?php echo $this->c_name;?></em></div>
+              <div class="jjh_sub_con_content">
                 <ul class="jjh_report">
                 <?php foreach ($this->informationlist as $k => $v){?>
                     <li><a href="/news/newsinfo?id=<?php echo $v['my_infor_id'];?>"><?php echo $v['my_infor_title'];?> </a><span>[ <?php echo $v['my_infor_datetime'];?> ]</span></li>
@@ -46,5 +53,6 @@
                 </div>
               </div>
          </div>
+	<div class="cle">&nbsp;</div>
      </div>
 <?= $this->partial('common/footer.phtml'); ?>   

@@ -2,16 +2,38 @@
 <div class="jjh_content_sub" style="height:480px;">
          <div class="jjh_content_sub_left">
               <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/about_top_img.jpg" /></div>
-              <div class="jjh_sub_nav_tit"><span>基金会概况</span></div>
-              <?= $this->partial('about/left.phtml'); ?>   
+              <div class="jjh_sub_nav_tit">
+              
+              <?php if($this->true == ""){?>
+             	 <span>基金会概况</span>
+              <?php }else {?>
+             	 <span>信息披露</span>
+              <?php }?>  
+              
+              </div>
+              <?php if($this->true == ""){ echo $this->partial('about/left.phtml'); } else {?>
+              	<div class="jjh_sub_nav_con">
+                   <ul>
+                      <li><a href="/about/baogao">年度工作报告</a></li>
+                      <li><a href="/about/caiwushenji">财务审计报告</a></li>
+                      <li><a href="/about/guanlizhidu">项目管理制度</a></li>
+                   </ul>
+              </div>
+			  <?php }?>   
          </div>
+         
+         
          <div class="jjh_content_sub_right">
-              <div class="jjh_sub_con_tit"><em>基金会简介</em><span>当前位置：<a href="/about">基金会概况</a> > 基金会简介</span></div>
-              <div class="jjh_sub_con_content" style="height:300px;">
+              <div class="jjh_sub_con_tit">
+              <em>基金会简介</em>
+              <span>当前位置：<a href="/about">基金会概况</a> > 基金会简介</span></div>
+              <!--<div class="jjh_sub_con_content" style="height:300px;">
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class="jjh_font2">天津大学北洋教育发展基金会</font>成立于1995年，是在天津市社会团体管理局注册登记的非公募基金会，属公益性、非盈利性社团法人。本基金会的业务主管单位是天津市教育委员会。本基金会宗旨为：争取国内外企业、社会团体和个人的支持与资助，增加教育经费来源，提高教育质量和办学水平，以推动我国和天津大学（原北洋大学）教育事业与科学研究的发展。本基金会遵守宪法、法律、法规和国家政策，遵守社会道德风尚。本基金会全面领导、协调和管理天津大学接受社会捐赠工作。<br /><br />
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本基金会接受社会各界，包括企事业单位、团体（港、澳、台团体，海外华侨团体，国外友好团体）和个人的捐赠。<br /><br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本基金会的基金主要用于：支持天津大学教育事业的发展，用于建造、更新教学和科研设施，扶植重点课程、重点学科和重点实验室的建设。奖励做出突出贡献的优秀教职工和品学兼优的在校学生，资助困难学生，资助学术出版、国际学术交流与合作，支持与教育事业、科学研究有关的其他项目。对特定的项目捐赠，可以按照捐赠者的意愿定向使用。
-              </div>
-         </div>
+              </div>-->
+              <?php echo $this->info[0]['content'];?>
+     	</div>
+     
      </div>
 <?= $this->partial('common/footer.phtml'); ?>

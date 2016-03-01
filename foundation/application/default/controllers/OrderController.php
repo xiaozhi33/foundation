@@ -15,6 +15,7 @@
 			$cate_2 = HttpUtil::postInsString("cate_2");
 			$cate_3 = HttpUtil::postInsString("cate_3");
 			
+/* 			//旧版
 			if ($cate_1 == ""){
 				alert_back("请选择要捐赠项目的名称！");
 			}
@@ -32,15 +33,24 @@
 				$jjh_pm = $jjh_pm1[0]['c_name'];
 				$jjh_cid = $cate_1;
 			}
-			
+ */			
+			//新版2.0更新
+			$cate_id_info = HttpUtil::postInsString("cate_id_info");
+			if($cate_id_info == ""){
+				alert_back("请选择要捐赠项目的名称！");
+			}
+
+			$jjh_pm_info = $this ->getcnameAction($cate_id_info);
+			$jjh_pm = $jjh_pm_info[0]['c_name'];
+
 			$Amount = HttpUtil::postInsString("Amount");
-			//if ($Amount == "" || $Amount < 10){
-			//	alert_back("请添加要捐赠项目的捐赠总额！并金额不少于10元");
-			//}
-			//if (is_int((int)$Amount) == false){
-			//	alert_back("金额必须是正整数。");
-			//}
-			//$Amount = (int)$Amount;
+			if ($Amount == "" || $Amount < 10){
+				alert_back("请添加要捐赠项目的捐赠总额！并金额不少于10元");
+			}
+			if (is_int((int)$Amount) == false){
+				alert_back("金额必须是正整数。");
+			}
+			$Amount = (int)$Amount;
 			$SpecialRequest = HttpUtil::postInsString("SpecialRequest"); //捐赠说明
 			$EventName = HttpUtil::postInsString("EventName"); 			 //相关活动
 			$zs = HttpUtil::postInsString("zs");						 //是否需要证书
@@ -134,12 +144,23 @@
 			//生成数字签名；
 			//$sourcedata = v_moneytype v_ymd v_amount v_rcvname v_oid v_mid v_url
 			//$sourcedata="0".$jjh_datetime.$Amount.$UserName.$jjh_order_id."5653".__BASEURL__."/order/urlreturn";
-			$sourcedata="0".$jjh_datetime.$Amount.$UserName.$jjh_order_id."5653"."http://www.mycms.com/order/urlreturn";
+			
+			
+			$Amount = iconv("UTF-8","gb2312",$Amount);
+			$UserName = iconv("UTF-8","gb2312",$UserName);
+			$jjh_order_id = iconv("UTF-8","gb2312",$jjh_order_id);
+
+			$sourcedata="0".$jjh_datetime.$Amount.$UserName.$jjh_order_id."5653"."http://pyedf.tju.edu.cn/order/urlreturn";
 		    $MD5Key="zwnf88cyf88yy888";   //发邮件huangyi@payeasenet.com 公司名、商户号、联系人、密钥
-			exec("./forlinux $sourcedata $MD5Key",$result,$res);
+			//exec("./forlinux $sourcedata $MD5Key",$result,$res);
 			//变量$result中即为MD5签名结果
 			//var_dump($sourcedata);
-			//var_dump($result);exit;
+		
+			$MD5Key = iconv("UTF-8","gb2312",$MD5Key);
+			$result = $this->hmac($MD5Key,$sourcedata);
+			
+			//var_dump($result);
+			//exit;
 			
 			$this->view->assign("result",$result);
 			$orderinfo = SessionUtil::sessionGet("orderinfo");
@@ -154,6 +175,22 @@
 			$my_cate ->selectField(" c_name");
 			$my_cate_cname = $my_cate ->get($this->dbhelper);
 			return $my_cate_cname;
+		}
+		
+		public function  hmac ($key, $data){
+			// 创建 md5的HMAC
+
+			$b = 64; // md5加密字节长度
+			if (strlen($key) > $b) {
+			$key = pack("H*",md5($key));
+			}
+			$key  = str_pad($key, $b, chr(0x00));
+			$ipad = str_pad('', $b, chr(0x36));
+			$opad = str_pad('', $b, chr(0x5c));
+			$k_ipad = $key ^ $ipad;
+			$k_opad = $key ^ $opad;
+
+			return md5($k_opad  . pack("H*",md5($k_ipad . $data)));
 		}
 		
 		public function urlreturnAction(){
@@ -187,7 +224,7 @@
 				$order_info = new jjh_orders_infoDAO($v_oid);
 				$order_info ->jjh_money = $v_amount;
 				$order_info ->save($this->dbhelper);
-				echo "sent";
+				echo "捐赠已成功！感谢您对天津大学的支持，5个工作日内会有工作人员与您联系！";
 			}else{
 				echo "error";
 			}

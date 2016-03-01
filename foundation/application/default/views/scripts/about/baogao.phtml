@@ -2,25 +2,50 @@
 <div class="jjh_content_sub" style="height:480px;">
          <div class="jjh_content_sub_left">
               <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/about_top_img.jpg" /></div>
-              <div class="jjh_sub_nav_tit"><span>基金会概况</span></div>
-              <div class="jjh_sub_nav_con">
+              <div class="jjh_sub_nav_tit">
+              <?php if($this->true == ""){?>
+             	 <span>基金会概况</span>
+              <?php }else {?>
+             	 <span>信息披露</span>
+              <?php }?> 
+              </div>
+              
+          <?php if($this->true == ""){ ?>
+          	<div class="jjh_sub_nav_con">
                    <ul>
-                       <li><a href="/about">基金会简介</a></li>
-                      <li><a href="/about/lingdaotici">领导题词</a></li>
+                      <li><a href="/about">基金会简介</a></li>
+                      <li><a href="/about/lingdaotici">领导致辞</a></li>
                       <li><a href="/about/zhangcheng">基金会章程</a></li>
                       <li><a href="/about/zuzhi">组织机构设置</a></li>
-                      <li><a href="/about/baogao"><span>年度报告</span></a></li>
+                      <li><a href="/about/baogao"><span>年度工作报告</span></a></li>
+                      <li><a href="/about/caiwushenji">财务审计报告</a></li>
+                      <li><a href="/about/guanlizhidu">项目管理制度</a></li>
                    </ul>
               </div>
+          <?php  } else {?>
+              	<div class="jjh_sub_nav_con">
+                   <ul>
+                      <li><a href="/about/baogao?true=1">年度工作报告</a></li>
+                      <li><a href="/about/caiwushenji?true=1">财务审计报告</a></li>
+                      <li><a href="/about/guanlizhidu?true=1">项目管理制度</a></li>
+                   </ul>
+              </div>
+			  <?php }?>   
          </div>
          <div class="jjh_content_sub_right">
-              <div class="jjh_sub_con_tit"><em>年度报告</em><span>当前位置：<a href="/about">基金会概况</a> > 年度报告</span></div>
+              <div class="jjh_sub_con_tit"><em>年度报告</em><span>当前位置：
+              <?php if($this->true == ""){?>
+             	 <a href="/about">基金会概况
+              <?php }else {?>
+             	 <a href="/about?true=1">信息披露
+              <?php }?> 
+              </a> > 年度工作报告</span></div>
               <div class="jjh_sub_con_content" style="height:300px;">
-                <font class="jjh_font4">天津大学北洋教育发展基金会年度报告列表</font><br />
+                <font class="jjh_font4">天津大学北洋教育发展基金会年度工作报告列表</font><br />
                 <ul class="jjh_report">
                 	<?php foreach ($this->informationlist as $key => $value){?>
                     	<li>
-                    	<a href="/news/newsinfo?id=<?php echo $value['my_infor_id'];?>"><?php echo $value['my_infor_title'];?></a>
+                    	<a href="<?php echo $value['my_infor_file'];?>"><?php echo $value['my_infor_title'];?></a>
                     	<span>[ <?php echo mb_substr($value['my_infor_datetime'],0,10);?> ]</span></li>
                		<?php }?>
                 </ul>

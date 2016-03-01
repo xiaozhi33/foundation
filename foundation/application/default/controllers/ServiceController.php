@@ -7,6 +7,9 @@
 	class serviceController extends BaseController {
 		private $dbhelper;
 		public function indexAction(){
+			$survey_info = new jjh_surveyDAO(10);
+			$survey_info = $survey_info ->get($this->dbhelper);
+			$this->view->assign("info",$survey_info);
 			echo $this->view->render("service/index.phtml");
 		}
 		
@@ -33,7 +36,6 @@
 			
 			if($my_download != ""){
 				$fname = explode("/",$my_download[0]['download_file']);
-				//$file_dir = "D://AppServ/www/my_cms/foundation/include/upload_file/jjh_download/";
 				$file_dir = "/var/www/html/my_cms/foundation/include/upload_file/jjh_download/";
 				$file_name = $fname[4];
 				$file = fopen($file_dir.$file_name, "rb");   //打开文件  
@@ -50,6 +52,20 @@
 			}else {
 				alert_back("对不起没有此下载");
 			}
+		}
+		
+		public function guide1Action(){
+			$survey_info = new jjh_surveyDAO(11);
+			$survey_info = $survey_info ->get($this->dbhelper);
+			$this->view->assign("info",$survey_info);
+			echo $this->view->render("service/guide1.phtml");
+		}
+		
+		public function guide2Action(){
+			$survey_info = new jjh_surveyDAO(13);
+			$survey_info = $survey_info ->get($this->dbhelper);
+			$this->view->assign("info",$survey_info);
+			echo $this->view->render("service/guide2.phtml");
 		}
 		
 		public function _init(){

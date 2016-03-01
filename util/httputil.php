@@ -29,7 +29,7 @@ class HttpUtil{
 
         $value = $_POST[$field];
 
-        if( !empty($value)){
+        if(isset($value)){
 
             $value = strval($value);
             $value = stripslashes($value);
