@@ -350,7 +350,13 @@
                 $jjh_mg_pp_companyDAO ->findPp_id($pp_id);
                 $jjh_mg_pp_companyDAO = $jjh_mg_pp_companyDAO ->get();
 
+                $ppinfo = $this->getppbyppid($pp_id);
+
+                if(!empty($ppinfo)){
+                    $this->view->assign("pp_info",$ppinfo[0]);
+                }
                 $this->view->assign("company_list",$jjh_mg_pp_companyDAO);
+                $this->view->assign("pp_id",$pp_id);
                 echo $this->view->render("index/header.phtml");
                 echo $this->view->render("admin/ppcompany.phtml");
                 echo $this->view->render("index/footer.phtml");
@@ -370,8 +376,9 @@
                 $jjh_mg_pp_companyDAO = $jjh_mg_pp_companyDAO->get();
                 $this->view->assign("ppcompany", $jjh_mg_pp_companyDAO);
             }
+            $this->view->assign("pp_id", $pp_id);
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("admin/ppcompany.phtml");
+            echo $this->view->render("admin/addppcompany.phtml");
             echo $this->view->render("index/footer.phtml");
         }
 
@@ -380,17 +387,70 @@
          */
         public function editppcompanyAction()
         {
-            $pp_id = $_REQUEST['pp_id'];
-            $pp_id = (int)$pp_id;
-            if(!empty($pp_id)) {
+            $id = (int)$_REQUEST['id'];
+            if(!empty($id)) {
                 $jjh_mg_pp_companyDAO = $this->orm->createDAO("jjh_mg_pp_company");
-                $jjh_mg_pp_companyDAO->findPp_id($pp_id);
+                $jjh_mg_pp_companyDAO->findId($id);
                 $jjh_mg_pp_companyDAO = $jjh_mg_pp_companyDAO->get();
                 $this->view->assign("ppcompany", $jjh_mg_pp_companyDAO);
             }
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("admin/ppcompany.phtml");
+            echo $this->view->render("admin/editppcompany.phtml");
             echo $this->view->render("index/footer.phtml");
+        }
+
+        public function saveppcompanyAction()
+        {
+            $id = (int)$_REQUEST['id'];
+            $pp_id = $_REQUEST['pp_id'];
+            $pp_id = (int)$pp_id;
+            $jjh_mg_pp_companyDAO = $this->orm->createDAO("jjh_mg_pp_company");
+
+            $company_name = HttpUtil::postString("company_name");
+            $company_contector = HttpUtil::postString("company_contector");
+            $company_cont_style = HttpUtil::postString("company_cont_style");
+            if($company_name == "" || $company_contector== "" || $company_cont_style == "")
+            {
+                alert_back("信息不全，请查看信息的完整性，并重新提交。");
+            }
+
+            if(!empty($id)) {
+                $jjh_mg_pp_companyDAO->findid($id);
+            }
+            $jjh_mg_pp_companyDAO ->pp_id = $pp_id;
+            $jjh_mg_pp_companyDAO ->company_name = $company_name;
+            $jjh_mg_pp_companyDAO ->company_contector = $company_contector;
+            $jjh_mg_pp_companyDAO ->company_cont_style = $company_cont_style;
+
+            $jjh_mg_pp_companyDAO ->save();
+            alert_go("子公司信息添加成功。","ppcompany?pp_id=".$pp_id);
+        }
+
+        public function delppcompanyAction()
+        {
+            $id = (int)$_REQUEST['id'];
+            $pp_id = (int)$_REQUEST['pp_id'];
+            if(empty($id)) {
+                alert_back("操作失败。");
+                $this->_redirect("/management/admin/ppcompany?pp_id=".$pp_id);
+            }
+            $jjh_mg_pp_companyDAO = $this->orm->createDAO("jjh_mg_pp_company");
+            $jjh_mg_pp_companyDAO->findid($id);
+            $jjh_mg_pp_companyDAO->delete();
+
+            $this->_redirect("/management/admin/ppcompany?pp_id=".$pp_id);
+        }
+
+        public function getppbyppid($pp_id)
+        {
+            if(!empty($pp_id)){
+                $jjh_mg_ppDAO = $this->orm->createDAO("jjh_mg_pp");
+                $jjh_mg_ppDAO->findPid($pp_id);
+                $jjh_mg_ppDAO = $jjh_mg_ppDAO->get();
+                return $jjh_mg_ppDAO;
+            }else {
+                return false;
+            }
         }
 		
 		public function _init(){

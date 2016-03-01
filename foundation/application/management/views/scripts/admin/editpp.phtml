@@ -19,7 +19,7 @@
         <div class="col-md-12">
 			<section class="tile color transparent-black">
 			<div class="detailedbox tile-body">
-			<form class="form-horizontal" action="editrspp" method="post" encType="multipart/form-data">
+			<form class="form-horizontal" action="editrspp" id="form1" method="post" encType="multipart/form-data">
             
 			<div class="form-group">
             <label class="col-sm-2 control-label" for="input01">捐赠方名称：</label>
@@ -104,7 +104,7 @@
                             }
                             ?>
                     </div>
-                   <input class="btn btn-primary" type="submit" value="添加子公司信息" /> &nbsp;&nbsp;&nbsp;&nbsp; 
+                   <input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="添加子公司信息" /> &nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
             
 			<div class="form-group">
@@ -120,7 +120,7 @@
 					<input type="hidden" name="pid" value="<?php echo $this->ppinfo[0]['pid'];?>" />
 			<div class="form-group form-footer">
 				<div class="col-sm-offset-5 col-sm-7">
-                     <input class="btn btn-primary" type="button" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                     <input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
                      <input class="btn btn-default" type="reset" value="重 置" />
 				</div>
 			</div>
@@ -130,6 +130,7 @@
 		  </div>
 		</div>
 
+        <script src="/include/management/assets/js/jquery.js"></script>
         <script language="javascript">
-            $(".menu li:eq(17)").addClass("open");
+            $(".menu li:eq(20)").addClass("open");
         </script>

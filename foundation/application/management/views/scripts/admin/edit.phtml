@@ -19,7 +19,7 @@
         	<div class="col-md-6">
 				<section class="tile color transparent-black">
 			<div class="detailedbox tile-body">
-				<form class="form-horizontal" action="editrs" method="post" encType="multipart/form-data">
+				<form class="form-horizontal" action="editrs"  id="form1" method="post" encType="multipart/form-data">
 			<div class="form-group">
             <label class="col-sm-2 control-label" for="input01">管理员类型：</label>
             <div class="col-sm-6">
@@ -45,7 +45,7 @@
 			<input type="hidden" name="id" value="<?php echo $this->adminlist[0]['id'];?>"/>					
 			<div class="form-group form-footer">
 				<div class="col-sm-offset-4 col-sm-7">
-					<input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp; 
+					<input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
 					<input class="btn btn-default" type="reset" value="重 置" /> 
 				</div>
 			</div>
