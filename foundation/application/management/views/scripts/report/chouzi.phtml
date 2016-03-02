@@ -2,52 +2,84 @@
 <link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+<!-- page header -->
+    <div class="pageheader">
 
-	<div id="main">
-		<div id="rightstyle02">
-		<h4>捐赠项目统计管理<span class="font_red"> >> </span><span class="font_red_big">筹资统计管理
-</span></h4>
+        <h2><i class="fa fa-tachometer"></i> Dashboard
+            <span>筹资统计管理</span></h2>
 
-		<div class="detailedbox">
-			<!--<div style="padding-top:10px;"><b>筹资统计管理</b></div>
-			--><div class="search">
-					<form action="chouzitoexcel" method="post">
-						所属部门：
-						<select name="department">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li>您的位置</li>
+                <li>捐赠项目统计管理</li>
+                <li class="active">筹资统计管理</li>
+            </ol>
+        </div>
+
+    </div>
+    <!-- /page header -->
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+        <div class="col-md-6">
+        <section class="tile color transparent-black">
+		<div class="detailedbox tile-body">
+			<form class="form-horizontal" action="chouzitoexcel" method="post">			
+            <div class="form-group">
+				<label class="col-sm-2 control-label" for="input01">所属部门：</label>
+                <div class="col-sm-8">
+					<select class="form-control" name="department">
 							<option value="" >请选择类型</option>
 								<?php if($this->departmentlist != ""){
 								foreach ($this->departmentlist as $k => $v){?>
 									<option value="<?php echo $v['id']?>" ><?php echo $v['pname']?></option>
 								<?php }}?>
 						</select>
-						
-						&nbsp;&nbsp;&nbsp;
-						项目类型：
-						<select name="cate">
+                 </div>
+             </div>
+            <div class="form-group">	
+			<label class="col-sm-2 control-label" for="input01">			项目类型：</label>
+            <div class="col-sm-8">
+						<select class="form-control" name="cate">
 							<option value="" >请选择类型</option>
 								<?php if($this->pcatelist != ""){
 								foreach ($this->pcatelist as $k => $v){?>
 									<option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
 								<?php }}?>
 						</select>
-						<br/>
-						<br/>
+                        </div>
+			</div>
 						<!--						
 						项目起始日期：<input type="text"  id="dateinput"  name="starttime"  size="14"/>
 						项目截止日期：<input type="text"  id="dateinput2"  name="endtime"  size="14"/>-->
 						
-						项目签订日期区间：</br><br/>
-						开始时间 ：<input type="text"  id="dateinput"  name="starttime"  size="14"/></br><br/>
-						结束时间 ：<input type="text"  id="dateinput2"  name="endtime"  size="14"/>
-						</br><br/>
-						项目名称：<input type="text" name="pname" />
-						<input type="submit" value="下载excel报表"/>
+			<div class="form-group">				
+				<label class="col-sm-4" for="input01">项目签订日期区间：</label>
+            </div> 
+			<div class="form-group">				
+				<label class="col-sm-2 control-label" for="input01">
+                        开始时间 ：</label>
+                        <div class="col-sm-4">
+                        <input class="form-control" type="text"  id="dateinput"  name="starttime"  size="14"/>
+                </div>
+						<label class="col-sm-2 control-label" for="input01">结束时间 ：</label>
+                        <div class="col-sm-4">
+                        <input class="form-control" type="text"  id="dateinput2"  name="endtime"  size="14"/></div>
+                        </div>
+            <div class="form-group">     
+				<label class="col-sm-2 control-label" for="input01">
+						项目名称：</label>
+                <div class="col-sm-10">
+                        <input class="form-control" type="text" name="pname" /></div></div>
+            <div class="form-group">
+            <div class="col-md-offset-2 col-sm-2">
+						<input class="btn btn-greensea" type="submit" value="下载excel报表"/></div>
+                        </div>
 					</form>
-				</div>
-			
-			</div>
+		</div>
+		</section>
+		</div>
 		</div>	
-	</div>	
+	
 	
 	
 			<script language="javascript"> 

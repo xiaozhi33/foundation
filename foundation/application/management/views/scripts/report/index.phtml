@@ -135,42 +135,83 @@
 		});
 	});
 	</script>
+ <!-- page header -->
+    <div class="pageheader">
 
-	<div id="main">
-		<div id="rightstyle02">
-		<h4>捐赠项目统计管理<span class="font_red"> >> </span><span class="font_red_big">查看项目统计报表
-</span></h4>
+        <h2><i class="fa fa-tachometer"></i> Dashboard
+            <span>查看项目统计报表</span></h2>
 
-		<div class="detailedbox">
-			
-			<div class="search" style="padding:20px;">
-					<form action="/management/report/reportinfo" method="post" target="_blank">
-					
-						<div style="padding-top:10px;"><b>根据项目统计项目收支明细</b></div>					
-						<div style="margin:10px;">
-							    <div class="ui-widget" style="font-family: Verdana,Arial,sans-serif;font-size: 1em;">项目名称：
-							    	<select name="pname" id="combobox">
-										<?php if($this->pmlist != ""){
-												foreach ($this->pmlist as $k => $v){
-											?>
-											<option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
-										<?php }}?>
-									</select><font color="#0474d6" > * </font>  <input type="submit" value="查看报表"/>
-								</div>
-						</div>
-						<input type="hidden" name="style" value="style1"/>
-					</form>
-					<form action="/management/report/reportinfo" method="post" target="_blank">	
-						<div style="padding-top:10px;"><b>根据时间统计项目收支明细</b></div>
-						
-						统计明细时间区间：  <input type="text"  id="dateinput"  name="start_datetime"  size="14"/> ~ <input type="text"  id="dateinput1"  name="end_datetime"  size="14"/>
-						<input type="submit" value="查看报表"/>
-						<input type="hidden" name="style" value="style1"/>
-					</form>
-				</div>
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li>您的位置</li>
+                <li>捐赠项目统计管理</li>
+                <li class="active">查看项目统计报表</li>
+            </ol>
+        </div>
+
+    </div>
+    <!-- /page header -->
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+       	 <div class="col-md-6">
+        	<section class="tile color transparent-black">
+			<div class="detailedbox tile-body">
+			<form class="form-horizontal" action="/management/report/reportinfo" method="post" target="_blank">
+                <div class="form-group">	
+					<label class="col-sm-4" for="input01">根据项目统计项目收支明细</label>
+                </div>
+                <div class="form-group">				
+                    <label class="col-sm-2 control-label" for="input01">项目名称:</label>
+                    <div class="col-sm-8">
+                    <select class="form-control" name="pname" id="combobox">
+                                            <?php if($this->pmlist != ""){
+                                                    foreach ($this->pmlist as $k => $v){
+                                                ?>
+                                                <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                            <?php }}?>
+                    </select>
+                     </div>
+                    <span class="col-sm-1" > * </span>
+                    
+                </div> 
+                <div class="form-group"> 
+                 <div class="col-md-offset-2 col-sm-2">
+                   
+                    <input type="submit" class="btn btn-greensea" value="查看报表"/></div></div>    
+				<input type="hidden" name="style" value="style1"/>					
+		</form>
+        </div></section>
+        </div>
+        <div class="col-md-6">
+        	<section class="tile color transparent-black">
+			<div class="detailedbox tile-body">
+			<form class="form-horizontal" action="/management/report/reportinfo" method="post" target="_blank">
+        	<div class="form-group">	
+            <label class="col-sm-4" for="input01">根据时间统计项目收支明细</label>
+            </div>
+            <div class="form-group">
+            
+			<label class="col-sm-3 control-label" for="input01">统计明细时间区间：</label>
+            <div class="col-sm-4">
+                   <input class="form-control" type="text"  id="dateinput"  name="start_datetime"  size="14"/>
+                </div>
+            <div class="col-sm-1" style="text-align:center;"> —</div>
+            <div class="col-sm-4">
+                 <input class="form-control" type="text"  id="dateinput1"  name="end_datetime"  size="14"/>
+                 </div>
+              </div>
+            <div class="form-group">
+			<div class="col-md-offset-3 col-sm-2">
+            <input class="btn btn-greensea" type="submit" value="查看报表"/></div>
+            </div>
+			<input type="hidden" name="style" value="style1"/>					
+        
+          </form>
 			</div>
+        	</section>
+		</div>
 		</div>	
-	</div>	
+
 	
 	
 			<script language="javascript"> 

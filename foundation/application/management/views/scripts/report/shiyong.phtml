@@ -2,19 +2,39 @@
 <link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+<!-- page header -->
+    <div class="pageheader">
 
-	<div id="main">
-		<div id="rightstyle02">
-		<h4>捐赠项目统计管理<span class="font_red"> >> </span><span class="font_red_big">使用统计管理
-</span></h4>
+        <h2><i class="fa fa-tachometer"></i> Dashboard
+            <span>使用统计管理</span></h2>
 
-		<div class="detailedbox">
-			<div style="padding-top:10px;"><b>根据时间统计项目收支明细</b></div>
-				<div class="search">
-					<form action="shiyongtoexcel" method="post">
-					
-						项目名称：
-						<select name="pname" size="10">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li>您的位置</li>
+                <li>捐赠项目统计管理</li>
+                <li class="active">使用统计管理</li>
+            </ol>
+        </div>
+
+    </div>
+    <!-- /page header -->
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+		<div class="col-md-6">
+        <section class="tile color transparent-black">
+		<div class="detailedbox tile-body">
+         
+		<form class="form-horizontal" action="shiyongtoexcel" method="post">	
+        <div class="form-group">
+		<label class="col-sm-4" for="input01">
+			根据时间统计项目收支明细
+			</label>
+            </div>	
+				<div class="form-group">
+				<label class="col-sm-3 control-label" for="input01">	
+						项目名称：</label>
+                <div class="col-sm-8">
+						<select class="form-control" name="pname" size="10">
 							<?php if($this->pmlist != ""){
 									foreach ($this->pmlist as $k => $v){
 								?>
@@ -22,21 +42,31 @@
 							<?php }}?>
 						</select>
 
-						<br/><br/>
-												
-						项目支出日期区间：<input type="text"  id="dateinput"  name="shiyong_zhichu_datetime"  size="14"/> 至 
-						<input type="text"  id="dateinput1"  name="shiyong_zhichu_datetime1"  size="14"/><br/> <br/>
+						</div>
+                </div>
+				<div class="form-group">							
+						<label class="col-sm-3 control-label" for="input01">项目支出日期区间：</label>
+                        <div class="col-sm-4">
+                        <input class="form-control" type="text"  id="dateinput"  name="shiyong_zhichu_datetime"  size="14"/></div>
+                        <div class="col-sm-1"> 至 </div>
+						<div class="col-sm-4"><input class="form-control" type="text"  id="dateinput1"  name="shiyong_zhichu_datetime1"  size="14"/></div>
+                        </div>
+				<div class="form-group">
+						<label class="col-sm-3 control-label" for="input01">项目支出金额：</label>
+                        <div class="col-sm-9">
+                        <input class="form-control" type="text" size="14" name="shiyong_zhichu_jiner" value=""></div>
 						
-						项目支出金额：<input type="text" size="14" name="shiyong_zhichu_jiner" value="">
-						
-						<br/>
-						<br/>
-						<input type="submit" value="下载excel报表"/>
+						</div>
+                        
+				<div class="form-group">
+            <div class="col-md-offset-2 col-sm-2">
+						<input class="btn btn-greensea" type="submit" value="下载excel报表"/></div>
+                        </div>
 					</form>
 				</div>
-			</div>
+		</section>
 		</div>	
-	</div>	
+		</div>	
 	
 	
 			<script language="javascript"> 
