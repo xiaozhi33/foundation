@@ -33,6 +33,7 @@ form, input,td{ color:#333; font-size:12px; line-height:22px;}
 .jjh_nav ul li #linkon:link, #linkon:active, #linkon:visited, #linkon:hover{ color:#901823;}
 /*content*/
 .jjh_content{ width:960px; float:none; margin:0px auto; background:#fff; padding:10px 0px 20px;}
+.jjh_content_index{ width:960px; height:470px; float:none; margin:0px auto; background:#fff; padding:10px 0px 20px;}
 .jjh_content_left{ width:640px; margin:5px 0px; float:left; padding-left:15px;}
 .jjh_top_news{ width:640px; float:none; margin:0px auto;}
 .jjh_top_news_left{ width:305px; float:left; height:165px;}
