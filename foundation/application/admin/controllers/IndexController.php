@@ -61,16 +61,17 @@
 
 		//getpasswordpost方法判定用户名密码的正确性
 		public function getpasswordpostAction($username,$password){
-			$my_adminDAO = new my_adminDAO();
-			$my_adminDAO ->admin_name = $username;
-			$my_adminDAO ->admin_pwd = $password;
-			//$my_adminDAO ->admin_password = substr(md5(md5($password)."wangnan-mycms-ok100"),0,12);
-			$admininfo = $my_adminDAO->get($this->dbhelper);			
-			if($admininfo){
-				return $admininfo;
-			}else{
-				return false;
-			}
+            $my_adminDAO = new my_adminDAO();
+            $my_adminDAO ->admin_name = $username;
+            $my_adminDAO ->admin_pwd = substr(md5(serialize($password)), 0, 32);
+            //$my_adminDAO ->admin_password = substr(md5(md5($password)."wangnan-mycms-ok100"),0,12);
+            $admininfo = $my_adminDAO->get($this->dbhelper);
+
+            if($admininfo){
+                return $admininfo;
+            }else{
+                return false;
+            }
 		}
 		
 		public function _init(){
