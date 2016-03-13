@@ -17,12 +17,12 @@
 	define("__PASSWD__", $passwd);
 	define("__DBNAME__", $dbname);
 
-    $conn = mssql_connect(__HOST__,__ROOT__,__PASSWD__) or die ("connect failed");
-    mssql_select_db(__DBNAME__, $conn);
+    /*$conn = mssql_connect(__HOST__,__ROOT__,__PASSWD__) or die ("connect failed");
+    mssql_select_db(__DBNAME__, $conn);*/
     //mssql_query('SET NAMES \'UTF8\'');
 
     //执行查询语句
-    $query = "select * from users";
+   /* $query = "select * from users";
     $row = mssql_query($query);
 
     //打印输出查询结果=
@@ -30,5 +30,5 @@
     {
         print_r($list);
         echo "<br>";
-    }
+    }*/
 	
