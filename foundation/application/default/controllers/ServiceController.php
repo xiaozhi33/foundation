@@ -35,7 +35,7 @@
 			
 			if($my_download != ""){
 				$fname = explode("/",$my_download[0]['download_file']);
-				$file_dir = "/var/www/html/my_cms/foundation/include/upload_file/jjh_download/";
+				$file_dir = "/var/www/html/foundation/foundation/include/upload_file/jjh_download/";
 				$file_name = $fname[4];
 				$file = fopen($file_dir.$file_name, "rb");   //打开文件  
 
