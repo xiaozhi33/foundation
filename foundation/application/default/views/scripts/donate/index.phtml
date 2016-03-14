@@ -54,36 +54,35 @@
                    <div class="jjh_donate_online_con">
                    <form action="/order/addorder" method="post">
                         <table width="100%" align="center" cellpadding="0" cellspacing="0">
-                           
-                           <?php if($this->jjh_pm != ""){?>
-                           	<tr>
-                              <td width="18%" class="jjh_font2"  height="35">捐赠项目：</td>
-                              <td width="82%" align="left">
-                                  <select name="cate_id_info" id="cate_1" style="color:#333; font-family:'微软雅黑', '宋体'; font-size:12px;">
-									  <option value="<?php echo $this->jjh_pm[0]['c_id'];?>" selected="selected"><?php echo $this->jjh_pm[0]['c_name'];?></option> 
-                                  </select>
-                              </td>
-                           </tr>
-                           <?php }else{?>
-                           <tr>
-                              <td width="18%" class="jjh_font2"  height="35">捐赠分类：</td>
-                              <td width="82%" align="left">
-                                  <select name="cate_id_info" id="cate_1" style="color:#333; font-family:'微软雅黑', '宋体'; font-size:12px;">
-									  <option value="" selected="selected">---请选择捐赠分类---</option> 
-									  <?php if($this->my_jjh_pm != ""){
-	   	                              	foreach ($this->my_jjh_pm as $key => $value){
-	   	                              	?>
-	   	                              <option value="<?php echo $value['c_id'];?>"><?php echo $value['c_name'];?></option>
-	                                  <?php }}?>
-	                                  
-                                  </select>
-                              </td>
-                           </tr>
-                           
-                           <tr id="juanzengxiangmu"><!-- 捐赠项目 --></tr>
-                           <tr id="zixiangmu"><!-- 子项目： --></tr>
-                           
-                           <?php }?>
+
+                            <?php if($this->jjh_pm != ""){?>
+                                <tr>
+                                    <td width="18%" class="jjh_font2"  height="35">捐赠项目：</td>
+                                    <td width="82%" align="left">
+                                        <select name="cate_id_info" id="cate_1" style="color:#333; font-family:'微软雅黑', '宋体'; font-size:12px;">
+                                            <option value="<?php echo $this->jjh_pm[0]['c_id'];?>" selected="selected"><?php echo $this->jjh_pm[0]['c_name'];?></option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            <?php }else{?>
+
+
+                                <tr>
+                                    <td width="18%" class="jjh_font2"  height="35">捐赠项目：</td>
+                                    <td width="82%" align="left">
+                                        <select name="cate_id_info" id="cate_1" style="color:#333; font-family:'微软雅黑', '宋体'; font-size:12px;">
+                                            <option value="" selected="selected">---请选择捐赠项目---</option>
+                                            <?php foreach($this->c_list as $kk => $vv){?>
+                                                <option value="<?php echo $vv['c_id'];?>"><?php echo $vv['c_name'];?></option>
+                                            <?php }?>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <!--<tr id="juanzengxiangmu"></tr>
+                                <tr id="zixiangmu"></tr>-->
+
+                            <?php }?>
 
                            <tr>
    	                           <td class="jjh_font2" height="35">您的捐款总额为： </td>
