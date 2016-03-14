@@ -59,7 +59,7 @@
                            	<tr>
                               <td width="18%" class="jjh_font2"  height="35">捐赠项目：</td>
                               <td width="82%" align="left">
-                                  <select name="cate_1" id="cate_1" style="color:#333; font-family:'微软雅黑', '宋体'; font-size:12px;">
+                                  <select name="cate_id_info" id="cate_1" style="color:#333; font-family:'微软雅黑', '宋体'; font-size:12px;">
 									  <option value="<?php echo $this->jjh_pm[0]['c_id'];?>" selected="selected"><?php echo $this->jjh_pm[0]['c_name'];?></option> 
                                   </select>
                               </td>
@@ -68,7 +68,7 @@
                            <tr>
                               <td width="18%" class="jjh_font2"  height="35">捐赠分类：</td>
                               <td width="82%" align="left">
-                                  <select name="cate_1" id="cate_1" style="color:#333; font-family:'微软雅黑', '宋体'; font-size:12px;">
+                                  <select name="cate_id_info" id="cate_1" style="color:#333; font-family:'微软雅黑', '宋体'; font-size:12px;">
 									  <option value="" selected="selected">---请选择捐赠分类---</option> 
 									  <?php if($this->my_jjh_pm != ""){
 	   	                              	foreach ($this->my_jjh_pm as $key => $value){
