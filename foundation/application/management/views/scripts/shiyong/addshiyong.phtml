@@ -25,18 +25,20 @@
 		<div class="col-md-12">
 				<section class="tile color transparent-black">
 			<div class="detailedbox tile-body">
-			<form  class="form-horizontal" id="form1" action="addrsshiyong" method="post" encType="multipart/form-data">
+			<form  class="form-horizontal" id="form1"  name="search_form" action="addrsshiyong" method="post" encType="multipart/form-data">
             
 			<div class="form-group">
                 <label class="col-sm-2 control-label" for="input01">项目名称：</label>
                     <div class="col-sm-4">
-                            <select class="form-control" name="pname">
-                                    <?php if($this->pmlist != ""){
-                                            foreach ($this->pmlist as $k => $v){
-                                        ?>
-                                        <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
-                                    <?php }}?>
-                                </select>
+                            <select class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                <option value="1">请选择项目名称</option>
+                                <?php if($this->pmlist != ""){
+                                        foreach ($this->pmlist as $k => $v){
+                                    ?>
+                                    <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                <?php }}?>
+                            </select>
+                            <input id="pname_info" type="hidden" name="pname" value=""/>
                     </div>
                 <span class="col-sm-2" > * </span>
             </div>

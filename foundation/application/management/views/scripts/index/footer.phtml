@@ -450,6 +450,11 @@
 
     <script>
         function noTips(){
+
+            if($(".chosen-single span").html() != "请选择项目名称"){
+                $("#pname_info").val($(".chosen-single span").html());
+            }
+
             var formParam = $("#form1").serialize();//序列化表格内容为字符串
             $.ajax({
                 type:'post',
@@ -500,6 +505,16 @@
     </style>
 
             <script language="javascript">
-                $(".chosen-select-1").chosen({disable_search_threshold: 10});
-                $("#pname_info").val($(".chosen-single>span").val());
+                //搜索功能采用get方式 关键词下拉提示，
+                $(".chosen-select-1").chosen({
+                    search_contains: true,
+                    disable_search_threshold: 10
+                });
+
+                $("[name='search_form']").submit(function(){
+                    if($(".chosen-single span").html() != "请选择项目名称"){
+                        $("#pname_info").val($(".chosen-single span").html());
+                    }
+                    return true;
+                });
             </script>
