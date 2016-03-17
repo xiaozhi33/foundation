@@ -33,27 +33,16 @@
 					<div class="form-group col-sm-3">
 						<label for="input05">会议名称：</label>
 						<!--<input type="text" class="form-control" name="meeting_name" />-->
-						<select id="input08" class="chosen-select chosen-transparent form-control" multiple="" style="display: none;">
-							<?php if($this->pmlist != ""){
-								foreach ($this->pmlist as $k => $v){
-									?>
-									<option><?php echo $v['pname'];?></option>
-								<?php }}?>
-						</select>
-						<div class="chosen-container chosen-container-multi" style="width: 422px;" title="" id="input08_chosen">
-							<ul class="chosen-choices">
-								<li class="search-field">
-									<input type="text" style="width: 165px;" autocomplete="off" class="default" value="选择项目名称">
-								</li>
-							</ul>
-							<div class="chosen-drop">
-								<ul class="chosen-results">
+						<div class="form-group">
+							<label for="meeting_name" class="col-sm-4 control-label">Multiple select box</label>
+							<div class="col-sm-8">
+								<select multiple class="chosen-select chosen-transparent form-control" id="meeting_name">
 									<?php if($this->pmlist != ""){
 										foreach ($this->pmlist as $k => $v){
 											?>
-											<li data-option-array-index="<?php echo $v['pname'];?>" style="" class="active-result"><?php echo $v['pname'];?></li>
+											<option><?php echo $v['pname'];?></option>
 										<?php }}?>
-								</ul>
+								</select>
 							</div>
 						</div>
 					</div>
