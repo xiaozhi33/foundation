@@ -29,7 +29,6 @@
             //捐赠项目金额
             $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findCate_id(0)->select(" sum(zijin_daozheng_jiner) as allsum")->get();
 
-
             //会议活动
             $meetingDAO = $this->orm->createDAO("jjh_meeting")->get();
 
