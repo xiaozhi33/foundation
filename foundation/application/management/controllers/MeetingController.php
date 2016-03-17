@@ -104,6 +104,8 @@
             $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
             $this->view->assign("pmlist",$pm_chouzi);
 
+            var_dump($pm_chouzi);exit();
+
             $this->view->assign(array(
                 'meetingCateList' => $meetingCateList
             ));
