@@ -42,31 +42,15 @@
 			<div class="tile-body">
 			<form action="#" method="post">
 				<div class="form-group">
-					<label for="input08" class="col-sm-4 control-label">Multiple select box</label>
-					<div class="col-sm-8">
-						<select multiple class="chosen-select chosen-transparent form-control" id="input08">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-						</select>
-					</div>
-				</div>
-
-				<div class="form-group">
 				<div class="row">
 					<div class="form-group col-sm-3">
 						<label for="input05">会议名称：</label>
 						<!--<input type="text" class="form-control" name="meeting_name" />-->
-						<select multiple class="chosen-select chosen-transparent form-control" id="input05">
-							<option>1</option>
-							<option>2</option>
-							<?php /*if($this->pmlist != ""){
+							<?php if($this->pmlist != ""){
 								foreach ($this->pmlist as $k => $v){
-									*/?><!--
-									<option><?php /*echo $v['pname'];*/?></option>
-								--><?php /*}}*/?>
+									?>
+									<option><?php echo $v['pname'];?></option>
+								<?php }}?>
 						</select>
 					</div>
 					<div class="form-group col-sm-3">
@@ -162,8 +146,10 @@
 		<script src="/include/management/assets/js/minimal.min.js"></script>
 
 		<script language="javascript">
-			$(".menu li:eq(28)").addClass("open");
+			$(function(){
+				$(".menu li:eq(28)").addClass("open");
 
-			//chosen select input
-			$(".chosen-select").chosen({disable_search_threshold: 10});
+				//chosen select input
+				$(".chosen-select").chosen({disable_search_threshold: 10});
+			});
 		</script>
