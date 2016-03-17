@@ -34,16 +34,16 @@
 						<label for="input05">会议名称：</label>
 						<!--<input type="text" class="form-control" name="meeting_name" />-->
 						<select id="input08" class="chosen-select chosen-transparent form-control" multiple="" style="display: none;">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+							<?php if($this->pmlist != ""){
+								foreach ($this->pmlist as $k => $v){
+									?>
+									<option><?php echo $v['pname'];?></option>
+								<?php }}?>
 						</select>
 						<div class="chosen-container chosen-container-multi" style="width: 422px;" title="" id="input08_chosen">
 							<ul class="chosen-choices">
 								<li class="search-field">
-									<input type="text" style="width: 165px;" autocomplete="off" class="default" value="Select Some Options">
+									<input type="text" style="width: 165px;" autocomplete="off" class="default" value="选择项目名称">
 								</li>
 							</ul>
 							<div class="chosen-drop">
