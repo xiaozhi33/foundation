@@ -3,19 +3,6 @@
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
 
-<link rel="stylesheet" href="/include/management/assets/css/vendor/animate/animate.css">
-<link type="text/css" rel="stylesheet" media="all" href="/include/management/assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
-<link rel="stylesheet" href="/include/management/assets/js/vendor/videobackground/css/jquery.videobackground.css">
-<link rel="stylesheet" href="/include/management/assets/css/vendor/bootstrap-checkbox.css">
-
-<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote.css">
-<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote-bs3.css">
-<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen.min.css">
-<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen-bootstrap.css">
-<link rel="stylesheet" href="/include/management/assets/js/vendor/datepicker/css/bootstrap-datetimepicker.css">
-<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpicker/css/bootstrap-colorpicker.css">
-<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpalette/bootstrap-colorpalette.css">
-<link href="/include/management/assets/css/minimal.css" rel="stylesheet">
     <!-- page header -->
     <div class="pageheader">
 
@@ -44,17 +31,8 @@
 				<div class="form-group">
 				<div class="row">
 					<div class="form-group col-sm-3">
-						<!--<label for="input05">会议名称：</label>-->
-						<!--<input type="text" class="form-control" name="meeting_name" />-->
-						<label for="input08" class="col-sm-4 control-label">Multiple select box</label>
-						<select multiple class="chosen-select chosen-transparent form-control" id="input08">
-							<?php if($this->pmlist != ""){
-								foreach ($this->pmlist as $k => $v){
-									?>
-									<option><?php echo $v['pname'];?></option>
-								<?php }}?>
-						</select>
-
+						<label for="input05">会议名称：</label>
+						<input type="text" class="form-control" name="meeting_name" />
 					</div>
 					<div class="form-group col-sm-3">
 						<label for="input01">会议类型：</label>
@@ -131,17 +109,3 @@
 				 </section>
 		  </div>
 		</div>
-
-		<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
-		<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
-		<script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
-		<script type="text/javascript" src="/include/management/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
-		<script type="text/javascript" src="/include/management/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
-		<script type="text/javascript" src="/include/management/assets/js/vendor/blockui/jquery.blockUI.js"></script>
-		<script src="/include/management/assets/js/vendor/summernote/summernote.min.js"></script>
-		<script src="/include/management/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
-		<script src="/include/management/assets/js/vendor/momentjs/moment-with-langs.min.js"></script>
-		<script src="/include/management/assets/js/vendor/datepicker/bootstrap-datetimepicker.min.js"></script>
-		<script src="/include/management/assets/js/vendor/colorpicker/bootstrap-colorpicker.min.js"></script>
-		<script src="/include/management/assets/js/vendor/colorpalette/bootstrap-colorpalette.js"></script>
-		<script src="/include/management/assets/js/minimal.min.js"></script>
