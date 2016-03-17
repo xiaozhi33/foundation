@@ -46,12 +46,16 @@
 					<div class="form-group col-sm-3">
 						<label for="input05">会议名称：</label>
 						<!--<input type="text" class="form-control" name="meeting_name" />-->
-							<?php if($this->pmlist != ""){
-								foreach ($this->pmlist as $k => $v){
-									?>
-									<option><?php echo $v['pname'];?></option>
-								<?php }}?>
-						</select>
+						<label for="input08" class="col-sm-4 control-label">Multiple select box</label>
+						<div class="col-sm-8">
+							<select multiple class="chosen-select chosen-transparent form-control" id="input08">
+								<?php if($this->pmlist != ""){
+									foreach ($this->pmlist as $k => $v){
+										?>
+										<option><?php echo $v['pname'];?></option>
+									<?php }}?>
+							</select>
+						</div>
 					</div>
 					<div class="form-group col-sm-3">
 						<label for="input01">会议类型：</label>
@@ -129,8 +133,6 @@
 		  </div>
 		</div>
 
-		<script src="/include/management/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
-		<script src="/include/management/assets/code-prettify-master/loader/run_prettify.js?lang=css&skin=sons-of-obsidian"></script>
 		<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
 		<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
 		<script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
