@@ -53,9 +53,10 @@
                                 <?php if($this->pmlist != ""){
                                     foreach ($this->pmlist as $k => $v){
                                         ?>
-                                        <option><?php echo $v['pname'];?></option>
+                                        <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
                                     <?php }}?>
                             </select>
+                            <input type="hidden" name="pname" value=""/>
                         </div>
 
 
