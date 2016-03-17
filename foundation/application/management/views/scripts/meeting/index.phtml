@@ -47,11 +47,13 @@
 						<label for="input05">会议名称：</label>
 						<!--<input type="text" class="form-control" name="meeting_name" />-->
 						<select multiple class="chosen-select chosen-transparent form-control" id="input05">
-							<?php if($this->pmlist != ""){
+							<option>1</option>
+							<option>2</option>
+							<?php /*if($this->pmlist != ""){
 								foreach ($this->pmlist as $k => $v){
-									?>
-									<option><?php echo $v['pname'];?></option>
-								<?php }}?>
+									*/?><!--
+									<option><?php /*echo $v['pname'];*/?></option>
+								--><?php /*}}*/?>
 						</select>
 					</div>
 					<div class="form-group col-sm-3">
