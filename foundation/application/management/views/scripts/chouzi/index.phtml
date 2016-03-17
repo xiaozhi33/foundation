@@ -49,14 +49,14 @@
                             <!--<label for="input05">项目名称：</label>-->
                             <!--<input type="text" class="form-control" name="pname" />-->
                             <label for="pname" class="col-sm-4 control-label">项目名称：</label>
-                            <select class="chosen-select chosen-transparent form-control" name="pname" id="pname">
+                            <select class="chosen-select chosen-transparent form-control" id="pname">
                                 <?php if($this->pmlist != ""){
                                     foreach ($this->pmlist as $k => $v){
                                         ?>
                                         <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
                                     <?php }}?>
                             </select>
-                            <!--<input type="hidden" name="pname" value=""/>-->
+                            <input id="pname_info" type="hidden" name="pname" value=""/>
                         </div>
 
 
