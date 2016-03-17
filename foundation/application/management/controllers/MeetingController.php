@@ -98,13 +98,13 @@
             error_reporting(0);
             $meetingCateList = $this->orm->createDAO('jjh_meeting_cate')->get();
 
+            $this ->dbhelper = new DBHelper();
+            $this ->dbhelper ->connect();
             //项目名称列表
             $pm_chouzi = new pm_mg_chouziDAO();
             $pm_chouzi ->selectLimit .= " order by id desc";
             $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
             $this->view->assign("pmlist",$pm_chouzi);
-
-            var_dump($pm_chouzi);exit();
 
             $this->view->assign(array(
                 'meetingCateList' => $meetingCateList
