@@ -47,14 +47,13 @@
 		public function addrsshiyongAction(){
 			try{
 				$shiyong_type = HttpUtil::postString("shiyong_type");
-				echo $pname = HttpUtil::postString("pname");  //项目编号
-				echo $shiyong_zhichu_datetime = HttpUtil::postString("shiyong_zhichu_datetime");		 //项目支出日期
-				echo $shiyong_zhichu_jiner = HttpUtil::postString("shiyong_zhichu_jiner");  //项目支出金额
+				$pname = HttpUtil::postString("pname");  //项目编号
+				$shiyong_zhichu_datetime = HttpUtil::postString("shiyong_zhichu_datetime");		 //项目支出日期
+				$shiyong_zhichu_jiner = HttpUtil::postString("shiyong_zhichu_jiner");  //项目支出金额
 				$fanwei = HttpUtil::postString("fanwei");  //捐赠范围
 				$jiangli_renshu = HttpUtil::postString("jiangli_renshu");  //奖励人数
 				$beizhu = HttpUtil::postString("beizhu");  //备注
 
-				exit();
 				if($pname == "" || $shiyong_zhichu_datetime == "" || $shiyong_zhichu_jiner == ""){
 					alert_back("您输入的信息不完整，请查正后继续添加");
 				}
