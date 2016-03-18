@@ -46,6 +46,9 @@
 		
 		public function addrsshiyongAction(){
 			try{
+				error_reporting(E_ALL);
+				ini_set( 'display_errors', 'On' );
+
 				$shiyong_type = HttpUtil::postString("shiyong_type");
 				$pname = HttpUtil::postString("pname");  //项目编号
 				$shiyong_zhichu_datetime = HttpUtil::postString("shiyong_zhichu_datetime");		 //项目支出日期
