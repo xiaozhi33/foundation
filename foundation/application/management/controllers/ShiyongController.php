@@ -53,9 +53,9 @@
 			$jiangli_renshu = HttpUtil::postString("jiangli_renshu");  //奖励人数
 			$beizhu = HttpUtil::postString("beizhu");  //备注	
 				
-			if($pname == "" || $shiyong_zhichu_datetime == "" || $shiyong_zhichu_jiner == ""){
-				alert_back("您输入的信息不完整，请查正后继续添加");
-			}
+			//if($pname == "" || $shiyong_zhichu_datetime == "" || $shiyong_zhichu_jiner == ""){
+			//	alert_back("您输入的信息不完整，请查正后继续添加");
+			//}
 			
 			$pm_mg_infoDAO = new pm_mg_infoDAO();
 			$pm_mg_infoDAO ->beizhu = $beizhu;
