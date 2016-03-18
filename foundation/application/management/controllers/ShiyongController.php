@@ -45,47 +45,52 @@
 		}
 		
 		public function addrsshiyongAction(){
-            $shiyong_type = HttpUtil::postString("shiyong_type");
-			$pname = HttpUtil::postString("pname");  //项目编号
-			$shiyong_zhichu_datetime = HttpUtil::postString("shiyong_zhichu_datetime");		 //项目支出日期
-			$shiyong_zhichu_jiner = HttpUtil::postString("shiyong_zhichu_jiner");  //项目支出金额
-			$fanwei = HttpUtil::postString("fanwei");  //捐赠范围
-			$jiangli_renshu = HttpUtil::postString("jiangli_renshu");  //奖励人数
-			$beizhu = HttpUtil::postString("beizhu");  //备注	
-				
-			//if($pname == "" || $shiyong_zhichu_datetime == "" || $shiyong_zhichu_jiner == ""){
-			//	alert_back("您输入的信息不完整，请查正后继续添加");
-			//}
-			
-			$pm_mg_infoDAO = new pm_mg_infoDAO();
-			$pm_mg_infoDAO ->beizhu = $beizhu;
-			$pm_mg_infoDAO ->jiangli_renshu = $jiangli_renshu;
-			$pm_mg_infoDAO ->jiangli_fanwei = $fanwei;
-			$pm_mg_infoDAO ->pm_name = $pname;
-			$pm_mg_infoDAO ->shiyong_zhichu_datetime = $shiyong_zhichu_datetime;
-			$pm_mg_infoDAO ->shiyong_zhichu_jiner = $shiyong_zhichu_jiner;
-			$pm_mg_infoDAO ->pm_juanzeng_cate = HttpUtil::postString("pm_cate");
-            $pm_mg_infoDAO ->shiyong_type = $shiyong_type;
-			
-			$pm_mg_infoDAO ->cate_id = 1;
-			
-			if($_FILES['pm_files']['name']!=""){
-				if($_FILES['pm_files']['error'] != 4){
-					if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
-					     mkdir(__UPLOADPICPATH__ ."jjh_download/");
-					}
-					$uploadpic = new uploadPic($_FILES['pm_files']['name'],$_FILES['pm_files']['error'],$_FILES['pm_files']['size'],$_FILES['pm_files']['tmp_name'],$_FILES['pm_files']['type'],2);
-					$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
-					$result = $uploadpic->uploadPic();
-					if($result['error']!=0){					    	
-					   	alert_back($result['msg']);
-					}else{				             
-					    $pm_mg_infoDAO->pm_file =  __GETPICPATH__."jjh_download/".$result['picname'];
-					}		            	    
+			try{
+				$shiyong_type = HttpUtil::postString("shiyong_type");
+				echo $pname = HttpUtil::postString("pname");  //项目编号
+				echo $shiyong_zhichu_datetime = HttpUtil::postString("shiyong_zhichu_datetime");		 //项目支出日期
+				echo $shiyong_zhichu_jiner = HttpUtil::postString("shiyong_zhichu_jiner");  //项目支出金额
+				$fanwei = HttpUtil::postString("fanwei");  //捐赠范围
+				$jiangli_renshu = HttpUtil::postString("jiangli_renshu");  //奖励人数
+				$beizhu = HttpUtil::postString("beizhu");  //备注
+
+				exit();
+				if($pname == "" || $shiyong_zhichu_datetime == "" || $shiyong_zhichu_jiner == ""){
+					alert_back("您输入的信息不完整，请查正后继续添加");
 				}
+
+				$pm_mg_infoDAO = new pm_mg_infoDAO();
+				$pm_mg_infoDAO ->beizhu = $beizhu;
+				$pm_mg_infoDAO ->jiangli_renshu = $jiangli_renshu;
+				$pm_mg_infoDAO ->jiangli_fanwei = $fanwei;
+				$pm_mg_infoDAO ->pm_name = $pname;
+				$pm_mg_infoDAO ->shiyong_zhichu_datetime = $shiyong_zhichu_datetime;
+				$pm_mg_infoDAO ->shiyong_zhichu_jiner = $shiyong_zhichu_jiner;
+				$pm_mg_infoDAO ->pm_juanzeng_cate = HttpUtil::postString("pm_cate");
+				$pm_mg_infoDAO ->shiyong_type = $shiyong_type;
+
+				$pm_mg_infoDAO ->cate_id = 1;
+
+				if($_FILES['pm_files']['name']!=""){
+					if($_FILES['pm_files']['error'] != 4){
+						if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+							mkdir(__UPLOADPICPATH__ ."jjh_download/");
+						}
+						$uploadpic = new uploadPic($_FILES['pm_files']['name'],$_FILES['pm_files']['error'],$_FILES['pm_files']['size'],$_FILES['pm_files']['tmp_name'],$_FILES['pm_files']['type'],2);
+						$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+						$result = $uploadpic->uploadPic();
+						if($result['error']!=0){
+							alert_back($result['msg']);
+						}else{
+							$pm_mg_infoDAO->pm_file =  __GETPICPATH__."jjh_download/".$result['picname'];
+						}
+					}
+				}
+				$pm_mg_infoDAO ->save($this->dbhelper);
+				alert_go("添加成功","/management/shiyong");
+			}catch(Exception $e){
+				throw $e;
 			}
-			$pm_mg_infoDAO ->save($this->dbhelper);
-			alert_go("添加成功","/management/shiyong");
 		}
 		
 		public function editshiyongAction(){
