@@ -199,6 +199,7 @@
                 require_once 'phpexcel/Classes/PHPExcel.php';
                 // Create new PHPExcel object
                 $zijintj = new PHPExcel();
+                var_dump($zijintj);exit();
 
                 // Set properties
                 $zijintj->getProperties()->setCreator("TJ BYJJH")
