@@ -132,7 +132,8 @@
 		}
 		
 		//资金统计toExcel
-		public function zijintoexcelAction(){	
+		public function zijintoexcelAction(){
+			error_reporting("E_ALL");
 			$pname = HttpUtil::postString("pname");
 			$department = HttpUtil::postString("department");
 			$pm_juanzeng_jibie = HttpUtil::postString("pm_juanzeng_jibie");
@@ -186,6 +187,7 @@
 			$zijininfo ->selectLimit .= " and cate_id=0 order by id desc";
 			$chouziinfo ->debugSql =true;
 			try{
+				error_reporting("E_ALL");
 				$zijininfo = $zijininfo->get($this->dbhelper);
 			}catch(Exception $e){
 				throw $e;
