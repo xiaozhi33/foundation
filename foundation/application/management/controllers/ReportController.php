@@ -135,7 +135,6 @@
 		public function zijintoexcelAction(){
 			ini_set('display_errors', 1);
 			error_reporting("E_ALL");
-			echo "test";exit();
 			$pname = HttpUtil::postString("pname");
 			$department = HttpUtil::postString("department");
 			$pm_juanzeng_jibie = HttpUtil::postString("pm_juanzeng_jibie");
@@ -187,7 +186,7 @@
 			}
 			
 			$zijininfo ->selectLimit .= " and cate_id=0 order by id desc";
-			$chouziinfo ->debugSql =true;
+			$zijininfo ->debugSql =true;
 			try{
 				error_reporting("E_ALL");
 				$zijininfo = $zijininfo->get($this->dbhelper);
