@@ -261,9 +261,9 @@
 			$zijintj->getActiveSheet()->setTitle('zijintongji');
 			$zijintj->setActiveSheetIndex(0);
 			
-			//var_dump($zijininfo);exit;
+			var_dump($zijininfo);exit;
 			/** Error reporting */
-			//error_reporting(E_ALL);
+			error_reporting(E_ALL);
 			ob_end_clean();
 			ob_start();
 			
