@@ -186,10 +186,8 @@
 			}
 			
 			$zijininfo ->selectLimit .= " and cate_id=0 order by id desc";
-			//$zijininfo ->debugSql =true;
-			var_dump($zijininfo);exit();
+			$zijininfo ->debugSql =true;
 			$zijininfo = $zijininfo->get($this->dbhelper);
-
 
 			if (count($zijininfo) == 0){
 				alert_back("查无结果，请重新查询");
