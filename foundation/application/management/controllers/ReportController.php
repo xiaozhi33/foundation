@@ -133,6 +133,7 @@
 		
 		//资金统计toExcel
 		public function zijintoexcelAction(){
+			ini_set('display_errors', 1);
 			error_reporting("E_ALL");
 			$pname = HttpUtil::postString("pname");
 			$department = HttpUtil::postString("department");
