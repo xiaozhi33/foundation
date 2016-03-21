@@ -134,8 +134,8 @@
 		//资金统计toExcel
 		public function zijintoexcelAction(){
             try{
-                ini_set('display_errors', 1);
-                error_reporting("E_ALL");
+                //ini_set('display_errors', 1);
+                //error_reporting("E_ALL");
                 $pname = HttpUtil::postString("pname");
                 $department = HttpUtil::postString("department");
                 $pm_juanzeng_jibie = HttpUtil::postString("pm_juanzeng_jibie");
@@ -248,7 +248,7 @@
                         ->setCellValue('P'.$ii, $v['beizhu']);
                     $ii++;
 
-                    //$shouru += $v['zijin_daozheng_jiner'];
+                    $shouru += $v['zijin_daozheng_jiner'];
                 }
 
                 $hejixx = count($zijininfo) + 2;
