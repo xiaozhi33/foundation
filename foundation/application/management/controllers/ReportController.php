@@ -228,7 +228,7 @@
                     ->setCellValue('P1', '备注');
 
                 $ii = 2;
-                var_dump($zijininfo)exit();
+                var_dump($zijininfo);exit();
                 foreach($zijininfo as $v){
                     $zijintj->setActiveSheetIndex(0)
                         ->setCellValue('A'.$ii, $v['id'])
