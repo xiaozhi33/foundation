@@ -199,7 +199,6 @@
                 require_once 'phpexcel/Classes/PHPExcel.php';
                 // Create new PHPExcel object
                 $zijintj = new PHPExcel();
-                var_dump($zijintj);exit();
 
                 // Set properties
                 $zijintj->getProperties()->setCreator("TJ BYJJH")
@@ -209,8 +208,6 @@
                     ->setDescription("document for Office 2007 XLSX, generated using PHP classes.")
                     ->setKeywords("office 2007 openxml php")
                     ->setCategory("rescues");
-
-
                 // Add some data
                 $zijintj->setActiveSheetIndex(0)
                     ->setCellValue('A1', '序号')
@@ -231,6 +228,7 @@
                     ->setCellValue('P1', '备注');
 
                 $ii = 2;
+                var_dump($zijininfo)exit();
                 foreach($zijininfo as $v){
                     $zijintj->setActiveSheetIndex(0)
                         ->setCellValue('A'.$ii, $v['id'])
