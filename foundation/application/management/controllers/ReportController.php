@@ -192,6 +192,8 @@
 			if (count($zijininfo) == 0){
 				alert_back("查无结果，请重新查询");
 			}
+
+            var_dump($zijininfo);exit();
 			
 			require_once 'phpexcel/Classes/PHPExcel.php';
 			// Create new PHPExcel object
