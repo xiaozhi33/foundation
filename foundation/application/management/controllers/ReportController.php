@@ -186,9 +186,8 @@
 			}
 			
 			$zijininfo ->selectLimit .= " and cate_id=0 order by id desc";
-			$zijininfo ->debugSql =true;
+			//$zijininfo ->debugSql =true;
 			try{
-				error_reporting("E_ALL");
 				$zijininfo = $zijininfo->get($this->dbhelper);
 			}catch(Exception $e){
 				throw $e;
