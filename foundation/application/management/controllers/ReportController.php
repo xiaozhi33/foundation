@@ -134,8 +134,6 @@
 		//资金统计toExcel
 		public function zijintoexcelAction(){
             try{
-                //ini_set('display_errors', 1);
-                //error_reporting("E_ALL");
                 $pname = HttpUtil::postString("pname");
                 $department = HttpUtil::postString("department");
                 $pm_juanzeng_jibie = HttpUtil::postString("pm_juanzeng_jibie");
@@ -193,8 +191,6 @@
                 if (count($zijininfo) == 0){
                     alert_back("查无结果，请重新查询");
                 }
-
-                //var_dump($zijininfo);exit();
 
                 require_once 'phpexcel/Classes/PHPExcel.php';
                 // Create new PHPExcel object
@@ -261,9 +257,6 @@
                 $zijintj->getActiveSheet()->setTitle('zijintongji');
                 $zijintj->setActiveSheetIndex(0);
 
-                //var_dump($zijininfo);exit;
-                /** Error reporting */
-                //error_reporting(E_ALL);
                 ob_end_clean();
                 ob_start();
 
