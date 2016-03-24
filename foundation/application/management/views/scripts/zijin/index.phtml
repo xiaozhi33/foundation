@@ -32,13 +32,15 @@
                                     <div class="form-group col-sm-9">
                                         <div class="col-sm-6" style="margin: -6px 20px 0px 20px;">
                                             <label class="control-label" for="input01">项目名称：</label>
-                                            <select class="form-control" name="pname">
+                                            <select class="chosen-select-1 chosen-transparent form-control" name="pname">
+                                                <option value="1">请选择项目名称</option>
                                                 <?php if($this->pmlist != ""){
-                                                        foreach ($this->pmlist as $k => $v){
-                                                    ?>
-                                                    <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
-                                                <?php }}?>
+                                                    foreach ($this->pmlist as $k => $v){
+                                                        ?>
+                                                        <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                                    <?php }}?>
                                             </select>
+                                            <input id="pname_info" type="hidden" name="pname" value=""/>
                                         </div>
                                         <div class="col-sm-3">
                                             <label for="input02"> </label>
