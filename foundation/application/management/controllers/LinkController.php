@@ -7,32 +7,36 @@ class Management_linkController extends BaseController
     private $dbhelper;
     public function indexAction()
     {
-        $mssql_localhost = '219.243.39.69';
-        $mssql_rootname = 'tc_byjjh_zjk';
-        $mssql_passwd = 'byjjh_zjk';
-        $mssql_dbname = 'byjjh_zjk';
-        $mssql_port = '1433';
+        try{
+            $mssql_localhost = '219.243.39.69';
+            $mssql_rootname = 'tc_byjjh_zjk';
+            $mssql_passwd = 'byjjh_zjk';
+            $mssql_dbname = 'byjjh_zjk';
+            $mssql_port = '1433';
 
-        define("__MSSQL_HOST__", $mssql_localhost);
-        define("__MSSQL_PORT__", $mssql_port);
-        define("__MSSQL_ROOT__", $mssql_rootname);
-        define("__MSSQL_PASSWD__", $mssql_passwd);
-        define("__MSSQL_DBNAME__", $mssql_dbname);
+            define("__MSSQL_HOST__", $mssql_localhost);
+            define("__MSSQL_PORT__", $mssql_port);
+            define("__MSSQL_ROOT__", $mssql_rootname);
+            define("__MSSQL_PASSWD__", $mssql_passwd);
+            define("__MSSQL_DBNAME__", $mssql_dbname);
 
-        $conn = mssql_connect(__MSSQL_HOST__,__MSSQL_ROOT__,__MSSQL_PASSWD__) or die ("connect failed");
-        mssql_select_db(__MSSQL_DBNAME__, $conn);
-        //mssql_query('SET NAMES \'UTF8\'');
+            $conn = mssql_connect(__MSSQL_HOST__,__MSSQL_ROOT__,__MSSQL_PASSWD__) or die ("connect failed");
+            $ms_select = mssql_select_db(__MSSQL_DBNAME__, $conn);
+            //mssql_query('SET NAMES \'UTF8\'');
 
-        $query = "show databases";
-        $row = mssql_query($query);
+            $query = "select * from zw_lkgl";
+            $row = mssql_query($query);
 
-        while($list=mssql_fetch_array($row))
-        {
-            print_r($list);
-            echo "<br>";
+            while($list=mssql_fetch_array($row))
+            {
+                print_r($list);
+                echo "<br>";
+            }
+
+            echo "ceshi";exit();
+        }catch (Exception $e){
+            throw $e;
         }
-
-        echo "ceshi";exit();
     }
 
     // 项目来款-推送到未认领
