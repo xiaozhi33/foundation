@@ -16,6 +16,7 @@
 
         public function _init()
         {
-
+            SessionUtil::sessionStart();
+            SessionUtil::checkmanagement();
         }
     }

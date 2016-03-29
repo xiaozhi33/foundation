@@ -97,6 +97,8 @@
         public function _init(){
             error_reporting(0);
             $meetingCateList = $this->orm->createDAO('jjh_meeting_cate')->get();
+            SessionUtil::sessionStart();
+            SessionUtil::checkmanagement();
 
             $this->view->assign(array(
                 'meetingCateList' => $meetingCateList
