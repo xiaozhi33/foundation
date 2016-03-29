@@ -26,15 +26,22 @@
 			<div class="col-md-12">
 			<section class="tile color transparent-black">
 			<div class="tile-body">
-			<form action="#" method="post">
+			<form action="#" method="post" name="search_form">
 				<div class="form-group">
 
                     <div class="row">
                         <div class="form-group col-sm-6">
-                            <label for="input05">项目名称：</label>
-                            <input type="text" class="form-control" name="pname" />
+                            <label for="pname" class="col-sm-4 control-label">项目名称：</label>
+                            <select class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                <option value="1">请选择项目名称</option>
+                                <?php if($this->pmlist != ""){
+                                    foreach ($this->pmlist as $k => $v){
+                                        ?>
+                                        <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                    <?php }}?>
+                            </select>
+                            <input id="pname_info" type="hidden" name="pname" value=""/>
                         </div>
-
                     </div>
 
                     <div class="row">
@@ -89,7 +96,7 @@
                                     <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
                                 </a>
                                 <a href="/management/?id=<?php echo $v['id'];?>">
-                                    <button class="btn btn-greensea margin-bottom-20" type="button">查看协议</button>
+                                    <button class="btn btn-greensea margin-bottom-20" type="button">编辑签订</button>
                                 </a>
                                 &nbsp;&nbsp;
                                 <a href="#" onclick="alert('对不起，项目清单不提供删除功能，请联系管理员');">

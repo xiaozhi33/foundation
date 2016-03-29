@@ -64,11 +64,18 @@
             $("#opt02").click(function(){
                 if($(this).is(":checked")){
                     $("#opt01").attr("checked", false);
+                    if(confirm("是否现在补充签约信息？")){
+                        window.open("/management/zijin/addzijin?pid=<?php $this->pm_id;?>");
+                    }
+
                 }
             });
             $("#opt03").click(function(){
                 if($(this).is(":checked")){
                     $("#opt01").attr("checked", false);
+                    if(confirm("是否现在补充到帐信息？")) {
+                        window.open("/management/zijin/addzijin?pid=<?php $this->pm_id;?>");
+                    }
                 }
             });
         </script>
