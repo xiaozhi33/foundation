@@ -8,6 +8,7 @@
         {
             $this->conn = mssql_connect(__HOST__,__ROOT__,__PASSWD__) or die ("connect failed");
             $this->DB_helper = mssql_select_db(__DBNAME__, $this->conn);
+            return  $this->DB_helper;
         }
 
         public function selectDB($sql = '',$type = 'all')
