@@ -6,5 +6,9 @@ class Management_linkController extends BaseController
     private $dbhelper;
     public function indexAction()
     {
+
+    }
+    public function _init(){
+        error_reporting("E_ALL");
     }
 }
