@@ -56,6 +56,8 @@ class Management_linkController extends BaseController
         //SessionUtil::sessionStart();  // 登录后台校验
         //SessionUtil::checkmanagement();
         //$this->dbhelper = new mssql_db_lib();
+        $this ->dbhelper = new DBHelper();
+        $this ->dbhelper ->connect();
         error_reporting("E_ALL");
     }
 }

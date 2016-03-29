@@ -76,16 +76,16 @@
                              <td>
                                  <?php if($v['pm_rate'] == ""){ ?>
                                      ---
-                                 <?php }elseif(in_array(1,$v['pm_rate'])){ ?>
-                                    已签订
-                                 <?php }elseif(in_array(2,$v['pm_rate'])){?>
-                                    已到帐
-                                 <?php }elseif(in_array(3,$v['pm_rate'])){?>
-                                    洽谈中
+                                 <?php }if(preg_match("/2/", $v['pm_rate'])){ ?>
+                                     已签订&nbsp;
+                                 <?php }if(preg_match("/3/", $v['pm_rate'])){?>
+                                     已到帐&nbsp;
+                                 <?php }if(preg_match("/1/", $v['pm_rate'])){?>
+                                     洽谈中&nbsp;
                                  <?php }?>
                               </td>
 							<td>
-                                <a href="/management/?id=<?php echo $v['id'];?>">
+                                <a href="/management/zijin/rateinfo/?pm_id=<?php echo $v['id'];?>">
                                     <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
                                 </a>
                                 <a href="/management/?id=<?php echo $v['id'];?>">

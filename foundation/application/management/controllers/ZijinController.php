@@ -292,6 +292,7 @@
             {
                 $like_sql .= " AND pm_mg_rate.pm_rate like '%".$rate."%'";
             }
+            $like_sql .= " order by id desc";
             $chouziDAO->selectLimit = $like_sql;
             $chouziDAO = $chouziDAO ->get();
 
@@ -308,6 +309,78 @@
             echo $this->view->render("zijin/rate.phtml");
             echo $this->view->render("index/footer.phtml");
         }
+
+        // 编辑进度详细
+        public function rateinfoAction()
+        {
+            try{
+                (int)$pm_id = HttpUtil::getString("pm_id");
+                if(!empty($pm_id)){
+                    $rate = HttpUtil::getString("rate");
+                    $sign_list = $this->getsign($pm_id);
+                    $rate_list = $this->getrateByid($pm_id);
+
+                    // 如果没有设置进度，默认为洽谈中
+                    if(empty($rate_list)){
+                        $pm_rateDAO = $this->orm->createDAO("pm_mg_rate");
+                        $pm_rateDAO ->pm_id = $pm_id;
+                        $pm_rateDAO ->pm_rate = 1;
+                        $pm_rateDAO ->last_modify = time();
+                        $pm_rateDAO ->save();
+                    }
+
+                    $rate_list_new = $this->getrateByid($pm_id);
+                    //var_dump($rate_list_new);exit();
+
+                    $this->view->assign("rate_list_new", $rate_list_new);
+                    $this->view->assign("pm_id", $pm_id);
+
+                    echo $this->view->render("index/header.phtml");
+                    echo $this->view->render("zijin/editrate.phtml");
+                    echo $this->view->render("index/footer.phtml");
+                }
+            }catch (Exception $e){
+                throw $e;
+            }
+        }
+
+        // 编辑进度
+        public function editrsrateAction(){
+            (int)$pm_id = HttpUtil::postString("pm_id");
+            if(!empty($pm_id)){
+                $rate = $_POST["rate"];
+                $rate_str = "";
+                if(!empty($rate)){
+                    foreach($rate as $k => $v){
+                        $rate_str .= $v.",";
+                    }
+                }
+
+                $pm_rateDAO = $this->orm->createDAO("pm_mg_rate");
+                $pm_rateDAO ->findPm_id($pm_id);
+                $pm_rateDAO ->pm_rate = $rate_str;
+                $pm_rateDAO ->last_modify = time();
+                $pm_rateDAO ->save();
+                alert_go("编辑成功","/management/zijin/rate");
+            }else {
+                alert_back("编辑失败");
+            }
+        }
+
+        // 取得进度
+        public function getrateByid($pid)
+        {
+            if(!empty($pid))
+            {
+                $pm_rateDAO = $this->orm->createDAO("pm_mg_rate");
+                $pm_rateDAO ->findPm_id($pid);
+                $pm_rateDAO = $pm_rateDAO ->get();
+
+                return $pm_rateDAO;
+            }else{
+                return array();
+            }
+        }
 		
 		/**
 		 * pm_mg_sign 签约
@@ -316,7 +389,7 @@
 		{
 			if(!empty($pm_id))
 			{
-				$pm_signDAO = $this->orm->createDAO("pm_mg_sign");
+				$pm_signDAO = $this->orm->createDAO("pm_mg_sing");
 				$pm_signDAO ->findPm_id($pm_id);
 				$pm_signDAO = $pm_signDAO ->get();
 				
