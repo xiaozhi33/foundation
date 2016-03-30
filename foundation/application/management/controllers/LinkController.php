@@ -36,7 +36,7 @@ class Management_linkController extends BaseController
 
 
             /////////////////////////////////
-            $msdb=mssql_connect("219.243.39.69:1433","tc_byjjh_zjk","byjjh_zjk");
+            /*$msdb=mssql_connect("219.243.39.69:1433","tc_byjjh_zjk","byjjh_zjk");
             if (!$msdb) {
                 echo "connect sqlserver error";
                 exit;
@@ -45,7 +45,7 @@ class Management_linkController extends BaseController
             $result = mssql_query("select * from zw_lkgl", $msdb);
             while($row = mssql_fetch_array($result)) {
                 print_r($row);
-            }
+            }*/
 
             //////////////////////
             try {
