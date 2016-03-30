@@ -8,7 +8,6 @@ class Management_linkController extends BaseController
     public function indexAction()
     {
         try{
-            phpinfo();exit();
             header("Content-type: text/html; charset=utf-8");
             $mssql_localhost = 'egServer70';
             $mssql_rootname = 'tc_byjjh_zjk';
@@ -34,7 +33,42 @@ class Management_linkController extends BaseController
                 print_r($list);
                 echo "<br>";
             }
-            @mssql_free_result();
+
+
+            /////////////////////////////////
+            $msdb=mssql_connect("219.243.39.69:49151","tc_byjjh_zjk","byjjh_zjk");
+            if (!$msdb) {
+                echo "connect sqlserver error";
+                exit;
+            }
+            mssql_select_db("byjjh_zjk",$msdb);
+            $result = mssql_query("select * from zw_lkgl", $msdb);
+            while($row = mssql_fetch_array($result)) {
+                print_r($row);
+            }
+
+            //////////////////////
+            try {
+                $hostname = "219.243.39.69";
+                $port = 1433;
+                $dbname = "byjjh_zjk";
+                $username = "tc_byjjh_zjk";
+                $pw = "byjjh_zjk";
+                $dbh = new PDO ("dblib:host=$hostname:$port;dbname=$dbname","$username","$pw");
+            } catch (PDOException $e) {
+                echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+                exit;
+            }
+
+            $stmt = $dbh->prepare("select * from zw_lkgl");
+            $stmt->execute();
+            while ($row = $stmt->fetch()) {
+                print_r($row);
+            }
+            unset($dbh); unset($stmt);
+
+
+            @mssql_free_result($result);
             @mssql_close();
 
             echo "ceshi";exit();
