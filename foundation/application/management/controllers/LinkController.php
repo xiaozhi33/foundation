@@ -8,6 +8,7 @@ class Management_linkController extends BaseController
     public function indexAction()
     {
         try{
+            phpinfo();exit;
             $mssql_localhost = '219.243.39.69';
             $mssql_rootname = 'tc_byjjh_zjk';
             $mssql_passwd = 'byjjh_zjk';
