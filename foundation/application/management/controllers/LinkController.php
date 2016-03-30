@@ -8,6 +8,7 @@ class Management_linkController extends BaseController
     public function indexAction()
     {
         try{
+            phpinfo();exit();
             header("Content-type: text/html; charset=utf-8");
             $mssql_localhost = 'egServer70';
             $mssql_rootname = 'tc_byjjh_zjk';
@@ -22,7 +23,7 @@ class Management_linkController extends BaseController
             define("__MSSQL_DBNAME__", $mssql_dbname);
 
             $conn = mssql_connect(__MSSQL_HOST__,__MSSQL_ROOT__,__MSSQL_PASSWD__) or die ("connect failed");
-            $ms_select = mssql_select_db(__MSSQL_DBNAME__, $conn);
+            mssql_select_db(__MSSQL_DBNAME__, $conn);
             //mssql_query('SET NAMES \'UTF8\'');
 
             $query = "select * from zw_lkgl";
@@ -33,8 +34,8 @@ class Management_linkController extends BaseController
                 print_r($list);
                 echo "<br>";
             }
-            mssql_free_result();
-            mssql_close();
+            @mssql_free_result();
+            @mssql_close();
 
             echo "ceshi";exit();
         }catch (Exception $e){
