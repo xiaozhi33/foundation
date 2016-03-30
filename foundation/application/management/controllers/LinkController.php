@@ -8,7 +8,7 @@ class Management_linkController extends BaseController
     public function indexAction()
     {
         try{
-            header("Content-type: text/html; charset=utf-8");
+            /*header("Content-type: text/html; charset=utf-8");
             $mssql_localhost = 'egServer70';
             $mssql_rootname = 'tc_byjjh_zjk';
             $mssql_passwd = 'byjjh_zjk';
@@ -32,7 +32,7 @@ class Management_linkController extends BaseController
             {
                 print_r($list);
                 echo "<br>";
-            }
+            }*/
 
 
             /////////////////////////////////
