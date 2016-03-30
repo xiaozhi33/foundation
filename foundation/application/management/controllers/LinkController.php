@@ -8,7 +8,7 @@ class Management_linkController extends BaseController
     public function indexAction()
     {
         try{
-            $mssql_localhost = '219.243.39.69,1433';
+            $mssql_localhost = '219.243.39.69';
             $mssql_rootname = 'tc_byjjh_zjk';
             $mssql_passwd = 'byjjh_zjk';
             $mssql_dbname = 'byjjh_zjk';
@@ -20,7 +20,7 @@ class Management_linkController extends BaseController
             define("__MSSQL_PASSWD__", $mssql_passwd);
             define("__MSSQL_DBNAME__", $mssql_dbname);
 
-            $conn = mssql_connect(__MSSQL_HOST__,__MSSQL_ROOT__,__MSSQL_PASSWD__) or die ("connect failed");
+            $conn = mssql_connect(__MSSQL_HOST__,__MSSQL_ROOT__,__MSSQL_PASSWD__,__MSSQL_PORT__) or die ("connect failed");
             $ms_select = mssql_select_db(__MSSQL_DBNAME__, $conn);
             //mssql_query('SET NAMES \'UTF8\'');
 
