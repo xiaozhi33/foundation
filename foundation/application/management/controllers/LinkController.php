@@ -8,7 +8,8 @@ class Management_linkController extends BaseController
     public function indexAction()
     {
         try{
-            $mssql_localhost = '219.243.39.69:1433';
+            header("Content-type: text/html; charset=utf-8");
+            $mssql_localhost = 'egServer70';
             $mssql_rootname = 'tc_byjjh_zjk';
             $mssql_passwd = 'byjjh_zjk';
             $mssql_dbname = 'byjjh_zjk';
@@ -32,6 +33,8 @@ class Management_linkController extends BaseController
                 print_r($list);
                 echo "<br>";
             }
+            mssql_free_result();
+            mssql_close();
 
             echo "ceshi";exit();
         }catch (Exception $e){
