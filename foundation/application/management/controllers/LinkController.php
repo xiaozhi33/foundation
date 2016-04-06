@@ -29,13 +29,13 @@ class Management_linkController extends BaseController
             mssql_select_db(__MSSQL_DBNAME__, $conn);
             //mssql_query('SET NAMES \'UTF8\'');
 
-            $query = "select * from zw_lkgl";
+            $query = "select * from zwpzfl";
             $row = mssql_query($query);
 
             while($list=mssql_fetch_array($row))
             {
-                print_r($list);
-                echo "111<br>";
+                var_dump($list);
+                echo "<br>";
             }
 
             mssql_free_result($result);
