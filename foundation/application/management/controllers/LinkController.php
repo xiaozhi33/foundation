@@ -7,7 +7,6 @@ class Management_linkController extends BaseController
     private $dbhelper;
     public function indexAction()
     {
-        phpinfo();exit();
         try{
             header("Content-type: text/html; charset=utf-8");
             $mssql_localhost = '219.243.39.69';
