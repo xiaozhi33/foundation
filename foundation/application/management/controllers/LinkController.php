@@ -21,7 +21,11 @@ class Management_linkController extends BaseController
             define("__MSSQL_PASSWD__", $mssql_passwd);
             define("__MSSQL_DBNAME__", $mssql_dbname);
 
-            $conn = mssql_connect(__MSSQL_HOST__,__MSSQL_ROOT__,__MSSQL_PASSWD__) or die ("connect failed");
+            $conn = @mssql_connect(__MSSQL_HOST__,__MSSQL_ROOT__,__MSSQL_PASSWD__);
+            if (!$conn) {
+                echo "connect sqlserver error";
+                exit;
+            }
             mssql_select_db(__MSSQL_DBNAME__, $conn);
             //mssql_query('SET NAMES \'UTF8\'');
 
