@@ -407,7 +407,8 @@
 			}
 			//$pminfo ->selectLimit = " and cate_id = 1 order by id desc";
 			//$pminfo ->debugSql =true;
-			
+
+            $pminfo ->selectLimit .= " order by id";
 			$pminfo = $pminfo->get($this->dbhelper);
 			//var_dump($pminfo);exit;
 			if (count($pminfo) == 0){
@@ -431,8 +432,8 @@
 			// Add some data
 			$objPHPExcelx->setActiveSheetIndex(0)
 						->setCellValue('A1', '项目名称')
-			            ->setCellValue('B1', '项目日期')
-			            ->setCellValue('C1', '项目金额')
+			            ->setCellValue('B1', '项目进款日期')
+			            ->setCellValue('C1', '项目进款金额')
 			            ->setCellValue('D1', '项目支出日期')
 			            ->setCellValue('E1', '项目支出金额')
 			            ->setCellValue('F1', '奖励人数');
