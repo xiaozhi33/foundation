@@ -21,6 +21,14 @@ class Management_linkController extends BaseController
             define("__MSSQL_PASSWD__", $mssql_passwd);
             define("__MSSQL_DBNAME__", $mssql_dbname);
 
+
+            $hostname = "219.243.39.69:1433"; //MSSQL Server，注意一定要注明1433端口号，否则将无法连接
+            $dbuser = "tc_byjjh_zjk"; //用户名
+            $dbpasswd = "byjjh_zjk"; //密码
+
+            $db_id = mssql_connect($hostname,$dbuser,$dbpasswd) or die("无法连接数据库服务器！");
+            $db = mssql_select_db("byjjh_zjk",$db_id) or die("无法连接数据库！");
+
             $conn = @mssql_connect(__MSSQL_HOST__,__MSSQL_ROOT__,__MSSQL_PASSWD__);
             if (!$conn) {
                 echo "connect sqlserver error";
@@ -37,6 +45,8 @@ class Management_linkController extends BaseController
                 print_r($list);
                 echo "<br>";
             }
+
+            mssql_free_result($result);
 
 
             /////////////////////////////////
