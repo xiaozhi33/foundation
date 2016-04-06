@@ -50,11 +50,10 @@ class Management_linkController extends BaseController
             //////////////////////
             try {
                 $hostname = "219.243.39.69";
-                $port = 1433;
                 $dbname = "byjjh_zjk";
                 $username = "tc_byjjh_zjk";
                 $pw = "byjjh_zjk";
-                $dbh = new PDO ("dblib:host=$hostname:$port;dbname=$dbname","$username","$pw");
+                $dbh = new PDO ("dblib:host=$hostname;dbname=$dbname","$username","$pw");
             } catch (PDOException $e) {
                 echo "Failed to get DB handle: " . $e->getMessage() . "\n";
                 exit;
