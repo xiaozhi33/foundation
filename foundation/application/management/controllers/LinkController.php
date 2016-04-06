@@ -34,8 +34,8 @@ class Management_linkController extends BaseController
 
             while($list=mssql_fetch_array($row))
             {
-                var_dump($list);
-                echo "<br>";
+                //var_dump($list);
+                //echo "<br>";
             }
 
             mssql_free_result($result);
