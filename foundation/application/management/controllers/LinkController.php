@@ -7,6 +7,7 @@ class Management_linkController extends BaseController
     private $dbhelper;
     public function indexAction()
     {
+        phpinfo();exit();
         try{
             header("Content-type: text/html; charset=utf-8");
             $mssql_localhost = '219.243.39.69';
@@ -20,7 +21,6 @@ class Management_linkController extends BaseController
             define("__MSSQL_ROOT__", $mssql_rootname);
             define("__MSSQL_PASSWD__", $mssql_passwd);
             define("__MSSQL_DBNAME__", $mssql_dbname);
-
 
             $hostname = "219.243.39.69:1433"; //MSSQL Server，注意一定要注明1433端口号，否则将无法连接
             $dbuser = "tc_byjjh_zjk"; //用户名
