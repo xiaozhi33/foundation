@@ -26,7 +26,8 @@ date_default_timezone_set('PRC');
 	$controller->setControllerDirectory(array(
 		'default'  =>  'application/default/controllers',
 		'admin'    =>  'application/admin/controllers',      //网站后台管理
-		'management'	=>	'application/management/controllers'	//项目管理系统
+		'management'	=>	'application/management/controllers',	//项目管理系统
+        'management1.0'	=>	'application/management/controllers'	//老系统
 	)); 
 	
     $controller	->throwExceptions(true);  
