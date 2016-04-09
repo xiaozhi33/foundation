@@ -531,7 +531,6 @@
 
 
 		public function _init(){
-            error_reporting(E_ALL|E_STRICT);
 			$this ->dbhelper = new DBHelper();
 			$this ->dbhelper ->connect();
 			SessionUtil::sessionStart();
