@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>资金列表</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目进度管理</li>
+            <li class="active">资金列表</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+
+        	<div class="col-md-12">
+
+                <section class="tile color transparent-black">
+
+                    <div class="tile-body nopadding">
+                        <?php if(count($this->signifo) != 0){?>
+                        <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                            <thead>
+                            <tr style="font-weight: bold;font-size: 14px;color: #ffffff;">
+                                <td width="24%">项目名称</td>
+                                <td width="24%">项目签约日期</td>
+                                <td width="14%">电子协议</td>
+                                <td width="13%">操作</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            foreach($this->signifo as $k=>$v){?>
+                                <tr style="font-size: 14px;color: #ffffff;">
+                                    <td><?php echo $v['pname'];?>&nbsp;</td>
+                                    <td><?php echo $v['sign_time'];?>&nbsp;</td>
+                                    <td><a href="/management/zijin/download?id=<?php echo $v['id'];?>"><?php if($v['sign_files_name'] != ""){echo $v['sign_files_name'];}?>&nbsp;&nbsp; 点击下载</td>
+                                    <td>
+                                        <a href="javascript:void(0);" onclick="alert('系统暂不提供删除协议功能！');">
+                                            <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php }?>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="tile-footer bg-transparent-black-2">
+                        <div class="row" style="margin: 10px 10px 10px 10px;">
+                            <a href="/management/zijin/addsign?id=<?php echo $v['id'];?>">
+                                <button class="btn btn-greensea margin-bottom-20" type="button">继续添加电子版签订协议</button>
+                            </a>
+                            <?php }else{?>
+                                <div class="col-md-12"> 暂无电子协议信息！<a href="/admin/zijin/addsign?id=<?php echo $v['id'];?>">
+                                        <button class="btn btn-greensea margin-bottom-20" type="button">继续添加电子版签订协议</button></a>
+                                </div>
+                            <?php }?>
+                        </div>
+                    </div>
+
+                </section>
+			</div> 
+		</div>
+
+        <script language="javascript">
+            $(".menu li:eq(4)").addClass("open");
+        </script>
+
+
+

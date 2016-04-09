@@ -381,7 +381,54 @@
                 return array();
             }
         }
-		
+
+        /**
+         * 同步旧系统签约内容
+         */
+        public function syncsignAction()
+        {
+            $pm_mg_chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
+            $pm_mg_chouziDAO ->select("id,pm_qianyue_datetime,pm_xieyii_dianziban");
+            $pm_mg_chouziDAO ->selectLimit .= " and pm_qianyue_datetime!='' and pm_xieyii_dianziban !=''";
+            $pm_mg_chouziDAO = $pm_mg_chouziDAO ->get();
+
+            if(!empty($pm_mg_chouziDAO)){
+                foreach($pm_mg_chouziDAO as $key => $value){
+                    $pm_mg_signDAO = $this->orm->createDAO("pm_mg_sign");
+                    $pm_mg_signDAO ->pm_id = $value['id'];
+                    $pm_mg_signDAO ->sign_time = $value['pm_qianyue_datetime'];
+                    $pm_mg_signDAO ->sign_files = $value['pm_xieyii_dianziban'];
+                    $pm_mg_signDAO ->save();
+                }
+            }
+        }
+
+        public function signinfoAction(){
+            (int)$pm_id = HttpUtil::getString("id");
+            $pm_mg_signDAO = $this->getsign($pm_id);
+            $this->view->assign("signifo", $pm_mg_signDAO);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("zijin/signinfo.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        /**
+         * 添加协议
+         */
+        public function addsignAction(){
+            (int)$id = HttpUtil::getString("id");
+            $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
+            $pm_signDAO ->withPm_mg_chouzi(array("pm_id" => "id"));
+            $pm_signDAO ->findId($id);
+            $pm_signDAO = $pm_signDAO ->get();
+            $this->view->assign("signifo", $pm_signDAO);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("zijin/addsign.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
 		/**
 		 * pm_mg_sign 签约
 		 */
@@ -389,8 +436,10 @@
 		{
 			if(!empty($pm_id))
 			{
-				$pm_signDAO = $this->orm->createDAO("pm_mg_sing");
+				$pm_signDAO = $this->orm->createDAO("pm_mg_sign");
+                $pm_signDAO ->withPm_mg_chouzi(array("pm_id" => "id"));
 				$pm_signDAO ->findPm_id($pm_id);
+                $pm_signDAO ->select("pm_mg_sign.id,pm_mg_sign.pm_id,pm_mg_chouzi.pname,pm_mg_sign.sign_time,pm_mg_sign.sign_files,pm_mg_sign.sign_files_name");
 				$pm_signDAO = $pm_signDAO ->get();
 				
 				return $pm_signDAO;
@@ -399,34 +448,86 @@
 			}	
 		}
 		
-		public function editsign()
+		public function savesignAction()
 		{
+            (int)$pm_id = HttpUtil::postString("pm_id");
 			$pm_signDAO = $this->orm->createDAO("pm_mg_sign");
-			if(!empty($id)){
-				$pm_signDAO ->findId($id);
-			}
+            if(empty($pm_id)){
+                echo "<script>alert('非法请求，请查正后再试！');";
+                echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
+                echo "</script>";
+                exit();
+            }
+
+            if($_FILES['sign_files']['name']=="" || HttpUtil::postString("sign_time")=="" ){
+                echo "<script>alert('签约时间和电子协议不能为空！');";
+                echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
+                echo "</script>";
+                exit();
+            }
+/*			if(!empty($id)){
+				$pm_signDAO ->findId($pm_id);
+			}*/
 			$pm_signDAO ->pm_id = $pm_id;
-			$pm_signDAO ->sign_time = $sign_time;
-			
-			if($_FILES['pm_files']['name']!=""){
-				if($_FILES['pm_files']['error'] != 4){
+			$pm_signDAO ->sign_time = HttpUtil::postString("sign_time");
+
+			if($_FILES['sign_files']['name']!=""){
+				if($_FILES['sign_files']['error'] != 4){
 					if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
 						 mkdir(__UPLOADPICPATH__ ."jjh_download/");
 					}
-					$uploadpic = new uploadPic($_FILES['pm_files']['name'],$_FILES['pm_files']['error'],$_FILES['pm_files']['size'],$_FILES['pm_files']['tmp_name'],$_FILES['pm_files']['type'],2);
+					$uploadpic = new uploadPic($_FILES['sign_files']['name'],$_FILES['sign_files']['error'],$_FILES['sign_files']['size'],$_FILES['sign_files']['tmp_name'],$_FILES['sign_files']['type'],2);
 					$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
 					$result = $uploadpic->uploadPic();
-					if($result['error']!=0){					    	
-						alert_back($result['msg']);
+					if($result['error']!=0){
+                        echo "<script>alert('".$result['msg']."');";
+                        echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
+                        echo "</script>";
+                        exit();
 					}else{				             
-						$pm_signDAO->sign_file =  __GETPICPATH__."jjh_download/".$result['picname'];
+						$pm_signDAO->sign_files =  __GETPICPATH__."jjh_download/".$result['picname'];
+                        $pm_signDAO->sign_files_name = $_FILES['sign_files']['name'];
 					}		            	    
 				}
 			}
-			$pm_signDAO = $pm_signDAO ->save();
-				
-			return $pm_signDAO;
+			$pm_signDAO ->save();
+            echo "<script>alert('添加成功！');";
+            echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
+            echo "</script>";
+            exit();
 		}
+
+        // 文件下载
+        public function downloadAction(){
+            if($_GET){
+                (int)$id = HttpUtil::getString('id');
+                $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
+                $pm_signDAO->findId($id);
+                $pm_signDAO = $pm_signDAO->get();
+                if(!empty($pm_signDAO)){
+                    $pm_signDAO[0]['sign_files'] = str_replace("/include/upload_file/", "",$pm_signDAO[0]['sign_files']);
+                    $file =__REPICPATH__.$pm_signDAO[0]['sign_files'];
+
+                    if(file_exists($file)){
+                        ob_end_clean();
+                        header("Content-type: application/octet-stream");
+                        header("Content-Disposition: attachment; filename=" .basename($file)); //以真实文件名提供给浏览器下载
+
+                        readfile($file);    // 打开文件，并输出
+                    }else{
+                        echo "<script>alert('文件不存在！');";
+                        echo "window.location.href='/management/zijin/rate'; ";
+                        echo "</script>";
+                        exit();
+                    }
+                }else{
+                    echo "<script>alert('下载文件出错！');";
+                    echo "window.location.href='/management/zijin/rate'; ";
+                    echo "</script>";
+                    exit();
+                }
+            }
+        }
 
 
 		public function _init(){
