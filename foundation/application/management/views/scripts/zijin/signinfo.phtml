@@ -59,11 +59,11 @@
 
                     <div class="tile-footer bg-transparent-black-2">
                         <div class="row" style="margin: 10px 10px 10px 10px;">
-                            <a href="/management/zijin/addsign?id=<?php echo $v['id'];?>">
+                            <a href="/management/zijin/addsign?id=<?php echo $this->pid;?>">
                                 <button class="btn btn-greensea margin-bottom-20" type="button">继续添加电子版签订协议</button>
                             </a>
                             <?php }else{?>
-                                <div class="col-md-12"> 暂无电子协议信息！<a href="/admin/zijin/addsign?id=<?php echo $v['id'];?>">
+                                <div class="col-md-12"> 暂无电子协议信息！<a href="/management/zijin/addsign?id=<?php echo $this->pid;?>">
                                         <button class="btn btn-greensea margin-bottom-20" type="button">继续添加电子版签订协议</button></a>
                                 </div>
                             <?php }?>

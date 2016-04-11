@@ -406,6 +406,7 @@
         public function signinfoAction(){
             (int)$pm_id = HttpUtil::getString("id");
             $pm_mg_signDAO = $this->getsign($pm_id);
+            $this->view->assign("pid", $pm_id);
             $this->view->assign("signifo", $pm_mg_signDAO);
 
             echo $this->view->render("index/header.phtml");
@@ -418,8 +419,7 @@
          */
         public function addsignAction(){
             (int)$id = HttpUtil::getString("id");
-            $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
-            $pm_signDAO ->withPm_mg_chouzi(array("pm_id" => "id"));
+            $pm_signDAO = $this->orm->createDAO("Pm_mg_chouzi");
             $pm_signDAO ->findId($id);
             $pm_signDAO = $pm_signDAO ->get();
             $this->view->assign("signifo", $pm_signDAO);
