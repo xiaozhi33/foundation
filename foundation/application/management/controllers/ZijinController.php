@@ -418,10 +418,8 @@
          * 添加协议
          */
         public function addsignAction(){
-            ini_set("display_errors", "On");
-            error_reporting(E_ERROR);
             (int)$id = HttpUtil::getString("id");
-            $pm_signDAO = $this->orm->createDAO("Pm_mg_chouzi");
+            $pm_signDAO = $this->orm->createDAO("pm_mg_chouzi");
             $pm_signDAO ->findId($id);
             $pm_signDAO = $pm_signDAO ->get();
             $this->view->assign("signifo", $pm_signDAO);
