@@ -224,7 +224,7 @@ function selectlog($logName=null,$start=null,$end=null){
 		$db=new DBHelper();
 		$db->connect();
 		if($start != "" && $end != ""){
-			$loginfo ->selectLimit = " and logTime>'$start' and logTime<'$end' order by logPid DESC";
+			$loginfo ->selectLimit = " and logTime>'$start' and logTime<'$end' order by logTime DESC";
 		}
 		$loglistinfo = $loginfo ->get($db);
 		return $loglistinfo;
