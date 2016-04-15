@@ -1,0 +1,125 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<link rel="stylesheet" href="/include/management/assets/css/vendor/animate/animate.css">
+<link type="text/css" rel="stylesheet" media="all" href="/include/management/assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/include/management/assets/js/vendor/videobackground/css/jquery.videobackground.css">
+<link rel="stylesheet" href="/include/management/assets/css/vendor/bootstrap-checkbox.css">
+
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote-bs3.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen.min.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen-bootstrap.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/datepicker/css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpicker/css/bootstrap-colorpicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpalette/bootstrap-colorpalette.css">
+<link href="/include/management/assets/css/minimal.css" rel="stylesheet">
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>日志管理</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>日志管理</li>
+            <li class="active">日志明细</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+
+			<div class="col-md-12">
+
+			<section class="tile color transparent-black">
+				<div class="tile-body nopadding">
+				<?php if($this->rs != ""){?>
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                         <thead>
+                          <tr>
+                            <td width="25%">操作内容</td>
+                            <td>明细</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <?php if($this->rs['pm_name'] != ""){ ?>
+                                <tr>
+                                    <td width="25%">项目名称</td>
+                                    <td><?php echo $this->rs['pm_name'];?></td>
+                                </tr>
+                            <?php }?>
+                            <?php if($this->rs['pm_pp'] != ""){ ?>
+                                <tr>
+                                    <td width="25%">项目联系人</td>
+                                    <td><?php echo $this->rs['pm_pp'];?></td>
+                                </tr>
+                            <?php }?>
+                            <?php if($this->rs['pm_juanzeng_jibie'] != ""){ ?>
+                                <tr>
+                                    <td width="25%">捐赠级别</td>
+                                    <td><?php echo $this->rs['pm_juanzeng_jibie'];?></td>
+                                </tr>
+                            <?php }?>
+                            <?php if($this->rs['pm_juanzeng_yongtu'] != ""){ ?>
+                                <tr>
+                                    <td width="25%">捐赠用途</td>
+                                    <td><?php echo $this->rs['pm_juanzeng_yongtu'];?></td>
+                                </tr>
+                            <?php }?>
+                            <?php if($this->rs['zijin_daozhang_datetime'] != ""){ ?>
+                                <tr>
+                                    <td width="25%">资金到帐日期</td>
+                                    <td><?php echo $this->rs['zijin_daozhang_datetime'];?></td>
+                                </tr>
+                            <?php }?>
+                            <?php if($this->rs['zijin_daozheng_jiner'] != ""){ ?>
+                                <tr>
+                                    <td width="25%">资金到帐金额</td>
+                                    <td><?php echo $this->rs['zijin_daozheng_jiner'];?></td>
+                                </tr>
+                            <?php }?>
+                            <?php if($this->rs['zijin_laiyuan_qudao'] != ""){ ?>
+                                <tr>
+                                    <td width="25%">来款渠道</td>
+                                    <td><?php echo $this->rs['zijin_laiyuan_qudao'];?></td>
+                                </tr>
+                            <?php }?>
+                         </tbody>
+					 </table>
+
+                    <?php }?>
+                </div>
+             </section>
+		  </div>
+
+           <!-- <div class="col-md-12"><a style="color:#ffffff;" href="/management/zijin/editzijin?id=<?php /*echo $this->rs['id']*/?>">>>查看更多详情</a></div>-->
+		</div>
+
+		
+		    <script language="javascript">
+                $(".menu li:eq(1)").addClass("open");
+			</script>
+
+
+            <script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+            <script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+            <script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+            <script type="text/javascript" src="/include/management/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+            <script type="text/javascript" src="/include/management/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+            <script type="text/javascript" src="/include/management/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+            <script src="/include/management/assets/js/vendor/summernote/summernote.min.js"></script>
+            <script src="/include/management/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+            <script src="/include/management/assets/js/vendor/momentjs/moment-with-langs.min.js"></script>
+            <script src="/include/management/assets/js/vendor/datepicker/bootstrap-datetimepicker.min.js"></script>
+            <script src="/include/management/assets/js/vendor/colorpicker/bootstrap-colorpicker.min.js"></script>
+            <script src="/include/management/assets/js/vendor/colorpalette/bootstrap-colorpalette.js"></script>
+            <script src="/include/management/assets/js/minimal.min.js"></script>

@@ -47,8 +47,11 @@
 			$loginfo = new my_logDAO($pid);
 			$loginfo = $loginfo ->get($this->dbhelper);
 			
-			$rs = json_decode($loginfo[0]['logMsg']);
-			print_r((array)$rs);
+			$rs = json_decode($loginfo[0]['logMsg'], true);
+            $this->view->assign('rs',$rs);
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("log/slowone.phtml");
+            echo $this->view->render("index/footer.phtml");
 		}
 		
 		public function _init(){
