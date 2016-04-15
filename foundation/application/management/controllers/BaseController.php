@@ -45,6 +45,18 @@
 			
 		    $this->_init();
 	    }
+
+        public function byte_format($size,$dec=2)
+        {
+            $a = array("B", "KB", "MB", "GB", "TB", "PB","EB","ZB","YB");
+            $pos = 0;
+            while ($size >= 1024)
+            {
+                $size /= 1024;
+                $pos++;
+            }
+            return round($size,$dec)." ".$a[$pos];
+        }
 	    
 	    public function _init(){
 	 		

@@ -4,6 +4,16 @@
 		private $dbhelper;
 		public function indexAction(){
 			SessionUtil::checkmanagement();
+            $free_df = disk_free_space("/");
+            $total_df = disk_total_space("/");
+            $free_df = $this->byte_format($free_df);
+            $total_df = $this->byte_format($total_df);
+
+            $this->view->assign("free_df",disk_free_space("/"));
+            $this->view->assign("free",$free_df);
+            $this->view->assign("total_df",disk_total_space("/"));
+            $this->view->assign("total",$total_df);
+
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render('index/index.phtml');
 			echo $this->view->render("index/footer.phtml");
