@@ -48,6 +48,16 @@
                             <span class="col-sm-1" > * </span>
                         </div>
 
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">会议文档：</label>
+                            <div class="col-sm-4">
+                                <input name="meeting_files" type="file" value="" />
+                                <a href="/management/meeting/download?id=<?php echo $this->meeting_info[0]['id'];?>">
+                                    <?php echo $this->meeting_info[0]['meeting_files_name'];?>
+                                </a>
+                            </div>
+                            <span class="col-sm-2" > * 重新上传将覆盖老文件</span>
+                        </div>
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input06">会议开始时间：</label>

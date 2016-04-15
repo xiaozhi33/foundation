@@ -43,7 +43,7 @@
 			return $isadmin;
 		}
 		
-		public function nodelAction(){
+		public function delAction(){
 			if($_REQUEST['id'] != ""){
 				$adminlist = new my_adminDAO($_REQUEST['id']);
 				$adminlist->del($this->dbhelper);

@@ -34,10 +34,37 @@
 			$meeting_end_time = HttpUtil::postString("meeting_end_time");
 			$meeting_address = HttpUtil::postString("meeting_address");
 
-            if($meeting_name == "" || $meeting_cate == "" || $meeting_joiner == "" || $meeting_content == ""){
-                alert_back("您输入的信息不完整，请查正后继续添加！！！！！");
-            }
             $meetingDAO = $this->orm->createDAO('jjh_meeting');
+
+            if($meeting_name == "" || $meeting_cate == "" || $meeting_joiner == "" || $meeting_content == ""){
+                //alert_back("您输入的信息不完整，请查正后继续添加！！！！！");
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('您输入的信息不完整，请查正后继续添加！！！！！');");
+                echo('history.back();');
+                echo('</script>');
+                exit;
+            }
+
+            if($_FILES['meeting_files']['name']!=""){
+                if($_FILES['meeting_files']['error'] != 4){
+                    if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+                        mkdir(__UPLOADPICPATH__ ."jjh_download/");
+                    }
+                    $uploadpic = new uploadPic($_FILES['meeting_files']['name'],$_FILES['meeting_files']['error'],$_FILES['meeting_files']['size'],$_FILES['meeting_files']['tmp_name'],$_FILES['meeting_files']['type'],2);
+                    $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+                    $result = $uploadpic->uploadPic();
+                    if($result['error']!=0){
+                        echo "<script>alert('".$result['msg']."');";
+                        echo "window.location.href='/management/meeting";
+                        echo "</script>";
+                        exit();
+                    }else{
+                        $meetingDAO->meeting_files =  __GETPICPATH__."jjh_download/".$result['picname'];
+                        $meetingDAO->meeting_files_name = $_FILES['meeting_files']['name'];
+                    }
+                }
+            }
             if(!empty($id))  //修改流程
             {
                 $meetingDAO ->findId($id);
@@ -52,11 +79,25 @@
                 $meetingDAO ->meeting_address = $meeting_address;
                 $meetingDAO ->save();
             }catch (Exception $e){
-                alert_back("保存失败！");
+                /*alert_back("保存失败！");
+                exit;*/
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('保存失败！！！！！');");
+                echo('history.back();');
+                echo('</script>');
                 exit;
             }
-            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/meeting/'));
+
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('保存成功');");
+            echo("location.href='/management/meeting';");
+            echo('</script>');
             exit;
+
+            /*echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/meeting/'));
+            exit;*/
         }
 		
 		public function editAction(){
@@ -88,7 +129,47 @@
             $meetingDAO = $this->orm->createDAO('jjh_meeting');
 			$meetingDAO ->findId($id);
 			$meetingDAO = $meetingDAO ->delete();
-		}
+
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('删除成功');");
+            echo("location.href='/management/meeting';");
+            echo('</script>');
+            exit;
+
+        }
+
+        // 文件下载
+        public function downloadAction(){
+            if($_GET){
+                (int)$id = HttpUtil::getString('id');
+                $jjh_meetingDAO = $this->orm->createDAO("jjh_meeting");
+                $jjh_meetingDAO->findId($id);
+                $jjh_meetingDAO = $jjh_meetingDAO->get();
+                if(!empty($jjh_meetingDAO)){
+                    $jjh_meetingDAO[0]['meeting_files'] = str_replace("/include/upload_file/", "",$jjh_meetingDAO[0]['meeting_files']);
+                    $file =__REPICPATH__.$jjh_meetingDAO[0]['meeting_files'];
+
+                    if(file_exists($file)){
+                        ob_end_clean();
+                        header("Content-type: application/octet-stream");
+                        header("Content-Disposition: attachment; filename=" .basename($file)); //以真实文件名提供给浏览器下载
+
+                        readfile($file);    // 打开文件，并输出
+                    }else{
+                        echo "<script>alert('文件不存在！');";
+                        echo "window.location.href='/management/meeting'; ";
+                        echo "</script>";
+                        exit();
+                    }
+                }else{
+                    echo "<script>alert('下载文件出错！');";
+                    echo "window.location.href='/management/meeting'; ";
+                    echo "</script>";
+                    exit();
+                }
+            }
+        }
 		
 		public function addConnectorAction(){
             $meetingDAO = $this->orm->createDAO('jjh_meeting')->order('id DESC');
