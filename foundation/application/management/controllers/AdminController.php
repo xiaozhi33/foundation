@@ -47,9 +47,19 @@
 			if($_REQUEST['id'] != ""){
 				$adminlist = new my_adminDAO($_REQUEST['id']);
 				$adminlist->del($this->dbhelper);
-				alert_go("删除成功。","/management/admin");
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('删除成功');");
+                echo("location.href='/management/admin';");
+                echo('</script>');
+                exit;
 			}else{
-				alert_back("删除失败");
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('删除失败');");
+                echo("location.href='/management/admin';");
+                echo('</script>');
+                exit;
 			}
 		}
 		
