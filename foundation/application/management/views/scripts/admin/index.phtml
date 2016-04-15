@@ -52,7 +52,7 @@
 							<td>
                             <a href="/management/admin/edit?id=<?php echo $v['id'];?>"> 
                             <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
-                             <a href="/management/admin/del?id=<?php echo $v['id'];?>"><button type="button" class="btn btn-danger margin-bottom-20">删除</button></a></td>
+                             <a onclick="if(confirm('是否要删除管理员，如删除将无法找回！') == false){return false;}" href="/management/admin/del?id=<?php echo $v['id'];?>"><button type="button" class="btn btn-danger margin-bottom-20">删除</button></a></td>
 						 </tr>
 					   <?php }?>
 					</table>
