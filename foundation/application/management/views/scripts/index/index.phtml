@@ -209,12 +209,12 @@
                               <div class="panel panel-<?php echo $colorarray[$k]?>">
                                   <div class="panel-heading">
                                       <h4 class="panel-title">
-                                          <a data-toggle="collapse" href="#multicollapse<?php echo $colorarray[$k]?>" class="collapsed">
+                                          <a data-toggle="collapse" href="#multicollapse<?php echo $v;?>" class="collapsed">
                                               <strong><?php echo $v['title'];?></strong>
                                           </a>
                                       </h4>
                                   </div>
-                                  <div id="multicollapse<?php echo $colorarray[$k]?>" class="panel-collapse collapse" style="height: 0px;">
+                                  <div id="multicollapse<?php echo $v;?>" class="panel-collapse collapse" style="height: 0px;">
                                       <div class="panel-body">
                                           <div>开始时间：<?php echo $v['start_time'];?> - 结束时间：<?php echo $this->tixing[0]['end_time'];?></div>
                                           <div>报送部门：<?php echo $v['department'];?></div>
