@@ -4,6 +4,8 @@
 		private $dbhelper;
 		public function indexAction(){
 			SessionUtil::checkmanagement();
+
+            // 系统信息 - 磁盘占用空间数
             $free_df = disk_free_space("/");
             $total_df = disk_total_space("/");
             $free_df = $this->byte_format($free_df);
@@ -13,6 +15,34 @@
             $this->view->assign("free",$free_df);
             $this->view->assign("total_df",disk_total_space("/"));
             $this->view->assign("total",$total_df);
+
+            // 项目进度
+            $name = HttpUtil::postString("pname");
+            $rate = HttpUtil::postString("pm_rate");
+
+            $chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
+            $chouziDAO ->withPm_mg_rate(array("id" => "pm_id"));
+            $like_sql = "";
+            if($name != "")
+            {
+                $like_sql .= " AND pm_mg_chouzi.pname like '%".$name."%'";
+            }
+            if($rate != "")
+            {
+                $like_sql .= " AND pm_mg_rate.pm_rate like '%".$rate."%'";
+            }
+            $like_sql .= " order by id desc";
+            $chouziDAO->selectLimit = $like_sql;
+            $chouziDAO = $chouziDAO ->get();
+
+            $total = count($chouziDAO);
+            $pageDAO = new pageDAO();
+            $pageDAO = $pageDAO->pageHelper($chouziDAO, null, "/management/index/index", null, 'get', 7, 5);
+            $pages = $pageDAO['pageLink']['all'];
+            $pages = str_replace("/index.php", "", $pages);
+            $this->view->assign('chouzilist', $pageDAO['pageData']);
+            $this->view->assign('page', $pages);
+            $this->view->assign('total', $total);
 
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render('index/index.phtml');

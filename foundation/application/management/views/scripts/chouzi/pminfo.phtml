@@ -1,0 +1,176 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<link rel="stylesheet" href="/include/management/assets/css/vendor/animate/animate.css">
+<link type="text/css" rel="stylesheet" media="all" href="/include/management/assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/include/management/assets/js/vendor/videobackground/css/jquery.videobackground.css">
+<link rel="stylesheet" href="/include/management/assets/css/vendor/bootstrap-checkbox.css">
+
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote-bs3.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen.min.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen-bootstrap.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/datepicker/css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpicker/css/bootstrap-colorpicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpalette/bootstrap-colorpalette.css">
+<link href="/include/management/assets/css/minimal.css" rel="stylesheet">
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>筹资列表</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目筹资管理</li>
+            <li class="active">项目详情</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+
+			<div class="col-md-8">
+
+			    <section class="tile color transparent-black">
+				<div class="tile-body nopadding">
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					 <thead>
+                          <tr>
+                              <td width="30%">项目基本信息</td>
+                          </tr>
+					</thead>
+                    <tbody>
+                        <tr>
+                            <td width="30%">项目名称</td>
+                            <td width="70%"><?php echo $this->chouzi[0]['pname'];?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目编号</td>
+                            <td width="70%"><?php echo $this->chouzi[0]['pid'];?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">所属项目</td>
+                            <td width="70%">
+                                <?php if($this->chouzi_lists != ""){
+                                    foreach ($this->chouzi_lists as $k => $v){?>
+                                        <?php if($v['id'] ==$this->chouzi[0]['parent_pm_id']) echo $v['pname'];?>
+                                    <?php }}?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">所属部门</td>
+                            <td width="70%">
+                                <?php if($this->departmentlist != ""){
+                                    foreach ($this->departmentlist as $k => $v){?>
+                                         <?php if($this->chouzi[0]['department'] == $v['id']){echo $v['pname'];}?>
+                                    <?php }}?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目分类</td>
+                            <td width="70%">
+                                <?php if($this->pcatelist != ""){
+                                    foreach ($this->pcatelist as $k => $v){?>
+                                        <?php if($this->chouzi[0]['cate'] == $v['id']){echo $v['catename'];}?>
+                                    <?php }}?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">宣传推动期</td>
+                            <td width="70%"><?php echo $this->chouzi[0]['pm_tuidongqi']?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目孵化期</td>
+                            <td width="70%"><?php echo $this->chouzi[0]['pm_fuhuaqi']?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目反馈日期</td>
+                            <td width="70%"><?php echo $this->chouzi[0]['pm_fankui_datetime'];?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目起始日期</td>
+                            <td width="70%"><?php echo $this->chouzi[0]['pm_qishi_datetime'];?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目限期</td>
+                            <td width="70%"><?php echo $this->chouzi[0]['pm_qixian'];?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目截止日期</td>
+                            <td width="70%"><?php echo $this->chouzi[0]['pm_jiezhi_datetime'];?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">协议捐赠金额</td>
+                            <td width="70%"><?php echo $this->chouzi[0]['pm_xieyi_juanzeng_jiner'];?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">留本基金</td>
+                            <td width="70%"><?php if($this->chouzi[0]['pm_liuben'] == 1){echo "是";}else{echo "否";}?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">备注</td>
+                            <td width="70%"></td>
+                        </tr>
+
+                    </tbody>
+					</table>
+					</div>
+				 </section>
+            </div>
+            <div class="col-md-4">
+                <!--<section class="tile color transparent-white">
+                    <h5 class="text-left"><strong>Donut</strong> chart</h5>
+                    <div id="donut-example" style="height: 250px;">
+                        <svg height="250" version="1.1" width="378" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative; left: -0.25px;">
+                            <desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc>
+                            <defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs>
+                            <path fill="none" stroke="#00a3d8" d="M189,201.66666666666669A76.66666666666667,76.66666666666667,0,0,0,261.59407492337823,149.65518330486972" stroke-width="2" opacity="0" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"></path>
+                            <path fill="#00a3d8" stroke="#ffffff" d="M189,204.66666666666669A79.66666666666667,79.66666666666667,0,0,0,264.4347126377713,150.61995134723418L293.15671619441224,160.37482822003045A110,110,0,0,1,189,235Z" stroke-width="3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                            <path fill="none" stroke="#2fbbe8" d="M261.59407492337823,149.65518330486972A76.66666666666667,76.66666666666667,0,0,0,120.24672005251156,91.0770833470932" stroke-width="2" opacity="0" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"></path>
+                            <path fill="#2fbbe8" stroke="#ffffff" d="M264.4347126377713,150.61995134723418A79.66666666666667,79.66666666666667,0,0,0,117.55637431543593,89.74966486937075L90.35398964056007,76.32798915017719A110,110,0,0,1,293.15671619441224,160.37482822003045Z" stroke-width="3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                            <path fill="none" stroke="#72cae7" d="M120.24672005251156,91.0770833470932A76.66666666666667,76.66666666666667,0,0,0,188.97591445671867,201.66666288331834" stroke-width="2" opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1;"></path>
+                            <path fill="#72cae7" stroke="#ffffff" d="M117.55637431543593,89.74966486937075A79.66666666666667,79.66666666666667,0,0,0,188.9749719789381,204.6666627352743L188.96387168507803,239.99999432497754A115,115,0,0,1,85.87008007876736,74.11562502063978Z" stroke-width="3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                            <text x="189" y="115" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: 800; font-stretch: normal; font-size: 15px; line-height: normal; font-family: Arial;" font-size="15px" font-weight="800" transform="matrix(1.0222,0,0,1.0222,-4.2,-2.8)" stroke-width="0.9782608695652175"><tspan dy="6" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Mail-Order Sales</tspan></text>
+                            <text x="189" y="135" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 14px; line-height: normal; font-family: Arial;" font-size="14px" transform="matrix(1.5972,0,0,1.5972,-112.875,-75.8472)" stroke-width="0.6260869565217391"><tspan dy="5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">20</tspan></text>
+                        </svg>
+                </div>
+                </section>-->
+
+
+                <section class="tile color transparent-white">
+                    <div align="center">
+                    <h5 class="text-left" ><strong>&nbsp;项目归档二维码</strong> </h5>
+
+                    <div id="donut-example" style="height: 250px;" >
+                        <img src="/include/upload_file/pmqrcode/<?php echo $this->chouzi[0]['id'];?>.png" alt=""/>
+                    </div>
+                    </div>
+                </section>
+		</div>
+
+        <script language="javascript">
+            $(".menu li:eq(1)").addClass("open");
+        </script>
+

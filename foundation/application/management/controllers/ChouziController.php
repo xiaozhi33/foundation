@@ -387,7 +387,7 @@
          */
 		public function edigppompanyAction()
 		{
-			$id = HttpUtil::postString("id");
+            (int)$id = HttpUtil::postString("id");
 			$company_name = HttpUtil::postString("company_name");
             $company_contector = HttpUtil::postString("company_contector");
             $company_cont_style = HttpUtil::postString("company_cont_style");
@@ -408,6 +408,39 @@
 			$jjh_mg_pp_companyDAO ->findId($id);
 			$jjh_mg_pp_companyDAO ->delete();
 		}
+
+        /**
+         * 项目详情
+         */
+        public function pminfoAction(){
+            (int)$pid = HttpUtil::getString("id");
+            if(!empty($pid)){
+                $pm_mg_chouziDAO = $this->orm->createDAO('pm_mg_chouzi');
+                $pm_mg_chouziDAO ->findId($pid);
+                $pm_mg_chouziDAO = $pm_mg_chouziDAO ->get();
+
+                //生产二维码
+                if(!file_exists(__UPLOADPICPATH__ . '/pmqrcode/')) {
+                    mkdir(__UPLOADPICPATH__ . '/pmqrcode/' ,0777);
+                }
+                if(!file_exists(__BASEURL__ ."/include/upload_file/pmqrcode/".$pid.".png")){
+                    require_once 'phpqrcode/qrlib.php';
+                    QRcode::png(__BASEURL__ ."/management/chouzi/pminfo?id=".$pid , __UPLOADPICPATH__ . '/pmqrcode/' . $pid .".png", 'H', 5, 2);
+                }
+
+                $this->view->assign("chouzi", $pm_mg_chouziDAO);
+                echo $this->view->render("index/header.phtml");
+                echo $this->view->render("chouzi/pminfo.phtml");
+                echo $this->view->render("index/footer.phtml");
+            }else {
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('该项目不存在！');");
+                echo('history.back();');
+                echo('</script>');
+                exit;
+            }
+        }
 
         //==============================================================================
 

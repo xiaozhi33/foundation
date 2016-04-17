@@ -119,7 +119,7 @@
 					  <?php 
 						foreach($this->chouzilist as $k=>$v){?>
 						 <tr>
-						 	<td><?php echo $v['pname'];?>&nbsp;</td>
+						 	<td><a href="/management/chouzi/pminfo?id=<?php echo $v['id'];?>" target="_blank"><?php echo $v['pname'];?></a>&nbsp;</td>
 							<!--<td><?php  foreach ($this->departmentlist as $kk => $vv){
 								if($vv['id'] == $v['department']){ echo $vv['pname'];}
 								}?>&nbsp;</td>

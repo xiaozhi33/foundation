@@ -163,15 +163,90 @@
 
             </div>
             <!-- /cards -->
-            
-            
-
-
             <!-- row -->
             <div class="row">
-
               <!-- col 8 -->
               <div class="col-lg-8 col-md-12">
+                  <!-- tile -->
+                  <section class="tile color transparent-black">
+                      <!-- tile header -->
+                      <div class="tile-header">
+                          <h1><strong>Projects  Progress</strong> 项目进程</h1>
+                          <!--<div class="search">
+                              <input type="text" placeholder="Search...">
+                          </div>-->
+                          <div class="controls">
+                              <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                              <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                          </div>
+                      </div>
+                      <!-- /tile header -->
+
+                      <!-- tile body -->
+                      <div class="tile-body no-vpadding">
+                          <div class="table-responsive">
+                              <table class="table table-custom table-sortable nomargin">
+                                  <thead>
+                                  <tr>
+                                      <th class="">项目编号</th>
+                                      <th class="">项目名称</th>
+                                      <th class="">项目状态</th>
+                                      <th class="">项目进度</th>
+                                      <th class="">操作</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                      <?php foreach($this->chouzilist as $key => $value){ $nn = 0;?>
+                                      <tr>
+                                          <td><?php echo $value['id'];?></td>
+                                          <td><?php echo $value['pname'];?></td>
+                                          <td class="priority">
+                                              <?php if($value['pm_rate'] == ""){?>
+                                              ---
+                                              <?php }if(preg_match("/1/", $value['pm_rate'])){ $nn += 10;?>
+                                              洽谈中&nbsp;
+                                              <?php }if(preg_match("/2/", $value['pm_rate'])){ $nn += 40;?>
+                                              已签订&nbsp;
+                                              <?php }if(preg_match("/3/", $value['pm_rate'])){ $nn += 60;?>
+                                              已到帐&nbsp;
+                                              <?php }?>
+                                          </td>
+                                          </td>
+                                          <td class="progress-cell">
+                                              <div class="progress-info">
+                                                  <div class="percent"><span class="animate-number" data-value="<?php echo $nn?>" data-animation-duration="1500">0</span>%</div>
+                                              </div>
+                                              <div class="progress progress-little">
+                                                  <div class="progress-bar progress-bar-transparent-white animate-progress-bar" data-percentage="<?php echo $nn?>%"></div>
+                                              </div>
+                                          </td>
+                                          <td class="progress-cell">
+                                                <a href="/management/chouzi/pminfo?id=<?php echo $value['id'];?>" target="_blank">>>查看基本信息</a>
+                                          </td>
+                                      </tr>
+                                      <?php }?>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                      <!-- /tile body -->
+
+                      <!-- tile footer -->
+                      <div class="tile-footer text-center">
+                            <ul class="pagination pagination-sm nomargin pagination-custom">
+                                <?php
+                                    $this->page = str_replace("<a","<li><a",$this->page);
+                                    $this->page = str_replace("/a>","/a></li>",$this->page);
+                                    $this->page = str_replace('<span class="current">',"<li class='active'><a href='#'>",$this->page);
+                                    $this->page = str_replace('</span>',"</a></li>",$this->page);
+                                    echo $this->page;
+                                ?>
+                            </ul>
+                      </div>
+                      <!-- /tile footer -->
+
+                  </section>
+                  <!-- /tile -->
 
                 <!-- tile -->
                 <section class="tile transparent">
@@ -194,7 +269,7 @@
 
 
                   <!-- tile body -->
-                  <div class="tile-body color transparent-white rounded-bottom-corners">
+                  <!--<div class="tile-body color transparent-white rounded-bottom-corners">
                     <div class="row">
                       <ul class="inline">
 
@@ -294,178 +369,17 @@
                         </li>
                       </ul>
                     </div>
-                  </div>
-                  <!-- /tile body -->
-
-
-
-                </section>
-                <!-- /tile -->
-
-
-
-                <!-- tile -->
-                <section class="tile color transparent-black">
-
-
-
-
-                  <!-- tile header -->
-                  <!--<div class="tile-header">
-                    <h1><strong>Projects  Progress</strong> 项目进程</h1>
-                    <div class="search">
-                      <input type="text" placeholder="Search...">
-                    </div>
-                    <div class="controls">
-                      <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
-                      <a href="#" class="remove"><i class="fa fa-times"></i></a>
-                    </div>
-                  </div>-->
-                  <!-- /tile header -->
-
-
-                  <!-- tile body -->
-                  <!--<div class="tile-body no-vpadding">
-                    <div class="table-responsive">
-                      <table class="table table-custom table-sortable nomargin">
-                        <thead>
-                          <tr>
-                            <th class="sortable sort-numeric sort-asc">ID</th>
-                            <th class="sortable sort-alpha">Project</th>
-                            <th class="sortable">Priority</th>
-                            <th class="sortable sort-amount">Status</th>
-                            <th class="text-right">Chart</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Graphic Layout for client</td>
-                            <td class="color-red priority">High priority</td>
-                            <td class="progress-cell">
-                              <div class="progress-info">
-                                <div class="percent"><span class="animate-number" data-value="50" data-animation-duration="1500">0</span>%</div>
-                              </div>
-                              <div class="progress progress-little">
-                                <div class="progress-bar progress-bar-transparent-white animate-progress-bar" data-percentage="50%"></div>
-                              </div>
-                            </td>
-                            <td class="text-right"><span id="projectbar1">87,85,42,90,70,55,82,68</span></td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>Make website responsive</td>
-                            <td class="color-green priority">Low priority</td>
-                            <td class="progress-cell">
-                              <div class="progress-info">
-                                <div class="percent"><span class="animate-number" data-value="13" data-animation-duration="1500">0</span>%</div>
-                              </div>
-                              <div class="progress progress-little">
-                                <div class="progress-bar progress-bar-transparent-white animate-progress-bar" data-percentage="13%"></div>
-                              </div>
-                            </td>
-                            <td class="text-right"><span id="projectbar2">87,99,52,93,42,86,51,93</span></td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>Clean css/html/js code</td>
-                            <td class="color-red priority">High priority</td>
-                            <td class="progress-cell">
-                              <div class="progress-info">
-                                <div class="percent"><span class="animate-number" data-value="76" data-animation-duration="1500">0</span>%</div>
-                              </div>
-                              <div class="progress progress-little">
-                                <div class="progress-bar progress-bar-transparent-white animate-progress-bar" data-percentage="76%"></div>
-                              </div>
-                            </td>
-                            <td class="text-right"><span id="projectbar3">74,77,82,91,69,63,46,42</span></td>
-                          </tr>
-                          <tr>
-                            <td>4</td>
-                            <td>Database Optimization</td>
-                            <td class="color-orange priority">Normal priority</td>
-                            <td class="progress-cell">
-                              <div class="progress-info">
-                                <div class="percent"><span class="animate-number" data-value="38" data-animation-duration="1500">0</span>%</div>
-                              </div>
-                              <div class="progress progress-little">
-                                <div class="progress-bar progress-bar-transparent-white animate-progress-bar" data-percentage="38%"></div>
-                              </div>
-                            </td>
-                            <td class="text-right"><span id="projectbar4">52,45,76,74,77,57,65,86</span></td>
-                          </tr>
-                          <tr>
-                            <td>5</td>
-                            <td>Database Migration</td>
-                            <td class="color-green priority">Low priority</td>
-                            <td class="progress-cell">
-                              <div class="progress-info">
-                                <div class="percent"><span class="animate-number" data-value="9" data-animation-duration="1500">0</span>%</div>
-                              </div>
-                              <div class="progress progress-little">
-                                <div class="progress-bar progress-bar-transparent-white animate-progress-bar" data-percentage="9%"></div>
-                              </div>
-                            </td>
-                            <td class="text-right"><span id="projectbar5">53,70,47,96,62,49,69,55</span></td>
-                          </tr>
-                          <tr>
-                            <td>6</td>
-                            <td>Email server backup</td>
-                            <td class="color-orange priority">Normal priority</td>
-                            <td class="progress-cell">
-                              <div class="progress-info">
-                                <div class="percent"><span class="animate-number" data-value="29" data-animation-duration="1500">0</span>%</div>
-                              </div>
-                              <div class="progress progress-little">
-                                <div class="progress-bar progress-bar-transparent-white animate-progress-bar" data-percentage="29%"></div>
-                              </div>
-                            </td>
-                            <td class="text-right"><span id="projectbar6">69,80,85,96,67,58,75,82</span></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
                   </div>-->
                   <!-- /tile body -->
-
-
-                  <!-- tile footer -->
-                  <!--<div class="tile-footer text-center">
-                    <ul class="pagination pagination-sm nomargin pagination-custom">
-                      <li class="disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                      <li class="active"><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                      <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                    </ul>
-                  </div>-->
-                  <!-- /tile footer -->
-
-
-
                 </section>
                 <!-- /tile -->
-
 
               </div>
               <!-- /col 8 -->
-
-
-
               <!-- col 4 -->
               <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                
-
-
-
                 <!-- tile -->
                 <section class="tile color transparent-black textured">
-
-
-
-
                   <!-- tile header -->
                   <div class="tile-header">
                     <h1><strong>Server</strong> 系统信息</h1>

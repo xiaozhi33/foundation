@@ -544,7 +544,12 @@
 					$this->view->assign("shiyongqingkuang",$pminfo);*/					
 					echo $this->view->render("report/report_form.phtml");
 				}else {
-					alert_back("请输入查询条件");
+                    echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                    echo('<script language="JavaScript">');
+                    echo("alert('请输入查询条件');");
+                    echo('history.back();');
+                    echo('</script>');
+                    exit;
 				}
 			}
 		}

@@ -1,18 +1,3 @@
-<link rel="stylesheet" href="/include/management/datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
-<link rel="stylesheet" href="/include/management/datepicker/ui.datepicker.css" type="text/css"  /> 
-<!--<script src="/include/management/datepicker/jquery.js"></script>-->
-
-<link rel="stylesheet" href="/include/management/jiansuo/base/jquery.ui.all.css">
-<script src="/include/management/jiansuo/jquery-1.6.2.js"></script>
-<script src="/include/management/jiansuo/ui/jquery.ui.core.js"></script>
-<script src="/include/management/jiansuo/ui/jquery.ui.widget.js"></script>
-<script src="/include/management/jiansuo/ui/jquery.ui.button.js"></script>
-<script src="/include/management/jiansuo/ui/jquery.ui.position.js"></script>
-<script src="/include/management/jiansuo/ui/jquery.ui.autocomplete.js"></script>
-
-<script src="/include/management/jiansuo/ui/jquery.ui.datepicker.js"></script>
-<!--<script src="/include/management/datepicker/ui.datepicker.js"></script>-->
-
 <style>
 	.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text{
 		padding:0em;
@@ -25,116 +10,7 @@
 	}
 
 </style>
-<script>
-	(function( $ ) {
-		$.widget( "ui.combobox", {
-			_create: function() {
-				var self = this,
-					select = this.element.hide(),
-					selected = select.children( ":selected" ),
-					value = selected.val() ? selected.text() : "";
-				var input = this.input = $( "<input>" )
-					.insertAfter( select )
-					.val( value )
-					.autocomplete({
-						delay: 0,
-						minLength: 0,
-						source: function( request, response ) {
-							var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
-							response( select.children( "option" ).map(function() {
-								var text = $( this ).text();
-								if ( this.value && ( !request.term || matcher.test(text) ) )
-									return {
-										label: text.replace(
-											new RegExp(
-												"(?![^&;]+;)(?!<[^<>]*)(" +
-												$.ui.autocomplete.escapeRegex(request.term) +
-												")(?![^<>]*>)(?![^&;]+;)", "gi"
-											), "<strong style='color:red'>$1</strong>" ),
-										value: text,
-										option: this
-									};
-							}) );
-						},
-						select: function( event, ui ) {
-							ui.item.option.selected = true;
-							self._trigger( "selected", event, {
-								item: ui.item.option
-							});
-						},
-						change: function( event, ui ) {
-							if ( !ui.item ) {
-								var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
-									valid = false;
-								select.children( "option" ).each(function() {
-									if ( $( this ).text().match( matcher ) ) {
-										this.selected = valid = true;
-										return false;
-									}
-								});
-								if ( !valid ) {
-									// remove invalid value, as it didn't match anything
-									$( this ).val( "" );
-									select.val( "" );
-									input.data( "autocomplete" ).term = "";
-									return false;
-								}
-							}
-						}
-					})
-					.addClass( "ui-widget ui-widget-content ui-corner-left" );
 
-				input.data( "autocomplete" )._renderItem = function( ul, item ) {
-					return $( "<li></li>" )
-						.data( "item.autocomplete", item )
-						.append( "<a>" + item.label + "</a>" )
-						.appendTo( ul );
-				};
-
-				this.button = $( "<button type='button'>&nbsp;</button>" )
-					.attr( "tabIndex", -1 )
-					.attr( "title", "Show All Items" )
-					.insertAfter( input )
-					.button({
-						icons: {
-							primary: "ui-icon-triangle-1-s"
-						},
-						text: false
-					})
-					.removeClass( "ui-corner-all" )
-					.addClass( "ui-corner-right ui-button-icon" )
-					.click(function() {
-						// close if already visible
-						if ( input.autocomplete( "widget" ).is( ":visible" ) ) {
-							input.autocomplete( "close" );
-							return;
-						}
-
-						// work around a bug (likely same cause as #5265)
-						$( this ).blur();
-
-						// pass empty string as value to search for, displaying all results
-						input.autocomplete( "search", "" );
-						input.focus();
-					});
-			},
-
-			destroy: function() {
-				this.input.remove();
-				this.button.remove();
-				this.element.show();
-				$.Widget.prototype.destroy.call( this );
-			}
-		});
-	})( jQuery );
-
-	$(function() {
-		$( "#combobox" ).combobox();
-		$( "#toggle" ).click(function() {
-			$( "#combobox" ).toggle();
-		});
-	});
-	</script>
  <!-- page header -->
     <div class="pageheader">
 
@@ -155,102 +31,63 @@
 		<div id="rightstyle02" class="row">
        	 <div class="col-md-6">
         	<section class="tile color transparent-black">
-			<div class="detailedbox tile-body">
-			<form class="form-horizontal" action="/management/report/reportinfo" method="post" target="_blank">
-                <div class="form-group">	
-					<label class="col-sm-4" for="input01">根据项目统计项目收支明细</label>
+                <div class="detailedbox tile-body">
+                    <form class="form-horizontal" action="/management/report/reportinfo" name="search_form" method="post" target="_blank">
+                        <div class="form-group">
+                            <label class="col-sm-4" for="input01">根据项目统计项目收支明细</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">项目名称:</label>
+                            <div class="col-sm-8">
+                                <select class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                    <option value="1">请选择项目名称</option>
+                                    <?php if($this->pmlist != ""){
+                                        foreach ($this->pmlist as $k => $v){
+                                            ?>
+                                            <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                        <?php }}?>
+                                </select>
+                                <input id="pname_info" type="hidden" name="pname" value=""/>
+                             </div>
+                            <span class="col-sm-1" > * </span>
+
+                        </div>
+                        <div class="form-group">
+                         <div class="col-md-offset-2 col-sm-2">
+
+                            <input type="submit" class="btn btn-greensea" value="查看报表"/></div></div>
+                        <input type="hidden" name="style" value="style1"/>
+                    </form>
                 </div>
-                <div class="form-group">				
-                    <label class="col-sm-2 control-label" for="input01">项目名称:</label>
-                    <div class="col-sm-8">
-                    <select class="form-control" name="pname" id="combobox">
-                                            <?php if($this->pmlist != ""){
-                                                    foreach ($this->pmlist as $k => $v){
-                                                ?>
-                                                <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
-                                            <?php }}?>
-                    </select>
-                     </div>
-                    <span class="col-sm-1" > * </span>
-                    
-                </div> 
-                <div class="form-group"> 
-                 <div class="col-md-offset-2 col-sm-2">
-                   
-                    <input type="submit" class="btn btn-greensea" value="查看报表"/></div></div>    
-				<input type="hidden" name="style" value="style1"/>					
-		</form>
-        </div></section>
+            </section>
         </div>
         <div class="col-md-6">
         	<section class="tile color transparent-black">
-			<div class="detailedbox tile-body">
-			<form class="form-horizontal" action="/management/report/reportinfo" method="post" target="_blank">
-        	<div class="form-group">	
-            <label class="col-sm-4" for="input01">根据时间统计项目收支明细</label>
-            </div>
-            <div class="form-group">
-            
-			<label class="col-sm-3 control-label" for="input01">统计明细时间区间：</label>
-            <div class="col-sm-4">
-                   <input class="form-control" type="text"  id="dateinput"  name="start_datetime"  size="14"/>
+                <div class="detailedbox tile-body">
+                    <form class="form-horizontal" action="/management/report/reportinfo" method="post" target="_blank">
+                    <div class="form-group">
+                    <label class="col-sm-4" for="input01">根据时间统计项目收支明细</label>
+                    </div>
+                    <div class="form-group">
+
+                    <label class="col-sm-3 control-label" for="input01">统计明细时间区间：</label>
+                    <div class="col-sm-4">
+                         <input name="start_datetime" data-date-format="YYYY-MM-DD HH:mm:ss"  type="text" class="form-control" id="datepicker">
+                    </div>
+                    <div class="col-sm-1" style="text-align:center;"> —</div>
+                    <div class="col-sm-4">
+                         <input name="end_datetime" data-date-format="YYYY-MM-DD HH:mm:ss"  type="text" class="form-control" id="datepicker1">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="col-md-offset-3 col-sm-2">
+                    <input class="btn btn-greensea" type="submit" value="查看报表"/></div>
+                    </div>
+                    <input type="hidden" name="style" value="style1"/>
+
+                  </form>
                 </div>
-            <div class="col-sm-1" style="text-align:center;"> —</div>
-            <div class="col-sm-4">
-                 <input class="form-control" type="text"  id="dateinput1"  name="end_datetime"  size="14"/>
-                 </div>
-              </div>
-            <div class="form-group">
-			<div class="col-md-offset-3 col-sm-2">
-            <input class="btn btn-greensea" type="submit" value="查看报表"/></div>
-            </div>
-			<input type="hidden" name="style" value="style1"/>					
-        
-          </form>
-			</div>
         	</section>
 		</div>
 		</div>
-
-
-
-			<script language="javascript">
-			$(document).ready(function() {
-			       $('#dateinput').datepicker({
-			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置
-			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置
-			           buttonImageOnly: true,  //Show an image trigger without any button.
-			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效
-			       yearRange: '2008:2020',//年份范围
-			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置
-			       closeText:'关闭',
-			       prevText:'前一月',
-			       nextText:'后一月',
-			       currentText:' ',
-			       changeMonth: true,
-				   changeYear: true,
-			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-			       });
-			   });
-			</script>
-
-			<script language="javascript">
-			$(document).ready(function() {
-			       $('#dateinput1').datepicker({
-			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置
-			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置
-			           buttonImageOnly: true,  //Show an image trigger without any button.
-			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效
-			       yearRange: '2008:2020',//年份范围
-			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置
-			       closeText:'关闭',
-			       prevText:'前一月',
-			       nextText:'后一月',
-			       currentText:' ',
-			       changeMonth: true,
-				   changeYear: true,
-			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-			       });
-			   });
-			</script>
 
