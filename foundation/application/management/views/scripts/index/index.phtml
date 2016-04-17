@@ -550,7 +550,7 @@
                         <?php foreach($this->todolist as $k => $v){?>
                           <li>
                             <div class="checkbox check-transparent">
-                              <input type="checkbox" value="<?php echo $v['id'];?>" id="todo-0<?php echo $v['id'];?>">
+                              <input type="checkbox" value="<?php echo $v['id'];?>" <?php if($v['status'] == 1){echo "checked='checked'";}?> id="todo-0<?php echo $v['id'];?>">
                               <label for="todo-0<?php echo $v['id'];?>"><?php echo $v['title'];?></label>
                             </div>
                           </li>
