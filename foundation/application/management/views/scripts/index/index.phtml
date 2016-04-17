@@ -167,6 +167,74 @@
             <div class="row">
               <!-- col 8 -->
               <div class="col-lg-8 col-md-12">
+
+
+
+                  <?php if(!empty($this->tixing)){?>
+                  <section class="tile color transparent-black">
+
+                      <!-- tile header -->
+                      <div class="tile-header">
+                          <h1><strong>TodoList</strong> 待办工作提醒</h1>
+                          <div class="controls">
+                              <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                              <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                          </div>
+                      </div>
+                      <!-- /tile header -->
+
+                      <!-- tile body -->
+                      <div class="tile-body">
+
+                          <div class="panel-group accordion" id="multi-accordion">
+
+                              <!--<div class="panel panel-default">
+                                  <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                          <a data-toggle="collapse" href="#multicollapseOne" class="collapsed">
+                                              <strong>Multi-Collapsible</strong> Group Item #1
+                                          </a>
+                                      </h4>
+                                  </div>
+                                  <div id="multicollapseOne" class="panel-collapse collapse" style="height: 0px;">
+                                      <div class="panel-body">
+                                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                      </div>
+                                  </div>
+                              </div>-->
+
+                              <?php $colorarray = array(2=>'blue', 1=>'dutch',4=>'red',0=>'green',5=>'drank',3=>'default');?>
+
+                              <?php foreach($this->tixing as $k => $v){?>
+                              <div class="panel panel-<?php echo $colorarray[$k]?>">
+                                  <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                          <a data-toggle="collapse" href="#multicollapse<?php echo $colorarray[$k]?>" class="collapsed">
+                                              <strong><?php echo $v['title'];?></strong>
+                                          </a>
+                                      </h4>
+                                  </div>
+                                  <div id="multicollapse<?php echo $colorarray[$k]?>" class="panel-collapse collapse" style="height: 0px;">
+                                      <div class="panel-body">
+                                          <div>开始时间：<?php echo $v['start_time'];?> - 结束时间：<?php echo $this->tixing[0]['end_time'];?></div>
+                                          <div>报送部门：<?php echo $v['department'];?></div>
+                                          <div>报送途径：<?php echo $v['tujing'];?></div>
+                                          <div>所需材料：<?php echo $v['files'];?></div>
+                                          <div>具体流程：<?php echo $v['process'];?></div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <?php }?>
+
+                          </div>
+
+                      </div>
+                      <!-- /tile body -->
+
+
+                  </section>
+                  <?php }?>
+
                   <!-- tile -->
                   <section class="tile color transparent-black">
                       <!-- tile header -->
@@ -465,58 +533,30 @@
 
 
                   <!-- tile header -->
-                  <!--<div class="tile-header color redbrown rounded-top-corners text-center">
+                  <div class="tile-header color redbrown rounded-top-corners text-center">
                     <button class="btn pull-left btn-black-transparent" type="button"><i class="fa fa-caret-square-o-down"></i></button>
                     <h2><strong>Todo List</strong> 代办事宜</h2>
                     <div class="controls">
                       <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                       <a href="#" class="remove"><i class="fa fa-times"></i></a>
                     </div>
-                  </div>-->
+                  </div>
                   <!-- /tile header -->
 
                   <!-- tile body -->
-                  <!--<div class="tile-body color transparent-black rounded-bottom-corners">
-                    <input type="text" placeholder="添加新任务..." class="w100p bottommargin">
+                  <div class="tile-body color transparent-black rounded-bottom-corners">
+                    <!--<input type="text" placeholder="添加新任务..." class="w100p bottommargin">-->
                     <ul class="nolisttypes" id="todolist">
-                      <li>
-                        <div class="checkbox check-transparent">
-                          <input type="checkbox" value="1" id="todo-01">
-                          <label for="todo-01">日常备份</label>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="checkbox check-transparent">
-                          <input type="checkbox" checked="checked" value="1" id="todo-02">
-                          <label for="todo-02" class="done">给领导发送简报</label>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="checkbox check-transparent">
-                          <input type="checkbox" value="1" id="todo-03">
-                          <label for="todo-03">购买办公用品</label>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="checkbox check-transparent">
-                          <input type="checkbox" value="1" id="todo-04">
-                          <label for="todo-04">购买回馈礼品</label>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="checkbox check-transparent">
-                          <input type="checkbox" value="1" id="todo-05">
-                          <label for="todo-05">拜访客户</label>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="checkbox check-transparent">
-                          <input type="checkbox" value="1" id="todo-06">
-                          <label for="todo-06">制作新简报</label>
-                        </div>
-                      </li>
+                        <?php foreach($this->todolist as $k => $v){?>
+                          <li>
+                            <div class="checkbox check-transparent">
+                              <input type="checkbox" value="<?php echo $v['id'];?>" id="todo-0<?php echo $v['id'];?>">
+                              <label for="todo-0<?php echo $v['id'];?>"><?php echo $v['title'];?></label>
+                            </div>
+                          </li>
+                        <?php }?>
                     </ul>
-                  </div>-->
+                  </div>
                   <!-- /tile body -->
                 
 

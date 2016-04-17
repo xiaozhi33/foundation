@@ -40,6 +40,20 @@
             $pageDAO = $pageDAO->pageHelper($chouziDAO, null, "/management/index/index", null, 'get', 7, 5);
             $pages = $pageDAO['pageLink']['all'];
             $pages = str_replace("/index.php", "", $pages);
+
+
+            // todolist  待办事宜
+            $pm_mg_todolistDAO = $this->orm->createDAO("pm_mg_todolist");
+            $pm_mg_todolistDAO = $pm_mg_todolistDAO ->get();
+            $this->view->assign('todolist', $pm_mg_todolistDAO);
+
+
+            // 待办事宜提醒
+            $pm_mg_todolistDAO = $this->orm->createDAO("pm_mg_todolist");
+            $pm_mg_todolistDAO ->selectLimit .= " and date_sub(curdate(), INTERVAL 30 DAY) <= date(`end_time`)";
+            $pm_mg_todolistDAO = $pm_mg_todolistDAO ->get();
+            $this->view->assign('tixing', $pm_mg_todolistDAO);
+
             $this->view->assign('chouzilist', $pageDAO['pageData']);
             $this->view->assign('page', $pages);
             $this->view->assign('total', $total);
