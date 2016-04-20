@@ -4,20 +4,26 @@
 	require_once("functions.php");
 	require_once 'resizepic.php'; //创建缩略图
 	require_once 'uploadpic.php';
+
+    // mssql 数据库操作类
+    require_once("mssql_db.class.php");
 	
 	$uploadpicpath = __UPLOADPICPATH__;//上传图片路径
 
 	class BaseController extends Zend_Controller_Action
 	{
         protected $orm;
+        protected $mssql_class;
         public $admininfo = '';
         public $renling_weirenling_list = "";
+
 		public function init()
 	    {
 	    	$request_mod = $this->getRequest()->getParams();
 			$this->view = new Zend_View();
 			$this->view ->addScriptPath('application/management/views/scripts');
             $this->orm = ORM::getInstance();
+            $this->msssql_class = new msSQL();  // mssql操作类
             //$this->WhiteIP();  //设置白名单
 
             //获取认领信息
@@ -31,6 +37,14 @@
 
             //会议活动
             $meetingDAO = $this->orm->createDAO("jjh_meeting")->get();
+
+            // 财务系统相关 - 读取财务项目信息
+            $select_zw_xm = "SELECT * FROM zwxmzd LIMIT 0,2 ";
+            $rs = $this->mssql_class->query($select_zw_xm);
+            while($row = $this->mssql_class->fetch_array($rs)){
+                echo $row[id];
+                echo '<br />';
+            }
 
 			$this->view->assign(array(
 				"module" => $request_mod['module'],

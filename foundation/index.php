@@ -5,7 +5,7 @@ date_default_timezone_set('PRC');
 	error_reporting(0);              //notice错误 关闭错误报告
     //ini_set("display_errors", "On");
     //error_reporting(E_ERROR);
-    set_include_path('.' .PATH_SEPARATOR .'../library'.PATH_SEPARATOR .'./application/models/'.PATH_SEPARATOR .'./include/'.PATH_SEPARATOR .'./Models/'.PATH_SEPARATOR .'../public/'.PATH_SEPARATOR .'../util/');
+    set_include_path('.' .PATH_SEPARATOR .'../library'.PATH_SEPARATOR .'./application/models/'.PATH_SEPARATOR .'./application/management/lib/'.PATH_SEPARATOR .'./include/'.PATH_SEPARATOR .'./Models/'.PATH_SEPARATOR .'../public/'.PATH_SEPARATOR .'../util/');
 
     require_once("Zend/Loader.php");
 	
