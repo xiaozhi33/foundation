@@ -40,6 +40,7 @@
 
             // 财务系统相关 - 读取财务项目信息
             $select_zw_xm = "SELECT * FROM zwxmzd LIMIT 0,2 ";
+            var_dump($this->mssql_class);exit;
             $rs = $this->mssql_class->query($select_zw_xm);
             while($row = $this->mssql_class->fetch_array($rs)){
                 echo $row[id];
