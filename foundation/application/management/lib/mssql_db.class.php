@@ -38,18 +38,19 @@
         }
 
         /* 增|删|改|查 */
-        public function query($sql)
+        public function query($sql, $is_debug=false)
         {
             if($sql == ""){
                 die("SQL ERROR:SQL IS NULL!");}
             $this->sql = $sql;
             $result = mssql_query($this->sql,$this->conn);
 
-            if(!$result){  //调试用，sql语句出错时会自动打印出来
+            if($is_debug){
                 die("SQL：".$this->sql);
-            }else{
+            }else {
                 $this->result = $result;
             }
+
             return $this->result;
         }
 
