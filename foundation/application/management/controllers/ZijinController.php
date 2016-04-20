@@ -279,7 +279,6 @@
             // 财务系统相关 - 读取财务项目信息
             $zwxmzdDAO = array();
             $select_zw_xm = "SELECT xmnm,bmbh,xmbh,xmmc,fzr,fzrbh FROM zwxmzd";
-            var_dump($this->mssql_class);exit;
             $zwxmzd_list = $this->mssql_class->connect()->query($select_zw_xm);
             while($row = $this->mssql_class->fetch_array($zwxmzd_list)){
                 $zwxmzdDAO[$row['xmnm']] = $row;
