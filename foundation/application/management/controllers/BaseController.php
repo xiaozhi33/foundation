@@ -23,7 +23,7 @@
 			$this->view = new Zend_View();
 			$this->view ->addScriptPath('application/management/views/scripts');
             $this->orm = ORM::getInstance();
-            $this->msssql_class = new msSQL();  // mssql操作类
+            $this->mssql_class = new msSQL();  // mssql操作类
             //$this->WhiteIP();  //设置白名单
 
             //获取认领信息
@@ -40,12 +40,13 @@
 
             // 财务系统相关 - 读取财务项目信息
             $select_zw_xm = "SELECT * FROM zwxmzd LIMIT 0,2 ";
-            var_dump($this->mssql_class);exit;
             $rs = $this->mssql_class->query($select_zw_xm);
             while($row = $this->mssql_class->fetch_array($rs)){
                 echo $row[id];
                 echo '<br />';
             }
+
+            exit();
 
 			$this->view->assign(array(
 				"module" => $request_mod['module'],
