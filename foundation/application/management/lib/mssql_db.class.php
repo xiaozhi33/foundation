@@ -21,7 +21,7 @@
             $this->db_sa = __MSSQL_PASSWD__;
             $this->db_dbName=__MSSQL_DBNAME__;
             $this->conn="conn";
-            $this->connect();
+            //$this->connect();
         }
 
         /* 数据库连接 */
