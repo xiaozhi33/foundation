@@ -13,7 +13,7 @@
 	class BaseController extends Zend_Controller_Action
 	{
         protected $orm;
-        protected $mssql_class;
+        public $mssql_class;
         public $admininfo = '';
         public $renling_weirenling_list = "";
 
