@@ -39,12 +39,12 @@
             $meetingDAO = $this->orm->createDAO("jjh_meeting")->get();
 
             // 财务系统相关 - 读取财务项目信息
-            $select_zw_xm = "SELECT * FROM zwxmzd WHERE 1=1 LIMIT 2 ";
+            $select_zw_xm = "SELECT * FROM zw_lkgl";
             $rs = $this->mssql_class->query($select_zw_xm);
             while($row = $this->mssql_class->fetch_array($rs)){
-                echo $row['xmbh'];
+                echo $row['yhbh'];
                 echo '<br />';
-                echo $row['xmmc'];
+                echo $row['fkdw'];
                 echo '<br />';
             }
 
