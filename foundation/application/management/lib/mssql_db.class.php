@@ -16,10 +16,10 @@
 
         /* 构造函数 */
         public function __construct(){
-            $this->db_host=__HOST__;
-            $this->db_user=__ROOT__;
-            $this->db_sa = __PASSWD__;
-            $this->db_dbName=__DBNAME__;
+            $this->db_host=__MSSQL_HOST__;
+            $this->db_user=__MSSQL_ROOT__;
+            $this->db_sa = __MSSQL_PASSWD__;
+            $this->db_dbName=__MSSQL_DBNAME__;
             $this->conn="conn";
             $this->connect();
         }
