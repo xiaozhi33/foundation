@@ -256,7 +256,7 @@
         /**
          * 绑定认领
          */
-        public function bindingClaimAction(){
+        public function savebindingClaimAction(){
             $pm_id = HttpUtil::getString('pm_id');
             if($this->admininfo['admin_info'] ==''|| $pm_id == ''){
                 alert_back("认领失败，请重新认领！");
@@ -270,6 +270,25 @@
             $ClaimDAO ->lastmodify = time();
             $ClaimDAO ->save();
             alert_go("认领成功！", "/management/zijin/claimlist");
+        }
+
+        /**
+         * 绑定认领页面
+         */
+        public function bindingClaimAction(){
+            // 财务系统相关 - 读取财务项目信息
+            $zwxmzdDAO = array();
+            $select_zw_xm = "SELECT xmnm,bmbh,xmbh,xmmc,fzr,fzrbh FROM zwxmzd";
+            $zwxmzd_list = $this->mssql_class->query($select_zw_xm);
+            while($row = $this->mssql_class->fetch_array($zwxmzd_list)){
+                $zwxmzdDAO[$row['xmnm']] = $row;
+            }
+            $this->mssql_class->free();
+
+            $this->view->assign('zwxmzd_list', $zwxmzdDAO);
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("zijin/claimlist.phtml");
+            echo $this->view->render("index/footer.phtml");
         }
 
 

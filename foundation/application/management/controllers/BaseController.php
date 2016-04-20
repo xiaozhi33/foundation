@@ -38,16 +38,6 @@
             //会议活动
             $meetingDAO = $this->orm->createDAO("jjh_meeting")->get();
 
-            // 财务系统相关 - 读取财务项目信息
-            $zwxmzdDAO = array();
-            $select_zw_xm = "SELECT xmnm,bmbh,xmbh,xmmc,fzr,fzrbh FROM zwxmzd";
-            $zwxmzd_list = $this->mssql_class->query($select_zw_xm);
-            while($row = $this->mssql_class->fetch_array($zwxmzd_list)){
-                $zwxmzdDAO[$row['xmnm']] = $row;
-            }
-            $this->mssql_class->free();
-            print_r($zwxmzdDAO);exit();
-
 			$this->view->assign(array(
 				"module" => $request_mod['module'],
 				"controller" => $request_mod['controller'],
@@ -57,7 +47,6 @@
                 "allsum" => (int)$pm_mg_infoDAO[0]['allsum'],
                 "meeting_count" => count($meetingDAO),
                 'admininfo' => $admininfo,
-                'zwxmzd_list' => $zwxmzdDAO,
 			));
 			
 		    $this->_init();
