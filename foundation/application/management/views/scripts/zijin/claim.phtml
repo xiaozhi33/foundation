@@ -1,0 +1,140 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>来款认领</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目进度管理</li>
+            <li class="active">来款认领</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+			<div class="col-md-12">
+
+			<section class="tile color transparent-black">
+				<div class="tile-body nopadding">
+                    <form method="post" action="">
+                        <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                         <thead>
+                              <tr>
+                                    <td width="30%">栏目名称</td>
+                                    <td width="70%">明细</td>
+                              </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>认领到项目：</td>
+                                <td>
+                                    <select class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                        <option value="1">请选择项目名称</option>
+                                        <?php if($this->pmlist != ""){
+                                            foreach ($this->pmlist as $k => $v){
+                                                ?>
+                                                <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                            <?php }}?>
+                                    </select>
+                                    <input id="pname_info" type="hidden" name="pname" value=""/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>认领到部门：</td>
+                                <td>
+                                    团委
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>认领负责人：</td>
+                                <td>
+                                    王楠
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>来款单位：</td>
+                                <td>天津大学</td>
+                            </tr>
+                            <tr>
+                                <td>来款金额：</td>
+                                <td>190002929 元</td>
+                            </tr>
+                            <tr>
+                                <td>来款日期：</td>
+                                <td>2016-01-09</td>
+                            </tr>
+
+                        </tbody>
+
+                        <table>
+                        <tr>
+                            <input type="submit" value="点击认领" class="btn btn-primary btn-block">
+                        </tr>
+                        </table>
+                    </form>
+				 </div>
+				 </section>
+		  </div>
+		</div>
+
+        <script>
+            var pm_id;
+            function noTips_click(pm_id){
+                if(confirm("确定要认领该笔款项吗？认领将不能修改。")) {
+                    $.ajax({
+                        type: 'get',
+                        url: "/management/zijin/binding-claim",
+                        data: "pm_id=" + pm_id,
+                        cache: false,
+                        dataType: 'json',
+                        success: function (data) {
+                            $('.theme-popover-mask').fadeIn(100);
+                            $('.theme-popover').slideDown(200);
+                            $('#popover-msg').html(data['msg']);
+                            if (data['return_url'] != '') {
+                                $('#popover-close').attr("name", data['return_url']);
+                            }
+                            if (data['error'] != true) {
+                                $('#popover-img img').attr("src", "/include/management/images/yes.png");
+                            }
+                        },
+                        complete: function (data) {
+
+                        },
+                        error: function (data) {
+                            $('.theme-popover-mask').fadeIn(100);
+                            $('.theme-popover').slideDown(200);
+                            $('#popover-msg').html(data['msg']);
+                        }
+                    });
+                }
+            }
+
+            jQuery(document).ready(function($) {
+                $('.theme-poptit .close').click(function(){
+                    $('.theme-popover-mask').fadeOut(100);
+                    $('.theme-popover').slideUp(200);
+                    if($('#popover-close').attr("name") != '') {
+                        location.href = $('#popover-close').attr("name");
+                    }
+                });
+            });
+        </script>
+
+		
+		    <script language="javascript">
+                $(".menu li:eq(4)").addClass("open");
+			</script>

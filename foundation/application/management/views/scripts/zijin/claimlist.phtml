@@ -113,8 +113,9 @@
         <script>
             var pm_id;
             function noTips_click(pm_id){
-                if(confirm("确定要认领改笔款项吗？认领将不能修改。")) {
-                    $.ajax({
+                if(confirm("确定要认领该笔款项吗？认领将不能修改。")) {
+                    location.href = "/management/zijin/binding-claim?pm_id="+pm_id;
+                    /*$.ajax({
                         type: 'get',
                         url: "/management/zijin/binding-claim",
                         data: "pm_id=" + pm_id,
@@ -139,7 +140,7 @@
                             $('.theme-popover').slideDown(200);
                             $('#popover-msg').html(data['msg']);
                         }
-                    });
+                    });*/
                 }
             }
 

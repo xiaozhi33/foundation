@@ -277,7 +277,7 @@
          */
         public function bindingClaimAction(){
             // 财务系统相关 - 读取财务项目信息
-            $zwxmzdDAO = array();
+            /*$zwxmzdDAO = array();
             $select_zw_xm = "SELECT xmnm,bmbh,xmbh,xmmc,fzr,fzrbh FROM zwxmzd";
             $this->mssql_class->connect();
             $zwxmzd_list = $this->mssql_class->query($select_zw_xm);
@@ -285,11 +285,10 @@
                 $zwxmzdDAO[$row['xmnm']] = $row;
             }
             $this->mssql_class->free();
-            print_r($zwxmzdDAO);exit;
 
-            $this->view->assign('zwxmzd_list', $zwxmzdDAO);
+            $this->view->assign('zwxmzd_list', $zwxmzdDAO);*/
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("zijin/claimlist.phtml");
+            echo $this->view->render("zijin/claim.phtml");
             echo $this->view->render("index/footer.phtml");
         }
 
