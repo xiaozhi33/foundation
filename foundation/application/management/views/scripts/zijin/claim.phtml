@@ -90,51 +90,7 @@
 		  </div>
 		</div>
 
-        <script>
-            var pm_id;
-            function noTips_click(pm_id){
-                if(confirm("确定要认领该笔款项吗？认领将不能修改。")) {
-                    $.ajax({
-                        type: 'get',
-                        url: "/management/zijin/binding-claim",
-                        data: "pm_id=" + pm_id,
-                        cache: false,
-                        dataType: 'json',
-                        success: function (data) {
-                            $('.theme-popover-mask').fadeIn(100);
-                            $('.theme-popover').slideDown(200);
-                            $('#popover-msg').html(data['msg']);
-                            if (data['return_url'] != '') {
-                                $('#popover-close').attr("name", data['return_url']);
-                            }
-                            if (data['error'] != true) {
-                                $('#popover-img img').attr("src", "/include/management/images/yes.png");
-                            }
-                        },
-                        complete: function (data) {
 
-                        },
-                        error: function (data) {
-                            $('.theme-popover-mask').fadeIn(100);
-                            $('.theme-popover').slideDown(200);
-                            $('#popover-msg').html(data['msg']);
-                        }
-                    });
-                }
-            }
-
-            jQuery(document).ready(function($) {
-                $('.theme-poptit .close').click(function(){
-                    $('.theme-popover-mask').fadeOut(100);
-                    $('.theme-popover').slideUp(200);
-                    if($('#popover-close').attr("name") != '') {
-                        location.href = $('#popover-close').attr("name");
-                    }
-                });
-            });
-        </script>
-
-		
 		    <script language="javascript">
                 $(".menu li:eq(4)").addClass("open");
 			</script>
