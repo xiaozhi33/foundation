@@ -28,14 +28,16 @@
 			<form class="form-horizontal" id="form1" action="addrszijin" method="post" encType="multipart/form-data">
 				<div class="form-group">
 			  	<label class="col-sm-2 control-label" for="input01">项目名称：</label>
-                <div class="col-sm-4">
-                	<select class="form-control" name="pname">
-							<?php if($this->pmlist != ""){
-									foreach ($this->pmlist as $k => $v){
-								?>
-								<option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
-							<?php }}?>
-						</select>
+                    <div class="col-sm-4">
+                        <select class="chosen-select-1 chosen-transparent form-control" id="pname">
+                            <option value="1">请选择项目名称</option>
+                            <?php if($this->pmlist != ""){
+                                foreach ($this->pmlist as $k => $v){
+                                    ?>
+                                    <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                <?php }}?>
+                        </select>
+                        <input id="pname_info" type="hidden" name="pname" value=""/>
                         </div>
                         <span class="col-sm-2" > * </span>
                 </div>
