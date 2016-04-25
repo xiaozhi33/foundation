@@ -222,6 +222,8 @@
          */
         public function claimlistAction()
         {
+            ini_set("display_errors", "On");
+            error_reporting(E_ERROR);
             // 同步财务来款信息
             $zw_lkglDAO = new CW_API();
             $lkgl_list = $zw_lkglDAO ->getlkgl();
