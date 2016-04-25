@@ -29,7 +29,8 @@
         public function getlkgl(){
             $select_SQL = "SELECT * FROM zw_lkgl";
             $this->connect();
-            $zw_lkgl = $this->query($select_SQL);
+            $this->query($select_SQL);
+            $zw_lkgl = $this->fetch_array();
             $this->free();
             return $zw_lkgl;
         }
