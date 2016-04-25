@@ -35,9 +35,9 @@
         public function delzijinAction(){
             (int)$id = HttpUtil::getString("id");
             if(!empty($id)){
-                $pm_zijinDAO = new pm_mg_infoDAO();
+                $pm_zijinDAO = $this->orm->createDAO("pm_mg_info");
                 $pm_zijinDAO ->findId($id);
-                $pm_zijinDAO ->del($this->dbhelper);
+                $pm_zijinDAO ->delete($this->dbhelper);
 
                 echo "<script>alert('删除成功！');";
                 echo "window.location.href='/management/zijin/index'";
@@ -668,8 +668,8 @@
             $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
             $this->view->assign("chouzi_lists",$chouziDAO);
 
-            ini_set("display_errors", "On");
-            error_reporting(E_ERROR);
+            //ini_set("display_errors", "On");
+            //error_reporting(E_ERROR);
 		}
 	}
 ?>
