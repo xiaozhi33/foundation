@@ -668,8 +668,8 @@
             $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
             $this->view->assign("chouzi_lists",$chouziDAO);
 
-            //ini_set("display_errors", "On");
-            //error_reporting(E_ERROR);
+            ini_set("display_errors", "On");
+            error_reporting(E_ERROR);
 		}
 	}
 ?>
