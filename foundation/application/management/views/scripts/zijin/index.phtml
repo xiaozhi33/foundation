@@ -80,7 +80,7 @@
                                 <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
                                 </a> 
                                 &nbsp;&nbsp;
-                                <a href="#"><button class="btn btn-danger margin-bottom-20" type="button">删除</button></a></td>
+                                <a href="/management/zijin/delzijin?id=<?php echo $v['id'];?>" onclick= "if(confirm( '是否确定！ 删除将无法找回该比来款信息。')==false) return false; "><button class="btn btn-danger margin-bottom-20" type="button">删除</button></a></td>
                              </tr>
                            <?php }?>
                         </tbody>

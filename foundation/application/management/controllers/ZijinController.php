@@ -31,6 +31,20 @@
 			echo $this->view->render("zijin/index.phtml");
 			echo $this->view->render("index/footer.phtml");
 		}
+
+        public function delzijinAction(){
+            (int)$id = HttpUtil::getString("id");
+            if(!empty($id)){
+                $pm_zijinDAO = new pm_mg_infoDAO();
+                $pm_zijinDAO ->findId($id);
+                $pm_zijinDAO ->del($this->dbhelper);
+
+                echo "<script>alert('删除成功！');";
+                echo "window.location.href='/management/zijin/index'";
+                echo "</script>";
+                exit();
+            }
+        }
 		
 		public function addzijinAction(){
 			echo $this->view->render("index/header.phtml");
