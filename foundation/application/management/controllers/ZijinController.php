@@ -251,12 +251,9 @@
             $zw_lkglDAO = new CW_API();
             $lkgl_list = $zw_lkglDAO ->getlkgl();
 
-            print_r($lkgl_list);
-
             // 遍历循环插入lkrl_log表中
             foreach($lkgl_list as $k => $v){
                 $lk = $this->islkrl($v['lsh']);  // 判断是否重复添加
-                print_r($lk);
 
                 if(empty($lk)){
                     $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
@@ -272,8 +269,6 @@
                     continue;
                 }
             }
-
-            exit();
 
             $this->synclkrl();  // 同步财务系统来款数据
 
