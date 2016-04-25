@@ -217,18 +217,37 @@
 			}
 		}
 
+        public function islkrl($lsh){
+            $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
+            $zw_lkrl_logsDAO ->findLsh($lsh);
+            return $zw_lkrl_logsDAO->get();
+        }
+
         /**
          * 未认领列表
          */
         public function claimlistAction()
         {
-            ini_set("display_errors", "On");
-            error_reporting(E_ERROR);
             // 同步财务来款信息
             $zw_lkglDAO = new CW_API();
             $lkgl_list = $zw_lkglDAO ->getlkgl();
 
-            var_dump($lkgl_list);exit();
+            // 遍历循环插入lkrl_log表中
+            foreach($lkgl_list as $k => $v){
+                $lk = $this->islkrl($v['lsh']);  // 判断是否重复添加
+                if(empty($lk)){
+                    $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
+                    $zw_lkrl_logsDAO ->lsh = $v['lsh'];
+                    $zw_lkrl_logsDAO ->lkrq = $v['lkrq'];
+                    $zw_lkrl_logsDAO ->fkdw = $v['fkdw'];
+                    $zw_lkrl_logsDAO ->je = $v['je'];
+                    $zw_lkrl_logsDAO ->rlje = $v['rlje'];
+                    $zw_lkrl_logsDAO ->lrrq = $v['lrrq'];
+                    $zw_lkrl_logsDAO ->lrr = $v['lrr'];
+                }else {
+                    continue;
+                }
+            }
 
             $keywords = HttpUtil::postString("pm_name");
             $is_renling = HttpUtil::postString("is_renling");
@@ -611,6 +630,9 @@
             //获取筹资项目list
             $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
             $this->view->assign("chouzi_lists",$chouziDAO);
+
+            //ini_set("display_errors", "On");
+            //error_reporting(E_ERROR);
 		}
 	}
 ?>
