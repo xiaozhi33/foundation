@@ -222,6 +222,12 @@
          */
         public function claimlistAction()
         {
+            // 同步财务来款信息
+            $zw_lkglDAO = new CW_API();
+            $lkgl_list = $zw_lkglDAO ->getlkgl();
+
+            var_dump($lkgl_list);exit();
+
             $keywords = HttpUtil::postString("pm_name");
             $is_renling = HttpUtil::postString("is_renling");
             $this->renling_weirenling_list = $this->orm->createDAO("pm_mg_info");
@@ -257,27 +263,55 @@
          * 绑定认领
          */
         public function savebindingClaimAction(){
-            $pm_id = HttpUtil::getString('pm_id');
-            if($this->admininfo['admin_info'] ==''|| $pm_id == ''){
-                alert_back("认领失败，请重新认领！");
+            (int)$pid = $_REQUEST['pm_id'];
+            (int)$department_id = $_REQUEST['department_id'];
+            if(empty($pid) || empty($department_id)){
+                alert_back("请选择认领项目和部门！");
             }
 
-            $ClaimDAO = $this->orm->createDAO("pm_mg_info")->findId($pm_id);
-            $ClaimDAO ->is_renling = 1;
-            $ClaimDAO ->renling_name = $this->admininfo['admin_info']['admin_name'];
-            $ClaimDAO ->claim = $this->admininfo['admin_info']['id'];
-            $ClaimDAO ->claim_time = time();
-            $ClaimDAO ->lastmodify = time();
-            $ClaimDAO ->save();
-            alert_go("认领成功！", "/management/zijin/claimlist");
+            // 1, 查看项目财务对照表－取得财务对应项目名称和编号
+            $pm_relateDAO = $this->orm->createDAO("zw_pm_related");
+            $pm_relateDAO ->findPm_id($pid);
+            $pm_relateDAO = $pm_relateDAO->get();
+
+            if(empyt($pm_relateDAO[0]['zw_xmbh']) || empyt($pm_relateDAO[0]['zw_xmmc'])){
+                alert_back("该项目没有绑定财务系统，请联系管理员");
+            }
+
+            // 2, 部门信息同步
+            $department_info = $this->orm->createDAO("zw_department_related");
+            $department_info ->findPm_pid($department_id);
+            $department_info = $department_info->get();
+
+            if(empyt($department_info[0]['zw_bmbh']) || empyt($department_info[0]['zw_bmmc'])){
+                alert_back("该部门没有绑定财务部门，请联系管理员");
+            }
+
+            // 3, 负者人信息同步
+
+            // 4, 同步更新财务系统lkrl表
+            $zw_lkrlDAO = new CW_API();
+            $rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $lspz, $rlpznm, $czy);
+            if($rs){
+                // 更新项目系统认领log表
+                $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
+                $zw_lkrl_logsDAO ->findLsh($rs);
+                $rs1 = $zw_lkrl_logsDAO ->save();
+                if($rs1){
+                    alert_go("认领成功！", "/management/zijin/claimlist");
+                }else {
+                    alert_back("认领失败！");
+                }
+            }
         }
+
 
         /**
          * 绑定认领页面
          */
         public function bindingClaimAction(){
             // 财务系统相关 - 读取财务项目信息
-            /*$zwxmzdDAO = array();
+            $zwxmzdDAO = array();
             $select_zw_xm = "SELECT xmnm,bmbh,xmbh,xmmc,fzr,fzrbh FROM zwxmzd";
             $this->mssql_class->connect();
             $zwxmzd_list = $this->mssql_class->query($select_zw_xm);
@@ -286,7 +320,7 @@
             }
             $this->mssql_class->free();
 
-            $this->view->assign('zwxmzd_list', $zwxmzdDAO);*/
+            $this->view->assign('zwxmzd_list', $zwxmzdDAO);
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("zijin/claim.phtml");
             echo $this->view->render("index/footer.phtml");

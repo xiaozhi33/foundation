@@ -23,6 +23,30 @@
             $this->mssql_class->free();
         }
 
+        /**
+         * 获取来款管理最新数据
+         */
+        public function getlkgl(){
+            $select_SQL = "SELECT * FROM zw_lkgl";
+            $this->mssql_class->connect();
+            $zw_lkgl = $this->mssql_class->query($select_SQL);
+            $this->mssql_class->free();
+            return $zw_lkgl;
+        }
+
+        /**
+         * 添加财务认领
+         * @param $lkrl_array
+         */
+        public function addlkrl($lsh, $lkrq, $fkdw, $je, $rlje, $lrrq, $lrr, $statusS)
+        {
+            $insert_SQL = "INSERT INTO lkrl SET()VALUES()";
+            $this->mssql_class->connect();
+            $rs = $this->mssql_class->query($insert_SQL);
+            $this ->mssql_class->free();
+            return $rs;
+        }
+
         public function addzrl()
         {
 
