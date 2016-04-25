@@ -32,7 +32,7 @@
 			echo $this->view->render("index/footer.phtml");
 		}
 
-        public function delzijinAction(){
+        /*public function delzijinAction(){
             (int)$id = HttpUtil::getString("id");
             if(!empty($id)){
                 $pm_zijinDAO = $this->orm->createDAO("pm_mg_info");
@@ -44,7 +44,7 @@
                 echo "</script>";
                 exit();
             }
-        }
+        }*/
 		
 		public function addzijinAction(){
 			echo $this->view->render("index/header.phtml");
@@ -252,6 +252,11 @@
                     $pm_mg_infoDAO ->pm_pp_company = $value["lrrq"];              // 付款单位
                     $pm_mg_infoDAO ->renling_name = $value["lrr"];               // 付款单位
                     $pm_mg_infoDAO ->save();
+
+                    $zw_lkrl_logs1DAO = $this->orm->createDAO("zw_lkrl_logs");
+                    $zw_lkrl_logs1DAO ->findLsh($value['lsh']);
+                    $zw_lkrl_logs1DAO ->status = 1;
+                    $zw_lkrl_logs1DAO ->save();
                 }
             }
         }
