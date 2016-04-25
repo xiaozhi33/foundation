@@ -7,7 +7,7 @@
 
     // mssql 数据库操作类
     require_once("cw_api.class.php");
-    //require_once("mssql_db.class.php");
+    require_once("mssql_db.class.php");
 	
 	$uploadpicpath = __UPLOADPICPATH__;//上传图片路径
 
