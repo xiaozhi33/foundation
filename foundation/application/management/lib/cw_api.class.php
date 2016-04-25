@@ -28,9 +28,9 @@
          */
         public function getlkgl(){
             $select_SQL = "SELECT * FROM zw_lkgl";
-            $this->mssql_class->connect();
-            $zw_lkgl = $this->mssql_class->query($select_SQL);
-            $this->mssql_class->free();
+            $this->connect();
+            $zw_lkgl = $this->query($select_SQL);
+            $this->free();
             return $zw_lkgl;
         }
 
