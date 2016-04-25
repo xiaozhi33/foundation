@@ -80,6 +80,8 @@
                 $yishi = HttpUtil::postString("yishi");         //项目仪式
                 $beizhu = HttpUtil::postString("beizhu");         //备注
 
+                $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
+
                 if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
                 }
@@ -99,6 +101,7 @@
                 $pm_chouziDAO->pm_tuidongqi = $tuidongqi;
                 $pm_chouziDAO->pm_xieyi_juanzeng_jiner = $jiner;
                 $pm_chouziDAO->pm_yishi = $yishi;
+                $pm_chouziDAO->pm_fzr_mc = $pm_fzr_mc;
                 $pm_chouziDAO->pname = $pname;
 
                 $pid = HttpUtil::postString("pm_id");
@@ -187,6 +190,7 @@
                 $jiner = HttpUtil::postString("jiner");         //协议捐赠金额
                 $yishi = HttpUtil::postString("yishi");         //项目仪式
                 $beizhu = HttpUtil::postString("beizhu");         //备注
+                $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
 
                 if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
@@ -207,6 +211,7 @@
                 $pm_chouziDAO->pm_tuidongqi = $tuidongqi;
                 $pm_chouziDAO->pm_xieyi_juanzeng_jiner = $jiner;
                 $pm_chouziDAO->pm_yishi = $yishi;
+                $pm_chouziDAO->pm_fzr_mc = $pm_fzr_mc;
                 $pm_chouziDAO->pname = $pname;
 
                 $pid = HttpUtil::postString("pm_id");
