@@ -16,6 +16,7 @@
 			}
 
 			$zijininfo ->selectLimit = " and cate_id=0 order by id desc";
+            //$zijininfo ->selectLimit = " and is_renling=1"; // 显示已认领的项目
 			//$chouziinfo ->debugSql =true;
 			$zijininfo = $zijininfo->get($this->dbhelper);
 			$total = count($zijininfo);
