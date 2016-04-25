@@ -223,6 +223,25 @@
             return $zw_lkrl_logsDAO->get();
         }
 
+        public function synclkrl(){
+            $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
+            $zw_lkrl_logsDAO ->selectLimit .= " and status=0";
+            $zw_lkrl_list = $zw_lkrl_logsDAO->get();
+
+            if(!empty($zw_lkrl_list)){
+                foreach($zw_lkrl_list as $key => $value){  // 批量添加财务来款到项目info中
+                    $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+                    $pm_mg_infoDAO ->cate_id = 0;
+                    $pm_mg_infoDAO ->pm_pp_company = $value["fkdw"];              // 付款单位
+                    $pm_mg_infoDAO ->zijin_daozhang_datetime = $value["lkrq"];  //  来款日期
+                    $pm_mg_infoDAO ->zijin_daozheng_jiner = $value["je"];        // 金额
+                    $pm_mg_infoDAO ->pm_pp_company = $value["lrrq"];              // 付款单位
+                    $pm_mg_infoDAO ->renling_name = $value["lrr"];               // 付款单位
+                    $pm_mg_infoDAO ->save();
+                }
+            }
+        }
+
         /**
          * 未认领列表
          */
@@ -244,10 +263,13 @@
                     $zw_lkrl_logsDAO ->rlje = $v['rlje'];
                     $zw_lkrl_logsDAO ->lrrq = $v['lrrq'];
                     $zw_lkrl_logsDAO ->lrr = $v['lrr'];
+                    $zw_lkrl_logsDAO ->save();
                 }else {
                     continue;
                 }
             }
+
+            $this->synclkrl();  // 同步财务系统来款数据
 
             $keywords = HttpUtil::postString("pm_name");
             $is_renling = HttpUtil::postString("is_renling");
