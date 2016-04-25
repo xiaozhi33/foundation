@@ -30,7 +30,7 @@
             $select_SQL = "SELECT * FROM zw_lkgl ORDER BY lsh DESC";
             $this->connect();
             $this->query($select_SQL);
-            $zw_lkgl = $this->fetch_array();
+            $zw_lkgl = $this->fetch_row();
             $this->free();
             return $zw_lkgl;
         }
