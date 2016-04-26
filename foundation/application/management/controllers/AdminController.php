@@ -149,6 +149,20 @@
 			echo $this->view->render("admin/department.phtml");
 			echo $this->view->render("index/footer.phtml");
 		}
+
+		public function deldepartmentAction(){
+			(int)$id = HttpUtil::getString("id");
+			if(!empty($id)){
+				$jjh_mg_departmentDAO = $this->orm->createDAO("jjh_mg_departmentDAO");
+				$jjh_mg_departmentDAO ->findId($id);
+				$jjh_mg_departmentDAO ->delete($this->dbhelper);
+
+				echo "<script>alert('删除成功！');";
+				echo "window.location.href='/management/admin/department'";
+				echo "</script>";
+				exit();
+			}
+		}
 		
 		//项目分类管理
 		public function addcateAction(){

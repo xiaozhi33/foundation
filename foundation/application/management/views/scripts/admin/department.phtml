@@ -38,7 +38,7 @@
                             <a href="/management/admin/editdepartment?id=<?php echo $v['id'];?>">
                             <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
                            
-                            <a href="#"><button type="button" class="btn btn-danger margin-bottom-20">删除</button></a></td>
+                            <a href="/management/admin/deldepartment?id=<?php echo $v['id'];?>" onclick= "if(confirm( '是否确定！ 删除将无法找回该比来款信息。')==false) return false; "><button type="button" class="btn btn-danger margin-bottom-20">删除</button></a></td>
 						 </tr>
 					   <?php }?>
                       </tbody>
