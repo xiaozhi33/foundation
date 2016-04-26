@@ -155,7 +155,11 @@
 			if(!empty($id)){
 				$jjh_mg_departmentDAO = $this->orm->createDAO("jjh_mg_departmentDAO");
 				$jjh_mg_departmentDAO ->findId($id);
-				$jjh_mg_departmentDAO ->delete($this->dbhelper);
+				$jjh_mg_departmentDAO ->delete();
+
+				$zw_department_relatedDAO = $this->orm->createDAO("zw_department_related");
+				$zw_department_relatedDAO ->findId($id);
+				$zw_department_relatedDAO ->delete();
 
 				echo "<script>alert('删除成功！');";
 				echo "window.location.href='/management/admin/department'";
