@@ -150,7 +150,7 @@
 			echo $this->view->render("index/footer.phtml");
 		}
 
-		public function deldepartmentAction(){
+		/*public function deldepartmentAction(){
 			(int)$id = HttpUtil::getString("id");
 			if(!empty($id)){
 				$jjh_mg_departmentDAO = $this->orm->createDAO("jjh_mg_department");
@@ -166,7 +166,7 @@
 				echo "</script>";
 				exit();
 			}
-		}
+		}*/
 		
 		//项目分类管理
 		public function addcateAction(){
