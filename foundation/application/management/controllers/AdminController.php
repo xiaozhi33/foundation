@@ -151,6 +151,8 @@
 		}
 
 		public function deldepartmentAction(){
+			ini_set("display_errors", "On");
+			error_reporting(E_ERROR);
 			(int)$id = HttpUtil::getString("id");
 			if(!empty($id)){
 				$jjh_mg_departmentDAO = $this->orm->createDAO("jjh_mg_departmentDAO");
