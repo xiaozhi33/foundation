@@ -384,7 +384,14 @@
             }
             $this->mssql_class->free();
 
+            // 获取部门信息
+            $jjh_mg_departmentDAO = $this->orm->createDAO("jjh_mg_department");
+            $department_list = $jjh_mg_departmentDAO ->get();
+
+
             $this->view->assign('zwxmzd_list', $zwxmzdDAO);
+            $this->view->assign('department_list', $department_list);
+
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("zijin/claim.phtml");
             echo $this->view->render("index/footer.phtml");

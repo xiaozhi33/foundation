@@ -44,7 +44,7 @@
                                         <?php if($this->pmlist != ""){
                                             foreach ($this->pmlist as $k => $v){
                                                 ?>
-                                                <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
                                             <?php }}?>
                                     </select>
                                     <input id="pname_info" type="hidden" name="pname" value=""/>
@@ -52,10 +52,26 @@
                             </tr>
 
                             <tr>
+                                <td>财务系统对应项目：</td>
+                                <td id="zw_xm"></td>
+                            </tr>
+
+                            <tr>
                                 <td>认领到部门：</td>
                                 <td>
-                                    团委
+                                    <select class="chosen-select-1 chosen-transparent form-control" id="department">
+                                        <?php if($this->department_list != ""){
+                                            foreach ($this->department_list as $k => $v){
+                                                ?>
+                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                            <?php }}?>
+                                    </select>
                                 </td>
+                            </tr>
+
+                            <tr>
+                                <td>财务系统对应部门：</td>
+                                <td id="zw_bm"></td>
                             </tr>
 
                             <tr>
@@ -94,8 +110,15 @@
         <script language="javascript">
             $(".menu li:eq(4)").addClass("open");
 
+            $(document).ready(function(){
+                $("#pname").change(function(){
+                    //alert($(this).children('option:selected').val());
+                    GetZWxm();
+                });
+            };
+
             function GetZWxm(){
-                var pm_pid = $("#pm_id").val();
+                var pm_id = $("#pm_id").val();
                 $.ajax({
                     type:'post',
                     url: '/management/zijin/ajaxgetzwbm?pm_id='+pm_id,
