@@ -390,6 +390,37 @@
             echo $this->view->render("index/footer.phtml");
         }
 
+        /**
+         * ajax 请求对应的财务项目信息
+         */
+        public function ajaxgetzwxmAction(){
+            (int)$pm_id = HttpUtil::postString("pm_id");
+            $zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
+            $zw_pm_relatedDAO ->findPm_id($pm_id);
+            $zw_pm_relatedDAO = $zw_pm_relatedDAO->get();
+
+            if($zw_pm_relatedDAO != ""){
+                return $zw_pm_relatedDAO[0];
+            }else {
+                return array();
+            }
+        }
+
+        /**
+         * ajax 请求对应的财务部门信息
+         */
+        public function ajaxgetzwbmAction(){
+            (int)$pm_pid = HttpUtil::postString("pm_pid");
+            $zw_department_related = $this->orm->createDAO("zw_department_related");
+            $zw_department_related ->findPm_pid($pm_pid);
+            $zw_department_related = $zw_department_related->get();
+
+            if($zw_department_related != ""){
+                return $zw_department_related[0];
+            }else {
+                return array();
+            }
+        }
 
         /**
          * 项目进度管理

@@ -91,6 +91,42 @@
 		</div>
 
 
-		    <script language="javascript">
-                $(".menu li:eq(4)").addClass("open");
-			</script>
+        <script language="javascript">
+            $(".menu li:eq(4)").addClass("open");
+
+            function GetZWxm(){
+                var pm_pid = $("#pm_id").val();
+                $.ajax({
+                    type:'post',
+                    url: '/management/zijin/ajaxgetzwbm?pm_id='+pm_id,
+                    data:{},
+                    cache:false,
+                    dataType:'json',
+                    success:function(data){
+                        if( data.msg =="false")
+                        {
+                            alert();
+                        }
+                    },
+                    error:function(){}
+                });
+            }
+
+            function GetZWbm(){
+                var pm_pid = $("#pm_pid").val();
+                $.ajax({
+                    type:'post',
+                    url: '/management/zijin/ajaxgetzwbm?pm_pid='+pm_pid,
+                    data:{},
+                    cache:false,
+                    dataType:'json',
+                    success:function(data){
+                        if( data.msg =="false")
+                        {
+                            alert();
+                        }
+                    },
+                    error:function(){}
+                });
+            }
+        </script>
