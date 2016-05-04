@@ -419,13 +419,12 @@
             $pm_mg_infoDAO = $pm_mg_infoDAO ->get();
             $this->view->assign('pm_mg_info', $pm_mg_infoDAO);
 
-            //
+            // 获取认领详细信息
             $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
-            $zw_lkrl_logsDAO ->findId($pid);
+            $zw_lkrl_logsDAO ->findLsh($pm_mg_infoDAO[0]['lsh']);
             $zw_lkrl_logsDAO = $zw_lkrl_logsDAO ->get();
-            $this->view->assign('zw_lkrl_logsDAO', $zw_lkrl_logsDAO);
-
-
+            $this->view->assign('zw_lkrl_logs', $zw_lkrl_logsDAO);
+            
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("zijin/claim.phtml");
             echo $this->view->render("index/footer.phtml");

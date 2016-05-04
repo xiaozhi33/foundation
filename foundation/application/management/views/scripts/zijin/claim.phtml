@@ -82,15 +82,15 @@
                             </tr>
                             <tr>
                                 <td>来款单位：</td>
-                                <td><input name="lkdw" type="text" readonly="readonly" value=""/></td>
+                                <td><input name="lkdw" type="text" readonly="readonly" value="<?php echo $this->zw_lkrl_logs[0]['fkdw'];?>"/></td>
                             </tr>
                             <tr>
                                 <td>来款金额：</td>
-                                <td><input name="je" type="text" readonly="readonly" value=""/> 元</td>
+                                <td><input name="je" type="text" readonly="readonly" value="<?php echo $this->pm_mg_info[0]['zijin_daozheng_jiner'];?>"/> 元</td>
                             </tr>
                             <tr>
                                 <td>来款日期：</td>
-                                <td><input name="lkrq" type="text" readonly="readonly" value=""/> </td>
+                                <td><input name="lkrq" type="text" readonly="readonly" value="<?php echo $this->pm_mg_info[0]['zijin_daozhang_datetime'];?>"/> </td>
                             </tr>
 
                         </tbody>
@@ -112,7 +112,7 @@
 
             $(document).ready(function(){
                 $("#pname").change(function(){
-                    //alert($(this).children('option:selected').val());
+                    alert($(this).children('option:selected').val());
                     GetZWxm();
                 });
             };
