@@ -375,30 +375,56 @@
                 
                 <ul class="menu">
                   
-                  <li class="active">
+                  <!--<li class="active">
                     <a href="/management/zijin/claimlist">
                       <i class="fa fa-tachometer"></i> 未认的领目来款
-                      <span class="badge badge-red"><?php echo count($this->renling_weirenling_list);?></span>
+                      <span class="badge badge-red"><?php /*echo count($this->renling_weirenling_list);*/?></span>
                     </a>
-                  </li>
+                  </li>-->
 
 				  <?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,4))){?>
 				  
 				  <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <i class="fa fa-list"></i> 项目基本信息（筹资）管理 <b class="fa fa-plus dropdown-plus"></b>
+                      <i class="fa fa-list"></i> 项目信息编辑 <b class="fa fa-plus dropdown-plus"></b>
                     </a>
                     <ul class="dropdown-menu">
-                          <li>
+                          <!--<li>
                             <a href="/management/chouzi/index">
                               <i class="fa fa-caret-right"></i> 项目列表
                             </a>
-                          </li>
+                          </li>-->
                           <li>
                             <a href="/management/chouzi/addchouzi">
-                              <i class="fa fa-caret-right"></i> 添加项目
+                              <i class="fa fa-caret-right"></i> 筹资立项
                             </a>
                           </li>
+                        <li>
+                            <a href="">
+                                <i class="fa fa-caret-right"></i> 签约信息
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/management/zijin/claimlist">
+                                <i class="fa fa-caret-right"></i> 来款认领
+                                <span class="badge badge-red"><?php /*echo count($this->renling_weirenling_list);*/?></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/management/shiyong/addshiyong?type=1"><!-- 添加转财务支出 -->
+                                <i class="fa fa-caret-right"></i> 项目支出
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa fa-caret-right"></i> 项目回馈
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa fa-caret-right"></i> 项目配比
+                            </a>
+                        </li>
                     </ul>
                   </li>
 					
@@ -410,7 +436,7 @@
 			
 				<?php if (in_array($admininfo['admin_info']['admin_type'],array(0,3,4))){?>
 
-                    <li class="dropdown">
+                   <!-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-list"></i> 项目进度管理 <b class="fa fa-plus dropdown-plus"></b>
                         </a>
@@ -434,7 +460,7 @@
                                 <a href="/management/zijin/claimlist">
                                     <i class="fa fa-caret-right">
                                         <span class="badge badge-red">
-                                            <?php echo count($this->renling_weirenling_list);?></span>
+                                            <?php /*echo count($this->renling_weirenling_list);*/?></span>
                                     </i> 认领项目来款
                                 </a>
                             </li>
@@ -486,9 +512,10 @@
                             </li>
                         </ul>
                     </li>
+                    -->
 
 
-                    <li class="dropdown">
+                    <!--<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-list"></i> 项目分类管理 <b class="fa fa-plus dropdown-plus"></b>
                         </a>
@@ -504,10 +531,10 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li>-->
 
 
-                    <li class="dropdown">
+                    <!--<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-th-large"></i> 捐赠方管理 <b class="fa fa-plus dropdown-plus"></b>
                         </a>
@@ -523,7 +550,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li>-->
 				
 				<?php }?>
 				
@@ -531,19 +558,27 @@
 
 				<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <i class="fa fa-desktop"></i> 所属部门管理 <b class="fa fa-plus dropdown-plus"></b>
+                      <i class="fa fa-desktop"></i> 业务相关编辑 <b class="fa fa-plus dropdown-plus"></b>
                     </a>
                     <ul class="dropdown-menu">
-                      <li>
+                      <!--<li>
                         <a href="/management/admin/department">
                           <i class="fa fa-caret-right"></i> 所属部门列表
                         </a>
-                      </li>
-                      <li>
-                        <a href="/management/admin/adddepartment">
-                          <i class="fa fa-caret-right"></i> 添加所属部门
-                        </a>
-                      </li>
+                      </li>-->
+                        <li>
+                            <a href="/management/admin/addpp">
+                                <i class="fa fa-caret-right"></i> 捐赠方管理
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/management/meeting/add">
+                                <i class="fa fa-caret-right"></i> 会议管理
+                            </a>
+                        </li>
+
+
                     </ul>
                   </li>
 
@@ -571,10 +606,20 @@
 	
 				<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <i class="fa fa-bar-chart-o"></i> 捐赠项目统计管理 <b class="fa fa-plus dropdown-plus"></b>
+                      <i class="fa fa-bar-chart-o"></i> 项目信息查询与统计 <b class="fa fa-plus dropdown-plus"></b>
                     </a>
                     <ul class="dropdown-menu">
-                      <li>
+                        <li>
+                            <a href="/">
+                                <i class="fa fa-caret-right"></i> 项目信息列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/">
+                                <i class="fa fa-caret-right"></i> 项目签约信息统计
+                            </a>
+                        </li>
+                        <li>
                         <a href="/management/report/index">
                           <i class="fa fa-caret-right"></i> 项目管理统计
                         </a>
@@ -586,12 +631,12 @@
                       </li>
 					  <li>
                         <a href="/management/report/zijin">
-                          <i class="fa fa-caret-right"></i> 项目资金管理统计
+                          <i class="fa fa-caret-right"></i> 项目收入信息统计
                         </a>
                       </li>
                       <li>
                         <a href="/management/report/shiyong">
-                          <i class="fa fa-caret-right"></i> 项目使用管理统计
+                          <i class="fa fa-caret-right"></i> 项目支出信息统计
                         </a>
                       </li>
                         <li>
@@ -599,12 +644,22 @@
                                 <i class="fa fa-caret-right"></i> 项目收支统计
                             </a>
                         </li>
+                        <li>
+                            <a href="/management/report/">
+                                <i class="fa fa-caret-right"></i> 项目回馈统计
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/management/report/">
+                                <i class="fa fa-caret-right"></i> 项目配比统计
+                            </a>
+                        </li>
                     </ul>
                   </li>
 				
 				<?php }?>
 
-                    <li class="dropdown">
+                   <!-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-users"></i> 会议管理 <b class="fa fa-plus dropdown-plus"></b>
                         </a>
@@ -614,11 +669,33 @@
                                     <i class="fa fa-caret-right"></i> 会议列表
                                 </a>
                             </li>
+
+                        </ul>
+                    </li>-->
+
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-desktop"></i> 业务相关信息 <b class="fa fa-plus dropdown-plus"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!--<li>
+                              <a href="/management/admin/department">
+                                <i class="fa fa-caret-right"></i> 部门管理
+                              </a>
+                            </li>-->
                             <li>
-                                <a href="/management/meeting/add">
-                                    <i class="fa fa-caret-right"></i> 添加会议
+                                <a href="/management/admin/pp">
+                                    <i class="fa fa-caret-right"></i> 捐赠方管理
                                 </a>
                             </li>
+
+                            <li>
+                                <a href="/management/meeting/">
+                                    <i class="fa fa-caret-right"></i> 会议管理
+                                </a>
+                            </li>
+
                         </ul>
                     </li>
 			
