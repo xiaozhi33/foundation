@@ -33,7 +33,7 @@
 			echo $this->view->render("index/footer.phtml");
 		}
 
-        /*public function delzijinAction(){
+        public function delzijinAction(){
             (int)$id = HttpUtil::getString("id");
             if(!empty($id)){
                 $pm_zijinDAO = $this->orm->createDAO("pm_mg_info");
@@ -45,7 +45,7 @@
                 echo "</script>";
                 exit();
             }
-        }*/
+        }
 		
 		public function addzijinAction(){
 			echo $this->view->render("index/header.phtml");
@@ -238,6 +238,9 @@
             return $zw_lkrl_logsDAO->get();
         }
 
+        /**
+         * 同步来款信息，新同步到项目信息表中，并记录到同步记录表中
+         */
         public function synclkrl(){
             $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
             $zw_lkrl_logsDAO ->selectLimit .= " and status=0";
@@ -245,20 +248,39 @@
 
             if(!empty($zw_lkrl_list)){
                 foreach($zw_lkrl_list as $key => $value){  // 批量添加财务来款到项目info中
-                    $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
-                    $pm_mg_infoDAO ->cate_id = 0;
-                    $pm_mg_infoDAO ->pm_pp_company = $value["fkdw"];              // 付款单位
-                    $pm_mg_infoDAO ->zijin_daozhang_datetime = $value["lkrq"];  //  来款日期
-                    $pm_mg_infoDAO ->zijin_daozheng_jiner = $value["je"];        // 金额
-                    $pm_mg_infoDAO ->pm_pp_company = $value["lrrq"];              // 付款单位
-                    $pm_mg_infoDAO ->renling_name = $value["lrr"];               // 付款单位
-                    $pm_mg_infoDAO ->save();
+                    $islog = $this->getisuselog($value['lsh']);
+                    if($islog){   // 判断是否已经存在同步记录
+                        $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+                        $pm_mg_infoDAO ->cate_id = 0;
+                        $pm_mg_infoDAO ->pm_pp_company = $value["fkdw"];              // 付款单位
+                        $pm_mg_infoDAO ->zijin_daozhang_datetime = $value["lkrq"];  //  来款日期
+                        $pm_mg_infoDAO ->zijin_daozheng_jiner = $value["je"];        // 金额
+                        $pm_mg_infoDAO ->pm_pp_company = $value["lrrq"];              // 付款单位
+                        $pm_mg_infoDAO ->renling_name = $value["lrr"];                // 付款单位
+                        $pm_mg_infoDAO ->lsh = $value["lsh"];                           // 财务流水号
+                        $pm_mg_infoDAO ->save();
 
-                    $zw_lkrl_logs1DAO = $this->orm->createDAO("zw_lkrl_logs");
-                    $zw_lkrl_logs1DAO ->findLsh($value['lsh']);
-                    $zw_lkrl_logs1DAO ->status = 1;
-                    $zw_lkrl_logs1DAO ->save();
+                        $zw_lkrl_logs1DAO = $this->orm->createDAO("zw_lkrl_logs");
+                        $zw_lkrl_logs1DAO ->findLsh($value['lsh']);
+                        $zw_lkrl_logs1DAO ->status = 1;
+                        $zw_lkrl_logs1DAO ->save();
+                    }
                 }
+            }
+        }
+
+        public function getisuselog($lsh){
+            if(!empty($lsh)){
+                $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+                $pm_mg_infoDAO ->findLsh($lsh);
+                $pm_mg_infoDAO = $pm_mg_infoDAO->get();
+                if(empty($pm_mg_infoDAO)){
+                    return true;
+                }else {
+                    return false;
+                }
+            }else {
+                return false;
             }
         }
 
@@ -375,22 +397,34 @@
          */
         public function bindingClaimAction(){
             // 财务系统相关 - 读取财务项目信息
-            $zwxmzdDAO = array();
+            /*$zwxmzdDAO = array();
             $select_zw_xm = "SELECT xmnm,bmbh,xmbh,xmmc,fzr,fzrbh FROM zwxmzd";
             $this->mssql_class->connect();
             $zwxmzd_list = $this->mssql_class->query($select_zw_xm);
             while($row = $this->mssql_class->fetch_array($zwxmzd_list)){
                 $zwxmzdDAO[$row['xmnm']] = $row;
             }
-            $this->mssql_class->free();
+            $this->mssql_class->free();*/
+            //$this->view->assign('zwxmzd_list', $zwxmzdDAO);
 
             // 获取部门信息
             $jjh_mg_departmentDAO = $this->orm->createDAO("jjh_mg_department");
             $department_list = $jjh_mg_departmentDAO ->get();
-
-
-            $this->view->assign('zwxmzd_list', $zwxmzdDAO);
             $this->view->assign('department_list', $department_list);
+
+            // 项目相关信息取得
+            (int)$pid = $_REQUEST['pm_id'];
+            $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+            $pm_mg_infoDAO ->findId($pid);
+            $pm_mg_infoDAO = $pm_mg_infoDAO ->get();
+            $this->view->assign('pm_mg_info', $pm_mg_infoDAO);
+
+            //
+            $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
+            $zw_lkrl_logsDAO ->findId($pid);
+            $zw_lkrl_logsDAO = $zw_lkrl_logsDAO ->get();
+            $this->view->assign('zw_lkrl_logsDAO', $zw_lkrl_logsDAO);
+
 
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("zijin/claim.phtml");
