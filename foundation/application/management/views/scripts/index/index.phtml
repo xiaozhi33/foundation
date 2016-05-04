@@ -446,6 +446,41 @@
               <!-- /col 8 -->
               <!-- col 4 -->
               <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+
+                  <!-- tile -->
+                  <section class="tile transparent">
+
+                      <!-- tile header -->
+                      <div class="tile-header color redbrown rounded-top-corners text-center">
+                          <button class="btn pull-left btn-black-transparent" type="button"><i class="fa fa-caret-square-o-down"></i></button>
+                          <h2><strong>Todo List</strong> 代办事宜</h2>
+                          <div class="controls">
+                              <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                              <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                          </div>
+                      </div>
+                      <!-- /tile header -->
+
+                      <!-- tile body -->
+                      <div class="tile-body color transparent-black rounded-bottom-corners">
+                          <!--<input type="text" placeholder="添加新任务..." class="w100p bottommargin">-->
+                          <ul class="nolisttypes" id="todolist">
+                              <?php foreach($this->todolist as $k => $v){?>
+                                  <li>
+                                      <div class="checkbox check-transparent">
+                                          <input type="checkbox" value="<?php echo $v['id'];?>" <?php if($v['status'] == 1){echo "checked='checked'";}?> id="todo-0<?php echo $v['id'];?>">
+                                          <label for="todo-0<?php echo $v['id'];?>"><?php echo $v['title'];?></label>
+                                      </div>
+                                  </li>
+                              <?php }?>
+                          </ul>
+                      </div>
+                      <!-- /tile body -->
+
+                  </section>
+                  <!-- /tile -->
+
+
                 <!-- tile -->
                 <section class="tile color transparent-black textured">
                   <!-- tile header -->
@@ -457,6 +492,8 @@
                     </div>
                   </div>
                   <!-- /tile header -->
+
+
 
                   <!-- tile widget -->
                   <div class="tile-widget">
@@ -475,24 +512,16 @@
                     <p class="description"><strong><?php echo $this->total;?> GB</strong> 已用 <strong class="white-text"><?php echo $this->free;?></strong> 在服务器中</p>
                   </div>
                   <!-- /tile widget -->
-
-
                   <!-- tile body -->
                   <div class="tile-body paddingtop">
                     <div id="serverload-chart"></div>
                   </div>
                   <!-- /tile body -->
-                
-
 
                 </section>
                 <!-- /tile -->
-
-
                 <!-- tile -->
                 <section class="tile color transparent-black">
-
-
 
                   <!-- tile header -->
                   <div class="tile-header">
@@ -516,92 +545,27 @@
                       <li><span class="badge badge-outline" style="border-color: #d9544f"></span> Opera <small>5%</small></li>
                     </ul>
                   </div>
-                  <!-- /tile body --> 
-
-
-
-
-                </section>
-                <!-- /tile -->
-
-
-
-                <!-- tile -->
-                <section class="tile transparent">
-
-
-
-
-                  <!-- tile header -->
-                  <div class="tile-header color redbrown rounded-top-corners text-center">
-                    <button class="btn pull-left btn-black-transparent" type="button"><i class="fa fa-caret-square-o-down"></i></button>
-                    <h2><strong>Todo List</strong> 代办事宜</h2>
-                    <div class="controls">
-                      <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
-                      <a href="#" class="remove"><i class="fa fa-times"></i></a>
-                    </div>
-                  </div>
-                  <!-- /tile header -->
-
-                  <!-- tile body -->
-                  <div class="tile-body color transparent-black rounded-bottom-corners">
-                    <!--<input type="text" placeholder="添加新任务..." class="w100p bottommargin">-->
-                    <ul class="nolisttypes" id="todolist">
-                        <?php foreach($this->todolist as $k => $v){?>
-                          <li>
-                            <div class="checkbox check-transparent">
-                              <input type="checkbox" value="<?php echo $v['id'];?>" <?php if($v['status'] == 1){echo "checked='checked'";}?> id="todo-0<?php echo $v['id'];?>">
-                              <label for="todo-0<?php echo $v['id'];?>"><?php echo $v['title'];?></label>
-                            </div>
-                          </li>
-                        <?php }?>
-                    </ul>
-                  </div>
                   <!-- /tile body -->
-                
-
-
                 </section>
                 <!-- /tile -->
+
 
 
               </div>
               <!-- /col 4 -->
               
-              
             </div>
             <!-- /row -->
-
 
             <!-- row -->
             <div class="row">
 
-
-
-
-
-
-
-
-
             </div>
-            <!-- /row -->  
-
-
-
+            <!-- /row -->
           </div>
           <!-- /content container -->
-
-
-
-
-
-
         </div>
         <!-- Page content end -->
-
-
-
 
         <div id="mmenu" class="right-panel">
           <!-- Nav tabs -->
@@ -611,4 +575,9 @@
             <li class=""><a href="#mmenu-friends" data-toggle="tab"><i class="fa fa-heart"></i></a></li>
             <li class=""><a href="#mmenu-settings" data-toggle="tab"><i class="fa fa-gear"></i></a></li>
           </ul>
-              
+
+
+            <script src="/include/management/assets/js/jquery.js"></script>
+            <script language="javascript">
+                $(".menu li:eq(0)").addClass("open");
+            </script>
