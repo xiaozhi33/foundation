@@ -85,7 +85,7 @@
 
                             <tr>
                                 <td>财务系统对应部门：</td>
-                                <td id="zw_bm"><input class="form-control" type="text" id="zw_bmmc" name="zw_bmmc" readonly="readonly"/></td>
+                                <td id="zw_bm"><input type="text" id="zw_bmmc" name="zw_bmmc" readonly="readonly"/></td>
                                 <input type="hidden" name="zw_bmbh" id="zw_bmbh"/>
                             </tr>
 
@@ -166,6 +166,12 @@
             $(".menu li:eq(0)").addClass("open");
 
             $(document).ready(function(){
+                // 切换项目ajax对应财务项目信息
+                $("#pname").change(function(){
+                    GetZWxm($(this).children('option:selected').val());
+                });
+
+                // 切换部门ajax对应财务部门信息
                 $("#pname").change(function(){
                     GetZWxm($(this).children('option:selected').val());
                 });
@@ -196,8 +202,7 @@
                 });
             }
 
-            function GetZWbm(){
-                var pm_pid = $("#pm_pid").val();
+            function GetZWbm(pm_pid){
                 $.ajax({
                     type:'post',
                     url: '/management/zijin/ajaxgetzwbm?pm_pid='+pm_pid,
@@ -205,9 +210,17 @@
                     cache:false,
                     dataType:'json',
                     success:function(data){
-                        if( data != "")
+                        if( data != null)
                         {
-                            $("#zw_bm").html(data['html']);
+                            //console.log(data);
+                            $("#zw_bmbh").val(data.zw_bmbh);
+                            $("#zw_bmmc").val(data.zw_bmmc);
+                        }else {
+                            $("#zw_bmbh").attr("value","");
+                            $("#zw_bmbh").val("");
+                            $("#zw_bmmc").attr("value","");
+                            $("#zw_bmmc").val("");
+                            alert("对不起，没有对应财务系统部门目，请添加对照关系后认领");
                         }
                     },
                     error:function(){}
