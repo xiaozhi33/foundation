@@ -36,6 +36,10 @@
                         </thead>
                         <tbody>
 
+
+
+
+
                             <!-- 项目相关 start-->
                             <tr>
                                 <td>认领到项目：</td>
@@ -54,12 +58,17 @@
 
                             <tr>
                                 <td>财务系统对应项目：</td>
-                                <td id="zw_xm"><input type="text" id="zw_xmmc" name="zw_xmmc" readonly="readonly"/></td>
+                                <td id="zw_xm"><input class="form-control" type="text" id="zw_xmmc" name="zw_xmmc" readonly="readonly"/></td>
                                 <input type="hidden" name="zw_xmbh" id="zw_xmbh"/>
                             </tr>
                             <!-- 项目相关 end-->
 
 
+
+
+
+
+                            <!-- 部门相关信息 start-->
                             <tr>
                                 <td>认领到部门：</td>
                                 <td>
@@ -70,13 +79,21 @@
                                                 <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
                                             <?php }}?>
                                     </select>
+                                    <input id="department_id" type="hidden" name="department_id" value=""/>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>财务系统对应部门：</td>
-                                <td id="zw_bm"></td>
+                                <td id="zw_bm"><input class="form-control" type="text" id="zw_bmmc" name="zw_bmmc" readonly="readonly"/></td>
+                                <input type="hidden" name="zw_bmbh" id="zw_bmbh"/>
                             </tr>
+
+                            <!-- 部门相关信息  end-->
+
+
+
+
 
                             <tr>
                                 <td>认领负责人：</td>
