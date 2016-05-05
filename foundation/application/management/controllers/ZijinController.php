@@ -440,9 +440,9 @@
             $zw_pm_relatedDAO = $zw_pm_relatedDAO->get();
 
             if($zw_pm_relatedDAO != ""){
-                return json_encode($zw_pm_relatedDAO[0]);
+                echo json_encode($zw_pm_relatedDAO[0]);
             }else {
-                return json_encode(array());
+                echo json_encode(array());
             }
         }
 
@@ -456,9 +456,9 @@
             $zw_department_related = $zw_department_related->get();
 
             if($zw_department_related != ""){
-                return $zw_department_related[0];
+                echo json_encode($zw_department_related[0]);
             }else {
-                return array();
+                echo json_encode(array());
             }
         }
 
