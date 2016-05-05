@@ -105,7 +105,7 @@
 
                             <tr>
                                 <td>来款单位：</td>
-                                <td><input name="lkdw" type="text" readonly="readonly" value="<?php echo $this->zw_lkrl_logs[0]['fkdw'];?>"/></td>
+                                <td><input name="pm_pp" type="text" readonly="readonly" value="<?php echo $this->zw_lkrl_logs[0]['fkdw'];?>"/></td>
                             </tr>
 
                             <tr>
@@ -151,18 +151,44 @@
                                 <td><input name="jindu" type="checkbox" value="1" />已到帐</td>
                             </tr>
 
+                            <!--<tr>
+                                <td>选择进度：</td>
+                                <input type="radio" name="zhengshu" value="1" checked="checked"/> 已开证书
+                                <input type="radio" name="zhengshu" value="0" /> 未开证书
+                            </tr>-->
+
                             <tr>
                                 <td>发票状态：</td>
                                 <td>
-                                    <input type="radio" name="radiobutton" value="0" checked>已开
-                                    <input type="radio" name="radiobutton" value="1" checked>未开
+                                    <input type="radio" name="piaoju" value="0" checked="checked"/> 未开票（默认）
+                                    <input type="radio" name="piaoju" value="1" /> 已开票
+                                    <input type="radio" name="piaoju" value="2" /> 借票
                                 </td>
                             </tr>
 
+                            <div id="addfapiao" style="display: ;">
                             <tr>
                                 <td>添加发票信息：</td>
                                 <td></td>
                             </tr>
+                                <tr>
+                                    <td>发票票号：</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>发票反馈方式：</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>经办人：</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>快递单号：</td>
+                                    <td></td>
+                                </tr>
+                            </div>
+
 
                         </tbody>
 
