@@ -185,10 +185,9 @@
                             $("#zw_xmbh").val(data.zw_xmbh);
                             $("#zw_xmmc").val(data.zw_xmmc);
                         }else {
-                            alert("对不起，没有对应财务系统项目，请添加对照关系后认领");
                             $("#zw_xmbh").attr("value","");
-                            $("#zw_xmmc").attr("value","");'' +
-                            alert($("#zw_xmmc").val());
+                            $("#zw_xmmc").attr("value","");
+                            alert("对不起，没有对应财务系统项目，请添加对照关系后认领");
                         }
                     },
                     error:function(){}
