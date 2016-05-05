@@ -160,13 +160,13 @@
                             <tr>
                                 <td>发票状态：</td>
                                 <td>
-                                    <input type="radio" name="piaoju" value="0" checked="checked"/> 未开票（默认）
-                                    <input type="radio" name="piaoju" value="1" /> 已开票
-                                    <input type="radio" name="piaoju" value="2" /> 借票
+                                    <input class="radioItem" type="radio" name="piaoju" value="0" checked="checked"/> 未开票（默认）
+                                    <input class="radioItem" type="radio" name="piaoju" value="1" /> 已开票
+                                    <input class="radioItem" type="radio" name="piaoju" value="2" /> 借票
                                 </td>
                             </tr>
 
-                            <div id="addfapiao" style="display: ;">
+                            <div id="addfapiao" style="display: none;">
                             <tr>
                                 <td>添加发票信息：</td>
                                 <td></td>
@@ -216,6 +216,16 @@
                 // 切换部门ajax对应财务部门信息
                 $("#department").change(function(){
                     GetZWbm($(this).children('option:selected').val());
+                });
+
+                // 切换发票状态
+                $(".radioItem").change(function(){
+                    var $selectedvalue = $("input[name='rl$tt']:checked").val();
+                    if ($selectedvalue == 0) {
+                        $("#addfapiao").hide();
+                    } else if($selectedvalue == 1 || $selectedvalue == 2) {
+                        $("#addfapiao").show();
+                    }
                 });
             });
 
