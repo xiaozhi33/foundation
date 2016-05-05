@@ -162,7 +162,7 @@
                     cache:false,
                     dataType:'json',
                     success:function(data){
-                        if( data.msg != "false")
+                        if( data != null)
                         {
                             console.log(data);
                             $("#zw_xmbh").val(data.zw_xmbh);

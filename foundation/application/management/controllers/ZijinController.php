@@ -442,7 +442,7 @@
             if($zw_pm_relatedDAO != ""){
                 echo json_encode($zw_pm_relatedDAO[0]);
             }else {
-                echo json_encode(array('msg'=>"false"));
+                echo json_encode(array());
             }
         }
 
@@ -458,7 +458,7 @@
             if($zw_department_related != ""){
                 echo json_encode($zw_department_related[0]);
             }else {
-                echo json_encode(array('msg'=>"false"));
+                echo json_encode(array());
             }
         }
 
