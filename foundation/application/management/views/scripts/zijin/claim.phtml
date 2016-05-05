@@ -36,6 +36,7 @@
                         </thead>
                         <tbody>
 
+                            <!-- 项目相关 start-->
                             <tr>
                                 <td>认领到项目：</td>
                                 <td>
@@ -53,8 +54,11 @@
 
                             <tr>
                                 <td>财务系统对应项目：</td>
-                                <td id="zw_xm"></td>
+                                <td id="zw_xm"><input type="text" id="zw_xmmc" name="zw_xmmc" readonly="readonly"/></td>
+                                <input type="hidden" name="zw_xmbh" id="zw_xmbh"/>
                             </tr>
+                            <!-- 项目相关 end-->
+
 
                             <tr>
                                 <td>认领到部门：</td>
@@ -160,8 +164,11 @@
                     success:function(data){
                         if( data != "")
                         {
-                            console.log(data);
-                            $("#zw_xm").html(data['html']);
+                            //console.log(data);
+                            $("#zw_xmbh").val(data.zw_xmbh);
+                            $("#zw_xmmc").val(data.zw_xmmc);
+                        }else {
+                            alert("对不起，没有对应财务系统项目，请添加对照关系后认领");
                         }
                     },
                     error:function(){}
