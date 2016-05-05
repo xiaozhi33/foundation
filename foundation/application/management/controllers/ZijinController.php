@@ -458,7 +458,7 @@
             if($zw_department_related != ""){
                 echo json_encode($zw_department_related[0]);
             }else {
-                echo json_encode(array());
+                echo json_encode(array('msg'=>"false"));
             }
         }
 
