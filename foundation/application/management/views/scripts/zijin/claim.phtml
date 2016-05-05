@@ -146,22 +146,21 @@
 
             $(document).ready(function(){
                 $("#pname").change(function(){
-                    alert($(this).children('option:selected').val());
-                    GetZWxm();
+                    GetZWxm($(this).children('option:selected').val());
                 });
             });
 
-            function GetZWxm(){
-                var pm_id = $("#pm_id").val();
+            function GetZWxm(pm_id){
                 $.ajax({
                     type:'post',
-                    url: '/management/zijin/ajaxgetzwbm?pm_id='+pm_id,
+                    url: '/management/zijin/ajaxgetzwxm?pm_id='+pm_id,
                     data:{},
                     cache:false,
                     dataType:'json',
                     success:function(data){
                         if( data.msg =="false")
                         {
+                            console.log(data);
                             $("#zw_xm").html(data['html']);
                         }
                     },
