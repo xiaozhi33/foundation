@@ -440,9 +440,9 @@
             $zw_pm_relatedDAO = $zw_pm_relatedDAO->get();
 
             if($zw_pm_relatedDAO != ""){
-                return $zw_pm_relatedDAO[0];
+                return json_encode($zw_pm_relatedDAO[0]);
             }else {
-                return array();
+                return json_encode(array());
             }
         }
 
