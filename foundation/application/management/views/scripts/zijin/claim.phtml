@@ -158,7 +158,7 @@
                     cache:false,
                     dataType:'json',
                     success:function(data){
-                        if( data.msg =="false")
+                        if( data != "")
                         {
                             console.log(data);
                             $("#zw_xm").html(data['html']);
@@ -177,7 +177,7 @@
                     cache:false,
                     dataType:'json',
                     success:function(data){
-                        if( data.msg =="false")
+                        if( data != "")
                         {
                             $("#zw_bm").html(data['html']);
                         }
