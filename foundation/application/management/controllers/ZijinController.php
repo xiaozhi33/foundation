@@ -442,7 +442,7 @@
             if($zw_pm_relatedDAO != ""){
                 echo json_encode($zw_pm_relatedDAO[0]);
             }else {
-                echo json_encode(array());
+                echo json_encode(array('msg'=>"false"));
             }
         }
 
