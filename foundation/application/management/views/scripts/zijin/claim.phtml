@@ -166,10 +166,9 @@
                                 </td>
                             </tr>
 
-                            <div id="addfapiao" style="display: none;">
+                            <div id="addfapiao">
                                 <tr>
                                     <td>添加发票信息：</td>
-                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>发票票号：</td>
@@ -214,6 +213,9 @@
             $(".menu li:eq(0)").addClass("open");
 
             $(document).ready(function(){
+
+                $("#addfapiao").hide();
+
                 // 切换项目ajax对应财务项目信息
                 $("#pname").change(function(){
                     GetZWxm($(this).children('option:selected').val());
