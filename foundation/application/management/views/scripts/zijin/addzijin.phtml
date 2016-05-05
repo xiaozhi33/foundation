@@ -68,7 +68,7 @@
 				<div class="form-group">
             <label class="col-sm-2 control-label" for="input01">捐赠级别：</label>
             <div class="col-sm-4">
-            <select class="form-control"  name="pm_juanzeng_jibie">
+                            <select class="form-control"  name="pm_juanzeng_jibie">
 								<option value="" >请选择类型</option>
 								<option value="校级" >校级</option>
 								<option value="院级" >院级</option>
@@ -82,12 +82,12 @@
             <label class="col-sm-2 control-label" for="input01">项目捐赠类型：</label>
             <div class="col-sm-4">
             	<select class="form-control"  name="pm_cate">
-								<option value="" >请选择类型</option>
-								<?php if($this->pcatelist != ""){
-								foreach ($this->pcatelist as $k => $v){?>
-									<option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
-								<?php }}?>
-							</select>
+                    <option value="" >请选择类型</option>
+                    <?php if($this->pcatelist != ""){
+                    foreach ($this->pcatelist as $k => $v){?>
+                        <option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
+                    <?php }}?>
+                </select>
             </div>
             <span class="col-sm-2" >* 教育基金、研究基金等</span>
             </div>		
