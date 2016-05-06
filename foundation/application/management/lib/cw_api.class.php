@@ -44,9 +44,9 @@
          * 添加财务认领
          * @param $lkrl_array
          */
-        public function addlkrl($lsh, $lkrq, $fkdw, $je, $rlje, $lrrq, $lrr, $statusS)
+        public function addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $lspz, $rlpznm, $czy)
         {
-            $insert_SQL = "INSERT INTO lkrl SET()VALUES()";
+            $insert_SQL = "INSERT INTO zw_lkrl SET(lsh, rlxh, rlrq, rlr, rlrbh, bmbh, xmbh, rlje, lspz, rlpznm, czy) VALUES($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $lspz, $rlpznm, $czy)";
             $this->mssql_class->connect();
             $rs = $this->mssql_class->query($insert_SQL);
             $this ->mssql_class->free();

@@ -349,10 +349,10 @@
          * 绑定认领
          */
         public function savebindingClaimAction(){
-            (int)$pid = $_REQUEST['pm_id'];
-            (int)$department_id = $_REQUEST['department_id'];
+            (int)$pid = $_REQUEST['pm_xmbh'];
+            (int)$department_id = $_REQUEST['zw_xmbh'];
             if(empty($pid) || empty($department_id)){
-                alert_back("请选择认领项目和部门！");
+                alert_back("请选择认领项目和部门 或 该部门没有绑定财务部门，请联系管理员");
             }
 
             // 1, 查看项目财务对照表－取得财务对应项目名称和编号
@@ -376,6 +376,20 @@
             // 3, 负者人信息同步
 
             // 4, 同步更新财务系统lkrl表
+
+
+            $lsh = $_REQUEST['lsh'];    // 流水号
+            $rlxh = $_REQUEST['lsh'];   // 认领序号
+            $rlrq = date("Y-m-d H:i:s" , time());   // 认领日期
+            $rlr = "";    // 认领人
+            $rlrbh = "";   // 认领人编号
+            $bmbh = $_REQUEST['bmbh'];   // 部门编号
+            $xmbh = $_REQUEST['zw_xmbh'];   // 项目编号
+            $rlje = $_REQUEST['zw_bmbh'];   // 认领金额
+            $lspz = 0;               // 是否制单
+            $rlpznm = "";            // 认领凭证内码
+            $czy = "";               // 操作员
+
             $zw_lkrlDAO = new CW_API();
             $rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $lspz, $rlpznm, $czy);
             if($rs){
