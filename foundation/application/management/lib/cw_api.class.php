@@ -48,9 +48,9 @@
         {
             try{
                 $insert_SQL = "INSERT INTO zw_lkrl (lsh, rlxh, rlrq, rlr, rlrbh, bmbh, xmbh, rlje, ispz, rlpznm, czy) VALUES('$lsh', '$rlxh', '$rlrq', '$rlr', '$rlrbh', '$bmbh', '$xmbh', '$rlje', '$ispz', '$rlpznm', '$czy')";
-                alert_back($insert_SQL);exit();
                 $this->connect();
                 $rs = $this->query($insert_SQL);
+                alert_back($rs);exit();
                 $this ->free();
                 return $rs;
             }catch (Exception $e){
