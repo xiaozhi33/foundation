@@ -380,7 +380,7 @@
 
                 // 4, 同步更新财务系统lkrl表
                 $lsh = $_REQUEST['lsh'];    // 流水号
-                $rlxh = $_REQUEST['lsh'].date("Ymd");   // 认领序号
+                $rlxh = $_REQUEST['lsh']."1";   // 认领序号
                 $rlrq = date("Ymd" , time());   // 认领日期
                 $rlr = $_REQUEST['lrr'];        // 认领人
                 $rlrbh = $_REQUEST['lsh'];      // 认领人编号
