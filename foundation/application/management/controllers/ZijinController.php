@@ -350,6 +350,8 @@
          */
         public function savebindingclaimAction(){
             try{
+                ini_set("display_errors", "On");
+                error_reporting(E_ERROR);
                 (int)$pid = $_REQUEST['zw_xmbh'];
                 (int)$department_id = $_REQUEST['zw_bmbh'];
                 if(empty($pid) || empty($department_id)){
