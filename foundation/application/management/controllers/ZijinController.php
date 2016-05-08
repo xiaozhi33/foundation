@@ -372,7 +372,7 @@
                 $department_info ->findPm_pid($_REQUEST['pm_bmbh']);
                 $department_info = $department_info->get();
 
-                if(empyt($department_info[0]['zw_bmbh']) || empyt($department_info[0]['zw_bmmc'])){
+                if(empty($department_info[0]['zw_bmbh']) || empty($department_info[0]['zw_bmmc'])){
                     alert_back("该部门没有绑定财务部门，请联系管理员");
                 }
 
