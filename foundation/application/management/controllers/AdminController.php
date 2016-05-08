@@ -96,35 +96,39 @@
 		}
 		
 		public function addrsdepartmentAction(){
-            ini_set("display_errors", "On");
-            error_reporting(E_ERROR);
-			if($_REQUEST['name'] != "" ){
-                // 同步财务系统部门信息
-                $deparmentlDAO = new CW_API();
-                $rs1 = $deparmentlDAO ->get_max_departmentID();
+            try{
+                ini_set("display_errors", "On");
+                error_reporting(E_ERROR);
+                if($_REQUEST['name'] != "" ){
+                    // 同步财务系统部门信息
+                    $deparmentlDAO = new CW_API();
+                    $rs1 = $deparmentlDAO ->get_max_departmentID();
 
-                $zwbmzdlDAO = new CW_API();
-                $rs = $zwbmzdlDAO ->sync_department($rs1[0]+1, $_REQUEST['name']);
-                if($rs){
-                    $departmentinfo = new jjh_mg_departmentDAO();
-                    $departmentinfo ->pname = $_REQUEST['name'];
-                    $pid = $departmentinfo->save($this->dbhelper);
+                    $zwbmzdlDAO = new CW_API();
+                    $rs = $zwbmzdlDAO ->sync_department($rs1[0]+1, $_REQUEST['name']);
+                    if($rs){
+                        $departmentinfo = new jjh_mg_departmentDAO();
+                        $departmentinfo ->pname = $_REQUEST['name'];
+                        $pid = $departmentinfo->save($this->dbhelper);
 
-                    // 写入对照表
-                    $zw_department_relatedDAO = $this->orm->createDAO("zw_department_related");
-                    $zw_department_relatedDAO ->pm_pid = $pid;
-                    $zw_department_relatedDAO ->pm_pname = $_REQUEST['name'];
-                    $zw_department_relatedDAO ->zw_bmbh = $rs1[0]+1;
-                    $zw_department_relatedDAO ->zw_bmmc = $_REQUEST['name'];
-                    $zw_department_relatedDAO ->save();
+                        // 写入对照表
+                        $zw_department_relatedDAO = $this->orm->createDAO("zw_department_related");
+                        $zw_department_relatedDAO ->pm_pid = $pid;
+                        $zw_department_relatedDAO ->pm_pname = $_REQUEST['name'];
+                        $zw_department_relatedDAO ->zw_bmbh = $rs1[0]+1;
+                        $zw_department_relatedDAO ->zw_bmmc = $_REQUEST['name'];
+                        $zw_department_relatedDAO ->save();
 
-                    alert_go("添加成功！", "/management/admin/department");
+                        alert_go("添加成功！", "/management/admin/department");
+                    }else {
+                        alert_back("添加同步财务系统失败！");
+                    }
                 }else {
-                    alert_back("添加同步财务系统失败！");
+                    alert_back("添加失败");
                 }
-			}else {
-				alert_back("添加失败");
-			}
+            }catch (Exception $e){
+                throw $e;
+            }
 		}
 		
 		public function editdepartmentAction(){
