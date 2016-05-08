@@ -170,7 +170,7 @@
                 }
 
                 $zwxmzdDAO = new CW_API();
-                $rs = $zwxmzdDAO ->sync_pm($xmnm, $xmbh, $pname, $zw_department_related[0]['zw_bmbh']);
+                $rs = $zwxmzdDAO ->sync_pm('000'.$xmnm, $xmbh, $pname, $zw_department_related[0]['zw_bmbh']);
 
                 $pid = $pm_chouziDAO->save();
 
