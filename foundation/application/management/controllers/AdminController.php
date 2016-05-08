@@ -96,6 +96,8 @@
 		}
 		
 		public function addrsdepartmentAction(){
+            ini_set("display_errors", "On");
+            error_reporting(E_ERROR);
 			if($_REQUEST['name'] != "" ){
                 // 同步财务系统部门信息
                 $deparmentlDAO = new CW_API();
@@ -106,7 +108,16 @@
                 if($rs){
                     $departmentinfo = new jjh_mg_departmentDAO();
                     $departmentinfo ->pname = $_REQUEST['name'];
-                    $departmentinfo->save($this->dbhelper);
+                    $pid = $departmentinfo->save($this->dbhelper);
+
+                    // 写入对照表
+                    $zw_department_relatedDAO = $this->orm->createDAO("zw_department_related");
+                    $zw_department_relatedDAO ->pm_pid = $pid;
+                    $zw_department_relatedDAO ->pm_pname = $_REQUEST['name'];
+                    $zw_department_relatedDAO ->zw_bmbh = $rs1[0]+1;
+                    $zw_department_relatedDAO ->zw_bmmc = $_REQUEST['name'];
+                    $zw_department_relatedDAO ->save();
+
                     alert_go("添加成功！", "/management/admin/department");
                 }else {
                     alert_back("添加同步财务系统失败！");
