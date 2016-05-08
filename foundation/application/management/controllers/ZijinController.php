@@ -407,7 +407,7 @@
                     $pm_mg_infoDAO ->cate_id = 0;   // 类型 0资金 1使用
                     $pm_mg_infoDAO ->pm_name = $_REQUEST['zw_xmmc'];   // 类型 0资金 1使用
                     $pm_mg_infoDAO ->pm_pp = HttpUtil::postString("pm_pp");   // 付款单位
-                    $pm_mg_infoDAO ->pm_pp = HttpUtil::postString("pm_pp_cate");   // 捐赠者类型 基金会/企业/校友/社会人士
+                    $pm_mg_infoDAO ->pm_pp_cate = HttpUtil::postString("pm_pp_cate");   // 捐赠者类型 基金会/企业/校友/社会人士
                     $pm_mg_infoDAO ->zijin_laiyuan_qudao = HttpUtil::postString("zijin_laiyuan_qudao");   // 渠道 境内 境外
                     $pm_mg_infoDAO ->beizhu = HttpUtil::postString("other");   // 备注
                     $pm_mg_infoDAO ->is_renling = 1;                            // 是否认领flag 已认领
