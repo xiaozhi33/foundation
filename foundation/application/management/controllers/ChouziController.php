@@ -179,8 +179,8 @@
                 if($rs) {
                     // 同步对照表
                     $zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
-                    $zw_pm_relatedDAO ->pm_pid = $pid;
-                    $zw_pm_relatedDAO ->pm_pname = $pname;
+                    $zw_pm_relatedDAO ->pm_id = $pid;
+                    $zw_pm_relatedDAO ->pm_name = $pname;
                     $zw_pm_relatedDAO ->zw_xmbh = $xmbh;
                     $zw_pm_relatedDAO ->zw_xmmc = $pname;
                     $zw_pm_relatedDAO ->save();
