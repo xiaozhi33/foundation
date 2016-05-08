@@ -100,10 +100,9 @@
                 // 同步财务系统部门信息
                 $deparmentlDAO = new CW_API();
                 $rs1 = $deparmentlDAO ->get_max_departmentID();
-                alert_back(json_encode($rs1));exit();
 
                 $zwbmzdlDAO = new CW_API();
-                $rs = $zwbmzdlDAO ->sync_department($_REQUEST['name']);
+                $rs = $zwbmzdlDAO ->sync_department($rs1[0]+1, $_REQUEST['name']);
                 if($rs){
                     $departmentinfo = new jjh_mg_departmentDAO();
                     $departmentinfo ->pname = $_REQUEST['name'];

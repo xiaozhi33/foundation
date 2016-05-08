@@ -92,9 +92,9 @@
             return $rs;
         }
 
-        public function sync_department($bmmc)
+        public function sync_department($bmbh, $bmmc)
         {
-            $insert_SQL = "INSERT INTO zwbmzd ( bmmc, bmxz, jc, mx, zgrs, madd, tcode, qyf) VALUES('$bmmc','',1 ,1,'','','',1)";
+            $insert_SQL = "INSERT INTO zwbmzd (bmbh, bmmc, bmxz, jc, mx, zgrs, madd, tcode, qyf) VALUES('$bmbh','$bmmc','',1 ,1,'','','',1)";
             $this->connect();
             alert_back($insert_SQL);exit();
             $rs = $this->query($insert_SQL);
