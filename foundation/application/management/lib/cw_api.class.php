@@ -74,9 +74,39 @@
 
         }
 
-        public function sync_pm()
-        {
+        public function get_max_xmnmID(){
+            $selectSQL = 'select top 1 xmnm from zwxmzd where 1=1 order by xmnm DESC';
+            $this->connect();
+            $query = $this->query($selectSQL);
+            while($row=mssql_fetch_array($query))
+            {
+                $rs[] = $row;
+            }
 
+            $this->free();
+            return $rs;
+        }
+
+        public function get_max_xmbhID(){
+            $selectSQL = 'select top 1 xmbh from zwxmzd where 1=1 order by xmbh DESC';
+            $this->connect();
+            $query = $this->query($selectSQL);
+            while($row=mssql_fetch_array($query))
+            {
+                $rs[] = $row;
+            }
+
+            $this->free();
+            return $rs;
+        }
+
+        public function sync_pm($xmnm, $xmbh, $xmmc, $bmbh)
+        {
+            $insert_SQL = "INSERT INTO [zwxmzd] ([xmnm], [bmbh], [xmbh], [xmmc], [lbbh], [jc], [mx], [kgrq], [wgrq], [wgf], [fzr], [czf], [czje], [madd], [tcode], [qyf], [fkf], [ic_id], [fkr], [xmmm], [srkm], [zckm], [bz], [zzlx], [isfb], [fzrbh], [xmlx], [flsx1], [flsx2], [flsx3], [czy], [czrq], [gkxxm], [xmjc], [CCLASS], [EDBMBH], [EDXMBH], [ISGK], [KYXMBH], [ZJE], [XMQC], [ZXBH], [XMLYM], [MJM], [CJXS], [GCDM], [ZTZJE], [TZGCDM], [TZLYDM], [JZMJ], [DWBH], [YSNDXX], [XMYSSX], [CX1], [CX2], [CX3], [CX4], [BZLX], [isfnd], [iszdzx], [isedkz], [jjflzckm], [czzckm], [YSZCZJLYBH], [YSLXBH], [YSXMLBBH], [BMYSXMBM], [YSSRZJLYBH], [ISZFCG], [ZFCGLBBH], [EDFLBH], [isdx], [gkbmbh], [jkcs], [iszxm], [zbmbh], [zxmbh], [jtbh], [jtrq], [isjt], [djje], [gkxmdm], [xmfl], [yszclxbh], [xmsx], [jtmbbh], [nosrkm], [nozckm], [nojjflkm], [isczzc], [yslx], [lkx]) VALUES ('000286', '$bmbh', '$xmbh', '$xmmc', '', '1', '1', NULL, NULL, '0', '沈彤', '0', '.0000', NULL, NULL, '1', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', 'ST', '', '', '', '', '', '', '', '', '99', '$bmbh', '$xmbh', '0', '', '.00', '$xmmc', '', '', '1', '', '', '.00', '', '', 0, '', '', '', '', '', '', '', '', '0', '0', '0', '', '', '', '', '', '', '', '', '', '', '1', '$bmbh', 3, '1', '$bmbh', '200002', '', '', '0', '.00', '', '', '', '1', '', '', '', '', '0', '', '')";
+            $this->connect();
+            $rs = $this->query($insert_SQL);
+            $this ->free();
+            return $rs;
         }
 
         public function get_max_departmentID(){

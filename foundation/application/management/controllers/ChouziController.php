@@ -153,8 +153,41 @@
                     }
                 }
 
-                $pm_chouziDAO->save();
-                alert_go("添加成功", "/management/chouzi");
+                // 同步财务系统项目信息
+                $pmDAO = new CW_API();
+                $rs1 = $pmDAO ->get_max_xmnmID();
+                $xmnm = (int)$rs1[0]['xmnm'] + 1;
+                $rs2 = $pmDAO ->get_max_xmbhID();
+                $xmbh = (int)$rs2[0]['xmbh'] + 1;
+
+                // 获取对应部门信息
+                $zw_department_related = $this->orm->createDAO("zw_department_related");
+                $zw_department_related ->findPm_pid($department);
+                $zw_department_related = $zw_department_related ->get();
+
+                if(empty($zw_department_related[0]['zw_bmbh'])){
+                    alert("没有找到对应的财务部门信息，请联系管理员！或添加对应关系！");
+                }
+
+                $zwxmzdDAO = new CW_API();
+                $rs = $zwxmzdDAO ->sync_pm($xmnm, $xmbh, $pname, $zw_department_related[0]['zw_bmbh']);
+
+                $pid = $pm_chouziDAO->save();
+
+                if($rs) {
+                    // 同步对照表
+                    $zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
+                    $zw_pm_relatedDAO ->pm_pid = $pid;
+                    $zw_pm_relatedDAO ->pm_pname = $pname;
+                    $zw_pm_relatedDAO ->zw_xmbh = $xmbh;
+                    $zw_pm_relatedDAO ->zw_xmmc = $pname;
+                    $zw_pm_relatedDAO ->save();
+
+                    alert_go("添加成功", "/management/chouzi");
+                }else {
+                    alert_back("同步财务系统项目表失败，请联系管理员！");
+                }
+
             }catch (Exception $e){
                 throw $e;
             }
