@@ -103,7 +103,8 @@
                     // 同步财务系统部门信息
                     $deparmentlDAO = new CW_API();
                     $rs1 = $deparmentlDAO ->get_max_departmentID();
-                    $bmbh = (int)$rs1[0] + 1;
+                    print_r($rs1);
+                    $bmbh = (int)$rs1['bmbh'] + 1;
                     $zwbmzdlDAO = new CW_API();
                     $rs = $zwbmzdlDAO ->sync_department($bmbh, $_REQUEST['name']);
                     if($rs){
