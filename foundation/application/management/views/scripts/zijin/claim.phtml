@@ -166,7 +166,7 @@
                                 </td>
                             </tr>
 
-                            <div id="addfapiao">
+                            <div id="addfapiao" style="display: none;">
                                 <tr>
                                     <td>添加发票信息：</td>
                                 </tr>
@@ -228,7 +228,7 @@
 
                 // 切换发票状态
                 $(".radioItem").change(function(){
-                    var $selectedvalue = $("input[name='rl$tt']:checked").val();
+                    var $selectedvalue = $("input[name='piaoju']:checked").val();
                     if ($selectedvalue == 0) {
                         $("#addfapiao").hide();
                     } else if($selectedvalue == 1 || $selectedvalue == 2) {
