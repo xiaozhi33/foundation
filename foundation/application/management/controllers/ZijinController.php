@@ -393,6 +393,7 @@
 
                 $zw_lkrlDAO = new CW_API();
                 $rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $ispz, $rlpznm, $czy);
+                alert_back($rs);exit();
                 if($rs){
                     // 更新项目来款表
                     $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
