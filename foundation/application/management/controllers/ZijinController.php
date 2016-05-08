@@ -393,7 +393,6 @@
 
                 $zw_lkrlDAO = new CW_API();
                 $rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $ispz, $rlpznm, $czy);
-                alert_back($rs);exit();
                 if($rs){
                     // 更新项目来款表
                     $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
@@ -414,11 +413,13 @@
                     $pm_mg_infoDAO ->is_renling = 1;                            // 是否认领flag 已认领
 
                     $pm_mg_infoDAO ->save();
-                    if($rs1){
+                    if($rs){
                         alert_go("认领成功！", "/management/zijin/claimlist");
                     }else {
-                        alert_back("认领失败！");
+                        alert_back("认领失败！请联系管理员");
                     }
+                }else {
+                    alert_back("认领失败！请联系管理员");
                 }
             }catch(Exception $e){
                 throw $e;
