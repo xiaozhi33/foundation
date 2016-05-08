@@ -42,7 +42,19 @@
 
         /**
          * 添加财务认领
-         * @param $lkrl_array
+         * @param $lsh      流水号
+         * @param $rlxh     认领序号  项目编号id
+         * @param $rlrq     认领日期
+         * @param $rlr      认领人
+         * @param $rlrbh    认领人编号
+         * @param $bmbh     部门编号
+         * @param $xmbh     项目编号
+         * @param $rlje     认领金额
+         * @param $ispz     是否制单
+         * @param $rlpznm   认领凭证内码
+         * @param $czy      操作员
+         * @return mixed
+         * @throws Exception
          */
         public function addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $ispz, $rlpznm, $czy)
         {
