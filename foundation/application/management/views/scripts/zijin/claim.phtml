@@ -38,7 +38,10 @@
 
 
 
-                        <input type="hidden" name="pm_id" value="<?echo $_REQUEST['pm_id'];?>"/>
+                            <input type="hidden" name="pm_id" value="<?echo $_REQUEST['pm_id'];?>"/>
+                            <input type="hidden" name="lsh" value="<?echo $this->zw_lkrl_logs[0]['lsh'];?>"/>
+                            <input type="hidden" name="lrrq	" value="<?echo $this->zw_lkrl_logs[0]['lrrq'];?>"/>
+                            <input type="hidden" name="lrr" value="<?echo $this->zw_lkrl_logs[0]['lrr'];?>"/>
 
                             <!-- 项目相关 start-->
                             <tr>
@@ -72,7 +75,7 @@
                             <tr>
                                 <td>认领到部门：</td>
                                 <td>
-                                    <select class="chosen-select-1 chosen-transparent form-control" id="department">
+                                    <select class="chosen-select-1 chosen-transparent form-control" name="pm_bmbh" id="department">
                                         <?php if($this->department_list != ""){
                                             foreach ($this->department_list as $k => $v){
                                                 ?>
@@ -110,13 +113,16 @@
 
                             <tr>
                                 <td>捐赠方类型：</td>
-                                <td><select class="form-control"  name="pm_cate">
+                                <td>
+                                    <select class="form-control"  name="pm_pp_cate">
                                         <option value="" >请选择类型</option>
-                                        <?php if($this->pcatelist != ""){
-                                            foreach ($this->pcatelist as $k => $v){?>
-                                                <option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
-                                            <?php }}?>
-                                    </select></td>
+                                        <option value="个人" >个人</option>
+                                        <option value="企业" > 企业</option>
+                                        <option value="事业单位" >事业单位</option>
+                                        <option value="基金会" > 基金会</option>
+                                        <option value="其他组织" >其他组织</option>
+                                    </select>
+                                </td>
                             </tr>
 
                             <tr>
@@ -128,11 +134,6 @@
                                     </select></td>
                             </tr>
 
-
-                            <tr>
-                                <td>来款日期：</td>
-                                <td><input size="38" name="lkrq" type="text" readonly="readonly" value="<?php echo $this->pm_mg_info[0]['zijin_daozhang_datetime'];?>"/> </td>
-                            </tr>
 
                             <tr>
                                 <td>来款日期：</td>
@@ -172,12 +173,12 @@
                                 </tr>
                                 <tr class="addfapiao" style="display:none; ">
                                     <td>发票票号：</td>
-                                    <td> <input size="38" name="fpph" type="text"/> </td>
+                                    <td> <input size="38" name="piaoju_fph" type="text"/> </td>
                                 </tr>
                                 <tr class="addfapiao" style="display:none; ">
                                     <td>发票反馈方式：</td>
                                     <td>
-                                        <select class="form-control" name="fpfkfs">
+                                        <select class="form-control" name="piaoju_fkfs">
                                             <option value="1" >领取</option>
                                             <option value="2" >寄送</option>
                                             <option value="3" >暂存</option>
@@ -186,11 +187,11 @@
                                 </tr>
                                 <tr class="addfapiao" style="display:none; ">
                                     <td>经办人：</td>
-                                    <td><input size="38" name="jbr" type="text"/></td>
+                                    <td><input size="38" name="piaoju_jbr" type="text"/></td>
                                 </tr>
                                 <tr class="addfapiao" style="display:none; ">
                                     <td>快递单号：</td>
-                                    <td><input size="38" name="kddh" type="text"/></td>
+                                    <td><input size="38" name="piaoju_kddh" type="text"/></td>
                                 </tr>
                             </div>
 
@@ -198,9 +199,9 @@
                         </tbody>
 
                         <table>
-                        <tr>
-                            <input type="submit" value="点击认领" class="btn btn-primary btn-block">
-                        </tr>
+                            <tr>
+                                <input type="submit" value="点击认领" class="btn btn-primary btn-block">
+                            </tr>
                         </table>
                     </form>
 				 </div>

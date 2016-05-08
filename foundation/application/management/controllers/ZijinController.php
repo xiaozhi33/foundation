@@ -349,59 +349,80 @@
          * 绑定认领
          */
         public function savebindingClaimAction(){
-            (int)$pid = $_REQUEST['pm_xmbh'];
-            (int)$department_id = $_REQUEST['zw_xmbh'];
-            if(empty($pid) || empty($department_id)){
-                alert_back("请选择认领项目和部门 或 该部门没有绑定财务部门，请联系管理员");
-            }
-
-            // 1, 查看项目财务对照表－取得财务对应项目名称和编号
-            $pm_relateDAO = $this->orm->createDAO("zw_pm_related");
-            $pm_relateDAO ->findPm_id($pid);
-            $pm_relateDAO = $pm_relateDAO->get();
-
-            if(empyt($pm_relateDAO[0]['zw_xmbh']) || empyt($pm_relateDAO[0]['zw_xmmc'])){
-                alert_back("该项目没有绑定财务系统，请联系管理员");
-            }
-
-            // 2, 部门信息同步
-            $department_info = $this->orm->createDAO("zw_department_related");
-            $department_info ->findPm_pid($department_id);
-            $department_info = $department_info->get();
-
-            if(empyt($department_info[0]['zw_bmbh']) || empyt($department_info[0]['zw_bmmc'])){
-                alert_back("该部门没有绑定财务部门，请联系管理员");
-            }
-
-            // 3, 负者人信息同步
-
-            // 4, 同步更新财务系统lkrl表
-
-
-            $lsh = $_REQUEST['lsh'];    // 流水号
-            $rlxh = $_REQUEST['lsh'];   // 认领序号
-            $rlrq = date("Y-m-d H:i:s" , time());   // 认领日期
-            $rlr = "";    // 认领人
-            $rlrbh = "";   // 认领人编号
-            $bmbh = $_REQUEST['bmbh'];   // 部门编号
-            $xmbh = $_REQUEST['zw_xmbh'];   // 项目编号
-            $rlje = $_REQUEST['zw_bmbh'];   // 认领金额
-            $lspz = 0;               // 是否制单
-            $rlpznm = "";            // 认领凭证内码
-            $czy = "";               // 操作员
-
-            $zw_lkrlDAO = new CW_API();
-            $rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $lspz, $rlpznm, $czy);
-            if($rs){
-                // 更新项目系统认领log表
-                $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
-                $zw_lkrl_logsDAO ->findLsh($rs);
-                $rs1 = $zw_lkrl_logsDAO ->save();
-                if($rs1){
-                    alert_go("认领成功！", "/management/zijin/claimlist");
-                }else {
-                    alert_back("认领失败！");
+            try{
+                (int)$pid = $_REQUEST['zw_xmbh'];
+                (int)$department_id = $_REQUEST['zw_bmbh'];
+                if(empty($pid) || empty($department_id)){
+                    alert_back("请选择认领项目和部门 或 该部门没有绑定财务部门，请联系管理员");
                 }
+
+                // 1, 查看项目财务对照表－取得财务对应项目名称和编号
+                $pm_relateDAO = $this->orm->createDAO("zw_pm_related");
+                $pm_relateDAO ->findPm_id($_REQUEST['pm_xmbh']);
+                $pm_relateDAO = $pm_relateDAO->get();
+
+                if(empyt($pm_relateDAO[0]['zw_xmbh']) || empyt($pm_relateDAO[0]['zw_xmmc'])){
+                    alert_back("该项目没有绑定财务系统，请联系管理员");
+                }
+
+                // 2, 部门信息同步
+                $department_info = $this->orm->createDAO("zw_department_related");
+                $department_info ->findPm_pid($_REQUEST['pm_bmbh']);
+                $department_info = $department_info->get();
+
+                if(empyt($department_info[0]['zw_bmbh']) || empyt($department_info[0]['zw_bmmc'])){
+                    alert_back("该部门没有绑定财务部门，请联系管理员");
+                }
+
+                // 3, 负者人信息同步
+
+                // 4, 同步更新财务系统lkrl表
+                $lsh = $_REQUEST['lsh'];    // 流水号
+                $rlxh = $_REQUEST['lsh'].date("Ymd");   // 认领序号
+                $rlrq = date("Ymd" , time());   // 认领日期
+                $rlr = $_REQUEST['lrr'];        // 认领人
+                $rlrbh = $_REQUEST['lsh'];      // 认领人编号
+                $bmbh = $_REQUEST['bmbh'];       // 部门编号
+                $xmbh = $_REQUEST['zw_xmbh'];   // 项目编号
+                $rlje = $_REQUEST['zw_bmbh'];   // 认领金额
+                $lspz = 0;                       // 是否制单
+                $rlpznm = $_REQUEST['lsh'].date("Ymd");            // 认领凭证内码
+                $czy = "admin";                      // 操作员
+
+                $zw_lkrlDAO = new CW_API();
+                $rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $lspz, $rlpznm, $czy);
+                if($rs){
+                    // 更新项目系统认领log表
+                    $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
+                    $zw_lkrl_logsDAO ->findLsh($lsh);
+                    $zw_lkrl_logsDAO ->status = 1;
+                    $rs1 = $zw_lkrl_logsDAO ->save();
+
+                    // 更新项目来款表
+                    $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+                    $pm_mg_infoDAO ->findId($_REQUEST["pm_id"]);
+                    $pm_mg_infoDAO ->jindu = $_REQUEST["pm_id"];                // 来款进度 已到帐 未到帐
+                    $pm_mg_infoDAO ->piaoju = $_REQUEST["piaoju"];              // 票据
+                    $pm_mg_infoDAO ->piaoju_kddh = $_REQUEST["piaoju_kddh"];  // 快递单号
+                    $pm_mg_infoDAO ->piaoju_jbr = $_REQUEST["piaoju_jbr"];    // 经办人
+                    $pm_mg_infoDAO ->piaoju_fkfs = $_REQUEST["piaoju_fkfs"];  // 反馈方式 领取 寄送 暂存
+                    $pm_mg_infoDAO ->piaoju_fph = $_REQUEST["piaoju_fph"];    // 发票号
+
+                    $pm_mg_infoDAO ->cate_id = 0;   // 类型 0资金 1使用
+                    $pm_mg_infoDAO ->pm_name = $_REQUEST['zw_xmmc'];   // 类型 0资金 1使用
+                    $pm_mg_infoDAO ->pm_pp = HttpUtil::postString("pm_pp");   // 付款单位
+                    $pm_mg_infoDAO ->pm_pp = HttpUtil::postString("pm_pp_cate");   // 捐赠者类型 基金会/企业/校友/社会人士
+                    $pm_mg_infoDAO ->zijin_laiyuan_qudao = HttpUtil::postString("zijin_laiyuan_qudao");   // 渠道 境内 境外
+
+                    $pm_mg_infoDAO ->save();
+                    if($rs1){
+                        alert_go("认领成功！", "/management/zijin/claimlist");
+                    }else {
+                        alert_back("认领失败！");
+                    }
+                }
+            }catch(Exception $e){
+                throw $e;
             }
         }
 
@@ -410,17 +431,6 @@
          * 绑定认领页面
          */
         public function bindingClaimAction(){
-            // 财务系统相关 - 读取财务项目信息
-            /*$zwxmzdDAO = array();
-            $select_zw_xm = "SELECT xmnm,bmbh,xmbh,xmmc,fzr,fzrbh FROM zwxmzd";
-            $this->mssql_class->connect();
-            $zwxmzd_list = $this->mssql_class->query($select_zw_xm);
-            while($row = $this->mssql_class->fetch_array($zwxmzd_list)){
-                $zwxmzdDAO[$row['xmnm']] = $row;
-            }
-            $this->mssql_class->free();*/
-            //$this->view->assign('zwxmzd_list', $zwxmzdDAO);
-
             // 获取部门信息
             $jjh_mg_departmentDAO = $this->orm->createDAO("jjh_mg_department");
             $department_list = $jjh_mg_departmentDAO ->get();
