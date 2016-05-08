@@ -10,17 +10,17 @@
         public function addpm()
         {
             $select_zw_xm = "INSERT INTO ";
-            $this->mssql_class->connect();
-            $zwxmzd_list = $this->mssql_class->query($select_zw_xm);
-            $this->mssql_class->free();
+            $this->connect();
+            $zwxmzd_list = $this->query($select_zw_xm);
+            $this->free();
         }
 
         public function addddepartment()
         {
             $select_zw_xm = "SELECT xmnm,bmbh,xmbh,xmmc,fzr,fzrbh FROM zwxmzd";
-            $this->mssql_class->connect();
-            $zwxmzd_list = $this->mssql_class->query($select_zw_xm);
-            $this->mssql_class->free();
+            $this->connect();
+            $zwxmzd_list = $this->query($select_zw_xm);
+            $this->free();
         }
 
         /**
@@ -47,9 +47,9 @@
         public function addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $lspz, $rlpznm, $czy)
         {
             $insert_SQL = "INSERT INTO zw_lkrl SET(lsh, rlxh, rlrq, rlr, rlrbh, bmbh, xmbh, rlje, lspz, rlpznm, czy) VALUES($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $lspz, $rlpznm, $czy)";
-            $this->mssql_class->connect();
-            $rs = $this->mssql_class->query($insert_SQL);
-            $this ->mssql_class->free();
+            $this->connect();
+            $rs = $this->query($insert_SQL);
+            $this ->free();
             return $rs;
         }
 
