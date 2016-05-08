@@ -79,9 +79,13 @@
 
         }
 
-        public function sync_department()
+        public function sync_department($bmmc)
         {
-
+            $insert_SQL = "INSERT INTO zwbmzd ( bmmc, bmxz, jc, mx, zgrs, madd, tcode, qyf) VALUES($bmmc, '',1 ,1,'','','',1)";
+            $this->connect();
+            $rs = $this->query($insert_SQL);
+            $this ->free();
+            return $rs;
         }
         public function sync_zrl(){
 

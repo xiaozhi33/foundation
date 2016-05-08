@@ -87,8 +87,7 @@
 				alert_back("错误操作");
 			}
 		}
-		
-		
+
 		//所属部门管理
 		public function adddepartmentAction(){
 			echo $this->view->render("index/header.phtml");
@@ -97,11 +96,18 @@
 		}
 		
 		public function addrsdepartmentAction(){
-			if($_REQUEST['name'] != ""){
-				$departmentinfo = new jjh_mg_departmentDAO();
-				$departmentinfo ->pname = $_REQUEST['name'];
-				$departmentinfo->save($this->dbhelper);
-				alert_go("部门添加成功。","/management/admin/department");
+			if($_REQUEST['name'] != "" ){
+                // 同步财务系统部门信息
+                $zwbmzdlDAO = new CW_API();
+                $rs = $zwbmzdlDAO ->sync_department($_REQUEST['name']);
+                if($rs){
+                    $departmentinfo = new jjh_mg_departmentDAO();
+                    $departmentinfo ->pname = $_REQUEST['name'];
+                    $departmentinfo->save($this->dbhelper);
+                    alert_go("添加成功！", "/management/admin/department");
+                }else {
+                    alert_back("添加同步财务系统失败！");
+                }
 			}else {
 				alert_back("添加失败");
 			}
