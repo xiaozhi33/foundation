@@ -80,7 +80,7 @@
         }
 
         public function get_max_departmentID(){
-            $selectSQL = 'select bmbh from zwbmzd where 1=1 orderby bmbh DESC limit 0,1';
+            $selectSQL = 'select top 1 bmbh from zwbmzd where 1=1 order by bmbh DESC';
             $this->connect();
             $query = $this->query($selectSQL);
             while($row=mssql_fetch_array($query))
