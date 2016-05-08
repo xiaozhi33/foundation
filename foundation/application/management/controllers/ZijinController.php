@@ -384,9 +384,9 @@
                 $rlrq = date("Ymd" , time());   // 认领日期
                 $rlr = $_REQUEST['lrr'];        // 认领人
                 $rlrbh = $_REQUEST['lsh'];      // 认领人编号
-                $bmbh = $_REQUEST['bmbh'];       // 部门编号
+                $bmbh = $_REQUEST['zw_bmbh'];   // 部门编号
                 $xmbh = $_REQUEST['zw_xmbh'];   // 项目编号
-                $rlje = $_REQUEST['zw_bmbh'];   // 认领金额
+                $rlje = $_REQUEST['je'];   // 认领金额
                 $lspz = '1';                       // 是否制单
                 $rlpznm = $_REQUEST['lsh'].date("Ymd");            // 认领凭证内码
                 $czy = "admin";                      // 操作员
