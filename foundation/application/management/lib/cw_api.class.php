@@ -48,7 +48,6 @@
         {
             try{
                 $insert_SQL = "INSERT INTO zw_lkrl (lsh, rlxh, rlrq, rlr, rlrbh, bmbh, xmbh, rlje, ispz, rlpznm, czy, sm, rlflbh, istl,tlpznm,tlflbh,czrq,kyxmbh,lslsh) VALUES('$lsh', '$rlxh', '$rlrq', '$rlr', '$rlrbh', '$bmbh', '$xmbh', '$rlje', '$ispz', '$rlpznm', '$czy' ,'','','','','','','','')";
-                alert_back($insert_SQL);exit();
                 $this->connect();
                 $rs = $this->query($insert_SQL);
                 $this ->free();
