@@ -47,7 +47,7 @@
         public function addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $lspz, $rlpznm, $czy)
         {
             try{
-                $insert_SQL = "INSERT INTO zw_lkrl SET(lsh, rlxh, rlrq, rlr, rlrbh, bmbh, xmbh, rlje, lspz, rlpznm, czy) VALUES($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $lspz, $rlpznm, $czy)";
+                $insert_SQL = "INSERT INTO zw_lkrl SET(lsh, rlxh, rlrq, rlr, rlrbh, bmbh, xmbh, rlje, lspz, rlpznm, czy) VALUES('$lsh', '$rlxh', '$rlrq', '$rlr', '$rlrbh', '$bmbh', '$xmbh', '$rlje', '$lspz', '$rlpznm', '$czy')";
                 $this->connect();
                 $rs = $this->query($insert_SQL);
                 $this ->free();

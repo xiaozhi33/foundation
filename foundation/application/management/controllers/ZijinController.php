@@ -394,12 +394,6 @@
                 $zw_lkrlDAO = new CW_API();
                 $rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $lspz, $rlpznm, $czy);
                 if($rs){
-                    // 更新项目系统认领log表
-                    $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
-                    $zw_lkrl_logsDAO ->findLsh($lsh);
-                    $zw_lkrl_logsDAO ->status = 1;
-                    $rs1 = $zw_lkrl_logsDAO ->save();
-
                     // 更新项目来款表
                     $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
                     $pm_mg_infoDAO ->findId($_REQUEST["pm_id"]);
@@ -416,6 +410,7 @@
                     $pm_mg_infoDAO ->pm_pp = HttpUtil::postString("pm_pp_cate");   // 捐赠者类型 基金会/企业/校友/社会人士
                     $pm_mg_infoDAO ->zijin_laiyuan_qudao = HttpUtil::postString("zijin_laiyuan_qudao");   // 渠道 境内 境外
                     $pm_mg_infoDAO ->beizhu = HttpUtil::postString("other");   // 备注
+                    $pm_mg_infoDAO ->is_renling = 1;                            // 是否认领flag 已认领
 
                     $pm_mg_infoDAO ->save();
                     if($rs1){
