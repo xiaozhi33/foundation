@@ -388,8 +388,8 @@
                 $xmbh = $_REQUEST['zw_xmbh'];   // 项目编号
                 $rlje = $_REQUEST['je'];   // 认领金额
                 $ispz = 0;                       // 是否制单
-                $rlpznm = $_REQUEST['lsh'].date("Ymd");            // 认领凭证内码
-                $czy = "admin";                      // 操作员
+                $rlpznm = "";            // 认领凭证内码
+                $czy = "admin";                                     // 操作员
 
                 $zw_lkrlDAO = new CW_API();
                 $rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $ispz, $rlpznm, $czy);
