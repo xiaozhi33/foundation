@@ -88,6 +88,57 @@
 							</div>
 							<span class="col-sm-1" > * </span>
 					</div>
+
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">项目负责人：</label>
+                        <div class="col-sm-9">
+                            <textarea parsley-validation-minlength="1" name="pm_fzr" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->chouzi[0]['pm_fzr'];?></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">联络人：</label>
+                        <div class="col-sm-9">
+                            <textarea parsley-validation-minlength="1" name="pm_llr" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->chouzi[0]['pm_llr'];?></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">筹款负责人：</label>
+                        <div class="col-sm-9">
+                            <textarea parsley-validation-minlength="1" name="pm_ckfzr" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->chouzi[0]['pm_ckfzr'];?></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">捐赠方：</label>
+                        <div class="col-sm-9">
+                            <textarea parsley-validation-minlength="1" name="pm_jzf" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->chouzi[0]['pm_jzf'];?></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">捐赠方联络人：</label>
+                        <div class="col-sm-9">
+                            <textarea parsley-validation-minlength="1" name="pm_jzfllr" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->chouzi[0]['pm_jzfllr'];?></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">实际捐赠方：</label>
+                        <div class="col-sm-9">
+                            <textarea parsley-validation-minlength="1" name="pm_sjjzf" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->chouzi[0]['pm_sjjzf'];?></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">捐赠方联络人：</label>
+                        <div class="col-sm-9">
+                            <textarea parsley-validation-minlength="1" name="pm_sjjzfllr" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->chouzi[0]['pm_sjjzfllr'];?></textarea>
+                        </div>
+                    </div>
 						
 						
 					<!--<div class="form-group">
@@ -133,7 +184,7 @@
 									暂无项目协议电子版
 								<?php /*}*/?></div>
 							<span class="col-sm-1" > * </span>
-					</div>-->
+					</div>
 						
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="input08">项目反馈日期：</label>
@@ -141,28 +192,28 @@
 							<input class="form-control" type="text"  id="dateinput1"  value="<?php echo $this->chouzi[0]['pm_fankui_datetime'];?>"  name="fankui"  size="14"/>
 						</div>
 						<span class="col-sm-1" > * </span>
-					</div>
+					</div>-->
+
+                    <!--<div class="form-group">
+							<label class="col-sm-2 control-label" for="input09">项目限期：</label>
+							<div class="col-sm-4">
+								<input class="form-control" type="text" name="xianqi"   value="<?php /*echo $this->chouzi[0]['pm_qixian'];*/?>" size="14"/>
+							</div>
+							<span class="col-sm-2" >* 例如：45天。</span>
+					</div>-->
 						
 					<div class="form-group">
-							<label class="col-sm-2 control-label" for="input09">项目起始日期：</label>
+							<label class="col-sm-2 control-label" for="input09">项目起始年份：</label>
 							<div class="col-sm-4">
-								<input class="form-control" type="text"  id="dateinput2"  value="<?php echo $this->chouzi[0]['pm_qishi_datetime'];?>"  name="qishi"  size="14"/>
+								<input class="form-control" type="text" value="<?php echo $this->chouzi[0]['pm_qishi_datetime'];?>"  data-date-format="YYYY-MM-DD" id="datepicker1"  name="qishi"  size="14"/>
 							</div>
 							<span class="col-sm-1" > * </span>
 					</div>
-						
+
 					<div class="form-group">
-							<label class="col-sm-2 control-label" for="input09">项目限期：</label>
+							<label class="col-sm-2 control-label" for="input10">项目截止年份：</label>
 							<div class="col-sm-4">
-								<input class="form-control" type="text" name="xianqi"   value="<?php echo $this->chouzi[0]['pm_qixian'];?>" size="14"/>
-							</div>
-							<span class="col-sm-2" >* 例如：45天。</span>							
-					</div>
-						
-					<div class="form-group">
-							<label class="col-sm-2 control-label" for="input10">项目截止日期：</label>
-							<div class="col-sm-4">
-								<input class="form-control" type="text"  id="dateinput3"  value="<?php echo $this->chouzi[0]['pm_jiezhi_datetime'];?>" name="jiezhi"  size="14"/>
+								<input class="form-control" type="text"  value="<?php echo $this->chouzi[0]['pm_jiezhi_datetime'];?>" data-date-format="YYYY-MM-DD" id="datepicker2"  name="jiezhi"  size="14"/>
 							</div>
 							<span class="col-sm-1" > * </span>
 					</div>
@@ -175,13 +226,13 @@
 							<span class="col-sm-2">元&nbsp;&nbsp;&nbsp;&nbsp;  * 例如：3000000元 </span>
 					</div>
 
-					<div class="form-group">
+					<!--<div class="form-group">
 						<label class="col-sm-2 control-label" for="input10">项目负责人：</label>
 						<div class="col-sm-3">
-							<input class="form-control" type="text"  name="fzr" value="<?php echo $this->chouzi[0]['pm_fzr_mc'];?>"  size="14"/>
+							<input class="form-control" type="text"  name="fzr" value="<?php /*echo $this->chouzi[0]['pm_fzr_mc'];*/?>"  size="14"/>
 						</div>
 						<span class="col-sm-2" >&nbsp;&nbsp;&nbsp;&nbsp;  * </span>
-					</div>
+					</div>-->
 						
 						
 					<div class="form-group">

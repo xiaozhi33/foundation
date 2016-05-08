@@ -350,8 +350,6 @@
          */
         public function savebindingclaimAction(){
             try{
-                ini_set("display_errors", "On");
-                error_reporting(E_ERROR);
                 (int)$pid = $_REQUEST['zw_xmbh'];
                 (int)$department_id = $_REQUEST['zw_bmbh'];
                 if(empty($pid) || empty($department_id)){
@@ -397,7 +395,7 @@
                     // 更新项目来款表
                     $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
                     $pm_mg_infoDAO ->findId($_REQUEST["pm_id"]);
-                    $pm_mg_infoDAO ->jindu = $_REQUEST["pm_id"];                // 来款进度 已到帐 未到帐
+                    $pm_mg_infoDAO ->jindu = $_REQUEST["jindu"];                // 来款进度 已到帐 未到帐
                     $pm_mg_infoDAO ->piaoju = $_REQUEST["piaoju"];              // 票据
                     $pm_mg_infoDAO ->piaoju_kddh = $_REQUEST["piaoju_kddh"];  // 快递单号
                     $pm_mg_infoDAO ->piaoju_jbr = $_REQUEST["piaoju_jbr"];    // 经办人

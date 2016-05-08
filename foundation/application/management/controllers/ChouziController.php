@@ -80,7 +80,15 @@
                 $yishi = HttpUtil::postString("yishi");         //项目仪式
                 $beizhu = HttpUtil::postString("beizhu");         //备注
 
-                $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
+                $pm_fzr = HttpUtil::postString("pm_fzr");               //项目负责人
+                $pm_llr = HttpUtil::postString("pm_llr");               //联络人
+                $pm_ckfzr = HttpUtil::postString("pm_ckfzr");           //筹款负责人
+                $pm_jzf = HttpUtil::postString("pm_jzf");               //捐赠方
+                $pm_jzfllr = HttpUtil::postString("pm_jzfllr");         //捐赠方联络人
+                $pm_sjjzf = HttpUtil::postString("pm_sjjzf");           //实际捐赠方
+                $pm_sjjzfllr = HttpUtil::postString("pm_sjjzfllr");     //捐赠方联络人
+
+                // $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
 
                 if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
@@ -93,16 +101,24 @@
                 $pm_chouziDAO->pid = $bianhao;
                 $pm_chouziDAO->pm_fankui_datetime = $fankui;
                 $pm_chouziDAO->pm_fuhuaqi = $fuhuaqi;
+                $pm_chouziDAO->pm_qishi_datetime = $qishi;
                 $pm_chouziDAO->pm_jiezhi_datetime = $jiezhi;
                 $pm_chouziDAO->pm_liuben = $liuben;
                 $pm_chouziDAO->pm_qianyue_datetime = $qianyuedate;
-                $pm_chouziDAO->pm_qishi_datetime = $qianyuedate;
                 $pm_chouziDAO->pm_qixian = $xianqi;
                 $pm_chouziDAO->pm_tuidongqi = $tuidongqi;
                 $pm_chouziDAO->pm_xieyi_juanzeng_jiner = $jiner;
                 $pm_chouziDAO->pm_yishi = $yishi;
-                $pm_chouziDAO->pm_fzr_mc = $pm_fzr_mc;
+                // $pm_chouziDAO->pm_fzr_mc = $pm_fzr_mc;
                 $pm_chouziDAO->pname = $pname;
+
+                $pm_chouziDAO->pm_fzr = $pm_fzr;
+                $pm_chouziDAO->pm_llr = $pm_llr;
+                $pm_chouziDAO->pm_ckfzr = $pm_ckfzr;
+                $pm_chouziDAO->pm_jzf = $pm_jzf;
+                $pm_chouziDAO->pm_jzfllr = $pm_jzfllr;
+                $pm_chouziDAO->pm_sjjzf = $pm_sjjzf;
+                $pm_chouziDAO->pm_sjjzfllr = $pm_sjjzfllr;
 
                 $pid = HttpUtil::postString("pm_id");
                 if(!empty($pid)){
@@ -190,7 +206,15 @@
                 $jiner = HttpUtil::postString("jiner");         //协议捐赠金额
                 $yishi = HttpUtil::postString("yishi");         //项目仪式
                 $beizhu = HttpUtil::postString("beizhu");         //备注
-                $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
+                // $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
+
+                $pm_fzr = HttpUtil::postString("pm_fzr");               //项目负责人
+                $pm_llr = HttpUtil::postString("pm_llr");               //联络人
+                $pm_ckfzr = HttpUtil::postString("pm_ckfzr");           //筹款负责人
+                $pm_jzf = HttpUtil::postString("pm_jzf");               //捐赠方
+                $pm_jzfllr = HttpUtil::postString("pm_jzfllr");         //捐赠方联络人
+                $pm_sjjzf = HttpUtil::postString("pm_sjjzf");           //实际捐赠方
+                $pm_sjjzfllr = HttpUtil::postString("pm_sjjzfllr");     //捐赠方联络人
 
                 if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
@@ -211,8 +235,16 @@
                 $pm_chouziDAO->pm_tuidongqi = $tuidongqi;
                 $pm_chouziDAO->pm_xieyi_juanzeng_jiner = $jiner;
                 $pm_chouziDAO->pm_yishi = $yishi;
-                $pm_chouziDAO->pm_fzr_mc = $pm_fzr_mc;
+                // $pm_chouziDAO->pm_fzr_mc = $pm_fzr_mc;
                 $pm_chouziDAO->pname = $pname;
+
+                $pm_chouziDAO->pm_fzr = $pm_fzr;
+                $pm_chouziDAO->pm_llr = $pm_llr;
+                $pm_chouziDAO->pm_ckfzr = $pm_ckfzr;
+                $pm_chouziDAO->pm_jzf = $pm_jzf;
+                $pm_chouziDAO->pm_jzfllr = $pm_jzfllr;
+                $pm_chouziDAO->pm_sjjzf = $pm_sjjzf;
+                $pm_chouziDAO->pm_sjjzfllr = $pm_sjjzfllr;
 
                 $pid = HttpUtil::postString("pm_id");
                 if(!empty($pid)){
