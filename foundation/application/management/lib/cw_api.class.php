@@ -96,7 +96,6 @@
         {
             $insert_SQL = "INSERT INTO zwbmzd (bmbh, bmmc, bmxz, jc, mx, zgrs, madd, tcode, qyf) VALUES('$bmbh','$bmmc','',1 ,1,'','','',1)";
             $this->connect();
-            alert_back($insert_SQL);exit();
             $rs = $this->query($insert_SQL);
             $this ->free();
             return $rs;
