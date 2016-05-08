@@ -387,12 +387,12 @@
                 $bmbh = $_REQUEST['zw_bmbh'];   // 部门编号
                 $xmbh = $_REQUEST['zw_xmbh'];   // 项目编号
                 $rlje = $_REQUEST['je'];   // 认领金额
-                $lspz = '1';                       // 是否制单
+                $ispz = 0;                       // 是否制单
                 $rlpznm = $_REQUEST['lsh'].date("Ymd");            // 认领凭证内码
                 $czy = "admin";                      // 操作员
 
                 $zw_lkrlDAO = new CW_API();
-                $rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $lspz, $rlpznm, $czy);
+                $rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $ispz, $rlpznm, $czy);
                 if($rs){
                     // 更新项目来款表
                     $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");

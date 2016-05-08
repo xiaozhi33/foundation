@@ -44,10 +44,10 @@
          * 添加财务认领
          * @param $lkrl_array
          */
-        public function addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $lspz, $rlpznm, $czy)
+        public function addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $ispz, $rlpznm, $czy)
         {
             try{
-                $insert_SQL = "INSERT INTO zw_lkrl (lsh, rlxh, rlrq, rlr, rlrbh, bmbh, xmbh, rlje, lspz, rlpznm, czy) VALUES('$lsh', '$rlxh', '$rlrq', '$rlr', '$rlrbh', '$bmbh', '$xmbh', '$rlje', '$lspz', '$rlpznm', '$czy')";
+                $insert_SQL = "INSERT INTO zw_lkrl (lsh, rlxh, rlrq, rlr, rlrbh, bmbh, xmbh, rlje, ispz, rlpznm, czy) VALUES('$lsh', '$rlxh', '$rlrq', '$rlr', '$rlrbh', '$bmbh', '$xmbh', '$rlje', '$ispz', '$rlpznm', '$czy')";
                 alert_back($insert_SQL);exit();
                 $this->connect();
                 $rs = $this->query($insert_SQL);
