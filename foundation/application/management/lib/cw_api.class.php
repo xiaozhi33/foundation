@@ -79,6 +79,19 @@
 
         }
 
+        public function get_max_departmentID(){
+            $selectSQL = 'select bmbh from zwbmzd where 1=1 orderby bmbh DESC limit 0,1';
+            $this->connect();
+            $query = $this->query($selectSQL);
+            while($row=mssql_fetch_array($query))
+            {
+                $rs[] = $row;
+            }
+
+            $this->free();
+            return $rs;
+        }
+
         public function sync_department($bmmc)
         {
             $insert_SQL = "INSERT INTO zwbmzd ( bmmc, bmxz, jc, mx, zgrs, madd, tcode, qyf) VALUES('$bmmc','',1 ,1,'','','',1)";

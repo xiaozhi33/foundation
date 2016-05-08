@@ -98,6 +98,10 @@
 		public function addrsdepartmentAction(){
 			if($_REQUEST['name'] != "" ){
                 // 同步财务系统部门信息
+                $deparmentlDAO = new CW_API();
+                $rs1 = $deparmentlDAO ->get_max_departmentID();
+                alert_back(json_encode($rs1));exit();
+
                 $zwbmzdlDAO = new CW_API();
                 $rs = $zwbmzdlDAO ->sync_department($_REQUEST['name']);
                 if($rs){
