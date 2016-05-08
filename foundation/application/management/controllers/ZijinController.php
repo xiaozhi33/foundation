@@ -387,7 +387,7 @@
                 $bmbh = $_REQUEST['bmbh'];       // 部门编号
                 $xmbh = $_REQUEST['zw_xmbh'];   // 项目编号
                 $rlje = $_REQUEST['zw_bmbh'];   // 认领金额
-                $lspz = 0;                       // 是否制单
+                $lspz = '1';                       // 是否制单
                 $rlpznm = $_REQUEST['lsh'].date("Ymd");            // 认领凭证内码
                 $czy = "admin";                      // 操作员
 
