@@ -363,7 +363,7 @@
                 $pm_relateDAO ->findPm_id($_REQUEST['pm_xmbh']);
                 $pm_relateDAO = $pm_relateDAO->get();
 
-                if(empyt($pm_relateDAO[0]['zw_xmbh']) || empyt($pm_relateDAO[0]['zw_xmmc'])){
+                if(empty($pm_relateDAO[0]['zw_xmbh']) || empty($pm_relateDAO[0]['zw_xmmc'])){
                     alert_back("该项目没有绑定财务系统，请联系管理员");
                 }
 
