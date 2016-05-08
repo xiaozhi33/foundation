@@ -54,7 +54,7 @@
             echo $this->view->render("index/footer.phtml");
         }
 
-        public function addrschouziAction()
+        public function addrschouzi_backAction()
         {
             try{
                 $pname = HttpUtil::postString("pname");      //项目名称
