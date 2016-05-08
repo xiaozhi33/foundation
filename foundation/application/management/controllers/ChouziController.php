@@ -57,6 +57,8 @@
         public function addrschouziAction()
         {
             try{
+                ini_set("display_errors", "On");
+                error_reporting(E_ERROR);
                 $pname = HttpUtil::postString("pname");      //项目名称
                 //check项目是否已经建立
                 $is_pname = $this->checkPname($pname);
