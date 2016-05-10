@@ -4,39 +4,38 @@
     {
 
 		public function indexAction(){
-            $meetingDAO = $this->orm->createDAO('jjh_meeting')->order('id DESC');
-            $meetingDAO->getPager(array('path'=>'/management/meeeting/index'))->assignTo($this->view);
+            $feedbackDAO = $this->orm->createDAO('pm_mg_feedback')->order('id DESC');
+            $feedbackDAO->getPager(array('path'=>'/management/feedback/index'))->assignTo($this->view);
 
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("meeting/index.phtml");
+            echo $this->view->render("feedback/index.phtml");
             echo $this->view->render("index/footer.phtml");
 		}
         /*
-         *  add meeting
+         *  add feedback
          */
 		public function addAction(){
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("meeting/addmeeting.phtml");
+            echo $this->view->render("meeting/addfeedbcak.phtml");
             echo $this->view->render("index/footer.phtml");
 		}
 
         /*
-         *  toSave meeting information
+         *  toSave feedback information
          */
         public function toAddAction(){
-			$id = $_REQUEST['id'];
-            $meeting_name = HttpUtil::postString("meeting_name");
-            $meeting_cate = HttpUtil::postString("meeting_cate");
-            $meeting_joiner = HttpUtil::postString("meeting_joiner");
-            $meeting_content = HttpUtil::postString("meeting_content");
-			$meeting_start_time = HttpUtil::postString("meeting_start_time");
-			$meeting_end_time = HttpUtil::postString("meeting_end_time");
-			$meeting_address = HttpUtil::postString("meeting_address");
+            (int)$id = $_REQUEST['id'];
+            $pm_id = HttpUtil::postString("pm_id");
+            $pm_name = HttpUtil::postString("pm_name");
+            $feedback_datetime = HttpUtil::postString("feedback_datetime");
+            $feedback_type = HttpUtil::postString("feedback_type");
+            $jindu = HttpUtil::postString("jindu");
+            $feedbacker = HttpUtil::postString("feedbacker");
+            $jbr = HttpUtil::postString("jbr");
 
-            $meetingDAO = $this->orm->createDAO('jjh_meeting');
+            $pm_mg_feedbackDAO = $this->orm->createDAO('pm_mg_feedback');
 
-            if($meeting_name == "" || $meeting_cate == "" || $meeting_joiner == "" || $meeting_content == ""){
-                //alert_back("您输入的信息不完整，请查正后继续添加！！！！！");
+            if($pm_id == "" || $feedback_datetime == "" || $feedback_type == "" || $jindu == ""){
                 echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
                 echo('<script language="JavaScript">');
                 echo("alert('您输入的信息不完整，请查正后继续添加！！！！！');");
@@ -45,41 +44,20 @@
                 exit;
             }
 
-            if($_FILES['meeting_files']['name']!=""){
-                if($_FILES['meeting_files']['error'] != 4){
-                    if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
-                        mkdir(__UPLOADPICPATH__ ."jjh_download/");
-                    }
-                    $uploadpic = new uploadPic($_FILES['meeting_files']['name'],$_FILES['meeting_files']['error'],$_FILES['meeting_files']['size'],$_FILES['meeting_files']['tmp_name'],$_FILES['meeting_files']['type'],2);
-                    $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
-                    $result = $uploadpic->uploadPic();
-                    if($result['error']!=0){
-                        echo "<script>alert('".$result['msg']."');";
-                        echo "window.location.href='/management/meeting";
-                        echo "</script>";
-                        exit();
-                    }else{
-                        $meetingDAO->meeting_files =  __GETPICPATH__."jjh_download/".$result['picname'];
-                        $meetingDAO->meeting_files_name = $_FILES['meeting_files']['name'];
-                    }
-                }
-            }
-            if(!empty($id))  //修改流程
-            {
-                $meetingDAO ->findId($id);
-            }
             try{
-                $meetingDAO ->meeting_name = $meeting_name;
-                $meetingDAO ->meeting_cate = $meeting_cate;
-                $meetingDAO ->meeting_joiner = $meeting_joiner;
-                $meetingDAO ->meeting_content = $meeting_content;
-                $meetingDAO ->meeting_start_time = $meeting_start_time;
-                $meetingDAO ->meeting_end_time = $meeting_end_time;
-                $meetingDAO ->meeting_address = $meeting_address;
-                $meetingDAO ->save();
+                if(!empty($id)){
+                    $pm_mg_feedbackDAO ->findId($id);
+                }
+                $pm_mg_feedbackDAO ->pm_id = $pm_id;
+                $pm_mg_feedbackDAO ->pm_name = $pm_name;
+                $pm_mg_feedbackDAO ->feedback_datetime = $feedback_datetime; // 回馈时间
+                $pm_mg_feedbackDAO ->feedback_type = $feedback_type; // 回馈方式 致电、致函、当面拜访、赠送纪念品、其他
+                $pm_mg_feedbackDAO ->jindu = $jindu; // 进度
+                $pm_mg_feedbackDAO ->feedbacker = $feedbacker;  // 回馈人
+                $pm_mg_feedbackDAO ->jbr = $jbr;   // 经办人
+                $pm_mg_feedbackDAO ->save();
             }catch (Exception $e){
-                /*alert_back("保存失败！");
-                exit;*/
+
                 echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
                 echo('<script language="JavaScript">');
                 echo("alert('保存失败！！！！！');");
@@ -91,48 +69,37 @@
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('保存成功');");
-            echo("location.href='/management/meeting';");
+            echo("location.href='/management/feedback';");
             echo('</script>');
             exit;
-
-            /*echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/meeting/'));
-            exit;*/
         }
 		
 		public function editAction(){
 			$id = HttpUtil::getString("id");
-            $meetingDAO = $this->orm->createDAO('jjh_meeting');
-			$meetingDAO ->findId($id);
-			$meetingDAO = $meetingDAO ->get();
+            $pm_mg_feedbackDAO = $this->orm->createDAO('pm_mg_feedbackDAO');
+            $pm_mg_feedbackDAO ->findId($id);
+            $pm_mg_feedbackDAO = $pm_mg_feedbackDAO ->get();
 			
-			if($meetingDAO != "")
+			if($pm_mg_feedbackDAO != "")
 			{
-				$this->view->assign("meeting_info", $meetingDAO);
+				$this->view->assign("pm_mg_feedbackDAO", $pm_mg_feedbackDAO);
 				echo $this->view->render("index/header.phtml");
-				echo $this->view->render("meeting/editmeeting.phtml");
+				echo $this->view->render("feedback/editfeedback.phtml");
 				echo $this->view->render("index/footer.phtml");
                 exit();
 			}
-            $meetingDAO = $this->orm->createDAO('jjh_meeting')->order('id DESC');
-
-            $this->view->assign("meeting_info", $meetingDAO);
-
-            echo $this->view->render("index/header.phtml");
-            echo $this->view->render("meeting/editmeeting.phtml");
-            echo $this->view->render("index/footer.phtml");
-            exit();
 		}
 		
 		public function delAction(){
 			$id = HttpUtil::getString("id");
-            $meetingDAO = $this->orm->createDAO('jjh_meeting');
-			$meetingDAO ->findId($id);
-			$meetingDAO = $meetingDAO ->delete();
+            $pm_mg_feedbackDAO = $this->orm->createDAO('pm_mg_feedbackDAO');
+            $pm_mg_feedbackDAO ->findId($id);
+            $pm_mg_feedbackDAO = $pm_mg_feedbackDAO ->delete();
 
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('删除成功');");
-            echo("location.href='/management/meeting';");
+            echo("location.href='/management/feedback';");
             echo('</script>');
             exit;
 

@@ -7,13 +7,13 @@
 <div class="pageheader">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
-        <span>添加回馈信息</span></h2>
+        <span>编辑回馈信息</span></h2>
 
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
             <li>项目信息管理</li>
-            <li class="active">添加回馈信息</li>
+            <li class="active">编辑回馈信息</li>
         </ol>
     </div>
 
@@ -28,17 +28,9 @@
 			<div class="detailedbox tile-body">
                 <form class="form-horizontal" action="to-add" method="post" encType="multipart/form-data">
 				<div class="form-group">
-						<label class="col-sm-2 control-label" for="input01">所属项目名称：</label>
+						<label class="col-sm-2 control-label" for="input01">会议名称：</label>
                         <div class="col-sm-3">
-                            <select class="chosen-select-1 chosen-transparent form-control" name="pm_id">
-                                <option value="">请选择项目名称</option>
-                                <?php if($this->pmlist != ""){
-                                    foreach ($this->pmlist as $k => $v){
-                                        ?>
-                                        <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
-                                    <?php }}?>
-                            </select>
-                            <input id="pname_info" type="hidden" name="pm_name" value=""/>
+                          <input class="form-control" type="text" name="meeting_name" />
                         </div>
 						<span class="col-sm-1" > * </span>
 				</div>	
@@ -68,7 +60,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input06">会议开始时间：</label>
                         <div class="col-sm-4">
-                            <input class="form-control" data-date-format="YYYY-MM-DD HH:mm:ss" type="text"  id="datepicker"  name="feedback_datetime" size="14"/>
+                            <input class="form-control" data-date-format="YYYY-MM-DD HH:mm:ss" type="text"  id="datepicker"  name="meeting_start_time" size="14"/>
                         </div>
                     </div>
 
