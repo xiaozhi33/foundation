@@ -27,7 +27,7 @@ class uploadPic{
             $this->rename = $rename;
 
             if($type == 2){//flash
-                $this->file_type_array = array('/','application/x-shockwave-flash', 'application/octet-stream' , 'image/gif', 'image/jpg', 'image/jpeg', 'image/bmp', 'image/png','image/pjpeg','application/rar','application/x-rar-compressed','application/msword','application/pdf');
+                $this->file_type_array = array('/','application/x-shockwave-flash', 'application/octet-stream' , 'image/gif', 'image/jpg', 'image/jpeg', 'image/bmp', 'image/png','image/pjpeg','application/rar','application/x-rar-compressed','application/msword','application/pdf','text/plain','application/msexcel','application/msword', 'application/vnd.ms-excel','application/zip','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/vnd.ms-excel','application/vnd.openxmlformats-officedocument.wordprocessingml.document');
             }else{//image
                 $this->file_type_array = array('/', 'image/gif', 'image/jpg', 'image/jpeg', 'image/bmp', 'image/png','image/pjpeg','application/rar','application/x-rar-compressed');
             }

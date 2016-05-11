@@ -26,19 +26,12 @@
 			<div class="col-md-12">
 				<section class="tile color transparent-black">
 			<div class="detailedbox tile-body">
-                <form class="form-horizontal" action="to-add" method="post" encType="multipart/form-data">
+                <form class="form-horizontal" action="to-add" method="post" id="form1" encType="multipart/form-data">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input01">所属项目名称：</label>
-                        <div class="col-sm-3">
-                            <select class="chosen-select-1 chosen-transparent form-control" name="pm_id">
-                                <option value="">请选择项目名称</option>
-                                <?php if($this->pmlist != ""){
-                                    foreach ($this->pmlist as $k => $v){
-                                        ?>
-                                        <option  <?php if($this->pm_mg_feedbackDAO[0]['id'] == $v['id']){echo "checked='checked'";}?> value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
-                                    <?php }}?>
-                            </select>
-                            <input id="pname_info" type="hidden" name="pm_name" value="<?php echo $this->pm_mg_feedbackDAO[0]['pm_name']?>"/>
+                        <label class="col-sm-2 control-label">所属项目名称：</label>
+                        <div class="col-sm-4">
+                            <input readonly="readonly" type="text" name="pm_name" value="<?php echo $this->pm_mg_feedbackDAO[0]['pm_name']?>"/>
+                            <input readonly="readonly" type="hidden" name="pm_id" value="<?php echo $this->pm_mg_feedbackDAO[0]['pm_id']?>"/>
                         </div>
                         <span class="col-sm-1" > * </span>
                     </div>
@@ -46,20 +39,20 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input06">回馈时间：</label>
                         <div class="col-sm-4">
-                            <input class="form-control" data-date-format="YYYY-MM-DD HH:mm:ss" type="text"  id="datepicker"  name="feedback_datetime" size="14" value="<?php echo $this->pm_mg_feedbackDAO[0]['feedback_datetime']?>"/>
+                            <input class="form-control" data-date-format="YYYY-MM-DD" type="text"  id="datepicker"  name="feedback_datetime" size="14" value="<?php echo $this->pm_mg_feedbackDAO[0]['feedback_datetime']?>"/>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input02">回馈方式：</label>
                         <div class="col-sm-3">
-                            <select class="chosen-select chosen-transparent form-control" name="">
+                            <select class="chosen-select chosen-transparent form-control" name="feedback_type">
                                 <option value="" >请选择类型</option>
-                                <option value="致电" <?php if($this->pm_mg_feedbackDAO[0]['feedback_type'] == "致电"){echo "checked='checked'";}?>>致电</option>
-                                <option value="致函" <?php if($this->pm_mg_feedbackDAO[0]['feedback_type'] == "致函"){echo "checked='checked'";}?>>致函</option>
-                                <option value="当面拜访" <?php if($this->pm_mg_feedbackDAO[0]['feedback_type'] == "当面拜访"){echo "checked='checked'";}?>>当面拜访</option>
-                                <option value="赠送纪念品" <?php if($this->pm_mg_feedbackDAO[0]['feedback_type'] == "赠送纪念品"){echo "checked='checked'";}?>>赠送纪念品</option>
-                                <option value="其他" <?php if($this->pm_mg_feedbackDAO[0]['feedback_type'] == "其他"){echo "checked='checked'";}?>>其他</option>
+                                <option value="致电" <?php if($this->pm_mg_feedbackDAO[0]['feedback_type'] == "致电"){echo "selected='selected'";}?>>致电</option>
+                                <option value="致函" <?php if($this->pm_mg_feedbackDAO[0]['feedback_type'] == "致函"){echo "selected='selected'";}?>>致函</option>
+                                <option value="当面拜访" <?php if($this->pm_mg_feedbackDAO[0]['feedback_type'] == "当面拜访"){echo "selected='selected'";}?>>当面拜访</option>
+                                <option value="赠送纪念品" <?php if($this->pm_mg_feedbackDAO[0]['feedback_type'] == "赠送纪念品"){echo "selected='selected'";}?>>赠送纪念品</option>
+                                <option value="其他" <?php if($this->pm_mg_feedbackDAO[0]['feedback_type'] == "其他"){echo "selected='selected'";}?>>其他</option>
                             </select>
                         </div>
                         <span class="col-sm-1" > * </span>
@@ -85,14 +78,16 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input01">选择进度：</label>
                         <div class="col-sm-4">
-                            <input name="jindu" type="checkbox" value="1" <?php if($this->pm_mg_feedbackDAO[0]['jindu'] == 1){echo "selected='selected'";}?>/>已回馈
+                            <input name="jindu" type="checkbox" value="1" <?php if($this->pm_mg_feedbackDAO[0]['jindu'] == 1){echo "checked='checked'";}?>/>已回馈
                         </div>
                         <span class="col-sm-2" > * </span>
                     </div>
 
+                    <input name="id" type="hidden" value="<?php echo $this->pm_mg_feedbackDAO[0]['id']; ?>">
+
                     <div class="form-group form-footer">
                         <div class="col-sm-offset-5 col-sm-7">
-                            <input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
                             <input class="btn btn-default" type="reset" value="重 置" />
                         </div>
                     </div>

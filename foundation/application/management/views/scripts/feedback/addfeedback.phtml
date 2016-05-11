@@ -26,7 +26,7 @@
 			<div class="col-md-12">
 				<section class="tile color transparent-black">
 			<div class="detailedbox tile-body">
-                <form class="form-horizontal" action="to-add" method="post" encType="multipart/form-data">
+                <form class="form-horizontal" action="to-add" id="form1" method="post" encType="multipart/form-data">
 				<div class="form-group">
 						<label class="col-sm-2 control-label" for="input01">所属项目名称：</label>
                         <div class="col-sm-3">
@@ -46,14 +46,14 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input06">回馈时间：</label>
                         <div class="col-sm-4">
-                            <input class="form-control" data-date-format="YYYY-MM-DD HH:mm:ss" type="text"  id="datepicker"  name="feedback_datetime" size="14"/>
+                            <input class="form-control" data-date-format="YYYY-MM-DD" type="text"  id="datepicker"  name="feedback_datetime" size="14"/>
                         </div>
                     </div>
 
 				<div class="form-group">
 					    <label class="col-sm-2 control-label" for="input02">回馈方式：</label>
 						<div class="col-sm-3">
-							<select class="chosen-select chosen-transparent form-control" name="meeting_cate">
+							<select class="chosen-select chosen-transparent form-control" name="feedback_type">
 								<option value="" >请选择类型</option>
                                 <option value="致电" >致电</option>
                                 <option value="致函" >致函</option>
@@ -92,7 +92,7 @@
 
 					<div class="form-group form-footer">
 						<div class="col-sm-offset-5 col-sm-7">
-							<input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
 							<input class="btn btn-default" type="reset" value="重 置" /> 
 						</div>
 					</div>

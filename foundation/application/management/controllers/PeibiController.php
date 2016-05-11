@@ -38,13 +38,8 @@
 
             $peibiDAO = $this->orm->createDAO('pm_mg_peibi');
 
-            if($pm_id == "" || $peibi_datetime == ""){
-                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
-                echo('<script language="JavaScript">');
-                echo("alert('您输入的信息不完整，请查正后继续添加！！！！！');");
-                echo('history.back();');
-                echo('</script>');
-                exit;
+            if($pm_id == "" || $is_peibi == ""){
+                alert_back('您输入的信息不完整，请查正后继续添加！！！！！');
             }
 
             try{
@@ -53,31 +48,19 @@
                 }
                 $peibiDAO ->pm_id = $pm_id;
                 $peibiDAO ->pm_name = $pm_name;
-                $peibiDAO ->is_peibi = $is_peibi; //
-                $peibiDAO ->is_pass = $is_pass; //
-                $peibiDAO ->jpyy = $jpyy; //
-                $peibiDAO ->je = $je;  //
-                $peibiDAO ->peibi_datetime = $peibi_datetime;   //
-                $peibiDAO ->card = $card;   //
-                $peibiDAO ->jffzr = $jffzr;   //
-                $peibiDAO ->peibi_spr = $peibi_spr;   //
+                $peibiDAO ->is_peibi = $is_peibi; // 是否配比
+                $peibiDAO ->is_pass = $is_pass; // 是否通过配比
+                $peibiDAO ->jpyy = $jpyy; // 拒批原因
+                $peibiDAO ->je = $je;  // 配比金额
+                $peibiDAO ->peibi_datetime = $peibi_datetime;   // 配比下发时间
+                $peibiDAO ->card = $card;   // 卡号
+                $peibiDAO ->jffzr = $jffzr;   // 经费负责人
+                $peibiDAO ->peibi_spr = $peibi_spr;   // 配比审批人
                 $peibiDAO ->save();
             }catch (Exception $e){
-
-                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
-                echo('<script language="JavaScript">');
-                echo("alert('保存失败！！！！！');");
-                echo('history.back();');
-                echo('</script>');
-                exit;
+                alert_back('保存失败！！！！！');
             }
-
-            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
-            echo('<script language="JavaScript">');
-            echo("alert('保存成功');");
-            echo("location.href='/management/feedback';");
-            echo('</script>');
-            exit;
+            alert_go('保存成功', "/management/feedback/index");
         }
 		
 		public function editAction(){
@@ -112,7 +95,8 @@
         }
 
          public function _init(){
-            error_reporting(0);
+            $this ->dbhelper = new DBHelper();
+            $this ->dbhelper ->connect();
             SessionUtil::sessionStart();
             SessionUtil::checkmanagement();
 

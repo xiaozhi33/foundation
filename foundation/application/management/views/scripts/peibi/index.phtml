@@ -21,13 +21,13 @@
 <div class="pageheader">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
-        <span>项目回馈列表</span></h2>
+        <span>项目配比列表</span></h2>
 
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
-            <li>项目回馈管理</li>
-            <li class="active">项目回馈列表</li>
+            <li>项目配比管理</li>
+            <li class="active">项目配比列表</li>
         </ol>
     </div>
 
@@ -83,11 +83,10 @@
 					 <thead>
 					  <tr>
 						<td width="24%">项目名称</td>
-						<td width="12%">回馈时间</td>
-                        <td width="20%">回馈方式</td>
-                        <td width="18%">回馈人</td>
-						<td width="13%">经办人</td>
-						<td width="13%">操作</td>
+						<td width="12%">是否配比</td>
+                        <td width="20%">配比下发时间</td>
+                        <td width="20%">配比金额</td>
+                          <td width="20%">操作</td>
 					  </tr>
 					</thead>
                     <tbody>
@@ -98,24 +97,21 @@
                                 <?php echo $v['pm_name'];?>
                             </td>
                              <td>
-                                 <?php echo $v['feedback_datetime'];?>
+                                 <?php echo $v['is_peibi']==1?"是":"否";?>
                              </td>
                              <td>
-                                 <?php echo $v['feedback_type'];?>
+                                 <?php echo $v['peibi_datetime'];?>
                              </td>
                              <td>
-                                 <?php echo $v['feedbacker'];?>
-                             </td>
-                             <td>
-                                 <?php echo $v['jbr'];?>
+                                 <?php echo $v['je'];?>
                              </td>
 
 							<td>
-                                <a href="/management/feedback/edit?id=<?php echo $v['id'];?>">
+                                <a href="/management/peibi/edit?id=<?php echo $v['id'];?>">
                                     <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
                                 </a>
                                 &nbsp;&nbsp;
-                                <a href="#" onclick="alert('对不起，回馈清单不提供删除功能，请联系管理员');">
+                                <a href="#" onclick="alert('对不起，配比清单不提供删除功能，请联系管理员');">
                                     <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
                                 </a>
                             </td>
@@ -127,10 +123,10 @@
 					<div class="tile-footer bg-transparent-black-2">
 					<div class="row">
 					<div class="page col-md-12" align="right">
-                        共  <?php echo $this->totalItems;?> 条回馈信息         <?php echo $this->page['all'];?></div>
+                        共  <?php echo $this->totalItems;?> 条配比信息         <?php echo $this->page['all'];?></div>
 					
 				 <?php }else{?>
-				 	<div style="margin: 10px;padding: 10px;">暂无回馈信息！<a href="/management/feedback/add">点击添加</a></div>
+				 	<div style="margin: 10px;padding: 10px;">暂无配比信息！<a href="/management/peibi/add">点击添加</a></div>
 				 <?php }?>
 				 </div>
 				 </div>

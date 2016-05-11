@@ -659,32 +659,32 @@
             $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
             if(empty($pm_id)){
                 echo "<script>alert('非法请求，请查正后再试！');";
-                echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
+                echo "window.location.href='/management/zijin/newsigninfo?id=".$pm_id."'; ";
                 echo "</script>";
                 exit();
             }
 
-            if($_FILES['sign_files']['name']=="" || HttpUtil::postString("sign_time")=="" ){
-                echo "<script>alert('签约时间和电子协议不能为空！');";
-                echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
-                echo "</script>";
-                exit();
+            if(HttpUtil::postString("jzys") == 1){
+                if($_FILES['sign_files']['name']=="" || HttpUtil::postString("sign_time")=="" ){
+                    echo "<script>alert('签约时间和电子协议不能为空！');";
+                    echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
+                    echo "</script>";
+                    exit();
+                }
             }
+
             /*			if(!empty($id)){
                             $pm_signDAO ->findId($pm_id);
                         }*/
             $pm_signDAO ->pm_id = $pm_id;
             $pm_signDAO ->sign_time = HttpUtil::postString("sign_time");
 
-            $pm_signDAO ->xyje = HttpUtil::postString("xyje");
-            $pm_signDAO ->jzys = HttpUtil::postString("jzys");
-            $pm_signDAO ->adress = HttpUtil::postString("adress");
-
             if($_FILES['sign_files']['name']!=""){
                 if($_FILES['sign_files']['error'] != 4){
                     if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
                         mkdir(__UPLOADPICPATH__ ."jjh_download/");
                     }
+                    //echo $_FILES['sign_files']['type'];exit();
                     $uploadpic = new uploadPic($_FILES['sign_files']['name'],$_FILES['sign_files']['error'],$_FILES['sign_files']['size'],$_FILES['sign_files']['tmp_name'],$_FILES['sign_files']['type'],2);
                     $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
                     $result = $uploadpic->uploadPic();
@@ -699,6 +699,11 @@
                     }
                 }
             }
+
+            $pm_signDAO ->xyje = HttpUtil::postString("xyje");
+            $pm_signDAO ->jzys = HttpUtil::postString("jzys");
+            $pm_signDAO ->adress = HttpUtil::postString("adress");
+
             $pm_signDAO ->save();
             echo "<script>alert('添加成功！');";
             echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";

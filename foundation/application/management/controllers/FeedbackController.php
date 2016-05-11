@@ -2,7 +2,6 @@
 	require_once("BaseController.php");
 	class Management_feedbackController extends BaseController
     {
-
 		public function indexAction(){
             $feedbackDAO = $this->orm->createDAO('pm_mg_feedback')->order('id DESC');
             $feedbackDAO->getPager(array('path'=>'/management/feedback/index'))->assignTo($this->view);
@@ -16,7 +15,7 @@
          */
 		public function addAction(){
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("meeting/addfeedbcak.phtml");
+            echo $this->view->render("feedback/addfeedback.phtml");
             echo $this->view->render("index/footer.phtml");
 		}
 
@@ -36,12 +35,7 @@
             $pm_mg_feedbackDAO = $this->orm->createDAO('pm_mg_feedback');
 
             if($pm_id == "" || $feedback_datetime == "" || $feedback_type == "" || $jindu == ""){
-                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
-                echo('<script language="JavaScript">');
-                echo("alert('您输入的信息不完整，请查正后继续添加！！！！！');");
-                echo('history.back();');
-                echo('</script>');
-                exit;
+                alert_back('您输入的信息不完整，请查正后继续添加！！！！！');
             }
 
             try{
@@ -57,26 +51,15 @@
                 $pm_mg_feedbackDAO ->jbr = $jbr;   // 经办人
                 $pm_mg_feedbackDAO ->save();
             }catch (Exception $e){
-
-                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
-                echo('<script language="JavaScript">');
-                echo("alert('保存失败！！！！！');");
-                echo('history.back();');
-                echo('</script>');
-                exit;
+                alert_back('保存失败！！！！！');
             }
 
-            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
-            echo('<script language="JavaScript">');
-            echo("alert('保存成功');");
-            echo("location.href='/management/feedback';");
-            echo('</script>');
-            exit;
+            alert_go('保存成功', "/management/feedback/index");
         }
 		
 		public function editAction(){
 			$id = HttpUtil::getString("id");
-            $pm_mg_feedbackDAO = $this->orm->createDAO('pm_mg_feedbackDAO');
+            $pm_mg_feedbackDAO = $this->orm->createDAO('pm_mg_feedback');
             $pm_mg_feedbackDAO ->findId($id);
             $pm_mg_feedbackDAO = $pm_mg_feedbackDAO ->get();
 			
@@ -106,7 +89,8 @@
         }
 
          public function _init(){
-            error_reporting(0);
+            $this ->dbhelper = new DBHelper();
+            $this ->dbhelper ->connect();
             SessionUtil::sessionStart();
             SessionUtil::checkmanagement();
 

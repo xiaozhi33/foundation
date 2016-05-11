@@ -1,0 +1,144 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>编辑回馈信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目信息管理</li>
+            <li class="active">编辑回馈信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+	
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+			<div class="col-md-12">
+				<section class="tile color transparent-black">
+                <div class="detailedbox tile-body">
+                    <form class="form-horizontal" action="to-add" method="post" id="form1" encType="multipart/form-data">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">所属项目名称：</label>
+                            <div class="col-sm-4">
+                                <input readonly="readonly" type="text" name="pm_name" value="<?php echo $this->peibiDAO[0]['pm_name']?>"/>
+                                <input readonly="readonly" type="hidden" name="pm_id" value="<?php echo $this->peibiDAO[0]['pm_id']?>"/>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+
+                        <div class="form-group" id="is_peibi">
+                            <label class="col-sm-2 control-label">是否可以申请配比：</label>
+                            <div class="col-sm-4">
+                                <input type="radio"  name="is_peibi" value="1" <?php if($this->peibiDAO[0]['is_peibi'] == "1"){echo "checked='checked'";}?>/> 是
+                                <input type="radio"  name="is_peibi" value="0" <?php if($this->peibiDAO[0]['is_peibi'] == "0"){echo "checked='checked'";}?>/> 否
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="is_pass">
+                            <label class="col-sm-2 control-label">配比是否通过：</label>
+                            <div class="col-sm-4">
+                                <input type="radio"  name="is_pass" value="1" <?php if($this->peibiDAO[0]['is_pass'] == "1"){echo "checked='checked'";}?>/> 是
+                                <input type="radio"  name="is_pass" value="" <?php if($this->peibiDAO[0]['is_pass'] == ""){echo "checked='checked'";}?>/> 否
+                            </div>
+                        </div>
+
+                        <div class="form-group jpyy">
+                            <label class="col-sm-2 control-label">配比拒批原因：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" name="jpyy"  value="<?php echo $this->peibiDAO[0]['jpyy']?>"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group tongguo">
+                            <label class="col-sm-2 control-label" >配比金额：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text"  name="je" value="<?php echo $this->peibiDAO[0]['je']?>"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group tongguo">
+                            <label class="col-sm-2 control-label">配比下发时间：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" data-date-format="YYYY-MM-DD" type="text"  id="datepicker"  name="peibi_datetime" size="14"  value="<?php echo $this->peibiDAO[0]['peibi_datetime']?>"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group tongguo">
+                            <label class="col-sm-2 control-label">卡号：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text"  name="card" value="<?php echo $this->peibiDAO[0]['card']?>"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group tongguo">
+                            <label class="col-sm-2 control-label" >经费负责人：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text"  name="jffzr" value="<?php echo $this->peibiDAO[0]['jffzr']?>"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group tongguo">
+                            <label class="col-sm-2 control-label" >配比审批人：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text"  name="peibi_spr" value="<?php echo $this->peibiDAO[0]['peibi_spr']?>"/>
+                            </div>
+                        </div>
+
+                        <input name="id" type="hidden" value="<?php echo $this->peibiDAO[0]['id']; ?>">
+
+                        <div class="form-group form-footer">
+                            <div class="col-sm-offset-5 col-sm-7">
+                                <input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input class="btn btn-default" type="reset" value="重 置" />
+                            </div>
+                        </div>
+                </form>
+			</div>
+		 </section>
+			</div>
+		</div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(0)").addClass("open");
+
+            if($("input[name='is_peibi']:checked").val() == 1){
+                $(".jpyy").hide();
+            }else {
+                $(".tongguo").hide();
+            }
+
+            // 切换发票状态
+            $("#is_peibi").change(function(){
+                var $selectedvalue = $("input[name='is_peibi']:checked").val();
+                if ($selectedvalue == 0) {
+                    $("#is_pass").hide();
+                    $(".jpyy").hide();
+                    $(".tongguo").hide();
+                } else if($selectedvalue == 1) {
+                    $("#is_pass").show();
+                }
+            });
+            $("#is_pass").change(function(){
+                var $selectedvalue = $("input[name='is_pass']:checked").val();
+                if ($selectedvalue == 0) {
+                    $(".tongguo").hide();
+                    $(".jpyy").show();
+                } else if($selectedvalue == 1) {
+                    $(".tongguo").show();
+                    $(".jpyy").hide();
+                }
+            });
+        </script>
+
