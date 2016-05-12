@@ -51,6 +51,14 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">选择进度：</label>
+                    <div class="col-sm-4">
+                        <input name="jindu" type="checkbox" value="1" />已到帐
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
+
+                <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">补充其他信息(备注)：</label>
                     <div class="col-sm-8">
                         <textarea id="input05" class="form-control parsley-validated" rows="6" parsley-trigger="keyup" parsley-rangelength="[20,200]" name="beizhu" parsley-validation-minlength="1"></textarea>
@@ -234,9 +242,9 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input01">票据状态：</label>
                         <div class="col-sm-4">
-                            <input type="radio" name="piaoju" value="0" /> 未开票（默认）
-                            <input type="radio" name="piaoju" value="1" checked="checked"/> 已开票
-                            <input type="radio" name="piaoju" value="2"/> 借票
+                            <input type="radio" name="piaoju" value="0" class="radioItem" checked="checked"/> 未开票（默认）
+                            <input type="radio" name="piaoju" class="radioItem" value="1"/> 已开票
+                            <input type="radio" name="piaoju" class="radioItem" value="2"/> 借票
                         </div>
                     </div>
 

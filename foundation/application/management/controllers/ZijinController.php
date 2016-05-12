@@ -107,10 +107,17 @@
 			$pm_zijinDAO ->peibi_card = $peibi_card;
 			$pm_zijinDAO ->peibi_pp = $peibi_pp;
 			$pm_zijinDAO ->peibi_jupi = $peibi_jupi;
-			
+
+            $pm_zijinDAO ->piaoju_fph = HttpUtil::postString("piaoju_fph");
+            $pm_zijinDAO ->piaoju_fkfs = HttpUtil::postString("piaoju_fkfs");
+			$pm_zijinDAO ->piaoju_jbr = HttpUtil::postString("piaoju_jbr");
+            $pm_zijinDAO ->piaoju_kddh = HttpUtil::postString("piaoju_kddh");
+            $pm_zijinDAO ->jindu = HttpUtil::postString("jindu");
+
 			$pm_zijinDAO ->yishi = $yishi;
 			$pm_zijinDAO ->jinianpin = $jinianpin;
-			
+
+            $pm_zijinDAO ->is_renling = 1;
 			$pm_zijinDAO ->cate_id = 0;
 
 			if($_FILES['pm_files']['name']!=""){
@@ -193,6 +200,12 @@
                 $pm_zijinDAO ->peibi_card = $peibi_card;
                 $pm_zijinDAO ->peibi_pp = $peibi_pp;
                 $pm_zijinDAO ->peibi_jupi = $peibi_jupi;
+
+                $pm_zijinDAO ->piaoju_fph = HttpUtil::postString("piaoju_fph");
+                $pm_zijinDAO ->piaoju_fkfs = HttpUtil::postString("piaoju_fkfs");
+                $pm_zijinDAO ->piaoju_jbr = HttpUtil::postString("piaoju_jbr");
+                $pm_zijinDAO ->piaoju_kddh = HttpUtil::postString("piaoju_kddh");
+                $pm_zijinDAO ->jindu = HttpUtil::postString("jindu");
 			
 				$pm_zijinDAO ->piaoju = $piaoju;
 				$pm_zijinDAO ->zhengshu = $zhengshu;
