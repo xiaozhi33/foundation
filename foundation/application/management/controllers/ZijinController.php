@@ -215,6 +215,8 @@
 				$pm_zijinDAO ->pm_juanzeng_cate = $pm_cate;
 				$pm_zijinDAO ->pm_pp_cate = $pm_pp_cate;
 
+                $pm_zijinDAO ->is_renling = $_REQUEST['is_renling'];
+
                 $pm_zijinDAO ->yishi = $yishi;
                 $pm_zijinDAO ->jinianpin = $jinianpin;
 	
