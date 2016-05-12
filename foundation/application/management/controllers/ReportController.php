@@ -452,7 +452,7 @@
 			    $shouru += $v['zijin_daozheng_jiner'];
 			    $zhichu += $v['shiyong_zhichu_jiner'];
 			    $renshu += $v['jiangli_renshu'];
-			    $yuer = $shouru - $zhichu;
+			    $yuer = round(($shouru - $zhichu), 2);
 			}
 			
 			$xx = count($pminfo) + 2;
