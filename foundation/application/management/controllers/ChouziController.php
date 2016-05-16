@@ -11,6 +11,9 @@
             $cate = HttpUtil::postString("cate");
             $chouziinfo = new pm_mg_chouziDAO();
 
+            $chouziinfo ->joinTable (" left join pm_mg_rate as r on r.pm_id = id");
+            $chouziinfo ->selectField(" *");
+
             if ($pname != "") {
                 $chouziinfo->pname = $pname;
             }
@@ -23,11 +26,11 @@
                 $chouziinfo->cate = $cate;
             }
 
-            if (HttpUtil::postString("starttime") != "" && HttpUtil::postString("endtime") != "") {
+            /*if (HttpUtil::postString("starttime") != "" && HttpUtil::postString("endtime") != "") {
                 $starttime = HttpUtil::postString("starttime");
                 $endtime = HttpUtil::postString("endtime");
                 $chouziinfo->selectLimit = " and pm_qishi_datetime<'$starttime' and pm_jiezhi_datetime>'$endtime'";
-            }
+            }*/
 
             $chouziinfo ->selectLimit .= " order by id desc";
 

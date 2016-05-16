@@ -60,15 +60,25 @@
                             <input id="pname_info" type="hidden" name="pname" value=""/>
                         </div>
 
-
                         <div class="form-group col-sm-3">
+                            <label for="input02">项目类型：</label>
+                            <select class="form-control" name="cate">
+                                <option value="" >请选择类型</option>
+                                <?php if($this->pcatelist != ""){
+                                    foreach ($this->pcatelist as $k => $v){?>
+                                        <option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+
+                       <!-- <div class="form-group col-sm-3">
                                 <label for="input03">项目起始日期：</label>
                                 <input name="starttime" data-date-format="YYYY-MM-DD HH:mm:ss"  type="text" class="form-control" id="datepicker">
                         </div>
                         <div class="form-group col-sm-3">
                                 <label for="input04">项目截止日期：</label>
                                 <input type="text" name="endtime" data-date-format="YYYY-MM-DD HH:mm:ss" class="form-control" id="datepicker1">
-                        </div>
+                        </div>-->
                     </div>
 
                     <div class="row">
@@ -82,16 +92,7 @@
                                     <?php }}?>
                             </select>
                         </div>
-                        <div class="form-group col-sm-3">
-                            <label for="input02">项目类型：</label>
-                            <select class="form-control" name="cate">
-                                <option value="" >请选择类型</option>
-                                <?php if($this->pcatelist != ""){
-                                    foreach ($this->pcatelist as $k => $v){?>
-                                        <option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
-                                    <?php }}?>
-                            </select>
-                        </div>
+
                         <div class="form-group col-sm-3">
                             <label for="input02"> </label>
                             <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
@@ -108,10 +109,10 @@
 					 <thead>
 					  <tr>
 						<td width="24%">项目名称</td>
-						<!--<td width="12%">部门名称</td>
-                          <!--<td width="20%">项目分类</td>
-                          <td width="18%">项目签约日期</td>-->
-						<td width="13%">协议捐赠金额</td>
+                        <td width="20%">项目类型</td>
+                        <td width="18%">项目进度</td>
+						<!--<td width="12%">部门名称</td><td width="18%">项目签约日期</td>
+						<td width="13%">协议捐赠金额</td>-->
 						<td width="13%">操作</td>
 					  </tr>
 					</thead>
@@ -120,18 +121,36 @@
 						foreach($this->chouzilist as $k=>$v){?>
 						 <tr>
 						 	<td><a href="/management/chouzi/pminfo?id=<?php echo $v['id'];?>" target="_blank"><?php echo $v['pname'];?></a>&nbsp;</td>
+                             <td><?php  foreach ($this->pcatelist as $kk => $vv){
+                                     if($vv['id'] == $v['cate']){ echo $vv['catename'];}
+                                 }?>&nbsp;</td>
 							<!--<td><?php  foreach ($this->departmentlist as $kk => $vv){
 								if($vv['id'] == $v['department']){ echo $vv['pname'];}
 								}?>&nbsp;</td>
-                             <!--<td><?php  foreach ($this->pcatelist as $kk => $vv){
-								if($vv['id'] == $v['cate']){ echo $vv['catename'];}
-								}?>&nbsp;</td>
+                             <!--
 								
-							<td><?php /*echo substr($v['pm_qianyue_datetime'],0,10);*/?>&nbsp;</td>-->
-							<td><?php echo $v['pm_xieyi_juanzeng_jiner'];?>&nbsp;元</td>
+							<td><?php /*echo substr($v['pm_qianyue_datetime'],0,10);*/?>&nbsp;</td>
+							<td><?php echo $v['pm_xieyi_juanzeng_jiner'];?>&nbsp;元</td>-->
+
+                             <td>
+                                 <?php if($v['pm_rate'] == ""){ ?>
+                                     ---
+                                 <?php }if(preg_match("/2/", $v['pm_rate'])){ ?>
+                                     已签订&nbsp;
+                                 <?php }if(preg_match("/3/", $v['pm_rate'])){?>
+                                     已到帐&nbsp;
+                                 <?php }if(preg_match("/1/", $v['pm_rate'])){?>
+                                     洽谈中&nbsp;
+                                 <?php }?>
+                             </td>
+
 							<td>
                                 <a href="/management/chouzi/editchouzi?id=<?php echo $v['id'];?>">
                                     <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                                </a>
+                                &nbsp;&nbsp;
+                                <a href="/management/zijin/rateinfo/?pm_id=<?php echo $v['id'];?>">
+                                    <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
                                 </a>
                                 &nbsp;&nbsp;
                                 <a href="#" onclick="alert('对不起，项目清单不提供删除功能，请联系管理员');">
