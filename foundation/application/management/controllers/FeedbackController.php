@@ -4,6 +4,10 @@
     {
 		public function indexAction(){
             $feedbackDAO = $this->orm->createDAO('pm_mg_feedback')->order('id DESC');
+            if(!empty($_REQUEST['pm_name'])){
+                $feedbackDAO->findPm_name($_REQUEST['pm_name']);
+                $this->view->assign("pname", $_REQUEST['pm_name']);
+            }
             $feedbackDAO->getPager(array('path'=>'/management/feedback/index'))->assignTo($this->view);
 
             echo $this->view->render("index/header.phtml");

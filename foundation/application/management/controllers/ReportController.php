@@ -577,6 +577,157 @@
 			}
 			return $cate;
 		}
+
+        //回馈toExcel
+        public function feedbacktoexcelAction(){
+            $pname = $_REQUEST["pname"];
+            $pm_mg_feedback = $this->orm->createDAO("pm_mg_feedback");
+            if($pname != ""){
+                $pm_mg_feedback ->findPm_name($pname);
+            }
+            $pm_mg_feedback = $pm_mg_feedback->get();
+
+            if (count($pm_mg_feedback) == 0){
+                alert_back("查无结果，请重新查询");
+            }
+
+            require_once 'phpexcel/Classes/PHPExcel.php';
+            // Create new PHPExcel object
+            $zijintj = new PHPExcel();
+
+            // Set properties
+            $zijintj->getProperties()->setCreator("TJ BYJJH")
+                ->setLastModifiedBy("TJ BYJJH")
+                ->setTitle("Office 2007 XLSX  Document")
+                ->setSubject("Office 2007 XLSX  Document")
+                ->setDescription("document for Office 2007 XLSX, generated using PHP classes.")
+                ->setKeywords("office 2007 openxml php")
+                ->setCategory("rescues");
+            // Add some data
+            $zijintj->setActiveSheetIndex(0)
+                ->setCellValue('A1', '序号')
+                ->setCellValue('B1', '项目id')
+                ->setCellValue('C1', '项目名称 ')
+                ->setCellValue('D1', '回馈时间')
+                ->setCellValue('E1', '回馈方式')
+                ->setCellValue('F1', '进度')
+                ->setCellValue('G1', '回馈人')
+                ->setCellValue('H1', '经办人');
+
+            $ii = 2;
+            foreach($pm_mg_feedback as $v){
+                if($v['jindu'] == 1){
+                    $v['jindu'] = "已回馈";
+                }
+                $zijintj->setActiveSheetIndex(0)
+                    ->setCellValue('A'.$ii, $v['id'])
+                    ->setCellValue('B'.$ii, $v['pm_id'])
+                    ->setCellValue('C'.$ii, $v['pm_name'])
+                    ->setCellValue('D'.$ii, $v['feedback_datetime'])
+                    ->setCellValue('E'.$ii, $v['feedback_type'])
+                    ->setCellValue('F'.$ii, $v['jindu'])
+                    ->setCellValue('G'.$ii, $v['feedbacker'])
+                    ->setCellValue('H'.$ii, $v['jbr']);
+                $ii++;
+            }
+            $ii = "";
+
+            $zijintj->getActiveSheet()->setTitle('huikui');
+            $zijintj->setActiveSheetIndex(0);
+
+            ob_end_clean();
+            ob_start();
+
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="回馈统计.xls"');
+            header('Cache-Control: max-age=0');
+            $objWriter = PHPExcel_IOFactory::createWriter($zijintj, 'Excel5');
+            $objWriter->save('php://output');
+            exit;
+        }
+
+        //配比toExcel
+        public function peibitoexcelAction(){
+            $pname = $_REQUEST["pname"];
+            $pm_mg_peibi = $this->orm->createDAO("pm_mg_peibi");
+            if($pname != ""){
+                $pm_mg_peibi ->findPm_name($pname);
+            }
+            $pm_mg_peibi = $pm_mg_peibi->get();
+
+            if (count($pm_mg_peibi) == 0){
+                alert_back("查无结果，请重新查询");
+            }
+
+            require_once 'phpexcel/Classes/PHPExcel.php';
+            // Create new PHPExcel object
+            $zijintj = new PHPExcel();
+
+            // Set properties
+            $zijintj->getProperties()->setCreator("TJ BYJJH")
+                ->setLastModifiedBy("TJ BYJJH")
+                ->setTitle("Office 2007 XLSX  Document")
+                ->setSubject("Office 2007 XLSX  Document")
+                ->setDescription("document for Office 2007 XLSX, generated using PHP classes.")
+                ->setKeywords("office 2007 openxml php")
+                ->setCategory("rescues");
+            // Add some data
+            $zijintj->setActiveSheetIndex(0)
+                ->setCellValue('A1', '序号')
+                ->setCellValue('B1', '项目id')
+                ->setCellValue('C1', '项目名称 ')
+                ->setCellValue('D1', '是否配比')
+                ->setCellValue('E1', '是否通过配比')
+                ->setCellValue('F1', '拒批原因')
+                ->setCellValue('G1', '配比金额')
+                ->setCellValue('H1', '配比下发时间')
+                ->setCellValue('I1', '划拨部门')
+                ->setCellValue('J1', '卡号')
+                ->setCellValue('K1', '经费负责人')
+                ->setCellValue('L1', '配比审批人');
+
+            $ii = 2;
+            foreach($pm_mg_peibi as $v){
+                if($v['is_peibi'] == 1){
+                    $v['is_peibi'] = "已配比";
+                }else{
+                    $v['is_peibi'] = "未配比";
+                }
+                if($v['is_pass'] == 1){
+                    $v['is_pass'] = "通过";
+                }else{
+                    $v['is_pass'] = "未通过";
+                }
+                $zijintj->setActiveSheetIndex(0)
+                    ->setCellValue('A'.$ii, $v['id'])
+                    ->setCellValue('B'.$ii, $v['pm_id'])
+                    ->setCellValue('C'.$ii, $v['pm_name'])
+                    ->setCellValue('D'.$ii, $v['is_peibi'])
+                    ->setCellValue('E'.$ii, $v['is_pass'])
+                    ->setCellValue('F'.$ii, $v['jpyy'])
+                    ->setCellValue('G'.$ii, $v['je'])
+                    ->setCellValue('H'.$ii, $v['peibi_datetime'])
+                    ->setCellValue('I'.$ii, $v['huabo_department'])
+                    ->setCellValue('J'.$ii, $v['card'])
+                    ->setCellValue('K'.$ii, $v['jffzr'])
+                    ->setCellValue('L'.$ii, $v['peibi_spr']);
+                $ii++;
+            }
+            $ii = "";
+
+            $zijintj->getActiveSheet()->setTitle('huikui');
+            $zijintj->setActiveSheetIndex(0);
+
+            ob_end_clean();
+            ob_start();
+
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="配比统计.xls"');
+            header('Cache-Control: max-age=0');
+            $objWriter = PHPExcel_IOFactory::createWriter($zijintj, 'Excel5');
+            $objWriter->save('php://output');
+            exit;
+        }
 		
 		public function _init(){
 			$this ->dbhelper = new DBHelper();

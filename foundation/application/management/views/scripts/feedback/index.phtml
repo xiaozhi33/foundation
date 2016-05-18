@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"
+      xmlns="http://www.w3.org/1999/html"/>
 <link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
@@ -39,7 +40,7 @@
 		<div id="rightstyle02" class="row">
 
 			<div class="col-md-12">
-			<!--<section class="tile color transparent-black">
+			<section class="tile color transparent-black">
                 <div class="tile-body">
                     <form action="#" method="post" name="search_form">
                         <div class="form-group">
@@ -49,32 +50,31 @@
                                     <label for="pname" class="col-sm-4 control-label">项目名称：</label>
                                     <select class="chosen-select-1 chosen-transparent form-control" name="pm_id" id="pname">
                                         <option value="1">请选择项目名称</option>
-                                        <?php /*if($this->pmlist != ""){
+                                        <?php if($this->pmlist != ""){
                                             foreach ($this->pmlist as $k => $v){
-                                                */?>
-                                                <option value="<?php /*echo $v['id'];*/?>"><?php /*echo $v['pname'];*/?></option>
-                                            <?php /*}}*/?>
+                                                ?>
+                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                            <?php }}?>
                                     </select>
                                     <input id="pname_info" type="hidden" name="pm_name" value=""/>
                                 </div>
 
-
-                                <div class="form-group col-sm-3">
+                                <!--<div class="form-group col-sm-3">
                                         <label for="input03">回馈日期：</label>
                                         <input name="feedback_datetime" data-date-format="YYYY-MM-DD"  type="text" class="form-control" id="datepicker">
-                                </div>
+                                </div>-->
                             </div>
 
                             <div class="row">
                                 <div class="form-group col-sm-3">
-                                    <label for="input02"> </label>
+                                    <label for="input02"></label>
                                     <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-			</section>-->
+			</section>
 
 			<section class="tile color transparent-black">
 				<div class="tile-body nopadding">
@@ -128,11 +128,20 @@
 					<div class="row">
 					<div class="page col-md-12" align="right">
                         共  <?php echo $this->totalItems;?> 条回馈信息         <?php echo $this->page['all'];?></div>
-					
+
 				 <?php }else{?>
 				 	<div style="margin: 10px;padding: 10px;">暂无回馈信息！<a href="/management/feedback/add">点击添加</a></div>
 				 <?php }?>
 				 </div>
+
+
+                        <div class="row">
+                            <div class="form-group col-sm-3">
+                                <label for="input02"></label>
+                                <a href="/management/report/feedbacktoexcel?pname=<?php echo $this->pname;?>"><button class="btn btn-primary btn-block">导出Excel</button></a>
+                            </div>
+                        </div>
+
 				 </div>
 				 </section>
 		  </div>

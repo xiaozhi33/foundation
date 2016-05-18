@@ -5,6 +5,10 @@
 
 		public function indexAction(){
             $peibikDAO = $this->orm->createDAO('pm_mg_peibi')->order('id DESC');
+            if(!empty($_REQUEST['pm_name'])){
+                $peibikDAO->findPm_name($_REQUEST['pm_name']);
+                $this->view->assign("pname", $_REQUEST['pm_name']);
+            }
             $peibikDAO->getPager(array('path'=>'/management/peibi/index'))->assignTo($this->view);
 
             echo $this->view->render("index/header.phtml");
@@ -35,6 +39,7 @@
             $card = HttpUtil::postString("card");
             $jffzr = HttpUtil::postString("jffzr");
             $peibi_spr = HttpUtil::postString("peibi_spr");
+            $huabo_department = HttpUtil::postString("huabo_department");
 
             $peibiDAO = $this->orm->createDAO('pm_mg_peibi');
 
@@ -53,6 +58,7 @@
                 $peibiDAO ->jpyy = $jpyy; // 拒批原因
                 $peibiDAO ->je = $je;  // 配比金额
                 $peibiDAO ->peibi_datetime = $peibi_datetime;   // 配比下发时间
+                $peibiDAO ->huabo_department = $huabo_department;   // 配比下发时间
                 $peibiDAO ->card = $card;   // 卡号
                 $peibiDAO ->jffzr = $jffzr;   // 经费负责人
                 $peibiDAO ->peibi_spr = $peibi_spr;   // 配比审批人
@@ -60,7 +66,7 @@
             }catch (Exception $e){
                 alert_back('保存失败！！！！！');
             }
-            alert_go('保存成功', "/management/feedback/index");
+            alert_go('保存成功', "/management/peibi/index");
         }
 		
 		public function editAction(){
@@ -88,7 +94,7 @@
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('删除成功');");
-            echo("location.href='/management/feedback';");
+            echo("location.href='/management/peibi';");
             echo('</script>');
             exit;
 
