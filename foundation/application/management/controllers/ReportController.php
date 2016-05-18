@@ -459,9 +459,9 @@
 			$heji = "合计";
 			
 			$objPHPExcelx->setActiveSheetIndex(0)
-						->setCellValue('C'.$xx,$heji.$shouru)
-						->setCellValue('E'.$xx,$heji.$zhichu)
-						->setCellValue('F'.$xx,$heji.$renshu)
+						->setCellValue('C'.$xx,"收入小计：".$shouru)
+						->setCellValue('E'.$xx,"支出小计：".$zhichu)
+						->setCellValue('F'.$xx,"奖励人数：".$renshu)
 						->setCellValue('G'.$xx,"余额：".$yuer);			
 			$n = "";
 			
