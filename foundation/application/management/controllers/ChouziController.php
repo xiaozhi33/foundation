@@ -9,6 +9,10 @@
             $pname = HttpUtil::postString("pname");
             $department = HttpUtil::postString("department");
             $cate = HttpUtil::postString("cate");
+
+            $this->view->assign("pname", $pname);
+            $this->view->assign("cate", $cate);
+            $this->view->assign("department", $department);
             $chouziinfo = new pm_mg_chouziDAO();
 
             $chouziinfo ->joinTable (" left join pm_mg_rate as r on r.pm_id = id");

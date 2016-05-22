@@ -127,9 +127,120 @@
 		//资金
 		public function zijinAction(){
 			echo $this->view->render("index/header.phtml");
-			echo $this->view->render("report/zijin.phtml");
+			echo $this->view->render("report/zijin_new.phtml");
 			echo $this->view->render("index/footer.phtml");
 		}
+
+        //收入
+        public function zijinnewtoexcelAction(){
+            try{
+                $type = HttpUtil::postString("type");  //类型，父类-子类
+                $pname = HttpUtil::postString("pname");
+                $cate = HttpUtil::postString("cate");
+                $department = HttpUtil::postString("department");
+                $zijin_daozhang_datetime =  HttpUtil::postString("zijin_daozhang_datetime");
+                $zijin_daozhang_datetime1 =  HttpUtil::postString("zijin_daozhang_datetime1");
+
+                $zijininfo = new pm_mg_infoDAO();
+
+                if($pname != ""){
+                    $zijininfo ->pm_name = $pname;
+                }
+
+                if($department != ""){
+                    $zijininfo ->department = $department;
+                }
+
+                if($zijin_daozhang_datetime != "" && $zijin_daozhang_datetime1 != ""){
+                    $zijininfo ->selectLimit .= " and zijin_daozhang_datetime between '$zijin_daozhang_datetime' and '$zijin_daozhang_datetime1'";
+                }
+
+                $zijininfo ->selectLimit .= " and cate_id=0 order by id desc";
+                //$zijininfo ->debugSql =true;
+                $zijininfo = $zijininfo->get($this->dbhelper);
+
+                if (count($zijininfo) == 0){
+                    alert_back("查无结果，请重新查询");
+                }
+
+                require_once 'phpexcel/Classes/PHPExcel.php';
+                // Create new PHPExcel object
+                $zijintj = new PHPExcel();
+
+                // Set properties
+                $zijintj->getProperties()->setCreator("TJ BYJJH")
+                    ->setLastModifiedBy("TJ BYJJH")
+                    ->setTitle("Office 2007 XLSX  Document")
+                    ->setSubject("Office 2007 XLSX  Document")
+                    ->setDescription("document for Office 2007 XLSX, generated using PHP classes.")
+                    ->setKeywords("office 2007 openxml php")
+                    ->setCategory("rescues");
+                // Add some data
+                $zijintj->setActiveSheetIndex(0)
+                    ->setCellValue('A1', '序号')
+                    ->setCellValue('B1', '项目名称')
+                    ->setCellValue('C1', '项目捐赠者')
+                    ->setCellValue('D1', '捐赠者类型')
+                    ->setCellValue('E1', '捐赠级别')
+                    ->setCellValue('F1', '项目捐赠类型')
+                    ->setCellValue('G1', '捐赠用途')
+                    ->setCellValue('H1', '捐赠到账日期')
+                    ->setCellValue('I1', '捐赠到账金额')
+                    ->setCellValue('J1', '资金来源渠道')
+                    ->setCellValue('K1', '是否是校友')
+                    ->setCellValue('L1', '配比状态')
+                    ->setCellValue('M1', '票据状态')
+                    ->setCellValue('N1', '证书状态')
+                    ->setCellValue('O1', '捐赠单位介绍')
+                    ->setCellValue('P1', '备注');
+
+                $ii = 2;
+                foreach($zijininfo as $v){
+                    $zijintj->setActiveSheetIndex(0)
+                        ->setCellValue('A'.$ii, $v['id'])
+                        ->setCellValue('B'.$ii, $v['pm_name'])
+                        ->setCellValue('C'.$ii, $v['pm_pp'])
+                        ->setCellValue('D'.$ii, $v['pm_pp_cate'])
+                        ->setCellValue('E'.$ii, $v['pm_juanzeng_jibie'])
+                        ->setCellValue('F'.$ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
+                        ->setCellValue('G'.$ii, $v['pm_juanzeng_yongtu'])
+                        ->setCellValue('H'.$ii, $v['zijin_daozhang_datetime'])
+                        ->setCellValue('I'.$ii, $v['zijin_daozheng_jiner'])
+                        ->setCellValue('J'.$ii, $v['zijin_laiyuan_qudao'])
+                        ->setCellValue('K'.$ii, $v['pm_is_school'])
+                        ->setCellValue('L'.$ii, $v['peibi'])
+                        ->setCellValue('M'.$ii, $v['piaoju'])
+                        ->setCellValue('N'.$ii, $v['zhengshu'])
+                        ->setCellValue('O'.$ii, $v['pm_pp_company'])
+                        ->setCellValue('P'.$ii, $v['beizhu']);
+                    $ii++;
+
+                    $shouru += $v['zijin_daozheng_jiner'];
+                }
+
+                $hejixx = count($zijininfo) + 2;
+                $heji = "合计";
+
+                $zijintj->setActiveSheetIndex(0)->setCellValue('I'.$hejixx,$heji.$shouru);
+
+                $ii = "";
+
+                $zijintj->getActiveSheet()->setTitle('zijintongji');
+                $zijintj->setActiveSheetIndex(0);
+
+                ob_end_clean();
+                ob_start();
+
+                header('Content-Type: application/vnd.ms-excel');
+                header('Content-Disposition: attachment;filename="资金统计报表.xls"');
+                header('Cache-Control: max-age=0');
+                $objWriter = PHPExcel_IOFactory::createWriter($zijintj, 'Excel5');
+                $objWriter->save('php://output');
+                exit;
+            }catch (Exception $e){
+                throw $e;
+            }
+        }
 		
 		//资金统计toExcel
 		public function zijintoexcelAction(){
@@ -734,10 +845,19 @@
          */
         public function newchouzitoexcelAction(){
             $pname = $_REQUEST["pname"];
+            $search_cate = $_REQUEST["cate"];
+            $search_department_id = $_REQUEST["department_id"];
             $pm_mg_chouzi = $this->orm->createDAO("pm_mg_chouzi");
             if($pname != ""){
-                $pm_mg_chouzi ->findPm_name($pname);
+                $pm_mg_chouzi ->findPname($pname);
             }
+            if($search_cate != ""){
+                $pm_mg_chouzi ->findCate($search_cate);
+            }
+            if($search_department_id != ""){
+                $pm_mg_chouzi ->findDepartment($search_department_id);
+            }
+
             $pm_mg_chouzi ->withJjh_mg_cate(array("cate" => "id"));
             $pm_mg_chouzi ->withJjh_mg_department(array("department" => "id"));
             $pm_mg_chouzi ->select(" pm_mg_chouzi.*, jjh_mg_cate.catename, jjh_mg_department.pname as department_name");
