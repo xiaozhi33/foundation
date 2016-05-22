@@ -143,6 +143,9 @@
 
                 $zijininfo = new pm_mg_infoDAO();
 
+                $zijininfo ->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
+                $zijininfo ->selectField(" concat(parent_pm_id,'-',c.id) as bpath, c.parent_pm_id, c.parent_pm_id_path, pm_mg_info.*");
+
                 if($pname != ""){
                     $zijininfo ->pm_name = $pname;
                 }
@@ -155,8 +158,8 @@
                     $zijininfo ->selectLimit .= " and zijin_daozhang_datetime between '$zijin_daozhang_datetime' and '$zijin_daozhang_datetime1'";
                 }
 
-                $zijininfo ->selectLimit .= " and cate_id=0 order by id desc";
-                //$zijininfo ->debugSql =true;
+                $zijininfo ->selectLimit .= " and cate_id=0 order by concat(parent_pm_id,'-',c.id)";
+                $zijininfo ->debugSql =true;
                 $zijininfo = $zijininfo->get($this->dbhelper);
 
                 if (count($zijininfo) == 0){
