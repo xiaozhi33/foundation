@@ -288,6 +288,10 @@
                     $parent_pm_id = $parent_pm_info[0]['id'];  //直属关系项目id
                     $parent_pm_id_path = $parent_pm_info[0]['parent_pm_id_path'];   //id_path
 
+                    if($_REQUEST['id'] == $pid){
+                        alert_back("不能已自己作为父类，请重新选择父类项目");
+                    }
+
                     $pm_chouziDAO->parent_pm_id = $parent_pm_id;              //直属关系项目id
                     if(!empty($parent_pm_id_path)){
                         $pm_chouziDAO->parent_pm_id_path = 0;

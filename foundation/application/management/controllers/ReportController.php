@@ -728,6 +728,111 @@
             $objWriter->save('php://output');
             exit;
         }
+
+        /**
+         * @throws Exception 新的筹资统计
+         */
+        public function newchouzitoexcelAction(){
+            $pname = $_REQUEST["pname"];
+            $pm_mg_chouzi = $this->orm->createDAO("pm_mg_chouzi");
+            if($pname != ""){
+                $pm_mg_chouzi ->findPm_name($pname);
+            }
+            $pm_mg_chouzi ->withJjh_mg_cate(array("cate" => "id"));
+            $pm_mg_chouzi ->withJjh_mg_department(array("department" => "id"));
+            $pm_mg_chouzi ->select(" pm_mg_chouzi.*, jjh_mg_cate.catename, jjh_mg_department.pname as department_name");
+            $pm_mg_chouzi = $pm_mg_chouzi->get();
+
+            if (count($pm_mg_chouzi) == 0){
+                alert_back("查无结果，请重新查询");
+            }
+
+            require_once 'phpexcel/Classes/PHPExcel.php';
+            // Create new PHPExcel object
+            $zijintj = new PHPExcel();
+
+            // Set properties
+            $zijintj->getProperties()->setCreator("TJ BYJJH")
+                ->setLastModifiedBy("TJ BYJJH")
+                ->setTitle("Office 2007 XLSX  Document")
+                ->setSubject("Office 2007 XLSX  Document")
+                ->setDescription("document for Office 2007 XLSX, generated using PHP classes.")
+                ->setKeywords("office 2007 openxml php")
+                ->setCategory("rescues");
+            // Add some data
+            $zijintj->setActiveSheetIndex(0)
+                ->setCellValue('A1', '父项目名称')
+                ->setCellValue('B1', '项目名称')
+                ->setCellValue('C1', '项目类型 ')
+                ->setCellValue('D1', '所属部门')
+                ->setCellValue('E1', '项目负责人')
+                ->setCellValue('F1', '项目联络人')
+                ->setCellValue('G1', '筹款负责人')
+                ->setCellValue('H1', '捐赠方')
+                ->setCellValue('I1', '捐赠方联络人')
+                ->setCellValue('J1', '实际捐赠方')
+                ->setCellValue('K1', '实际捐赠方联络人')
+                ->setCellValue('L1', '项目起始年份')
+                ->setCellValue('M1', '项目截止年份')
+                ->setCellValue('N1', '协议捐赠金额')
+                ->setCellValue('O1', '是否留本');
+                //->setCellValue('P1', '捐赠类别');
+
+            $ii = 2;
+            foreach($pm_mg_chouzi as $v){
+                if($v['pm_liuben'] == 1){
+                    $v['pm_liuben'] = "是";
+                }else{
+                    $v['pm_liuben'] = "否";
+                }
+
+                $p_pname = $this->findparentname($v['parent_pm_id']);
+                $zijintj->setActiveSheetIndex(0)
+                    ->setCellValue('A'.$ii, $p_pname)
+                    ->setCellValue('B'.$ii, $v['pname'])
+                    ->setCellValue('C'.$ii, $v['catename'])
+                    ->setCellValue('D'.$ii, $v['department_name'])
+                    ->setCellValue('E'.$ii, $v['pm_fzr'])
+                    ->setCellValue('F'.$ii, $v['pm_llr'])
+                    ->setCellValue('G'.$ii, $v['pm_ckfzr'])
+                    ->setCellValue('H'.$ii, $v['pm_jzf'])
+                    ->setCellValue('I'.$ii, $v['pm_jzfllr'])
+                    ->setCellValue('J'.$ii, $v['pm_sjjzf'])
+                    ->setCellValue('K'.$ii, $v['pm_sjjzfllr'])
+                    ->setCellValue('L'.$ii, $v['pm_qishi_datetime'])
+                    ->setCellValue('M'.$ii, $v['pm_jiezhi_datetime'])
+                    ->setCellValue('N'.$ii, $v['pm_xieyi_juanzeng_jiner'])
+                    ->setCellValue('O'.$ii, $v['pm_liuben']);
+                    //->setCellValue('P'.$ii, $v['peibi_spr']);
+                $ii++;
+            }
+            $ii = "";
+
+            $zijintj->getActiveSheet()->setTitle('pmListInfo');
+            $zijintj->setActiveSheetIndex(0);
+
+            ob_end_clean();
+            ob_start();
+
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="项目基本信息.xls"');
+            header('Cache-Control: max-age=0');
+            $objWriter = PHPExcel_IOFactory::createWriter($zijintj, 'Excel5');
+            $objWriter->save('php://output');
+            exit;
+        }
+
+        public function findparentname($pid){
+            if((int)$pid){
+                $pm_mg_chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
+                $pm_mg_chouziDAO ->findId((int)$pid);
+                $pm_mg_chouziDAO = $pm_mg_chouziDAO->get();
+                return $pm_mg_chouziDAO[0]['pname'];
+            }else {
+                return "";
+            }
+        }
+
 		
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
