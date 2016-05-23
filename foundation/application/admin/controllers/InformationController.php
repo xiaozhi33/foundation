@@ -111,8 +111,8 @@
 		
 		public function editinformationAction(){
 			try{
-				ini_set("display_errors", "On");
-				error_reporting(E_ERROR);
+				//ini_set("display_errors", "On");
+				//error_reporting(E_ERROR);
 				$act = HttpUtil::postString("act");
 				if($act == "gosave"){
 					if(HttpUtil::postString("title") == ""){
