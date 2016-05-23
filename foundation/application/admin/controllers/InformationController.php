@@ -110,90 +110,96 @@
 		}
 		
 		public function editinformationAction(){
-			$act = HttpUtil::postString("act");
-			if($act == "gosave"){
-				if(HttpUtil::postString("title") == ""){
-					alert_back("请填写文章的标题！");
-				}
-				if(HttpUtil::postString("ctitle") == ""){
-					alert_back("请填写文章的副标题！");
-				}
-				if($_REQUEST["content"] == ""){
-					alert_back("请填写文章的内容！");
-				}
-				if(HttpUtil::postString("cate") == ""){
-					alert_back("请填写文章的类型！");
-				}
-				if($_REQUEST["miaoshu"] == ""){
-					alert_back("请填写文章的简介！");
-				}
-				$id = HttpUtil::postString('id');
-				if($id == ""){
-					alert_back("您要编辑的资讯不存在");
-				}
-				$my_informationDAO = new my_informationDAO($id);
-				$my_informationDAO->my_infor_content = $_REQUEST["content"];
-				$my_informationDAO->my_infor_title = HttpUtil::postString("title");
-				$my_informationDAO->my_infor_ctitle = HttpUtil::postString("ctitle");
-				$my_informationDAO->my_infor_cateid = HttpUtil::postString("cate");
-				$my_informationDAO->my_infor_sumary = $_REQUEST["miaoshu"];
-				$my_informationDAO->my_infor_isdisplay = HttpUtil::postString("display");
-				if($_FILES['pic']['name']!=""){
-					if($_FILES['pic']['error'] != 4){
-					    if(!is_dir(__UPLOADPICPATH__ ."jjh_image/")){
-					       mkdir(__UPLOADPICPATH__ ."jjh_image/");
-					    }
-						$uploadpic = new uploadPic($_FILES['pic']['name'],$_FILES['pic']['error'],$_FILES['pic']['size'],$_FILES['pic']['tmp_name'],$_FILES['pic']['type'],2);
-						$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_image/" ;
-						$result = $uploadpic->uploadPic();
-						if($result['error']!=0){					    	
-						   	alert_back($result['msg']);
-						}else{				             
-					        $my_informationDAO->my_infor_images =  __GETPICPATH__."jjh_image/".$result['picname'];
-					    }		            	    
-				    }else{
-				       	alert_back('上传文件错误，请重试！');
-				    }
-				}
-				
-				if($_FILES['filesinfo'] != ""){
-					
-					if($_FILES['filesinfo']['name']!=""){
-						if($_FILES['filesinfo']['error'] != 4){
-						    if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
-						       mkdir(__UPLOADPICPATH__ ."jjh_download/");
-						    }
-							$uploadpic = new uploadPic($_FILES['filesinfo']['name'],$_FILES['filesinfo']['error'],$_FILES['filesinfo']['size'],$_FILES['filesinfo']['tmp_name'],$_FILES['filesinfo']['type'],2);
-							$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
-							$result = $uploadpic->uploadPic();
-							if($result['error']!=0){					    	
-							   	alert_back($result['msg']);
-							}else{				             
-						        $my_informationDAO->my_infor_file =  __GETPICPATH__."jjh_download/".$result['picname'];
-						    }		            	    
-					    }else{
-					       	alert_back('上传文件错误，请重试！');
-					    }
+			try{
+				ini_set("display_errors", "On");
+				error_reporting(E_ERROR);
+				$act = HttpUtil::postString("act");
+				if($act == "gosave"){
+					if(HttpUtil::postString("title") == ""){
+						alert_back("请填写文章的标题！");
 					}
-				}else{
-					$my_informationDAO->my_infor_file = $_REQUEST['oldfiles'];
-				}
+					if(HttpUtil::postString("ctitle") == ""){
+						alert_back("请填写文章的副标题！");
+					}
+					if($_REQUEST["content"] == ""){
+						alert_back("请填写文章的内容！");
+					}
+					if(HttpUtil::postString("cate") == ""){
+						alert_back("请填写文章的类型！");
+					}
+					if($_REQUEST["miaoshu"] == ""){
+						alert_back("请填写文章的简介！");
+					}
+					$id = HttpUtil::postString('id');
+					if($id == ""){
+						alert_back("您要编辑的资讯不存在");
+					}
+					$my_informationDAO = new my_informationDAO($id);
+					$my_informationDAO->my_infor_content = $_REQUEST["content"];
+					$my_informationDAO->my_infor_title = HttpUtil::postString("title");
+					$my_informationDAO->my_infor_ctitle = HttpUtil::postString("ctitle");
+					$my_informationDAO->my_infor_cateid = HttpUtil::postString("cate");
+					$my_informationDAO->my_infor_sumary = $_REQUEST["miaoshu"];
+					$my_informationDAO->my_infor_isdisplay = HttpUtil::postString("display");
+					if($_FILES['pic']['name']!=""){
+						if($_FILES['pic']['error'] != 4){
+							if(!is_dir(__UPLOADPICPATH__ ."jjh_image/")){
+								mkdir(__UPLOADPICPATH__ ."jjh_image/");
+							}
+							$uploadpic = new uploadPic($_FILES['pic']['name'],$_FILES['pic']['error'],$_FILES['pic']['size'],$_FILES['pic']['tmp_name'],$_FILES['pic']['type'],2);
+							$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_image/" ;
+							$result = $uploadpic->uploadPic();
+							if($result['error']!=0){
+								alert_back($result['msg']);
+							}else{
+								$my_informationDAO->my_infor_images =  __GETPICPATH__."jjh_image/".$result['picname'];
+							}
+						}else{
+							alert_back('上传文件错误，请重试！');
+						}
+					}
 
-				//$my_informationDAO->debugSql = true;
-				$my_informationDAO->save($this->dbhelper);
-				alert_go('修改成功！',"/admin/information");
-			}else{
-				$id = HttpUtil::getString('id');
-				if($id == ""){
-					alert_back("您要编辑的资讯不存在");
+					if($_FILES['filesinfo'] != ""){
+
+						if($_FILES['filesinfo']['name']!=""){
+							if($_FILES['filesinfo']['error'] != 4){
+								if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+									mkdir(__UPLOADPICPATH__ ."jjh_download/");
+								}
+								$uploadpic = new uploadPic($_FILES['filesinfo']['name'],$_FILES['filesinfo']['error'],$_FILES['filesinfo']['size'],$_FILES['filesinfo']['tmp_name'],$_FILES['filesinfo']['type'],2);
+								$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+								$result = $uploadpic->uploadPic();
+								if($result['error']!=0){
+									alert_back($result['msg']);
+								}else{
+									$my_informationDAO->my_infor_file =  __GETPICPATH__."jjh_download/".$result['picname'];
+								}
+							}else{
+								alert_back('上传文件错误，请重试！');
+							}
+						}
+					}else{
+						$my_informationDAO->my_infor_file = $_REQUEST['oldfiles'];
+					}
+
+					//$my_informationDAO->debugSql = true;
+					$my_informationDAO->save($this->dbhelper);
+					alert_go('修改成功！',"/admin/information");
+				}else{
+					$id = HttpUtil::getString('id');
+					if($id == ""){
+						alert_back("您要编辑的资讯不存在");
+					}
+
+					$my_informationDAO = new my_informationDAO($id);
+					$my_informationDAO = $my_informationDAO->get($this->dbhelper);
+					$this->view->assign("my_information",$my_informationDAO);
+					echo $this->view->render("index/header.phtml");
+					echo $this->view->render("information/editinformation.phtml");
+					echo $this->view->render("index/footer.phtml");
 				}
-				
-				$my_informationDAO = new my_informationDAO($id);
-				$my_informationDAO = $my_informationDAO->get($this->dbhelper);
-				$this->view->assign("my_information",$my_informationDAO);
-				echo $this->view->render("index/header.phtml");
-				echo $this->view->render("information/editinformation.phtml");
-				echo $this->view->render("index/footer.phtml");
+			}catch(Exception $e){
+				throw $e;
 			}
 		}
 		
