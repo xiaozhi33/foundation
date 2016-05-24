@@ -127,7 +127,7 @@
 		//资金
 		public function zijinAction(){
 			echo $this->view->render("index/header.phtml");
-			echo $this->view->render("report/zijin_new.phtml");
+			echo $this->view->render("report/zijin.phtml");
 			echo $this->view->render("index/footer.phtml");
 		}
 
