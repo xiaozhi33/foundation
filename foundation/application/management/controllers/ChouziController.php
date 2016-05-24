@@ -150,8 +150,8 @@
                 $pm_chouziDAO->pm_jzf_tel = $pm_jzf_tel;
 
                 $pm_chouziDAO->pm_jzfllr = $pm_jzfllr;
-                $pm_chouziDAO->pm_jzfllr = $pm_jzfllr;
-                $pm_chouziDAO->pm_jzfllr = $pm_jzfllr;
+                $pm_chouziDAO->pm_jzfllr = $pm_jzfllr_email;;
+                $pm_chouziDAO->pm_jzfllr = $pm_jzfllr_tel;
 
                 $pm_chouziDAO->pm_sjjzf = $pm_sjjzf;
                 $pm_chouziDAO->pm_sjjzf_email = $pm_sjjzf_email;
