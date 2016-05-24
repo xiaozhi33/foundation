@@ -23,7 +23,7 @@
 		<div class="col-md-6">
         <section class="tile color transparent-black">
 		<div class="detailedbox tile-body">
-			<form class="form-horizontal" action="zijintoexcel" method="post">
+			<form class="form-horizontal" action="zijintoexcel" method="post" id="search_form1">
 				<label class="col-sm-3 control-label" for="pname">
 					项目名称：</label>
 				<div class="col-sm-8">
@@ -114,7 +114,7 @@
 						</div>
                         <div class="form-group">
             <div class="col-md-offset-3 col-sm-2">
-						<input class="btn btn-greensea" onclick="noTips()" type="button" value="下载excel报表"/></div></div>
+						<input class="btn btn-greensea" onclick="post_submit()" type="button" value="下载excel报表"/></div></div>
 					</form>
 				</div>
 		</div>	
@@ -123,6 +123,13 @@
         <script src="/include/management/assets/js/jquery.js"></script>
         <script language="javascript">
             $(".menu li:eq(19)").addClass("open");
+
+			function post_submit(){
+				if($(".chosen-single span").html() != "请选择项目名称"){
+					$("#pname_info").val($(".chosen-single span").html());
+				}
+				$('#search_form1').submit();
+			}
         </script>
 			
 		
