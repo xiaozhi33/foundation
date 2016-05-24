@@ -43,7 +43,12 @@
 
 			$chouziinfo = $chouziinfo->get($this->dbhelper);
 			if (count($chouziinfo) == 0){
-				alert_back("查无结果，请重新查询");
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('查无结果，请重新查询');");
+                echo('history.back();');
+                echo('</script>');
+                exit;
 			}
 			
 			//导出excel
@@ -867,7 +872,13 @@
             $pm_mg_chouzi = $pm_mg_chouzi->get();
 
             if (count($pm_mg_chouzi) == 0){
-                alert_back("查无结果，请重新查询");
+                // alert_back("查无结果，请重新查询");
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('查无结果，请重新查询');");
+                echo('history.back();');
+                echo('</script>');
+                exit;
             }
 
             require_once 'phpexcel/Classes/PHPExcel.php';
