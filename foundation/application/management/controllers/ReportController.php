@@ -132,119 +132,245 @@
 		//资金
 		public function zijinAction(){
 			echo $this->view->render("index/header.phtml");
-			echo $this->view->render("report/zijin.phtml");
+			echo $this->view->render("report/zijin_new.phtml");
 			echo $this->view->render("index/footer.phtml");
 		}
 
         //收入
         public function zijinnewtoexcelAction(){
             try{
-                $type = HttpUtil::postString("type");  //类型，父类-子类
+                $type = HttpUtil::postString("type");
                 $pname = HttpUtil::postString("pname");
                 $cate = HttpUtil::postString("cate");
                 $department = HttpUtil::postString("department");
                 $zijin_daozhang_datetime =  HttpUtil::postString("zijin_daozhang_datetime");
                 $zijin_daozhang_datetime1 =  HttpUtil::postString("zijin_daozhang_datetime1");
 
-                $zijininfo = new pm_mg_infoDAO();
+                if($pname == ''){   // 以父类项目进行统计  -- all
+                    $zijininfo = new pm_mg_infoDAO();
+                    $zijininfo ->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
+                    //$zijininfo ->selectField(" concat(parent_pm_id,'-',c.id) as bpath, c.parent_pm_id, c.parent_pm_id_path, pm_mg_info.id, pm_mg_info.pm_name, pm_mg_info.zijin_daozhang_datetime, pm_mg_info.zijin_daozheng_jiner, pm_mg_info.pm_pp_cate, pm_mg_info.pm_juanzeng_cate, pm_mg_info.zijin_laiyuan_qudao, pm_mg_info.shiyong_type, pm_mg_info.piaoju, pm_mg_info.piaoju_fph, pm_mg_info.piaoju_fkfs, pm_mg_info.piaoju_kddh, pm_mg_info.renling_name");
 
-                $zijininfo ->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
-                $zijininfo ->selectField(" concat(parent_pm_id,'-',c.id) as bpath, c.parent_pm_id, c.parent_pm_id_path, pm_mg_info.*");
+                    $zijininfo ->selectField("
+                    IF(
+                        parent_pm_id = '',
+                        concat(parent_pm_id, '-', c.id),
+                        concat('0-', parent_pm_id, '-', c.id)
+                    )AS bpath,
+                     c.parent_pm_id,
+                     c.parent_pm_id_path,
+                     pm_mg_info.pm_name,
+                     pm_mg_info.zijin_daozhang_datetime,
+                     pm_mg_info.zijin_daozheng_jiner,
+                     pm_mg_info.pm_pp_cate,
+                     pm_mg_info.pm_juanzeng_cate,
+                     pm_mg_info.zijin_laiyuan_qudao,
+                     pm_mg_info.shiyong_type,
+                     pm_mg_info.piaoju,
+                     pm_mg_info.piaoju_fph,
+                     pm_mg_info.piaoju_fkfs,
+                     pm_mg_info.piaoju_kddh,
+                     pm_mg_info.renling_name ");
 
-                if($pname != ""){
-                    $zijininfo ->pm_name = $pname;
-                }
+                    if($pname != ""){
+                        $zijininfo ->pm_name = $pname;
+                    }
+                    if($department != ""){
+                        $zijininfo ->department = $department;
+                    }
 
-                if($department != ""){
-                    $zijininfo ->department = $department;
-                }
+                    if($zijin_daozhang_datetime != "" && $zijin_daozhang_datetime1 != ""){
+                        $zijininfo ->selectLimit .= " and zijin_daozhang_datetime between '$zijin_daozhang_datetime' and '$zijin_daozhang_datetime1'";
+                    }
 
-                if($zijin_daozhang_datetime != "" && $zijin_daozhang_datetime1 != ""){
-                    $zijininfo ->selectLimit .= " and zijin_daozhang_datetime between '$zijin_daozhang_datetime' and '$zijin_daozhang_datetime1'";
-                }
+                    $zijininfo ->selectLimit .= " and cate_id=0 order by bpath";
+                    $zijininfo ->debugSql =true;
+                    $zijininfo = $zijininfo->get($this->dbhelper);
+                    var_dump($zijininfo);exit();
 
-                $zijininfo ->selectLimit .= " and cate_id=0 order by concat(parent_pm_id,'-',c.id)";
-                $zijininfo ->debugSql =true;
-                $zijininfo = $zijininfo->get($this->dbhelper);
+                    if (count($zijininfo) == 0){
+                        alert_back("查无结果，请重新查询");
+                    }
 
-                if (count($zijininfo) == 0){
-                    alert_back("查无结果，请重新查询");
-                }
+                    require_once 'phpexcel/Classes/PHPExcel.php';
+                    // Create new PHPExcel object
+                    $zijintj = new PHPExcel();
 
-                require_once 'phpexcel/Classes/PHPExcel.php';
-                // Create new PHPExcel object
-                $zijintj = new PHPExcel();
-
-                // Set properties
-                $zijintj->getProperties()->setCreator("TJ BYJJH")
-                    ->setLastModifiedBy("TJ BYJJH")
-                    ->setTitle("Office 2007 XLSX  Document")
-                    ->setSubject("Office 2007 XLSX  Document")
-                    ->setDescription("document for Office 2007 XLSX, generated using PHP classes.")
-                    ->setKeywords("office 2007 openxml php")
-                    ->setCategory("rescues");
-                // Add some data
-                $zijintj->setActiveSheetIndex(0)
-                    ->setCellValue('A1', '序号')
-                    ->setCellValue('B1', '项目名称')
-                    ->setCellValue('C1', '项目捐赠者')
-                    ->setCellValue('D1', '捐赠者类型')
-                    ->setCellValue('E1', '捐赠级别')
-                    ->setCellValue('F1', '项目捐赠类型')
-                    ->setCellValue('G1', '捐赠用途')
-                    ->setCellValue('H1', '捐赠到账日期')
-                    ->setCellValue('I1', '捐赠到账金额')
-                    ->setCellValue('J1', '资金来源渠道')
-                    ->setCellValue('K1', '是否是校友')
-                    ->setCellValue('L1', '配比状态')
-                    ->setCellValue('M1', '票据状态')
-                    ->setCellValue('N1', '证书状态')
-                    ->setCellValue('O1', '捐赠单位介绍')
-                    ->setCellValue('P1', '备注');
-
-                $ii = 2;
-                foreach($zijininfo as $v){
+                    // Set properties
+                    $zijintj->getProperties()->setCreator("TJ BYJJH")
+                        ->setLastModifiedBy("TJ BYJJH")
+                        ->setTitle("Office 2007 XLSX  Document")
+                        ->setSubject("Office 2007 XLSX  Document")
+                        ->setDescription("document for Office 2007 XLSX, generated using PHP classes.")
+                        ->setKeywords("office 2007 openxml php")
+                        ->setCategory("rescues");
+                    // Add some data
                     $zijintj->setActiveSheetIndex(0)
-                        ->setCellValue('A'.$ii, $v['id'])
-                        ->setCellValue('B'.$ii, $v['pm_name'])
-                        ->setCellValue('C'.$ii, $v['pm_pp'])
-                        ->setCellValue('D'.$ii, $v['pm_pp_cate'])
-                        ->setCellValue('E'.$ii, $v['pm_juanzeng_jibie'])
-                        ->setCellValue('F'.$ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
-                        ->setCellValue('G'.$ii, $v['pm_juanzeng_yongtu'])
-                        ->setCellValue('H'.$ii, $v['zijin_daozhang_datetime'])
-                        ->setCellValue('I'.$ii, $v['zijin_daozheng_jiner'])
-                        ->setCellValue('J'.$ii, $v['zijin_laiyuan_qudao'])
-                        ->setCellValue('K'.$ii, $v['pm_is_school'])
-                        ->setCellValue('L'.$ii, $v['peibi'])
-                        ->setCellValue('M'.$ii, $v['piaoju'])
-                        ->setCellValue('N'.$ii, $v['zhengshu'])
-                        ->setCellValue('O'.$ii, $v['pm_pp_company'])
-                        ->setCellValue('P'.$ii, $v['beizhu']);
-                    $ii++;
+                        ->setCellValue('A1', '序号')
+                        ->setCellValue('B1', '项目名称')
+                        ->setCellValue('C1', '项目捐赠者')
+                        ->setCellValue('D1', '捐赠者类型')
+                        ->setCellValue('E1', '捐赠级别')
+                        ->setCellValue('F1', '项目捐赠类型')
+                        ->setCellValue('G1', '捐赠用途')
+                        ->setCellValue('H1', '捐赠到账日期')
+                        ->setCellValue('I1', '捐赠到账金额')
+                        ->setCellValue('J1', '资金来源渠道')
+                        ->setCellValue('K1', '是否是校友')
+                        ->setCellValue('L1', '配比状态')
+                        ->setCellValue('M1', '票据状态')
+                        ->setCellValue('N1', '证书状态')
+                        ->setCellValue('O1', '捐赠单位介绍')
+                        ->setCellValue('P1', '备注');
 
-                    $shouru += $v['zijin_daozheng_jiner'];
+                    $ii = 2;
+                    foreach($zijininfo as $v){
+                        $zijintj->setActiveSheetIndex(0)
+                            ->setCellValue('A'.$ii, $v['id'])
+                            ->setCellValue('B'.$ii, $v['pm_name'])
+                            ->setCellValue('C'.$ii, $v['pm_pp'])
+                            ->setCellValue('D'.$ii, $v['pm_pp_cate'])
+                            ->setCellValue('E'.$ii, $v['pm_juanzeng_jibie'])
+                            ->setCellValue('F'.$ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
+                            ->setCellValue('G'.$ii, $v['pm_juanzeng_yongtu'])
+                            ->setCellValue('H'.$ii, $v['zijin_daozhang_datetime'])
+                            ->setCellValue('I'.$ii, $v['zijin_daozheng_jiner'])
+                            ->setCellValue('J'.$ii, $v['zijin_laiyuan_qudao'])
+                            ->setCellValue('K'.$ii, $v['pm_is_school'])
+                            ->setCellValue('L'.$ii, $v['peibi'])
+                            ->setCellValue('M'.$ii, $v['piaoju'])
+                            ->setCellValue('N'.$ii, $v['zhengshu'])
+                            ->setCellValue('O'.$ii, $v['pm_pp_company'])
+                            ->setCellValue('P'.$ii, $v['beizhu']);
+                        $ii++;
+
+                        $shouru += $v['zijin_daozheng_jiner'];
+                    }
+
+                    $hejixx = count($zijininfo) + 2;
+                    $heji = "合计";
+
+                    $zijintj->setActiveSheetIndex(0)->setCellValue('I'.$hejixx,$heji.$shouru);
+
+                    $ii = "";
+
+                    $zijintj->getActiveSheet()->setTitle('zijintongji');
+                    $zijintj->setActiveSheetIndex(0);
+
+                    ob_end_clean();
+                    ob_start();
+
+                    header('Content-Type: application/vnd.ms-excel');
+                    header('Content-Disposition: attachment;filename="资金统计报表.xls"');
+                    header('Cache-Control: max-age=0');
+                    $objWriter = PHPExcel_IOFactory::createWriter($zijintj, 'Excel5');
+                    $objWriter->save('php://output');
+                    exit;
+
+
+                }else {       // 按照项目统计 - 单个项目收支统计
+
+
+                    $zijininfo = new pm_mg_infoDAO();
+                    $zijininfo ->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
+                    $zijininfo ->selectField(" concat(parent_pm_id,'-',c.id) as bpath, c.parent_pm_id, c.parent_pm_id_path, pm_mg_info.id, pm_mg_info.pm_name, pm_mg_info.zijin_daozhang_datetime, pm_mg_info.zijin_daozheng_jiner, pm_mg_info.pm_pp_cate, pm_mg_info.zijin_laiyuan_qudao, pm_mg_info.shiyong_type, pm_mg_info.piaoju, pm_mg_info.piaoju_fph, pm_mg_info.piaoju_fkfs, pm_mg_info.piaoju_kddh, pm_mg_info.renling_name");
+
+                    if($pname != ""){
+                        $zijininfo ->pm_name = $pname;
+                    }
+
+                    if($department != ""){
+                        $zijininfo ->department = $department;
+                    }
+
+                    if($zijin_daozhang_datetime != "" && $zijin_daozhang_datetime1 != ""){
+                        $zijininfo ->selectLimit .= " and zijin_daozhang_datetime between '$zijin_daozhang_datetime' and '$zijin_daozhang_datetime1'";
+                    }
+
+                    $zijininfo ->selectLimit .= " and cate_id=0 order by concat(parent_pm_id,'-',c.id)";
+                    //$zijininfo ->debugSql =true;
+                    $zijininfo = $zijininfo->get($this->dbhelper);
+                    var_dump($zijininfo);exit();
+
+                    if (count($zijininfo) == 0){
+                        alert_back("查无结果，请重新查询");
+                    }
+
+                    require_once 'phpexcel/Classes/PHPExcel.php';
+                    // Create new PHPExcel object
+                    $zijintj = new PHPExcel();
+
+                    // Set properties
+                    $zijintj->getProperties()->setCreator("TJ BYJJH")
+                        ->setLastModifiedBy("TJ BYJJH")
+                        ->setTitle("Office 2007 XLSX  Document")
+                        ->setSubject("Office 2007 XLSX  Document")
+                        ->setDescription("document for Office 2007 XLSX, generated using PHP classes.")
+                        ->setKeywords("office 2007 openxml php")
+                        ->setCategory("rescues");
+                    // Add some data
+                    $zijintj->setActiveSheetIndex(0)
+                        ->setCellValue('A1', '序号')
+                        ->setCellValue('B1', '项目名称')
+                        ->setCellValue('C1', '项目捐赠者')
+                        ->setCellValue('D1', '捐赠者类型')
+                        ->setCellValue('E1', '捐赠级别')
+                        ->setCellValue('F1', '项目捐赠类型')
+                        ->setCellValue('G1', '捐赠用途')
+                        ->setCellValue('H1', '捐赠到账日期')
+                        ->setCellValue('I1', '捐赠到账金额')
+                        ->setCellValue('J1', '资金来源渠道')
+                        ->setCellValue('K1', '是否是校友')
+                        ->setCellValue('L1', '配比状态')
+                        ->setCellValue('M1', '票据状态')
+                        ->setCellValue('N1', '证书状态')
+                        ->setCellValue('O1', '捐赠单位介绍')
+                        ->setCellValue('P1', '备注');
+
+                    $ii = 2;
+                    foreach($zijininfo as $v){
+                        $zijintj->setActiveSheetIndex(0)
+                            ->setCellValue('A'.$ii, $v['id'])
+                            ->setCellValue('B'.$ii, $v['pm_name'])
+                            ->setCellValue('C'.$ii, $v['pm_pp'])
+                            ->setCellValue('D'.$ii, $v['pm_pp_cate'])
+                            ->setCellValue('E'.$ii, $v['pm_juanzeng_jibie'])
+                            ->setCellValue('F'.$ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
+                            ->setCellValue('G'.$ii, $v['pm_juanzeng_yongtu'])
+                            ->setCellValue('H'.$ii, $v['zijin_daozhang_datetime'])
+                            ->setCellValue('I'.$ii, $v['zijin_daozheng_jiner'])
+                            ->setCellValue('J'.$ii, $v['zijin_laiyuan_qudao'])
+                            ->setCellValue('K'.$ii, $v['pm_is_school'])
+                            ->setCellValue('L'.$ii, $v['peibi'])
+                            ->setCellValue('M'.$ii, $v['piaoju'])
+                            ->setCellValue('N'.$ii, $v['zhengshu'])
+                            ->setCellValue('O'.$ii, $v['pm_pp_company'])
+                            ->setCellValue('P'.$ii, $v['beizhu']);
+                        $ii++;
+
+                        $shouru += $v['zijin_daozheng_jiner'];
+                    }
+
+                    $hejixx = count($zijininfo) + 2;
+                    $heji = "合计";
+
+                    $zijintj->setActiveSheetIndex(0)->setCellValue('I'.$hejixx,$heji.$shouru);
+
+                    $ii = "";
+
+                    $zijintj->getActiveSheet()->setTitle('zijintongji');
+                    $zijintj->setActiveSheetIndex(0);
+
+                    ob_end_clean();
+                    ob_start();
+
+                    header('Content-Type: application/vnd.ms-excel');
+                    header('Content-Disposition: attachment;filename="资金统计报表.xls"');
+                    header('Cache-Control: max-age=0');
+                    $objWriter = PHPExcel_IOFactory::createWriter($zijintj, 'Excel5');
+                    $objWriter->save('php://output');
+                    exit;
                 }
-
-                $hejixx = count($zijininfo) + 2;
-                $heji = "合计";
-
-                $zijintj->setActiveSheetIndex(0)->setCellValue('I'.$hejixx,$heji.$shouru);
-
-                $ii = "";
-
-                $zijintj->getActiveSheet()->setTitle('zijintongji');
-                $zijintj->setActiveSheetIndex(0);
-
-                ob_end_clean();
-                ob_start();
-
-                header('Content-Type: application/vnd.ms-excel');
-                header('Content-Disposition: attachment;filename="资金统计报表.xls"');
-                header('Cache-Control: max-age=0');
-                $objWriter = PHPExcel_IOFactory::createWriter($zijintj, 'Excel5');
-                $objWriter->save('php://output');
-                exit;
             }catch (Exception $e){
                 throw $e;
             }
