@@ -28,13 +28,15 @@
 				<label class="col-sm-3 control-label" for="input01">		
 						项目名称：</label>
                 <div class="col-sm-8">
-						<select class="form-control" name="pname" size="10">
-							<?php if($this->pmlist != ""){
-									foreach ($this->pmlist as $k => $v){
+					<select class="chosen-select-1 chosen-transparent form-control" id="pname">
+						<option value="1">请选择项目名称</option>
+						<?php if($this->pmlist != ""){
+							foreach ($this->pmlist as $k => $v){
 								?>
 								<option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
 							<?php }}?>
-						</select>
+					</select>
+					<input id="pname_info" type="hidden" name="pname" value=""/>
 						
 					</div>	
 						
