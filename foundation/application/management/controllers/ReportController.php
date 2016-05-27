@@ -943,6 +943,95 @@
 			echo $this->view->render("report/pmshouzhi.phtml");
 			echo $this->view->render("index/footer.phtml");
 		}
+
+		// new
+		public function pmshouzhitoexcelnewAction(){
+			$pname = HttpUtil::postString("pname");
+			$pminfo = new pm_mg_infoDAO();
+
+			if($pname != ""){
+				$pminfo ->pm_name = $pname;
+			}else{
+				alert_back("请输入项目名称");
+			}
+			//$pminfo ->selectLimit = " and cate_id = 1 order by id desc";
+			//$pminfo ->debugSql =true;
+
+			$pminfo ->selectLimit .= " order by id";
+			$pminfo = $pminfo->get($this->dbhelper);
+			//var_dump($pminfo);exit;
+			if (count($pminfo) == 0){
+				alert_back("查无结果，请重新查询");
+			}
+
+			require_once 'phpexcel/Classes/PHPExcel.php';
+			// Create new PHPExcel object
+			$objPHPExcelx = new PHPExcel();
+
+			// Set properties
+			$objPHPExcelx->getProperties()->setCreator("TJ BYJJH")
+				->setLastModifiedBy("TJ BYJJH")
+				->setTitle("Office 2007 XLSX  Document")
+				->setSubject("Office 2007 XLSX  Document")
+				->setDescription("document for Office 2007 XLSX, generated using PHP classes.")
+				->setKeywords("office 2007 openxml php")
+				->setCategory("rescues");
+
+
+			// Add some data
+			$objPHPExcelx->setActiveSheetIndex(0)
+				->setCellValue('A1', '项目名称')
+				->setCellValue('B1', '项目进款日期')
+				->setCellValue('C1', '项目进款金额')
+				->setCellValue('D1', '项目支出日期')
+				->setCellValue('E1', '项目支出金额')
+				->setCellValue('F1', '奖励人数');
+
+			$n = 2;
+			foreach($pminfo as $v){
+				$objPHPExcelx->setActiveSheetIndex(0)
+					->setCellValue('A'.$n, $v['pm_name'])
+					->setCellValue('B'.$n, $v['zijin_daozhang_datetime'])
+					->setCellValue('C'.$n, $v['zijin_daozheng_jiner'])
+					->setCellValue('D'.$n, $v['shiyong_zhichu_datetime'])
+					->setCellValue('E'.$n, $v['shiyong_zhichu_jiner'])
+					->setCellValue('F'.$n, $v['jiangli_renshu']);
+				$n++;
+
+				$shouru += $v['zijin_daozheng_jiner'];
+				$zhichu += $v['shiyong_zhichu_jiner'];
+				$renshu += $v['jiangli_renshu'];
+				$yuer = round(($shouru - $zhichu), 2);
+			}
+
+			$xx = count($pminfo) + 2;
+			$heji = "合计";
+
+			$objPHPExcelx->setActiveSheetIndex(0)
+				->setCellValue('C'.$xx,"收入小计：".$shouru)
+				->setCellValue('E'.$xx,"支出小计：".$zhichu)
+				->setCellValue('F'.$xx,"奖励人数：".$renshu)
+				->setCellValue('G'.$xx,"余额：".$yuer);
+			$n = "";
+
+			// Rename sheet
+			$objPHPExcelx->getActiveSheet()->setTitle('shouzhi');
+			// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+			$objPHPExcelx->setActiveSheetIndex(0);
+			// Redirect output to a client’s web browser (Excel5)
+
+			//重要
+			ob_end_clean();
+			ob_start();
+
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename="pmshouzhi.xls"');
+			header('Cache-Control: max-age=0');
+
+			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcelx, 'Excel5');
+			$objWriter->save('php://output');
+			exit;
+		}
 		
 		//项目收支统计toExcel
 		public function pmshouzhitoexcelAction(){
