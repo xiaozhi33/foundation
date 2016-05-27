@@ -141,12 +141,14 @@
         //收入
         public function zijinnewtoexcelAction(){
             try{
+                //ini_set("display_errors", "On");
+                //error_reporting(E_ERROR);
                 // $type = HttpUtil::postString("type");
                 $pname = HttpUtil::postString("pname");
                 $cate = HttpUtil::postString("cate");
                 $department = HttpUtil::postString("department");
-                $zijin_daozhang_datetime =  HttpUtil::postString("zijin_daozhang_datetime");
-                $zijin_daozhang_datetime1 =  HttpUtil::postString("zijin_daozhang_datetime1");
+                $zijin_daozhang_datetime =  HttpUtil::postString("start");
+                $zijin_daozhang_datetime1 =  HttpUtil::postString("end");
 
                 if($pname == ''){   //  all  以父类项目进行统计  --todo
                     $zijininfo = new pm_mg_infoDAO();
@@ -157,10 +159,11 @@
                         concat(parent_pm_id, '-', c.id),
                         concat('0-', parent_pm_id, '-', c.id)
                     )AS bpath,
+                     c.id as main_id,
                      c.parent_pm_id,
                      c.parent_pm_id_path,
                      pm_mg_info.pm_name,
-                     c..department,
+                     c.department,
                      pm_mg_info.pm_pp,
                      pm_mg_info.zijin_daozhang_datetime,
                      pm_mg_info.zijin_daozheng_jiner,
@@ -175,16 +178,18 @@
                      pm_mg_info.piaoju_kddh,
                      pm_mg_info.renling_name ");
 
-                    if($department != ""){
-                        $zijininfo ->department = $department;
+                    if($cate != ""){
+                        $zijininfo ->pm_juanzeng_cate = $cate;
                     }
-
+                    if($department != ""){
+                        $zijininfo ->selectLimit .= " and c.department=".$department;
+                    }
                     if($zijin_daozhang_datetime != "" && $zijin_daozhang_datetime1 != ""){
                         $zijininfo ->selectLimit .= " and zijin_daozhang_datetime between '$zijin_daozhang_datetime' and '$zijin_daozhang_datetime1'";
                     }
 
                     $zijininfo ->selectLimit .= " and cate_id=0 order by bpath";
-                    $zijininfo ->debugSql =true;
+                    //$zijininfo ->debugSql =true;
                     $zijininfo = $zijininfo->get($this->dbhelper);
 
                     if (count($zijininfo) == 0){
@@ -231,21 +236,26 @@
 					$shouru = '';
 					$xiangmushuliang = array(); // 项目数量 只统计父类id
                     foreach($zijininfo as $v){
-						if(!in_array($v['id'],$xiangmushuliang) && $v['parent_pm_id'] == ''){
-							array_push($v['id'],$xiangmushuliang);
+						if(!in_array($v['main_id'],$xiangmushuliang) && $v['parent_pm_id'] == 0){
+                            $xiangmushuliang[] = $v['main_id'];
 						}
+                        if($v['piaoju'] == 1){
+                            $piaoju = '已开票';
+                        }else{
+                            $piaoju = '未开票';
+                        }
                         $zijintj->setActiveSheetIndex(0)
                             ->setCellValue('A'.$ii, $v['bpath'])
-                            ->setCellValue('B'.$ii, $this->pm['parent_pm_id'])
+                            ->setCellValue('B'.$ii, $this->pm[$v[parent_pm_id]])
                             ->setCellValue('C'.$ii, $v['pm_name'])
                             ->setCellValue('D'.$ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
-                            ->setCellValue('E'.$ii, $this->department['department'])
+                            ->setCellValue('E'.$ii, $this->department[$v[department]])
                             ->setCellValue('F'.$ii, $v['pm_pp'])
                             ->setCellValue('G'.$ii, $v['zijin_daozheng_jiner'])
                             ->setCellValue('H'.$ii, $v['zijin_daozhang_datetime'])
                             ->setCellValue('I'.$ii, $v['pm_pp_cate'])
                             ->setCellValue('J'.$ii, $v['zijin_laiyuan_qudao'])
-                            ->setCellValue('K'.$ii, $v['piaoju'])
+                            ->setCellValue('K'.$ii, $piaoju)
                             ->setCellValue('L'.$ii, $v['piaoju_fph'])
                             ->setCellValue('M'.$ii, $v['piaoju_fkfs'])
                             ->setCellValue('N'.$ii, $v['piaoju_kddh'])
@@ -283,7 +293,6 @@
 
                 }else {       // 单个项目收入统计
 
-
                     $zijininfo = new pm_mg_infoDAO();
                     $zijininfo ->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
 					$zijininfo ->selectField("
@@ -296,7 +305,7 @@
                      c.parent_pm_id_path,
                      replace(c.parent_pm_id_path,'-',',') as parent_pm_id_path_str,
                      pm_mg_info.pm_name,
-                     c..department,
+                     c.department,
                      pm_mg_info.pm_pp,
                      pm_mg_info.zijin_daozhang_datetime,
                      pm_mg_info.zijin_daozheng_jiner,
@@ -312,27 +321,27 @@
                      pm_mg_info.renling_name ");
 
                     if($pname != ""){
-                        $find_pid = $this ->findparentid($pname);
-						if(empty($find_pid)){
-							echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
-							echo('<script language="JavaScript">');
-							echo("alert('查无结果，请重新查询');");
-							echo('history.back();');
-							echo('</script>');
-							exit;
-						}
+                        $rs = $this->getmainid($pname);
+                        if(!empty($rs)){
+                            // $zijininfo ->selectLimit .= " and find_in_set( ".$main_id." ,parent_pm_id_path)";
+                            $zijininfo ->selectLimit .= " and c.id in (".$rs.")";
+                        }else {
+                            $zijininfo ->selectLimit .= " and pm_name='".$pname."'";
+                        }
                     }
 
+                    if($cate != ""){
+                        $zijininfo ->pm_juanzeng_cate = $cate;
+                    }
                     if($department != ""){
-                        $zijininfo ->department = $department;
+                        $zijininfo ->selectLimit .= " and c.department=".$department;
                     }
-
                     if($zijin_daozhang_datetime != "" && $zijin_daozhang_datetime1 != ""){
                         $zijininfo ->selectLimit .= " and zijin_daozhang_datetime between '$zijin_daozhang_datetime' and '$zijin_daozhang_datetime1'";
                     }
 
                     $zijininfo ->selectLimit .= " and cate_id=0 order by concat(parent_pm_id,'-',c.id)";
-					$zijininfo ->selectLimit .= " and find_in_set(".$find_pid.",parent_pm_id_path_str)";
+
                     // 判断是否属于family
 					//$zijininfo ->debugSql =true;
                     $zijininfo = $zijininfo->get($this->dbhelper);
@@ -361,41 +370,49 @@
                     // Add some data
                     $zijintj->setActiveSheetIndex(0)
                         ->setCellValue('A1', '序号')
-                        ->setCellValue('B1', '项目名称')
-                        ->setCellValue('C1', '项目捐赠者')
-                        ->setCellValue('D1', '捐赠者类型')
-                        ->setCellValue('E1', '捐赠级别')
-                        ->setCellValue('F1', '项目捐赠类型')
-                        ->setCellValue('G1', '捐赠用途')
-                        ->setCellValue('H1', '捐赠到账日期')
-                        ->setCellValue('I1', '捐赠到账金额')
+                        ->setCellValue('B1', '父项目名称')
+                        ->setCellValue('C1', '项目名称')
+                        ->setCellValue('D1', '项目类型')
+                        ->setCellValue('E1', '部门')
+                        ->setCellValue('F1', '来款方')
+                        ->setCellValue('G1', '来款金额')
+                        ->setCellValue('H1', '来款时间')
+                        ->setCellValue('I1', '捐赠方类型')
                         ->setCellValue('J1', '资金来源渠道')
-                        ->setCellValue('K1', '是否是校友')
-                        ->setCellValue('L1', '配比状态')
-                        ->setCellValue('M1', '票据状态')
-                        ->setCellValue('N1', '证书状态')
-                        ->setCellValue('O1', '捐赠单位介绍')
-                        ->setCellValue('P1', '备注');
+                        ->setCellValue('K1', '是否开票')
+                        ->setCellValue('L1', '发票号')
+                        ->setCellValue('M1', '反馈方式')
+                        ->setCellValue('N1', '快递单号')
+                        ->setCellValue('O1', '来款信息添加来源')
+                        ->setCellValue('P1', '领取人');
 
                     $ii = 2;
                     foreach($zijininfo as $v){
+                        if(!in_array($v['main_id'],$xiangmushuliang) && $v['parent_pm_id'] == 0){
+                            $xiangmushuliang[] = $v['main_id'];
+                        }
+                        if($v['piaoju'] == 1){
+                            $piaoju = '已开票';
+                        }else{
+                            $piaoju = '未开票';
+                        }
                         $zijintj->setActiveSheetIndex(0)
-                            ->setCellValue('A'.$ii, $v['id'])
-                            ->setCellValue('B'.$ii, $v['pm_name'])
-                            ->setCellValue('C'.$ii, $v['pm_pp'])
-                            ->setCellValue('D'.$ii, $v['pm_pp_cate'])
-                            ->setCellValue('E'.$ii, $v['pm_juanzeng_jibie'])
-                            ->setCellValue('F'.$ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
-                            ->setCellValue('G'.$ii, $v['pm_juanzeng_yongtu'])
+                            ->setCellValue('A'.$ii, $v['bpath'])
+                            ->setCellValue('B'.$ii, $this->pm[$v[parent_pm_id]])
+                            ->setCellValue('C'.$ii, $v['pm_name'])
+                            ->setCellValue('D'.$ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
+                            ->setCellValue('E'.$ii, $this->department[$v[department]])
+                            ->setCellValue('F'.$ii, $v['pm_pp'])
+                            ->setCellValue('G'.$ii, $v['zijin_daozheng_jiner'])
                             ->setCellValue('H'.$ii, $v['zijin_daozhang_datetime'])
-                            ->setCellValue('I'.$ii, $v['zijin_daozheng_jiner'])
+                            ->setCellValue('I'.$ii, $v['pm_pp_cate'])
                             ->setCellValue('J'.$ii, $v['zijin_laiyuan_qudao'])
-                            ->setCellValue('K'.$ii, $v['pm_is_school'])
-                            ->setCellValue('L'.$ii, $v['peibi'])
-                            ->setCellValue('M'.$ii, $v['piaoju'])
-                            ->setCellValue('N'.$ii, $v['zhengshu'])
-                            ->setCellValue('O'.$ii, $v['pm_pp_company'])
-                            ->setCellValue('P'.$ii, $v['beizhu']);
+                            ->setCellValue('K'.$ii, $piaoju)
+                            ->setCellValue('L'.$ii, $v['piaoju_fph'])
+                            ->setCellValue('M'.$ii, $v['piaoju_fkfs'])
+                            ->setCellValue('N'.$ii, $v['piaoju_kddh'])
+                            ->setCellValue('O'.$ii, $v['pm_juanzeng_yongtu'])
+                            ->setCellValue('P'.$ii, $v['renling_name']);
                         $ii++;
 
                         $shouru += $v['zijin_daozheng_jiner'];
@@ -1520,13 +1537,28 @@
 		public function findparentid($pm_name){
 			if(!empty($pm_name)){
 				$pm_mg_chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
-				$pm_mg_chouziDAO ->findPm_name($pm_name);
+				$pm_mg_chouziDAO ->findPname($pm_name);
 				$pm_mg_chouziDAO = $pm_mg_chouziDAO->get();
 				return $pm_mg_chouziDAO[0]['id'];
 			}else {
 				return "";
 			}
 		}
+
+        public function getmainid($pm_name){
+            if(!empty($pm_name)){
+                $pm_mg_chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
+                $pm_mg_chouziDAO ->findPname($pm_name);
+                $pm_mg_chouziDAO = $pm_mg_chouziDAO->get();
+                if(!empty($pm_mg_chouziDAO[0]['parent_pm_id_path'])){
+                    $rs = '"'.$pm_mg_chouziDAO[0]['parent_pm_id_path'].'"';
+                    $rs = str_replace(",",'","',$rs);
+                }
+                return $rs;
+            }else {
+                return "";
+            }
+        }
 
 		
 		public function _init(){
@@ -1558,7 +1590,7 @@
 			$this->view->assign("pmlist",$pm_chouzi);
 
 			foreach($pm_chouzi as $key => $value){
-				$this->pm[$value['id']] = $value['pm_name'];
+				$this->pm[$value['id']] = $value['pname'];
 			}
 		}
 	}
