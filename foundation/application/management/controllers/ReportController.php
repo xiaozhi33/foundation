@@ -141,14 +141,14 @@
         //收入
         public function zijinnewtoexcelAction(){
             try{
-                $type = HttpUtil::postString("type");
+                // $type = HttpUtil::postString("type");
                 $pname = HttpUtil::postString("pname");
                 $cate = HttpUtil::postString("cate");
                 $department = HttpUtil::postString("department");
                 $zijin_daozhang_datetime =  HttpUtil::postString("zijin_daozhang_datetime");
                 $zijin_daozhang_datetime1 =  HttpUtil::postString("zijin_daozhang_datetime1");
 
-                if($pname == ''){   // 以父类项目进行统计  -- all
+                if($pname == ''){   //  all  以父类项目进行统计  --todo
                     $zijininfo = new pm_mg_infoDAO();
                     $zijininfo ->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
                     $zijininfo ->selectField("
@@ -281,7 +281,7 @@
                     exit;
 
 
-                }else {       // 按照项目统计 - 单个项目收支统计
+                }else {       // 单个项目收入统计
 
 
                     $zijininfo = new pm_mg_infoDAO();
@@ -294,6 +294,7 @@
                     )AS bpath,
                      c.parent_pm_id,
                      c.parent_pm_id_path,
+                     replace(c.parent_pm_id_path,'-',',') as parent_pm_id_path_str,
                      pm_mg_info.pm_name,
                      c..department,
                      pm_mg_info.pm_pp,
@@ -311,7 +312,15 @@
                      pm_mg_info.renling_name ");
 
                     if($pname != ""){
-                        $zijininfo ->pm_name = $pname;
+                        $find_pid = $this ->findparentid($pname);
+						if(empty($find_pid)){
+							echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+							echo('<script language="JavaScript">');
+							echo("alert('查无结果，请重新查询');");
+							echo('history.back();');
+							echo('</script>');
+							exit;
+						}
                     }
 
                     if($department != ""){
@@ -323,7 +332,9 @@
                     }
 
                     $zijininfo ->selectLimit .= " and cate_id=0 order by concat(parent_pm_id,'-',c.id)";
-                    //$zijininfo ->debugSql =true;
+					$zijininfo ->selectLimit .= " and find_in_set(".$find_pid.",parent_pm_id_path_str)";
+                    // 判断是否属于family
+					//$zijininfo ->debugSql =true;
                     $zijininfo = $zijininfo->get($this->dbhelper);
 
                     if (count($zijininfo) == 0){
@@ -1416,6 +1427,17 @@
                 return "";
             }
         }
+
+		public function findparentid($pm_name){
+			if(!empty($pm_name)){
+				$pm_mg_chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
+				$pm_mg_chouziDAO ->findPm_name($pm_name);
+				$pm_mg_chouziDAO = $pm_mg_chouziDAO->get();
+				return $pm_mg_chouziDAO[0]['id'];
+			}else {
+				return "";
+			}
+		}
 
 		
 		public function _init(){
