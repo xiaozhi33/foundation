@@ -323,10 +323,14 @@
                     if($pname != ""){
                         $rs = $this->getmainid($pname);
                         if(!empty($rs)){
-                            // $zijininfo ->selectLimit .= " and find_in_set( ".$main_id." ,parent_pm_id_path)";
                             $zijininfo ->selectLimit .= " and c.id in (".$rs.")";
-                        }else {
-                            $zijininfo ->selectLimit .= " and pm_name='".$pname."'";
+                        }else{
+                            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                            echo('<script language="JavaScript">');
+                            echo("alert('查无结果，请重新查询');");
+                            echo('history.back();');
+                            echo('</script>');
+                            exit;
                         }
                     }
 
@@ -1553,6 +1557,8 @@
                 if(!empty($pm_mg_chouziDAO[0]['parent_pm_id_path'])){
                     $rs = '"'.$pm_mg_chouziDAO[0]['parent_pm_id_path'].'"';
                     $rs = str_replace(",",'","',$rs);
+                }else {
+                    $rs = '"'.$pm_mg_chouziDAO[0]['id'].'"';
                 }
                 return $rs;
             }else {
