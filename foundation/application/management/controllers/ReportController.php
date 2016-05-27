@@ -1554,17 +1554,30 @@
                 $pm_mg_chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
                 $pm_mg_chouziDAO ->findPname($pm_name);
                 $pm_mg_chouziDAO = $pm_mg_chouziDAO->get();
-                if(!empty($pm_mg_chouziDAO[0]['parent_pm_id_path'])){
-                    $rs = '"'.$pm_mg_chouziDAO[0]['parent_pm_id_path'].'"';
-                    $rs = str_replace(",",'","',$rs);
-                }else {
-                    $rs = '"'.$pm_mg_chouziDAO[0]['id'].'"';
+
+                $rs = '"'.$pm_mg_chouziDAO[0]['id'].'"';
+                $rs1 = $this->mainpath($pm_mg_chouziDAO[0]['id']);
+                if(!empty($rs1)){
+                    foreach($rs1 as $v){
+                        $rs .= ',"'.$v['id'].'"';
+                    }
                 }
                 return $rs;
             }else {
                 return "";
             }
         }
+
+        // path已mainId开头的所有ids
+        public function mainpath($pid){
+            $pm_mg_chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
+            $pm_mg_chouziDAO ->select(" id");
+            $pm_mg_chouziDAO ->selectLimit .= " and parent_pm_id_path REGEXP '^".$pid.",'";
+            $pm_mg_chouziDAO = $pm_mg_chouziDAO->get();
+
+            return $pm_mg_chouziDAO;
+        }
+
 
 		
 		public function _init(){
