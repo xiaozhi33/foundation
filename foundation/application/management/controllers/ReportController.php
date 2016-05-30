@@ -987,8 +987,10 @@
 		}
 
 		// new
-		public function pmshouzhitoexcelnewAction(){
-			$pname = HttpUtil::postString("pname");
+		public function pmshouzhinewtoexcelAction(){
+            //ini_set("display_errors", "On");
+            //error_reporting(E_ERROR);
+            $pname = HttpUtil::postString("pname");
 			$start =  HttpUtil::postString("start");
 			$end =  HttpUtil::postString("end");
 
@@ -1011,8 +1013,9 @@
                      pm_mg_info.zijin_daozheng_jiner ");
 
 				if ($start != "" && $end != "") {
-					$zhichuinfo->selectLimit .= " and ((shiyong_zhichu_datetime between '$start' and '$end') OR (zijin_daozhang_datetime between '$start' and '$end')";
+					$zhichuinfo->selectLimit .= " and ((shiyong_zhichu_datetime between '$start' and '$end') OR (zijin_daozhang_datetime between '$start' and '$end'))";
 				}
+                $zhichuinfo->selectLimit .= " and c.id!='' ";
 
 				$zhichuinfo->selectLimit .= " order by bpath";
 				//$zhichuinfo ->debugSql =true;
@@ -1053,7 +1056,28 @@
 				$zhichu = '';
 				$shouru = '';
 				$xiangmushuliang = array(); // 项目数量 只统计父类id
-				foreach ($zhichuinfo as $v) {
+				foreach ($zhichuinfo as $key => $v) {
+                    if(!in_array($v['main_id'], $xiangmushuliang) && $v['parent_pm_id'] == 0 && $key > 2){  // 不是父子关系项目 结束统计
+                        $zhichutj->setActiveSheetIndex(0)->setCellValue('E' . $ii, "来款合计" . $shouru);
+                        $zhichutj->setActiveSheetIndex(0)->setCellValue('G' . $ii, "支出合计" . $zhichu);
+
+                        $zhichu = '';
+                        $shouru = '';
+                        $ii = $ii+3;
+                        $xiangmushuliang[] = $v['main_id'];
+
+                        $zhichutj->setActiveSheetIndex(0)
+                            ->setCellValue('A'. $ii, '序号')
+                            ->setCellValue('B'. $ii, '父项目名称')
+                            ->setCellValue('C'. $ii, '项目名称')
+                            ->setCellValue('D'. $ii, '来款时间')
+                            ->setCellValue('E'. $ii, '来款金额')
+                            ->setCellValue('F'. $ii, '支出时间')
+                            ->setCellValue('G'. $ii, '支出金额');
+                        $ii++;
+
+                    }
+
 					$zhichutj->setActiveSheetIndex(0)
 						->setCellValue('A' . $ii, $v['bpath'])
 						->setCellValue('B' . $ii, $this->pm[$v[parent_pm_id]])
@@ -1065,14 +1089,6 @@
 					$ii++;
 					$zhichu += $v['shiyong_zhichu_jiner'];
 					$shouru += $v['zijin_daozheng_jiner'];
-					if(!in_array($v['main_id'], $xiangmushuliang) && $v['parent_pm_id'] == 0){  // 不是父子关系项目 结束统计
-						$zhichutj->setActiveSheetIndex(0)->setCellValue('E' . $ii+1, "来款合计" . $shouru);
-						$zhichutj->setActiveSheetIndex(0)->setCellValue('G' . $ii+1, "支出合计" . $zhichu);
-
-                        $zhichu = '';
-                        $shouru = '';
-                        $ii = $ii+2;
-					}
 				}
 				$ii = "";
 
