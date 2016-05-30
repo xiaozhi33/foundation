@@ -1075,7 +1075,6 @@
                             ->setCellValue('F'. $ii, '支出时间')
                             ->setCellValue('G'. $ii, '支出金额');
                         $ii++;
-
                     }
 
 					$zhichutj->setActiveSheetIndex(0)
@@ -1105,7 +1104,97 @@
 				$objWriter->save('php://output');
 				exit;
 			} else {  // 单个项目统计收支
+                $zhichuinfo = new pm_mg_infoDAO();
+                $zhichuinfo->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
+                $zhichuinfo->selectField("
+                    IF(
+                        parent_pm_id = '',
+                        concat(parent_pm_id, '-', c.id),
+                        concat('0-', parent_pm_id, '-', c.id)
+                    )AS bpath,
+                     c.id as main_id,
+                     c.parent_pm_id,
+                     c.parent_pm_id_path,
+                     pm_mg_info.pm_name,
+                     pm_mg_info.shiyong_zhichu_datetime,
+                     pm_mg_info.shiyong_zhichu_jiner,
+                     pm_mg_info.zijin_daozhang_datetime,
+                     pm_mg_info.zijin_daozheng_jiner ");
 
+                if ($start != "" && $end != "") {
+                    $zhichuinfo->selectLimit .= " and ((shiyong_zhichu_datetime between '$start' and '$end') OR (zijin_daozhang_datetime between '$start' and '$end'))";
+                }
+                $zhichuinfo->selectLimit .= " and pm_mg_info.pm_name='".$pname."' ";
+                $zhichuinfo->selectLimit .= " and c.id!='' ";
+
+                $zhichuinfo->selectLimit .= " order by bpath";
+                //$zhichuinfo ->debugSql =true;
+                $zhichuinfo = $zhichuinfo->get($this->dbhelper);
+
+                if (count($zhichuinfo) == 0) {
+                    echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                    echo('<script language="JavaScript">');
+                    echo("alert('查无结果，请重新查询');");
+                    echo('history.back();');
+                    echo('</script>');
+                    exit;
+                }
+
+                require_once 'phpexcel/Classes/PHPExcel.php';
+                // Create new PHPExcel object
+                $zhichutj = new PHPExcel();
+
+                // Set properties
+                $zhichutj->getProperties()->setCreator("TJ BYJJH")
+                    ->setLastModifiedBy("TJ BYJJH")
+                    ->setTitle("Office 2007 XLSX  Document")
+                    ->setSubject("Office 2007 XLSX  Document")
+                    ->setDescription("document for Office 2007 XLSX, generated using PHP classes.")
+                    ->setKeywords("office 2007 openxml php")
+                    ->setCategory("rescues");
+                // Add some data
+                $zhichutj->setActiveSheetIndex(0)
+                    ->setCellValue('A1', '序号')
+                    ->setCellValue('B1', '父项目名称')
+                    ->setCellValue('C1', '项目名称')
+                    ->setCellValue('D1', '来款时间')
+                    ->setCellValue('E1', '来款金额')
+                    ->setCellValue('F1', '支出时间')
+                    ->setCellValue('G1', '支出金额');
+
+                $ii = 2;
+                $zhichu = '';
+                $shouru = '';
+                $xiangmushuliang = array(); // 项目数量 只统计父类id
+                foreach ($zhichuinfo as $key => $v) {
+                    $zhichutj->setActiveSheetIndex(0)
+                        ->setCellValue('A' . $ii, $v['bpath'])
+                        ->setCellValue('B' . $ii, $this->pm[$v[parent_pm_id]])
+                        ->setCellValue('C' . $ii, $v['pm_name'])
+                        ->setCellValue('D' . $ii, $v['zijin_daozhang_datetime'])
+                        ->setCellValue('E' . $ii, $v['zijin_daozheng_jiner'])
+                        ->setCellValue('F' . $ii, $v['shiyong_zhichu_datetime'])
+                        ->setCellValue('G' . $ii, $v['shiyong_zhichu_jiner']);
+                    $ii++;
+                    $zhichu += $v['shiyong_zhichu_jiner'];
+                    $shouru += $v['zijin_daozheng_jiner'];
+                }
+                $zhichutj->setActiveSheetIndex(0)->setCellValue('E' . $ii, "来款合计" . $shouru);
+                $zhichutj->setActiveSheetIndex(0)->setCellValue('G' . $ii, "支出合计" . $zhichu);
+                $ii = "";
+
+                $zhichutj->getActiveSheet()->setTitle('zijintongji');
+                $zhichutj->setActiveSheetIndex(0);
+
+                ob_end_clean();
+                ob_start();
+
+                header('Content-Type: application/vnd.ms-excel');
+                header('Content-Disposition: attachment;filename="资金统计报表.xls"');
+                header('Cache-Control: max-age=0');
+                $objWriter = PHPExcel_IOFactory::createWriter($zhichutj, 'Excel5');
+                $objWriter->save('php://output');
+                exit;
 			}
 		}
 
