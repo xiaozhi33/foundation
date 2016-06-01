@@ -28,24 +28,32 @@
                 <div class="detailedbox tile-body">
                     <form class="form-horizontal" action="newsavesign" method="post" encType="multipart/form-data">
                         <div class="form-group">
+                            <?php if(empty($this->signinfo['pname'])){?>
+                                <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                                <div class="col-sm-4">
+                                    <select class="chosen-select-1 chosen-transparent form-control" name="pm_id">
+                                        <option value="">请选择项目名称</option>
+                                        <?php if($this->pmlist != ""){
+                                            foreach ($this->pmlist as $k => $v){
+                                                ?>
+                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                            <?php }}?>
+                                    </select>
+                                </div>
+                            <?php }else {?>
                             <label class="col-sm-2 control-label" for="input01">项目名称：</label>
                             <div class="col-sm-4">
-                                <select class="chosen-select-1 chosen-transparent form-control" name="pm_id">
-                                    <option value="">请选择项目名称</option>
-                                    <?php if($this->pmlist != ""){
-                                        foreach ($this->pmlist as $k => $v){
-                                            ?>
-                                            <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
-                                        <?php }}?>
-                                </select>
+                                <input readonly="readonly" name="pname" value="<?php echo $this->signinfo['pname'];?>" type="text"/>
+                                <input readonly="readonly" name="pm_id" value="<?php echo $this->signinfo['pm_id'];?>" type="hidden"/>
                             </div>
+                            <?php }?>
                             <span class="col-sm-2" > * </span>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">协议金额：</label>
                             <div class="col-sm-4">
-                                <input type="text" size="14" name="xyje" class="form-control">
+                                <input type="text" size="14" name="xyje" class="form-control" value="<?php echo $this->signinfo['xyje'];?>"  />
                             </div>
                             <span class="col-sm-2" > * </span>
                         </div>
@@ -55,14 +63,23 @@
                             <div class="col-sm-4">
                                 <input name="sign_files" type="file" value="" />
                             </div>
-                            <span class="col-sm-2" > * </span>
+                            <span class="col-sm-2" >  * </span>
                         </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01"></label>
+                            <div class="col-sm-4">
+                                <?php echo $this->signinfo['sign_files_name'];?>
+                            </div>
+                            <span class="col-sm-2" >  * </span>
+                        </div>
+
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">是否已办捐赠仪式：</label>
                             <div class="col-sm-4">
-                                <input type="radio" name="jzys" class="jzys" value="1"/> 是
-                                <input type="radio" name="jzys" class="jzys" value="0" checked/> 否
+                                <input type="radio" name="jzys" class="jzys" value="1" <?php if($this->signinfo['jzys'] == 1){?>checked<?php }?>/> 是
+                                <input type="radio" name="jzys" class="jzys" value="0" <?php if($this->signinfo['jzys'] == 0){?>checked<?php }?>/> 否
                             </div>
                             <span class="col-sm-2" > * </span>
                         </div>
@@ -70,7 +87,7 @@
                         <div class="form-group qianyue">
                             <label class="col-sm-2 control-label" for="input01">签约仪式时间：</label>
                             <div class="col-sm-4">
-                                <input type="text" size="14" name="sign_time" id="datepicker" data-date-format="YYYY-MM-DD HH:mm:ss" class="form-control">
+                                <input type="text" size="14" name="sign_time" id="datepicker" data-date-format="YYYY-MM-DD HH:mm:ss" class="form-control" value="<?php echo $this->signinfo['sign_time'];?>">
                             </div>
                             <span class="col-sm-2" > * </span>
                         </div>
@@ -78,10 +95,12 @@
                         <div class="form-group qianyue">
                             <label class="col-sm-2 control-label" for="input01">签约仪式地点：</label>
                             <div class="col-sm-4">
-                                <input type="text" name="adress" class="form-control">
+                                <input type="text" name="adress" class="form-control"  value="<?php echo $this->signinfo['adress'];?>"/>
                             </div>
                             <span class="col-sm-2" > * </span>
                         </div>
+
+                        <input type="hidden" name="id" value="<?php echo $this->signinfo['id'];?>" />
 
                         <div class="form-group form-footer">
                             <div class="col-sm-offset-5 col-sm-7">
@@ -99,7 +118,7 @@
         $(".menu li:eq(0)").addClass("open");
 
         $(document).ready(function(){
-            $(".qianyue").hide();
+            <?php if($this->signinfo['jzys'] == 0){?> $(".qianyue").hide();<?php }?>
             // 切换发票状态
             $(".jzys").change(function(){
                 var $selectedvalue = $("input[name='jzys']:checked").val();

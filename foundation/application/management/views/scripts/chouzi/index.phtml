@@ -135,12 +135,16 @@
                              <td>
                                  <?php if($v['pm_rate'] == ""){ ?>
                                      ---
-                                 <?php }if(preg_match("/2/", $v['pm_rate'])){ ?>
-                                     已签订&nbsp;
+                                 <?php }if(preg_match("/1/", $v['pm_rate'])){ ?>
+                                     已立项&nbsp;
+                                 <?php }if(preg_match("/2/", $v['pm_rate'])){?>
+                                     已签约&nbsp;
                                  <?php }if(preg_match("/3/", $v['pm_rate'])){?>
                                      已到帐&nbsp;
-                                 <?php }if(preg_match("/1/", $v['pm_rate'])){?>
-                                     洽谈中&nbsp;
+                                 <?php }if(preg_match("/4/", $v['pm_rate'])){ ?>
+                                     已执行&nbsp;
+                                 <?php }if(preg_match("/5/", $v['pm_rate'])){?>
+                                     已回馈&nbsp;
                                  <?php }?>
                              </td>
 

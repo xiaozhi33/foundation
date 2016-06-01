@@ -500,9 +500,39 @@
         }
 
         /**
-         * 项目进度管理
+         * 项目立项
          */
         public function rateAction()
+        {
+            $name = HttpUtil::postString("pname");
+
+            $signDAO = $this->orm->createDAO("pm_mg_sign");
+            $signDAO ->withPm_mg_chouzi(array("pm_id" => "id"));
+            $like_sql = "";
+            if($name != "")
+            {
+                $like_sql .= " AND pm_mg_chouzi.pname like '%".$name."%'";
+            }
+            $like_sql .= " order by id desc";
+            $signDAO->select(" pm_mg_sign.*,pm_mg_chouzi.pname");
+            $signDAO->selectLimit = $like_sql;
+            $signDAO = $signDAO ->get();
+
+            $total = count($signDAO);
+            $pageDAO = new pageDAO();
+            $pageDAO = $pageDAO->pageHelper($signDAO, null, "/management/zijin/rate", null, 'get', 25, 8);
+            $pages = $pageDAO['pageLink']['all'];
+            $pages = str_replace("/index.php", "", $pages);
+            $this->view->assign('signlist', $pageDAO['pageData']);
+            $this->view->assign('page', $pages);
+            $this->view->assign('total', $total);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("zijin/rate.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        public function rate_bakAction()
         {
             $name = HttpUtil::postString("pname");
             $rate = HttpUtil::postString("pm_rate");
@@ -546,7 +576,7 @@
                     $sign_list = $this->getsign($pm_id);
                     $rate_list = $this->getrateByid($pm_id);
 
-                    // 如果没有设置进度，默认为洽谈中
+                    // 如果没有设置进度，默认为洽谈中(已立项)
                     if(empty($rate_list)){
                         $pm_rateDAO = $this->orm->createDAO("pm_mg_rate");
                         $pm_rateDAO ->pm_id = $pm_id;
@@ -587,7 +617,8 @@
                 $pm_rateDAO ->pm_rate = $rate_str;
                 $pm_rateDAO ->last_modify = time();
                 $pm_rateDAO ->save();
-                alert_go("编辑成功","/management/zijin/rate");
+                //alert_go("编辑成功","/management/zijin/rate");
+                alert_go("编辑成功","/management/chouzi/index");
             }else {
                 alert_back("编辑失败");
             }
@@ -645,13 +676,27 @@
          */
         public function addsignAction(){
             (int)$id = HttpUtil::getString("id");
-            $pm_signDAO = $this->orm->createDAO("pm_mg_chouzi");
-            $pm_signDAO ->findId($id);
-            $pm_signDAO = $pm_signDAO ->get();
-            $this->view->assign("signifo", $pm_signDAO);
+            $chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
+            $chouziDAO ->findId($id);
+            $chouziDAO = $chouziDAO ->get();
+            $this->view->assign("chouzilist", $chouziDAO);
 
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("zijin/addsign.phtml");
+            echo $this->view->render("zijin/newsigninfo.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        public function editsignAction(){
+            (int)$id = HttpUtil::getString("id");
+            $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
+            $pm_signDAO ->withPm_mg_chouzi(array("pm_id" => "id"));
+            $pm_signDAO ->findId($id);
+            $pm_signDAO ->select("pm_mg_sign.*,pm_mg_chouzi.pname");
+            $pm_signDAO = $pm_signDAO ->get();
+            $this->view->assign("signinfo", $pm_signDAO[0]);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("zijin/newsigninfo.phtml");
             echo $this->view->render("index/footer.phtml");
         }
 
@@ -679,20 +724,24 @@
                 exit();
             }
 
-            if(HttpUtil::postString("jzys") == 1){
+            /*if(HttpUtil::postString("jzys") == 1){
                 if($_FILES['sign_files']['name']=="" || HttpUtil::postString("sign_time")=="" ){
                     echo "<script>alert('签约时间和电子协议不能为空！');";
-                    echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
+                    echo "javascript:history.go(-1); ";
                     echo "</script>";
                     exit();
                 }
-            }
+            }*/
 
             /*			if(!empty($id)){
                             $pm_signDAO ->findId($pm_id);
                         }*/
             $pm_signDAO ->pm_id = $pm_id;
             $pm_signDAO ->sign_time = HttpUtil::postString("sign_time");
+
+            if($_REQUEST['id']){
+                $pm_signDAO ->findId($_REQUEST['id']);
+            }
 
             if($_FILES['sign_files']['name']!=""){
                 if($_FILES['sign_files']['error'] != 4){
@@ -720,8 +769,8 @@
             $pm_signDAO ->adress = HttpUtil::postString("adress");
 
             $pm_signDAO ->save();
-            echo "<script>alert('添加成功！');";
-            echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
+            echo "<script>alert('编辑成功！');";
+            echo "window.location.href='/management/zijin/rate'; ";
             echo "</script>";
             exit();
         }

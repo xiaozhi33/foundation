@@ -46,16 +46,6 @@
 
                     <div class="row">
                         <div class="form-group col-sm-3">
-                            <label for="input01">所属部门：</label>
-                            <select class="form-control" name="pm_rate">
-                                <option value="" >请选择进度</option>
-                                <option value="1" >已签订</option>
-                                <option value="2" >已到帐</option>
-                                <option value="3" >洽谈中</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-sm-3">
                             <label for="input02"> </label>
                             <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
                         </div>
@@ -66,36 +56,34 @@
 			</section>
 			<section class="tile color transparent-black">
 				<div class="tile-body nopadding">
-				<?php if($this->chouzilist != ""){?>
+				<?php if($this->signlist != ""){?>
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
 						<td width="7%">项目名称</td>
-                        <td width="10%">项目进度</td>
+                        <td width="10%">签约时间</td>
+                        <td width="10%">协议金额</td>
+                          <td width="10%">协议金额</td>
 						<td width="13%">操作</td>
 					  </tr>
 					</thead>
                     <tbody>
 					  <?php 
-						foreach($this->chouzilist as $k=>$v){?>
+						foreach($this->signlist as $k=>$v){?>
 						 <tr>
 						 	<td><?php echo $v['pname'];?>&nbsp;</td>
+                             <td><?php echo $v['sign_time'];?></td>
                              <td>
-                                 <?php if($v['pm_rate'] == ""){ ?>
-                                     ---
-                                 <?php }if(preg_match("/2/", $v['pm_rate'])){ ?>
-                                     已签订&nbsp;
-                                 <?php }if(preg_match("/3/", $v['pm_rate'])){?>
-                                     已到帐&nbsp;
-                                 <?php }if(preg_match("/1/", $v['pm_rate'])){?>
-                                     洽谈中&nbsp;
-                                 <?php }?>
-                              </td>
-							<td>
-                                <a href="/management/zijin/rateinfo/?pm_id=<?php echo $v['id'];?>">
-                                    <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
-                                </a>
-                                <a href="/management/zijin/signinfo?id=<?php echo $v['id'];?>">
+                                 <!--<a href="<?php /*echo $v['sign_files'];*/?>">-->
+                                     <a href="/management/zijin/download?id=<?php echo $v['id'];?>">
+                                     <?php echo $v['sign_files_name'];?>
+                                 </a></td>
+                             <td><?php echo $v['xyje'];?></td>
+                             <td>
+                             <!-- <a href="/management/zijin/rateinfo/?pm_id=<?php /*echo $v['id'];*/?>">
+                                 <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
+                             </a>-->
+                                <a href="/management/zijin/editsign?id=<?php echo $v['id'];?>">
                                     <button class="btn btn-greensea margin-bottom-20" type="button">编辑签订</button>
                                 </a>
                                 &nbsp;&nbsp;
@@ -124,5 +112,5 @@
 
 		
 		    <script language="javascript">
-                $(".menu li:eq(0)").addClass("open");
+                $(".menu li:eq(19)").addClass("open");
 			</script>
