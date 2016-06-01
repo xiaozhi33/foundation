@@ -270,7 +270,7 @@
                         $pm_mg_infoDAO ->pm_pp_company = $value["fkdw"];              // 付款单位
                         $pm_mg_infoDAO ->zijin_daozhang_datetime = $value["lkrq"];  //  来款日期
                         $pm_mg_infoDAO ->zijin_daozheng_jiner = $value["je"];        // 金额
-                        $pm_mg_infoDAO ->pm_pp_company = $value["lrrq"];              // 付款单位
+                        //$pm_mg_infoDAO ->pm_pp_company = $value["lrrq"];              // 付款单位
                         $pm_mg_infoDAO ->renling_name = $value["lrr"];                // 付款单位
                         $pm_mg_infoDAO ->lsh = $value["lsh"];                           // 财务流水号
                         $pm_mg_infoDAO ->save();
