@@ -72,7 +72,7 @@
 						foreach($this->signlist as $k=>$v){?>
 						 <tr>
 						 	<td><?php echo $v['pname'];?>&nbsp;</td>
-                             <td><?php echo $v['sign_time'];?></td>
+                             <td><?php echo date("Y-m-d",strtotime($v['sign_time']));?></td>
                              <td>
                                  <!--<a href="<?php /*echo $v['sign_files'];*/?>">-->
                                  <a href="/management/zijin/download?id=<?php echo $v['id'];?>">
