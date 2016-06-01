@@ -82,7 +82,7 @@
                                          echo "协议文件";
                                      }?>
                                  </a></td>
-                             <td><?php echo $v['xyje'];?></td>
+                             <td><?php if(!empty($v['xyje'])){echo $v['xyje'];}else{echo "--";}?></td>
                              <td>
                              <!-- <a href="/management/zijin/rateinfo/?pm_id=<?php /*echo $v['id'];*/?>">
                                  <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
