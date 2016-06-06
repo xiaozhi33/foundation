@@ -25,7 +25,7 @@
 			// 获取项目类型
 			if(!empty($pminfo)){
 				foreach($pminfo as $keys => $values){
-					$pminfo[$keys]['cate_name'] = $this->gettypebypname($values['pm_name']);
+					$pminfo[$keys]['catename'] = $this->gettypebypname($values['pm_name']);
 				}
 			}
 
