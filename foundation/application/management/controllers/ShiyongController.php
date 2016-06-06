@@ -45,6 +45,7 @@
 		}
 
 		public function gettypebypname($pname){
+			echo $pname;
 			if(!empty($pname)){
 				$pmDAO = $this->orm->createDAO("pm_mg_chouzi");
 				$pmDAO ->joinTable (" left join jjh_mg_cate as r on r.id = pm_mg_chouzi.cate");
@@ -52,8 +53,8 @@
 				$pmDAO ->findPname($pname);
 				$pmDAO = $pmDAO->get();
 				return $pmDAO[0]['catename'];
-				var_dump($pmDAO);exit();
 			}
+			var_dump($pmDAO);exit();
 		}
 		
 		public function addshiyongAction(){
