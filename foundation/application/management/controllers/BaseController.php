@@ -117,16 +117,4 @@
             if(preg_match('/^'.$ipruleregexp.'$/',$ip)) return true;
             else return false;
         }
-
-        public function gettypebypname($pname){
-            if(!empty($pname)){
-                $pmDAO = $this->orm->createDAO("pm_mg_chouzi");
-                $pmDAO ->joinTable (" left join jjh_mg_cate as r on r.id = pm_mg_chouzi.cate");
-                $pmDAO ->selectField(" pm_mg_chouzi.*, r.catename");
-                $pmDAO ->findPname($pname);
-                $pmDAO = $pmDAO->get();
-                return $pmDAO[0]['catename'];
-                var_dump($pmDAO);exit();
-            }
-        }
 	}
