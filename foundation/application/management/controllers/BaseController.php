@@ -122,7 +122,7 @@
             if(!empty($pname)){
                 $pmDAO = $this->orm->createDAO("pm_mg_chouzi");
                 $pmDAO ->joinTable (" left join jjh_mg_cate as r on r.id = cate");
-                $pmDAO ->selectField(" *");
+                $pmDAO ->selectField(" pm_mg_chouzi.*, r.catename");
                 $pmDAO ->findPname($pname);
                 $pmDAO = $pmDAO->get();
                 return $pmDAO[0]['catename'];
