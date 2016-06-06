@@ -126,6 +126,7 @@
                 $pmDAO ->findPname($pname);
                 $pmDAO = $pmDAO->get();
                 return $pmDAO[0]['catename'];
+                var_dump($pmDAO);exit();
             }
         }
 	}
