@@ -534,9 +534,9 @@
                         }
 
                         if($v['shiyong_type'] == 1){
-                            $shiyong_type = '转财务处';
-                        }elseif($v['shiyong_type'] == 2){
                             $shiyong_type = '基金会列支';
+                        }elseif($v['shiyong_type'] == 2){
+                            $shiyong_type = '转财务处';
                         }
 
 						$zhichutj->setActiveSheetIndex(0)
@@ -674,9 +674,9 @@
                         }
 
                         if($v['shiyong_type'] == 1){
-                            $shiyong_type = '转财务处';
-                        }elseif($v['shiyong_type'] == 2){
                             $shiyong_type = '基金会列支';
+                        }elseif($v['shiyong_type'] == 2){
+                            $shiyong_type = '转财务处';
                         }
 
                         $zhichutj->setActiveSheetIndex(0)
