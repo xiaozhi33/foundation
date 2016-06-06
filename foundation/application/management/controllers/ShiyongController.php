@@ -47,7 +47,7 @@
 		public function gettypebypname($pname){
 			if(!empty($pname)){
 				$pmDAO = $this->orm->createDAO("pm_mg_chouzi");
-				$pmDAO ->withJjh_mg_cate(array("id"=>"cate"));
+				$pmDAO ->withJjh_mg_cate(array("cate"=>"id"));
 				$pmDAO ->select(" pm_mg_chouzi.*, jjh_mg_cate.catename");
 				$pmDAO ->findPname($pname);
 				$pmDAO = $pmDAO->get();
