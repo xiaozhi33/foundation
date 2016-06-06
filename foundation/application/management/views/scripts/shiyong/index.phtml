@@ -60,13 +60,13 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					  <thead>
                           <tr>
-                            <td width="30%">项目名称</td>
-                              <td width="13%">支出方式</td>
+                            <td width="12%">项目名称</td>
+                            <td width="12%">支出方式</td>
                             <!--<td width="12%">奖励范围</td>-->
-                            <td width="13%">资助人数</td>
-                            <!--<td width="15%">项目支出日期</td>-->
-                            <td width="13%">项目支出金额</td>
-                            <td width="13%">操作</td>
+                            <td width="8%">资助人数</td>
+                            <td width="12%">项目支出日期</td>
+                            <td width="12%">项目支出金额</td>
+                            <td width="10%">操作</td>
                           </tr>
 					</thead>
                       <tbody>
@@ -80,7 +80,7 @@
 							<td><?php echo $v['jiangli_renshu'];?>&nbsp;人</td>
                              <!--<td><?php /*echo substr($v['shiyong_zhichu_datetime'],0,10);*/?>&nbsp;</td>-->
 								
-							<!--<td><?php /*echo substr($v['shiyong_zhichu_datetime'],0,10);*/?>&nbsp;</td>-->
+							<td><?php /*echo substr($v['shiyong_zhichu_datetime'],0,10);*/?>&nbsp;</td>
 							<td><?php echo $v['shiyong_zhichu_jiner'];?>&nbsp;元</td>
 							<td><a href="/management/shiyong/editshiyong?id=<?php echo $v['id'];?>">
                             <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
