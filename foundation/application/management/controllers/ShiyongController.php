@@ -21,6 +21,14 @@
 			//$pminfo ->debugSql = true;
 			
 			$pminfo = $pminfo->get($this->dbhelper);
+
+			// 获取项目类型
+			if(!empty($pminfo)){
+				foreach($pminfo as $keys => $values){
+					$pminfo[$keys]['cate_name'] = $this->gettypebypname($values['pm_name']);
+				}
+			}
+
 			$total = count($pminfo);
 			$pageDAO = new pageDAO();
 			$pageDAO = $pageDAO ->pageHelper($pminfo,null,"index",null,'get',20,8);
