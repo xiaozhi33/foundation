@@ -128,7 +128,7 @@
             try{
                 if($type == 'add'){
                     $insertsql = "UPDATE `pm_mg_rate` `pm_mg_rate`
-                                SET `pm_mg_rate`.`pm_rate` = pm_rate+',".$value."'
+                                SET `pm_mg_rate`.`pm_rate` = CONCAT(pm_rate,',".$value."')
                                 WHERE
                                     1 = 1
                                 AND `pm_mg_rate`.`pm_id` = '".$pm_id."'";
