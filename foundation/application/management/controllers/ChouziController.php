@@ -411,9 +411,9 @@
 
                 $is_lixiang = HttpUtil::postString("is_lixiang");
                 if($is_lixiang == '1'){
-                    $this->changerate($pid,'add',1);
+                    $this->changerate($_REQUEST['id'],'add',1);
                 }else {
-                    $this->changerate($pid,'del',1);
+                    $this->changerate($_REQUEST['id'],'del',1);
                 }
                 alert_go("编辑成功", "/management/chouzi");
             } else {

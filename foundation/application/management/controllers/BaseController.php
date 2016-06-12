@@ -126,15 +126,24 @@
         public function changerate($pm_id, $type='add',$value)
         {
             try{
-                $pm_mg_rateDAO = $this->orm->createDAO('pm_mg_rate');
-                $pm_mg_rateDAO ->findPm_id($pm_id);
                 if($type == 'add'){
-                    $pm_mg_rateDAO ->pm_rate = "pm_rate+',".$value."'";
+                    $insertsql = "UPDATE `pm_mg_rate` `pm_mg_rate`
+                                SET `pm_mg_rate`.`pm_rate` = pm_rate+',".$value."'
+                                WHERE
+                                    1 = 1
+                                AND `pm_mg_rate`.`pm_id` = '".$pm_id."'";
+
+                    $this->orm ->exec($insertsql);
                 }else {
-                    $pm_mg_rateDAO ->pm_rate = "replace(pm_rate,'".$value."','')";
-                    $pm_mg_rateDAO ->pm_rate = "replace(pm_rate,',,','')";
+                    $updatesql = "UPDATE `pm_mg_rate` `pm_mg_rate`
+                                SET `pm_mg_rate`.`pm_rate` = replace(pm_rate,'".$value."','')
+                                WHERE
+                                    1 = 1
+                                AND `pm_mg_rate`.`pm_id` = '".$pm_id."'";
+
+                    $this->orm ->exec($updatesql);
                 }
-                $pm_mg_rateDAO ->save();
+
             }catch (Exception $e){
                 throw $e;
             }
