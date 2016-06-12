@@ -768,7 +768,26 @@
             $pm_signDAO ->jzys = HttpUtil::postString("jzys");
             $pm_signDAO ->adress = HttpUtil::postString("adress");
 
-            $pm_signDAO ->save();
+            $pid = $pm_signDAO ->save();
+
+            if($_REQUEST['id']) {
+                $is_sign = HttpUtil::postString("is_sign");
+                if ($is_sign == '2') {
+                    $this->changerate($_REQUEST['id'], 'add', 2);
+                } else {
+                    $this->changerate($_REQUEST['id'], 'del', 2);
+                }
+            }
+
+            if($pid){
+                $is_sign = HttpUtil::postString("is_sign");
+                if ($is_sign == '2') {
+                    $this->changerate($pid, 'add', 2);
+                } else {
+                    $this->changerate($pid, 'del', 2);
+                }
+            }
+
             echo "<script>alert('编辑成功！');";
             echo "window.location.href='/management/zijin/rate'; ";
             echo "</script>";
