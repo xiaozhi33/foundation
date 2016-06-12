@@ -215,6 +215,13 @@
 
                 $pid = $pm_chouziDAO->save();
 
+                $is_lixiang = HttpUtil::postString("is_lixiang");
+                if($is_lixiang == '1'){
+                    $this->changerate($pid,'add',1);
+                }else {
+                    $this->changerate($pid,'del',1);
+                }
+
                 if($rs) {
                     // 同步对照表
                     $zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
@@ -239,6 +246,12 @@
             if ($_REQUEST['id'] != "") {
                 $pm_chouziDAO = new pm_mg_chouziDAO($_REQUEST['id']);
                 $pm_chouziDAO = $pm_chouziDAO->get($this->dbhelper);
+
+                $pm_mg_rateDAO = $this->orm->createDAO('pm_mg_rate');
+                $pm_mg_rateDAO ->findPm_id($_REQUEST['id']);
+                $pm_mg_rateDAO = $pm_mg_rateDAO ->get();
+                $this->view->assign("rate_list_new", $pm_mg_rateDAO);
+
                 $this->view->assign("chouzi", $pm_chouziDAO);
                 echo $this->view->render("index/header.phtml");
                 echo $this->view->render("chouzi/editchouzi.phtml");
@@ -395,6 +408,13 @@
                 addlog("修改筹资信息-" . $pname, $logName['admin_name'], $_SERVER['REMOTE_ADDR'], date("Y-m-d H:i:s", time()), json_encode($pm_chouziDAO));
 
                 $pm_chouziDAO->save($this->dbhelper);
+
+                $is_lixiang = HttpUtil::postString("is_lixiang");
+                if($is_lixiang == '1'){
+                    $this->changerate($pid,'add',1);
+                }else {
+                    $this->changerate($pid,'del',1);
+                }
                 alert_go("编辑成功", "/management/chouzi");
             } else {
                 alert_back("操作失败");

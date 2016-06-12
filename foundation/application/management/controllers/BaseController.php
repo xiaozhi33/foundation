@@ -117,4 +117,26 @@
             if(preg_match('/^'.$ipruleregexp.'$/',$ip)) return true;
             else return false;
         }
+
+        /**
+         * @param $pm_id 项目id
+         * @param string $type   类型默认 add为添加，del为删除
+         * @param $value 进度值  1已立项 2已签约 3已到账 4已执行 5已回馈
+         */
+        public function changerate($pm_id, $type='add',$value)
+        {
+            try{
+                $pm_mg_rateDAO = $this->orm->createDAO('pm_mg_rate');
+                $pm_mg_rateDAO ->findPm_id($pm_id);
+                if($type == 'add'){
+                    $pm_mg_rateDAO ->pm_rate = "pm_rate+',".$value."'";
+                }else {
+                    $pm_mg_rateDAO ->pm_rate = "replace(pm_rate,'".$value."','')";
+                    $pm_mg_rateDAO ->pm_rate = "replace(pm_rate,',,','')";
+                }
+                $pm_mg_rateDAO ->save();
+            }catch (Exception $e){
+                throw $e;
+            }
+        }
 	}
