@@ -1010,7 +1010,10 @@
                      pm_mg_info.shiyong_zhichu_datetime,
                      pm_mg_info.shiyong_zhichu_jiner,
                      pm_mg_info.zijin_daozhang_datetime,
-                     pm_mg_info.zijin_daozheng_jiner ");
+                     pm_mg_info.zijin_daozheng_jiner,
+                     pm_mg_info.pm_juanzeng_cate,
+                     c.department
+                      ");
 
 				if ($start != "" && $end != "") {
 					$zhichuinfo->selectLimit .= " and ((shiyong_zhichu_datetime between '$start' and '$end') OR (zijin_daozhang_datetime between '$start' and '$end'))";
@@ -1050,7 +1053,9 @@
 					->setCellValue('D1', '来款时间')
 					->setCellValue('E1', '来款金额')
 					->setCellValue('F1', '支出时间')
-					->setCellValue('G1', '支出金额');
+					->setCellValue('G1', '支出金额')
+                    ->setCellValue('H1', '项目类型')
+                    ->setCellValue('I1', '所属部门');
 
 				$ii = 2;
 				$zhichu = '';
@@ -1060,7 +1065,7 @@
                     if(!in_array($v['main_id'], $xiangmushuliang) && $v['parent_pm_id'] == 0 && $key > 2){  // 不是父子关系项目 结束统计
                         $zhichutj->setActiveSheetIndex(0)->setCellValue('E' . $ii, "来款合计" . $shouru);
                         $zhichutj->setActiveSheetIndex(0)->setCellValue('G' . $ii, "支出合计" . $zhichu);
-
+                        $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . $ii, "余额" . ($shouru - $zhichu));
                         $zhichu = '';
                         $shouru = '';
                         $ii = $ii+3;
@@ -1073,7 +1078,9 @@
                             ->setCellValue('D'. $ii, '来款时间')
                             ->setCellValue('E'. $ii, '来款金额')
                             ->setCellValue('F'. $ii, '支出时间')
-                            ->setCellValue('G'. $ii, '支出金额');
+                            ->setCellValue('G'. $ii, '支出金额')
+                            ->setCellValue('H'. $ii, '项目类型')
+                            ->setCellValue('I'. $ii, '所属部门');
                         $ii++;
                     }
 
@@ -1084,7 +1091,9 @@
 						->setCellValue('D' . $ii, $v['zijin_daozhang_datetime'])
 						->setCellValue('E' . $ii, $v['zijin_daozheng_jiner'])
 						->setCellValue('F' . $ii, $v['shiyong_zhichu_datetime'])
-						->setCellValue('G' . $ii, $v['shiyong_zhichu_jiner']);
+						->setCellValue('G' . $ii, $v['shiyong_zhichu_jiner'])
+                        ->setCellValue('H' . $ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
+                        ->setCellValue('I' . $ii, $this->getdepartmentAction($this->departmentlist,$v['department']));
 					$ii++;
 					$zhichu += $v['shiyong_zhichu_jiner'];
 					$shouru += $v['zijin_daozheng_jiner'];
@@ -1119,7 +1128,9 @@
                      pm_mg_info.shiyong_zhichu_datetime,
                      pm_mg_info.shiyong_zhichu_jiner,
                      pm_mg_info.zijin_daozhang_datetime,
-                     pm_mg_info.zijin_daozheng_jiner ");
+                     pm_mg_info.zijin_daozheng_jiner,
+                     pm_mg_info.pm_juanzeng_cate,
+                     c.department ");
 
                 if ($start != "" && $end != "") {
                     $zhichuinfo->selectLimit .= " and ((shiyong_zhichu_datetime between '$start' and '$end') OR (zijin_daozhang_datetime between '$start' and '$end'))";
@@ -1160,7 +1171,9 @@
                     ->setCellValue('D1', '来款时间')
                     ->setCellValue('E1', '来款金额')
                     ->setCellValue('F1', '支出时间')
-                    ->setCellValue('G1', '支出金额');
+                    ->setCellValue('G1', '支出金额')
+                    ->setCellValue('H1', '项目类型')
+                    ->setCellValue('I1', '所属部门');
 
                 $ii = 2;
                 $zhichu = '';
@@ -1174,13 +1187,16 @@
                         ->setCellValue('D' . $ii, $v['zijin_daozhang_datetime'])
                         ->setCellValue('E' . $ii, $v['zijin_daozheng_jiner'])
                         ->setCellValue('F' . $ii, $v['shiyong_zhichu_datetime'])
-                        ->setCellValue('G' . $ii, $v['shiyong_zhichu_jiner']);
+                        ->setCellValue('G' . $ii, $v['shiyong_zhichu_jiner'])
+                        ->setCellValue('H' . $ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
+                        ->setCellValue('I' . $ii, $this->getdepartmentAction($this->departmentlist,$v['department']));
                     $ii++;
                     $zhichu += $v['shiyong_zhichu_jiner'];
                     $shouru += $v['zijin_daozheng_jiner'];
                 }
                 $zhichutj->setActiveSheetIndex(0)->setCellValue('E' . $ii, "来款合计" . $shouru);
                 $zhichutj->setActiveSheetIndex(0)->setCellValue('G' . $ii, "支出合计" . $zhichu);
+                $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . $ii, "余额" . ($shouru - $zhichu));
                 $ii = "";
 
                 $zhichutj->getActiveSheet()->setTitle('zijintongji');
