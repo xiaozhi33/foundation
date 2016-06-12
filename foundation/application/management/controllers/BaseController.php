@@ -132,7 +132,6 @@
                                 WHERE
                                     1 = 1
                                 AND `pm_mg_rate`.`pm_id` = '".$pm_id."'";
-ECHO $insertsql;EXIT;
                     $this->orm ->exec($insertsql);
                 }else {
                     $updatesql = "UPDATE `pm_mg_rate` `pm_mg_rate`
