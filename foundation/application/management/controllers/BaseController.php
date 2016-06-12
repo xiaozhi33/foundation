@@ -141,6 +141,14 @@
                                 AND `pm_mg_rate`.`pm_id` = '".$pm_id."'";
 
                     $this->orm ->exec($updatesql);
+
+                    $updatesql = "UPDATE `pm_mg_rate` `pm_mg_rate`
+                                SET `pm_mg_rate`.`pm_rate` = replace(pm_rate,',,','')
+                                WHERE
+                                    1 = 1
+                                AND `pm_mg_rate`.`pm_id` = '".$pm_id."'";
+
+                    $this->orm ->exec($updatesql);
                 }
 
             }catch (Exception $e){
