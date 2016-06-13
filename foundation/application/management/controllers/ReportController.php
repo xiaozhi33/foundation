@@ -1090,14 +1090,17 @@
                         $ii++;
                     }
 
+                    if($v['zijin_daozhang_datetime'] != ""){$v['zijin_daozhang_datetime'] = date("Y-m-d",strtotime($v['zijin_daozhang_datetime']));}
+                    if($v['shiyong_zhichu_datetime'] != ""){$v['shiyong_zhichu_datetime'] = date("Y-m-d",strtotime($v['shiyong_zhichu_datetime']));}
+
 					$zhichutj->setActiveSheetIndex(0)
 						->setCellValue('A' . $ii, $v['bpath'])
 						->setCellValue('B' . $ii, $this->pm[$v[parent_pm_id]])
 						->setCellValue('C' . $ii, $v['pm_name'])
 						->setCellValue('D' . $ii, $v['zijin_daozheng_jiner'])
-						->setCellValue('E' . $ii, date("Y-m-d",strtotime($v['zijin_daozhang_datetime'])))
+						->setCellValue('E' . $ii, $v['zijin_daozhang_datetime'])
 						->setCellValue('F' . $ii, $v['shiyong_zhichu_jiner'])
-						->setCellValue('G' . $ii, date("Y-m-d",strtotime($v['shiyong_zhichu_datetime'])))
+						->setCellValue('G' . $ii, $v['shiyong_zhichu_datetime'])
                         ->setCellValue('H' . $ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
                         ->setCellValue('I' . $ii, $this->getdepartmentAction($this->departmentlist,$v['department']))
                         ->setCellValue('J' . $ii, $v['pm_pp'])
@@ -1192,14 +1195,18 @@
                 $shouru = '';
                 $xiangmushuliang = array(); // 项目数量 只统计父类id
                 foreach ($zhichuinfo as $key => $v) {
+
+                    if($v['zijin_daozhang_datetime'] != ""){$v['zijin_daozhang_datetime'] = date("Y-m-d",strtotime($v['zijin_daozhang_datetime']));}
+                    if($v['shiyong_zhichu_datetime'] != ""){$v['shiyong_zhichu_datetime'] = date("Y-m-d",strtotime($v['shiyong_zhichu_datetime']));}
+
                     $zhichutj->setActiveSheetIndex(0)
                         ->setCellValue('A' . $ii, $v['bpath'])
                         ->setCellValue('B' . $ii, $this->pm[$v[parent_pm_id]])
                         ->setCellValue('C' . $ii, $v['pm_name'])
                         ->setCellValue('D' . $ii, $v['zijin_daozheng_jiner'])
-                        ->setCellValue('E' . $ii, date("Y-m-d",strtotime($v['zijin_daozhang_datetime'])))
+                        ->setCellValue('E' . $ii, $v['zijin_daozhang_datetime'])
                         ->setCellValue('F' . $ii, $v['shiyong_zhichu_jiner'])
-                        ->setCellValue('G' . $ii, date("Y-m-d",strtotime($v['shiyong_zhichu_datetime'])))
+                        ->setCellValue('G' . $ii, $v['shiyong_zhichu_datetime'])
                         ->setCellValue('H' . $ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
                         ->setCellValue('I' . $ii, $this->getdepartmentAction($this->departmentlist,$v['department']))
                         ->setCellValue('J' . $ii, $v['pm_pp'])
