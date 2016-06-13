@@ -329,8 +329,8 @@
 
             $this->synclkrl();  // 同步财务系统来款数据
 
-            $keywords = HttpUtil::postString("pm_name");
-            $is_renling = HttpUtil::postString("is_renling");
+            $keywords = HttpUtil::getString("pm_name");
+            $is_renling = HttpUtil::getString("is_renling");
             $this->renling_weirenling_list = $this->orm->createDAO("pm_mg_info");
             $like_sql = "";
             if($keywords != ""){
