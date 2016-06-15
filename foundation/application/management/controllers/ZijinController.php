@@ -139,9 +139,9 @@
 
             $is_zhixing = HttpUtil::postString("is_zhixing");
             if($is_zhixing == '4'){
-                $this->changerate($p_idinfo,'add',1);
+                $this->changerate($p_idinfo,'add',4);
             }else {
-                $this->changerate($p_idinfo,'del',1);
+                $this->changerate($p_idinfo,'del',4);
             }
 
 			alert_go("添加成功","/management/zijin");
@@ -252,9 +252,9 @@
 
                 $is_zhixing = HttpUtil::postString("is_zhixing");
                 if($is_zhixing == '4'){
-                    $this->changerate($_REQUEST['id'],'add',1);
+                    $this->changerate($_REQUEST['id'],'add',4);
                 }else {
-                    $this->changerate($_REQUEST['id'],'del',1);
+                    $this->changerate($_REQUEST['id'],'del',4);
                 }
 
 				alert_go("编辑成功","/management/zijin");
