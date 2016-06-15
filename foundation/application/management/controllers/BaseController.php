@@ -123,9 +123,12 @@
          * @param string $type   类型默认 add为添加，del为删除
          * @param $value 进度值  1已立项 2已签约 3已到账 4已执行 5已回馈
          */
-        public function changerate($pm_id, $type='add',$value)
+        public function changerate($pm_id, $type='add',$value,$pm_info_id='')
         {
             try{
+                if($pm_info_id != ''){
+                    $pm_id = $this->getpmidbetinfoid($pm_info_id);
+                }
                 if($type == 'add'){
                     $insertsql = "UPDATE `pm_mg_rate` `pm_mg_rate`
                                 SET `pm_mg_rate`.`pm_rate` = CONCAT(pm_rate,',".$value."')
@@ -153,6 +156,16 @@
 
             }catch (Exception $e){
                 throw $e;
+            }
+        }
+
+        public function getpmidbetinfoid($info_id){
+            if($info_id != ""){
+                $infoDAO = $this->orm->createDAO("pm_mg_info");
+                $infoDAO ->withPm_mg_chouzi(array("pm_name" => "pname"));
+                $infoDAO ->select("pm_mg_chouzi.id");
+                $infoDAO = $infoDAO->get();
+                return $infoDAO[0]['id'];
             }
         }
 	}
