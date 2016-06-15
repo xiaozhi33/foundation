@@ -131,7 +131,7 @@
 
 
 				$pm_mg_rateDAO = $this->orm->createDAO('pm_mg_rate');
-				echo $pid = $this->getpmidbetinfoid($_REQUEST['id']);exit();
+				$pid = $this->getpmidbetinfoid($_REQUEST['id']);
 				$pm_mg_rateDAO ->findPm_id($pid);
 				$pm_mg_rateDAO = $pm_mg_rateDAO ->get();
 				$this->view->assign("rate_list_new", $pm_mg_rateDAO);
