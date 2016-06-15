@@ -163,12 +163,14 @@
             if($info_id != ""){
                 $infoDAO = $this->orm->createDAO("pm_mg_info");
                 $infoDAO ->findId($info_id);
-                $infoDAO ->withPm_mg_chouzi(array("pm_name" => "pname"));
-                $infoDAO ->select("pm_mg_chouzi.id");
                 $infoDAO = $infoDAO->get();
 
-                var_dump($infoDAO)exit();
-                return $infoDAO[0]['id'];
+                if(!empty($infoDAO)){
+                    $chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
+                    $chouziDAO ->findPname($infoDAO[0]['pm_name']);
+                    $chouziDAO = $chouziDAO->get();
+                    return $chouziDAO[0]['id'];
+                }
             }
         }
 	}
