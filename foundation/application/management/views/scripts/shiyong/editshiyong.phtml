@@ -125,6 +125,16 @@
                 </div>
             </div>	-->
 
+            <div class="form-group transparent-editor">
+                <label class="col-sm-2 control-label" for="input14">是否执行：</label>
+                <div class="col-sm-3">
+                    <div class="checkbox check-transparent" style="padding-left:0px;">
+                        <input type="checkbox" id="opt03" name="is_zhixing" value="4" <?php if(preg_match("/1/", $this->rate_list_new[0]['pm_rate']))echo 'checked=""';?>>
+                        <label for="opt03">已执行</label>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="input01">备注：</label>
                 <div class="col-sm-8">
