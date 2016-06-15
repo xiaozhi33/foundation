@@ -169,7 +169,7 @@
                     $chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
                     $chouziDAO ->findPname($infoDAO[0]['pm_name']);
                     $chouziDAO = $chouziDAO->get();
-                    return $chouziDAO[0]['id'];
+                    return $chouziDAO[0]['pid'];
                 }
             }
         }
