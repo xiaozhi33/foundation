@@ -135,14 +135,7 @@
 					}		            	    
 				}
 			}
-			$p_idinfo = $pm_zijinDAO ->save($this->dbhelper);
-
-            $is_zhixing = HttpUtil::postString("is_zhixing");
-            if($is_zhixing == '4'){
-                $this->changerate($p_idinfo,'add',4);
-            }else {
-                $this->changerate($p_idinfo,'del',4);
-            }
+			$pm_zijinDAO ->save($this->dbhelper);
 
 			alert_go("添加成功","/management/zijin");
 		}
@@ -249,13 +242,6 @@
 				addlog("修改资金信息-".$pname,$logName['admin_name'],$_SERVER['REMOTE_ADDR'],date("Y-m-d H:i:s",time()),json_encode($pm_zijinDAO));
 			
 				$pm_zijinDAO ->save($this->dbhelper);
-
-                $is_zhixing = HttpUtil::postString("is_zhixing");
-                if($is_zhixing == '4'){
-                    $this->changerate($_REQUEST['id'],'add',4);
-                }else {
-                    $this->changerate($_REQUEST['id'],'del',4);
-                }
 
 				alert_go("编辑成功","/management/zijin");
 			}else{
