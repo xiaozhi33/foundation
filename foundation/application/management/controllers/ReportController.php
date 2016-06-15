@@ -1067,8 +1067,8 @@
 				$xiangmushuliang = array(); // 项目数量 只统计父类id
 				foreach ($zhichuinfo as $key => $v) {
                     if(!in_array($v['main_id'], $xiangmushuliang) && $v['parent_pm_id'] == 0 && $key > 2){  // 不是父子关系项目 结束统计
-                        $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . $shouru);
-                        $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . $zhichu);
+                        $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . round($shouru,2));
+                        $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . round($zhichu,2));
                         $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . $ii, "余额" . round(($shouru - $zhichu),2));
                         $zhichu = '';
                         $shouru = '';
@@ -1215,8 +1215,8 @@
                     $zhichu += $v['shiyong_zhichu_jiner'];
                     $shouru += $v['zijin_daozheng_jiner'];
                 }
-                $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . $shouru);
-                $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . $zhichu);
+                $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . round($shouru,2));
+                $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . round($zhichu,2));
                 $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . $ii, "余额" . round(($shouru - $zhichu),2));
                 $ii = "";
 
