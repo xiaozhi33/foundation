@@ -166,6 +166,8 @@
                 $infoDAO ->withPm_mg_chouzi(array("pm_name" => "pname"));
                 $infoDAO ->select("pm_mg_chouzi.id");
                 $infoDAO = $infoDAO->get();
+
+                var_dump($infoDAO)exit();
                 return $infoDAO[0]['id'];
             }
         }
