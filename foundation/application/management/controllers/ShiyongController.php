@@ -128,6 +128,14 @@
 				$pm_mg_infoDAO = new pm_mg_infoDAO($_REQUEST['id']);
 				$pm_mg_infoDAO = $pm_mg_infoDAO ->get($this->dbhelper);
 				$this->view->assign("pm_mg_info",$pm_mg_infoDAO);
+
+
+				$pm_mg_rateDAO = $this->orm->createDAO('pm_mg_rate');
+				$pid = $this->getpmidbetinfoid($_REQUEST['id']);
+				$pm_mg_rateDAO ->findPm_id($pid);
+				$pm_mg_rateDAO = $pm_mg_rateDAO ->get();
+				$this->view->assign("rate_list_new", $pm_mg_rateDAO);
+
 				echo $this->view->render("index/header.phtml");
 				echo $this->view->render("shiyong/editshiyong.phtml");
 				echo $this->view->render("index/footer.phtml");
