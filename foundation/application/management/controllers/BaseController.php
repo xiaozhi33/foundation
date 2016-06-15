@@ -162,6 +162,7 @@
         public function getpmidbetinfoid($info_id){
             if($info_id != ""){
                 $infoDAO = $this->orm->createDAO("pm_mg_info");
+                $infoDAO ->findId($info_id);
                 $infoDAO ->withPm_mg_chouzi(array("pm_name" => "pname"));
                 $infoDAO ->select("pm_mg_chouzi.id");
                 $infoDAO = $infoDAO->get();
