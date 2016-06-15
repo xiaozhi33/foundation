@@ -1069,7 +1069,7 @@
                     if(!in_array($v['main_id'], $xiangmushuliang) && $v['parent_pm_id'] == 0 && $key > 2){  // 不是父子关系项目 结束统计
                         $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . $shouru);
                         $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . $zhichu);
-                        $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . $ii, "余额" . ($shouru - $zhichu));
+                        $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . $ii, "余额" . round(($shouru - $zhichu),2));
                         $zhichu = '';
                         $shouru = '';
                         $ii = $ii+3;
@@ -1217,7 +1217,7 @@
                 }
                 $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . $shouru);
                 $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . $zhichu);
-                $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . $ii, "余额" . ($shouru - $zhichu));
+                $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . $ii, "余额" . round(($shouru - $zhichu),2));
                 $ii = "";
 
                 $zhichutj->getActiveSheet()->setTitle('zijintongji');
