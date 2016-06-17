@@ -152,7 +152,9 @@
 				$shiyong_zhichu_jiner = HttpUtil::postString("shiyong_zhichu_jiner");  //项目支出金额
 				$fanwei = HttpUtil::postString("fanwei");  //捐赠范围
 				$jiangli_renshu = HttpUtil::postString("jiangli_renshu");  //奖励人数
-				$beizhu = HttpUtil::postString("beizhu");  //备注	
+				$beizhu = HttpUtil::postString("beizhu");  //备注
+
+                $shiyong_type = HttpUtil::postString("shiyong_type");
 					
 				if($pname == "" || $shiyong_zhichu_datetime == "" || $shiyong_zhichu_jiner == ""){
 					alert_back("您输入的信息不完整，请查正后继续添加");
@@ -163,6 +165,7 @@
 				$pm_mg_infoDAO ->jiangli_renshu = $jiangli_renshu;
 				$pm_mg_infoDAO ->jiangli_fanwei = $fanwei;
 				$pm_mg_infoDAO ->pm_name = $pname;
+                $pm_mg_infoDAO ->shiyong_type = $shiyong_type;
 				$pm_mg_infoDAO ->shiyong_zhichu_datetime = $shiyong_zhichu_datetime;
 				$pm_mg_infoDAO ->shiyong_zhichu_jiner = $shiyong_zhichu_jiner;
 				$pm_mg_infoDAO ->pm_juanzeng_cate = HttpUtil::postString("pm_cate");
