@@ -494,6 +494,222 @@
             $this->_redirect("/management/admin/ppcompany?pp_id=".$pp_id);
         }
 
+		////////////////////////////////////////////////////////////////
+		/**
+		 * 捐赠方参加学校活动列表
+		 */
+		public function pphuodongAction()
+		{
+			$pp_id = $_REQUEST['pp_id'];
+			$pp_id = (int)$pp_id;
+			if(!empty($pp_id))
+			{
+				$pm_mg_info_activeDAO = $this->orm->createDAO("pm_mg_info_active");
+				$pm_mg_info_activeDAO ->findPp_id($pp_id);
+				$pm_mg_info_activeDAO = $pm_mg_info_activeDAO ->get();
+
+				$ppinfo = $this->getppbyppid($pp_id);
+
+				if(!empty($ppinfo)){
+					$this->view->assign("pp_info",$ppinfo[0]);
+				}
+				$this->view->assign("huodong_list",$pm_mg_info_activeDAO);
+				$this->view->assign("pp_id",$pp_id);
+				echo $this->view->render("index/header.phtml");
+				echo $this->view->render("admin/pphuodong.phtml");
+				echo $this->view->render("index/footer.phtml");
+			}
+		}
+
+		/**
+		 * 添加捐赠方参加学校活动情况
+		 */
+		public function addpphuodongAction()
+		{
+			$pp_id = $_REQUEST['pp_id'];
+			$pp_id = (int)$pp_id;
+			if(!empty($pp_id)) {
+				$pm_mg_info_activeDAO = $this->orm->createDAO("pm_mg_info_active");
+				$pm_mg_info_activeDAO->findPp_id($pp_id);
+				$pm_mg_info_activeDAO = $pm_mg_info_activeDAO->get();
+				$this->view->assign("pphuodong", $pm_mg_info_activeDAO);
+			}
+			$this->view->assign("pp_id", $pp_id);
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("admin/addpphuodong.phtml");
+			echo $this->view->render("index/footer.phtml");
+		}
+
+		/**
+		 * 编辑捐赠方参加学校活动
+		 */
+		public function editpphuodongAction()
+		{
+			$id = (int)$_REQUEST['id'];
+			if(!empty($id)) {
+				$pm_mg_info_activeDAO = $this->orm->createDAO("pm_mg_info_active");
+				$pm_mg_info_activeDAO->findId($id);
+				$pm_mg_info_activeDAO = $pm_mg_info_activeDAO->get();
+				$this->view->assign("pphuodong", $pm_mg_info_activeDAO);
+			}
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("admin/ppedithuodong.phtml");
+			echo $this->view->render("index/footer.phtml");
+		}
+
+		public function savepphuodongAction()
+		{
+			$id = (int)$_REQUEST['id'];
+			$pp_id = $_REQUEST['pp_id'];
+			$pp_id = (int)$pp_id;
+			$pm_mg_info_activeDAO = $this->orm->createDAO("pm_mg_info_active");
+
+			$a_date_time = HttpUtil::postString("a_date_time");
+			$a_content = HttpUtil::postString("a_content");
+			$a_contact_person = HttpUtil::postString("a_contact_person");
+			$a_gift = HttpUtil::postString("a_gift");
+			if($a_date_time == "" || $a_content== "" || $a_contact_person == "" || $a_gift == "")
+			{
+				alert_back("信息不全，请查看信息的完整性，并重新提交。");
+			}
+
+			if(!empty($id)) {
+				$pm_mg_info_activeDAO->findid($id);
+			}
+			$pm_mg_info_activeDAO ->pp_id = $pp_id;
+			$pm_mg_info_activeDAO ->a_date_time = $a_date_time;
+			$pm_mg_info_activeDAO ->a_content = $a_content;
+			$pm_mg_info_activeDAO ->a_contact_person = $a_contact_person;
+			$pm_mg_info_activeDAO ->a_gift = $a_gift;
+
+			$pm_mg_info_activeDAO ->save();
+			alert_go("活动信息添加成功。","pphuodong?pp_id=".$pp_id);
+		}
+
+		public function delpphuodongAction()
+		{
+			$id = (int)$_REQUEST['id'];
+			$pp_id = (int)$_REQUEST['pp_id'];
+			if(empty($id)) {
+				alert_back("操作失败。");
+				$this->_redirect("/management/admin/pphuodong?pp_id=".$pp_id);
+			}
+			$pm_mg_info_activeDAO = $this->orm->createDAO("pm_mg_info_active");
+			$pm_mg_info_activeDAO->findid($id);
+			$pm_mg_info_activeDAO->delete();
+
+			$this->_redirect("/management/admin/pphuodong?pp_id=".$pp_id);
+		}
+
+		////////////////////////////////////////////////////////////////
+		/**
+		 * 捐赠方拜访情况
+		 */
+		public function ppvisitAction()
+		{
+			$pp_id = $_REQUEST['pp_id'];
+			$pp_id = (int)$pp_id;
+			if(!empty($pp_id))
+			{
+				$pm_mg_visit_donorDAO = $this->orm->createDAO("pm_mg_visit_donor");
+				$pm_mg_visit_donorDAO ->findPp_id($pp_id);
+				$pm_mg_visit_donorDAO = $pm_mg_visit_donorDAO ->get();
+
+				$ppinfo = $this->getppbyppid($pp_id);
+
+				if(!empty($ppinfo)){
+					$this->view->assign("pp_info",$ppinfo[0]);
+				}
+				$this->view->assign("visit_list",$pm_mg_visit_donorDAO);
+				$this->view->assign("pp_id",$pp_id);
+				echo $this->view->render("index/header.phtml");
+				echo $this->view->render("admin/ppvisit.phtml");
+				echo $this->view->render("index/footer.phtml");
+			}
+		}
+
+		/**
+		 * 添加捐赠方拜访情况
+		 */
+		public function addppvisitAction()
+		{
+			$pp_id = $_REQUEST['pp_id'];
+			$pp_id = (int)$pp_id;
+			if(!empty($pp_id)) {
+				$pm_mg_visit_donorDAO = $this->orm->createDAO("pm_mg_visit_donor");
+				$pm_mg_visit_donorDAO->findPp_id($pp_id);
+				$pm_mg_visit_donorDAO = $pm_mg_visit_donorDAO->get();
+				$this->view->assign("pphuodong", $pm_mg_visit_donorDAO);
+			}
+			$this->view->assign("pp_id", $pp_id);
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("admin/addppvisit.phtml");
+			echo $this->view->render("index/footer.phtml");
+		}
+
+		/**
+		 * 编辑捐赠方参加学校活动
+		 */
+		public function editppvisitAction()
+		{
+			$id = (int)$_REQUEST['id'];
+			if(!empty($id)) {
+				$pm_mg_visit_donorDAO = $this->orm->createDAO("pm_mg_visit_donor");
+				$pm_mg_visit_donorDAO->findId($id);
+				$pm_mg_visit_donorDAO = $pm_mg_visit_donorDAO->get();
+				$this->view->assign("ppvisit", $pm_mg_visit_donorDAO);
+			}
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("admin/ppeditvisit.phtml");
+			echo $this->view->render("index/footer.phtml");
+		}
+
+		public function saveppvisitAction()
+		{
+			$id = (int)$_REQUEST['id'];
+			$pp_id = $_REQUEST['pp_id'];
+			$pp_id = (int)$pp_id;
+			$pm_mg_visit_donorDAO = $this->orm->createDAO("pm_mg_visit_donor");
+
+			$visit_date_time = HttpUtil::postString("visit_date_time");
+			$visit_addr = HttpUtil::postString("visit_addr");
+			$visit_s_person = HttpUtil::postString("visit_s_person");
+			$visit_orther_person = HttpUtil::postString("visit_orther_person");
+			$visit_gift = HttpUtil::postString("visit_gift");
+			if($visit_date_time == "" || $visit_addr== "" || $visit_s_person == "" || $visit_orther_person == "")
+			{
+				alert_back("信息不全，请查看信息的完整性，并重新提交。");
+			}
+
+			if(!empty($id)) {
+				$pm_mg_visit_donorDAO->findid($id);
+			}
+			$pm_mg_visit_donorDAO ->pp_id = $pp_id;
+			$pm_mg_visit_donorDAO ->visit_date_time = $visit_date_time;
+			$pm_mg_visit_donorDAO ->visit_addr = $visit_addr;
+			$pm_mg_visit_donorDAO ->visit_s_person = $visit_s_person;
+			$pm_mg_visit_donorDAO ->visit_orther_person = $visit_orther_person;
+			$pm_mg_visit_donorDAO ->visit_gift = $visit_gift;
+
+			$pm_mg_visit_donorDAO ->save();
+			alert_go("拜访信息添加成功。","ppvisit?pp_id=".$pp_id);
+		}
+
+		public function delppvisitAction()
+		{
+			$id = (int)$_REQUEST['id'];
+			$pp_id = (int)$_REQUEST['pp_id'];
+			if(empty($id)) {
+				alert_back("操作失败。");
+				$this->_redirect("/management/admin/ppvisit?pp_id=".$pp_id);
+			}
+			$pm_mg_visit_donorDAO = $this->orm->createDAO("pm_mg_visit_donor");
+			$pm_mg_visit_donorDAO->findid($id);
+			$pm_mg_visit_donorDAO->delete();
+
+			$this->_redirect("/management/admin/ppvisit?pp_id=".$pp_id);
+		}
+
         public function getppbyppid($pp_id)
         {
             if(!empty($pp_id)){

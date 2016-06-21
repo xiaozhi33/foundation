@@ -1,0 +1,70 @@
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>编辑捐赠方参加学校活动情况</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>捐赠方参加学校活动情况管理</li>
+            <li class="active">编辑参加学校活动情况</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->		
+    <div id="main" class="main">
+		<div id="rightstyle02" class="row">
+        <div class="col-md-12">
+			<section class="tile color transparent-black">
+			<div class="detailedbox tile-body">
+			<form class="form-horizontal" action="savepphuodong" id="form1" method="post" encType="multipart/form-data">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">活动时间：</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text"  data-date-format="YYYY-MM-DD" id="datepicker1"  name="a_date_time" value="<?php echo $this->pphuodong[0]['a_date_time'];?>" size="14"/>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">活动内容：</label>
+                    <div class="col-sm-9">
+                        <textarea parsley-validation-minlength="1" name="a_content" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->pphuodong[0]['a_content'];?></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">校方接待人员：</label>
+                    <div class="col-sm-9">
+                        <textarea parsley-validation-minlength="1" name="a_contact_person" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->pphuodong[0]['a_contact_person'];?></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">纪念品：</label>
+                    <div class="col-sm-9">
+                        <textarea parsley-validation-minlength="1" name="a_gift" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->pphuodong[0]['a_gift'];?></textarea>
+                    </div>
+                </div>
+
+            <input type="hidden" name="id" value="<?php echo $this->ppcompany[0]['id'];?>" />
+            <input type="hidden" name="pp_id" value="<?php echo $this->ppcompany[0]['pp_id'];?>" />
+			<div class="form-group form-footer">
+				<div class="col-sm-offset-5 col-sm-7">
+                     <input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                     <input class="btn btn-default" type="reset" value="重 置" />
+				</div>
+			</div>
+			</form>
+            </div>
+            </section>
+		  </div>
+		</div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(10)").addClass("open");
+        </script>
