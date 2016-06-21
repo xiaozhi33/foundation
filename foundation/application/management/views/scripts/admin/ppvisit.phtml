@@ -23,7 +23,7 @@
 			</section>
             <section class="tile color transparent-black">	
                 <div class="tile-body nopadding">				
-				<?php if(!empty($this->company_list)){?>
+				<?php if(!empty($this->visit_list)){?>
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
                         <thead>
                             <tr>
@@ -36,7 +36,7 @@
                         </thead>
                       <tbody>
 					  <?php 
-						foreach($this->huodong_list as $k=>$v){?>
+						foreach($this->visit_list as $k=>$v){?>
                         <tr>
                             <td><?php echo $v['id'];?></td>
                             <td><?php echo $v['visit_date_time'];?></td>
