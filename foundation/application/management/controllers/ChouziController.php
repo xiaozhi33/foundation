@@ -194,35 +194,26 @@
                     }
                 }
 
-                // 同步财务系统项目信息
-                $pmDAO = new CW_API();
-                $rs1 = $pmDAO ->get_max_xmnmID();
-                $xmnm = (int)$rs1[0]['xmnm'] + 1;
-                $rs2 = $pmDAO ->get_max_xmbhID();
-                $xmbh = (int)$rs2[0]['xmbh'] + 1;
+                if(empty($pid)){   // 只有父类项目同步到财务系统
+                    // 同步财务系统项目信息
+                    $pmDAO = new CW_API();
+                    $rs1 = $pmDAO ->get_max_xmnmID();
+                    $xmnm = (int)$rs1[0]['xmnm'] + 1;
+                    $rs2 = $pmDAO ->get_max_xmbhID();
+                    $xmbh = (int)$rs2[0]['xmbh'] + 1;
 
-                // 获取对应部门信息
-                $zw_department_related = $this->orm->createDAO("zw_department_related");
-                $zw_department_related ->findPm_pid($department);
-                $zw_department_related = $zw_department_related ->get();
+                    // 获取对应部门信息
+                    $zw_department_related = $this->orm->createDAO("zw_department_related");
+                    $zw_department_related ->findPm_pid($department);
+                    $zw_department_related = $zw_department_related ->get();
 
-                if(empty($zw_department_related[0]['zw_bmbh'])){
-                    alert("没有找到对应的财务部门信息，请联系管理员！或添加对应关系！");
-                }
+                    if(empty($zw_department_related[0]['zw_bmbh'])){
+                        alert("没有找到对应的财务部门信息，请联系管理员！或添加对应关系！");
+                    }
 
-                $zwxmzdDAO = new CW_API();
-                $rs = $zwxmzdDAO ->sync_pm('000'.$xmnm, $xmbh, $pname, $zw_department_related[0]['zw_bmbh']);
+                    $zwxmzdDAO = new CW_API();
+                    $rs = $zwxmzdDAO ->sync_pm('000'.$xmnm, $xmbh, $pname, $zw_department_related[0]['zw_bmbh']);
 
-                $pid = $pm_chouziDAO->save();
-
-                $is_lixiang = HttpUtil::postString("is_lixiang");
-                if($is_lixiang == '1'){
-                    $this->changerate($pid,'add',1);
-                }else {
-                    $this->changerate($pid,'del',1);
-                }
-
-                if($rs) {
                     // 同步对照表
                     $zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
                     $zw_pm_relatedDAO ->pm_id = $pid;
@@ -230,7 +221,18 @@
                     $zw_pm_relatedDAO ->zw_xmbh = $xmbh;
                     $zw_pm_relatedDAO ->zw_xmmc = $pname;
                     $zw_pm_relatedDAO ->save();
+                }
 
+                $_pid = $pm_chouziDAO->save();
+
+                if($_pid) {
+                    // 更新项目进度
+                    $is_lixiang = HttpUtil::postString("is_lixiang");
+                    if($is_lixiang == '1'){
+                        $this->changerate($_pid,'add',1);
+                    }else {
+                        $this->changerate($_pid,'del',1);
+                    }
                     alert_go("添加成功", "/management/chouzi");
                 }else {
                     alert_back("同步财务系统项目表失败，请联系管理员！");
