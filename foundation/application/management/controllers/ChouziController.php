@@ -194,14 +194,14 @@
                     }
                 }
 
-                if(empty($pid)){   // 只有父类项目同步到财务系统
-                    // 同步财务系统项目信息
-                    $pmDAO = new CW_API();
-                    $rs1 = $pmDAO ->get_max_xmnmID();
-                    $xmnm = (int)$rs1[0]['xmnm'] + 1;
-                    $rs2 = $pmDAO ->get_max_xmbhID();
-                    $xmbh = (int)$rs2[0]['xmbh'] + 1;
+                // 同步财务系统项目信息
+                $pmDAO = new CW_API();
+                $rs1 = $pmDAO ->get_max_xmnmID();
+                $xmnm = (int)$rs1[0]['xmnm'] + 1;
+                $rs2 = $pmDAO ->get_max_xmbhID();
+                $xmbh = (int)$rs2[0]['xmbh'] + 1;
 
+                if(empty($pid) || (int)$pid == 0){   // 只有父类项目同步到财务系统
                     // 获取对应部门信息
                     $zw_department_related = $this->orm->createDAO("zw_department_related");
                     $zw_department_related ->findPm_pid($department);
