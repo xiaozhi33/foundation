@@ -471,9 +471,16 @@
 
         /**
          * ajax 请求对应的财务项目信息
+         * 来款认领可以认领到任意项目下，但同步财务只能同步到其最上级项目（父项目，一级项目）
          */
         public function ajaxgetzwxmAction(){
             (int)$pm_id = $_REQUEST["pm_id"];
+
+            // 取得该项目的父类项目（父项目，一级项目）
+            if($pm_id != ''){
+                $pm_id = $this->getsubpmidbypmid($pm_id);
+            }
+
             $zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
             $zw_pm_relatedDAO ->findPm_id($pm_id);
             $zw_pm_relatedDAO = $zw_pm_relatedDAO->get();
@@ -482,6 +489,24 @@
                 echo json_encode($zw_pm_relatedDAO[0]);
             }else {
                 echo json_encode(array());
+            }
+        }
+
+        /**
+         * 根据项目id获取其父项目
+         */
+        public function getsubpmidbypmid($pm_id){
+            $chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
+            $chouziDAO ->findId($pm_id);
+            $chouziDAO = $chouziDAO ->get();
+
+            if($chouziDAO[0]['parent_pm_id'] == 0){
+                return $chouziDAO[0]['id'];
+            }else {
+                if($chouziDAO[0]['parent_pm_id_path'] != 0){
+                    $temp_array = explode(',',$chouziDAO[0]['parent_pm_id_path']);
+                    return $temp_array[0];
+                }
             }
         }
 
