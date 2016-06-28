@@ -203,6 +203,174 @@
 				alert_back("操作失败");
 			}
 		}
+
+		/**
+		 * 未认领列表
+		 */
+		public function claimlistAction()
+		{
+			// 同步财务支出（使用）信息
+			$zwpzflDAO = new CW_API();
+			$zwpzfl_list = $zwpzflDAO ->getzwpzfl();
+
+			// 遍历循环插入zw_mg_pzfl_log表中
+			foreach($zwpzfl_list as $k => $v){
+				$lk = $this->islkrl($v['lsh']);  // 判断是否重复添加
+
+				if(empty($lk)){
+					$zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
+					$zw_lkrl_logsDAO ->lsh = $v['lsh'];
+					$zw_lkrl_logsDAO ->lkrq = $v['lkrq'];
+					$zw_lkrl_logsDAO ->fkdw = $v['fkdw'];
+					$zw_lkrl_logsDAO ->je = $v['je'];
+					$zw_lkrl_logsDAO ->rlje = $v['rlje'];
+					$zw_lkrl_logsDAO ->lrrq = $v['lrrq'];
+					$zw_lkrl_logsDAO ->lrr = $v['lrr'];
+					$zw_lkrl_logsDAO ->save();
+				}else {
+					continue;
+				}
+			}
+
+			$this->synclkrl();  // 同步财务系统来款数据
+
+			$keywords = HttpUtil::getString("pm_name");
+			$is_renling = HttpUtil::getString("is_renling");
+			$this->renling_weirenling_list = $this->orm->createDAO("pm_mg_info");
+			$like_sql = "";
+			if($keywords != ""){
+				$like_sql .= " AND pm_name like '%".$keywords."%'";
+			}
+			if($is_renling != ""){
+				$like_sql .= " AND is_renling=".$is_renling;
+			}else {
+				$this->renling_weirenling_list->findIs_renling("0");
+			}
+			$like_sql .= "  ORDER BY `zijin_daozhang_datetime` DESC";
+			$this->renling_weirenling_list->findCate_id("0");
+			$this->renling_weirenling_list->selectLimit = $like_sql;
+			$this->renling_weirenling_list = $this->renling_weirenling_list->get();
+
+			$total = count($this->renling_weirenling_list);
+			$pageDAO = new pageDAO();
+			$pageDAO = $pageDAO->pageHelper($this->renling_weirenling_list, null, "/management/zijin/claimlist", null, 'get', 25, 8);
+			$pages = $pageDAO['pageLink']['all'];
+			$pages = str_replace("/index.php", "", $pages);
+			$this->view->assign('claimlist', $pageDAO['pageData']);
+			$this->view->assign('page', $pages);
+			$this->view->assign('total', $total);
+
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("zijin/claimlist.phtml");
+			echo $this->view->render("index/footer.phtml");
+		}
+
+		/**
+		 * 绑定认领
+		 */
+		public function savebindingclaimAction(){
+			try{
+				(int)$pid = $_REQUEST['zw_xmbh'];
+				(int)$department_id = $_REQUEST['zw_bmbh'];
+				if(empty($pid) || empty($department_id)){
+					alert_back("请选择认领项目和部门 或 该部门没有绑定财务部门，请联系管理员");
+				}
+
+				// 1, 查看项目财务对照表－取得财务对应项目名称和编号
+				$pm_relateDAO = $this->orm->createDAO("zw_pm_related");
+				$pm_relateDAO ->findPm_id($_REQUEST['pm_xmbh']);
+				$pm_relateDAO = $pm_relateDAO->get();
+
+				if(empty($pm_relateDAO[0]['zw_xmbh']) || empty($pm_relateDAO[0]['zw_xmmc'])){
+					alert_back("该项目没有绑定财务系统，请联系管理员");
+				}
+
+				// 2, 部门信息同步
+				$department_info = $this->orm->createDAO("zw_department_related");
+				$department_info ->findPm_pid($_REQUEST['pm_bmbh']);
+				$department_info = $department_info->get();
+
+				if(empty($department_info[0]['zw_bmbh']) || empty($department_info[0]['zw_bmmc'])){
+					alert_back("该部门没有绑定财务部门，请联系管理员");
+				}
+
+				// 3, 负者人信息同步
+
+				// 4, 同步更新财务系统lkrl表
+				$lsh = $_REQUEST['lsh'];    // 流水号
+				$rlxh = $_REQUEST["pm_id"];   // 认领序号
+				$rlrq = date("Ymd" , time());   // 认领日期
+				$rlr = $_REQUEST['lrr'];        // 认领人
+				$rlrbh = $_REQUEST['lsh'];      // 认领人编号
+				$bmbh = $_REQUEST['zw_bmbh'];   // 部门编号
+				$xmbh = $_REQUEST['zw_xmbh'];   // 项目编号
+				$rlje = $_REQUEST['je'];   // 认领金额
+				$ispz = 0;                       // 是否制单
+				$rlpznm = "";            // 认领凭证内码
+				$czy = "admin";                                     // 操作员
+
+				$zw_lkrlDAO = new CW_API();
+				$rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $ispz, $rlpznm, $czy);
+				if($rs){
+					// 更新项目来款表
+					$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+					$pm_mg_infoDAO ->findId($_REQUEST["pm_id"]);
+					$pm_mg_infoDAO ->jindu = $_REQUEST["jindu"];                // 来款进度 已到帐 未到帐
+					$pm_mg_infoDAO ->piaoju = $_REQUEST["piaoju"];              // 票据
+					$pm_mg_infoDAO ->piaoju_kddh = $_REQUEST["piaoju_kddh"];  // 快递单号
+					$pm_mg_infoDAO ->piaoju_jbr = $_REQUEST["piaoju_jbr"];    // 经办人
+					$pm_mg_infoDAO ->piaoju_fkfs = $_REQUEST["piaoju_fkfs"];  // 反馈方式 领取 寄送 暂存
+					$pm_mg_infoDAO ->piaoju_fph = $_REQUEST["piaoju_fph"];    // 发票号
+
+					$pm_mg_infoDAO ->cate_id = 0;   // 类型 0资金 1使用
+					$pm_mg_infoDAO ->pm_name = $_REQUEST['zw_xmmc'];   // 类型 0资金 1使用
+					$pm_mg_infoDAO ->pm_pp = HttpUtil::postString("pm_pp");   // 付款单位
+					$pm_mg_infoDAO ->pm_pp_cate = HttpUtil::postString("pm_pp_cate");   // 捐赠者类型 基金会/企业/校友/社会人士
+					$pm_mg_infoDAO ->zijin_laiyuan_qudao = HttpUtil::postString("zijin_laiyuan_qudao");   // 渠道 境内 境外
+					$pm_mg_infoDAO ->beizhu = HttpUtil::postString("other");   // 备注
+					$pm_mg_infoDAO ->is_renling = 1;                            // 是否认领flag 已认领
+
+					$pm_mg_infoDAO ->save();
+					if($rs){
+						alert_go("认领成功！", "/management/zijin/claimlist");
+					}else {
+						alert_back("认领失败！请联系管理员");
+					}
+				}else {
+					alert_back("认领失败！请联系管理员");
+				}
+			}catch(Exception $e){
+				throw $e;
+			}
+		}
+
+
+		/**
+		 * 绑定认领页面
+		 */
+		public function bindingClaimAction(){
+			// 获取部门信息
+			$jjh_mg_departmentDAO = $this->orm->createDAO("jjh_mg_department");
+			$department_list = $jjh_mg_departmentDAO ->get();
+			$this->view->assign('department_list', $department_list);
+
+			// 项目相关信息取得
+			(int)$pid = $_REQUEST['pm_id'];
+			$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+			$pm_mg_infoDAO ->findId($pid);
+			$pm_mg_infoDAO = $pm_mg_infoDAO ->get();
+			$this->view->assign('pm_mg_info', $pm_mg_infoDAO);
+
+			// 获取支出（使用）认领详细信息
+			$zw_mg_pzfl_logDAO = $this->orm->createDAO("zw_mg_pzfl_log");
+			$zw_mg_pzfl_logDAO ->findLsh($pm_mg_infoDAO[0]['lsh']);
+			$zw_mg_pzfl_logDAO = $zw_mg_pzfl_logDAO ->get();
+			$this->view->assign('zw_mg_pzfl_log', $zw_mg_pzfl_logDAO);
+
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("zijin/claim.phtml");
+			echo $this->view->render("index/footer.phtml");
+		}
 		
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
