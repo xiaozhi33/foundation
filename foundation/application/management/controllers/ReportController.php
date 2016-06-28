@@ -188,7 +188,7 @@
                         $zijininfo ->selectLimit .= " and zijin_daozhang_datetime between '$zijin_daozhang_datetime' and '$zijin_daozhang_datetime1'";
                     }
 
-                    $zijininfo ->selectLimit .= " and cate_id=0 order by bpath";
+                    $zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by bpath";
                     //$zijininfo ->debugSql =true;
                     $zijininfo = $zijininfo->get($this->dbhelper);
 
@@ -344,7 +344,7 @@
                         $zijininfo ->selectLimit .= " and zijin_daozhang_datetime between '$zijin_daozhang_datetime' and '$zijin_daozhang_datetime1'";
                     }
 
-                    $zijininfo ->selectLimit .= " and cate_id=0 order by concat(parent_pm_id,'-',c.id)";
+                    $zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by concat(parent_pm_id,'-',c.id)";
 
                     // 判断是否属于family
 					//$zijininfo ->debugSql =true;
@@ -487,7 +487,7 @@
 						$zhichuinfo ->selectLimit .= " and shiyong_zhichu_datetime between '$shiyong_zhichu_datetime' and '$shiyong_zhichu_datetime1'";
 					}
 
-					$zhichuinfo ->selectLimit .= " and cate_id=1 order by bpath";
+					$zhichuinfo ->selectLimit .= " and cate_id=1 and is_renling=1 order by bpath";
 					//$zhichuinfo ->debugSql =true;
 					$zhichuinfo = $zhichuinfo->get($this->dbhelper);
 
@@ -627,7 +627,7 @@
                         $zhichuinfo ->selectLimit .= " and shiyong_zhichu_datetime between '$shiyong_zhichu_datetime' and '$shiyong_zhichu_datetime1'";
                     }
 
-                    $zhichuinfo ->selectLimit .= " and cate_id=1 order by bpath";
+                    $zhichuinfo ->selectLimit .= " and cate_id=1 and is_renling=1 order by bpath";
                     //$zhichuinfo ->debugSql =true;
                     $zhichuinfo = $zhichuinfo->get($this->dbhelper);
 
@@ -1022,7 +1022,7 @@
 				}
                 $zhichuinfo->selectLimit .= " and c.id!='' ";
 
-				$zhichuinfo->selectLimit .= " order by bpath";
+				$zhichuinfo->selectLimit .= " and pm_mg_info.is_renling=1 order by bpath";
 				//$zhichuinfo ->debugSql =true;
 				$zhichuinfo = $zhichuinfo->get($this->dbhelper);
 
@@ -1151,7 +1151,7 @@
                 $zhichuinfo->selectLimit .= " and pm_mg_info.pm_name='".$pname."' ";
                 $zhichuinfo->selectLimit .= " and c.id!='' ";
 
-                $zhichuinfo->selectLimit .= " order by bpath";
+                $zhichuinfo->selectLimit .= " and pm_mg_info.is_renling=1 order by bpath";
                 //$zhichuinfo ->debugSql =true;
                 $zhichuinfo = $zhichuinfo->get($this->dbhelper);
 
