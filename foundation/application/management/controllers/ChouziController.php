@@ -202,7 +202,11 @@
                 // 同步财务系统项目信息
                 $pmDAO = new CW_API();
                 $rs1 = $pmDAO ->get_max_xmnmID();
+                $rs_1 = $pmDAO ->get_max_xmnm_copyID();
                 $xmnm = (int)$rs1[0]['xmnm'] + 1;
+                $xmnm_copy = (int)$rs_1[0]['xmnm'] + 1;
+                if($xmnm_copy > $xmnm) $xmnm = $xmnm_copy;  // 如果临时表的最大值大，取临时表
+
                 $rs2 = $pmDAO ->get_max_xmbhID();
                 $xmbh = (int)$rs2[0]['xmbh'] + 1;
 

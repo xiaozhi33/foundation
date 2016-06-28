@@ -87,6 +87,19 @@
             return $rs;
         }
 
+        public function get_max_xmnm_copyID(){
+            $selectSQL = 'select top 1 xmnm from zwxmzd_copy where 1=1 order by xmnm DESC';
+            $this->connect();
+            $query = $this->query($selectSQL);
+            while($row=mssql_fetch_array($query))
+            {
+                $rs[] = $row;
+            }
+
+            $this->free();
+            return $rs;
+        }
+
         public function get_max_xmbhID(){
             $selectSQL = 'select top 1 xmbh from zwxmzd where 1=1 order by xmbh DESC';
             $this->connect();
