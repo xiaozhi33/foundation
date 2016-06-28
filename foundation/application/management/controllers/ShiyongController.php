@@ -209,9 +209,10 @@
 		 */
 		public function claimlistAction()
 		{
+            $time_str = "";
 			// 同步财务支出（使用）信息
 			$zwpzflDAO = new CW_API();
-			$zwpzfl_list = $zwpzflDAO ->getzwpzfl();
+			$zwpzfl_list = $zwpzflDAO ->getzwpzfl($time_str); // $time_str 上次同步最大时间
 
 			// 遍历循环插入zw_mg_pzfl_log表中
 			foreach($zwpzfl_list as $k => $v){
@@ -264,6 +265,37 @@
 			echo $this->view->render("zijin/claimlist.phtml");
 			echo $this->view->render("index/footer.phtml");
 		}
+
+        /**
+         * 同步来款信息，新同步到项目信息表中，并记录到同步记录表中
+         */
+        public function synclkrl(){
+            $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
+            $zw_lkrl_logsDAO ->selectLimit .= " and status=0";
+            $zw_lkrl_list = $zw_lkrl_logsDAO->get();
+
+            if(!empty($zw_lkrl_list)){
+                foreach($zw_lkrl_list as $key => $value){  // 批量添加财务来款到项目info中
+                    $islog = $this->getisuselog($value['lsh']);
+                    if($islog){   // 判断是否已经存在同步记录
+                        $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+                        $pm_mg_infoDAO ->cate_id = 0;
+                        $pm_mg_infoDAO ->pm_pp_company = $value["fkdw"];              // 付款单位
+                        $pm_mg_infoDAO ->zijin_daozhang_datetime = $value["lkrq"];  //  来款日期
+                        $pm_mg_infoDAO ->zijin_daozheng_jiner = $value["je"];        // 金额
+                        //$pm_mg_infoDAO ->pm_pp_company = $value["lrrq"];              // 付款单位
+                        $pm_mg_infoDAO ->renling_name = $value["lrr"];                // 付款单位
+                        $pm_mg_infoDAO ->lsh = $value["lsh"];                           // 财务流水号
+                        $pm_mg_infoDAO ->save();
+
+                        $zw_lkrl_logs1DAO = $this->orm->createDAO("zw_lkrl_logs");
+                        $zw_lkrl_logs1DAO ->findLsh($value['lsh']);
+                        $zw_lkrl_logs1DAO ->status = 1;
+                        $zw_lkrl_logs1DAO ->save();
+                    }
+                }
+            }
+        }
 
 		/**
 		 * 绑定认领

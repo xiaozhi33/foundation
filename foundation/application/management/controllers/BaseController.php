@@ -17,6 +17,7 @@
         public $mssql_class;
         public $admininfo = '';
         public $renling_weirenling_list = "";
+        public $shiyong_weirenling_list = "";
 
 		public function init()
 	    {
@@ -30,6 +31,8 @@
             //获取认领信息
             $this->pm_count = $this->orm->createDAO("pm_mg_info")->get();
             $this->renling_weirenling_list = $renling_weirenling_list = $this->orm->createDAO("pm_mg_info")->findCate_id("0")->findIs_renling("0")->get();
+            $this->shiyong_weirenling_list = $shiyong_weirenling_list = $this->orm->createDAO("pm_mg_info")->findCate_id("1")->findIs_renling("0")->get();
+
             $admininfo = SessionUtil::getAdmininfo();
             $this->admininfo = SessionUtil::getAdmininfo();
 
@@ -44,6 +47,7 @@
 				"controller" => $request_mod['controller'],
 				"action" => $request_mod['action'],
                 'renling_weirenling_list' => $renling_weirenling_list,
+                'shiyong_weirenling_list' => $shiyong_weirenling_list,
                 "pm_count" => count($this->pm_count),
                 "allsum" => (int)$pm_mg_infoDAO[0]['allsum'],
                 "meeting_count" => count($meetingDAO),
