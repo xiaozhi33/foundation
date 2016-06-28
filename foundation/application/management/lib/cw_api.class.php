@@ -41,6 +41,27 @@
         }
 
         /**
+         * 获取支出使用财务数据
+         */
+        public function getzwpzfl($time_str=''){
+            $select_SQL = "SELECT * FROM zwpzfl ";
+            if($time_str != ""){
+                $select_SQL .= " WHERE pzrq>".$time_str;
+            }
+            $select_SQL .= " ORDER BY pzrq DESC";
+            $this->connect();
+            $query = $this->query($select_SQL);
+
+            while($row=mssql_fetch_array($query))
+            {
+                $zwpzfl[] = $row;
+            }
+
+            $this->free();
+            return $zwpzfl;
+        }
+
+        /**
          * 添加财务认领
          * @param $lsh      流水号
          * @param $rlxh     认领序号  项目编号id
