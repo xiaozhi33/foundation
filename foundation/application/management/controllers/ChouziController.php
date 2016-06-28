@@ -61,6 +61,10 @@
             echo $this->view->render("index/footer.phtml");
         }
 
+        /**
+         * 筹资立项 - 同步财务系统中间库，写入对照关系表
+         * @throws Exception
+         */
         public function addrschouziAction()
         {
             try{
@@ -161,7 +165,8 @@
                 $pm_chouziDAO->pm_sjjzfllr_email = $pm_sjjzfllr_email;
                 $pm_chouziDAO->pm_sjjzfllr_tel = $pm_sjjzfllr_tel;
 
-                $pid = HttpUtil::postString("pm_id");
+                // pm_id为所属父项目id 如果不为空，则新建子项目
+                $pid = HttpUtil::postString("pm_id"); // $pid 父项目id
                 if(!empty($pid)){
                     $parent_pm_info = $this->orm->createDAO("pm_mg_chouzi")->findId($pid)->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
                     $parent_pm_id = $parent_pm_info[0]['id'];  //直属关系项目id
@@ -213,19 +218,18 @@
 
                     $zwxmzdDAO = new CW_API();
                     $rs = $zwxmzdDAO ->sync_pm('000'.$xmnm, $xmbh, $pname, $zw_department_related[0]['zw_bmbh']);
+                }
 
-                    // 同步对照表
+                $_pid = $pm_chouziDAO->save();   // $_pid 项目系统pm_id
+                if($_pid) {
+                    // 同步财务后写入对照表
                     $zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
-                    $zw_pm_relatedDAO ->pm_id = $pid;
+                    $zw_pm_relatedDAO ->pm_id = $_pid;
                     $zw_pm_relatedDAO ->pm_name = $pname;
                     $zw_pm_relatedDAO ->zw_xmbh = $xmbh;
                     $zw_pm_relatedDAO ->zw_xmmc = $pname;
                     $zw_pm_relatedDAO ->save();
-                }
 
-                $_pid = $pm_chouziDAO->save();
-
-                if($_pid) {
                     // 更新项目进度
                     $is_lixiang = HttpUtil::postString("is_lixiang");
                     if($is_lixiang == '1'){
