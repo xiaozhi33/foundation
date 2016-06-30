@@ -581,12 +581,14 @@
 				
 				<?php }?>
 
+
+                <?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4))){?>
 				<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <i class="fa fa-desktop"></i> 业务相关管理 <b class="fa fa-plus dropdown-plus"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4))){?>
+
                         <li>
                             <a href="/management/admin/department">
                                 <i class="fa fa-caret-right"></i> 部门管理 - 部门信息列表
@@ -630,10 +632,10 @@
                                 <i class="fa fa-caret-right"></i> 项目分类管理 - 添加项目分类
                             </a>
                         </li>
-                        <?php }?>
+
                     </ul>
                   </li>
-
+                <?php }?>
                     <!--<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-desktop"></i> 项目负责人管理 <b class="fa fa-plus dropdown-plus"></b>
