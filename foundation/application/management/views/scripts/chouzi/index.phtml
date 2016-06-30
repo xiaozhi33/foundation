@@ -113,7 +113,9 @@
                         <td width="18%">项目进度</td>
 						<!--<td width="12%">部门名称</td><td width="18%">项目签约日期</td>
 						<td width="13%">协议捐赠金额</td>-->
-						<td width="13%">操作</td>
+                          <?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
+						        <td width="13%">操作</td>
+                          <?php }?>
 					  </tr>
 					</thead>
                     <tbody>
@@ -147,20 +149,21 @@
                                      已回馈&nbsp;
                                  <?php }?>
                              </td>
-
-							<td>
-                                <a href="/management/chouzi/editchouzi?id=<?php echo $v['id'];?>">
-                                    <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
-                                </a>
-                                &nbsp;&nbsp;
-                                <a href="/management/zijin/rateinfo/?pm_id=<?php echo $v['id'];?>">
-                                    <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
-                                </a>
-                                &nbsp;&nbsp;
-                                <a href="#" onclick="alert('对不起，项目清单不提供删除功能，请联系管理员');">
-                                    <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
-                                </a>
-                            </td>
+                             <?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
+                                <td>
+                                    <a href="/management/chouzi/editchouzi?id=<?php echo $v['id'];?>">
+                                        <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                                    </a>
+                                    &nbsp;&nbsp;
+                                    <a href="/management/zijin/rateinfo/?pm_id=<?php echo $v['id'];?>">
+                                        <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
+                                    </a>
+                                    &nbsp;&nbsp;
+                                    <a href="#" onclick="alert('对不起，项目清单不提供删除功能，请联系管理员');">
+                                        <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
+                                    </a>
+                                </td>
+                             <?php }?>
 						 </tr>
 					   <?php }?>
                      </tbody>
