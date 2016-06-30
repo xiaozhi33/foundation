@@ -130,6 +130,19 @@
         public function changerate($pm_id, $type='add',$value,$pm_info_id='')
         {
             try{
+                $pm_rateDAO = $this->orm->createDAO("pm_mg_rate");
+                $pm_rateDAO ->findPm_id($pm_id);
+                $rate_list = $pm_rateDAO ->get();
+
+                // 如果没有设置进度，默认为0
+                if(empty($rate_list)){
+                    $pm_rateDAO = $this->orm->createDAO("pm_mg_rate");
+                    $pm_rateDAO ->pm_id = $pm_id;
+                    $pm_rateDAO ->pm_rate = 0;
+                    $pm_rateDAO ->last_modify = time();
+                    $pm_rateDAO ->save();
+                }
+
                 if($pm_info_id != ''){
                     $pm_id = $this->getpmidbetinfoid($pm_info_id);
                 }
