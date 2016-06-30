@@ -732,7 +732,8 @@
 			SessionUtil::sessionStart();
 			SessionUtil::checkmanagement();
             $this->admininfo = SessionUtil::getAdmininfo();
-			
+            $this->view->assign("admininfo",$this->admininfo);
+
 			//项目分类
 			$pcatelist = new jjh_mg_cateDAO();
 			$pcatelist =  $pcatelist ->get($this->dbhelper);
