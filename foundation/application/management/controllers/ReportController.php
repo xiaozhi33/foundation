@@ -453,7 +453,7 @@
 				$shiyong_type = HttpUtil::postString("shiyong_type");
 				$pname = HttpUtil::postString("pname");
 				// $cate = HttpUtil::postString("cate");
-				// $department = HttpUtil::postString("department");
+				$department = HttpUtil::postString("department");
 				$shiyong_zhichu_datetime =  HttpUtil::postString("start");
 				$shiyong_zhichu_datetime1 =  HttpUtil::postString("end");
 
@@ -479,9 +479,9 @@
                      pm_mg_info.shiyong_type,
                      pm_mg_info.zcdx ");
 
-					/*if($department != ""){
+					if($department != ""){
 						$zhichuinfo ->department = $department;
-					}*/
+					}
 
 					if($shiyong_zhichu_datetime != "" && $shiyong_zhichu_datetime1 != ""){
 						$zhichuinfo ->selectLimit .= " and shiyong_zhichu_datetime between '$shiyong_zhichu_datetime' and '$shiyong_zhichu_datetime1'";
