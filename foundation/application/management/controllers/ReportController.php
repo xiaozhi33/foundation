@@ -993,6 +993,8 @@
 		public function pmshouzhinewtoexcelAction(){
             //ini_set("display_errors", "On");
             //error_reporting(E_ERROR);
+			$cate = HttpUtil::postString("cate");
+			$department = HttpUtil::postString("department");
             $pname = HttpUtil::postString("pname");
 			$start =  HttpUtil::postString("start");
 			$end =  HttpUtil::postString("end");
@@ -1020,6 +1022,12 @@
                      pm_mg_info.pm_pp
                       ");
 
+				if($cate != ""){
+					$zhichuinfo ->pm_juanzeng_cate = $cate;
+				}
+				if($department != ""){
+					$zhichuinfo ->selectLimit .= " and c.department=".$department;
+				}
 				if ($start != "" && $end != "") {
 					$zhichuinfo->selectLimit .= " and ((shiyong_zhichu_datetime between '$start' and '$end') OR (zijin_daozhang_datetime between '$start' and '$end'))";
 				}
@@ -1147,6 +1155,13 @@
                      c.department,
                      c.pm_fzr_mc,
                      pm_mg_info.pm_pp");
+
+				if($cate != ""){
+					$zhichuinfo ->pm_juanzeng_cate = $cate;
+				}
+				if($department != ""){
+					$zhichuinfo ->selectLimit .= " and c.department=".$department;
+				}
 
                 if ($start != "" && $end != "") {
                     $zhichuinfo->selectLimit .= " and ((shiyong_zhichu_datetime between '$start' and '$end') OR (zijin_daozhang_datetime between '$start' and '$end'))";
