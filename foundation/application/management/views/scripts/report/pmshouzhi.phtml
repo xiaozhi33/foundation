@@ -68,6 +68,32 @@
                 </div>
 
 				<div class="form-group">
+					<label class="col-sm-2 control-label" for="input01">项目类型：</label>
+					<div class="col-sm-7">
+						<select class="form-control" name="cate">
+							<option value="" >请选择类型</option>
+							<?php if($this->pcatelist != ""){
+								foreach ($this->pcatelist as $k => $v){?>
+									<option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
+								<?php }}?>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="input01">所属部门：</label>
+					<div class="col-sm-7">
+						<select class="form-control" name="department">
+							<option value="" >请选择类型</option>
+							<?php if($this->departmentlist != ""){
+								foreach ($this->departmentlist as $k => $v){?>
+									<option value="<?php echo $v['id']?>" ><?php echo $v['pname']?></option>
+								<?php }}?>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
 					<label class="col-sm-2 control-label" for="input01">起止时间：</label>
 					<div class="col-sm-7">
 						<input type="text" name="start" data-date-format="YYYY-MM-DD" id="datepicker1"/> ~ <input type="text" name="end" data-date-format="YYYY-MM-DD" id="datepicker2" />
