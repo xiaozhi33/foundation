@@ -480,7 +480,7 @@
                      pm_mg_info.zcdx ");
 
 					if($department != ""){
-						$zhichuinfo ->department = $department;
+						$zhichuinfo ->selectLimit .= " and c.department=".$department;
 					}
 
 					if($shiyong_zhichu_datetime != "" && $shiyong_zhichu_datetime1 != ""){
@@ -622,6 +622,9 @@
 					/*if($department != ""){
 						$zijininfo ->department = $department;
 					}*/
+                    if($department != ""){
+                        $zhichuinfo ->selectLimit .= " and c.department=".$department;
+                    }
 
                     if($shiyong_zhichu_datetime != "" && $shiyong_zhichu_datetime1 != ""){
                         $zhichuinfo ->selectLimit .= " and shiyong_zhichu_datetime between '$shiyong_zhichu_datetime' and '$shiyong_zhichu_datetime1'";
