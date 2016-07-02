@@ -353,6 +353,8 @@
             $pageDAO = $pageDAO->pageHelper($this->renling_weirenling_list, null, "/management/zijin/claimlist", null, 'get', 25, 8);
             $pages = $pageDAO['pageLink']['all'];
             $pages = str_replace("/index.php", "", $pages);
+
+            $this->view->assign('is_renling', $is_renling);
             $this->view->assign('claimlist', $pageDAO['pageData']);
             $this->view->assign('page', $pages);
             $this->view->assign('total', $total);

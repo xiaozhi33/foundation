@@ -87,9 +87,15 @@
                                  <?php echo $v['zijin_daozheng_jiner'];?> 元
                              </td>
 							<td>
+                                <?php if($this->is_renling == 0){?>
                                 <a onclick="javascript:noTips_click(<?php echo $v['id'];?>);">
                                     <button class="btn btn-greensea margin-bottom-20" type="button">认领项目</button>
                                 </a>
+                                <?php }else{ ?>
+                                    <a href="/management/zijin/editzijin?id=<?php echo $v['id'];?>">
+                                        <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                                    </a>
+                                <?php }?>
                             </td>
 						 </tr>
 					   <?php }?>

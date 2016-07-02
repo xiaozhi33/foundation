@@ -252,7 +252,7 @@
                             ->setCellValue('E'.$ii, $this->department[$v[department]])
                             ->setCellValue('F'.$ii, $v['pm_pp'])
                             ->setCellValue('G'.$ii, $v['zijin_daozheng_jiner'])
-                            ->setCellValue('H'.$ii, $v['zijin_daozhang_datetime'])
+                            ->setCellValue('H'.$ii, date("Y-m-d",strtotime($v['zijin_daozhang_datetime'])))
                             ->setCellValue('I'.$ii, $v['pm_pp_cate'])
                             ->setCellValue('J'.$ii, $v['zijin_laiyuan_qudao'])
                             ->setCellValue('K'.$ii, $piaoju)
@@ -408,7 +408,7 @@
                             ->setCellValue('E'.$ii, $this->department[$v[department]])
                             ->setCellValue('F'.$ii, $v['pm_pp'])
                             ->setCellValue('G'.$ii, $v['zijin_daozheng_jiner'])
-                            ->setCellValue('H'.$ii, $v['zijin_daozhang_datetime'])
+                            ->setCellValue('H'.$ii, date("Y-m-d",strtotime($v['zijin_daozhang_datetime'])))
                             ->setCellValue('I'.$ii, $v['pm_pp_cate'])
                             ->setCellValue('J'.$ii, $v['zijin_laiyuan_qudao'])
                             ->setCellValue('K'.$ii, $piaoju)
@@ -546,7 +546,7 @@
 							->setCellValue('D'.$ii, $this->department[$v[department]])
 							->setCellValue('E'.$ii, $shiyong_type)
 							->setCellValue('F'.$ii, $v['shiyong_zhichu_jiner'])
-							->setCellValue('G'.$ii, $v['shiyong_zhichu_datetime'])
+							->setCellValue('G'.$ii, date("Y-m-d",strtotime($v['shiyong_zhichu_datetime'])))
 							->setCellValue('H'.$ii, $v['jiangli_fanwei'])
 							->setCellValue('I'.$ii, $v['jiangli_renshu']);
 						$ii++;
@@ -689,7 +689,7 @@
                             ->setCellValue('D'.$ii, $this->department[$v[department]])
                             ->setCellValue('E'.$ii, $shiyong_type)
                             ->setCellValue('F'.$ii, $v['shiyong_zhichu_jiner'])
-                            ->setCellValue('G'.$ii, $v['shiyong_zhichu_datetime'])
+                            ->setCellValue('G'.$ii, date("Y-m-d",strtotime($v['shiyong_zhichu_datetime'])))
                             ->setCellValue('H'.$ii, $v['jiangli_fanwei'])
                             ->setCellValue('I'.$ii, $v['jiangli_renshu']);
                         $ii++;
