@@ -483,6 +483,10 @@
 						$zhichuinfo ->selectLimit .= " and c.department=".$department;
 					}
 
+					if($shiyong_type != ""){
+						$zhichuinfo ->selectLimit .= " and pm_mg_info.shiyong_type=".$shiyong_type;
+					}
+
 					if($shiyong_zhichu_datetime != "" && $shiyong_zhichu_datetime1 != ""){
 						$zhichuinfo ->selectLimit .= " and shiyong_zhichu_datetime between '$shiyong_zhichu_datetime' and '$shiyong_zhichu_datetime1'";
 					}
