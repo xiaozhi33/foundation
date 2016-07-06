@@ -4,12 +4,17 @@
 		private $dbhelper;
 		public function indexAction(){
             $type = $_REQUEST["type"];
+			$shiyong_type = HttpUtil::postString("shiyong_type");
 			$pname = HttpUtil::postString("pname");
 			$zhichudate = HttpUtil::postString("zhichudate");
 			$pminfo = new pm_mg_infoDAO();
 
 			if($pname != ""){
                 $pminfo ->selectLimit .= " and pm_name like '%".$pname."%'";
+			}
+
+			if($shiyong_type != ""){
+				$pminfo ->selectLimit .= " and shiyong_type=".$shiyong_type;
 			}
 			
 			if($zhichudate != ""){
