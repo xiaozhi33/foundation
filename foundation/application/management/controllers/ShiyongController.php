@@ -3,7 +3,7 @@
 	class Management_shiyongController extends BaseController {
 		private $dbhelper;
 		public function indexAction(){
-            $type = $_REQUEST["type"];
+            //$type = $_REQUEST["type"];
 			$shiyong_type = $_REQUEST["shiyong_type"];
 			$pname = $_REQUEST["pname"];
 			$zhichudate = $_REQUEST["zhichudate"];
@@ -20,7 +20,7 @@
 			if($zhichudate != ""){
 				$pminfo ->shiyong_zhichu_datetime = $zhichudate;
 			}
-            $pminfo ->shiyong_type = $type;
+            //$pminfo ->shiyong_type = $type;
 			
 			$pminfo ->selectLimit .= " and cate_id = 1 order by shiyong_zhichu_datetime desc";
 			//$pminfo ->debugSql = true;
