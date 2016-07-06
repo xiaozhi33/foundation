@@ -4,9 +4,9 @@
 		private $dbhelper;
 		public function indexAction(){
             $type = $_REQUEST["type"];
-			$shiyong_type = HttpUtil::postString("shiyong_type");
-			$pname = HttpUtil::postString("pname");
-			$zhichudate = HttpUtil::postString("zhichudate");
+			$shiyong_type = $_REQUEST["shiyong_type"];
+			$pname = $_REQUEST["pname"];
+			$zhichudate = $_REQUEST["zhichudate"];
 			$pminfo = new pm_mg_infoDAO();
 
 			if($pname != ""){
