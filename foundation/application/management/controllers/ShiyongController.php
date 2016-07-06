@@ -86,6 +86,10 @@
 					alert_back("您输入的信息不完整，请查正后继续添加");
 				}
 
+				if($jiangli_renshu == ''){
+					$jiangli_renshu = 0;
+				}
+
 				$pm_mg_infoDAO = new pm_mg_infoDAO();
 				$pm_mg_infoDAO ->beizhu = $beizhu;
 				$pm_mg_infoDAO ->jiangli_renshu = $jiangli_renshu;
