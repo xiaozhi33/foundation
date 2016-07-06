@@ -97,6 +97,7 @@
 				$pm_mg_infoDAO ->shiyong_type = $shiyong_type;
 
 				$pm_mg_infoDAO ->cate_id = 1;
+				$pm_mg_infoDAO ->is_renling = 1; // 后台添加默认为已认领
 
 				if($_FILES['pm_files']['name']!=""){
 					if($_FILES['pm_files']['error'] != 4){
