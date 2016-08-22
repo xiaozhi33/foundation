@@ -451,8 +451,17 @@
             (int)$id = $_REQUEST['id'];
             $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
             $zw_lkrl_logsDAO ->findId($id);
+            $zw_lkrl_logs = $zw_lkrl_logsDAO->get();
+
+            $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
+            $zw_lkrl_logsDAO ->findId($id);
             $zw_lkrl_logsDAO ->is_del = 1;
             $zw_lkrl_logsDAO ->save();
+
+            $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+            $pm_mg_infoDAO ->findILsh($zw_lkrl_logs[0]['lsh']);
+            $pm_mg_infoDAO ->is_renling = 2; // 逻辑删除认领数据
+            $pm_mg_infoDAO ->save();
 
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
