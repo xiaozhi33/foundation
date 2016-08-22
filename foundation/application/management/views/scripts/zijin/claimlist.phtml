@@ -91,6 +91,11 @@
                                 <a onclick="javascript:noTips_click(<?php echo $v['id'];?>);">
                                     <button class="btn btn-greensea margin-bottom-20" type="button">认领项目</button>
                                 </a>
+
+                                <a onclick="javascript:delete_click(<?php echo $v['id'];?>);">
+                                    <button class="btn btn-red margin-bottom-20" type="button">删除</button>
+                                </a>
+
                                 <?php }else{ ?>
                                     <a href="/management/zijin/editzijin?id=<?php echo $v['id'];?>">
                                         <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
@@ -147,6 +152,12 @@
                             $('#popover-msg').html(data['msg']);
                         }
                     });*/
+                }
+            }
+
+            function delete_click(pm_id){
+                if(confirm("确定要删除该笔款项吗？删除将不能找回。")) {
+                    location.href = "/management/zijin/del-claim?pm_id="+pm_id;
                 }
             }
 

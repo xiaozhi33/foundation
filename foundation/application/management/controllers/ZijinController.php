@@ -256,7 +256,7 @@
         }
 
         /**
-         * 同步来款信息，新同步到项目信息表中，并记录到同步记录表中
+         * 同步来款信息，先同步到项目信息表中，并记录到同步记录表中
          */
         public function synclkrl(){
             $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
@@ -441,6 +441,24 @@
             }catch(Exception $e){
                 throw $e;
             }
+        }
+
+        /**
+         * 删除认领log记录
+         */
+        public function delClaimAction()
+        {
+            (int)$id = $_REQUEST['id'];
+            $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
+            $zw_lkrl_logsDAO ->findId($id);
+            $zw_lkrl_logsDAO ->delete();
+
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('删除成功');");
+            echo("location.href='/management/zijin/claimlist';");
+            echo('</script>');
+            exit;
         }
 
 
