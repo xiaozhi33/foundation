@@ -260,7 +260,7 @@
          */
         public function synclkrl(){
             $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
-            $zw_lkrl_logsDAO ->selectLimit .= " and status=0";
+            $zw_lkrl_logsDAO ->selectLimit .= " and status=0 and is_del=0"; //is_del 是否逻辑删除
             $zw_lkrl_list = $zw_lkrl_logsDAO->get();
 
             if(!empty($zw_lkrl_list)){
@@ -309,6 +309,8 @@
             // 同步财务来款信息
             $zw_lkglDAO = new CW_API();
             $lkgl_list = $zw_lkglDAO ->getlkgl();
+
+            var_dump($lkgl_list);exit();
 
             // 遍历循环插入lkrl_log表中
             foreach($lkgl_list as $k => $v){
@@ -451,7 +453,8 @@
             (int)$id = $_REQUEST['id'];
             $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
             $zw_lkrl_logsDAO ->findId($id);
-            $zw_lkrl_logsDAO ->delete();
+            $zw_lkrl_logsDAO ->is_del = 1;
+            $zw_lkrl_logsDAO ->save();
 
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
