@@ -310,8 +310,6 @@
             $zw_lkglDAO = new CW_API();
             $lkgl_list = $zw_lkglDAO ->getlkgl();
 
-            var_dump($lkgl_list);exit();
-
             // 遍历循环插入lkrl_log表中
             foreach($lkgl_list as $k => $v){
                 $lk = $this->islkrl($v['lsh']);  // 判断是否重复添加
