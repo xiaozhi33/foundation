@@ -314,7 +314,7 @@
             foreach($lkgl_list as $k => $v){
                 $lk = $this->islkrl($v['lsh']);  // 判断是否重复添加
 
-                if(empty($lk)){
+                if(empty($lk[0]['lsh'])){
                     $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
                     $zw_lkrl_logsDAO ->lsh = $v['lsh'];
                     $zw_lkrl_logsDAO ->lkrq = $v['lkrq'];
