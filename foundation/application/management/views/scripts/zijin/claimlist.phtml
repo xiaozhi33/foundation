@@ -92,7 +92,7 @@
                                     <button class="btn btn-greensea margin-bottom-20" type="button">认领项目</button>
                                 </a>
 
-                                <a onclick="javascript:delete_click(<?php echo $v['id'];?>);">
+                                <a onclick="javascript:delete_click(<?php echo $v['lsh'];?>);">
                                     <button class="btn btn-red margin-bottom-20" type="button">删除</button>
                                 </a>
 
@@ -125,7 +125,7 @@
             var pm_id;
             function noTips_click(pm_id){
                 if(confirm("确定要认领该笔款项吗？认领将不能修改。")) {
-                    location.href = "/management/zijin/binding-claim?pm_id="+pm_id;
+                    location.href = "/management/zijin/binding-claim?lsh="+lsh;
                     /*$.ajax({
                         type: 'get',
                         url: "/management/zijin/binding-claim",

@@ -448,13 +448,13 @@
          */
         public function delClaimAction()
         {
-            (int)$id = $_REQUEST['id'];
+            $lsh = $_REQUEST['lsh'];
             $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
-            $zw_lkrl_logsDAO ->findId($id);
+            $zw_lkrl_logsDAO ->findLsh($lsh);
             $zw_lkrl_logs = $zw_lkrl_logsDAO->get();
 
             $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
-            $zw_lkrl_logsDAO ->findId($id);
+            $zw_lkrl_logsDAO ->findLsh($lsh);
             $zw_lkrl_logsDAO ->is_del = 1;
             $zw_lkrl_logsDAO ->save();
 
