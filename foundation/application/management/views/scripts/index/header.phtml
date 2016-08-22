@@ -407,7 +407,9 @@
                         <li>
                             <a href="/management/zijin/claimlist">
                                 <i class="fa fa-caret-right"></i> 来款认领 - 财务推送认领
-                                <span class="badge badge-red"><?php echo count($this->renling_weirenling_list);?></span>
+                                <?php if(count($this->renling_weirenling_list) > 0){?>
+                                    <span class="badge badge-red"><?php echo count($this->renling_weirenling_list);?></span>
+                                <?php }?>
                             </a>
                         </li>
                         <li>
