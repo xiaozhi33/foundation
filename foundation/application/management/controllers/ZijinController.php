@@ -459,7 +459,7 @@
             $zw_lkrl_logsDAO ->save();
 
             $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
-            $pm_mg_infoDAO ->findILsh($zw_lkrl_logs[0]['lsh']);
+            $pm_mg_infoDAO ->findLsh($zw_lkrl_logs[0]['lsh']);
             $pm_mg_infoDAO ->is_renling = 2; // 逻辑删除认领数据
             $pm_mg_infoDAO ->save();
 
