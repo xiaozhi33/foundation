@@ -469,6 +469,7 @@
             echo("location.href='/management/zijin/claimlist';");
             echo('</script>');
             exit;
+
         }
 
 
