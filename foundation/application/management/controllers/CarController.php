@@ -6,7 +6,12 @@ class Management_carController extends BaseController
 
     public function indexAction()
     {
-        $meetingDAO = $this->orm->createDAO('material_mg_car_main')->order('id DESC');
+        $meetingDAO = $this->orm->createDAO('material_mg_cars_main');
+        $car_number = HttpUtil::postString("car_number");
+        if(!empty($car_number)){
+            $meetingDAO->findCar_number($car_number);
+        }
+        $meetingDAO = $meetingDAO->order('id DESC');
         $meetingDAO->getPager(array('path'=>'/management/car/index'))->assignTo($this->view);
 
         echo $this->view->render("index/header.phtml");
@@ -23,11 +28,11 @@ class Management_carController extends BaseController
     public function toAddcarmainAction(){
         $id = $_REQUEST['id'];
         $carDAO = $this->orm->createDAO('material_mg_cars_main');
-        $carDAO ->name = HttpUtil::postString("name");
-        $carDAO ->car_number = HttpUtil::postString("car_number");
-        $carDAO ->description = HttpUtil::postString("description");
+        $name = HttpUtil::postString("name");
+        $car_number = HttpUtil::postString("car_number");
+        $description = HttpUtil::postString("description");
 
-        if($carDAO ->car_number == ''|| $carDAO ->car_number == ''){
+        if($name == ''|| $car_number == ''){
             //alert_back("您输入的信息不完整，请查正后继续添加！！！！！");
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
@@ -36,6 +41,22 @@ class Management_carController extends BaseController
             echo('</script>');
             exit;
         }
+
+        $hasCarNumber = $this->hasCarNumber($car_number);
+        if($hasCarNumber){
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('该车辆信息已添加，请核对后重新添加！！！！！');");
+            echo('history.back();');
+            echo('</script>');
+            exit;
+        }
+
+        $carDAO ->name = $name;
+        $carDAO ->car_number = $car_number;
+        $carDAO ->description = $description;
+
+
         if(!empty($id))  //修改流程
         {
             $carDAO ->findId($id);
@@ -56,7 +77,7 @@ class Management_carController extends BaseController
         echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
         echo('<script language="JavaScript">');
         echo("alert('保存成功');");
-        echo("location.href='/management/meeting';");
+        echo("location.href='/management/car';");
         echo('</script>');
         exit;
 
@@ -88,7 +109,7 @@ class Management_carController extends BaseController
         exit();
     }
 
-    public function delAction(){
+    public function delcarmainAction(){
         $id = HttpUtil::getString("id");
         $carDAO = $this->orm->createDAO('material_mg_cars_main');
         $carDAO ->findId($id);
@@ -164,6 +185,20 @@ class Management_carController extends BaseController
     public function hasUserCarAction($star_time,$end_time){
         $carDAO = $this->orm->createDAO('material_mg_cars');
         $carDAO ->selectLimit .= " use_starttime < ".$star_time." OR use_endtime >".$end_time;
+    }
+
+    /**
+     * check是否已经存在车辆信息
+     */
+    public function hasCarNumber($car_number){
+        $carDAO = $this->orm->createDAO('material_mg_cars_main');
+        $carDAO ->findCar_number($car_number);
+        $carDAO = $carDAO->get();
+        if(!empty($carDAO)){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public function _init(){

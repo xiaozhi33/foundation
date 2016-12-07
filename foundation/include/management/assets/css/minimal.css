@@ -13676,6 +13676,12 @@ body.bg-0 .card-container .card .front .media .media-object{
 	font-size:24px;
 	margin-top:0px;
 }
+
+body #content .tile.color .tile-header, body #content .tile.color .tile-widget, body #content .tile.color .tile-body, body #content .tile.color .tile-footer, body #content .tile.color .tile-left-side, body #content .tile.color .tile-right-side {
+    color: #666;
+    background-color: transparent;
+}
+
 /************* RESPONSIVE *************/
 /**************************************/
 @media only screen and (max-width: 1700px) {
