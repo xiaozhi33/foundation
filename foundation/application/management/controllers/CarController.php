@@ -43,13 +43,20 @@ class Management_carController extends BaseController
         }
 
         $hasCarNumber = $this->hasCarNumber($car_number);
-        if($hasCarNumber){
-            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
-            echo('<script language="JavaScript">');
-            echo("alert('该车辆信息已添加，请核对后重新添加！！！！！');");
-            echo('history.back();');
-            echo('</script>');
-            exit;
+        if(empty($id)) {
+            if ($hasCarNumber) {
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('该车辆信息已添加，请核对后重新添加！！！！！');");
+                echo('history.back();');
+                echo('</script>');
+                exit;
+            }
+        }else {
+            if ($hasCarNumber) {
+                echo json_encode(array('msg' => "该车辆信息已添加，请核对后重新添加！！！！！！", 'return_url' => '/management/car/'));
+                exit;
+            }
         }
 
         $carDAO ->name = $name;
@@ -74,15 +81,17 @@ class Management_carController extends BaseController
             exit;
         }
 
-        echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
-        echo('<script language="JavaScript">');
-        echo("alert('保存成功');");
-        echo("location.href='/management/car';");
-        echo('</script>');
-        exit;
-
-        /*echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/meeting/'));
-        exit;*/
+        if(empty($id)){
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('保存成功');");
+            echo("location.href='/management/car';");
+            echo('</script>');
+            exit;
+        }else {
+            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/car/'));
+            exit;
+        }
     }
 
     public function editcarmainAction(){
