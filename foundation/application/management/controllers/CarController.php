@@ -6,7 +6,7 @@ class Management_carController extends BaseController
 
     public function indexAction()
     {
-        $meetingDAO = $this->orm->createDAO('material_mg_cars')->order('id DESC');
+        $meetingDAO = $this->orm->createDAO('material_mg_car_main')->order('id DESC');
         $meetingDAO->getPager(array('path'=>'/management/car/index'))->assignTo($this->view);
 
         echo $this->view->render("index/header.phtml");
@@ -14,18 +14,20 @@ class Management_carController extends BaseController
         echo $this->view->render("index/footer.phtml");
     }
 
-    public function addAction(){
+    public function addcarmainAction(){
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("car/addcar.phtml");
+        echo $this->view->render("car/addcarmain.phtml");
         echo $this->view->render("index/footer.phtml");
     }
 
-    public function toAddAction(){
+    public function toAddcarmainAction(){
         $id = $_REQUEST['id'];
-        $carDAO = $this->orm->createDAO('material_mg_cars');
+        $carDAO = $this->orm->createDAO('material_mg_cars_main');
+        $carDAO ->name = HttpUtil::postString("name");
         $carDAO ->car_number = HttpUtil::postString("car_number");
+        $carDAO ->description = HttpUtil::postString("description");
 
-        if($carDAO ->car_number){
+        if($carDAO ->car_number == ''|| $carDAO ->car_number == ''){
             //alert_back("您输入的信息不完整，请查正后继续添加！！！！！");
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
@@ -62,9 +64,9 @@ class Management_carController extends BaseController
         exit;*/
     }
 
-    public function editAction(){
+    public function editcarmainAction(){
         $id = HttpUtil::getString("id");
-        $carDAO = $this->orm->createDAO('material_mg_cars');
+        $carDAO = $this->orm->createDAO('material_mg_cars_main');
         $carDAO ->findId($id);
         $carDAO = $carDAO ->get();
 
@@ -72,23 +74,23 @@ class Management_carController extends BaseController
         {
             $this->view->assign("car_info", $carDAO);
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("car/editcar.phtml");
+            echo $this->view->render("car/editcarmain.phtml");
             echo $this->view->render("index/footer.phtml");
             exit();
         }
-        $carDAO = $this->orm->createDAO('material_mg_cars')->order('id DESC');
+        $carDAO = $this->orm->createDAO('material_mg_cars_main')->order('id DESC');
 
         $this->view->assign("car_info", $carDAO);
 
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("car/editcar.phtml");
+        echo $this->view->render("car/editcarmain.phtml");
         echo $this->view->render("index/footer.phtml");
         exit();
     }
 
     public function delAction(){
         $id = HttpUtil::getString("id");
-        $carDAO = $this->orm->createDAO('material_mg_cars');
+        $carDAO = $this->orm->createDAO('material_mg_cars_main');
         $carDAO ->findId($id);
         $carDAO = $carDAO ->delete();
 
@@ -103,7 +105,7 @@ class Management_carController extends BaseController
 
     public function _init(){
         error_reporting(0);
-        $carList = $this->orm->createDAO('material_mg_cars')->get();
+        $carList = $this->orm->createDAO('material_mg_cars_main')->get();
         SessionUtil::sessionStart();
         SessionUtil::checkmanagement();
 

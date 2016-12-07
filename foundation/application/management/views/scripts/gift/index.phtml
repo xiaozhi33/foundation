@@ -7,13 +7,13 @@
     <div class="pageheader">
 
         <h2><i class="fa fa-tachometer"></i> Dashboard
-            <span>车辆列表</span></h2>
+            <span>会议列表</span></h2>
 
         <div class="breadcrumbs">
             <ol class="breadcrumb">
                 <li>您的位置</li>
-                <li>车辆管理</li>
-                <li class="active">车辆管理</li>
+                <li>会议管理</li>
+                <li class="active">会议列表</li>
             </ol>
         </div>
 
@@ -31,9 +31,27 @@
 				<div class="form-group">
 				<div class="row">
 					<div class="form-group col-sm-3">
-						<label for="input05">车辆车牌照：</label>
+						<label for="input05">会议名称：</label>
 						<input type="text" class="form-control" name="meeting_name" />
 					</div>
+					<div class="form-group col-sm-3">
+						<label for="input01">会议类型：</label>
+						<select class="form-control" name="department">
+							<option value="" >请选择类型</option>
+								<?php if($this->meetingCateList != ""){
+								foreach ($this->meetingCateList as $k => $v){?>
+									<option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
+								<?php }}?>
+						</select>
+					</div>
+                <!-- </div>
+					<div class="form-group col-sm-3">
+						<div class="form-group col-sm-3">
+							<label for="input03">项目起始日期：</label>
+							<input name="starttime" data-date-format="YYYY-MM-DD HH:mm:ss"  type="text" class="form-control" id="datepicker">
+						</div>
+					</div>
+				<div class="row">-->
 					<div class="form-group">
 							<div class="col-md-offset-1 col-sm-2">
                             	<label for="input01"> </label>
@@ -51,9 +69,9 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="24%">车辆名称</td>
-						<td width="24%">车辆车牌照</td>
-						<td width="20%">车辆信息（颜色品牌）</td>
+						<td width="24%">会议名称</td>
+						<td width="20%">会议类型</td>
+						<td width="18%">参会人员</td><td width="18%">会议内容摘要</td>
 						<td width="13%">操作</td>
 					  </tr>
 					</thead>
@@ -61,12 +79,16 @@
 					  <?php
 						foreach($this->pageData as $k=>$v){?>
 						 <tr>
-						 	<td><?php echo $v['name'];?>&nbsp;</td>
-							<td><?php echo $v['car_number'];?>&nbsp;</td>
-							<td><?php echo $v['description'];?>&nbsp;</td>
-							<td><a href="/management/car/editcarmain?id=<?php echo $v['id'];?>">
+						 	<td><?php echo $v['meeting_name'];?>&nbsp;</td>
+							<td><?php  foreach ($this->meetingCateList as $kk => $vv){
+								if($vv['id'] == $v['meeting_cate']){ echo $vv['catename'];}
+								}?>&nbsp;</td>
+								
+							<td><?php echo $v['meeting_joiner'];?>&nbsp;</td>
+							<td><?php echo $v['meeting_content'];?>&nbsp;</td>
+							<td><a href="/management/meeting/edit?id=<?php echo $v['id'];?>">
                             <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
-                             <a href="/management/car/delcarmain?id=<?php echo $v['id'];?>">
+                             <a href="/management/meeting/del?id=<?php echo $v['id'];?>">
                              <button type="button" class="btn btn-danger margin-bottom-20">删除</button></a>
                             </td>
 						 </tr>
@@ -77,10 +99,10 @@
 					<div class="tile-footer bg-transparent-black-2">
 					<div class="row">
 					<div class="page col-md-12" align="right">
-						共  <?php echo $this->totalItems;?> 台车辆          <?php echo $this->page['all'];?></div>
+						共  <?php echo $this->totalItems;?> 条会议信息          <?php echo $this->page['all'];?></div>
 					
 				 <?php }else{?>
-				 	<div>暂无网站资讯！<a href="/management/car/addcarmain">点击添加</a></div>
+				 	<div>暂无网站资讯！<a href="/management/meeting/add">点击添加</a></div>
 				 <?php }?>
 				 </div>
 				 </div>
