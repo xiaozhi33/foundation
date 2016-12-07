@@ -161,6 +161,11 @@ class Management_carController extends BaseController
         exit;*/
     }
 
+    public function hasUserCarAction($star_time,$end_time){
+        $carDAO = $this->orm->createDAO('material_mg_cars');
+        $carDAO ->selectLimit .= " use_starttime < ".$star_time." OR use_endtime >".$end_time;
+    }
+
     public function _init(){
         error_reporting(0);
         $carList = $this->orm->createDAO('material_mg_cars_main')->get();
