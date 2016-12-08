@@ -1,0 +1,124 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>礼品使用信息列表</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>礼品使用信息</li>
+            <li class="active">礼品使用信息列表</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+	
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+			<div class="col-md-12">
+				<section class="tile color transparent-black">
+			<div class="detailedbox tile-body">
+                <form class="form-horizontal" action="to-addusegift" method="post" encType="multipart/form-data">
+
+                    <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input02">使用礼品：</label>
+                            <div class="col-sm-3">
+                                <select class="chosen-select chosen-transparent form-control" name="name">
+                                    <option value="" >请选择礼品名称</option>
+                                    <?php if($this->giftList != ""){
+                                    foreach ($this->giftList as $k => $v){?>
+                                        <option value="<?php echo $v['id']?>" ><?php echo $v['name']?></option>
+                                    <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input06">赠送日期：</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" data-date-format="YYYY-MM-DD HH:mm:00" type="text"  id="datepicker"  name="gift_datetime" size="14"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">经手人：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="brokerage" />
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">用途：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="use" />
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">客户姓名：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="customer_name" />
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">客户电话：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="customer_tel" />
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">客户地址：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="customer_address" />
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">赠送数量：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="gift_count" />
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">备注：</label>
+                        <div class="col-sm-9">
+                            <textarea parsley-validation-minlength="1" name="gift_remarks" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea>
+                        </div>
+                    </div>
+					
+					<div class="form-group form-footer">
+						<div class="col-sm-offset-5 col-sm-7">
+							<input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input class="btn btn-default" type="reset" value="重 置" /> 
+						</div>
+					</div>
+			</form>
+			</div>
+		 </section>
+			</div>
+		</div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(56)").addClass("open");
+        </script>
+
