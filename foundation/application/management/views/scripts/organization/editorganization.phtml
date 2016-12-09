@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>编辑机构信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>机构信息</li>
+            <li class="active">编辑机构信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+        <div class="col-md-12">
+            <section class="tile color transparent-black">
+                <div class="detailedbox tile-body">
+                    <form class="form-horizontal" id="form1" action="to-addorganizationmain" method="post" encType="multipart/form-data">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">机构名称：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" value="<?php echo $this->organization_info[0]['name'];?>" type="text" name="name" />
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">机构车牌照：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" value="<?php echo $this->organization_info[0]['organization_number'];?>" type="text" name="organization_number" />
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">机构信息（颜色、规格）：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" value="<?php echo $this->organization_info[0]['description'];?>" type="text" name="description" />
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <input class="btn btn-default" name="id" type="hidden" value="<?php echo $this->organization_info[0]['id'];?>" />
+                        <div class="form-group form-footer">
+                            <div class="col-sm-offset-5 col-sm-7">
+                                <input class="btn btn-primary" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input class="btn btn-default" type="reset" value="重 置" />
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="/include/management/assets/js/jquery.js"></script>
+    <script language="javascript">
+        $(".menu li:eq(53)").addClass("open");
+    </script>
+
