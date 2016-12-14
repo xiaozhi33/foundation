@@ -1599,6 +1599,84 @@
             exit;
         }
 
+		/**
+		 * @throws Exception
+		 * 年度配比情况统计toExcel
+		 */
+		public function allpeibitoexcelAction(){
+			$start = $_REQUEST["starttime"];
+			$end = $_REQUEST["endtime"];
+			$pm_mg_info = $this->orm->createDAO("pm_mg_info");
+			$pm_mg_info ->selectLimit .= ' AND cast(zijin_daozheng_jiner as SIGNED INTEGER)>100000 ';
+			if ($start != "" && $end != ""){
+				$pm_mg_info ->selectLimit .= " and zijin_daozhang_datetime between '$start' and '$end' ";
+			}
+			$pm_mg_info = $pm_mg_info->get();
+
+			if (count($pm_mg_info) == 0){
+				alert_back("查无结果，请重新查询");
+			}
+
+			require_once 'phpexcel/Classes/PHPExcel.php';
+			// Create new PHPExcel object
+			$zijintj = new PHPExcel();
+
+			// Set properties
+			$zijintj->getProperties()->setCreator("TJ BYJJH")
+				->setLastModifiedBy("TJ BYJJH")
+				->setTitle("Office 2007 XLSX  Document")
+				->setSubject("Office 2007 XLSX  Document")
+				->setDescription("document for Office 2007 XLSX, generated using PHP classes.")
+				->setKeywords("office 2007 openxml php")
+				->setCategory("rescues");
+			// Add some data
+			$zijintj->setActiveSheetIndex(0)
+				->setCellValue('A1', '序号')
+				->setCellValue('B1', '项目id')
+				->setCellValue('C1', '项目名称 ')
+				->setCellValue('D1', '是否配比')
+				->setCellValue('E1', '是否通过配比')
+				->setCellValue('F1', '拒批原因')
+				->setCellValue('G1', '配比金额')
+				->setCellValue('H1', '配比下发时间')
+				->setCellValue('I1', '划拨部门')
+				->setCellValue('J1', '卡号')
+				->setCellValue('K1', '经费负责人')
+				->setCellValue('L1', '配比审批人');
+
+			$ii = 2;
+			foreach($pm_mg_info as $v){
+				$zijintj->setActiveSheetIndex(0)
+					->setCellValue('A'.$ii, $v['id'])
+					->setCellValue('B'.$ii, $v['pm_id'])
+					->setCellValue('C'.$ii, $v['pm_name'])
+					->setCellValue('D'.$ii, $v['is_peibi'])
+					->setCellValue('E'.$ii, $v['is_pass'])
+					->setCellValue('F'.$ii, $v['jpyy'])
+					->setCellValue('G'.$ii, $v['zijin_daozheng_jiner'])
+					->setCellValue('H'.$ii, $v['peibi_datetime'])
+					->setCellValue('I'.$ii, $v['huabo_department'])
+					->setCellValue('J'.$ii, $v['card'])
+					->setCellValue('K'.$ii, $v['jffzr'])
+					->setCellValue('L'.$ii, $v['peibi_spr']);
+				$ii++;
+			}
+			$ii = "";
+
+			$zijintj->getActiveSheet()->setTitle('huikui');
+			$zijintj->setActiveSheetIndex(0);
+
+			ob_end_clean();
+			ob_start();
+
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename="配比统计.xls"');
+			header('Cache-Control: max-age=0');
+			$objWriter = PHPExcel_IOFactory::createWriter($zijintj, 'Excel5');
+			$objWriter->save('php://output');
+			exit;
+		}
+
         /**
          * @throws Exception 新的筹资统计
          */
