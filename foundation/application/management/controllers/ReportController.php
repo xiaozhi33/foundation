@@ -1516,7 +1516,7 @@
             exit;
         }
 
-        //配比toExcel
+        //配比toExcel - 院系申请使用配比基金
         public function peibitoexcelAction(){
             $pname = $_REQUEST["pname"];
             $pm_mg_peibi = $this->orm->createDAO("pm_mg_peibi");
@@ -1602,6 +1602,7 @@
 		/**
 		 * @throws Exception
 		 * 年度配比情况统计toExcel
+		 * 基金会向国家申请配比统计
 		 */
 		public function allpeibitoexcelAction(){
 			$start = $_REQUEST["starttime"];
