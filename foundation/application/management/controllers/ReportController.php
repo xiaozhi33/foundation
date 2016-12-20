@@ -1643,6 +1643,7 @@
             if ($pname != ""){
                 $pm_mg_info ->selectLimit .= " and `pm_mg_chouzi`.pname = '$pname'";
             }
+            $pm_mg_info ->selectLimit .= ' order by `pm_mg_chouzi`.id ';
             $pm_mg_info = $pm_mg_info->get();
 
             //////////////////////////获取项目捐赠笔数/////////////////////////////////////////////////////
@@ -1665,7 +1666,7 @@
             if ($pname != ""){
                 $pm_mg_info_g ->selectLimit .= " and `pm_mg_chouzi`.pname = '$pname'";
             }
-            $pm_mg_info_g ->selectLimit .= ' group by `pm_mg_chouzi`.id ';
+            $pm_mg_info_g ->selectLimit .= ' group by `pm_mg_chouzi`.id order by `pm_mg_chouzi`.id';
             $pm_mg_info_g = $pm_mg_info_g->get();
 
             if(!empty($pm_mg_info_g)){
