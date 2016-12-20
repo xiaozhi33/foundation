@@ -1,6 +1,6 @@
 /*@import url(http://fonts.useso.com/css?family=Ubuntu+Mono|Roboto:400,100,300,500,700,300italic|Roboto+Condensed:300,400,700|Roboto+Slab:400,700&subset=latin,latin-ext);*/
 /*****************************************/
-/************* MAIN SETTINGS *************/
+/************* 主要设置 *************/
 /*****************************************/
 *, html, body{
 	font-family:"Microsoft YaHei","Roboto", "Arial", sans-serif;
@@ -144,7 +144,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   -webkit-transform: translateZ(0); }
 .copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
 /**********************************/
-/************* NAVBAR *************/
+/************* 导航栏 *************/
 /**********************************/
 body .navbar {
   min-height: 45px;
@@ -474,7 +474,7 @@ body .navbar {
       margin-left: 2px; }
 
 /***********************************/
-/************* SIDEBAR *************/
+/************* 侧边栏 *************/
 /***********************************/
 body .navbar .navbar-nav.side-nav {
   width: 250px;
@@ -894,7 +894,7 @@ body .navbar .navbar-nav.side-nav {
               color: #418bca; }
 
 /*********************************/
-/************* TILES *************/
+/************* 框架 *************/
 /*********************************/
 body #content .tile {
   position: relative;
@@ -2262,7 +2262,7 @@ body #content .tile-right-side {
         body #content .tile-right-side.transparent-black table > tfoot > tr.info > td,
         body #content .tile-right-side.transparent-black table > tfoot > tr.info > tr {
           background-color: rgba(34, 190, 239, 0.1); }
-/***********table end*****************/	  
+/***********表格 end*****************/	  
   body #content .tile.color ul.inline.divided > li, body #content .tile.transparent-black ul.inline.divided > li,
   body #content .tile-header.color ul.inline.divided > li,
   body #content .tile-header.transparent-black ul.inline.divided > li,
@@ -7909,7 +7909,7 @@ body #content .modal .modal-dialog .modal-content .input-group .form-control:not
           color: rgba(255, 255, 255, 0.6); }
 
 /****************************************/
-/************* BREADCRUMBS **************/
+/************* 面包屑 **************/
 /****************************************/
 ol.breadcrumb {
   -webkit-border-radius: 4px;
@@ -7930,7 +7930,7 @@ ol.breadcrumb {
       color: white; }
 
 /**************************************/
-/************* DROPDOWNS **************/
+/************* 下拉菜单 **************/
 /**************************************/
 ul.dropdown-menu.example {
   position: static;
@@ -7992,7 +7992,7 @@ li.dropdown ul.dropdown-menu.bordered > li {
     border-bottom: 0; }
 
 /******************************************/
-/************* PROGRESS BARS **************/
+/************* 进度条 **************/
 /******************************************/
 .progress-info {
   margin-bottom: 5px; }
@@ -9261,7 +9261,7 @@ dl.filled {
       background: #d9544f; }
 
 /*********************************/
-/************* LISTS *************/
+/************* 列表 *************/
 /*********************************/
 ul.inline {
   padding: 0;
@@ -9310,7 +9310,7 @@ ul.chart-legend > li {
     font-size: 12px; }
 
 /***********************************/
-/************* BUTTONS *************/
+/************* 按钮 *************/
 /***********************************/
 .btn {
   -webkit-transition: all .25s ease-in-out;
@@ -9473,7 +9473,7 @@ a.submit:hover {
   text-decoration: none; }
 
 /**********************************/
-/************* MODALS *************/
+/************* 模态弹出框 *************/
 /**********************************/
 .modal {
   overflow-y: auto;
@@ -9532,7 +9532,7 @@ a.submit:hover {
   opacity: 0.7; }
 
 /**************************************************/
-/************* ALERTS & NOTIFICATIONS *************/
+/************* 提醒 & 通知 *************/
 /**************************************************/
 .alert {
   padding: 5px 15px;
@@ -9693,7 +9693,7 @@ a.submit:hover {
     border-color: #eba6a3; }
 
 /**********************************/
-/************* PANELS *************/
+/************* 面板 *************/
 /**********************************/
 .panel {
   -webkit-border-radius: 6px;
@@ -9866,7 +9866,7 @@ a.submit:hover {
   width: 100%; }
 
 /**************************************/
-/************* PAGINATION *************/
+/************* 分页 *************/
 /**************************************/
 .pagination {
   vertical-align: bottom; }
@@ -10010,7 +10010,7 @@ a.submit:hover {
   border-radius: 2px 20px 20px 2px; }
 
 /*********************************/
-/************* PAGER *************/
+/************* 分页器 *************/
 /*********************************/
 .pager > li {
   margin: 0 2px; }
@@ -11239,7 +11239,7 @@ body #content .dataTables_wrapper {
   border-top-color: #717171; }
 
 /****************************************/
-/************* COLORPALETTE *************/
+/************* 调色板 *************/
 /****************************************/
 .bootstrap-colorpalette .btn-color {
   border: 0;
@@ -11259,7 +11259,7 @@ body #content .dataTables_wrapper {
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3); }
 
 /**********************************************/
-/************* JQUERY FILE UPLOAD *************/
+/************* JQUERY 上传文件 *************/
 /**********************************************/
 .fileupload-buttonbar {
   -webkit-user-select: none;
@@ -11374,7 +11374,7 @@ table tbody.files > tr > td {
       margin: 0; }
 
 /************************************/
-/************* CAROUSEL *************/
+/************* CAROUSEL 轮播插件 *************/
 /************************************/
 .carousel-control {
   -webkit-border-radius: 4px;
@@ -11423,7 +11423,7 @@ table tbody.files > tr > td {
     font-size: 12px; }
 
 /********************************/
-/************* MAPS *************/
+/************* 地图 *************/
 /********************************/
 .jvectormap-zoomin,
 .jvectormap-zoomout {
@@ -11497,7 +11497,7 @@ table tbody.files > tr > td {
   box-shadow: 0px 2px 4px #999999; }
 
 /************************************/
-/************* CALENDAR *************/
+/************* 日历 *************/
 /************************************/
 .cal-options {
   padding: 25px;
@@ -11908,7 +11908,7 @@ table tbody.files > tr > td {
     width: 15.85%; } 
 }
 /************************************/
-/************* TIMELINE *************/
+/************* 时间线 *************/
 /************************************/
 .timeline-heading {
   font-size: 13px;
@@ -12401,7 +12401,7 @@ table tbody.files > tr > td {
         border-bottom: 10px solid transparent; }
 
 /*************************************/
-/************* ACCORDION *************/
+/************* 手风琴效果 *************/
 /*************************************/
 .panel-group .panel {
   -moz-background-clip: padding;
@@ -12438,7 +12438,7 @@ table tbody.files > tr > td {
     line-height: 20px; }
 
 /********************************/
-/************* MAIL *************/
+/************* 邮件 *************/
 /********************************/
 body #content .vertical-mail > .row,
 body #content .horizontal-mail > .row {
@@ -13033,7 +13033,7 @@ body #content .horizontal-mail .mail-content {
   padding-left: 15px; }
 
 /**************************************/
-/************* LOGIN PAGE *************/
+/************* 登录页面 *************/
 /**************************************/
 body #content.full-page {
   position: fixed;
@@ -13174,7 +13174,7 @@ body #content.full-page {
           font-family: Georgia, serif; }
 
 /**************************************/
-/************* ERROR PAGE *************/
+/************* 错误页面 *************/
 /**************************************/
 body #content.full-page.error .inside-block {
   width: 500px;
@@ -13241,7 +13241,7 @@ body #content.full-page.error .search {
       color: rgba(255, 255, 255, 0.7); }
 
 /***********************************/
-/************* COLORS **************/
+/************* 颜色 **************/
 /***********************************/
 /* backgrounds */
 .bg-transparent-black-05 {
@@ -13557,132 +13557,7 @@ body #content.full-page.error .search {
     float: none;
     vertical-align: top; }
 
-/**************************************/
-/************bg-0背景****************/
-/**************************************/
-body.bg-0 {
-	  background-color:#F6F6F6; }
-body.bg-0 .navbar.navbar-transparent-black {
-    background-color:#00518e; }
-body.bg-0 .navbar .navbar-nav.side-nav{
-	  background-color:#333b43; }
-body.bg-0 .navbar .navbar-nav.side-nav > li > a.sidebar-toggle{
-    color: #EDF2F5; }
-body.bg-0 .navbar .navbar-nav.quick-actions .user .profile-photo{
-	display: inline-block;
-    width: 35px;
-    vertical-align: top;
-    overflow: hidden;
-    margin-left: 15px;
-    border-radius: 50%;
-    border: 1px solid rgba(0,0,0,0.2);
-    margin-top: 5px;
-} 
-body.bg-0 .navbar .navbar-nav.side-nav > li.navigation .menu > li > a > b.dropdown-plus{
-	color:#fff;
-}
-body.bg-0 #content .tile.color.transparent-black{
-	  background-color:#fff;
-	  border:1px solid #ddd;
-}
-body.bg-0 #content .tile.color .tile-header{
-	border-bottom:1px solid #ddd;
-}
-body.bg-0 #content .tile.color .tile-header h1{
-	color:#666;
-	font-family: "Microsoft YaHei",Arial, Helvetica, sans-serif;
-}
-body.bg-0 #content .tile.color .tile-header h1 strong{
-	font-size: 14px;
-    padding-left: 10px;
-}
-body.bg-0 .table tbody tr td{
-	-moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    border-color:#ddd;
-    border-image: none;
-    border-style: solid none none solid;
-    border-width: 1px 0 0 0px;
-    color: #666;
-}
-body.bg-0 #content .tile.color table.table-custom > thead > tr > th,
-body.bg-0 #content .tile.color table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile.transparent-black table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile.transparent-black table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile.transparent-white table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile.transparent-white table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-header.color table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-header.color table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-header.transparent-black table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-header.transparent-black table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-header.transparent-white table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-header.transparent-white table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-widget.color table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-widget.color table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-widget.transparent-black table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-widget.transparent-black table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-widget.transparent-white table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-widget.transparent-white table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-body.color table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-body.color table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-body.transparent-black table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-body.transparent-black table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-body.transparent-white table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-body.transparent-white table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-footer.color table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-footer.color table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-footer.transparent-black table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-footer.transparent-black table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-footer.transparent-white table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-footer.transparent-white table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-left-side.color table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-left-side.color table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-left-side.transparent-black table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-left-side.transparent-black table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-left-side.transparent-white table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-left-side.transparent-white table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-right-side.color table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-right-side.color table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-right-side.transparent-black table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-right-side.transparent-black table.table-custom > thead > tr > td, 
-body.bg-0 #content .tile-right-side.transparent-white table.table-custom > thead > tr > th, 
-body.bg-0 #content .tile-right-side.transparent-white table.table-custom > thead > tr > td{
-	color:#666;
-	border-color:#ddd;
-	background-color:#ddd;
-	text-align:center;
-}
-body.bg-0 #content .pageheader h2{
-    color:#666;
-    font-size: 32px;
-    font-weight: 300;
-    font-family: "Microsoft YaHei","Roboto", "Arial", sans-serif;
-}
-body.bg-0 #content .pageheader h2 i{
-	    padding: 0;
-    border-radius: 50%;
-    color:#666;
-    border: 2px solid #666;
-}
-body.bg-0 #content .pageheader h2 span{
-	font-size: 18px;
-    color: #666;
-    font-weight: 300;
-    font-style: normal;
-}
-body.bg-0 .card-container .card .front .media .media-object{
-	font-size:24px;
-	margin-top:0px;
-}
-
-body #content .tile.color .tile-header, body #content .tile.color .tile-widget, body #content .tile.color .tile-body, body #content .tile.color .tile-footer, body #content .tile.color .tile-left-side, body #content .tile.color .tile-right-side {
-    color: #666;
-    background-color: transparent;
-}
-
-/************* RESPONSIVE *************/
+/************* 响应式 *************/
 /**************************************/
 @media only screen and (max-width: 1700px) {
   /* mail */
