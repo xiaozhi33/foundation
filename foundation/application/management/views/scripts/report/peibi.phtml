@@ -1,7 +1,17 @@
-<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
-<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
-<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
-<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+<link rel="stylesheet" href="/include/management/datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="/include/management/datepicker/ui.datepicker.css" type="text/css"  />
+<!--<script src="/include/management/datepicker/jquery.js"></script>-->
+
+<link rel="stylesheet" href="/include/management/jiansuo/base/jquery.ui.all.css">
+<script src="/include/management/jiansuo/jquery-1.6.2.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.core.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.widget.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.button.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.position.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.autocomplete.js"></script>
+
+<script src="/include/management/jiansuo/ui/jquery.ui.datepicker.js"></script>
+<!--<script src="/include/management/datepicker/ui.datepicker.js"></script>-->
 <!-- page header -->
     <div class="pageheader">
 
@@ -48,19 +58,20 @@
 						</select>
                         </div>
 			</div>
-			<div class="form-group">				
-				<label class="col-sm-4" for="input01">配比日期区间：</label>
-            </div> 
+			<!--<div class="form-group">
+				<label class="col-sm-2" for="input01">配比日期区间：</label>
+            </div> -->
 			<div class="form-group">				
 				<label class="col-sm-2 control-label" for="input01">
                         开始时间 ：</label>
                         <div class="col-sm-4">
-                        <input class="form-control" type="text"  id="dateinput"  name="starttime"  size="14"/>
-                </div>
+                            <input class="form-control"  type="text" name="starttime" data-date-format="YYYY-MM-DD" id="datepicker1"  size="14"/>
+                        </div>
 						<label class="col-sm-2 control-label" for="input01">结束时间 ：</label>
                         <div class="col-sm-4">
-                        <input class="form-control" type="text"  id="dateinput2"  name="endtime"  size="14"/></div>
+                            <input class="form-control"  type="text" name="endtime" data-date-format="YYYY-MM-DD" id="datepicker2" size="14"/>
                         </div>
+            </div>
             <div class="form-group">     
 				<label class="col-sm-2 control-label" for="input01">
 						项目名称：</label>
@@ -78,41 +89,7 @@
 
 
 
-			<script language="javascript">
-			$(document).ready(function() {
-			       $('#dateinput').datepicker({
-			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置
-			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置
-			           buttonImageOnly: true,  //Show an image trigger without any button.
-			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效
-			       yearRange: '2008:2020',//年份范围
-			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置
-			       closeText:'关闭',
-			       prevText:'前一月',
-			       nextText:'后一月',
-			       currentText:' ',
-			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-			       });
-			   });
-			</script>
 
-			<script language="javascript">
-			$(document).ready(function() {
-			       $('#dateinput2').datepicker({
-			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置
-			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置
-			           buttonImageOnly: true,  //Show an image trigger without any button.
-			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效
-			       yearRange: '2008:2020',//年份范围
-			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置
-			       closeText:'关闭',
-			       prevText:'前一月',
-			       nextText:'后一月',
-			       currentText:' ',
-			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-			       });
-			   });
-			</script>
 
 
         <script src="/include/management/assets/js/jquery.js"></script>
