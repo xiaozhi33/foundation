@@ -6,13 +6,13 @@ class Management_carController extends BaseController
 
     public function indexAction()
     {
-        $meetingDAO = $this->orm->createDAO('material_mg_cars_main');
+        $carDAO = $this->orm->createDAO('material_mg_cars_main');
         $car_number = HttpUtil::postString("car_number");
         if(!empty($car_number)){
-            $meetingDAO->findCar_number($car_number);
+            $carDAO->findCar_number($car_number);
         }
-        $meetingDAO = $meetingDAO->order('id DESC');
-        $meetingDAO->getPager(array('path'=>'/management/car/index'))->assignTo($this->view);
+        $carDAO = $carDAO->order('id DESC');
+        $carDAO->getPager(array('path'=>'/management/car/index'))->assignTo($this->view);
 
         echo $this->view->render("index/header.phtml");
         echo $this->view->render("car/index.phtml");
@@ -151,13 +151,13 @@ class Management_carController extends BaseController
 
     public function usecarAction()
     {
-        $meetingDAO = $this->orm->createDAO('material_mg_cars');
+        $carDAO = $this->orm->createDAO('material_mg_cars');
         $car_number = HttpUtil::postString("car_number");
         if(!empty($car_number)){
-            $meetingDAO->findCar_number($car_number);
+            $carDAO->findCar_number($car_number);
         }
-        $meetingDAO = $meetingDAO->order('id DESC');
-        $meetingDAO->getPager(array('path'=>'/management/car/usecar'))->assignTo($this->view);
+        $carDAO = $carDAO->order('id DESC');
+        $carDAO->getPager(array('path'=>'/management/car/usecar'))->assignTo($this->view);
 
         echo $this->view->render("index/header.phtml");
         echo $this->view->render("car/usecar.phtml");
