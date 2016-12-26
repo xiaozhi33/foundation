@@ -905,15 +905,19 @@
 .fa-angle-double-down:before {
   content: "\f103";
 }
+/*左三角*/
 .fa-angle-left:before {
   content: "\f104";
 }
+/*右三角*/
 .fa-angle-right:before {
   content: "\f105";
 }
+/*上三角*/
 .fa-angle-up:before {
   content: "\f106";
 }
+/*下三角*/
 .fa-angle-down:before {
   content: "\f107";
 }

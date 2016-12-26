@@ -168,10 +168,89 @@
               <!-- col 8 -->
               <div class="col-lg-8 col-md-12">
 
+                  <script type="text/javascript" src="/include/management/js/echarts.min.js"></script>
+                  <section class="tile color transparent-white">
+                      <div id="zhouzi_main" style="width: 100%;height:400px ;"></div>
+                      <script type="text/javascript">
+                          // 基于准备好的dom，初始化echarts实例
+                          var myChart = echarts.init(document.getElementById('zhouzi_main'));
 
+                          // 指定图表的配置项和数据
+                          var option = {
+                              title: {
+                                  text: '年度筹资统计（万元）'
+                              },
+                              tooltip : {
+                                  trigger: 'axis'
+                              },
+                              legend: {
+                                  data:[<?php foreach($this->rs_year as $key => $value){
+                                        if($key == count($value) - 1){
+                                            echo "'".$key."年度筹资金额'";
+                                        }else {
+                                            echo "'".$key."年度筹资金额'".",";
+                                        }
+                                  }?>'过往三年平均筹资金额']
+                              },
+                              toolbox: {
+                                  feature: {
+                                      saveAsImage: {}
+                                  }
+                              },
+                              grid: {
+                                  left: '3%',
+                                  right: '4%',
+                                  bottom: '3%',
+                                  containLabel: true
+                              },
+                              xAxis : [
+                                  {
+                                      type : 'category',
+                                      boundaryGap : false,
+                                      data : ['1月', '2月', '3月', '4月', '5月', '6月','7月', '8月', '9月', '10月', '11月', '12月']
+                                  }
+                              ],
+                              yAxis : [
+                                  {
+                                      type : 'value'
+                                  }
+                              ],
+                              series : [
+                                  <?php
+                                        foreach($this->rs_year as $key => $value){
+                                            echo "{
+                                              name:'".$key."年度筹资金额',
+                                              type:'line',
+                                              areaStyle: {normal: {}},
+                                              data:[".$value['json']."]
+                                          },";
+
+                                        }
+                                  ?>
+                                  {
+                                      name:'过往三年平均筹资金额',
+                                      type:'line',
+                                      areaStyle: {normal: {}},
+                                      data:[
+                                      <?php foreach($this->rs_avg as $key => $value){
+                                            if($key == count($this->rs_avg)){
+                                                echo $value;
+                                            }else{
+                                                echo $value.",";
+                                            }
+                                          }
+                                      ?>]
+                                  }
+                              ]
+                          };
+
+                          // 使用刚指定的配置项和数据显示图表。
+                          myChart.setOption(option);
+                      </script>
+                  </section>
 
                   <?php if(!empty($this->tixing)){?>
-                  <section class="tile color transparent-black">
+                  <section class="tile color transparent-white">
 
                       <!-- tile header -->
                       <div class="tile-header">
@@ -210,7 +289,7 @@
                                   <div class="panel-heading">
                                       <h4 class="panel-title">
                                           <a data-toggle="collapse" href="#multicollapse<?php echo $v['id'];?>" class="collapsed">
-                                              <strong><?php echo $v['title'];?></strong>
+                                              <?php echo $v['title'];?>
                                           </a>
                                       </h4>
                                   </div>
@@ -236,7 +315,7 @@
                   <?php }?>
 
                   <!-- tile -->
-                  <section class="tile color transparent-black">
+                  <section class="tile color transparent-white">
                       <!-- tile header -->
                       <div class="tile-header">
                           <h1>项目进程<strong>Projects  Progress</strong> </h1>
@@ -320,19 +399,19 @@
                 <section class="tile transparent">
 
                   <!-- tile header -->
-                  <div class="tile-header color transparent-black textured rounded-top-corners">
+                  <!--<div class="tile-header color transparent-black textured rounded-top-corners">
                     <h1>静态统计图<strong>Statistic Chart</strong></h1>
                     <div class="controls">
                       <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                       <a href="#" class="remove"><i class="fa fa-times"></i></a>
                     </div>
-                  </div>
+                  </div>-->
                   <!-- /tile header -->
 
                   <!-- tile widget -->
-                  <div class="tile-widget color transparent-black textured">
+                 <!-- <div class="tile-widget color transparent-black textured">
                     <div id="statistics-chart" class="chart statistics" style="height: 250px;"></div>
-                  </div>
+                  </div>-->
                   <!-- /tile widget -->
 
 

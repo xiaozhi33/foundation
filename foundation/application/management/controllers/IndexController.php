@@ -54,6 +54,50 @@
             $pm_mg_todolistDAO = $pm_mg_todolistDAO ->get();
             $this->view->assign('tixing', $pm_mg_todolistDAO);
 
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // 资金到账年度统计
+            $rs = $this->getChouZiInfo();
+            if(!empty($rs)) {
+                $_rs_year = array();
+                foreach($rs as $key => $value){
+                    $value['jiner'] = number_format($value['jiner']/10000, 2, '.','');
+                    $_rs_year[$value['year']][] = $value;
+                }
+            }
+            if(!empty($_rs_year)){
+                foreach($_rs_year as $k => $v){
+                    foreach($v as $k1 => $v1){
+                        if($k1 == count($v) - 1){
+                            $_rs_year[$k]['json'] .=  $v1['jiner'];
+                        }else {
+                            $_rs_year[$k]['json'] .=  $v1['jiner'].",";
+                        }
+                    }
+                }
+            }
+            $this->view->assign('rs_year', $_rs_year);
+
+            // 前3年的筹资平均值统计
+            if(!empty($_rs_year)){
+                $ii = 1;
+                $_rs_sum = array();
+                foreach($_rs_year as $k => $v){
+                    if($ii<4){
+                        foreach($v as $k1 => $v1){
+                            $_rs_sum[$k1+1] += $v1['jiner'];
+                        }
+                    }
+                    $ii++;
+                }
+            }
+            if(!empty($_rs_sum)){
+                foreach($_rs_sum as $k => $v){
+                    $_rs_avg[$k] = number_format($v/3, 2, '.','');
+                }
+            }
+            $this->view->assign('rs_avg', $_rs_avg);
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             $this->view->assign('chouzilist', $pageDAO['pageData']);
             $this->view->assign('page', $pages);
             $this->view->assign('total', $total);
@@ -126,6 +170,38 @@
 				return false;
 			}
 		}
+
+        public function getChouZiInfo(){
+            $selectSQL = "SELECT
+                            DATE_FORMAT(
+                                t.zijin_daozhang_datetime,
+                                '%Y-%m'
+                            )yearmonth,
+                            SUM(t.zijin_daozheng_jiner)jiner ,
+                            DATE_FORMAT(
+                                t.zijin_daozhang_datetime,
+                                '%y'
+                            ) year,
+                          DATE_FORMAT(
+                                t.zijin_daozhang_datetime,
+                                '%m'
+                            ) month
+                        FROM
+                            pm_mg_info t
+                        WHERE
+
+                            DATE_FORMAT(
+                                t.zijin_daozhang_datetime,
+                                '%Y-%m'
+                            )> DATE_FORMAT(
+                                date_sub(curdate(), INTERVAL 48 MONTH),
+                                '%Y-%m'
+                            )
+                        GROUP BY
+                            yearmonth";
+            $rss = $this->dbhelper->fetchAllData($selectSQL);
+            return $rss;
+        }
 		
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
