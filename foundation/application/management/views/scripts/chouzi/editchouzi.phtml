@@ -23,13 +23,13 @@
 	<div id="main" class="main">
 		<div id="rightstyle02" class="row">
 			<div class="col-md-12">
-				<section class="tile color transparent-black">
+				<section class="tile color transparent-white">
 				<div class="detailedbox tile-body">
 				<form class="form-horizontal" action="editrschouzi" id="form1"  method="post" encType="multipart/form-data">
 					<div class="form-group">
 							<label class="col-sm-2 control-label" for="input01">项目名称：</label>
 							<div class="col-sm-4">
-								<input class="form-control" type="text" name="pname" readonly="readonly" value="<?php echo $this->chouzi[0]['pname'];?>"/>
+								<input class="form-control" type="text" name="pname" readonly value="<?php echo $this->chouzi[0]['pname'];?>"/>
 							</div>
 							<span class="col-sm-1" > * </span>
 					</div>
@@ -53,7 +53,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input00">项目编号：</label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="text" readonly="readonly" name="bianhao" value="<?php echo $this->chouzi[0]['pid'];?>"/>
+                            <input class="form-control" type="text" readonly name="bianhao" value="<?php echo $this->chouzi[0]['pid'];?>"/>
                         </div>
                         <span class="col-sm-2" > 编号自动生成</span>
 

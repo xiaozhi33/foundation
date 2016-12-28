@@ -24,14 +24,14 @@
 	<div id="main" class="main">
 		<div id="rightstyle02" class="row">
 			<div class="col-md-12">
-				<section class="tile color transparent-black">
+				<section class="tile color transparent-white">
 			<div class="detailedbox tile-body">
                 <form class="form-horizontal" action="to-add" method="post" id="form1" encType="multipart/form-data">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">所属项目名称：</label>
                         <div class="col-sm-4">
-                            <input readonly="readonly" type="text" name="pm_name" value="<?php echo $this->pm_mg_feedbackDAO[0]['pm_name']?>"/>
-                            <input readonly="readonly" type="hidden" name="pm_id" value="<?php echo $this->pm_mg_feedbackDAO[0]['pm_id']?>"/>
+                            <input readonly type="text" name="pm_name" value="<?php echo $this->pm_mg_feedbackDAO[0]['pm_name']?>"/>
+                            <input readonly type="hidden" name="pm_id" value="<?php echo $this->pm_mg_feedbackDAO[0]['pm_id']?>"/>
                         </div>
                         <span class="col-sm-1" > * </span>
                     </div>

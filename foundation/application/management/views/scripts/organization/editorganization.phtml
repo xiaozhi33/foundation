@@ -7,13 +7,13 @@
 <div class="pageheader">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
-        <span>编辑机构信息</span></h2>
+        <span>编辑<?php echo $this->org_type_array[$this->org_type_status];?>成员信息</span></h2>
 
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
             <li>机构信息</li>
-            <li class="active">编辑机构信息</li>
+            <li class="active">编辑<?php echo $this->org_type_array[$this->org_type_status];?>成员信息</li>
         </ol>
     </div>
 
@@ -24,7 +24,7 @@
 <div id="main" class="main">
     <div id="rightstyle02" class="row">
         <div class="col-md-12">
-            <section class="tile color transparent-black">
+            <section class="tile color transparent-white">
                 <div class="detailedbox tile-body">
                     <form class="form-horizontal" id="form1" action="to-addorganizationmain" method="post" encType="multipart/form-data">
 
@@ -60,6 +60,7 @@
                             </div>
                         </div>
 
+                        <input type="hidden" name="type" value="<?php echo $this->org_type_status;?>"/>
                     </form>
                 </div>
             </section>

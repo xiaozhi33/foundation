@@ -25,14 +25,14 @@
 		<div id="rightstyle02" class="row">
 
 			<div class="col-md-12">
-			<section class="tile color transparent-black">
+			<section class="tile color transparent-white">
 			<div class="tile-body">
 			<form action="#" method="post">
 				<div class="form-group">
 				<div class="row">
 					<div class="form-group col-sm-3">
-						<label for="input05">机构车牌照：</label>
-						<input type="text" class="form-control" name="organization_number" />
+						<label for="input05">成员名称：</label>
+						<input type="text" class="form-control" name="organization_name" />
 					</div>
 					<div class="form-group">
                         <div class="form-group col-sm-2">
@@ -41,33 +41,38 @@
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="input02"> </label>
-                            <input class="btn btn-primary btn-block" type="button" value="添加机构信息" onclick="window.location.href='/management/organization/addorganizationmain'"/>
+                            <input class="btn btn-primary btn-block" type="button" value="添加<?php echo $this->org_type_array[$this->org_type_status];?>成员信息" onclick="window.location.href='/management/organization/addorganizationmain?type=<?php echo $this->org_type_status;?>'"/>
                         </div>
+                        <input type="hidden" name="type" value="<?php echo $this->org_type_status;?>">
                     </div>
 				</div>
 				</div>
 			</form>
 			</div>
 			</section>
-			<section class="tile color transparent-black">
+			<section class="tile color transparent-white">
 				<div class="tile-body nopadding">
 				<?php if(count($this->pageData) > 0){?>
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="24%">机构名称</td>
-						<td width="24%">机构车牌照</td>
-						<td width="20%">机构信息（颜色、规格）</td>
-						<td width="13%">操作</td>
+						<td width="12%">成员名称</td>
+						<td width="6%">性别</td>
+						<td width="12%">基金会职务</td>
+						<td width="12%">现任单位职务</td>
+                        <td width="13%">电话</td>
+                        <td width="13%">操作</td>
 					  </tr>
 					</thead>
                     <tbody>
 					  <?php
 						foreach($this->pageData as $k=>$v){?>
 						 <tr>
-						 	<td><?php echo $v['name'];?>&nbsp;</td>
-							<td><?php echo $v['organization_number'];?>&nbsp;</td>
-							<td><?php echo $v['description'];?>&nbsp;</td>
+						 	<td><?php echo $v['organization_name'];?>&nbsp;</td>
+							<td><?php echo $v['sex'] == 1 ?'男':'女';?>&nbsp;</td>
+							<td><?php echo $v['jjh_post'];?>&nbsp;</td>
+                            <td><?php echo $v['org_post'];?>&nbsp;</td>
+                            <td><?php echo $v['tel'];?>&nbsp;</td>
 							<td><a href="/management/organization/editorganizationmain?id=<?php echo $v['id'];?>">
                             <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
                              <a href="/management/organization/delorganizationmain?id=<?php echo $v['id'];?>">
@@ -78,17 +83,17 @@
                      </tbody>
 					</table>
 					</div>
-					<div class="tile-footer bg-transparent-black-2">
+					<div class="tile-footer">
 					<div class="row">
 					<div class="page col-md-12" align="right">
-						共  <?php echo $this->totalItems;?> 台机构          <?php echo $this->page['all'];?></div>
+						共  <?php echo $this->totalItems;?> 成员   <?php echo $this->page['all'];?></div>
 					
 				 <?php }else{?>
                      <div class="form-group">
                          <div class="row">
                              <div class="col-md-offset-1 col-sm-2">
-                                 <label for="input02">暂无机构信息！ </label>
-                                 <input class="btn btn-primary btn-block" type="button" value="添加机构信息" onclick="window.location.href='/management/organization/addorganizationmain'"/>
+                                 <label for="input02">暂无机构成员信息！ </label>
+                                 <input class="btn btn-primary btn-block" type="button" value="添加<?php echo $this->org_type_array[$this->org_type_status];?>成员信息" onclick="window.location.href='/management/organization/addorganizationmain?type=<?php echo $this->org_type_status;?>'"/>
                              </div>
                          </div>
                      </div>

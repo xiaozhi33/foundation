@@ -42,7 +42,7 @@ class Management_carController extends BaseController
             exit;
         }
 
-        $hasCarNumber = $this->hasCarNumber($car_number);
+        $hasCarNumber = $this->hasCarNumber($car_number,$id);
         if(empty($id)) {
             if ($hasCarNumber) {
                 echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
@@ -136,9 +136,12 @@ class Management_carController extends BaseController
     /**
      * check是否已经存在车辆信息
      */
-    public function hasCarNumber($car_number){
+    public function hasCarNumber($car_number,$id=''){
         $carDAO = $this->orm->createDAO('material_mg_cars_main');
         $carDAO ->findCar_number($car_number);
+        if($id !=''){
+            $carDAO ->selectLimit .= ' AND id !='.$id;
+        }
         $carDAO = $carDAO->get();
         if(!empty($carDAO)){
             return true;

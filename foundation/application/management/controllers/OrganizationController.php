@@ -3,6 +3,13 @@ require_once("BaseController.php");
 class Management_organizationController extends BaseController
 {
     private $dbhelper;
+    public $org_type_array = array(
+        1 => '理事会',
+        2 => '校董会',
+        3 => '秘书处',
+        4 => '公益社区'
+    );
+    public $org_type_status;
 
     public function indexAction()
     {
@@ -10,6 +17,9 @@ class Management_organizationController extends BaseController
         $name = HttpUtil::postString("name");
         if(!empty($name)){
             $organizationDAO->findName($name);
+        }
+        if(!empty($this->org_type_status)){
+            $organizationDAO->findOrganization_type($this->org_type_status);
         }
         $organizationDAO = $organizationDAO->order('id DESC');
         $organizationDAO->getPager(array('path'=>'/management/organization/index'))->assignTo($this->view);
@@ -19,7 +29,7 @@ class Management_organizationController extends BaseController
         echo $this->view->render("index/footer.phtml");
     }
 
-    public function addgiftmainAction(){
+    public function addorganizationmainAction(){
         echo $this->view->render("index/header.phtml");
         echo $this->view->render("organization/addorganization.phtml");
         echo $this->view->render("index/footer.phtml");
@@ -129,8 +139,11 @@ class Management_organizationController extends BaseController
         SessionUtil::sessionStart();
         SessionUtil::checkmanagement();
 
+        $this->org_type_status =  HttpUtil::getString("type");
         $this->view->assign(array(
-            'orgList' => $orgList
+            'orgList' => $orgList,
+            'org_type_status' => $this->org_type_status,
+            'org_type_array' => $this->org_type_array
         ));
     }
 }
