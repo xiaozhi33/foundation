@@ -28,7 +28,7 @@
 			<div class="detailedbox tile-body">
                 <form class="form-horizontal"  id="form1" action="to-addorganizationmain" method="post" encType="multipart/form-data">
                     <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">机构名称：</label>
+                            <label class="col-sm-2 control-label" for="input01">名称：</label>
                             <div class="col-sm-3">
                               <input class="form-control" type="text" name="name" />
                             </div>
@@ -36,19 +36,76 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input01">机构牌照号：</label>
+                        <label class="col-sm-2 control-label" for="input01">性别：</label>
                         <div class="col-sm-3">
-                            <input class="form-control" type="text" name="organization_number" />
+                            <input class="form-control" type="radio" name="sex" checked="checked"/> 男
+                            <input class="form-control" type="radio" name="sex" /> 女
                         </div>
                         <span class="col-sm-1" > * </span>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input01">机构信息：</label>
+                        <label class="col-sm-2 control-label" for="input01">出生年月日：</label>
                         <div class="col-sm-3">
-                            <input class="form-control" type="text" name="description" />
+                            <input class="form-control" data-date-format="YYYY-MM-DD" type="text"  id="datepicker"  name="birthday" size="14"/>
                         </div>
-                        <span class="col-sm-1" > * （机构颜色、规格等描述）</span>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">基金会职务：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="jjh_post" />
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">现任单位职务：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="org_post" />
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">简历：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="file" name="resume" />
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">审批件：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="file" name="examination_approval" />
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">所属部门：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="department" />
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">任职时间：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" data-date-format="YYYY-MM-DD" type="text"  id="datepicker1"  name="serving_time" size="14"/>
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">电话：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="tel" />
+                        </div>
+                        <span class="col-sm-1" > * </span>
                     </div>
 
                     <div class="form-group form-footer">

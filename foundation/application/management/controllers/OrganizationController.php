@@ -31,7 +31,7 @@ class Management_organizationController extends BaseController
 
     public function addorganizationmainAction(){
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("organization/addorganization.phtml");
+        echo $this->view->render("organization/addorganization.phtml?".$this->org_type_status);
         echo $this->view->render("index/footer.phtml");
     }
 
@@ -71,11 +71,11 @@ class Management_organizationController extends BaseController
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('保存成功');");
-            echo("location.href='/management/organization';");
+            echo("location.href='/management/organization?".$this->org_type_status."';");
             echo('</script>');
             exit;
         }else {
-            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/organization/'));
+            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/organization/?'.$this->org_type_status));
             exit;
         }
     }
@@ -90,7 +90,7 @@ class Management_organizationController extends BaseController
         {
             $this->view->assign("gift_info", $organizationDAO);
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("gift/editorganization.phtml");
+            echo $this->view->render("gift/editorganization.phtml?".$this->org_type_status);
             echo $this->view->render("index/footer.phtml");
             exit();
         }
@@ -99,7 +99,7 @@ class Management_organizationController extends BaseController
         $this->view->assign("gift_info", $organizationDAO);
 
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("gift/editorganization.phtml");
+        echo $this->view->render("gift/editorganization.phtml?".$this->org_type_status);
         echo $this->view->render("index/footer.phtml");
         exit();
     }
@@ -113,7 +113,7 @@ class Management_organizationController extends BaseController
         echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
         echo('<script language="JavaScript">');
         echo("alert('删除成功');");
-        echo("location.href='/management/organization';");
+        echo("location.href='/management/organization?".$this->org_type_status."';");
         echo('</script>');
         exit;
 

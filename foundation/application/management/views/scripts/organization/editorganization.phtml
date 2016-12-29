@@ -29,25 +29,82 @@
                     <form class="form-horizontal" id="form1" action="to-addorganizationmain" method="post" encType="multipart/form-data">
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">机构名称：</label>
+                            <label class="col-sm-2 control-label" for="input01">名称：</label>
                             <div class="col-sm-3">
-                                <input class="form-control" value="<?php echo $this->organization_info[0]['name'];?>" type="text" name="name" />
+                                <input class="form-control" type="text" name="name" value="<?php echo $this->organization_info[0]['name'];?>"/>
                             </div>
                             <span class="col-sm-1" > * </span>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">机构车牌照：</label>
+                            <label class="col-sm-2 control-label" for="input01">性别：</label>
                             <div class="col-sm-3">
-                                <input class="form-control" value="<?php echo $this->organization_info[0]['organization_number'];?>" type="text" name="organization_number" />
+                                <input class="form-control" type="radio" name="sex" <?php echo $this->organization_info[0]['sex']=="1"?'checked="checked"':'';?> /> 男
+                                <input class="form-control" type="radio" name="sex" <?php echo $this->organization_info[0]['sex']=="2"?'checked="checked"':'';?> /> 女
                             </div>
                             <span class="col-sm-1" > * </span>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">机构信息（颜色、规格）：</label>
+                            <label class="col-sm-2 control-label" for="input01">出生年月日：</label>
                             <div class="col-sm-3">
-                                <input class="form-control" value="<?php echo $this->organization_info[0]['description'];?>" type="text" name="description" />
+                                <input class="form-control" data-date-format="YYYY-MM-DD" value="<?php echo $this->organization_info[0]['birthday'];?>" type="text"  id="datepicker"  name="birthday" size="14"/>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">基金会职务：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="jjh_post" value="<?php echo $this->organization_info[0]['jjh_post'];?>"/>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">现任单位职务：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="org_post" value="<?php echo $this->organization_info[0]['org_post'];?>"/>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">简历：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="file" name="resume" />
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">审批件：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="file" name="examination_approval" />
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">所属部门：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="department" value="<?php echo $this->organization_info[0]['department'];?>"/>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">任职时间：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" data-date-format="YYYY-MM-DD" value="<?php echo $this->organization_info[0]['serving_time'];?>" type="text"  id="datepicker1"  name="serving_time" size="14"/>
+                            </div>
+                            <span class="col-sm-1" > * </span>serving_time
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">电话：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="tel" value="<?php echo $this->organization_info[0]['tel'];?>"/>
                             </div>
                             <span class="col-sm-1" > * </span>
                         </div>
