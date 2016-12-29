@@ -39,8 +39,47 @@ class Management_organizationController extends BaseController
         $id = $_REQUEST['id'];
         $organizationDAO = $this->orm->createDAO('jjh_mg_organization');
         $name = HttpUtil::postString("name");
+        $sex = HttpUtil::postString("sex");
+        $jjh_post = HttpUtil::postString("jjh_post");
+        $org_post = HttpUtil::postString("org_post");
+        $department = HttpUtil::postString("department");
+        $serving_time = HttpUtil::postString("serving_time");
+        $tel = HttpUtil::postString("tel");
 
-        if($name == ''|| $name == ''){
+
+        if($_FILES['resume']['name']!=""){
+            if($_FILES['resume']['error'] != 4){
+                if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+                    mkdir(__UPLOADPICPATH__ ."jjh_download/");
+                }
+                $uploadpic = new uploadPic($_FILES['resume']['name'],$_FILES['resume']['error'],$_FILES['resume']['size'],$_FILES['resume']['tmp_name'],$_FILES['resume']['type'],2);
+                $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+                $result = $uploadpic->uploadPic();
+                if($result['error']!=0){
+                    alert_back($result['msg']);
+                }else{
+                    $organizationDAO->resume =  __GETPICPATH__."jjh_download/".$result['picname'];
+                }
+            }
+        }
+
+        if($_FILES['examination_approval']['name']!=""){
+            if($_FILES['examination_approval']['error'] != 4){
+                if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+                    mkdir(__UPLOADPICPATH__ ."jjh_download/");
+                }
+                $uploadpic = new uploadPic($_FILES['examination_approval']['name'],$_FILES['examination_approval']['error'],$_FILES['examination_approval']['size'],$_FILES['examination_approval']['tmp_name'],$_FILES['examination_approval']['type'],2);
+                $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+                $result = $uploadpic->uploadPic();
+                if($result['error']!=0){
+                    alert_back($result['msg']);
+                }else{
+                    $organizationDAO->examination_approval =  __GETPICPATH__."jjh_download/".$result['picname'];
+                }
+            }
+        }
+
+        if($name == ''){
             //alert_back("您输入的信息不完整，请查正后继续添加！！！！！");
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
@@ -51,6 +90,12 @@ class Management_organizationController extends BaseController
         }
 
         $organizationDAO ->name = $name;
+        $organizationDAO ->sex = $sex;
+        $organizationDAO ->jjh_post = $jjh_post;
+        $organizationDAO ->org_post = $org_post;
+        $organizationDAO ->department = $department;
+        $organizationDAO ->serving_time = $serving_time;
+        $organizationDAO ->tel = $tel;
 
         if(!empty($id))  //修改流程
         {
@@ -88,7 +133,7 @@ class Management_organizationController extends BaseController
 
         if($organizationDAO != "")
         {
-            $this->view->assign("gift_info", $organizationDAO);
+            $this->view->assign("organization_info", $organizationDAO);
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("gift/editorganization.phtml?".$this->org_type_status);
             echo $this->view->render("index/footer.phtml");
@@ -96,7 +141,7 @@ class Management_organizationController extends BaseController
         }
         $organizationDAO = $this->orm->createDAO('jjh_mg_organization')->order('id DESC');
 
-        $this->view->assign("gift_info", $organizationDAO);
+        $this->view->assign("organization_info", $organizationDAO);
 
         echo $this->view->render("index/header.phtml");
         echo $this->view->render("gift/editorganization.phtml?".$this->org_type_status);
@@ -108,7 +153,7 @@ class Management_organizationController extends BaseController
         $id = HttpUtil::getString("id");
         $organizationDAO = $this->orm->createDAO('jjh_mg_organization');
         $organizationDAO ->findId($id);
-        $organizationDAO = $organizationDAO ->delete();
+        $organizationDAO ->delete();
 
         echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
         echo('<script language="JavaScript">');
