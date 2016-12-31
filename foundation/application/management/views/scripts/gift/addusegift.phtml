@@ -26,12 +26,12 @@
 			<div class="col-md-12">
 				<section class="tile color transparent-white">
 			<div class="detailedbox tile-body">
-                <form class="form-horizontal" action="to-addusegift" method="post" encType="multipart/form-data">
+                <form class="form-horizontal"  action="to-addusegift" method="post" encType="multipart/form-data">
 
                     <div class="form-group">
                             <label class="col-sm-2 control-label" for="input02">使用礼品：</label>
                             <div class="col-sm-3">
-                                <select class="chosen-select chosen-transparent form-control" name="name">
+                                <select class="chosen-select chosen-transparent form-control" name="gift_name">
                                     <option value="" >请选择礼品名称</option>
                                     <?php if($this->giftList != ""){
                                     foreach ($this->giftList as $k => $v){?>
@@ -44,19 +44,28 @@
 
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input06">赠送日期：</label>
-                        <div class="col-sm-4">
-                            <input class="form-control" data-date-format="YYYY-MM-DD HH:mm:00" type="text"  id="datepicker"  name="gift_datetime" size="14"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label class="col-sm-2 control-label" for="input01">经手人：</label>
                         <div class="col-sm-3">
-                            <input class="form-control" type="text" name="brokerage" />
+                            <select class="chosen-select chosen-transparent form-control" name="brokerage">
+                                <option value="" >请选择经手人姓名</option>
+                                <?php if($this->admin_list != ""){
+                                    foreach ($this->admin_list as $k => $v){?>
+                                        <option value="<?php echo $v['id']?>" ><?php echo $v['admin_name']?></option>
+                                    <?php }}?>
+                            </select>
                         </div>
                         <span class="col-sm-1" > * </span>
                     </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input06">赠送日期：</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" data-date-format="YYYY-MM-DD" type="text"  id="datepicker"  name="gift_datetime" size="14"/>
+                        </div>
+                    </div>
+
+
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input01">用途：</label>
@@ -111,6 +120,8 @@
 							<input class="btn btn-default" type="reset" value="重 置" /> 
 						</div>
 					</div>
+
+                    <input name="gift_id" value="<?php echo $this->gift_id;?>" type="hidden"/>
 			</form>
 			</div>
 		 </section>

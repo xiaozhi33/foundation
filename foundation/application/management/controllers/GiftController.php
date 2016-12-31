@@ -146,7 +146,7 @@ class Management_giftController extends BaseController
 
     public function usegiftAction()
     {
-        $giftDAO = $this->orm->createDAO('material_mg_gift');
+        $giftDAO = $this->orm->createDAO('material_mg_gift_info');
         $gift_name = HttpUtil::postString("gift_name");
         if(!empty($gift_name)){
             $giftDAO->findGift_name($gift_name);
@@ -167,7 +167,7 @@ class Management_giftController extends BaseController
 
     public function toAddusegiftAction(){
         $id = $_REQUEST['id'];
-        $giftDAO = $this->orm->createDAO('material_mg_gift');
+        $giftDAO = $this->orm->createDAO('material_mg_gift_info');
 
         $gift_id = HttpUtil::postString("gift_name");
         $gift_datetime = HttpUtil::postString("gift_datetime");
@@ -177,6 +177,16 @@ class Management_giftController extends BaseController
         $customer_tel = HttpUtil::postString("customer_tel");
         $customer_address = HttpUtil::postString("customer_address");
         $gift_count = HttpUtil::postString("gift_count");
+
+        if(is_int($gift_count)){
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('赠送数量必须为整数');");
+            echo('history.back();');
+            echo('</script>');
+            exit;
+        }
+
         $gift_remarks = HttpUtil::postString("gift_remarks");
 
         if($gift_datetime == ''|| $use == ''|| $brokerage == ''|| $customer_name == ''|| $gift_count == ''|| $customer_tel == ''){
@@ -191,6 +201,30 @@ class Management_giftController extends BaseController
             echo('</script>');
             exit;
         }
+
+        // 礼品库存处理
+        $gift_count = (int)$gift_count;
+        $gift_main = $this->orm->createDAO("material_mg_gift_main")->findId($gift_id)->get();
+        if($gift_count > $gift_main[0]['store']){
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('您所赠送的礼品数量不足，请下补货再进行操作。');");
+            echo('history.back();');
+            echo('</script>');
+            exit;
+        }
+        // 减库存
+        $gift_main = $this->orm->createDAO("material_mg_gift_main")->findId($gift_id);
+        if((int)$gift_main[0]['store'] - (int)$gift_count < 0){
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('您所赠送的礼品数量不足，请下补货再进行操作。');");
+            echo('history.back();');
+            echo('</script>');
+            exit;
+        }
+        $gift_main ->store = (int)$gift_main[0]['store'] - (int)$gift_count;
+        $gift_main ->save();
 
         $giftDAO ->gift_id = $gift_id;
         $giftList = $this->orm->createDAO('material_mg_gift_main')->get();
@@ -239,7 +273,7 @@ class Management_giftController extends BaseController
 
     public function editusegiftAction(){
         $id = HttpUtil::getString("id");
-        $giftDAO = $this->orm->createDAO('material_mg_gift');
+        $giftDAO = $this->orm->createDAO('material_mg_gift_info');
         $giftDAO ->findId($id);
         $giftDAO = $giftDAO ->get();
 
@@ -263,7 +297,7 @@ class Management_giftController extends BaseController
 
     public function delusegiftAction(){
         $id = HttpUtil::getString("id");
-        $giftDAO = $this->orm->createDAO('material_mg_gift');
+        $giftDAO = $this->orm->createDAO('material_mg_gift_info');
         $giftDAO ->findId($id);
         $giftDAO = $giftDAO ->delete();
 
@@ -282,8 +316,11 @@ class Management_giftController extends BaseController
         SessionUtil::sessionStart();
         SessionUtil::checkmanagement();
 
+        $admin_list = $this->orm->createDAO("my_admin")->get();
+
         $this->view->assign(array(
-            'giftList' => $giftList
+            'giftList' => $giftList,
+            'admin_list' => $admin_list
         ));
     }
 }
