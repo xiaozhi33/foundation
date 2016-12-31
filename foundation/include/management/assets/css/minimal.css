@@ -667,8 +667,8 @@ body .navbar .navbar-nav.side-nav > li.collapsed-content > ul {
           body .navbar .navbar-nav.side-nav > li.navigation .menu > li.dropdown.open > a b.dropdown-plus:before {
             content: "\f068"; }
         body .navbar .navbar-nav.side-nav > li.navigation .menu > li.dropdown.open > a:after {
-          background: -webkit-linear-gradient(left, rgba(30,136,229,0.2) 0%, rgba(30,136,229,0.2) 100%);
-          background: linear-gradient(to right, rgba(30,136,229,0.2) 0%, rgba(30,136,229,0.2) 100%);
+          background: -webkit-linear-gradient(left, rgba(30,136,229,0.2) 0%, rgba(30,136,229,0) 100%);
+          background: linear-gradient(to right, rgba(30,136,229,0.2) 0%, rgba(30,136,229,0) 100%);
           width: 100%; }
       body .navbar .navbar-nav.side-nav > li.navigation .menu > li.dropdown.open > ul.dropdown-menu {
         float: none;
@@ -757,6 +757,7 @@ body .navbar .navbar-nav.side-nav > li.collapsed-content > ul {
         filter: alpha(opacity=100);
         opacity: 1; }*/
 /*collapsed*/
+/*收缩后的菜单*/
   body .navbar .navbar-nav.side-nav.collapsed {
     width: 40px; }
     body .navbar .navbar-nav.side-nav.collapsed.open {
@@ -792,7 +793,12 @@ body .navbar .navbar-nav.side-nav > li.collapsed-content > ul {
           width: 100%; }
           body .navbar .navbar-nav.side-nav.collapsed > li.navigation > ul > li.hovered > a:after {
             width: 100%;
-            background: #1d2833; }
+            background:#fff;
+			border-bottom:1px solid #ddd;
+			border-top:1px solid #ddd;
+			background: -webkit-linear-gradient(left, rgba(30,136,229,0.2) 20%, rgba(30,136,229,0) 100%);
+            background: linear-gradient(to right, rgba(30,136,229,0.2) 20%, rgba(30,136,229,0) 100%);
+			}
           body .navbar .navbar-nav.side-nav.collapsed > li.navigation > ul > li.hovered > a .label {
             display: block; }
         body .navbar .navbar-nav.side-nav.collapsed > li.navigation > ul > li.hovered.active > a {
@@ -800,7 +806,8 @@ body .navbar .navbar-nav.side-nav > li.collapsed-content > ul {
           color: white;
           text-shadow: none; }
           body .navbar .navbar-nav.side-nav.collapsed > li.navigation > ul > li.hovered.active > a:after {
-            background: #1d2833 !important;
+            background: -webkit-linear-gradient(left, rgba(30,136,229,0.2) 0%, rgba(30,136,229,0) 100%);
+            background: linear-gradient(to right, rgba(30,136,229,0.2) 0%, rgba(30,136,229,0) 100%);
             width: 100%; }
         body .navbar .navbar-nav.side-nav.collapsed > li.navigation > ul > li.hovered .dropdown-menu {
           display: block;
@@ -815,11 +822,11 @@ body .navbar .navbar-nav.side-nav > li.collapsed-content > ul {
           -webkit-box-shadow: none;
           box-shadow: none;
           width: 210px;
-          background: #263543; }
+          background: #fff; }
           body .navbar .navbar-nav.side-nav.collapsed > li.navigation > ul > li.hovered .dropdown-menu > li {
             position: relative; }
             body .navbar .navbar-nav.side-nav.collapsed > li.navigation > ul > li.hovered .dropdown-menu > li > a {
-              color: rgba(255, 255, 255, 0.8);
+              color:#666;
               font-size: 12px;
               line-height: 24px;
               position: relative; }
@@ -1586,7 +1593,7 @@ body #content .tile-right-side {
       body #content .tile-right-side.transparent-black table.table-bordered > tbody > tr:last-child th,
       body #content .tile-right-side.transparent-black table.table-bordered > tfoot > tr:last-child td,
       body #content .tile-right-side.transparent-black table.table-bordered > tfoot > tr:last-child th {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+        border-bottom: 1px solid #ddd; }
     body #content .tile.color table.table-hover > tbody > tr:hover > td, body #content .tile.color table.table-hover > tbody > tr:hover > th, body #content .tile.transparent-black table.table-hover > tbody > tr:hover > td, body #content .tile.transparent-black table.table-hover > tbody > tr:hover > th,
     body #content .tile-header.color table.table-hover > tbody > tr:hover > td,
     body #content .tile-header.color table.table-hover > tbody > tr:hover > th,
@@ -2526,7 +2533,7 @@ body #content .tile-right-side {
     border: 1px solid #ddd;
     color:#666;
     font-size: 14px;
-    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;/*针对ios上的渲染*/
     line-height: 20px; }
     body #content .tile.transparent-black .uneditable-input:focus,
     body #content .tile.transparent-black textarea:focus,
@@ -2751,10 +2758,7 @@ body #content .tile-right-side {
     body #content .tile-right-side.transparent-white input[type="search"]:focus,
     body #content .tile-right-side.transparent-white input[type="tel"]:focus,
     body #content .tile-right-side.transparent-white input[type="color"]:focus {
-      background-color:#fff;
-	  -webkit-transition:border linear .2s,-webkit-box-shadow linear .5s;
-　　border-color:rgba(30,136,229,.75);
-　　-webkit-box-shadow:0 0 18px rgba(111,1,32,3);}
+		border:1px solid #1e88e5;　}
     body #content .tile.transparent-black .uneditable-input::-webkit-input-placeholder,
     body #content .tile.transparent-black textarea::-webkit-input-placeholder,
     body #content .tile.transparent-black input[type="text"]::-webkit-input-placeholder,
@@ -2978,7 +2982,7 @@ body #content .tile-right-side {
     body #content .tile-right-side.transparent-white input[type="search"]::-webkit-input-placeholder,
     body #content .tile-right-side.transparent-white input[type="tel"]::-webkit-input-placeholder,
     body #content .tile-right-side.transparent-white input[type="color"]::-webkit-input-placeholder {
-      color: rgba(255, 255, 255, 0.8); }
+      color:#999; }
     body #content .tile.transparent-black .uneditable-input:-moz-placeholder,
     body #content .tile.transparent-black textarea:-moz-placeholder,
     body #content .tile.transparent-black input[type="text"]:-moz-placeholder,
@@ -3202,7 +3206,7 @@ body #content .tile-right-side {
     body #content .tile-right-side.transparent-white input[type="search"]:-moz-placeholder,
     body #content .tile-right-side.transparent-white input[type="tel"]:-moz-placeholder,
     body #content .tile-right-side.transparent-white input[type="color"]:-moz-placeholder {
-      color: rgba(255, 255, 255, 0.8); }
+      color:#999; }
     body #content .tile.transparent-black .uneditable-input::-moz-placeholder,
     body #content .tile.transparent-black textarea::-moz-placeholder,
     body #content .tile.transparent-black input[type="text"]::-moz-placeholder,
@@ -3426,7 +3430,7 @@ body #content .tile-right-side {
     body #content .tile-right-side.transparent-white input[type="search"]::-moz-placeholder,
     body #content .tile-right-side.transparent-white input[type="tel"]::-moz-placeholder,
     body #content .tile-right-side.transparent-white input[type="color"]::-moz-placeholder {
-      color: rgba(255, 255, 255, 0.8); }
+      color:#999; }
     body #content .tile.transparent-black .uneditable-input:-ms-input-placeholder,
     body #content .tile.transparent-black textarea:-ms-input-placeholder,
     body #content .tile.transparent-black input[type="text"]:-ms-input-placeholder,
@@ -3650,7 +3654,7 @@ body #content .tile-right-side {
     body #content .tile-right-side.transparent-white input[type="search"]:-ms-input-placeholder,
     body #content .tile-right-side.transparent-white input[type="tel"]:-ms-input-placeholder,
     body #content .tile-right-side.transparent-white input[type="color"]:-ms-input-placeholder {
-      color: rgba(255, 255, 255, 0.8); }
+      color:#999; }
     body #content .tile.transparent-black .uneditable-input.parsley-validated.parsley-error,
     body #content .tile.transparent-black textarea.parsley-validated.parsley-error,
     body #content .tile.transparent-black input[type="text"].parsley-validated.parsley-error,
@@ -4202,8 +4206,6 @@ body #content .tile-right-side {
     body #content .tile-right-side.transparent-white .form-control[readonly]:focus,
     body #content .tile-right-side.transparent-white fieldset[disabled] .form-control:focus {
       background-color: rgba(255, 255, 255, 0.3);
-      -webkit-box-shadow: none !important;
-      box-shadow: none !important;
       border: 0; }
   body #content .tile.transparent-black .table-options.paging-info, body #content .tile.transparent-white .table-options.paging-info,
   body #content .tile-header.transparent-black .table-options.paging-info,
