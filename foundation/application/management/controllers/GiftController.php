@@ -249,6 +249,9 @@ class Management_giftController extends BaseController
             $giftDAO ->findId($id);
         }
         try{
+            $_giftDAO = $giftDAO;
+            $logName = SessionUtil::getAdmininfo();
+            addlog("修改礼品使用信息:".$gift_name ,$logName['admin_name'], $_SERVER['REMOTE_ADDR'], date("Y-m-d H:i:s", time()), json_encode($_giftDAO));
             $giftDAO ->save();
         }catch (Exception $e){
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
@@ -300,6 +303,8 @@ class Management_giftController extends BaseController
         $id = HttpUtil::getString("id");
         $giftDAO = $this->orm->createDAO('material_mg_gift_info');
         $giftDAO ->findId($id);
+        $logName = SessionUtil::getAdmininfo();
+        addlog("删除礼品使用信息：礼品使用纪录id".$id,$logName['admin_name'], $_SERVER['REMOTE_ADDR'], date("Y-m-d H:i:s", time()), json_encode($giftDAO));
         $giftDAO = $giftDAO ->delete();
 
         echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
