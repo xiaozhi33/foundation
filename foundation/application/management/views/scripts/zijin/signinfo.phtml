@@ -25,7 +25,7 @@
 
         	<div class="col-md-12">
 
-                <section class="tile color transparent-black">
+                <section class="tile color transparent-white">
 
                     <div class="tile-body nopadding">
                         <?php if(count($this->signifo) != 0){?>
@@ -44,7 +44,7 @@
                                 <tr style="font-size: 14px;color: #ffffff;">
                                     <td><?php echo $v['pname'];?>&nbsp;</td>
                                     <td><?php echo $v['sign_time'];?>&nbsp;</td>
-                                    <td><a href="/management/zijin/download?id=<?php echo $v['id'];?>"><?php if($v['sign_files_name'] != ""){echo $v['sign_files_name'];}?>&nbsp;&nbsp; 点击下载</td>
+                                    <td><a href="/management/zijin/download?id=<?php echo $v['id'];?> "> <?php if($v['sign_files_name'] != ""){echo $v['sign_files_name'];}?>&nbsp;&nbsp; 点击下载</td>
                                     <td>
                                         <a href="javascript:void(0);" onclick="alert('系统暂不提供删除协议功能！');">
                                             <button class="btn btn-danger margin-bottom-20" type="button">删除</button>

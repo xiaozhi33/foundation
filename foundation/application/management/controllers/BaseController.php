@@ -1,4 +1,5 @@
 <?php
+    session_start();
 	require_once("sessionutil.php");
 	require_once("httputil.php");
 	require_once("functions.php");

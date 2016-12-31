@@ -108,6 +108,9 @@
 		}
 		
 		public function loginviewAction(){
+            if(!empty($this->admininfo['admin_info']['id'])){
+                header("location:".__BASEURL__."/management/index");
+            }
 			$returnURL = HttpUtil::getString('returnURL');
 			$this->view->assign("returnURL",$returnURL);
 			echo $this->view->render('index/loginview.phtml');	

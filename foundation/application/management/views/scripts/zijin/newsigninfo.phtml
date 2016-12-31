@@ -24,7 +24,7 @@
 <div id="main" class="main">
     <div id="rightstyle02" class="row">
         <div class="col-md-12">
-            <section class="tile color transparent-black">
+            <section class="tile color transparent-white">
                 <div class="detailedbox tile-body">
                     <form class="form-horizontal" action="newsavesign" method="post" encType="multipart/form-data">
                         <div class="form-group">
@@ -43,8 +43,8 @@
                             <?php }else {?>
                             <label class="col-sm-2 control-label" for="input01">项目名称：</label>
                             <div class="col-sm-4">
-                                <input readonly="readonly" name="pname" value="<?php echo $this->signinfo['pname'];?>" type="text"/>
-                                <input readonly="readonly" name="pm_id" value="<?php echo $this->signinfo['pm_id'];?>" type="hidden"/>
+                                <input readonly name="pname" value="<?php echo $this->signinfo['pname'];?>" type="text"/>
+                                <input readonly name="pm_id" value="<?php echo $this->signinfo['pm_id'];?>" type="hidden"/>
                             </div>
                             <?php }?>
                             <span class="col-sm-2" > * </span>
