@@ -176,7 +176,7 @@ class Management_giftController extends BaseController
         $customer_name = HttpUtil::postString("customer_name");
         $customer_tel = HttpUtil::postString("customer_tel");
         $customer_address = HttpUtil::postString("customer_address");
-        $gift_count = HttpUtil::postString("gift_count");
+        (int)$gift_count = HttpUtil::postString("gift_count");
 
         if(is_int($gift_count)){
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
@@ -205,7 +205,7 @@ class Management_giftController extends BaseController
         // 礼品库存处理
         $gift_count = (int)$gift_count;
         $gift_main = $this->orm->createDAO("material_mg_gift_main")->findId($gift_id)->get();
-        if($gift_count > $gift_main[0]['store']){
+        if((int)$gift_count > (int)$gift_main[0]['store']){
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('您所赠送的礼品数量不足，请下补货再进行操作。');");
@@ -214,8 +214,8 @@ class Management_giftController extends BaseController
             exit;
         }
         // 减库存
-        $gift_main = $this->orm->createDAO("material_mg_gift_main")->findId($gift_id);
-        if((int)$gift_main[0]['store'] - (int)$gift_count < 0){
+        $_gift_main = $this->orm->createDAO("material_mg_gift_main")->findId($gift_id);
+        if(((int)$gift_main[0]['store'] - $gift_count) < 0){
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('您所赠送的礼品数量不足，请下补货再进行操作。');");
@@ -223,8 +223,9 @@ class Management_giftController extends BaseController
             echo('</script>');
             exit;
         }
-        $gift_main ->store = (int)$gift_main[0]['store'] - (int)$gift_count;
-        $gift_main ->save();
+        $_gift_count = $gift_main[0]['store'] - $gift_count;
+        $_gift_main ->store = $_gift_count;
+        $_gift_main ->save();
 
         $giftDAO ->gift_id = $gift_id;
         $giftList = $this->orm->createDAO('material_mg_gift_main')->get();
