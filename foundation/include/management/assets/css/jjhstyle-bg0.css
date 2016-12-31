@@ -1,0 +1,41 @@
+*,html, body{font-family:"Microsoft YaHei",sans-serif;}
+.table thead tr td{
+   font-weight:bold;
+  }
+.table tbody tr td{
+	-moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: rgba(0, 0, 0, 0.2) -moz-use-text-color -moz-use-text-color rgba(0, 0, 0, 0.2);
+    border-image: none;
+    border-style: solid none none solid;
+    border-width: 1px 0 0 1px;
+	color: #666;
+}
+
+.table tbody tr td a{
+	color: #666;
+}
+.current{
+	background-color: white;
+    border: 0 none;
+    color: #717171;
+	border-radius:2px;
+	padding:1px 3px;
+}
+.page a{
+	padding:1px 3px;
+}
+.page a:hover{
+background-color: white;
+    border: 0 none;
+    color: #717171;
+	border-radius:2px;
+	padding:1px 3px;
+}
+.shiyong-zj{
+	color:#fff;
+	text-align:right;
+	display:block;
+}
