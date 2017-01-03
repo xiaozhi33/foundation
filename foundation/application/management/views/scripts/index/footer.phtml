@@ -466,7 +466,6 @@
                 cache:false,
                 dataType:'json',
                 success:function(data){
-                    alert(data['msg']);
                     $('.theme-popover-mask').fadeIn(100);
                     $('.theme-popover').slideDown(200);
                     $('#popover-msg').html(data['msg']);
@@ -481,6 +480,7 @@
 
                 },
                 error:function(data){
+                    //console.log(data);
                     $('.theme-popover-mask').fadeIn(100);
                     $('.theme-popover').slideDown(200);
                     $('#popover-msg').html(data['msg']);

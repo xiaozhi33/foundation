@@ -144,7 +144,7 @@
             if(!empty($this->result)){
                 $this->free();
             }
-            mssql_close($this->conn);
+            //mssql_close($this->conn);
         }
     }
 ?>

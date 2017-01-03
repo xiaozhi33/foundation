@@ -89,7 +89,7 @@ class Management_carController extends BaseController
             echo('</script>');
             exit;
         }else {
-            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/car/'));
+            echo json_encode(array('msg'=>'保存成功！','return_url'=>'/management/car/'));
             exit;
         }
     }

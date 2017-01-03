@@ -202,30 +202,32 @@ class Management_giftController extends BaseController
             exit;
         }
 
-        // 礼品库存处理
-        $gift_count = (int)$gift_count;
-        $gift_main = $this->orm->createDAO("material_mg_gift_main")->findId($gift_id)->get();
-        if((int)$gift_count > (int)$gift_main[0]['store']){
-            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
-            echo('<script language="JavaScript">');
-            echo("alert('您所赠送的礼品数量不足，请下补货再进行操作。');");
-            echo('history.back();');
-            echo('</script>');
-            exit;
+        if(empty($id)) {  // 新增时处理库存
+            // 礼品库存处理
+            $gift_count = (int)$gift_count;
+            $gift_main = $this->orm->createDAO("material_mg_gift_main")->findId($gift_id)->get();
+            if ((int)$gift_count > (int)$gift_main[0]['store']) {
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('您所赠送的礼品数量不足，请下补货再进行操作。');");
+                echo('history.back();');
+                echo('</script>');
+                exit;
+            }
+            // 减库存
+            $_gift_main = $this->orm->createDAO("material_mg_gift_main")->findId($gift_id);
+            if (((int)$gift_main[0]['store'] - $gift_count) < 0) {
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('您所赠送的礼品数量不足，请下补货再进行操作。');");
+                echo('history.back();');
+                echo('</script>');
+                exit;
+            }
+            $_gift_count = $gift_main[0]['store'] - $gift_count;
+            $_gift_main->store = $_gift_count;
+            $_gift_main->save();
         }
-        // 减库存
-        $_gift_main = $this->orm->createDAO("material_mg_gift_main")->findId($gift_id);
-        if(((int)$gift_main[0]['store'] - $gift_count) < 0){
-            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
-            echo('<script language="JavaScript">');
-            echo("alert('您所赠送的礼品数量不足，请下补货再进行操作。');");
-            echo('history.back();');
-            echo('</script>');
-            exit;
-        }
-        $_gift_count = $gift_main[0]['store'] - $gift_count;
-        $_gift_main ->store = $_gift_count;
-        $_gift_main ->save();
 
         $giftDAO ->gift_id = $gift_id;
         $giftList = $this->orm->createDAO('material_mg_gift_main')->get();
@@ -303,9 +305,18 @@ class Management_giftController extends BaseController
         $id = HttpUtil::getString("id");
         $giftDAO = $this->orm->createDAO('material_mg_gift_info');
         $giftDAO ->findId($id);
+        $giftDAO = $giftDAO ->get();
         $logName = SessionUtil::getAdmininfo();
         addlog("删除礼品使用信息：礼品使用纪录id".$id,$logName['admin_name'], $_SERVER['REMOTE_ADDR'], date("Y-m-d H:i:s", time()), json_encode($giftDAO));
-        $giftDAO = $giftDAO ->delete();
+
+        // 回归库存
+        $giftmainDAO = $this->orm->createDAO('material_mg_gift_main');
+        $giftmainDAO ->findId($giftDAO[0]['gift_id']);
+        $giftmainDAO ->store = $giftDAO[0]['gift_count'] + $giftmainDAO ->store;
+        $giftmainDAO ->save();
+
+        $_giftDAO = $this->orm->createDAO('material_mg_gift_info')->findId($id);
+        $_giftDAO ->delete();
 
         echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
         echo('<script language="JavaScript">');
