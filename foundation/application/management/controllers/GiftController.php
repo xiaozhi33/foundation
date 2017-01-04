@@ -90,11 +90,10 @@ class Management_giftController extends BaseController
     }
 
     public function editgiftmainAction(){
-        $id = HttpUtil::getString("id");
+        $id = $_REQUEST['id'];
         $giftDAO = $this->orm->createDAO('material_mg_gift_main');
         $giftDAO ->findId($id);
         $giftDAO = $giftDAO ->get();
-
         if($giftDAO != "")
         {
             $this->view->assign("gift_info", $giftDAO);
