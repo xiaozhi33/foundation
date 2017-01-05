@@ -19,6 +19,7 @@
         public $admininfo = '';
         public $renling_weirenling_list = "";
         public $shiyong_weirenling_list = "";
+        public $task_init_array = "";
 
 		public function init()
 	    {
@@ -43,7 +44,49 @@
             //会议活动
             $meetingDAO = $this->orm->createDAO("jjh_meeting")->get();
 
-			$this->view->assign(array(
+            $this->task_init_array = array(
+                'status' => array(  //任务状态
+                    '1'  => '新建',
+                    '2'  => '进行中',
+                    '3'  => '测试ok',
+                    '4'  => '反馈',
+                    '5'  => '已解决',
+                    '6'  => '已关闭',
+                ),
+                'priority' => array(  //任务优先级
+                    '1'  => '低',
+                    '2'  => '普通',
+                    '3'  => '高',
+                    '4'  => '紧急',
+                    '5'  => '立刻',
+                ),
+                'type' => array(   //任务类型
+                    'pm' => '项目管理',
+                    'active' => '活动任务',
+                    'custom' => '客户拜访',
+                    'other' => '其他',
+                ),
+                'schedule' => array(
+                    '0' => '0%',
+                    '10' => '10%',
+                    '20' => '20%',
+                    '30' => '30%',
+                    '40' => '40%',
+                    '50' => '50%',
+                    '60' => '60%',
+                    '70' => '70%',
+                    '80' => '80%',
+                    '90' => '90%',
+                    '100' => '100%',
+                )
+            );
+
+            $admin_list = $this->orm->createDAO("my_admin")->get();
+            foreach($admin_list as $k => $v){
+                $_admin_list[$v['id']] = $v['admin_name'];
+            }
+
+            $this->view->assign(array(
 				"module" => $request_mod['module'],
 				"controller" => $request_mod['controller'],
 				"action" => $request_mod['action'],
@@ -53,6 +96,8 @@
                 "allsum" => (int)$pm_mg_infoDAO[0]['allsum'],
                 "meeting_count" => count($meetingDAO),
                 'admininfo' => $admininfo,
+                'task_init_array' => $this->task_init_array,
+                'admin_list_info' => $_admin_list,
 			));
 			
 		    $this->_init();

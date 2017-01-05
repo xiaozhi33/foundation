@@ -27,11 +27,11 @@
 			<div class="col-md-12">
 			<section class="tile color transparent-white">
 			<div class="tile-body">
-			<form action="#" method="post">
+			<form action="#" method="get">
 				<div class="form-group">
 				<div class="row">
 					<div class="form-group col-sm-3">
-						<label for="input05">任务车牌照：</label>
+						<label for="input05">任务名称：</label>
 						<input type="text" class="form-control" name="task_number" />
 					</div>
 					<div class="form-group">
@@ -56,8 +56,9 @@
 					 <thead>
 					  <tr>
 						<td width="24%">任务名称</td>
-						<td width="24%">任务车牌照</td>
-						<td width="20%">任务信息（颜色、规格）</td>
+						<td width="24%">任务执行人</td>
+						<td width="20%">任务状态</td>
+                        <td width="20%">任务进度</td>
 						<td width="13%">操作</td>
 					  </tr>
 					</thead>
@@ -65,9 +66,14 @@
 					  <?php
 						foreach($this->pageData as $k=>$v){?>
 						 <tr>
-						 	<td><?php echo $v['name'];?>&nbsp;</td>
-							<td><?php echo $v['task_number'];?>&nbsp;</td>
-							<td><?php echo $v['description'];?>&nbsp;</td>
+                             <?php //var_dump($this->admininfo);?>
+						 	<td><?php echo $v['title'];?>&nbsp;</td>
+							<td><?php echo $this->admin_list_info[$v['executor']];?>&nbsp;</td>
+							<td><?php echo $this->task_init_array['status'][$v['status']];?>&nbsp;</td>
+                            <td><?php echo $this->task_init_array['schedule'][$v['schedule']];?>&nbsp;</td>
+
+
+
 							<td><a href="/management/task/edittaskmain?id=<?php echo $v['id'];?>">
                             <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
                              <a href="/management/task/deltaskmain?id=<?php echo $v['id'];?>">
@@ -81,7 +87,7 @@
 					<div class="tile-footer">
 					<div class="row">
 					<div class="page col-md-12" align="right">
-						共  <?php echo $this->totalItems;?> 台任务          <?php echo $this->page['all'];?></div>
+						共  <?php echo $this->totalItems;?> 个任务          <?php echo $this->page['all'];?></div>
 					
 				 <?php }else{?>
                      <div class="form-group">

@@ -7,9 +7,9 @@ class Management_taskController extends BaseController
     public function indexAction()
     {
         $taskDAO = $this->orm->createDAO('jjh_mg_task');
-        $name = HttpUtil::postString("name");
-        if(!empty($name)){
-            $taskDAO->findName($name);
+        $title = HttpUtil::getString("title");
+        if(!empty($title)){
+            $taskDAO->findTitle($title);
         }
         $taskDAO = $taskDAO->order('id DESC');
         $taskDAO->getPager(array('path'=>'/management/task/index'))->assignTo($this->view);
@@ -19,18 +19,30 @@ class Management_taskController extends BaseController
         echo $this->view->render("index/footer.phtml");
     }
 
-    public function addgiftmainAction(){
+    public function addtaskmainAction(){
         echo $this->view->render("index/header.phtml");
         echo $this->view->render("task/addtask.phtml");
         echo $this->view->render("index/footer.phtml");
     }
 
-    public function toAddtaskAction(){
+    public function toAddtaskmainAction(){
         $id = $_REQUEST['id'];
         $taskDAO = $this->orm->createDAO('jjh_mg_task');
-        $name = HttpUtil::postString("name");
+        $title = HttpUtil::postString("title");
+        $type = HttpUtil::postString("type");
+        $sponsor = $this->admininfo['admin_info']['id'];  //发起人
+        $executor = HttpUtil::postString("executor");  //执行者 （指派给）
+        $helper = HttpUtil::postString("helper");   //协助者
+        $star_time = HttpUtil::postString("star_time");
+        $end_time = HttpUtil::postString("end_time");
+        $plan_time = HttpUtil::postString("plan_time");
+        $status = HttpUtil::postString("status");
+        $priority = HttpUtil::postString("priority");  //优先级
+        $schedule = HttpUtil::postString("schedule");  //进度表
+        $description = HttpUtil::postString("description");
+        //$tixing = HttpUtil::postString("description"); //如果到预定完成时间没有完成，提前多少天提醒。
 
-        if($name == ''|| $name == ''){
+        if($title == ''|| $executor == ''|| $star_time == ''){
             //alert_back("您输入的信息不完整，请查正后继续添加！！！！！");
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
@@ -40,7 +52,18 @@ class Management_taskController extends BaseController
             exit;
         }
 
-        $taskDAO ->name = $name;
+        $taskDAO ->title = $title;
+        $taskDAO ->type = $type;
+        $taskDAO ->sponsor = $sponsor;
+        $taskDAO ->executor = $executor;
+        $taskDAO ->helper = $helper;
+        $taskDAO ->star_time = $star_time;
+        $taskDAO ->end_time = $end_time;
+        $taskDAO ->plan_time = $plan_time;
+        $taskDAO ->status = $status;
+        $taskDAO ->priority = $priority;
+        $taskDAO ->schedule = $schedule;
+        $taskDAO ->description = $description;
 
         if(!empty($id))  //修改流程
         {
@@ -94,7 +117,7 @@ class Management_taskController extends BaseController
         exit();
     }
 
-    public function delgiftmainAction(){
+    public function deltaskmainAction(){
         $id = HttpUtil::getString("id");
         $taskDAO = $this->orm->createDAO('jjh_mg_task');
         $taskDAO ->findId($id);
@@ -124,13 +147,15 @@ class Management_taskController extends BaseController
     }
 
     public function _init(){
-        error_reporting(0);
+        //error_reporting(0);
         $orgList = $this->orm->createDAO('jjh_mg_task')->get();
         SessionUtil::sessionStart();
         SessionUtil::checkmanagement();
+        $admin_list = $this->orm->createDAO("my_admin")->get();
 
         $this->view->assign(array(
-            'orgList' => $orgList
+            'orgList' => $orgList,
+            'admin_list' => $admin_list,
         ));
     }
 }
