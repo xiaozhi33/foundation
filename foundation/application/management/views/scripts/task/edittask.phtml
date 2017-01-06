@@ -31,25 +31,102 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">任务名称：</label>
                             <div class="col-sm-3">
-                                <input class="form-control" value="<?php echo $this->task_info[0]['name'];?>" type="text" name="name" />
+                                <input class="form-control" type="text" name="title" value="<?php echo $task_info[0]['title']?>" />
                             </div>
                             <span class="col-sm-1" > * </span>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">任务车牌照：</label>
+                            <label class="col-sm-2 control-label" for="input01">任务类型：</label>
                             <div class="col-sm-3">
-                                <input class="form-control" value="<?php echo $this->task_info[0]['task_number'];?>" type="text" name="task_number" />
+                                <select class="chosen-select chosen-transparent form-control" name="type">
+                                    <option value="" >请选择...</option>
+                                    <?php if($this->task_init_array['type'] != ""){
+                                        foreach ($this->task_init_array['type'] as $k => $v){?>
+                                            <option value="<?php echo $k?>" <?php if($this->$task_info[0]["type"] == $v) echo "selected='selected'";?>><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
                             </div>
                             <span class="col-sm-1" > * </span>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">任务信息（颜色、规格）：</label>
+                            <label class="col-sm-2 control-label" for="input02">任务指派给：</label>
                             <div class="col-sm-3">
-                                <input class="form-control" value="<?php echo $this->task_info[0]['description'];?>" type="text" name="description" />
+                                <select class="chosen-select chosen-transparent form-control" name="executor">
+                                    <option value="" >请选择...</option>
+                                    <?php if($this->admin_list != ""){
+                                        foreach ($this->admin_list as $k => $v){?>
+                                            <option value="<?php echo $v['id']?>" <?php if($this->$task_info[0]["executor"] == $v) echo "selected='selected'";?>><?php echo $v['admin_name']?></option>
+                                        <?php }}?>
+                                </select>
                             </div>
                             <span class="col-sm-1" > * </span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input06">开始时间：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" data-date-format="YYYY-MM-DD" value="<?php echo $this->task[0]['star_time']?>" type="text"  id="datepicker"  name="star_time" size="14"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input06">预计结束时间：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" data-date-format="YYYY-MM-DD" value="<?php echo $this->task[0]['end_time']?>"  type="text"  id="datepicker1"  name="end_time" size="14"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">协助者：</label>
+                            <div class="col-sm-3">
+                                <select class="chosen-select chosen-transparent form-control" name="helper">
+                                    <option value="" >请选择...</option>
+                                    <?php if($this->admin_list != ""){
+                                        foreach ($this->admin_list as $k => $v){?>
+                                            <option value="<?php echo $v['id']?>" <?php if($this->$task_info[0]["helper"] == $v['id']) echo "selected='selected'";?>><?php echo $v['admin_name']?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input02">优先级：</label>
+                            <div class="col-sm-3">
+                                <select class="chosen-select chosen-transparent form-control" name="schedule">
+                                    <!--<option value="" >请选择...</option>-->
+                                    <?php if($this->task_init_array['priority'] != ""){
+                                        foreach ($this->task_init_array['priority'] as $k => $v){?>
+                                            <option value="<?php echo $k?>" <?php if($this->$task_info[0]["priority"] == $k) echo "selected='selected'";?>><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input02">进度完成度：</label>
+                            <div class="col-sm-3">
+                                <select class="chosen-select chosen-transparent form-control" name="schedule">
+                                    <!--<option value="" >请选择...</option>-->
+                                    <?php if($this->task_init_array['schedule'] != ""){
+                                        foreach ($this->task_init_array['schedule'] as $k => $v){?>
+                                            <option value="<?php echo $k?>" <?php if($this->$task_info[0]["schedule"] == $k) echo "selected='selected'";?>><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">描述：</label>s
+                            <div class="col-sm-8">
+                                <textarea parsley-validation-minlength="1" name="description" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->task_info[0]['description'];?></textarea>
+                            </div>
                         </div>
 
                         <input class="btn btn-default" name="id" type="hidden" value="<?php echo $this->task_info[0]['id'];?>" />
