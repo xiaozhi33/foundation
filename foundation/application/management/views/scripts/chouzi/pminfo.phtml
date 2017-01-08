@@ -18,7 +18,7 @@
 <link href="/include/management/assets/css/minimal.css" rel="stylesheet">
 
 <!-- page header -->
-<div class="pageheader">
+<div class="pageheader" id="01">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
         <span>筹资列表</span></h2>
@@ -35,14 +35,14 @@
 <!-- /page header -->
 	<div id="main" class="main">
 		<div id="rightstyle02" class="row">
-
 			<div class="col-md-8">
-			    <section class="tile color transparent-white">
+			    <section class="tile color transparent-white" id="02">
 				<div class="tile-body nopadding">
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
                           <tr>
-                              <td width="30%">项目基本信息</td>
+                              <th colspan="2">项目基本信息</th>
+                              
                           </tr>
 					</thead>
                     <tbody>
@@ -240,13 +240,12 @@
 					</table>
 					</div>
 				 </section>
-
-                <section class="tile color transparent-white">
+                <section class="tile color transparent-white" id="03">
                     <div class="tile-body nopadding">
                         <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
                             <thead>
                             <tr>
-                                <td width="30%">项目签约信息</td>
+                                <th colspan="4">项目签约信息</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -276,16 +275,15 @@
                             </tbody>
 
                         </table>
-
                     </div>
                 </section>
-
-                <section class="tile color transparent-white">
+                <section class="tile color transparent-white" id="04">
                     <div class="tile-body nopadding">
+                    <div class="table-responsive">
                         <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
                             <thead>
                             <tr>
-                                <td width="30%">项目收支信息</td>
+                                <th colspan="2" style="text-align:left;">项目收支信息</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -318,10 +316,9 @@
                             </tbody>
 
                         </table>
-
+						</div>
                     </div>
                 </section>
-
                 <section class="tile color transparent-white">
                     <div class="tile-body nopadding">
                         <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
@@ -340,13 +337,12 @@
                         </table>
                     </div>
                 </section>
-
-                <section class="tile color transparent-white">
+                <section class="tile color transparent-white" id="05">
                     <div class="tile-body nopadding">
                         <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
                             <thead>
                             <tr>
-                                <td width="30%">项目回馈信息</td>
+                                <th colspan="5">项目回馈信息</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -381,13 +377,12 @@
                         </table>
                     </div>
                 </section>
-
-                <section class="tile color transparent-white">
+                <section class="tile color transparent-white" id="06">
                     <div class="tile-body nopadding">
                         <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
                             <thead>
                             <tr>
-                                <td width="30%">项目配比信息</td>
+                                <th colspan="2">项目配比信息</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -449,8 +444,19 @@
                     </div>
                 </section>
 		</div>
-
-        <script language="javascript">
+        </div>
+        <div class="back-box">
+        	<ul>
+                <li><a href="#02">基本信息</a></li>
+                <li><a href="#03">签约信息</a></li>
+                <li><a href="#04">收支信息</a></li>
+                <li><a href="#05">回馈信息</a></li>
+                <li><a href="#06">配比信息</a></li>
+                <li><a href="#01">返回顶部</a></li>
+            </ul>
+        </div>
+       
+		<script language="javascript">
             $(".menu li:eq(19)").addClass("open");
         </script>
 

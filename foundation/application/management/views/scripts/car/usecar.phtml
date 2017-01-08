@@ -28,36 +28,49 @@
 
                 <section class="tile color transparent-white">
                     <div class="tile-body">
-                        <div class="form-group">
+                        <div class="form-group car">
                             <div class="row">
-                                <div class="form-group col-sm-3">
-                                    <label for="input05">在途车辆：</label>
-                                </div>
+                                <label class="car-title">在途车辆：</label>
                                 <div class="form-group">
-                                    <div class="form-group col-sm-2">
-                                        <label for="input01">1111 </label>
-                                    </div>
-                                    <div class="form-group col-sm-3">
-                                        <label for="input02">11111 </label>
-                                    </div>
+                                    <div class="col-sm-12 car-title-c">
+                                        <div class="col-sm-1">
+                                        <a href="javascript:void(0);" class="car-number">11111</a>
+                                            <div class="car-ifo" style="display:none;">
+                                                <ul>
+                                                <li>车号：津DSZ527 <span onClick="javascript:$('.car-ifo').fadeOut();" style="float:right;">>>关闭</span></li>
+                                                <li>目的地及用途：河北出差 </li>
+                                                <li>公里数：121 公里 </li>
+                                                <li>出车时间:2016-12-07 23:21:00 </li>
+                                                <li>返回时间:2016-12-31 23:21:00  </li>
+                                                <li>加油数:121 L</li>
+                                                <li>金额：100 元</li>
+                                                <li>停车过路:234 元</li>
+                                                <li>使用人:张王楠 </li>
+                                                <li>驾驶人:张王楠</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1"><a href="#">22222</a></div>
+                                        <div class="col-sm-1"><a href="#">333333</a></div>
+                                        <div class="col-sm-1"><a href="#">444444</a></div>
+                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-sm-3">
-                                    <label for="input05">空闲车辆：</label>
-                                </div>
+                                <label class="car-title">空闲车辆：</label>
                                 <div class="form-group">
-                                    <div class="form-group col-sm-2">
-                                        <label for="input01">1111 </label>
-                                    </div>
-                                    <div class="form-group col-sm-3">
-                                        <label for="input02">11111 </label>
-                                    </div>
+                                    <div class="col-sm-12 car-title-c">
+                                        <div class="col-sm-1"><a href="#">11111</a></div>
+                                        <div class="col-sm-1"><a href="#">22222</a></div>
+                                        <div class="col-sm-1"><a href="#">333333</a></div>
+                                        <div class="col-sm-1"><a href="#">444444</a></div>
+                                     </div>
                                 </div>
                             </div>
 
                         </div>
                     </div>
+                    
                 </section>
 
 
@@ -156,4 +169,9 @@
         <script src="/include/management/assets/js/jquery.js"></script>
         <script language="javascript">
             $(".menu li:eq(53)").addClass("open");
+			$(function(){
+				$(".car-number").on("click",function(){
+					$(this).next().fadeToggle('slow');
+				});
+			});
         </script>
