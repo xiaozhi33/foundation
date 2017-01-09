@@ -122,11 +122,15 @@
 
         //initialize datepicker
         $('#datepicker4').datetimepicker({
-            Format: 'yyyy-mm',
-            autoclose:true,
-            startView:3,
-            minView:3,
-            todayHighlight:true,
+            language:  'zh-CN',
+            format: 'yyyy-mm',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 3, //这里就设置了默认视图为年视图
+            minView: 3, //设置最小视图为年视图
+            forceParse: 0,
             icons: {
                 date: "fa fa-calendar",
                 up: "fa fa-arrow-up",
