@@ -122,9 +122,11 @@
 
         //initialize datepicker
         $('#datepicker4').datetimepicker({
-            minView: 'year',
-            format: 'yyyy',
-            autoclose:true, //选择日期后自动关闭
+            Format: 'yyyy-mm',
+            autoclose:true,
+            startView:3,
+            minView:3,
+            todayHighlight:true,
             icons: {
                 date: "fa fa-calendar",
                 up: "fa fa-arrow-up",
