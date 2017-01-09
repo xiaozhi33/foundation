@@ -121,12 +121,10 @@
         });
 
         //initialize datepicker
-        $('#datepicker4').datepicker({
-            startView: 'decade',
-            maxViewMode: 'decade',
-            minViewMode: 'decade',
-            viewSelect: 'decade',
+        $('#datepicker4').datetimepicker({
+            minView: 'year',
             format: 'yyyy',
+            autoclose:true, //选择日期后自动关闭
             icons: {
                 date: "fa fa-calendar",
                 up: "fa fa-arrow-up",
