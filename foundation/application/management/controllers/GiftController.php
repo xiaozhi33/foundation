@@ -7,11 +7,13 @@ class Management_giftController extends BaseController
     public function indexAction()
     {
         $giftDAO = $this->orm->createDAO('material_mg_gift_main');
-        $name = HttpUtil::postString("name");
+        $name = HttpUtil::getString("name");
         if(!empty($name)){
-            $giftDAO->findName($name);
+            //$giftDAO->findName($name);
+            $giftDAO->selectLimit .= " AND name like '%".$name."%'";
         }
         $giftDAO = $giftDAO->order('id DESC');
+        $this->view->assign("name",$name);
         $giftDAO->getPager(array('path'=>'/management/gift/index'))->assignTo($this->view);
 
         echo $this->view->render("index/header.phtml");
@@ -46,14 +48,14 @@ class Management_giftController extends BaseController
             if ($hasName) {
                 echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
                 echo('<script language="JavaScript">');
-                echo("alert('该车辆信息已添加，请核对后重新添加！！！！！');");
+                echo("alert('该礼品信息已添加，请核对后重新添加！！！！！');");
                 echo('history.back();');
                 echo('</script>');
                 exit;
             }
         }else {
             if ($hasName) {
-                echo json_encode(array('msg' => "该车辆信息已添加，请核对后重新添加！！！！！！", 'return_url' => '/management/gift/'));
+                echo json_encode(array('msg' => "该礼品信息已添加，请核对后重新添加！！！！！！", 'return_url' => '/management/gift/'));
                 exit;
             }
         }
