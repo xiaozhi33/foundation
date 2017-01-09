@@ -167,6 +167,13 @@ class Management_carController extends BaseController
         echo $this->view->render("index/footer.phtml");
     }
 
+    public function usecar_now(){
+        $carDAO = $this->orm->createDAO('material_mg_cars');
+        $now = time();
+        $carDAO ->selectLimit .= " use_starttime < ".$now." AND use_endtime >".$now;
+        return $carDAO ->get();
+    }
+
     public function addusecarAction(){
         echo $this->view->render("index/header.phtml");
         echo $this->view->render("car/addusecar.phtml");
@@ -188,6 +195,19 @@ class Management_carController extends BaseController
         $user = HttpUtil::postString("user");
         $driver = HttpUtil::postString("driver");
         $description = HttpUtil::postString("description");
+
+        if(empty($id))  //首次判断同一时间一台车辆不能添加多条记录
+        {
+            $rs = $this->hasUserCarAction($use_starttime,$use_endtime,$car_id);
+            if(!empty($rs)){
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('该车辆在".$use_starttime."-".$use_endtime."期间已有使用记录，请查正后继续添加！');");
+                echo('history.back();');
+                echo('</script>');
+                exit;
+            }
+        }
 
         if($destination_use == ''|| $car_id == ''|| $user == ''|| $driver == ''|| $use_starttime == ''|| $use_endtime == ''){
             if(!empty($id)){
@@ -289,9 +309,11 @@ class Management_carController extends BaseController
 
     }
 
-    public function hasUserCarAction($star_time,$end_time){
+    public function hasUserCarAction($star_time,$end_time,$car_number){
         $carDAO = $this->orm->createDAO('material_mg_cars');
-        $carDAO ->selectLimit .= " use_starttime < ".$star_time." OR use_endtime >".$end_time;
+        $carDAO ->selectLimit .= " (use_starttime < ".$star_time." OR use_endtime >".$end_time.")";
+        $carDAO ->selectLimit .= " AND car_number=".$car_number;
+        return $carDAO ->get();
     }
     public function _init(){
         error_reporting(0);
