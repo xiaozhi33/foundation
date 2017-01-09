@@ -162,6 +162,24 @@ class Management_carController extends BaseController
         $carDAO = $carDAO->order('id DESC');
         $carDAO->getPager(array('path'=>'/management/car/usecar'))->assignTo($this->view);
 
+        $usecar_now = $this->usecar_now();
+        $this->view->assign("usecar_now", $usecar_now);
+
+        if(!empty($usecar_now)){
+            $car_ids = '';
+            foreach($usecar_now as $key => $value){
+                $car_ids .= $value['car_id'].',';
+            }
+            $car_ids = substr($car_ids,0,strlen($car_ids)-1);
+        }
+
+        $car_kongxian = $this->orm->createDAO('material_mg_cars_main');
+        if($car_ids != ''){
+            $car_kongxian ->selectLimit .= " AND id not in(".$car_ids.")";
+        }
+        $car_kongxian = $car_kongxian ->get();
+        $this->view->assign("car_kongxian", $car_kongxian);
+
         echo $this->view->render("index/header.phtml");
         echo $this->view->render("car/usecar.phtml");
         echo $this->view->render("index/footer.phtml");
@@ -170,7 +188,7 @@ class Management_carController extends BaseController
     public function usecar_now(){
         $carDAO = $this->orm->createDAO('material_mg_cars');
         $now = time();
-        $carDAO ->selectLimit .= " use_starttime < ".$now." AND use_endtime >".$now;
+        $carDAO ->selectLimit .= " AND use_starttime < ".$now." AND use_endtime >".$now;
         return $carDAO ->get();
     }
 
@@ -232,8 +250,8 @@ class Management_carController extends BaseController
         $carDAO ->car_number = $car_number;
         $carDAO ->destination_use = $destination_use;
         $carDAO ->kilometers = $kilometers;
-        $carDAO ->use_starttime = $use_starttime;
-        $carDAO ->use_endtime = $use_endtime;
+        $carDAO ->use_starttime = strtotime($use_starttime);
+        $carDAO ->use_endtime = strtotime($use_endtime);
         $carDAO ->cost_oil_counts = $cost_oil_counts;
         $carDAO ->cost_price = $cost_price;
         $carDAO ->cost_road_toll = $cost_road_toll;
@@ -311,12 +329,12 @@ class Management_carController extends BaseController
 
     public function hasUserCarAction($star_time,$end_time,$car_number){
         $carDAO = $this->orm->createDAO('material_mg_cars');
-        $carDAO ->selectLimit .= " (use_starttime < ".$star_time." OR use_endtime >".$end_time.")";
+        $carDAO ->selectLimit .= " AND (use_starttime < '".$star_time."' OR use_endtime >'".$end_time."')";
         $carDAO ->selectLimit .= " AND car_number=".$car_number;
         return $carDAO ->get();
     }
     public function _init(){
-        error_reporting(0);
+        //error_reporting(0);
         $carList = $this->orm->createDAO('material_mg_cars_main')->get();
         SessionUtil::sessionStart();
         SessionUtil::checkmanagement();

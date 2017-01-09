@@ -45,14 +45,14 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input06">出车时间：</label>
                             <div class="col-sm-4">
-                                <input class="form-control"  value="<?php echo $this->car_info[0]['use_starttime'];?>" data-date-format="YYYY-MM-DD HH:mm:00" type="text"  id="datepicker"  name="use_starttime" size="14"/>
+                                <input class="form-control"  value="<?php echo date("Y-m-d h:i:s",$this->car_info[0]['use_starttime']);?>" data-date-format="YYYY-MM-DD HH:mm:00" type="text"  id="datepicker"  name="use_starttime" size="14"/>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input06">返回时间：</label>
                             <div class="col-sm-4">
-                                <input class="form-control"  value="<?php echo $this->car_info[0]['use_endtime'];?>" data-date-format="YYYY-MM-DD HH:mm:00" type="text"  id="datepicker1"  name="use_endtime" size="14"/>
+                                <input class="form-control"  value="<?php echo date("Y-m-d h:i:s",$this->car_info[0]['use_endtime']);?>" data-date-format="YYYY-MM-DD HH:mm:00" type="text"  id="datepicker1"  name="use_endtime" size="14"/>
                             </div>
                         </div>
 

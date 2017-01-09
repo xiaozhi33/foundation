@@ -93,7 +93,7 @@ class Management_taskController extends BaseController
         }
     }
 
-    public function edittaskAction(){
+    public function edittaskmainAction(){
         $id = HttpUtil::getString("id");
         $taskDAO = $this->orm->createDAO('jjh_mg_task');
         $taskDAO ->findId($id);
@@ -101,18 +101,19 @@ class Management_taskController extends BaseController
 
         if($taskDAO != "")
         {
-            $this->view->assign("gift_info", $taskDAO);
+            $this->view->assign("task_info", $taskDAO);
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("gift/edittask.phtml");
+            echo $this->view->render("task/edittask.phtml");
             echo $this->view->render("index/footer.phtml");
             exit();
         }
-        $taskDAO = $this->orm->createDAO('jjh_mg_task')->order('id DESC');
+        $taskDAO = $this->orm->createDAO('jjh_mg_task')->order('id DESC')->get();
 
-        $this->view->assign("gift_info", $taskDAO);
+
+        $this->view->assign("task_info", $taskDAO);
 
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("gift/edittask.phtml");
+        echo $this->view->render("task/edittask.phtml");
         echo $this->view->render("index/footer.phtml");
         exit();
     }
@@ -121,7 +122,7 @@ class Management_taskController extends BaseController
         $id = HttpUtil::getString("id");
         $taskDAO = $this->orm->createDAO('jjh_mg_task');
         $taskDAO ->findId($id);
-        $taskDAO = $taskDAO ->delete();
+        $taskDAO ->delete();
 
         echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
         echo('<script language="JavaScript">');
