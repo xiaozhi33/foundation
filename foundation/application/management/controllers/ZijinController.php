@@ -795,6 +795,8 @@
                         }*/
             $pm_signDAO ->pm_id = $pm_id;
             $pm_signDAO ->sign_time = HttpUtil::postString("sign_time");
+            $pm_signDAO ->jzys_time = HttpUtil::postString("jzys_time");
+
 
             if($_REQUEST['id']){
                 $pm_signDAO ->findId($_REQUEST['id']);
