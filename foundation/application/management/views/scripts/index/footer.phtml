@@ -122,11 +122,9 @@
 
         //initialize datepicker
         $('#datepicker4').datetimepicker({
-            changeYear: true,
-            dateFormat: 'yy',
-            startView: 2,
-            maxViewMode: 2,
-            minViewMode:2,
+            startView: 'year',
+            maxViewMode: 'year',
+            minViewMode: 'year',
             icons: {
                 date: "fa fa-calendar",
                 up: "fa fa-arrow-up",
@@ -135,7 +133,7 @@
         });
 
         $("#datepicker4").on("dp.show",function (e) {
-            var newtop4 = $('.bootstrap-datetimepicker-widget').position().top - 45;
+            var newtop4 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
             $('.bootstrap-datetimepicker-widget').css('top', newtop4 + 'px');
         });
 
