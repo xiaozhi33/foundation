@@ -120,6 +120,22 @@
             $('.bootstrap-datetimepicker-widget').css('top', newtop3 + 'px');
         });
 
+        //initialize datepicker
+        $('#datepicker4').datetimepicker({
+            changeYear: true,
+            dateFormat: 'YYYY',
+            icons: {
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker4").on("dp.show",function (e) {
+            var newtop4 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop4 + 'px');
+        });
+
       // Initialize flot chart
       var d1 =[ [1, 715],
             [2, 985],
