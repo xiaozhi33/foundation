@@ -210,7 +210,7 @@ class Management_giftController extends BaseController
             if ((int)$gift_count > (int)$gift_main[0]['store']) {
                 echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
                 echo('<script language="JavaScript">');
-                echo("alert('您所赠送的礼品数量不足，请下补货再进行操作。');");
+                echo("alert('您所赠送的礼品数量不足，请先补货再进行操作。');");
                 echo('history.back();');
                 echo('</script>');
                 exit;
@@ -220,7 +220,7 @@ class Management_giftController extends BaseController
             if (((int)$gift_main[0]['store'] - $gift_count) < 0) {
                 echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
                 echo('<script language="JavaScript">');
-                echo("alert('您所赠送的礼品数量不足，请下补货再进行操作。');");
+                echo("alert('您所赠送的礼品数量不足，请先补货再进行操作。');");
                 echo('history.back();');
                 echo('</script>');
                 exit;
