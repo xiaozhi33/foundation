@@ -35,6 +35,7 @@
  */			
 			//新版2.0更新
 			$cate_id_info = HttpUtil::postInsString("cate_id_info");
+            $cate_id_info = (int)$cate_id_info;
 			if($cate_id_info == ""){
 				alert_back("请选择要捐赠项目的名称！");
 			}

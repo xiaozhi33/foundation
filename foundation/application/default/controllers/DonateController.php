@@ -13,6 +13,7 @@
 			
 			//我要捐赠功能
 			$cid = HttpUtil::getString("cid");
+            $cid = (int)$cid;
 			$cname = HttpUtil::getString("cname");
 			if($cid != "" && $cname != ""){
 				$jjh_pm = new my_categoryDAO();
