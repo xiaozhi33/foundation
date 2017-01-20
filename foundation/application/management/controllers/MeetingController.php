@@ -167,12 +167,18 @@
         public function downloadAction(){
             if($_GET){
                 (int)$id = HttpUtil::getString('id');
+                (int)$fid = HttpUtil::getString('fid');
                 $jjh_meetingDAO = $this->orm->createDAO("jjh_meeting");
                 $jjh_meetingDAO->findId($id);
                 $jjh_meetingDAO = $jjh_meetingDAO->get();
                 if(!empty($jjh_meetingDAO)){
-                    $jjh_meetingDAO[0]['meeting_files'] = str_replace("/include/upload_file/", "",$jjh_meetingDAO[0]['meeting_files']);
-                    $file =__REPICPATH__.$jjh_meetingDAO[0]['meeting_files'];
+                    if($fid != ''){
+                        $jjh_meetingDAO[0]['meeting_files'.$fid] = str_replace("/include/upload_file/", "",$jjh_meetingDAO[0]['meeting_files'.$fid]);
+                        $file =__REPICPATH__.$jjh_meetingDAO[0]['meeting_files'.$fid];
+                    }else {
+                        $jjh_meetingDAO[0]['meeting_files'] = str_replace("/include/upload_file/", "",$jjh_meetingDAO[0]['meeting_files']);
+                        $file =__REPICPATH__.$jjh_meetingDAO[0]['meeting_files'];
+                    }
 
                     if(file_exists($file)){
                         ob_end_clean();
