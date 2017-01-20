@@ -65,6 +65,30 @@
                     }
                 }
             }
+
+            for($i=1;$i<6;$i++){
+                if($_FILES['meeting_files'.$i]['name']!=""){
+                    if($_FILES['meeting_files'.$i]['error'] != 4){
+                        if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+                            mkdir(__UPLOADPICPATH__ ."jjh_download/");
+                        }
+                        $uploadpic = new uploadPic($_FILES['meeting_files'.$i]['name'],$_FILES['meeting_files'.$i]['error'],$_FILES['meeting_files'.$i]['size'],$_FILES['meeting_files'.$i]['tmp_name'],$_FILES['meeting_files'.$i]['type'],2);
+                        $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+                        $result = $uploadpic->uploadPic();
+                        if($result['error']!=0){
+                            echo "<script>alert('".$result['msg']."');";
+                            echo "window.location.href='/management/meeting";
+                            echo "</script>";
+                            exit();
+                        }else{
+                            $meetingDAO->meeting_files =  __GETPICPATH__."jjh_download/".$result['picname'];
+                            $meetingDAO->meeting_files_name = $_FILES['meeting_files'.$i]['name'];
+                        }
+                    }
+                }
+            }
+
+
             if(!empty($id))  //修改流程
             {
                 $meetingDAO ->findId($id);
