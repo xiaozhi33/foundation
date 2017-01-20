@@ -6,9 +6,9 @@
 
         public function indexAction()
         {
-            $pname = HttpUtil::postString("pname");
-            $department = HttpUtil::postString("department");
-            $cate = HttpUtil::postString("cate");
+            $pname = HttpUtil::getString("pname");
+            $department = HttpUtil::getString("department");
+            $cate = HttpUtil::getString("cate");
 
             $this->view->assign("pname", $pname);
             $this->view->assign("cate", $cate);
