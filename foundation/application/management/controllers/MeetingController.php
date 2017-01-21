@@ -56,7 +56,7 @@
                     $result = $uploadpic->uploadPic();
                     if($result['error']!=0){
                         echo "<script>alert('".$result['msg']."');";
-                        echo "window.location.href='/management/meeting";
+                        echo "window.location.href='/management/meeting';";
                         echo "</script>";
                         exit();
                     }else{
@@ -66,7 +66,7 @@
                 }
             }
 
-            for($i=1;$i<6;$i++){
+            for($i=1; $i<=5; $i++){
                 if($_FILES['meeting_files'.$i]['name']!=""){
                     if($_FILES['meeting_files'.$i]['error'] != 4){
                         if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
@@ -77,12 +77,14 @@
                         $result = $uploadpic->uploadPic();
                         if($result['error']!=0){
                             echo "<script>alert('".$result['msg']."');";
-                            echo "window.location.href='/management/meeting";
+                            echo "window.location.href='/management/meeting';";
                             echo "</script>";
                             exit();
                         }else{
-                            $meetingDAO->meeting_files =  __GETPICPATH__."jjh_download/".$result['picname'];
-                            $meetingDAO->meeting_files_name = $_FILES['meeting_files'.$i]['name'];
+                            $string = 'meeting_files'.$i;
+                            $string1 = 'meeting_files_name'.$i;
+                            $meetingDAO->$string =  __GETPICPATH__."jjh_download/".$result['picname'];
+                            $meetingDAO->$string1 = $_FILES['meeting_files'.$i]['name'];
                         }
                     }
                 }
