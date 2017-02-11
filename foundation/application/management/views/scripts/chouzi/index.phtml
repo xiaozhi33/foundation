@@ -45,7 +45,7 @@
 				<div class="form-group">
 
                     <div class="row">
-                        <div class="form-group col-sm-6">
+                        <div class="form-group col-sm-3">
                             <!--<label for="input05">项目名称：</label>-->
                             <!--<input type="text" class="form-control" name="pname" />-->
                             <label for="pname" class="col-sm-4 control-label">项目名称：</label>
@@ -70,6 +70,23 @@
                                     <?php }}?>
                             </select>
                         </div>
+
+
+                        <div class="form-group col-sm-3">
+                            <label for="input03">协议已到期项目：</label>
+                            <input name="starttime" data-date-format="YYYY-MM-DD HH:mm:ss"  type="text" class="form-control" id="datepicker">
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <label for="input03">未完成到账项目：</label>
+                            <input name="starttime" data-date-format="YYYY-MM-DD HH:mm:ss"  type="text" class="form-control" id="datepicker">
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <label for="input03">未开票项目：</label>
+                            <input name="starttime" data-date-format="YYYY-MM-DD HH:mm:ss"  type="text" class="form-control" id="datepicker">
+                        </div>
+
 
                        <!-- <div class="form-group col-sm-3">
                                 <label for="input03">项目起始日期：</label>

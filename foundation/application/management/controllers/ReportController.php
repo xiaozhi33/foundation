@@ -147,6 +147,7 @@
                 $pname = HttpUtil::postString("pname");
                 $cate = HttpUtil::postString("cate");
                 $department = HttpUtil::postString("department");
+                $pm_pp = HttpUtil::postString("pm_pp");
                 $zijin_daozhang_datetime =  HttpUtil::postString("start");
                 $zijin_daozhang_datetime1 =  HttpUtil::postString("end");
 
@@ -186,6 +187,10 @@
                     }
                     if($zijin_daozhang_datetime != "" && $zijin_daozhang_datetime1 != ""){
                         $zijininfo ->selectLimit .= " and zijin_daozhang_datetime between '$zijin_daozhang_datetime' and '$zijin_daozhang_datetime1'";
+                    }
+
+                    if($pm_pp != ""){
+                        $zijininfo ->selectLimit .= " and pm_mg_info.pm_pp like '%".$pm_pp."%' ";
                     }
 
                     $zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by bpath";
@@ -342,6 +347,10 @@
                     }
                     if($zijin_daozhang_datetime != "" && $zijin_daozhang_datetime1 != ""){
                         $zijininfo ->selectLimit .= " and zijin_daozhang_datetime between '$zijin_daozhang_datetime' and '$zijin_daozhang_datetime1'";
+                    }
+
+                    if($pm_pp != ""){
+                        $zijininfo ->selectLimit .= " and pm_mg_info.pm_pp like '%".$pm_pp."%' ";
                     }
 
                     $zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by concat(parent_pm_id,'-',c.id)";
