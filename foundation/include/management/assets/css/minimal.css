@@ -7091,13 +7091,13 @@ body #content .modal .modal-dialog .modal-content input[type="color"] {
   -webkit-appearance: none !important;
   color: #717171;
   outline: 0;
-  height: 16px;
+  height: 40px;
   padding: 6px 11px !important;
-  line-height: 18px;
+  line-height: 40px;
   font-size: 13px;
   vertical-align: top;
   background-color: #fff;
-  min-height: 30px;
+  min-height: 40px;
   filter: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
@@ -13087,17 +13087,19 @@ body #content.full-page {
     text-align: center;
     width: 360px;
     background-color: rgba(255, 255, 255,0.8);
-    height:350px;
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
-    padding:30px;
+    padding:20px 30px;
     color:#666;
     overflow: auto;
 	border:1px solid #ddd;
 	border-radius:4px; }
     body #content.full-page .inside-block img {
       margin-top: 50px; }
+	body #content.full-page .inside-block .input-group-addon img{
+		margin-top: 0px;
+		}
     body #content.full-page .inside-block h1 {
       text-transform: uppercase;
       font-size: 30px;

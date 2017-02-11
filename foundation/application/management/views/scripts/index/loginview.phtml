@@ -59,6 +59,11 @@
                   <input type="password" class="form-control" name="user_password" placeholder="密码">
                   <div class="input-group-addon"><i class="fa fa-key"></i></div>
                 </div>
+                  <div class="input-group">
+                      <input type="text" class="form-control" name="code" />
+                      <!--<button type="button" onClick="create_code()">更换</button>-->
+                      <div class="input-group-addon"><img id="code" src="create_code.php" alt="看不清楚，换一张" style="cursor: pointer; vertical-align:middle;" onClick="create_code()"/></div>
+                  </div>
               </section>
               <!--<section class="controls">
                 <div class="checkbox check-transparent">
@@ -71,7 +76,7 @@
                 <button class="btn btn-dutch" onclick="submit();">登 录</button>
                <!-- <span>or</span>
                 <button class="btn btn-slategray" onclick="reset();">重 置</button>-->
-                <a href="#">不记得密码了？请点击忘记密码</a>
+                <a href="javascript:void(0);">不记得密码了？请点击忘记密码</a>
               </section>
             </form>
           </div>
@@ -84,6 +89,12 @@
     <!-- Wrap all page content end -->
   </body>
 </html>
+
+<script>
+    function create_code(){
+        document.getElementById('code').src = '/include/management/create_code.php?'+Math.random()*10000;
+    }
+</script>
 
 <!--<script>
     $(document).ready(function(){

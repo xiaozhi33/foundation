@@ -167,6 +167,15 @@
 		public function loginAction(){
 			$username = HttpUtil::postString('user_name');
 			$password = HttpUtil::postString('user_password');
+
+            if($_POST['code'] != $_SESSION['code']){
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('您输入的验证码有误');");
+                echo("location.href='/management/index/loginview';");
+                echo('</script>');
+                exit;
+            }
 			
 			//判定用户名密码的正确性			
 			if(!$passwordpost = $this->getpasswordpostAction($username,$password)){
