@@ -592,8 +592,6 @@
          * 项目详情
          */
         public function pminfoAction(){
-            /*ini_set("display_errors", "On");
-            error_reporting(E_ERROR);*/
             (int)$pid = HttpUtil::getString("id");
             if(!empty($pid)){
                 $pm_mg_chouziDAO = $this->orm->createDAO('pm_mg_chouzi');
@@ -689,7 +687,7 @@
                 $this->view->assign("chouzi", $pm_mg_chouziDAO);
                 echo $this->view->render("index/header.phtml");
                 echo $this->view->render("chouzi/pminfo.phtml");
-                echo $this->view->render("index/footer.phtml");
+                //echo $this->view->render("index/footer.phtml");
             }else {
                 echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
                 echo('<script language="JavaScript">');
