@@ -599,13 +599,13 @@
                 $pm_mg_chouziDAO = $pm_mg_chouziDAO ->get();
 
                 //生产二维码
-                if(!file_exists(__UPLOADPICPATH__ . '/pmqrcode/')) {
+                /*if(!file_exists(__UPLOADPICPATH__ . '/pmqrcode/')) {
                     mkdir(__UPLOADPICPATH__ . '/pmqrcode/' ,0777);
                 }
                 if(!file_exists(__BASEURL__ ."/include/upload_file/pmqrcode/".$pid.".png")){
                     require_once 'phpqrcode/qrlib.php';
                     QRcode::png(__BASEURL__ ."/management/chouzi/pminfo?id=".$pid , __UPLOADPICPATH__ . '/pmqrcode/' . $pid .".png", 'H', 5, 2);
-                }
+                }*/
 
                 /////////////////////////////////////////////////////////////////////////////////////////////////
                 // 收支统计信息

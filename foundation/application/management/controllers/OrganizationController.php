@@ -31,11 +31,11 @@ class Management_organizationController extends BaseController
 
     public function addorganizationmainAction(){
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("organization/addorganization.phtml?".$this->org_type_status);
+        echo $this->view->render("organization/addorganization.phtml");
         echo $this->view->render("index/footer.phtml");
     }
 
-    public function toAddorganizationAction(){
+    public function toAddorganizationmainAction(){
         $id = $_REQUEST['id'];
         $organizationDAO = $this->orm->createDAO('jjh_mg_organization');
         $name = HttpUtil::postString("name");
@@ -180,6 +180,7 @@ class Management_organizationController extends BaseController
 
     public function _init(){
         error_reporting(0);
+        //error_reporting(E_ALL);
         $orgList = $this->orm->createDAO('jjh_mg_organization')->get();
         SessionUtil::sessionStart();
         SessionUtil::checkmanagement();

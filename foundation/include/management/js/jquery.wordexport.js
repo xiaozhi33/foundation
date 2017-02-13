@@ -25,7 +25,7 @@ if (typeof jQuery !== "undefined" && typeof saveAs !== "undefined") {
             // Embed all images using Data URLs
             var images = Array();
             var img = markup.find('img');
-            for (var i = 0; i < img.length; i++) {
+            /*for (var i = 0; i < img.length; i++) {
                 // Calculate dimensions of output image
                 var w = Math.min(img[i].width, options.maxWidth);
                 var h = img[i].height * (w / img[i].width);
@@ -48,6 +48,15 @@ if (typeof jQuery !== "undefined" && typeof saveAs !== "undefined") {
                     location: $(img[i]).attr("src"),
                     data: uri.substring(uri.indexOf(",") + 1)
                 };
+            }*/
+            /*报错替换原有for循环逻辑*/
+            for (var i = 0; i < img.length; i++) {
+                // Calculate dimensions of output image
+                var w = Math.min(img[i].width, options.maxWidth);
+                var h = img[i].height * (w/img[i].width);
+                // Create canvas for converting image to data URL
+                var img_id = "#"+img[i].id;
+                $('<canvas>').attr("id", "xzhiliao_resume_word_img_" + i).width(w).height(h).insertAfter(img_id);
             }
 
             // Prepare bottom of mhtml file with image data

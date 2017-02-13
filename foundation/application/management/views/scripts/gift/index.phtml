@@ -65,7 +65,7 @@
 						foreach($this->pageData as $k=>$v){?>
 						 <tr>
 						 	<td><?php echo $v['name'];?>&nbsp;</td>
-							<td><?php echo $v['store'];?>&nbsp;</td>
+							<td><a href="/management/gift/usegift?gift_name=<?php echo $v['name'];?>"><?php echo $v['store'];?>&nbsp;</td>
 							<td><a href="/management/gift/editgiftmain?id=<?php echo $v['id'];?>">
                             <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
                              <a href="/management/gift/delgiftmain?id=<?php echo $v['id'];?>">

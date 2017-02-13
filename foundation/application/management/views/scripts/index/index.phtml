@@ -167,10 +167,20 @@
             <div class="row">
               <!-- col 8 -->
               <div class="col-lg-8 col-md-12">
-
+                  <div style＝"margin:10px 10px;">
+                      <select id="tongji_type">
+                          <option value ="1" <?php if($this->tongji_type ==1 ){echo 'selected="selected"';}?>>年度筹资金额统计</option>
+                          <option value ="2" <?php if($this->tongji_type ==2 ){echo 'selected="selected"';}?>>年度使用金额统计</option>
+                      </select>
+                  </div>
                   <script type="text/javascript" src="/include/management/js/echarts.min.js"></script>
                   <section class="tile color transparent-white">
                       <div id="zhouzi_main" style="width: 100%;height:400px ;"></div>
+                      <?php if($this->tongji_type == 1){
+                          $type = '筹资';
+                      }else{
+                          $type = '使用';
+                      }?>
                       <script type="text/javascript">
                           // 基于准备好的dom，初始化echarts实例
                           var myChart = echarts.init(document.getElementById('zhouzi_main'));
@@ -186,9 +196,9 @@
                               legend: {
                                   data:[<?php foreach($this->rs_year as $key => $value){
                                         if($key == count($value) - 1){
-                                            echo "'".$key."年度筹资金额'";
+                                            echo "'".$key."年度".$type."金额'";
                                         }else {
-                                            echo "'".$key."年度筹资金额'".",";
+                                            echo "'".$key."年度".$type."金额'".",";
                                         }
                                   }?>'过往三年平均筹资金额']
                               },
@@ -219,7 +229,7 @@
                                   <?php
                                         foreach($this->rs_year as $key => $value){
                                             echo "{
-                                              name:'".$key."年度筹资金额',
+                                              name:'".$key."年度".$type."金额',
                                               type:'line',
                                               areaStyle: {normal: {}},
                                               data:[".$value['json']."]
@@ -228,7 +238,7 @@
                                         }
                                   ?>
                                   {
-                                      name:'过往三年平均筹资金额',
+                                      name:'<?php echo "过往三年平均".$type."金额";?>',
                                       type:'line',
                                       areaStyle: {normal: {}},
                                       data:[
@@ -663,4 +673,11 @@
             <script src="/include/management/assets/js/jquery.js"></script>
             <script language="javascript">
                 $(".menu li:eq(0)").addClass("open");
+            </script>
+
+            <script type="text/javascript">
+                $("#tongji_type").change(function(){
+                    var tj_type = $(this).val();
+                    self.location='/management/index'+'?tongji_type='+tj_type;
+                });
             </script>

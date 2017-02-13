@@ -148,13 +148,14 @@ class Management_giftController extends BaseController
     public function usegiftAction()
     {
         $giftDAO = $this->orm->createDAO('material_mg_gift_info');
-        $gift_name = HttpUtil::postString("gift_name");
+        $gift_name = HttpUtil::getString("gift_name");
         if(!empty($gift_name)){
-            $giftDAO->findGift_name($gift_name);
+            $giftDAO->selectLimit .= " AND gift_name like '%".$gift_name."%'";
         }
         $giftDAO = $giftDAO->order('id DESC');
         $giftDAO->getPager(array('path'=>'/management/gift/usegift'))->assignTo($this->view);
 
+        $this->view->assign("gift_name", $gift_name);
         echo $this->view->render("index/header.phtml");
         echo $this->view->render("gift/usegift.phtml");
         echo $this->view->render("index/footer.phtml");

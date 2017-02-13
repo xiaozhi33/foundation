@@ -148,6 +148,11 @@
                 $cate = HttpUtil::postString("cate");
                 $department = HttpUtil::postString("department");
                 $pm_pp = HttpUtil::postString("pm_pp");
+
+                $piaoju = HttpUtil::postString("piaoju");  // 为开票
+                $jindu = HttpUtil::postString("jindu");   // 未完成到账
+                $xieyi_daoqi = HttpUtil::postString("xieyi_daoqi"); // 协议已到期
+
                 $zijin_daozhang_datetime =  HttpUtil::postString("start");
                 $zijin_daozhang_datetime1 =  HttpUtil::postString("end");
 
@@ -191,6 +196,10 @@
 
                     if($pm_pp != ""){
                         $zijininfo ->selectLimit .= " and pm_mg_info.pm_pp like '%".$pm_pp."%' ";
+                    }
+
+                    if($piaoju != ""){  // 未开票
+                        $zijininfo ->selectLimit .= " and pm_mg_info.pm_pp!=1 ";
                     }
 
                     $zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by bpath";
@@ -351,6 +360,10 @@
 
                     if($pm_pp != ""){
                         $zijininfo ->selectLimit .= " and pm_mg_info.pm_pp like '%".$pm_pp."%' ";
+                    }
+
+                    if($piaoju != ""){  // 未开票
+                        $zijininfo ->selectLimit .= " and pm_mg_info.pm_pp!=1 ";
                     }
 
                     $zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by concat(parent_pm_id,'-',c.id)";
