@@ -21,7 +21,7 @@
 		<div class="col-md-12">
 			<section class="tile color transparent-white">
 			<div class="tile-body">
-				<form class="form-horizontal" method="post" action="#"  name="search_form">
+				<form class="form-horizontal" method="get" action="#"  name="search_form">
                     <div class="form-group">
                     	<div class="col-sm-12">
                             <label class="col-sm-2 control-label" for="pname">项目名称：</label>
@@ -31,7 +31,7 @@
                                     <?php if($this->pmlist != ""){
                                         foreach ($this->pmlist as $k => $v){
                                             ?>
-                                            <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                            <option value="<?php echo $v['pname'];?>" <?php if($this->pname == $v['pname'])echo 'selected="selected"';?>><?php echo $v['pname'];?></option>
                                         <?php }}?>
                                 </select>
                                 <input id="pname_info" type="hidden" name="pname" value=""/>
@@ -39,7 +39,7 @@
 
                             <label class="col-sm-2 control-label" for="input01">捐赠方名称：</label>
                             <div class="col-sm-2">
-                               <input type="text" name="ppname" />
+                               <input type="text" name="ppname" value="<?php echo $this->ppname;?>"/>
                             </div>
                             <label class="col-sm-1 control-label" for="input01"></label>
                             <div class="col-sm-1"><input class="btn btn-primary" type="submit" value="搜索"></div>
@@ -54,8 +54,8 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					  <thead>
 					  <tr>
-						<td width="15%">捐赠方</td>
-						<td width="25%">相关项目</td>
+						<td width="7%">捐赠方</td>
+						<td width="9%">相关项目</td>
 						<!--<td width="20%">移动电话</td>-->
 						<td width="10%">操作</td>
                           <td width="10%">其他操作</td>
@@ -66,7 +66,7 @@
 						foreach($this->pplist as $k=>$v){?>
 						 <tr>
 						 	<td><?php echo $v['ppname'];?></td>
-							<td><?php echo $v['pp_pm_id'];?></td>
+							<td><a href="/management/chouzi/index?pname=<?php echo $v['pp_pm_id'];?>" target="_blank"><?php echo $v['pp_pm_id'];?></td>
                              <!--<td><?php echo $v['ppmobile'];?></td>
 							<td><?php /*echo $v['ppemail'];*/?></td>-->
                              <td>
@@ -74,25 +74,33 @@
                                      <button type="button" class="btn btn-greensea margin-bottom-20">查看</button>
                                  </a>
 
-                                 <a href="#">
-                                     <button type="button" class="btn btn-danger margin-bottom-20">删除</button>
-                                 </a>
-                             </td>
-                             <td>
                                  <a href="/management/admin/editpp?id=<?php echo $v['pid'];?>">
-                                     <button type="button" class="btn btn-greensea margin-bottom-20" style="margin-bottom:5px;">编辑捐赠方</button>
+                                     <button type="button" class="btn btn-greensea margin-bottom-20" >编辑捐赠方</button>
                                  </a>
 
                                  <a href="/management/admin/ppcompany?pp_id=<?php echo $v['pid'];?>">
-                                     <button type="button" class="btn btn-greensea margin-bottom-20" style="margin-bottom:5px;">编辑子公司</button>
+                                     <button type="button" class="btn btn-greensea margin-bottom-20">编辑子公司</button>
                                  </a>
 
+                                 <!--<a href="#">
+                                     <button type="button" class="btn btn-danger margin-bottom-20">删除</button>
+                                 </a>-->
+                             </td>
+                             <td>
+                                 <!--<a href="/management/admin/editpp?id=<?php /*echo $v['pid'];*/?>">
+                                     <button type="button" class="btn btn-greensea margin-bottom-20" style="margin-bottom:5px;">编辑捐赠方</button>
+                                 </a>-->
+
+                                <!-- <a href="/management/admin/ppcompany?pp_id=<?php /*echo $v['pid'];*/?>">
+                                     <button type="button" class="btn btn-greensea margin-bottom-20" style="margin-bottom:5px;">编辑子公司</button>
+                                 </a>-->
+
                                  <a href="/management/admin/pphuodong?pp_id=<?php echo $v['pid'];?>">
-                                     <button type="button" class="btn btn-greensea margin-bottom-20" style="margin-bottom:5px;">编辑参加学校活动</button>
+                                     <button type="button" class="btn btn-greensea margin-bottom-20" >参加学校活动详情</button>
                                  </a>
 
                                  <a href="/management/admin/ppvisit?pp_id=<?php echo $v['pid'];?>">
-                                     <button type="button" class="btn btn-greensea margin-bottom-20" style="margin-bottom:5px;">编辑拜访捐赠方情况</button>
+                                     <button type="button" class="btn btn-greensea margin-bottom-20">拜访捐赠方情况</button>
                                  </a>
                              </td>
 						 </tr>
@@ -106,7 +114,7 @@
 						共  <?php echo $this->total;?> 条          <?php echo $this->page;?></div>
 					
 				 <?php }else{?>
-				 	<div>暂无项目联系人信息！<a href="/management/admin/adddepartment">点击添加</a></div>
+				 	<div>暂无项目联系人信息！<a href="/management/admin/addpp">点击添加</a></div>
 				 <?php }?>
 		  </div>
 		</div> 

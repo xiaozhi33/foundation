@@ -359,6 +359,8 @@
 			$this->view->assign('pplist',$pageDAO['pageData']);
 			$this->view->assign('page',$pages);	
 			$this->view->assign('total',$total);
+            $this->view->assign('pname',$_REQUEST['pname']);
+            $this->view->assign('ppname',$_REQUEST['ppname']);
 			
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render("admin/pp.phtml");
