@@ -43,6 +43,7 @@
             $name = HttpUtil::postString("name");
             $type = HttpUtil::postString("type");
             $upload_datetime = date("Y-m-d H:i:s", time());
+            $description = HttpUtil::postString("description");
             $admininfo = SessionUtil::getAdmininfo();
             $uploader = $admininfo['admin_name'];
 
@@ -62,13 +63,17 @@
                         exit();
                     }else{
                         $filesDAO->files =  __GETPICPATH__."jjh_download/".$result['picname'];
-                        $filesDAO->name = $_FILES['meeting_files']['temp_name'];
+                        $filesDAO->temp_name = $_FILES['files']['name'];
                     }
                 }
             }
 
             if($name == "" || $type == ""){
-                alert_back('您输入的信息不完整，请查正后继续添加！！！！！');
+                echo "<script>alert('您输入的信息不完整，请查正后继续添加！！！！！');";
+                echo "window.location.href='/management/files';";
+                echo "</script>";
+                exit();
+                //alert_back('您输入的信息不完整，请查正后继续添加！！！！！');
             }
 
             try{
@@ -79,11 +84,20 @@
                 $filesDAO ->type = $type;
                 $filesDAO ->upload_datetime = $upload_datetime;
                 $filesDAO ->uploader = $uploader;
+                $filesDAO ->description = $description;
                 $filesDAO ->save();
             }catch (Exception $e){
-                alert_back('保存失败！！！！！');
+                echo "<script>alert('保存失败！！！！！');";
+                echo "window.location.href='/management/files';";
+                echo "</script>";
+                exit();
+                //alert_back('保存失败！！！！！');
             }
-            alert_go('保存成功', "/management/files/index");
+            echo "<script>alert('保存成功！');";
+            echo "window.location.href='/management/files';";
+            echo "</script>";
+            exit();
+            //alert_go('保存成功', "/management/files/index");
         }
 		
 		public function editAction(){
@@ -94,7 +108,7 @@
 			
 			if($filesDAO != "")
 			{
-				$this->view->assign("filesDAO", $filesDAO);
+				$this->view->assign("files", $filesDAO);
 				echo $this->view->render("index/header.phtml");
 				echo $this->view->render("files/editfiles.phtml");
 				echo $this->view->render("index/footer.phtml");
@@ -114,6 +128,39 @@
             echo("location.href='/management/files';");
             echo('</script>');
             exit;
+        }
+
+        // 文件下载
+        public function downloadAction(){
+            if($_GET){
+                (int)$id = HttpUtil::getString('id');
+                $filesDAO = $this->orm->createDAO("jjh_mg_files");
+                $filesDAO->findId($id);
+                $filesDAO = $filesDAO->get();
+                if(!empty($filesDAO)){
+
+                    $filesDAO[0]['files'] = str_replace("/include/upload_file/", "",$filesDAO[0]['files']);
+                    $file =__REPICPATH__.$filesDAO[0]['files'];
+
+                    if(file_exists($file)){
+                        ob_end_clean();
+                        header("Content-type: application/octet-stream");
+                        header("Content-Disposition: attachment; filename=" .basename($file)); //以真实文件名提供给浏览器下载
+
+                        readfile($file);    // 打开文件，并输出
+                    }else{
+                        echo "<script>alert('文件不存在！');";
+                        echo "window.location.href='/management/files'; ";
+                        echo "</script>";
+                        exit();
+                    }
+                }else{
+                    echo "<script>alert('下载文件出错！');";
+                    echo "window.location.href='/management/files'; ";
+                    echo "</script>";
+                    exit();
+                }
+            }
         }
 
          public function _init(){

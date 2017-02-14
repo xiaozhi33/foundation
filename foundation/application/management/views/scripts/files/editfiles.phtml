@@ -26,7 +26,7 @@
 			<div class="col-md-12">
 				<section class="tile color transparent-white">
                 <div class="detailedbox tile-body">
-                    <form class="form-horizontal" action="to-add" method="post" id="form1" encType="multipart/form-data">
+                    <form class="form-horizontal" action="to-add" method="post" encType="multipart/form-data">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">文档标题：</label>
                             <div class="col-sm-4">
@@ -38,17 +38,17 @@
                             <label class="col-sm-2 control-label" for="input01">上传文档：</label>
                             <div class="col-sm-3">
                                 <input name="files" type="file" value="" />
-                                <a href="/management/meeting/download?id=<?php echo $this->meeting_info[0]['id'];?>&fid=3">
-                                    <?php echo $this->files[0]['files'];?>
+                                <a href="/management/files/download?id=<?php echo $this->files[0]['id'];?>">
+                                    <?php echo $this->files[0]['temp_name'];?>
                                 </a>
                             </div>
-                            <span class="col-sm-1" > * </span>
+                            <span class="col-sm-2" > * 重新上传将覆盖老文件</span>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">文档类型：</label>
                             <div class="col-sm-3">
-                                <select class="chosen-select-1 chosen-transparent form-control" name="pm_id">
+                                <select class="chosen-select-1 chosen-transparent form-control" name="type">
                                     <option value="">请选择文档类型</option>
                                     <?php if($this->type_arrays != ""){
                                         foreach ($this->type_arrays as $k => $v){
@@ -67,11 +67,12 @@
                             </div>
                         </div>
 
-                        <input name="id" type="hidden" value="<?php echo $this->filesDAO[0]['id']; ?>">
+                        <input name="id" type="hidden" value="<?php echo $this->files[0]['id']; ?>">
 
                         <div class="form-group form-footer">
                             <div class="col-sm-offset-5 col-sm-7">
-                                <input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <!--<input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;-->
+                                <input class="btn btn-default" type="submit" value="提 交" />
                                 <input class="btn btn-default" type="reset" value="重 置" />
                             </div>
                         </div>
