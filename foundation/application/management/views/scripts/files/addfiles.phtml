@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>添加文档信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目信息管理</li>
+            <li class="active">添加文档信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+	
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+			<div class="col-md-12">
+				<section class="tile color transparent-white">
+			<div class="detailedbox tile-body">
+                <form class="form-horizontal" action="to-add" id="form1" method="post" encType="multipart/form-data">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">文档标题：</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" name="name"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">上传文档：</label>
+                        <div class="col-sm-3">
+                            <input name="files" type="file" value="" />
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">文档类型：</label>
+                            <div class="col-sm-3">
+                                <select class="chosen-select-1 chosen-transparent form-control" name="pm_id">
+                                    <option value="">请选择文档类型</option>
+                                    <?php if($this->type_arrays != ""){
+                                        foreach ($this->type_arrays as $k => $v){
+                                            ?>
+                                            <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">备注：</label>
+                        <div class="col-sm-9">
+                            <textarea parsley-validation-minlength="1" name="description" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea>
+                        </div>
+                    </div>
+
+					<div class="form-group form-footer">
+						<div class="col-sm-offset-5 col-sm-7">
+                            <input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input class="btn btn-default" type="reset" value="重 置" /> 
+						</div>
+					</div>
+			</form>
+			</div>
+		 </section>
+			</div>
+		</div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(0)").addClass("open");
+        </script>
+
