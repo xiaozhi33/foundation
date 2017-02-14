@@ -723,6 +723,13 @@
                 return false;
             }
         }
+
+        public function relationAction(){
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("admin/relation.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
 		
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
