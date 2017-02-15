@@ -11,7 +11,7 @@
 
                     <!-- tile header -->
                     <div class="tile-header">
-                        <h4><strong>人立方 - <?php echo $this->ppinfo[0]['ppname'];?> </strong> Info</h4>
+                        <h4><strong>人立方 - <?php echo $this->ppinfo[0]['ppname'];?> </strong> </h4>
                         <div class="controls">
                             <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                             <a href="#" class="remove"><i class="fa fa-times"></i></a>
@@ -40,8 +40,8 @@
             var myChart = echarts.init(document.getElementById('test'));
             option = {
                 title : {
-                    text: '人物关系：乔布斯',
-                    subtext: '数据来自人立方',
+                    text: '人物关系：<?php echo $this->ppinfo[0]['ppname'];?>',
+                    subtext: '数据来自基金会管理系统',
                     x:'right',
                     y:'bottom'
                 },
@@ -59,7 +59,7 @@
                 },
                 legend: {
                     x: 'left',
-                    data:['家人','朋友']
+                    data:['项目'<?php if(!empty($this->pp_company_list)){echo ",'下属子公司'";}?>,'相关捐赠方']
                 },
                 series : [
                     {
@@ -71,11 +71,15 @@
                                 name: '人物'
                             },
                             {
-                                name: '家人',
+                                name: '项目',
                                 symbol: 'diamond'
                             },
+                            <?php if(!empty($this->pp_company_list)){echo "{
+                                name: '下属子公司',
+                                symbol: 'diamond'
+                            },";}?>
                             {
-                                name:'朋友'
+                                name:'相关捐赠方'
                             }
                         ],
                         itemStyle: {
@@ -113,9 +117,9 @@
                         coolDown: 0.9,
                         //preventOverlap: true,
                         nodes:[
-                            {
-                                category:0, name: '乔布斯', value : 10,
-                                symbol: 'image://http://www.damndigital.com/wp-content/uploads/2010/12/steve-jobs.jpg',
+                            /*{
+                                category:0, name: '<?php echo $this->ppinfo[0]['ppname'];?>', value : 10,
+                                symbol : 'image://http://www.damndigital.com/wp-content/uploads/2010/12/steve-jobs.jpg',
                                 symbolSize: [60, 35],
                                 draggable: true,
                                 itemStyle: {
@@ -128,45 +132,60 @@
                                         }
                                     }
                                 }
-                            },
-                            {category:1, name: '丽萨-乔布斯',value : 2},
-                            {category:1, name: '保罗-乔布斯',value : 3},
-                            {category:1, name: '克拉拉-乔布斯',value : 3},
-                            {category:1, name: '劳伦-鲍威尔',value : 7},
-                            {category:2, name: '史蒂夫-沃兹尼艾克',value : 5},
-                            {category:2, name: '奥巴马',value : 8},
-                            {category:2, name: '比尔-盖茨',value : 9},
-                            {category:2, name: '乔纳森-艾夫',value : 4},
-                            {category:2, name: '蒂姆-库克',value : 4},
-                            {category:2, name: '龙-韦恩',value : 1},
+                            },*/
+                            {category:0, name: '<?php echo $this->ppinfo[0]['ppname'];?>',value : 20,draggable: true},
+                            <?php
+                                if($this->pm_mg_infoDAO[0]['pm_name'] != ''){
+                                    echo "{category:1, name: '".$this->pm_mg_infoDAO[0]['pm_name']."',value : 2},";
+                                }
+                            ?>
+
+                            <?php
+                                if($this->pp_company_list){
+                                    foreach($this->pp_company_list as $k => $v){
+                                        echo "{category:2, name: '".$v['company_name']."',value : ".rand(1,9)."},";
+                                    }
+                                }
+                            ?>
+
+                            <?php
+                                if($this->juanzengfang){
+                                    foreach($this->juanzengfang as $k => $v){
+                                        echo "{category:3, name: '".$v."',value : ".rand(1,9)."},";
+                                    }
+                                }
+                            ?>
+
+
                         ],
                         links : [
-                            {source : '丽萨-乔布斯', target : '乔布斯', weight : 1, name: '女儿', itemStyle: {
+                            <?php
+                                if($this->pm_mg_infoDAO[0]['pm_name'] != ''){
+                                   echo "{source : '".$this->ppinfo[0]['ppname']."', target : '".$this->pm_mg_infoDAO[0]['pm_name']."', weight : 1, name: '项目捐赠方', itemStyle: {
                                 normal: {
                                     width: 1.5,
                                     color: 'red'
                                 }
-                            }},
-                            {source : '乔布斯', target : '丽萨-乔布斯', weight : 1, name: '父亲', itemStyle: {
-                                normal: { color: 'red' }
-                            }},
-                            {source : '保罗-乔布斯', target : '乔布斯', weight : 2, name: '父亲'},
-                            {source : '克拉拉-乔布斯', target : '乔布斯', weight : 1, name: '母亲'},
-                            {source : '劳伦-鲍威尔', target : '乔布斯', weight : 2},
-                            {source : '史蒂夫-沃兹尼艾克', target : '乔布斯', weight : 3, name: '合伙人'},
-                            {source : '奥巴马', target : '乔布斯', weight : 1},
-                            {source : '比尔-盖茨', target : '乔布斯', weight : 6, name: '竞争对手'},
-                            {source : '乔纳森-艾夫', target : '乔布斯', weight : 1, name: '爱将'},
-                            {source : '蒂姆-库克', target : '乔布斯', weight : 1},
-                            {source : '龙-韦恩', target : '乔布斯', weight : 1},
-                            {source : '克拉拉-乔布斯', target : '保罗-乔布斯', weight : 1},
-                            {source : '奥巴马', target : '保罗-乔布斯', weight : 1},
-                            {source : '奥巴马', target : '克拉拉-乔布斯', weight : 1},
-                            {source : '奥巴马', target : '劳伦-鲍威尔', weight : 1},
-                            {source : '奥巴马', target : '史蒂夫-沃兹尼艾克', weight : 1},
-                            {source : '比尔-盖茨', target : '奥巴马', weight : 6},
-                            {source : '比尔-盖茨', target : '克拉拉-乔布斯', weight : 1},
-                            {source : '蒂姆-库克', target : '奥巴马', weight : 1}
+                            }},";
+                                }
+                            ?>
+
+                            <?php
+                                if($this->juanzengfang){
+                                    foreach($this->juanzengfang as $k => $v){
+                                        echo "{source : '".$v."', target : '".$this->pm_mg_infoDAO[0]['pm_name']."', weight : ".rand(1,9).", name: '其他捐赠方'},";
+                                    }
+                                }
+                            ?>
+
+                            <?php
+                                if($this->pp_company_list){
+                                    foreach($this->pp_company_list as $k => $v){
+                                        echo "{source : '".$v['company_name']."', target : '".$this->ppinfo[0]['ppname']."', weight : ".rand(1,3).", name: '下属子公司'},";
+                                    }
+                                }
+                            ?>
+
                         ]
                     }
                 ]

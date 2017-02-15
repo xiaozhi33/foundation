@@ -298,26 +298,6 @@
 				alert_back("操作失败");
 			}
 		}
-
-        public function ppinfoAction(){
-            if($_REQUEST['id'] != ""){
-                $ppinfo = new jjh_mg_ppDAO($_REQUEST['id']);
-                $ppinfo = $ppinfo->get($this->dbhelper);
-
-                $meeting_pp_companyDAO = $this->orm->createDAO('jjh_mg_pp_company');
-                $meeting_pp_companyDAO ->findPp_id($ppinfo[0]['pid']);
-                $meeting_pp_companyDAO = $meeting_pp_companyDAO->get();
-
-                $this->view->assign("pp_company_list",$meeting_pp_companyDAO);
-                $this->view->assign("ppinfo",$ppinfo);
-
-                echo $this->view->render("index/header.phtml");
-                echo $this->view->render("admin/ppinfo.phtml");
-                echo $this->view->render("index/footer.phtml");
-            }else {
-                alert_back("操作失败");
-            }
-        }
 		
 		public function editrsppAction(){
 			if($_REQUEST['ppname'] != "" && $_REQUEST['pid']){
@@ -724,11 +704,66 @@
             }
         }
 
-        public function relationAction(){
+        public function ppinfoAction(){
+            if($_REQUEST['id'] != ""){
+                $ppinfo = new jjh_mg_ppDAO($_REQUEST['id']);
+                $ppinfo = $ppinfo->get($this->dbhelper);
 
-            echo $this->view->render("index/header.phtml");
-            echo $this->view->render("admin/relation.phtml");
-            echo $this->view->render("index/footer.phtml");
+                $meeting_pp_companyDAO = $this->orm->createDAO('jjh_mg_pp_company');
+                $meeting_pp_companyDAO ->findPp_id($ppinfo[0]['pid']);
+                $meeting_pp_companyDAO = $meeting_pp_companyDAO->get();
+
+                $this->view->assign("pp_company_list",$meeting_pp_companyDAO);
+                $this->view->assign("ppinfo",$ppinfo);
+
+                echo $this->view->render("index/header.phtml");
+                echo $this->view->render("admin/ppinfo.phtml");
+                echo $this->view->render("index/footer.phtml");
+            }else {
+                alert_back("操作失败");
+            }
+        }
+
+        public function relationAction(){
+            if($_REQUEST['id'] != ""){
+                $ppinfo = new jjh_mg_ppDAO($_REQUEST['id']);
+                $ppinfo = $ppinfo->get($this->dbhelper);
+
+                $meeting_pp_companyDAO = $this->orm->createDAO('jjh_mg_pp_company');
+                $meeting_pp_companyDAO ->findPp_id($ppinfo[0]['pid']);
+                $meeting_pp_companyDAO = $meeting_pp_companyDAO->get();
+
+                $pm_mg_visit_donorDAO = $this->orm->createDAO('pm_mg_visit_donor');
+                $pm_mg_visit_donorDAO ->findPp_id($_REQUEST['id']);
+                $pm_mg_visit_donorDAO = $pm_mg_visit_donorDAO->get();
+                $this->view->assign("pp_visit_donor",$pm_mg_visit_donorDAO);
+
+                $this->view->assign("pp_company_list",$meeting_pp_companyDAO);
+                $this->view->assign("ppinfo",$ppinfo);
+
+                // 项目
+                $pm_mg_infoDAO = $this->orm->createDAO('pm_mg_info');
+                $pm_mg_infoDAO ->findPm_name($ppinfo[0]['pp_pm_id']);
+                $pm_mg_infoDAO ->selectLimit .=  " AND zijin_daozheng_jiner!='' AND pm_pp != ''";
+                $pm_mg_infoDAO = $pm_mg_infoDAO ->get();
+                $this->view->assign("pm_mg_infoDAO",$pm_mg_infoDAO);
+
+                $juanzengfang = array();
+                if(count($pm_mg_infoDAO) > 1){
+                    foreach($pm_mg_infoDAO as $key => $value){
+                        $juanzengfang[] = $value['pm_pp'];
+                    }
+                }
+
+                $juanzengfang = array_unique($juanzengfang);
+                $this->view->assign("juanzengfang",$juanzengfang);
+
+                echo $this->view->render("index/header.phtml");
+                echo $this->view->render("admin/relation.phtml");
+                echo $this->view->render("index/footer.phtml");
+            }else {
+                alert_back("操作失败");
+            }
         }
 		
 		public function _init(){
