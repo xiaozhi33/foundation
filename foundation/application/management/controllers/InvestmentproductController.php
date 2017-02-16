@@ -12,16 +12,16 @@ class Management_investmentController extends BaseController
             $productDAO->findproduct_name($product_name);
         }
         $productDAO = $productDAO->order('id DESC');
-        $productDAO->getPager(array('path'=>'/management/investment/index'))->assignTo($this->view);
+        $productDAO->getPager(array('path'=>'/management/investmentproduct/index'))->assignTo($this->view);
 
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("investment/index.phtml");
+        echo $this->view->render("investmentproduct/index.phtml");
         echo $this->view->render("index/footer.phtml");
     }
 
     public function addproductAction(){
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("car/addproduct.phtml");
+        echo $this->view->render("investmentproduct/addproduct.phtml");
         echo $this->view->render("index/footer.phtml");
     }
 
@@ -52,7 +52,7 @@ class Management_investmentController extends BaseController
             }
         }else {
             if ($hasproduct) {
-                echo json_encode(array('msg' => "该投资账户已添加，请核对后重新添加！！！！！！", 'return_url' => '/management/investment/'));
+                echo json_encode(array('msg' => "该投资账户已添加，请核对后重新添加！！！！！！", 'return_url' => '/management/investmentproduct/'));
                 exit;
             }
         }
@@ -80,11 +80,11 @@ class Management_investmentController extends BaseController
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('保存成功');");
-            echo("location.href='/management/investment';");
+            echo("location.href='/management/investmentproduct';");
             echo('</script>');
             exit;
         }else {
-            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/investment/'));
+            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/investmentproduct/'));
             exit;
         }
     }
@@ -99,7 +99,7 @@ class Management_investmentController extends BaseController
         {
             $this->view->assign("product_info", $productDAO);
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("car/editproduct.phtml");
+            echo $this->view->render("investmentproduct/editproduct.phtml");
             echo $this->view->render("index/footer.phtml");
             exit();
         }
@@ -108,7 +108,7 @@ class Management_investmentController extends BaseController
         $this->view->assign("product_info", $productDAO);
 
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("car/editproduct.phtml");
+        echo $this->view->render("investmentproduct/editproduct.phtml");
         echo $this->view->render("index/footer.phtml");
         exit();
     }
@@ -122,7 +122,7 @@ class Management_investmentController extends BaseController
         echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
         echo('<script language="JavaScript">');
         echo("alert('删除成功');");
-        echo("location.href='/management/investment';");
+        echo("location.href='/management/investmentproduct';");
         echo('</script>');
         exit;
     }
@@ -151,16 +151,16 @@ class Management_investmentController extends BaseController
             $logDAO->findInvestment_product_id($investment_product_id);
         }
         $logDAO = $logDAO->order('id DESC');
-        $logDAO->getPager(array('path'=>'/management/investment/log'))->assignTo($this->view);
+        $logDAO->getPager(array('path'=>'/management/investmentproduct/log'))->assignTo($this->view);
 
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("investment/log.phtml");
+        echo $this->view->render("investmentproduct/log.phtml");
         echo $this->view->render("index/footer.phtml");
     }
 
     public function addlogAction(){
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("investment/addlog.phtml");
+        echo $this->view->render("investmentproduct/addlog.phtml");
         echo $this->view->render("index/footer.phtml");
     }
 
@@ -169,10 +169,11 @@ class Management_investmentController extends BaseController
         $logDAO = $this->orm->createDAO('pm_mg_investment_product_logs');
 
         $investment_product_id = HttpUtil::postString("investment_product_id");         // 投资账户id
-        $product_expenses_datetime = HttpUtil::postString("product_expenses_datetime"); // 支出日期
-        $product_receipts_datetime = HttpUtil::postString("product_receipts_datetime"); // 收入时间
+        $account_re_datetime = HttpUtil::postString("account_re_datetime");             // 收支操作时间
         $product_receipts = HttpUtil::postString("product_receipts");                   // 收入
         $product_expenses = HttpUtil::postString("product_expenses");                   // 支出
+        $end_datetime = HttpUtil::postString("end_datetime");                           // 到期时间 （投资）
+        $rate_of_return = HttpUtil::postString("rate_of_return");                       // 收益率
         $product_corpus = HttpUtil::postString("product_corpus");   // 本金-可以先不填
         $remark = HttpUtil::postString("remark");
 
@@ -190,8 +191,9 @@ class Management_investmentController extends BaseController
         }
 
         $logDAO ->investment_product_id = $investment_product_id;
-        $logDAO ->product_expenses_datetime = $product_expenses_datetime;
-        $logDAO ->product_receipts_datetime = $product_receipts_datetime;
+        $logDAO ->account_re_datetime = $account_re_datetime;
+        $logDAO ->end_datetime = $end_datetime;
+        $logDAO ->rate_of_return = $rate_of_return;
         $logDAO ->product_receipts = $product_receipts;
         $logDAO ->product_expenses = $product_expenses;
         $logDAO ->product_corpus = $product_corpus;
@@ -215,11 +217,11 @@ class Management_investmentController extends BaseController
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('保存成功');");
-            echo("location.href='/management/investment/log';");
+            echo("location.href='/management/investmentproduct/log';");
             echo('</script>');
             exit;
         }else {
-            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/investment/log'));
+            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/investmentproduct/log'));
             exit;
         }
     }
@@ -234,7 +236,7 @@ class Management_investmentController extends BaseController
         {
             $this->view->assign("log_info", $logDAO);
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("investment/editlog.phtml");
+            echo $this->view->render("investmentproduct/editlog.phtml");
             echo $this->view->render("index/footer.phtml");
             exit();
         }
@@ -243,7 +245,7 @@ class Management_investmentController extends BaseController
         $this->view->assign("log_info", $logDAO);
 
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("investment/editlog.phtml");
+        echo $this->view->render("investmentproduct/editlog.phtml");
         echo $this->view->render("index/footer.phtml");
         exit();
     }
@@ -257,7 +259,7 @@ class Management_investmentController extends BaseController
         echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
         echo('<script language="JavaScript">');
         echo("alert('删除成功');");
-        echo("location.href='/management/investment/log';");
+        echo("location.href='/management/investmentproduct/log';");
         echo('</script>');
         exit;
     }

@@ -21,7 +21,7 @@ class Management_investmentController extends BaseController
 
     public function addaccountAction(){
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("car/addaccount.phtml");
+        echo $this->view->render("investment/addaccount.phtml");
         echo $this->view->render("index/footer.phtml");
     }
 
@@ -99,7 +99,7 @@ class Management_investmentController extends BaseController
         {
             $this->view->assign("account_info", $accountDAO);
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("car/editaccount.phtml");
+            echo $this->view->render("investment/editaccount.phtml");
             echo $this->view->render("index/footer.phtml");
             exit();
         }
@@ -108,7 +108,7 @@ class Management_investmentController extends BaseController
         $this->view->assign("account_info", $accountDAO);
 
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("car/editaccount.phtml");
+        echo $this->view->render("investment/editaccount.phtml");
         echo $this->view->render("index/footer.phtml");
         exit();
     }
