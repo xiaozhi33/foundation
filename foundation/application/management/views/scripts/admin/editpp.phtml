@@ -41,17 +41,81 @@
 							</select>
             </div>
            
-            </div>	
-			<div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">联系人类型：</label>
-            <div class="col-sm-8">
-            <select class="form-control" name="pp_cate">
-								<option value="筹资联系人" <?php if ($this->ppinfo[0]['pp_cate'] == "筹资联系人"){echo "selected='selected'";}?>>筹资联系人</option>
-								<option value="资金联系人" <?php if ($this->ppinfo[0]['pp_cate'] == "资金联系人"){echo "selected='selected'";}?>>资金联系人</option>
-								<option value="使用联系人" <?php if ($this->ppinfo[0]['pp_cate'] == "使用联系人"){echo "selected='selected'";}?>>使用联系人</option>
-							</select>
             </div>
-            </div>	
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">联系人类型：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" name="pp_cate" id="pp_cate">
+                            <?php foreach($this->pp_config['pp_cate'] as $k => $v){?>
+                                <option value="<?php echo $k;?>" <?php if ($this->ppinfo[0]['pp_cate'] == $k){echo "selected='selected'";}?>><?php echo $v;?></option>
+                            <?php }?>
+                        </select>
+                    </div>
+                </div>
+                <!-- 捐赠方信息-->
+                <div class="form-group jzf">
+                    <label class="col-sm-2 control-label" for="input01">捐赠方类型：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" name="pp_jzf_cate">
+                            <option value="">请选择捐赠方类型</option>
+                            <?php foreach($this->pp_config['pp_jzf_cate'] as $k => $v){?>
+                                <option value="<?php echo $k;?>" <?php if ($this->ppinfo[0]['pp_jzf_cate'] == $k){echo "selected='selected'";}?>><?php echo $v;?></option>
+                            <?php }?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group jzf">
+                    <label class="col-sm-2 control-label" for="input01">捐赠方属性一：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" name="pp_jzf_attr1">
+                            <option value="">请选择捐赠方属性一</option>
+                            <?php foreach($this->pp_config['pp_jzf_attr1'] as $k => $v){?>
+                                <option value="<?php echo $k;?>"  <?php if ($this->ppinfo[0]['pp_jzf_attr1'] == $k){echo "selected='selected'";}?>><?php echo $v;?></option>
+                            <?php }?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">捐赠方属性二：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" name="pp_jzf_attr2">
+                            <option value="">请选择捐赠方属性二</option>
+                            <?php foreach($this->pp_config['pp_jzf_attr2'] as $k => $v){?>
+                                <option value="<?php echo $k;?>"  <?php if ($this->ppinfo[0]['pp_jzf_attr2'] == $k){echo "selected='selected'";}?>><?php echo $v;?></option>
+                            <?php }?>
+                        </select>
+                    </div>
+                </div>
+                <!-- 捐赠方信息-->
+
+                <!-- 使用方信息-->
+                <div class="form-group syf" style="display: none;">
+                    <label class="col-sm-2 control-label" for="input01">使用方类型：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" name="pp_syf_cate">
+                            <option value="">请选择使用方类型</option>
+                            <?php foreach($this->pp_config['pp_syf_cate'] as $k => $v){?>
+                                <option value="<?php echo $k;?>"  <?php if ($this->ppinfo[0]['pp_syf_cate'] == $k){echo "selected='selected'";}?>><?php echo $v;?></option>
+                            <?php }?>
+                        </select>
+                    </div>
+                </div>
+                <!-- 使用方信息-->
+
+                <!-- 业务方信息-->
+                <div class="form-group yuf" style="display: none;">
+                    <label class="col-sm-2 control-label" for="input01">业务方类型：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" name="pp_yuf_cate">
+                            <option value="">请选择业务方类型</option>
+                            <?php foreach($this->pp_config['pp_yuf_cate'] as $k => $v){?>
+                                <option value="<?php echo $k;?>"  <?php if ($this->ppinfo[0]['pp_yuf_cate'] == $k){echo "selected='selected'";}?>><?php echo $v;?></option>
+                            <?php }?>
+                        </select>
+                    </div>
+                </div>
+                <!-- 业务方信息-->
 
 			<div class="form-group">
             <label class="col-sm-2 control-label" for="input01">联系人email：</label>
@@ -114,4 +178,34 @@
         <script src="/include/management/assets/js/jquery.js"></script>
         <script language="javascript">
             $(".menu li:eq(10)").addClass("open");
+
+            if($("#pp_cate")->val() == '捐赠方' || $("#pp_cate")->val() == '实际捐赠方'){
+                $(".jzf").show();
+                $(".syf").hide();
+                $(".yuf").hide();
+            }elseif($("#pp_cate")->val() == '使用方'){
+                $(".jzf").hide();
+                $(".syf").show();
+                $(".yuf").hide();
+            }elseif($("#pp_cate")->val() == '业务方'){
+                $(".jzf").hide();
+                $(".syf").hide();
+                $(".yuf").show();
+            }
+
+            $("#pp_cate").change(function{
+                if($(this)->val() == '捐赠方' || $(this)->val() == '实际捐赠方'){
+                    $(".jzf").show();
+                    $(".syf").hide();
+                    $(".yuf").hide();
+                }elseif($(this)->val() == '使用方'){
+                    $(".jzf").hide();
+                    $(".syf").show();
+                    $(".yuf").hide();
+                }elseif($(this)->val() == '业务方'){
+                    $(".jzf").hide();
+                    $(".syf").hide();
+                    $(".yuf").show();
+                }
+            });
         </script>

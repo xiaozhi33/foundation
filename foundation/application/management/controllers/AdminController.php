@@ -2,6 +2,14 @@
 	require_once("BaseController.php");
 	class Management_adminController extends BaseController {
 		private $dbhelper;
+		public $pp_config = array(
+			'pp_cate' => array('捐赠方'=>'捐赠方','实际捐赠方'=>'实际捐赠方','使用方'=>'使用方','业务方'=>'业务方'),
+			'pp_jzf_cate' => array('个人'=>'个人','企业'=>'企业','公益组织'=>'公益组织','其他'=>'其他'),
+			'pp_jzf_attr1' => array('校友'=>'校友','校友联系'=>'校友联系','非校友'=>'非校友','其他'=>'其他'),
+			'pp_jzf_attr2' => array('海内'=>'海内','海外'=>'海外'),
+			'pp_syf_cate' => array('学校'=>'学校','机关'=>'机关','学院'=>'学院','直属单位'=>'直属单位','校外'=>'校外','其他'=>'其他'),
+			'pp_yuf_cate' => array('登记'=>'登记','业务主管'=>'业务主管','银行'=>'银行','财税'=>'财税','高校基金会'=>'高校基金会','其他'=>'其他'),
+		);
 		public function indexAction(){
 			$adminlist = new my_adminDAO();
 			$adminlist = $adminlist ->get($this->dbhelper);
@@ -306,6 +314,13 @@
 				$ppinfo ->pp_address = $_REQUEST['pp_address'];
 				$ppinfo ->pp_beizhu = $_REQUEST['pp_beizhu'];
 				$ppinfo ->pp_cate = $_REQUEST['pp_cate'];
+
+				$ppinfo ->pp_jzf_cate = $_REQUEST['pp_jzf_cate'];
+				$ppinfo ->pp_jzf_attr1 = $_REQUEST['pp_jzf_attr1'];
+				$ppinfo ->pp_jzf_attr2 = $_REQUEST['pp_jzf_attr2'];
+				$ppinfo ->pp_syf_cate = $_REQUEST['pp_syf_cate'];
+				$ppinfo ->pp_yuf_cate = $_REQUEST['pp_yuf_cate'];
+
 				$ppinfo ->pp_msn = $_REQUEST['pp_msn'];
 				$ppinfo ->pp_pm_id = $_REQUEST['pp_pm_id'];
 				$ppinfo ->pp_qq = $_REQUEST['pp_qq'];
@@ -771,6 +786,9 @@
 			$this ->dbhelper ->connect();
 			SessionUtil::sessionStart();
 			SessionUtil::checkmanagement();
+
+			//config
+			$this->view->assign("pp_config",$pp_config);
 			
 			//项目分类
 			$pcatelist = new jjh_mg_cateDAO();
