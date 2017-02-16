@@ -788,7 +788,7 @@
 			SessionUtil::checkmanagement();
 
 			//config
-			$this->view->assign("pp_config",$pp_config);
+			$this->view->assign("pp_config",$this->pp_config);
 			
 			//项目分类
 			$pcatelist = new jjh_mg_cateDAO();
