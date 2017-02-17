@@ -756,6 +756,9 @@
             }
         }
 
+        /**
+         * 人立方 -
+         */
         public function relationAction(){
             if($_REQUEST['id'] != ""){
                 $ppinfo = new jjh_mg_ppDAO($_REQUEST['id']);
@@ -777,8 +780,24 @@
                 $pm_mg_infoDAO = $this->orm->createDAO('pm_mg_info');
                 $pm_mg_infoDAO ->findPm_name($ppinfo[0]['pp_pm_id']);
                 $pm_mg_infoDAO ->selectLimit .=  " AND zijin_daozheng_jiner!='' AND pm_pp != ''";
+                $pm_mg_infoDAO ->selectLimit .=  " limit 0,40";
                 $pm_mg_infoDAO = $pm_mg_infoDAO ->get();
                 $this->view->assign("pm_mg_infoDAO",$pm_mg_infoDAO);
+
+                // 活动
+                $pm_mg_info_activeDAO = $this->orm->createDAO('pm_mg_info_active');
+                $pm_mg_info_activeDAO ->findPp_id($_REQUEST['id']);
+                $pm_mg_info_activeDAO ->selectLimit .=  " order by id desc limit 0,10";
+                $pm_mg_info_activeDAO = $pm_mg_info_activeDAO ->get();
+                $this->view->assign("pm_mg_info_activeDAO",$pm_mg_info_activeDAO);
+
+                // 同部门 同分类的其他项目
+                $pm_mg_info_1DAO = $this->orm->createDAO('pm_mg_info');
+                $pm_mg_info_1DAO ->findCate($pm_mg_infoDAO[0]['cate']);
+                $pm_mg_info_1DAO ->findDepartment($pm_mg_infoDAO[0]['dpartment']);
+                $pm_mg_info_1DAO ->selectLimit .=  " order by id desc limit 0,10";
+                $pm_mg_info_1DAO = $pm_mg_info_1DAO ->get();
+                $this->view->assign("pm_mg_info_1DAO",$pm_mg_info_1DAO);
 
                 $juanzengfang = array();
                 if(count($pm_mg_infoDAO) > 1){
