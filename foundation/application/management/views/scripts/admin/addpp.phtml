@@ -69,7 +69,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group jzf">
                         <label class="col-sm-2 control-label" for="input01">捐赠方属性二：</label>
                         <div class="col-sm-4">
                             <select class="form-control" name="pp_jzf_attr2">
@@ -167,17 +167,17 @@
 	</div>
         <script src="/include/management/assets/js/jquery.js"></script>
         <script language="javascript">
-            $(".menu li:eq(10)").addClass("open");
-            $("#pp_cate").change(function{
-                if($(this)->val() == '捐赠方' || $(this)->val() == '实际捐赠方'){
+            $(".menu li:eq(0)").addClass("open");
+            $("#pp_cate").change(function(){
+                if( $("#pp_cate").val() == '捐赠方' || $("#pp_cate").val() == '实际捐赠方'){
                     $(".jzf").show();
                     $(".syf").hide();
                     $(".yuf").hide();
-                }elseif($(this)->val() == '使用方'){
+                }else if($("#pp_cate").val() == '使用方'){
                     $(".jzf").hide();
                     $(".syf").show();
                     $(".yuf").hide();
-                }elseif($(this)->val() == '业务方'){
+                }else if($("#pp_cate").val() == '业务方'){
                     $(".jzf").hide();
                     $(".syf").hide();
                     $(".yuf").show();

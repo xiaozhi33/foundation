@@ -2,13 +2,13 @@
 <div class="pageheader">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
-        <span>项目捐赠方列表</span></h2>
+        <span>项目<?php echo $_REQUEST['pp_cate']?>列表</span></h2>
 
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
-            <li>项目捐赠方管理</li>
-            <li class="active">项目捐赠方列表</li>
+            <li>项目<?php echo $_REQUEST['pp_cate']?>管理</li>
+            <li class="active">项目<?php echo $_REQUEST['pp_cate']?>列表</li>
         </ol>
     </div>
 
@@ -34,10 +34,11 @@
                                             <option value="<?php echo $v['pname'];?>" <?php if($this->pname == $v['pname'])echo 'selected="selected"';?>><?php echo $v['pname'];?></option>
                                         <?php }}?>
                                 </select>
+                                <input type="hidden" name="pp_cate" value="<?php echo $_REQUEST['pp_cate']?>"/>
                                 <input id="pname_info" type="hidden" name="pname" value=""/>
                             </div>
 
-                            <label class="col-sm-2 control-label" for="input01">捐赠方名称：</label>
+                            <label class="col-sm-2 control-label" for="input01"><?php echo $_REQUEST['pp_cate']?>名称：</label>
                             <div class="col-sm-2">
                                <input type="text" name="ppname" value="<?php echo $this->ppname;?>"/>
                             </div>
@@ -54,11 +55,12 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					  <thead>
 					  <tr>
-						<td width="7%">捐赠方</td>
+						<td width="7%">姓名/名称</td>
+                        <td width="7%">类型</td>
 						<td width="9%">相关项目</td>
 						<!--<td width="20%">移动电话</td>-->
 						<td width="10%">操作</td>
-                          <td width="10%">其他操作</td>
+                        <td width="10%">其他操作</td>
 					  </tr>
 						</thead>
                       <tbody>
@@ -66,22 +68,22 @@
 						foreach($this->pplist as $k=>$v){?>
 						 <tr>
 						 	<td><?php echo $v['ppname'];?></td>
+                            <td><?php echo $v['pp_cate'];?></td>
 							<td><a href="/management/chouzi/index?pname=<?php echo $v['pp_pm_id'];?>" target="_blank"><?php echo $v['pp_pm_id'];?></td>
                              <!--<td><?php echo $v['ppmobile'];?></td>
-							<td><?php /*echo $v['ppemail'];*/?></td>-->
+							<td><?php echo $v['ppemail'];?></td>-->
                              <td>
                                  <a href="/management/admin/ppinfo?id=<?php echo $v['pid'];?>">
                                      <button type="button" class="btn btn-greensea margin-bottom-20">查看</button>
                                  </a>
 
                                  <a href="/management/admin/editpp?id=<?php echo $v['pid'];?>">
-                                     <button type="button" class="btn btn-greensea margin-bottom-20" >编辑捐赠方</button>
+                                     <button type="button" class="btn btn-greensea margin-bottom-20" >编辑<?php echo $_REQUEST['pp_cate']?></button>
                                  </a>
 
                                  <a href="/management/admin/ppcompany?pp_id=<?php echo $v['pid'];?>">
                                      <button type="button" class="btn btn-greensea margin-bottom-20">编辑子公司</button>
                                  </a>
-
                                  <!--<a href="#">
                                      <button type="button" class="btn btn-danger margin-bottom-20">删除</button>
                                  </a>-->
@@ -99,9 +101,11 @@
                                      <button type="button" class="btn btn-greensea margin-bottom-20" >参加学校活动详情</button>
                                  </a>
 
+                                 <?php if($_REQUEST['pp_cate'] == '捐赠方'){?>
                                  <a href="/management/admin/ppvisit?pp_id=<?php echo $v['pid'];?>">
                                      <button type="button" class="btn btn-greensea margin-bottom-20">拜访捐赠方情况</button>
                                  </a>
+                                 <?php }?>
                              </td>
 						 </tr>
 					   <?php }?>
@@ -124,5 +128,5 @@
 
     <script src="/include/management/assets/js/jquery.js"></script>
     <script language="javascript">
-        $(".menu li:eq(10)").addClass("open");
+        $(".menu li:eq(0)").addClass("open");
     </script>

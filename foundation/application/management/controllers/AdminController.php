@@ -268,20 +268,28 @@
 		
 		public function addrsppAction(){
 			if($_REQUEST['ppname'] != ""){
-				$ppinfo = new jjh_mg_ppDAO();
+				$ppinfo = $this->orm->createDAO("jjh_mg_pp");
 				$ppinfo ->ppname = $_REQUEST['ppname'];
 				$ppinfo ->pp_address = $_REQUEST['pp_address'];
 				$ppinfo ->pp_beizhu = $_REQUEST['pp_beizhu'];
 				$ppinfo ->pp_cate = $_REQUEST['pp_cate'];
 				$ppinfo ->pp_msn = $_REQUEST['pp_msn'];
 				$ppinfo ->pp_pm_id = $_REQUEST['pp_pm_id'];
+
+                $ppinfo ->pp_jzf_cate = $_REQUEST['pp_jzf_cate'];
+                $ppinfo ->pp_jzf_attr1 = $_REQUEST['pp_jzf_attr1'];
+                $ppinfo ->pp_jzf_attr2 = $_REQUEST['pp_jzf_attr2'];
+                $ppinfo ->pp_syf_cate = $_REQUEST['pp_syf_cate'];
+                $ppinfo ->pp_yuf_cate = $_REQUEST['pp_yuf_cate'];
+
+
 				$ppinfo ->pp_qq = $_REQUEST['pp_qq'];
 				$ppinfo ->ppemail = $_REQUEST['ppemail'];
 				$ppinfo ->ppmobile = $_REQUEST['ppmobile'];
 				$ppinfo ->ppphone = $_REQUEST['ppphone'];
 				
 				$ppinfo->save($this->dbhelper);
-				alert_go("联系人添加成功。","/management/admin/pp");
+				alert_go("联系人添加成功。","/management/admin/pp?pp_cate=".$_REQUEST['pp_cate']);
 			}else {
 				alert_back("添加失败");
 			}
@@ -309,7 +317,8 @@
 		
 		public function editrsppAction(){
 			if($_REQUEST['ppname'] != "" && $_REQUEST['pid']){
-				$ppinfo = new jjh_mg_ppDAO($_REQUEST['pid']);
+				$ppinfo = $this->orm->createDAO("jjh_mg_pp");
+                $ppinfo ->findPid($_REQUEST['pid']);
 				$ppinfo ->ppname = $_REQUEST['ppname'];
 				$ppinfo ->pp_address = $_REQUEST['pp_address'];
 				$ppinfo ->pp_beizhu = $_REQUEST['pp_beizhu'];
@@ -329,37 +338,10 @@
 				$ppinfo ->ppphone = $_REQUEST['ppphone'];
 				
 				$ppinfo ->save($this->dbhelper);
-				alert_go("编辑成功。","/management/admin/pp");
+				alert_go("编辑成功。","/management/admin/pp?pp_cate=".$_REQUEST['pp_cate']);
 			}else {
 				alert_back("添加失败");
 			}
-		}
-		
-		public function ppAction(){
-			$ppinfo = new jjh_mg_ppDAO();
-			if($_REQUEST['ppname'] != ""){
-				$ppinfo->selectLimit .= " and ppname like '%".$_REQUEST['ppname']."%'";
-			}
-            if($_REQUEST['pname'] != ""){
-                $ppinfo->selectLimit .= " and pp_pm_id = '".$_REQUEST['pname']."'";
-            }
-            $ppinfo->selectLimit .= " order by pid DESC";
-			$ppinfo = $ppinfo->get($this->dbhelper);
-			
-			$total = count($ppinfo);
-			$pageDAO = new pageDAO();
-			$pageDAO = $pageDAO ->pageHelper($ppinfo,null,"pp",null,'get',20,8);
-			$pages = $pageDAO['pageLink']['all'];
-			$pages = str_replace("/index.php","",$pages);	
-			$this->view->assign('pplist',$pageDAO['pageData']);
-			$this->view->assign('page',$pages);	
-			$this->view->assign('total',$total);
-            $this->view->assign('pname',$_REQUEST['pname']);
-            $this->view->assign('ppname',$_REQUEST['ppname']);
-			
-			echo $this->view->render("index/header.phtml");
-			echo $this->view->render("admin/pp.phtml");
-			echo $this->view->render("index/footer.phtml");
 		}
 		
 		public function editpwdAction(){
@@ -719,9 +701,44 @@
             }
         }
 
+        /**
+         * 捐赠人列表
+         */
+        public function ppAction(){
+            $ppinfo = $this->orm->createDAO("jjh_mg_pp");
+            if($_REQUEST['ppname'] != ""){
+                $ppinfo->selectLimit .= " and ppname like '%".$_REQUEST['ppname']."%'";
+            }
+            if($_REQUEST['pname'] != ""){
+                $ppinfo->selectLimit .= " and pp_pm_id = '".$_REQUEST['pname']."'";
+            }
+            if($_REQUEST['pp_cate'] != ""){
+                $ppinfo->selectLimit .= " and pp_cate = '".$_REQUEST['pp_cate']."'";
+            }
+
+            $ppinfo->selectLimit .= " order by pid DESC";
+            $ppinfo = $ppinfo->get($this->dbhelper);
+
+            $total = count($ppinfo);
+            $pageDAO = new pageDAO();
+            $pageDAO = $pageDAO ->pageHelper($ppinfo,null,"pp",null,'get',20,8);
+            $pages = $pageDAO['pageLink']['all'];
+            $pages = str_replace("/index.php","",$pages);
+            $this->view->assign('pplist',$pageDAO['pageData']);
+            $this->view->assign('page',$pages);
+            $this->view->assign('total',$total);
+            $this->view->assign('pname',$_REQUEST['pname']);
+            $this->view->assign('ppname',$_REQUEST['ppname']);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("admin/pp.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
         public function ppinfoAction(){
             if($_REQUEST['id'] != ""){
-                $ppinfo = new jjh_mg_ppDAO($_REQUEST['id']);
+                $ppinfo = $this->orm->createDAO("jjh_mg_pp");
+                $ppinfo ->findPid($_REQUEST['id']);
                 $ppinfo = $ppinfo->get($this->dbhelper);
 
                 $meeting_pp_companyDAO = $this->orm->createDAO('jjh_mg_pp_company');
