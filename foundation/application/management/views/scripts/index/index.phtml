@@ -557,7 +557,7 @@
                               <?php foreach($this->todolist as $k => $v){?>
                                   <li>
                                       <div class="checkbox check-transparent">
-                                          <input type="checkbox" value="<?php echo $v['id'];?>" <?php if($v['status'] == 1){echo "checked='checked'";}?> id="todo-0<?php echo $v['id'];?>">
+                                          <input type="checkbox" value="<?php echo $v['id'];?>" onclick="savetodoliststatus(<?php echo $v['id'];?>,<?php echo $v['status'];?>)" <?php if($v['status'] == 1){echo "checked='checked'";}?> id="todo-0<?php echo $v['id'];?>">
                                           <label for="todo-0<?php echo $v['id'];?>"><?php echo $v['title'];?></label>
                                       </div>
                                   </li>
@@ -680,4 +680,30 @@
                     var tj_type = $(this).val();
                     self.location='/management/index'+'?tongji_type='+tj_type;
                 });
+
+
+
+                function savetodoliststatus(id,status){
+                    $.ajax({
+                        url:'/management/index/savetodolist?id='+id,
+                        type:'POST', //GET
+                        async:true,    //或false,是否异步
+                        data:{
+                            status:status
+                        },
+                        timeout:5000,    //超时时间
+                        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                        success:function(data,textStatus,jqXHR){
+                            window.location.reload();
+                        },
+                        error:function(xhr,textStatus){
+
+                        },
+                        complete:function(){
+
+                        }
+                    });
+                    window.location.reload();
+                }
+
             </script>

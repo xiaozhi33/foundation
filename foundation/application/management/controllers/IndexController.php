@@ -300,5 +300,16 @@
 			$this ->dbhelper ->connect();
 			SessionUtil::sessionStart();
 		}
+
+        /**
+         * 修改todolist状态
+         */
+        public function savetodolistAction(){
+            $pm_mg_todolistDAO = $this->orm->createDAO('pm_mg_todolist');
+            $pm_mg_todolistDAO ->findId($_REQUEST["id"]);
+            $pm_mg_todolistDAO ->status = $_REQUEST["status"]==0?1:0;
+            $pm_mg_todolistDAO->save();
+            exit();
+        }
 	}
 ?>
