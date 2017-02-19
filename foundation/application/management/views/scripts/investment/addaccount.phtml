@@ -32,7 +32,7 @@
                             <div class="col-sm-3">
                               <input class="form-control" type="text" name="account_name" />
                             </div>
-                            <span class="col-sm-1" > * </span>
+                            <span class="col-sm-1" > * 例如：国泰君安账户、渤海证券账户</span>
                     </div>
 
                     <div class="form-group">
@@ -40,8 +40,10 @@
                         <div class="col-sm-3">
                             <input class="form-control" type="text" name="account_number" />
                         </div>
-                        <span class="col-sm-1" > * </span>
+                        <span class="col-sm-1" > * 账户唯一编号</span>
                     </div>
+
+                    <input type="hidden" name="iid" value="<?php echo $_REQUEST['id'];?>" />
 
                     <div class="form-group form-footer">
 						<div class="col-sm-offset-5 col-sm-7">
@@ -57,6 +59,6 @@
 
         <script src="/include/management/assets/js/jquery.js"></script>
         <script language="javascript">
-            $(".menu li:eq(9)").addClass("open");
+            $(".menu li:eq(5)").addClass("open");
         </script>
 

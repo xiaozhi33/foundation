@@ -26,14 +26,25 @@
 			<div class="col-md-12">
 				<section class="tile color transparent-white">
 			<div class="detailedbox tile-body">
-                <form class="form-horizontal"  id="form1" action="to-addaccount" method="post" encType="multipart/form-data">
+                <form class="form-horizontal"  id="form1" action="to-addproduct" method="post" encType="multipart/form-data">
+
                     <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">产品名称：</label>
-                            <div class="col-sm-3">
-                              <input class="form-control" type="text" name="account_name" />
-                            </div>
-                            <span class="col-sm-1" > * </span>
+                        <label class="col-sm-2 control-label" for="input01">产品名称：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="product_name" />
+                        </div>
+                        <span class="col-sm-2" > * 例如：阳光一号理财</span>
                     </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">账户账号：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="product_number" />
+                        </div>
+                        <span class="col-sm-2" > * 账户唯一编号</span>
+                    </div>
+
+                    <input type="hidden" name="iid" value="<?php echo $_REQUEST['id']?>" />
 
                     <div class="form-group form-footer">
 						<div class="col-sm-offset-5 col-sm-7">
@@ -49,6 +60,6 @@
 
         <script src="/include/management/assets/js/jquery.js"></script>
         <script language="javascript">
-            $(".menu li:eq(53)").addClass("open");
+            $(".menu li:eq(5)").addClass("open");
         </script>
 

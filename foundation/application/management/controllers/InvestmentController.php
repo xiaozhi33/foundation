@@ -29,6 +29,7 @@ class Management_investmentController extends BaseController
         $id = $_REQUEST['id'];
         $accountDAO = $this->orm->createDAO('pm_mg_investment_account');
         $account_name = HttpUtil::postString("account_name");
+        $account_number = HttpUtil::postString("account_number");
 
         if($account_name == ''){
             //alert_back("您输入的信息不完整，请查正后继续添加！！！！！");
@@ -40,7 +41,13 @@ class Management_investmentController extends BaseController
             exit;
         }
 
-        $hasAccount = $this->hasAccount($account_name);
+        $account1DAO = $this->orm->createDAO('pm_mg_investment_account');
+        $account1DAO = $account1DAO ->findId($id)->get();
+
+        if($account1DAO[0]['account_name'] != $account_name){
+            $hasAccount = $this->hasAccount($account_name);
+        }
+
         if(empty($id)) {
             if ($hasAccount) {
                 echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
@@ -58,6 +65,7 @@ class Management_investmentController extends BaseController
         }
 
         $accountDAO ->account_name = $account_name;
+        $accountDAO ->account_number = $account_number;
 
         if(!empty($id))  //修改流程
         {

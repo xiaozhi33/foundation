@@ -7,13 +7,13 @@
     <div class="pageheader">
 
         <h2><i class="fa fa-tachometer"></i> Dashboard
-            <span>车辆列表</span></h2>
+            <span>账户资金列表</span></h2>
 
         <div class="breadcrumbs">
             <ol class="breadcrumb">
                 <li>您的位置</li>
-                <li>车辆信息</li>
-                <li class="active">车辆列表</li>
+                <li>账户资金信息</li>
+                <li class="active">账户资金列表</li>
             </ol>
         </div>
 
@@ -27,12 +27,12 @@
 			<div class="col-md-12">
 			<section class="tile color transparent-white">
 			<div class="tile-body">
-			<form action="#" method="post">
+			<form action="#" method="get">
 				<div class="form-group">
 				<div class="row">
 					<div class="form-group col-sm-3">
-						<label for="input05">车辆车牌照：</label>
-						<input type="text" class="form-control" name="car_number" />
+						<label for="input05">账户资金名称：</label>
+						<input type="text" class="form-control" name="account_name" <?php echo $_REQUEST['account_name'];?>/>
 					</div>
 					<div class="form-group">
                         <div class="form-group col-sm-2">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="input02"> </label>
-                            <input class="btn btn-primary btn-block" type="button" value="添加车辆信息" onclick="window.location.href='/management/car/addcarmain'"/>
+                            <input class="btn btn-primary btn-block" type="button" value="添加账户信息" onclick="window.location.href='/management/investment/addaccount'"/>
                         </div>
                     </div>
 				</div>
@@ -55,9 +55,8 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="24%">车辆名称</td>
-						<td width="24%">车辆车牌照</td>
-						<td width="20%">车辆信息（颜色、规格）</td>
+						<td width="24%">账户资金名称</td>
+						<td width="24%">账户资金账号</td>
 						<td width="13%">操作</td>
 					  </tr>
 					</thead>
@@ -65,13 +64,18 @@
 					  <?php
 						foreach($this->pageData as $k=>$v){?>
 						 <tr>
-						 	<td><?php echo $v['name'];?>&nbsp;</td>
-							<td><?php echo $v['car_number'];?>&nbsp;</td>
-							<td><?php echo $v['description'];?>&nbsp;</td>
-							<td><a href="/management/car/editcarmain?id=<?php echo $v['id'];?>">
-                            <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
-                             <a href="/management/car/delcarmain?id=<?php echo $v['id'];?>">
-                             <button type="button" class="btn btn-danger margin-bottom-20" onclick= "if(confirm( '是否确定删除！ 删除将无法找回有关该车辆的所有信息。')==false) return false; ">删除</button></a>
+						 	<td><?php echo $v['account_name'];?>&nbsp;</td>
+							<td><?php echo $v['account_number'];?>&nbsp;</td>
+							<td>
+                                <a href="/management/investmentproduct?id=<?php echo $v['id'];?>">
+                                    <button type="button" class="btn btn-greensea margin-bottom-20">管理投资产品</button>
+                                </a>
+                                <a href="/management/investment/editaccount?id=<?php echo $v['id'];?>">
+                                    <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button>
+                                </a>
+                                <a href="/management/investment/delaccount?id=<?php echo $v['id'];?>">
+                                    <button type="button" class="btn btn-danger margin-bottom-20" onclick= "if(confirm( '是否确定删除！ 删除将无法找回有关该账户的所有信息。')==false) return false; ">删除</button>
+                                </a>
                             </td>
 						 </tr>
 					   <?php }?>
@@ -81,14 +85,14 @@
 					<div class="tile-footer">
 					<div class="row">
 					<div class="page col-md-12" align="right">
-						共  <?php echo $this->totalItems;?> 台车辆          <?php echo $this->page['all'];?></div>
+						共  <?php echo $this->totalItems;?> 个账户          <?php echo $this->page['all'];?></div>
 					
 				 <?php }else{?>
                      <div class="form-group">
                          <div class="row">
                              <div class="col-md-offset-1 col-sm-2">
-                                 <label for="input02">暂无车辆信息！ </label>
-                                 <input class="btn btn-primary btn-block" type="button" value="添加车辆信息" onclick="window.location.href='/management/car/addcarmain'"/>
+                                 <label for="input02">暂无账户资金信息！ </label>
+                                 <input class="btn btn-primary btn-block" type="button" value="添加账户资金信息" onclick="window.location.href='/management/investment/addaccount'"/>
                              </div>
                          </div>
                      </div>
@@ -102,5 +106,5 @@
 
         <script src="/include/management/assets/js/jquery.js"></script>
         <script language="javascript">
-            $(".menu li:eq(53)").addClass("open");
+            $(".menu li:eq(5)").addClass("open");
         </script>

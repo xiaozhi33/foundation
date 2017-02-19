@@ -1,6 +1,6 @@
 <?php
 require_once("BaseController.php");
-class Management_investmentController extends BaseController
+class Management_investmentproductController extends BaseController
 {
     private $dbhelper;
 
@@ -29,8 +29,12 @@ class Management_investmentController extends BaseController
         $id = $_REQUEST['id'];
         $productDAO = $this->orm->createDAO('pm_mg_investment_product');
         $product_name = HttpUtil::postString("product_name");
+        $product_number = HttpUtil::postString("product_number");
 
-        if($product_name == ''){
+        $investment_id = HttpUtil::postString("iid");
+        $productDAO ->investment_account_id = $investment_id;
+
+        if($product_name == '' || $investment_id == ''){
             //alert_back("您输入的信息不完整，请查正后继续添加！！！！！");
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
@@ -58,6 +62,7 @@ class Management_investmentController extends BaseController
         }
 
         $productDAO ->product_name = $product_name;
+        $productDAO ->product_number = $product_number;
 
         if(!empty($id))  //修改流程
         {
@@ -80,11 +85,11 @@ class Management_investmentController extends BaseController
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('保存成功');");
-            echo("location.href='/management/investmentproduct';");
+            echo("location.href='/management/investmentproduct?id=".$investment_id."';");
             echo('</script>');
             exit;
         }else {
-            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/investmentproduct/'));
+            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/investmentproduct?id=".$investment_id."'));
             exit;
         }
     }
