@@ -7,13 +7,13 @@
 <div class="pageheader">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
-        <span>编辑产品信息</span></h2>
+        <span>添加投资产品信息</span></h2>
 
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
-            <li>产品信息</li>
-            <li class="active">编辑产品信息</li>
+            <li>投资管理</li>
+            <li class="active">添加投资产品信息</li>
         </ol>
     </div>
 
@@ -26,40 +26,47 @@
         <div class="col-md-12">
             <section class="tile color transparent-white">
                 <div class="detailedbox tile-body">
-                    <form class="form-horizontal" id="form1" action="to-addcarmain" method="post" encType="multipart/form-data">
+                    <form class="form-horizontal"  id="form1" action="to-addproduct" method="post" encType="multipart/form-data">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">投资账户：</label>
+                            <div class="col-sm-3">
+                                <select name="iid" class="form-control" >
+                                    <?php
+                                    if(!empty($this->pm_mg_investment_account_list)){
+                                        foreach($this->pm_mg_investment_account_list as $key => $value){?>
+                                <option class="form-control" <?php if($this->product_info[0]['investment_account_id']==$value['id']){echo 'selected="selected"';}?>  value="<?php echo $value['id'];?>"/><?php echo $value['account_name'];?></option>
+
+                                <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-2" > * </span>
+                        </div>
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">产品名称：</label>
                             <div class="col-sm-3">
-                                <input class="form-control" value="<?php echo $this->car_info[0]['name'];?>" type="text" name="name" />
+                                <input class="form-control" type="text" name="product_name" value="<?php echo $this->product_info[0]['product_name']?>" />
                             </div>
-                            <span class="col-sm-1" > * </span>
+                            <span class="col-sm-2" > * 例如：阳光一号理财</span>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">产品车牌照：</label>
+                            <label class="col-sm-2 control-label" for="input01">产品编号：</label>
                             <div class="col-sm-3">
-                                <input class="form-control" value="<?php echo $this->car_info[0]['car_number'];?>" type="text" name="car_number" />
+                                <input class="form-control" type="text" name="product_number"  value="<?php echo $this->product_info[0]['product_number']?>"/>
                             </div>
-                            <span class="col-sm-1" > * </span>
+                            <span class="col-sm-2" > * 账户唯一编号</span>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">产品信息（颜色、规格）：</label>
-                            <div class="col-sm-3">
-                                <input class="form-control" value="<?php echo $this->car_info[0]['description'];?>" type="text" name="description" />
-                            </div>
-                            <span class="col-sm-1" > * </span>
-                        </div>
+                        <input type="hidden" name="id" value="<?php echo $_REQUEST['id']?>" />
 
-                        <input class="btn btn-default" name="id" type="hidden" value="<?php echo $this->car_info[0]['id'];?>" />
                         <div class="form-group form-footer">
                             <div class="col-sm-offset-5 col-sm-7">
-                                <input class="btn btn-primary" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
                                 <input class="btn btn-default" type="reset" value="重 置" />
                             </div>
                         </div>
-
                     </form>
                 </div>
             </section>
@@ -68,6 +75,6 @@
 
     <script src="/include/management/assets/js/jquery.js"></script>
     <script language="javascript">
-        $(".menu li:eq(53)").addClass("open");
+        $(".menu li:eq(5)").addClass("open");
     </script>
 

@@ -7,10 +7,15 @@ class Management_investmentproductController extends BaseController
     public function indexAction()
     {
         $productDAO = $this->orm->createDAO('pm_mg_investment_product');
-        $product_name = HttpUtil::postString("product_name");
+        $product_name = HttpUtil::getString("product_name");
         if(!empty($product_name)){
-            $productDAO->findproduct_name($product_name);
+            $productDAO->selectLimit .= " AND product_name like '%".$product_name."%'";
         }
+        $investment_account_id = HttpUtil::postString("id");
+        if(!empty($investment_account_id)){
+            $productDAO->findInvestment_account_id($investment_account_id);
+        }
+
         $productDAO = $productDAO->order('id DESC');
         $productDAO->getPager(array('path'=>'/management/investmentproduct/index'))->assignTo($this->view);
 
@@ -44,7 +49,15 @@ class Management_investmentproductController extends BaseController
             exit;
         }
 
-        $hasproduct = $this->hasproduct($product_name);
+        $account1DAO = $this->orm->createDAO('pm_mg_investment_product');
+        $account1DAO = $account1DAO ->findId($id)->get();
+
+        if($account1DAO[0]['product_name'] == $product_name){
+            $hasAccount = false;
+        }else {
+            $hasAccount = true;
+        }
+
         if(empty($id)) {
             if ($hasproduct) {
                 echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
@@ -89,8 +102,14 @@ class Management_investmentproductController extends BaseController
             echo('</script>');
             exit;
         }else {
-            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/investmentproduct?id=".$investment_id."'));
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('保存成功！！！！！');");
+            echo("location.href='/management/investmentproduct?id=".$investment_id."'");
+            echo('</script>');
             exit;
+            //echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/investmentproduct?id=".$investment_id."'));
+            //exit;
         }
     }
 
@@ -151,7 +170,7 @@ class Management_investmentproductController extends BaseController
     public function logAction()
     {
         $logDAO = $this->orm->createDAO('pm_mg_investment_product_logs');
-        $investment_product_id = HttpUtil::postString("investment_product_id");
+        $investment_product_id = HttpUtil::getString("id");
         if(!empty($investment_product_id)){
             $logDAO->findInvestment_product_id($investment_product_id);
         }
@@ -175,11 +194,11 @@ class Management_investmentproductController extends BaseController
 
         $investment_product_id = HttpUtil::postString("investment_product_id");         // 投资账户id
         $account_re_datetime = HttpUtil::postString("account_re_datetime");             // 收支操作时间
-        $product_receipts = HttpUtil::postString("product_receipts");                   // 收入
-        $product_expenses = HttpUtil::postString("product_expenses");                   // 支出
+        $account_receipts = HttpUtil::postString("account_receipts");                   // 收入
+        $account_expenses = HttpUtil::postString("account_expenses");                   // 支出
         $end_datetime = HttpUtil::postString("end_datetime");                           // 到期时间 （投资）
         $rate_of_return = HttpUtil::postString("rate_of_return");                       // 收益率
-        $product_corpus = HttpUtil::postString("product_corpus");   // 本金-可以先不填
+        $account_corpus = HttpUtil::postString("account_corpus");   // 本金-可以先不填
         $remark = HttpUtil::postString("remark");
 
         if($investment_product_id == ''){
@@ -198,11 +217,13 @@ class Management_investmentproductController extends BaseController
         $logDAO ->investment_product_id = $investment_product_id;
         $logDAO ->account_re_datetime = $account_re_datetime;
         $logDAO ->end_datetime = $end_datetime;
+        $logDAO ->account_receipts = $account_receipts;
+        $logDAO ->account_expenses = $account_expenses;
+        $logDAO ->account_corpus = $account_corpus;
         $logDAO ->rate_of_return = $rate_of_return;
-        $logDAO ->product_receipts = $product_receipts;
-        $logDAO ->product_expenses = $product_expenses;
-        $logDAO ->product_corpus = $product_corpus;
+        $logDAO ->end_datetime = $end_datetime;
         $logDAO ->remark = $remark;
+        $logDAO ->type =  HttpUtil::postString("type");
         if(!empty($id))  //修改流程
         {
             $logDAO ->findId($id);
@@ -226,8 +247,14 @@ class Management_investmentproductController extends BaseController
             echo('</script>');
             exit;
         }else {
-            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/investmentproduct/log'));
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('保存成功');");
+            echo("location.href='/management/investmentproduct/log';");
+            echo('</script>');
             exit;
+            //echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/investmentproduct/log'));
+            //exit;
         }
     }
 
@@ -274,6 +301,14 @@ class Management_investmentproductController extends BaseController
         $productList = $this->orm->createDAO('pm_mg_investment_product')->get();
         SessionUtil::sessionStart();
         SessionUtil::checkmanagement();
+
+        // 账户
+        $pm_mg_investment_account_list = $this->orm->createDAO("pm_mg_investment_account")->get();
+        $this->view->assign("pm_mg_investment_account_list", $pm_mg_investment_account_list);
+
+        // 账户
+        $pm_mg_investment_product_list = $this->orm->createDAO("pm_mg_investment_product")->get();
+        $this->view->assign("pm_mg_investment_product_list", $pm_mg_investment_product_list);
 
         $this->view->assign(array(
             'productList' => $productList

@@ -29,6 +29,21 @@
                 <form class="form-horizontal"  id="form1" action="to-addproduct" method="post" encType="multipart/form-data">
 
                     <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">投资账户：</label>
+                        <div class="col-sm-3">
+                            <select name="iid" class="form-control" >
+                                <?php
+                                    if(!empty($this->pm_mg_investment_account_list)){
+                                        foreach($this->pm_mg_investment_account_list as $key => $value){?>
+                                <option class="form-control"  value="<?php echo $value['id'];?>"/><?php echo $value['account_name'];?></option>
+
+                                <?php }}?>
+                            </select>
+                        </div>
+                        <span class="col-sm-2" > * </span>
+                    </div>
+
+                    <div class="form-group">
                         <label class="col-sm-2 control-label" for="input01">产品名称：</label>
                         <div class="col-sm-3">
                             <input class="form-control" type="text" name="product_name" />
@@ -37,14 +52,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input01">账户账号：</label>
+                        <label class="col-sm-2 control-label" for="input01">产品编号：</label>
                         <div class="col-sm-3">
                             <input class="form-control" type="text" name="product_number" />
                         </div>
                         <span class="col-sm-2" > * 账户唯一编号</span>
                     </div>
-
-                    <input type="hidden" name="iid" value="<?php echo $_REQUEST['id']?>" />
 
                     <div class="form-group form-footer">
 						<div class="col-sm-offset-5 col-sm-7">

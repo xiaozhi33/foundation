@@ -26,16 +26,16 @@
 			<div class="col-md-12">
 				<section class="tile color transparent-white">
 			<div class="detailedbox tile-body">
-                <form class="form-horizontal" action="to-addusecar" method="post" encType="multipart/form-data">
+                <form class="form-horizontal" action="to-addlog" method="post" encType="multipart/form-data">
 
                     <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input02">投资账户：</label>
+                            <label class="col-sm-2 control-label" for="input02">产品名称：</label>
                             <div class="col-sm-3">
-                                <select class="chosen-select chosen-transparent form-control" name="account_id">
-                                    <option value="" >请选择投资账户</option>
-                                    <?php if($this->accountList != ""){
-                                    foreach ($this->accountList as $k => $v){?>
-                                        <option value="<?php echo $v['id']?>" ><?php echo $v['account_name']?></option>
+                                <select class="chosen-select chosen-transparent form-control" name="investment_product_id">
+                                    <option value="" >请选择产品名称</option>
+                                    <?php if($this->pm_mg_investment_product_list != ""){
+                                    foreach ($this->pm_mg_investment_product_list as $k => $v){?>
+                                        <option value="<?php echo $v['id']?>" ><?php echo $v['product_name']?></option>
                                     <?php }}?>
                                 </select>
                             </div>
@@ -44,75 +44,47 @@
 
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input06">收支类型：</label>
-                        <div class="col-sm-4">
-                            收入 <input class="form-control" type="radio"  id="tpye" value="1"  name="tpye" size="14"/>
-                            支出 <input class="form-control" type="radio"  id="tpye" value="2"  name="tpye" size="14"/>
+                        <label class="col-sm-2 control-label" for="input06">类型：</label>
+                        <div class="col-sm-3">
+                            <select class="chosen-select chosen-transparent form-control type" name="type">
+                                <option value="1" >投入</option>
+                                <option value="2" >支出</option>
+                            </select>
                         </div>
+                        <span class="col-sm-1" > * </span>
                     </div>
-
 
 
                     <div class="form-group receipts">
-                        <label class="col-sm-2 control-label" for="input06">收入到账时间：</label>
+                        <label class="col-sm-2 control-label" for="input06">投入支出操作时间：</label>
                         <div class="col-sm-4">
-                            <input class="form-control" data-date-format="YYYY-MM-DD HH:mm:00" type="text"  id="datepicker"  name="account_receipts_datetime" size="14"/>
+                            <input class="form-control" data-date-format="YYYY-MM-DD" type="text"  id="datepicker"  name="account_re_datetime" size="14"/>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input01">收入金额：</label>
+                    <div class="form-group shouru">
+                        <label class="col-sm-2 control-label" for="input01">投资金额：</label>
                         <div class="col-sm-3">
                             <input class="form-control" type="text" name="account_receipts" />
                         </div>
                         <span class="col-sm-1" >元 * </span>
                     </div>
 
-                    <div class="form-group expenses">
-                        <label class="col-sm-2 control-label" for="input06">支出时间：</label>
-                        <div class="col-sm-4">
-                            <input class="form-control" data-date-format="YYYY-MM-DD HH:mm:00" type="text"  id="datepicker1"  name="account_expenses_datetime" size="14"/>
+                    <div class="form-group shouru">
+                        <label class="col-sm-2 control-label" for="input01">年化收益率：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="rate_of_return" />
                         </div>
+                        <span class="col-sm-1" > %</span>
                     </div>
 
-                    <div class="form-group">
+
+                    <div class="form-group zhichu" style="display: none;">
                         <label class="col-sm-2 control-label" for="input01">支出金额：</label>
                         <div class="col-sm-3">
                             <input class="form-control" type="text" name="account_expenses" />
                         </div>
                         <span class="col-sm-1" >元 * </span>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input01">用车费用-金额：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" type="text" name="cost_price" />
-                        </div>
-                        <span class="col-sm-1" >元 * </span>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input01">用车费用-过路费：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" type="text" name="cost_road_toll" />
-                        </div>
-                        <span class="col-sm-1" >元 * </span>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input01">使用人：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" type="text" name="user" />
-                        </div>
-                        <span class="col-sm-1" > * </span>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input01">驾驶员：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" type="text" name="driver" />
-                        </div>
-                        <span class="col-sm-1" > * </span>
                     </div>
 
                     <div class="form-group transparent-editor">
@@ -136,6 +108,15 @@
 
         <script src="/include/management/assets/js/jquery.js"></script>
         <script language="javascript">
-            $(".menu li:eq(53)").addClass("open");
+            $(".menu li:eq(5)").addClass("open");
+            $(".type").change(function(){
+                if($(".type").val() == '1'){
+                    $(".shouru").show();
+                    $(".zhichu").hide();
+                }else if($(".type").val() == '2'){
+                    $(".shouru").hide();
+                    $(".zhichu").show();
+                }
+            });
         </script>
 

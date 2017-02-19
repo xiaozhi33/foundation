@@ -7,9 +7,9 @@ class Management_investmentController extends BaseController
     public function indexAction()
     {
         $accountDAO = $this->orm->createDAO('pm_mg_investment_account');
-        $account_name = HttpUtil::postString("account_name");
+        $account_name = HttpUtil::getString("account_name");
         if(!empty($account_name)){
-            $accountDAO->findAccount_name($account_name);
+            $accountDAO->selectLimit .= " AND account_name like '%".$account_name."%'";
         }
         $accountDAO = $accountDAO->order('id DESC');
         $accountDAO->getPager(array('path'=>'/management/investment/index'))->assignTo($this->view);
