@@ -713,7 +713,7 @@
                 $ppinfo->selectLimit .= " and pp_pm_id = '".$_REQUEST['pname']."'";
             }
             if($_REQUEST['pp_cate'] != ""){
-                $ppinfo->selectLimit .= " and pp_cate = '".$_REQUEST['pp_cate']."'";
+                $ppinfo->selectLimit .= " and pp_cate like '%".$_REQUEST['pp_cate']."%'";
             }
 
             $ppinfo->selectLimit .= " order by pid DESC";
@@ -814,6 +814,70 @@
                 echo $this->view->render("index/footer.phtml");
             }else {
                 alert_back("操作失败");
+            }
+        }
+
+        public function syncjzfAction(){
+            // 读取项目info中所有实际捐赠方信息
+            $pmDAO = $this->orm->createDAO("pm_mg_info");
+            /**
+             * pp_jzf_cate 基金会/企业/校友/社会人士
+             * pp_jzf_attr1 0 1 是否校友
+             * pp_jzf_attr2 境外 境内
+            */
+            $pmDAO ->select("pm_pp,
+                                pm_pp_cate AS pp_jzf_cate,
+                                pm_is_school AS pp_jzf_attr1,
+                                zijin_laiyuan_qudao AS pp_jzf_attr2,
+                                pm_name");
+            //$pmDAO ->selectLimit .= " AND pm_pp != '' AND pm_pp != '11' AND pm_pp != '123123' AND pm_pp != '33' AND pm_pp != '77' AND pm_pp != '85' AND pm_name != ''GROUP BY pm_pp ";
+            $pmDAO ->selectLimit .= " AND pm_pp != '' AND pm_pp != '11' AND pm_pp != '123123' AND pm_pp != '33' AND pm_pp != '77' AND pm_pp != '85' AND pm_name != '' ";
+            $pmDAO = $pmDAO->get();
+
+            if(!empty($pmDAO)){
+                foreach($pmDAO as $key => $value){
+                    /**
+                     * 此操作将过滤捐赠方名称和项目名称相同并已存在的捐赠人信息。
+                     * 如果同一捐赠人对应不同项目，则添加多条项目捐赠人信息到人员管理表中。
+                     */
+                    if($this->isnot_pp($value['pm_pp'], $value['pm_name'])){
+                        $ppDAO =  $this->orm->createDAO("jjh_mg_pp");
+                        $ppDAO ->pp_cate = '实际捐赠方';
+                        $ppDAO ->ppname = $value['pm_pp'];
+                        $ppDAO ->pp_pm_id = $value['pm_name'];
+                        $ppDAO ->pp_jzf_cate = $value['pp_jzf_cate'];
+                        if($value['pp_jzf_attr1'] == 0){
+                            $ppDAO ->pp_jzf_attr1 = '非校友';
+                        }else{
+                            $ppDAO ->pp_jzf_attr1 = '校友';
+                        }
+                        if($value['pp_jzf_attr2'] == '境内' || $value['pp_jzf_attr2'] == ''){
+                            $ppDAO ->pp_jzf_attr2 = '海内';
+                        }else{
+                            $ppDAO ->pp_jzf_attr2 = '海外';
+                        }
+                        $ppDAO ->save();
+                        unset($ppDAO);
+                    }
+                }
+            }
+
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('同步已完成');");
+            echo("location.href='/management/admin/pp?pp_cate=捐赠方';");
+            echo('</script>');
+            exit;
+        }
+
+        public function isnot_pp($ppname, $pname){
+            $ppDAO =  $this->orm->createDAO("jjh_mg_pp");
+            $ppDAO ->findPp_pm_id($pname);
+            $rs = $ppDAO ->findPpname($ppname)->get();
+            if(empty($rs)){
+                return true;
+            }else {
+                return false;
             }
         }
 		

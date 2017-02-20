@@ -24,8 +24,8 @@
 				<form class="form-horizontal" method="get" action="#"  name="search_form">
                     <div class="form-group">
                     	<div class="col-sm-12">
-                            <label class="col-sm-2 control-label" for="pname">项目名称：</label>
-                            <div class="col-sm-4">
+                            <label class="col-sm-1 control-label" for="pname">项目名称：</label>
+                            <div class="col-sm-3">
                                 <select class="chosen-select-1 chosen-transparent form-control" id="pname">
                                     <option value="1">请选择项目名称</option>
                                     <?php if($this->pmlist != ""){
@@ -38,12 +38,20 @@
                                 <input id="pname_info" type="hidden" name="pname" value=""/>
                             </div>
 
-                            <label class="col-sm-2 control-label" for="input01"><?php echo $_REQUEST['pp_cate']?>名称：</label>
-                            <div class="col-sm-2">
+                            <label class="col-sm-1 control-label" for="input01"><?php echo $_REQUEST['pp_cate']?>名称：</label>
+                            <div class="col-sm-3">
                                <input type="text" name="ppname" value="<?php echo $this->ppname;?>"/>
                             </div>
-                            <label class="col-sm-1 control-label" for="input01"></label>
+
                             <div class="col-sm-1"><input class="btn btn-primary" type="submit" value="搜索"></div>
+
+                            <?php if($_REQUEST['pp_cate'] == '捐赠方'){?>
+                                <div class="col-sm-3">
+                                    <input class="btn btn-primary btn-block" type="button" value="同步项目信息中捐赠方" onclick=" javascript:if(confirm('确定要同步捐赠方数据吗？\r\r此操作将过滤捐赠方名称和项目名称相同并已存在的捐赠人信息。\r如果同一捐赠人对应不同项目，则添加多条项目捐赠人信息到人员管理表中。')){window.location.href='/management/admin/syncjzf';}">
+                                </div>
+                            <?php }?>
+
+
                         </div>
                     </div>
 					</form>
