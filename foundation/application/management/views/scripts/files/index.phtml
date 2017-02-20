@@ -47,23 +47,26 @@
                                 <div class="row">
                                     <div class="form-group col-sm-3">
                                         <label for="pname">文档名称：</label>
-                                        <input id="name" type="text" name="name" value="<?php echo $this->name;?>"/>
+                                        <input id="name" class="form-control" type="text" name="name" value="<?php echo $this->name;?>"/>
                                     </div>
 
                                     <div class="form-group col-sm-3">
-                                        <label for="pname" >文档类型：</label>
-                                        <select name="type">
+                                        <label for="input01" >文档类型：</label>
+                                        <select name="type" class="form-control">
                                             <?php foreach($this->type_arrays as $k => $v){?>
-                                            <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                            <option  class="form-group" value="<?php echo $k;?>"><?php echo $v;?></option>
                                             <?php }?>
                                         </select>
                                     </div>
-                                </div>
 
-                                <div class="row">
                                     <div class="form-group col-sm-3">
                                         <label for="input02"></label>
                                         <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                                    </div>
+
+                                    <div class="form-group col-sm-3">
+                                        <label for="input02"> </label>
+                                        <input class="btn btn-primary btn-block" type="button" value="添加文档" onclick="window.location.href='/management/files/add'">
                                     </div>
                                 </div>
                             </div>
@@ -138,5 +141,5 @@
 		</div>
 
         <script language="javascript">
-            $(".menu li:eq(19)").addClass("open");
+            $(".menu li:eq(33)").addClass("open");
         </script>
