@@ -830,8 +830,8 @@
                                 pm_is_school AS pp_jzf_attr1,
                                 zijin_laiyuan_qudao AS pp_jzf_attr2,
                                 pm_name");
-            //$pmDAO ->selectLimit .= " AND pm_pp != '' AND pm_pp != '11' AND pm_pp != '123123' AND pm_pp != '33' AND pm_pp != '77' AND pm_pp != '85' AND pm_name != ''GROUP BY pm_pp ";
-            $pmDAO ->selectLimit .= " AND pm_pp != '' AND pm_pp != '11' AND pm_pp != '123123' AND pm_pp != '33' AND pm_pp != '77' AND pm_pp != '85' AND pm_name != '' ";
+            $pmDAO ->selectLimit .= " AND pm_pp != '' AND pm_pp != '11' AND pm_pp != '123123' AND pm_pp != '33' AND pm_pp != '77' AND pm_pp != '85' AND pm_name != ''GROUP BY pm_pp ";
+            //$pmDAO ->selectLimit .= " AND pm_pp != '' AND pm_pp != '11' AND pm_pp != '123123' AND pm_pp != '33' AND pm_pp != '77' AND pm_pp != '85' AND pm_name != '' ";
             $pmDAO = $pmDAO->get();
 
             if(!empty($pmDAO)){

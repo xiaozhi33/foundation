@@ -626,6 +626,8 @@
                      pm_mg_info.zijin_daozhang_datetime,
                      pm_mg_info.zijin_daozheng_jiner,
                      pm_mg_info.pm_juanzeng_cate,
+                     pm_mg_info.jiangli_fanwei,
+                     pm_mg_info.jiangli_renshu,
                      c.department,
                      c.pm_fzr_mc,
                      pm_mg_info.pm_pp");

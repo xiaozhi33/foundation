@@ -261,7 +261,7 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>项目名称</td>
+                                <!--<td>项目名称</td>-->
                                 <td>签约时间</td>
                                 <td>签约协议</td>
                                 <td>协议金额</td>
@@ -269,7 +269,7 @@
                             <?php
                             foreach($this->signDAO as $k=>$v){?>
                                 <tr>
-                                    <td><?php echo $v['pname'];?>&nbsp;</td>
+                                   <!-- <td><?php /*echo $v['pname'];*/?>&nbsp;</td>-->
                                     <td><?php echo date("Y-m-d",strtotime($v['sign_time']));?></td>
                                     <td>
                                         <!--<a href="<?php /*echo $v['sign_files'];*/?>">-->
@@ -300,27 +300,39 @@
                             <tbody>
                                 <tr>
                                     <td>父项目名称</td>
-                                    <td>所属项目名称</td>
-                                    <td>来款金额</td>
+                                    <!--<td>所属项目名称</td>-->
+
                                     <td>来款时间</td>
-                                    <td>支出金额</td>
-                                    <td>支出时间</td>
-                                    <td>项目类型</td>
-                                    <td>所属部门</td>
+                                    <td>来款金额</td>
                                     <td>来款方</td>
+
+                                    <td>支出时间</td>
+                                    <td>支出金额</td>
+
+                                    <!--<td>项目类型</td>-->
+                                    <td>奖励范围</td>
+                                    <td>奖励人数</td>
+                                    <!--<td>所属部门</td>-->
+
                                     <td>项目负责人</td>
                                 </tr>
                                 <?php foreach($this->zhichuinfo as $key => $value){?>
                                     <tr>
                                         <td><?php echo $value['parent_pm_name'];?></td>
-                                        <td><?php echo $value['pm_name'];?></td>
-                                        <td><?php echo $value['zijin_daozheng_jiner'];?></td>
+                                        <!--<td><?php /*echo $value['pm_name'];*/?></td>-->
+
                                         <td><?php echo $value['zijin_daozhang_datetime'];?></td>
-                                        <td><?php echo $value['shiyong_zhichu_jiner'];?></td>
-                                        <td><?php echo $value['shiyong_zhichu_datetime'];?></td>
-                                        <td><?php echo $value['leixing'];?></td>
-                                        <td><?php echo $value['department'];?></td>
+                                        <td><?php echo $value['zijin_daozheng_jiner'];?></td>
                                         <td><?php echo $value['pm_pp'];?></td>
+
+                                        <td><?php echo $value['shiyong_zhichu_datetime'];?></td>
+                                        <td><?php echo $value['shiyong_zhichu_jiner'];?></td>
+
+                                        <!--<td><?php /*echo $value['leixing'];*/?></td>-->
+                                        <td><?php echo $value['jiangli_fanwei'];?></td>
+                                        <td><?php echo $value['jiangli_renshu'];?></td>
+                                        <!--<td><?php /*echo $value['department'];*/?></td>-->
+
                                         <td><?php echo $value['pm_fzr_mc'];?></td>
                                     </tr>
                                 <?php }?>
@@ -358,7 +370,7 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>项目名称</td>
+                                <!--<td>项目名称</td>-->
                                 <td>回馈时间</td>
                                 <td>回馈方式</td>
                                 <td>回馈人</td>
@@ -367,9 +379,9 @@
                             <?php
                             foreach($this->feedbackDAO as $k=>$v){?>
                                 <tr>
-                                    <td>
-                                        <?php echo $v['pm_name'];?>
-                                    </td>
+                                    <!--<td>
+                                        <?php /*echo $v['pm_name'];*/?>
+                                    </td>-->
                                     <td>
                                         <?php echo $v['feedback_datetime'];?>
                                     </td>
@@ -398,7 +410,7 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>项目名称</td>
+                                <!--<td>项目名称</td>-->
                                 <td>是否配比</td>
                                 <td>配比下发时间</td>
                                 <td>配比金额</td>
@@ -406,9 +418,9 @@
                             <?php
                             foreach($this->peibikDAO as $k=>$v){?>
                                 <tr>
-                                    <td>
-                                        <?php echo $v['pm_name'];?>
-                                    </td>
+                                    <!--<td>
+                                        <?php /*echo $v['pm_name'];*/?>
+                                    </td>-->
                                     <td>
                                         <?php echo $v['is_peibi']==1?"是":"否";?>
                                     </td>

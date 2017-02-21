@@ -32,7 +32,7 @@ class Management_taskController extends BaseController
         $type = HttpUtil::postString("type");
         $sponsor = $this->admininfo['admin_info']['id'];  //发起人
         $executor = HttpUtil::postString("executor");  //执行者 （指派给）
-        $helper = HttpUtil::postString("helper");   //协助者
+        $helper = implode(',',$_REQUEST["helper"]);   //协助者
         $star_time = HttpUtil::postString("star_time");
         $end_time = HttpUtil::postString("end_time");
         $plan_time = HttpUtil::postString("plan_time");
