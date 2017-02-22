@@ -107,10 +107,24 @@
                                  <?php echo $v['feedback_type'];?>
                              </td>
                              <td>
-                                 <?php echo $v['feedbacker'];?>
+                                 <?php
+                                 if(!empty($v['feedbacker'])){
+                                     $emp = '';
+                                     $emp = explode(',',$v['feedbacker']);
+                                     foreach($emp as $kk => $vv){
+                                         echo $this->jjh_mg_pp_list[$vv].'&nbsp;&nbsp;';
+                                     }
+                                 };?>
                              </td>
                              <td>
-                                 <?php echo $v['jbr'];?>
+                                 <?php
+                                 if(!empty($v['jbr'])){
+                                     $emp = '';
+                                     $emp = explode(',',$v['jbr']);
+                                     foreach($emp as $kk => $vv){
+                                         echo $this->jjh_mg_pp_list[$vv].'&nbsp;&nbsp;';
+                                     }
+                                 };?>
                              </td>
 
 							<td>
@@ -118,7 +132,8 @@
                                     <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
                                 </a>
                                 &nbsp;&nbsp;
-                                <a href="#" onclick="alert('对不起，回馈清单不提供删除功能，请联系管理员');">
+                                <a href="/management/feedback/del?id=<?php echo $v['id']?>">
+                                    <!--<a href="#" onclick="alert('对不起，回馈清单不提供删除功能，请联系管理员');">-->
                                     <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
                                 </a>
                             </td>

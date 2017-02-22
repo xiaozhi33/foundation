@@ -33,13 +33,33 @@
             $feedback_datetime = HttpUtil::postString("feedback_datetime");
             $feedback_type = HttpUtil::postString("feedback_type");
             $jindu = HttpUtil::postString("jindu");
-            $feedbacker = HttpUtil::postString("feedbacker");
-            $jbr = HttpUtil::postString("jbr");
+            $feedbacker = implode(",",$_REQUEST['feedbacker']);
+            $jbr = implode(",",$_REQUEST['jbr']);
 
             $pm_mg_feedbackDAO = $this->orm->createDAO('pm_mg_feedback');
 
-            if($pm_id == "" || $feedback_datetime == "" || $feedback_type == "" || $jindu == ""){
-                alert_back('您输入的信息不完整，请查正后继续添加！！！！！');
+            if($pm_id == "" || $feedback_datetime == "" || $feedback_type == "" || $jindu == "" || $pm_name == ''){
+                alert_back_old('您输入的信息不完整，请查正后继续添加！！！！！');
+            }
+
+            if($_FILES['files']['name']!=""){
+                if($_FILES['files']['error'] != 4){
+                    if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+                        mkdir(__UPLOADPICPATH__ ."jjh_download/");
+                    }
+                    $uploadpic = new uploadPic($_FILES['files']['name'],$_FILES['files']['error'],$_FILES['files']['size'],$_FILES['files']['tmp_name'],$_FILES['files']['type'],2);
+                    $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+                    $result = $uploadpic->uploadPic();
+                    if($result['error']!=0){
+                        echo "<script>alert('".$result['msg']."');";
+                        echo "window.location.href='/management/feedback';";
+                        echo "</script>";
+                        exit();
+                    }else{
+                        $pm_mg_feedbackDAO->files =  __GETPICPATH__."jjh_download/".$result['picname'];
+                        $pm_mg_feedbackDAO->files_name = $_FILES['files']['name'];
+                    }
+                }
             }
 
             try{
@@ -55,10 +75,10 @@
                 $pm_mg_feedbackDAO ->jbr = $jbr;   // 经办人
                 $pm_mg_feedbackDAO ->save();
             }catch (Exception $e){
-                alert_back('保存失败！！！！！');
+                alert_back_old('保存失败！！！！！');
             }
 
-            alert_go('保存成功', "/management/feedback/index");
+            alert_go_old('保存成功', "/management/feedback/index");
         }
 		
 		public function editAction(){
@@ -79,9 +99,9 @@
 		
 		public function delAction(){
 			$id = HttpUtil::getString("id");
-            $pm_mg_feedbackDAO = $this->orm->createDAO('pm_mg_feedbackDAO');
+            $pm_mg_feedbackDAO = $this->orm->createDAO('pm_mg_feedback');
             $pm_mg_feedbackDAO ->findId($id);
-            $pm_mg_feedbackDAO = $pm_mg_feedbackDAO ->delete();
+            $pm_mg_feedbackDAO ->delete();
 
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
@@ -97,6 +117,18 @@
             $this ->dbhelper ->connect();
             SessionUtil::sessionStart();
             SessionUtil::checkmanagement();
+
+             // 回馈人list
+             $jjh_mg_ppDAO = $this->orm->createDAO('jjh_mg_pp')->get();
+             if(!empty($jjh_mg_ppDAO)){
+                 foreach($jjh_mg_ppDAO as $k => $v){
+                     $temp_array[$v['pid']] = $v['ppname'];
+                 }
+             }
+             $this->view->assign("jjh_mg_pp_list", $temp_array);
+
+             // 经办人list
+
 
             //项目名称列表
             $pm_chouzi = new pm_mg_chouziDAO();

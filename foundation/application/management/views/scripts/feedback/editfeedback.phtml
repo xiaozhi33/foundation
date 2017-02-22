@@ -26,7 +26,7 @@
 			<div class="col-md-12">
 				<section class="tile color transparent-white">
 			<div class="detailedbox tile-body">
-                <form class="form-horizontal" action="to-add" method="post" id="form1" encType="multipart/form-data">
+                <form class="form-horizontal" action="to-add" method="post" encType="multipart/form-data">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">所属项目名称：</label>
                         <div class="col-sm-4">
@@ -60,10 +60,26 @@
 
 
                     <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">文档：</label>
+                        <div class="col-sm-4">
+                            <input name="files" type="file" value="" />
+                            <a href="<?php echo $this->pm_mg_feedbackDAO[0]['files'];?>" target="_blank">
+                                <?php echo $this->pm_mg_feedbackDAO[0]['files_name'];?>
+                            </a>
+                        </div>
+                        <span class="col-sm-2" > * 重新上传将覆盖老文件</span>
+                    </div>
+
+                    <div class="form-group">
                         <label class="col-sm-2 control-label" for="input01">回馈人：</label>
 
                         <div class="col-sm-9">
-                            <input name="feedbacker" type="text" value="<?php echo $this->pm_mg_feedbackDAO[0]['feedbacker']?>"/>
+                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="feedbacker[]" id="feedbacker">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
                         </div>
                     </div>
 
@@ -71,7 +87,12 @@
                         <label class="col-sm-2 control-label" for="input01">经办人：</label>
 
                         <div class="col-sm-9">
-                            <input name="jbr" type="text" value="<?php echo $this->pm_mg_feedbackDAO[0]['jbr']?>"/>
+                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="jbr[]" id="jbr">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
                         </div>
                     </div>
 
@@ -87,7 +108,8 @@
 
                     <div class="form-group form-footer">
                         <div class="col-sm-offset-5 col-sm-7">
-                            <input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                            <!--<input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;-->
+                            <input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
                             <input class="btn btn-default" type="reset" value="重 置" />
                         </div>
                     </div>
@@ -98,7 +120,34 @@
 		</div>
 
         <script src="/include/management/assets/js/jquery.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="/include/management/css/bootstrap-select.min.css">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="/include/management/js/bootstrap-select.min.js"></script>
+
         <script language="javascript">
             $(".menu li:eq(8)").addClass("open");
+
+            $('#feedbacker').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#meeting_joiner').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            var str1='<?php echo $this->pm_mg_feedbackDAO[0]['feedbacker']?>';
+            var arr1=str1.split(',');
+            $('#feedbacker').selectpicker('val', arr1);
+
+            var str2='<?php echo $this->pm_mg_feedbackDAO[0]['jbr']?>';
+            var arr2=str2.split(',');
+            $('#jbr').selectpicker('val', arr2);
         </script>
 

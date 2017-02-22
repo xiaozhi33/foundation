@@ -52,6 +52,22 @@ function alert_go($msg, $url, $error=false){
 	exit;
 }
 
+function alert_back_old($msg){
+    echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+    echo('<script language="JavaScript">');
+    echo("alert('$msg');");
+    echo('history.back();');
+    echo('</script>');
+    exit;
+}
+function alert_go_old($msg, $url, $error=false){
+    echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+    echo('<script language="JavaScript">');
+    echo("alert('$msg');");
+    echo("location.href='$url';");
+    echo('</script>');
+}
+
 function check_admin()
 {
 	  if(!private_admin())
