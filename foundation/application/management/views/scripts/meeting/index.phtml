@@ -69,9 +69,9 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="24%">会议名称</td>
-						<td width="20%">会议类型</td>
-						<td width="18%">参会人员</td><td width="18%">会议内容摘要</td>
+						<td width="18%">会议名称</td>
+						<td width="10%">会议类型</td>
+						<td width="24%">参会人员</td><td width="18%">会议内容摘要</td>
 						<td width="13%">操作</td>
 					  </tr>
 					</thead>
@@ -84,7 +84,16 @@
 								if($vv['id'] == $v['meeting_cate']){ echo $vv['catename'];}
 								}?>&nbsp;</td>
 								
-							<td><?php echo $v['meeting_joiner'];?>&nbsp;</td>
+							<td>
+                                <?php
+                                    if(!empty($v['meeting_joiner'])){
+                                        $emp = '';
+                                        $emp = explode(',',$v['meeting_joiner']);
+                                        foreach($emp as $kk => $vv){
+                                            echo $this->jjh_mg_pp_tlist[$vv].'&nbsp;&nbsp;';
+                                        }
+                                    };?>
+                            </td>
 							<td><?php echo $v['meeting_content'];?>&nbsp;</td>
 							<td><a href="/management/meeting/edit?id=<?php echo $v['id'];?>">
                             <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>

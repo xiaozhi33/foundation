@@ -28,7 +28,7 @@
 			$id = $_REQUEST['id'];
             $meeting_name = HttpUtil::postString("meeting_name");
             $meeting_cate = HttpUtil::postString("meeting_cate");
-            $meeting_joiner = HttpUtil::postString("meeting_joiner");
+            $meeting_joiner = implode(',',$_REQUEST['meeting_joiner']);
             $meeting_content = HttpUtil::postString("meeting_content");
 			$meeting_start_time = HttpUtil::postString("meeting_start_time");
 			$meeting_end_time = HttpUtil::postString("meeting_end_time");
@@ -209,6 +209,17 @@
 
         public function _init(){
             error_reporting(0);
+
+            $jjh_mg_ppDAO = $this->orm->createDAO('jjh_mg_pp')->get();
+            $this->view->assign("jjh_mg_pp_list", $jjh_mg_ppDAO);
+
+            if(!empty($jjh_mg_ppDAO)){
+                foreach($jjh_mg_ppDAO as $k => $v){
+                    $temp_array[$v['pid']] = $v['ppname'];
+                }
+            }
+            $this->view->assign("jjh_mg_pp_tlist", $temp_array);
+
             $meetingCateList = $this->orm->createDAO('jjh_meeting_cate')->get();
             SessionUtil::sessionStart();
             SessionUtil::checkmanagement();
