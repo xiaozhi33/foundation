@@ -289,7 +289,8 @@
 				$ppinfo ->ppphone = $_REQUEST['ppphone'];
 				
 				$ppinfo->save($this->dbhelper);
-				alert_go("联系人添加成功。","/management/admin/pp?pp_cate=".$_REQUEST['pp_cate']);
+				// alert_go("联系人添加成功。","/management/admin/pp?pp_cate=".$_REQUEST['pp_cate']);
+                alert_go("联系人添加成功。","/management/admin/pp");
 			}else {
 				alert_back("添加失败");
 			}
@@ -338,7 +339,8 @@
 				$ppinfo ->ppphone = $_REQUEST['ppphone'];
 				
 				$ppinfo ->save($this->dbhelper);
-				alert_go("编辑成功。","/management/admin/pp?pp_cate=".$_REQUEST['pp_cate']);
+				// alert_go("编辑成功。","/management/admin/pp?pp_cate=".$_REQUEST['pp_cate']);
+                alert_go("编辑成功。","/management/admin/pp");
 			}else {
 				alert_back("添加失败");
 			}

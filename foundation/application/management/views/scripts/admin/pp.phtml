@@ -24,18 +24,30 @@
 				<form class="form-horizontal" method="get" action="#"  name="search_form">
                     <div class="form-group">
                     	<div class="col-sm-12">
-                            <label class="col-sm-1 control-label" for="pname">项目名称：</label>
+                            <!--<label class="col-sm-1 control-label" for="pname">项目名称：</label>
                             <div class="col-sm-3">
                                 <select class="chosen-select-1 chosen-transparent form-control" id="pname">
                                     <option value="1">请选择项目名称</option>
-                                    <?php if($this->pmlist != ""){
+                                    <?php /*if($this->pmlist != ""){
                                         foreach ($this->pmlist as $k => $v){
-                                            ?>
-                                            <option value="<?php echo $v['pname'];?>" <?php if($this->pname == $v['pname'])echo 'selected="selected"';?>><?php echo $v['pname'];?></option>
-                                        <?php }}?>
+                                            */?>
+                                            <option value="<?php /*echo $v['pname'];*/?>" <?php /*if($this->pname == $v['pname'])echo 'selected="selected"';*/?>><?php /*echo $v['pname'];*/?></option>
+                                        <?php /*}}*/?>
                                 </select>
-                                <input type="hidden" name="pp_cate" value="<?php echo $_REQUEST['pp_cate']?>"/>
+                                <input type="hidden" name="pp_cate" value="<?php /*echo $_REQUEST['pp_cate']*/?>"/>
                                 <input id="pname_info" type="hidden" name="pname" value=""/>
+                            </div>-->
+
+                            <label class="col-sm-1 control-label" for="pname">人员类型：</label>
+                            <div class="col-sm-3">
+                                <select class="chosen-select-1 chosen-transparent form-control" name="pp_cate">
+                                    <option value="">请选择人员类型</option>
+                                    <?php if($this->pp_config['pp_cate'] != ""){
+                                        foreach ($this->pp_config['pp_cate'] as $k => $v){
+                                            ?>
+                                    <option value="<?php echo $k;?>" <?php if($_REQUEST['pp_cate'] == $v)echo 'selected="selected"';?>><?php echo $v;?></option>
+                                    <?php }}?>
+                                </select>
                             </div>
 
                             <label class="col-sm-1 control-label" for="input01"><?php echo $_REQUEST['pp_cate']?>名称：</label>
