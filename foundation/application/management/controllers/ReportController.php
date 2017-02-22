@@ -338,6 +338,7 @@
                      pm_mg_info.zijin_daozheng_jiner,
                      pm_mg_info.pm_juanzeng_yongtu,
                      pm_mg_info.pm_pp_cate,
+                     pm_mg_info.pm_is_school,
                      pm_mg_info.pm_juanzeng_cate,
                      pm_mg_info.zijin_laiyuan_qudao,
                      pm_mg_info.shiyong_type,
@@ -378,6 +379,11 @@
                     if($piaoju != ""){  // 未开票
                         $zijininfo ->selectLimit .= " and pm_mg_info.pm_pp!=1 ";
                     }
+
+					$pm_is_school = HttpUtil::postString("pm_is_school");
+					if($pm_is_school != ""){
+						$zijininfo ->selectLimit .= " and pm_is_school = ".$pm_is_school;
+					}
 
                     $zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by concat(parent_pm_id,'-',c.id)";
 
@@ -423,9 +429,11 @@
                         ->setCellValue('M1', '反馈方式')
                         ->setCellValue('N1', '快递单号')
                         ->setCellValue('O1', '来款信息添加来源')
-                        ->setCellValue('P1', '领取人');
+                        ->setCellValue('P1', '领取人')
+						->setCellValue('Q1', '是否校友');
 
-                    $ii = 2;
+
+					$ii = 2;
                     foreach($zijininfo as $v){
                         if(!in_array($v['main_id'],$xiangmushuliang) && $v['parent_pm_id'] == 0){
                             $xiangmushuliang[] = $v['main_id'];
@@ -435,6 +443,11 @@
                         }else{
                             $piaoju = '未开票';
                         }
+						if($v['pm_is_school'] == 1){
+							$pm_is_school = '校友';
+						}else{
+							$pm_is_school = '非校友';
+						}
                         $zijintj->setActiveSheetIndex(0)
                             ->setCellValue('A'.$ii, $v['bpath'])
                             ->setCellValue('B'.$ii, $this->pm[$v[parent_pm_id]])
@@ -451,7 +464,8 @@
                             ->setCellValue('M'.$ii, $v['piaoju_fkfs'])
                             ->setCellValue('N'.$ii, $v['piaoju_kddh'])
                             ->setCellValue('O'.$ii, $v['pm_juanzeng_yongtu'])
-                            ->setCellValue('P'.$ii, $v['renling_name']);
+                            ->setCellValue('P'.$ii, $v['renling_name'])
+							->setCellValue('Q'.$ii, $pm_is_school);
                         $ii++;
                         $piaoju = '';
                         $shouru += $v['zijin_daozheng_jiner'];
