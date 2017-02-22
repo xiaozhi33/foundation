@@ -18,35 +18,36 @@
 			<div class="detailedbox tile-body">
 			<form class="form-horizontal" id="form1"  action="addrspp" method="post" encType="multipart/form-data">
 			<div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">联系人姓名：</label>
+            <label class="col-sm-2 control-label" for="input01">人员姓名/组织机构名称：</label>
             <div class="col-sm-4"><input class="form-control" type="text" name="ppname" /></div>
             <span class="col-sm-2" > * </span>
             </div>	
             
-			<div class="form-group">
+			<!--<div class="form-group">
             	<label class="col-sm-2 control-label" for="input01">相关项目名称：</label>
             	<div class="col-sm-4">
             		<select class="form-control" name="pp_pm_id">
-						<?php if($this->pmlist != ""){
+						<?php /*if($this->pmlist != ""){
 							foreach ($this->pmlist as $k => $v){
-						?>
-						<option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
-						<?php }}?>
+						*/?>
+						<option value="<?php /*echo $v['pname'];*/?>"><?php /*echo $v['pname'];*/?></option>
+						<?php /*}}*/?>
 					</select>
             	</div>
-            </div>	
+            </div>-->
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input01">联系人类型：</label>
-                    <div class="col-sm-4">
-                        <select class="form-control" name="pp_cate" id="pp_cate">
-                            <?php foreach($this->pp_config['pp_cate'] as $k => $v){?>
-                                <option value="<?php echo $k;?>"><?php echo $v;?></option>
-                            <?php }?>
-                        </select>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">联系人类型：</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" name="pp_cate" id="pp_cate">
+                                <?php foreach($this->pp_config['pp_cate'] as $k => $v){?>
+                                    <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                <?php }?>
+                            </select>
+                        </div>
+                        <span class="col-sm-2" > * <a href="/management/pp/addppcate" target="_blank">点击添加类型</a></span>
                     </div>
-                </div>
-                <!-- 捐赠方信息-->
+
                     <div class="form-group jzf">
                         <label class="col-sm-2 control-label" for="input01">捐赠方类型：</label>
                         <div class="col-sm-4">
@@ -80,9 +81,7 @@
                             </select>
                         </div>
                     </div>
-                <!-- 捐赠方信息-->
 
-                <!-- 使用方信息-->
                 <div class="form-group syf" style="display: none;">
                     <label class="col-sm-2 control-label" for="input01">使用方类型：</label>
                     <div class="col-sm-4">
@@ -94,9 +93,7 @@
                         </select>
                     </div>
                 </div>
-                <!-- 使用方信息-->
 
-                <!-- 业务方信息-->
                 <div class="form-group yuf" style="display: none;">
                     <label class="col-sm-2 control-label" for="input01">业务方类型：</label>
                     <div class="col-sm-4">
@@ -108,10 +105,8 @@
                         </select>
                     </div>
                 </div>
-                <!-- 业务方信息-->
 
-
-                <div class="form-group">
+            <div class="form-group">
             <label class="col-sm-2 control-label" for="input01">Email：</label>
             <div class="col-sm-4"><input class="form-control" type="text" name="ppemail" /></div>
             <span class="col-sm-2" > * </span>
@@ -181,6 +176,10 @@
                     $(".jzf").hide();
                     $(".syf").hide();
                     $(".yuf").show();
+                }else{
+                    $(".jzf").hide();
+                    $(".syf").hide();
+                    $(".yuf").hide();
                 }
             });
         </script>

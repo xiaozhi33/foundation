@@ -3,7 +3,7 @@
 	class Management_adminController extends BaseController {
 		private $dbhelper;
 		public $pp_config = array(
-			'pp_cate' => array('捐赠方'=>'捐赠方','实际捐赠方'=>'实际捐赠方','使用方'=>'使用方','业务方'=>'业务方'),
+			//'pp_cate' => array('捐赠方'=>'捐赠方','实际捐赠方'=>'实际捐赠方','使用方'=>'使用方','业务方'=>'业务方'),
 			'pp_jzf_cate' => array('个人'=>'个人','企业'=>'企业','公益组织'=>'公益组织','其他'=>'其他'),
 			'pp_jzf_attr1' => array('校友'=>'校友','校友联系'=>'校友联系','非校友'=>'非校友','其他'=>'其他'),
 			'pp_jzf_attr2' => array('海内'=>'海内','海外'=>'海外'),
@@ -888,6 +888,14 @@
 			SessionUtil::checkmanagement();
 
 			//config
+            // 人员类型
+            $jjh_mg_pp_catelist = $this->orm->createDAO("jjh_mg_pp_cate")->get();
+            if(!empty($jjh_mg_pp_catelist)){
+                foreach($jjh_mg_pp_catelist as $key => $value){
+                    $this->pp_config['pp_cate'][$value['pp_cate_name']] = $value['pp_cate_name'];
+                }
+            }
+            $this->view->assign("jjh_mg_pp_catelist",$jjh_mg_pp_catelist);
 			$this->view->assign("pp_config",$this->pp_config);
 			
 			//项目分类
