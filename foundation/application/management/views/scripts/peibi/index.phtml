@@ -45,17 +45,17 @@
                             <div class="form-group">
 
                                 <div class="row">
-                                    <div class="form-group col-sm-6">
-                                        <label for="pname" class="col-sm-4 control-label">项目名称：</label>
-                                        <select class="chosen-select-1 chosen-transparent form-control" name="pm_id" id="pname">
-                                            <option value="1">请选择项目名称</option>
-                                            <?php if($this->pmlist != ""){
-                                                foreach ($this->pmlist as $k => $v){
+                                    <div class="form-group col-sm-9">
+                                        <label for="pname" class="col-sm-4 control-label">项目来款：</label>
+                                        <select class="chosen-select-1 chosen-transparent form-control" name="lk_main_id" id="lk_main_id">
+                                            <option value="1">请选择项目来款</option>
+                                            <?php if($this->l_lk_list != ""){
+                                                foreach ($this->l_lk_list as $k => $v){
                                                     ?>
-                                                    <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                                    <option value="<?php echo $k;?>"><?php echo $v;?></option>
                                                 <?php }}?>
                                         </select>
-                                        <input id="pname_info" type="hidden" name="pm_name" value=""/>
+                                        <!--<input id="pname_info" type="hidden" name="pm_name" value=""/>-->
                                     </div>
                                 </div>
 
@@ -78,7 +78,7 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="24%">项目名称</td>
+						<td width="24%">项目来款</td>
 						<td width="12%">是否配比</td>
                         <td width="20%">配比下发时间</td>
                         <td width="20%">配比金额</td>
@@ -107,7 +107,11 @@
                                     <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
                                 </a>
                                 &nbsp;&nbsp;
-                                <a href="#" onclick="alert('对不起，配比清单不提供删除功能，请联系管理员');">
+                                <!--<a href="#" onclick="alert('对不起，配比清单不提供删除功能，请联系管理员');">
+                                    <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
+                                </a>-->
+
+                                <a href="/management/peibi/del?id=<?php echo $v['id']?>">
                                     <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
                                 </a>
                             </td>

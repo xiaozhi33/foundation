@@ -27,11 +27,29 @@
 				<section class="tile color transparent-white">
                 <div class="detailedbox tile-body">
                     <form class="form-horizontal" action="to-add" method="post" id="form1" encType="multipart/form-data">
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label class="col-sm-2 control-label">所属项目名称：</label>
                             <div class="col-sm-4">
-                                <input readonly type="text" name="pm_name" value="<?php echo $this->peibiDAO[0]['pm_name']?>"/>
-                                <input readonly type="hidden" name="pm_id" value="<?php echo $this->peibiDAO[0]['pm_id']?>"/>
+                                <input readonly type="text" name="pm_name" value="<?php /*echo $this->peibiDAO[0]['pm_name']*/?>"/>
+                                <input readonly type="hidden" name="pm_id" value="<?php /*echo $this->peibiDAO[0]['pm_id']*/?>"/>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>-->
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">所属来款：</label>
+                            <div class="col-sm-9">
+                                <!--<select class="chosen-select-1 chosen-transparent form-control" name="lk_main_id">
+                                    <option value="">请选择所属来款</option>
+                                    <?php /*if($this->l_lk_list != ""){
+                                        foreach ($this->l_lk_list as $k => $v){
+                                            */?>
+                                            <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
+                                        <?php /*}}*/?>
+                                </select>-->
+
+                                <input class="col-sm-9" readonly type="text" name="_lk_main_id" value="<?php echo $this->l_lk_list[$this->peibiDAO[0]['lk_main_id']]?>"/>
+                                <input readonly type="hidden" name="lk_main_id" value="<?php echo $this->peibiDAO[0]['lk_main_id']?>"/>
                             </div>
                             <span class="col-sm-1" > * </span>
                         </div>

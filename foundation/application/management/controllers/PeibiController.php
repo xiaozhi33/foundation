@@ -5,6 +5,11 @@
 
 		public function indexAction(){
             $peibikDAO = $this->orm->createDAO('pm_mg_peibi')->order('id DESC');
+            if(!empty($_REQUEST['lk_main_id'])){
+                $peibikDAO->findLk_main_id($_REQUEST['lk_main_id']);
+                $this->view->assign("lk_main_id", $_REQUEST['lk_main_id']);
+            }
+
             if(!empty($_REQUEST['pm_name'])){
                 $peibikDAO->findPm_name($_REQUEST['pm_name']);
                 $this->view->assign("pname", $_REQUEST['pm_name']);
@@ -40,10 +45,11 @@
             $jffzr = HttpUtil::postString("jffzr");
             $peibi_spr = HttpUtil::postString("peibi_spr");
             $huabo_department = HttpUtil::postString("huabo_department");
+            $lk_main_id = HttpUtil::postString("lk_main_id");
 
             $peibiDAO = $this->orm->createDAO('pm_mg_peibi');
 
-            if($pm_id == "" || $is_peibi == ""){
+            if($lk_main_id == "" || $is_peibi == ""){
                 alert_back('您输入的信息不完整，请查正后继续添加！！！！！');
             }
 
@@ -51,7 +57,7 @@
                 if(!empty($id)){
                     $peibiDAO ->findId($id);
                 }
-                $peibiDAO ->pm_id = $pm_id;
+                //$peibiDAO ->pm_id = $pm_id;
                 $peibiDAO ->pm_name = $pm_name;
                 $peibiDAO ->is_peibi = $is_peibi; // 是否配比
                 $peibiDAO ->is_pass = $is_pass; // 是否通过配比
@@ -62,8 +68,10 @@
                 $peibiDAO ->card = $card;   // 卡号
                 $peibiDAO ->jffzr = $jffzr;   // 经费负责人
                 $peibiDAO ->peibi_spr = $peibi_spr;   // 配比审批人
+                $peibiDAO ->lk_main_id = $lk_main_id;   // 配比审批人
                 $peibiDAO ->save();
             }catch (Exception $e){
+                var_dump($e);exit();
                 alert_back('保存失败！！！！！');
             }
             alert_go('保存成功', "/management/peibi/index");
@@ -103,6 +111,7 @@
         public function getpeibilist($start='',$end='',$department='',$cate='',$pname=''){
             $pm_mg_info = $this->orm->createDAO("pm_mg_info");
             $pm_mg_info ->select("
+                `pm_mg_info`.id,
                 `pm_mg_info`.pm_name,
                 `pm_mg_info`.pm_pp,
                 `pm_mg_info`.pm_pp_cate,
@@ -114,6 +123,8 @@
           ");
             $pm_mg_info ->withPm_mg_chouzi(array("pm_name" => "pname"));
             $pm_mg_info ->selectLimit .= ' AND cast(`pm_mg_info`.zijin_daozheng_jiner as SIGNED INTEGER)>100000 ';
+            $pm_mg_info ->selectLimit .= ' AND cate_id = 0';
+
             if ($start != "" && $end != ""){
                 $pm_mg_info ->selectLimit .= " and `pm_mg_info`.zijin_daozhang_datetime between '$start' and '$end' ";
             }
@@ -135,6 +146,18 @@
             $this ->dbhelper ->connect();
             SessionUtil::sessionStart();
             SessionUtil::checkmanagement();
+
+            //来款列表
+            $lk_list = $this->getpeibilist();
+            $this->view->assign("lk_list",$lk_list);
+
+            if(!empty($lk_list)){
+                foreach($lk_list as $key => $value){
+                    $_lk_list[$value['id']] = $value['pm_name']."-".date('Y-m-d',strtotime($value['zijin_daozhang_datetime']))."-".$value['pm_pp']."-金额为：".$value['zijin_daozheng_jiner'];
+                }
+            }
+             $this->view->assign("l_lk_list",$_lk_list);
+
 
             //项目名称列表
             $pm_chouzi = new pm_mg_chouziDAO();

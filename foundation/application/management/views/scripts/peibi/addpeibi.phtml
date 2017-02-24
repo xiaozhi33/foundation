@@ -27,21 +27,38 @@
 				<section class="tile color transparent-white">
 			<div class="detailedbox tile-body">
                 <form class="form-horizontal" action="to-add" id="form1" method="post" encType="multipart/form-data">
-				<div class="form-group">
+
+				<!--<div class="form-group">
 						<label class="col-sm-2 control-label" for="input01">所属项目名称：</label>
                         <div class="col-sm-3">
                             <select class="chosen-select-1 chosen-transparent form-control" name="pm_id">
                                 <option value="">请选择项目名称</option>
-                                <?php if($this->pmlist != ""){
+                                <?php /*if($this->pmlist != ""){
                                     foreach ($this->pmlist as $k => $v){
-                                        ?>
-                                        <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
-                                    <?php }}?>
+                                        */?>
+                                        <option value="<?php /*echo $v['id'];*/?>"><?php /*echo $v['pname'];*/?></option>
+                                    <?php /*}}*/?>
                             </select>
                             <input id="pname_info" type="hidden" name="pm_name" value=""/>
                         </div>
 						<span class="col-sm-1" > * </span>
-				</div>
+				</div>-->
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">所属来款：</label>
+                        <div class="col-sm-9">
+                            <select class="chosen-select-1 chosen-transparent form-control" name="lk_main_id">
+                                <option value="">请选择所属来款</option>
+                                <?php if($this->l_lk_list != ""){
+                                    foreach ($this->l_lk_list as $k => $v){
+                                        ?>
+                                        <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                    <?php }}?>
+                            </select>
+                            <input id="pname_info" type="hidden" name="pm_name" value=""/>
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
 
                     <div class="form-group" id="is_peibi">
                         <label class="col-sm-2 control-label">是否可以申请配比：</label>
