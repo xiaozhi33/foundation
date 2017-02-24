@@ -711,6 +711,9 @@
             if($_REQUEST['ppname'] != ""){
                 $ppinfo->selectLimit .= " and ppname like '%".$_REQUEST['ppname']."%'";
             }
+            if($_REQUEST['pp_address'] != ""){
+                $ppinfo->selectLimit .= " and pp_address like '%".$_REQUEST['pp_address']."%'";
+            }
             if($_REQUEST['pname'] != ""){
                 $ppinfo->selectLimit .= " and pp_pm_id = '".$_REQUEST['pname']."'";
             }
