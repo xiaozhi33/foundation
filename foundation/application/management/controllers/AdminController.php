@@ -763,8 +763,8 @@
 
                 //拜访捐赠人 － 回馈
                 $feedbackDAO = $this->orm->createDAO('pm_mg_feedback');
-                $feedbackDAO ->selectLimit .= ' OR find_in_set('.$_REQUEST['id'].',feedbacker)';
-                $feedbackDAO ->selectLimit .= ' OR find_in_set('.$_REQUEST['id'].',jbr)';
+                $feedbackDAO ->selectLimit .= ' AND (FIND_IN_SET('.$_REQUEST['id'].',feedbacker) OR FIND_IN_SET('.$_REQUEST['id'].',jbr))';
+                //$feedbackDAO ->selectLimit .= ' OR FIND_IN_SET('.$_REQUEST['id'].',jbr)';
                 $feedbackDAO = $feedbackDAO->get();
                 $this->view->assign("feedback_list",$feedbackDAO);
 
