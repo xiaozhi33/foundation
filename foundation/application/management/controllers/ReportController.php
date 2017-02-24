@@ -1550,7 +1550,8 @@
                 ->setCellValue('E1', '回馈方式')
                 ->setCellValue('F1', '进度')
                 ->setCellValue('G1', '回馈人')
-                ->setCellValue('H1', '经办人');
+                ->setCellValue('H1', '经办人')
+                ->setCellValue('I1', '备注');
 
             $ii = 2;
             foreach($pm_mg_feedback as $v){
@@ -1565,7 +1566,8 @@
                     ->setCellValue('E'.$ii, $v['feedback_type'])
                     ->setCellValue('F'.$ii, $v['jindu'])
                     ->setCellValue('G'.$ii, $v['feedbacker'])
-                    ->setCellValue('H'.$ii, $v['jbr']);
+                    ->setCellValue('H'.$ii, $v['jbr'])
+                    ->setCellValue('I'.$ii, $v['bz']);
                 $ii++;
             }
             $ii = "";

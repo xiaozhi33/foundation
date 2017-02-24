@@ -19,11 +19,11 @@
 </div>
 <!-- /page header -->		
     <div id="main" class="main">
-        <div class="row">
+        <!--<div class="row">
             <div class="col-md-4">
-                <a href="/management/admin/relation?id=<?php echo $this->ppinfo[0]['pid']?>" target="_blank"><h3>>> 人立方</h3></a>
+                <a href="/management/admin/relation?id=<?php /*echo $this->ppinfo[0]['pid']*/?>" target="_blank"><h3>>> 人立方</h3></a>
             </div>
-        </div>
+        </div>-->
         <div class="row">
             <!-- col 8 -->
             <div class="col-md-4">
@@ -34,7 +34,7 @@
 
                     <!-- tile header -->
                     <div class="tile-header">
-                        <h4><strong>捐赠方信息 - <?php echo $this->ppinfo[0]['ppname'];?> </strong> Info</h4>
+                        <h4><strong>人员信息 - <?php echo $this->ppinfo[0]['ppname'];?> </strong> Information</h4>
                         <div class="controls">
                             <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                             <a href="#" class="remove"><i class="fa fa-times"></i></a>
@@ -56,12 +56,12 @@
                         <h5 class="filled">联系人类型</h5>
                         <p class="filled"></p>-->
 
-                        <h5 class="filled blue">捐赠方</h5>
+                        <h5 class="filled blue">姓名/名称</h5>
                         <p class="filled blue"><?php echo $this->ppinfo[0]['ppname']?></p>
 
-                        <h5 class="filled greensea">相关项目名称</h5>
+                        <!--<h5 class="filled greensea">相关项目名称</h5>
                         <p class="filled greensea">
-                            <?php if($this->pmlist != ""){
+                            <?php /*if($this->pmlist != ""){
                                 foreach ($this->pmlist as $k => $v){
                                     if ($this->ppinfo[0]['pp_pm_id'] == $v['pname']){
                                         echo $v['pname'];
@@ -69,9 +69,9 @@
                                     }
                                 }
                             }
-                            ?>
-                            <a href="/management/chouzi/index?pname=<?php echo $pname;?>" target="_blank"> 》》点击查看项目 </a>
-                        </p>
+                            */?>
+                            <a href="/management/chouzi/index?pname=<?php /*echo $pname;*/?>" target="_blank"> 》》点击查看项目 </a>
+                        </p>-->
 
                         <h5 class="filled slategray">联系人email</h5>
                         <p class="filled slategray"><?php echo $this->ppinfo[0]['ppemail']?></p>
@@ -103,10 +103,97 @@
 
                 <!-- tile -->
                 <section class="tile color transparent-white">
+                    <!-- tile header -->
+                    <div class="tile-header">
+                        <h4><strong>参加学校活动</strong> Information</h4>
+                        <div class="controls">
+                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile body -->
+                    <div class="tile-body">
+
+                        <?php
+                        if(!empty($this->meeting_list)){
+                            foreach($this->meeting_list as $key => $value) {
+                                ?>
+                                <h4 class="filled">
+                                    <a href="/management/meeting/edit?id=<?php echo $value['id'];?>" target="_blank">
+                                        <?php echo $value['meeting_name'];?>
+                                    </a>
+                                </h4>
+                                <p class="filled">
+                                    <small>
+                                        类型：<?php echo $this->meeting_cate[$value['meeting_cate']];?></br>
+                                        开始时间：<?php echo $value['meeting_start_time'];?></br>
+                                        结束时间：<?php echo $value['meeting_end_time'];?></br>
+                                        地点：<?php echo $value['meeting_address'];?></br>
+                                    </small>
+                                </p>
+                            <?php }
+                        }
+                        ?>
+                    </div>
+                    <!-- /tile body -->
+                </section>
+                <!-- /tile -->
+
+
+                <!-- tile -->
+                <section class="tile color transparent-white">
+                    <!-- tile header -->
+                    <div class="tile-header">
+                        <h4><strong>相关回馈拜访</strong> Information</h4>
+                        <div class="controls">
+                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile body -->
+                    <div class="tile-body">
+
+                        <?php
+                        if(!empty($this->feedback_list)){
+                            foreach($this->feedback_list as $key => $value) {
+                                ?>
+                                <h4 class="filled">
+                                    <a href="/management/feedback/edit?id=<?php echo $value['id'];?>" target="_blank">
+                                        <?php echo $value['pm_name'];?>
+                                    </a>
+                                </h4>
+                                <p class="filled">
+                                    <small>
+                                        回馈方式：<?php echo $value['feedback_type'];?></br>
+                                        回馈时间：<?php echo $value['feedback_datetime'];?></br>
+                                        备注：<?php echo $value['bz'];?></br>
+                                    </small>
+                                </p>
+                            <?php }
+                        }
+                        ?>
+                    </div>
+                    <!-- /tile body -->
+                </section>
+                <!-- /tile -->
+
+            </div>
+            <!-- /col 4 -->
+
+
+            <!-- col 4 -->
+            <div class="col-md-4">
+
+                <!-- tile -->
+                <section class="tile color transparent-white">
 
                     <!-- tile header -->
                     <div class="tile-header">
-                        <h4><strong>下属子公司</strong> information</h4>
+                        <h4><strong>下属子公司</strong> Information</h4>
                         <div class="controls">
                             <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                             <a href="#" class="remove"><i class="fa fa-times"></i></a>

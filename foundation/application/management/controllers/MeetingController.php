@@ -209,7 +209,6 @@
 
         public function _init(){
             error_reporting(0);
-
             $jjh_mg_ppDAO = $this->orm->createDAO('jjh_mg_pp')->get();
             $this->view->assign("jjh_mg_pp_list", $jjh_mg_ppDAO);
 

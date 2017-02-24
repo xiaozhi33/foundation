@@ -750,6 +750,24 @@
                 $this->view->assign("pp_company_list",$meeting_pp_companyDAO);
                 $this->view->assign("ppinfo",$ppinfo);
 
+                //参加学校活动
+                $meetingDAO = $this->orm->createDAO('jjh_meeting');
+                $meetingDAO ->selectLimit .= ' AND find_in_set('.$_REQUEST['id'].',meeting_joiner)';
+                $meetingDAO = $meetingDAO->get();
+                $this->view->assign("meeting_list",$meetingDAO);
+
+                $_meeting_cate = array();
+                $_meeting_cate = array('理事会会议','理事长会议','工作推动会','工作例会','捐赠仪式','其他单位来访交流','捐赠人交流会','学习交流会');
+                $this->view->assign('meeting_cate',$_meeting_cate);
+
+
+                //拜访捐赠人 － 回馈
+                $feedbackDAO = $this->orm->createDAO('pm_mg_feedback');
+                $feedbackDAO ->selectLimit .= ' OR find_in_set('.$_REQUEST['id'].',feedbacker)';
+                $feedbackDAO ->selectLimit .= ' OR find_in_set('.$_REQUEST['id'].',jbr)';
+                $feedbackDAO = $feedbackDAO->get();
+                $this->view->assign("feedback_list",$feedbackDAO);
+
                 echo $this->view->render("index/header.phtml");
                 echo $this->view->render("admin/ppinfo.phtml");
                 echo $this->view->render("index/footer.phtml");
