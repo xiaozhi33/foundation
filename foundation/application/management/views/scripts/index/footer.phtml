@@ -515,6 +515,11 @@
                     disable_search_threshold: 10
                 });
 
+                $(".chosen-select-2").chosen({
+                    search_contains: true,
+                    disable_search_threshold: 10
+                });
+
                 $("[name='search_form']").submit(function(){
                     if($(".chosen-single span").html() != "请选择项目名称"){
                         $("#pname_info").val($(".chosen-single span").html());

@@ -91,27 +91,27 @@
                 $yishi = HttpUtil::postString("yishi");         //项目仪式
                 $beizhu = HttpUtil::postString("beizhu");         //备注
 
-                $pm_fzr = HttpUtil::postString("pm_fzr");               //项目负责人
-                $pm_fzr_email = HttpUtil::postString("pm_fzr_email");
-                $pm_fzr_tel = HttpUtil::postString("pm_fzr_tel");
-                $pm_llr = HttpUtil::postString("pm_llr");               //联络人
-                $pm_llr_email = HttpUtil::postString("pm_llr_email");
-                $pm_llr_tel = HttpUtil::postString("pm_llr_tel");
-                $pm_ckfzr = HttpUtil::postString("pm_ckfzr");           //筹款负责人
-                $pm_ckfzr_email = HttpUtil::postString("pm_ckfzr_email");
-                $pm_ckfzr_tel = HttpUtil::postString("pm_ckfzr_tel");
-                $pm_jzf = HttpUtil::postString("pm_jzf");               //捐赠方
-                $pm_jzf_email = HttpUtil::postString("pm_jzf_email");
-                $pm_jzf_tel = HttpUtil::postString("pm_jzf_tel");
-                $pm_jzfllr = HttpUtil::postString("pm_jzfllr");         //捐赠方联络人
-                $pm_jzfllr_email = HttpUtil::postString("pm_jzfllr_email");
-                $pm_jzfllr_tel = HttpUtil::postString("pm_jzfllr_tel");
-                $pm_sjjzf = HttpUtil::postString("pm_sjjzf");           //实际捐赠方
-                $pm_sjjzf_email = HttpUtil::postString("pm_sjjzf_email");
-                $pm_sjjzf_tel = HttpUtil::postString("pm_sjjzf_tel");
-                $pm_sjjzfllr = HttpUtil::postString("pm_sjjzfllr");     //捐赠方联络人
-                $pm_sjjzfllr_email = HttpUtil::postString("pm_sjjzfllr_email");
-                $pm_sjjzfllr_tel = HttpUtil::postString("pm_sjjzfllr_tel");
+                $pm_fzr = implode(",",$_REQUEST['pm_fzr']);               //项目负责人
+                //$pm_fzr_email = HttpUtil::postString("pm_fzr_email");
+                //$pm_fzr_tel = HttpUtil::postString("pm_fzr_tel");
+                $pm_llr = implode(",",$_REQUEST['pm_llr']);               //联络人
+                //$pm_llr_email = HttpUtil::postString("pm_llr_email");
+                //$pm_llr_tel = HttpUtil::postString("pm_llr_tel");
+                $pm_ckfzr = implode(",",$_REQUEST['pm_ckfzr']);           //筹款负责人
+                //$pm_ckfzr_email = HttpUtil::postString("pm_ckfzr_email");
+                //$pm_ckfzr_tel = HttpUtil::postString("pm_ckfzr_tel");
+                $pm_jzf = implode(",",$_REQUEST['pm_jzf']);               //捐赠方
+                //$pm_jzf_email = HttpUtil::postString("pm_jzf_email");
+                //$pm_jzf_tel = HttpUtil::postString("pm_jzf_tel");
+                $pm_jzfllr = implode(",",$_REQUEST['pm_jzfllr']);         //捐赠方联络人
+                //$pm_jzfllr_email = HttpUtil::postString("pm_jzfllr_email");
+                //$pm_jzfllr_tel = HttpUtil::postString("pm_jzfllr_tel");
+                $pm_sjjzf = implode(",",$_REQUEST['pm_sjjzf']);           //实际捐赠方
+                //$pm_sjjzf_email = HttpUtil::postString("pm_sjjzf_email");
+                //$pm_sjjzf_tel = HttpUtil::postString("pm_sjjzf_tel");
+                $pm_sjjzfllr = implode(",",$_REQUEST['pm_sjjzfllr']);     //捐赠方联络人
+                //$pm_sjjzfllr_email = HttpUtil::postString("pm_sjjzfllr_email");
+                //$pm_sjjzfllr_tel = HttpUtil::postString("pm_sjjzfllr_tel");
 
                 // $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
 
@@ -200,7 +200,7 @@
                 }
 
                 // 同步财务系统项目信息
-                $pmDAO = new CW_API();
+                /*$pmDAO = new CW_API();
                 $rs1 = $pmDAO ->get_max_xmnmID();
                 $rs_1 = $pmDAO ->get_max_xmnm_copyID();
                 $xmnm = (int)$rs1[0]['xmnm'] + 1;
@@ -222,7 +222,7 @@
 
                     $zwxmzdDAO = new CW_API();
                     $rs = $zwxmzdDAO ->sync_pm('000'.$xmnm, $xmbh, $pname, $zw_department_related[0]['zw_bmbh']);
-                }
+                }*/
 
                 $_pid = $pm_chouziDAO->save();   // $_pid 项目系统pm_id
                 if($_pid) {
@@ -305,27 +305,27 @@
                 $beizhu = HttpUtil::postString("beizhu");         //备注
                 // $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
 
-                $pm_fzr = HttpUtil::postString("pm_fzr");               //项目负责人
-                $pm_fzr_email = HttpUtil::postString("pm_fzr_email");
-                $pm_fzr_tel = HttpUtil::postString("pm_fzr_tel");
-                $pm_llr = HttpUtil::postString("pm_llr");               //联络人
-                $pm_llr_email = HttpUtil::postString("pm_llr_email");
-                $pm_llr_tel = HttpUtil::postString("pm_llr_tel");
-                $pm_ckfzr = HttpUtil::postString("pm_ckfzr");           //筹款负责人
-                $pm_ckfzr_email = HttpUtil::postString("pm_ckfzr_email");
-                $pm_ckfzr_tel = HttpUtil::postString("pm_ckfzr_tel");
-                $pm_jzf = HttpUtil::postString("pm_jzf");               //捐赠方
-                $pm_jzf_email = HttpUtil::postString("pm_jzf_email");
-                $pm_jzf_tel = HttpUtil::postString("pm_jzf_tel");
-                $pm_jzfllr = HttpUtil::postString("pm_jzfllr");         //捐赠方联络人
-                $pm_jzfllr_email = HttpUtil::postString("pm_jzfllr_email");
-                $pm_jzfllr_tel = HttpUtil::postString("pm_jzfllr_tel");
-                $pm_sjjzf = HttpUtil::postString("pm_sjjzf");           //实际捐赠方
-                $pm_sjjzf_email = HttpUtil::postString("pm_sjjzf_email");
-                $pm_sjjzf_tel = HttpUtil::postString("pm_sjjzf_tel");
-                $pm_sjjzfllr = HttpUtil::postString("pm_sjjzfllr");     //捐赠方联络人
-                $pm_sjjzfllr_email = HttpUtil::postString("pm_sjjzfllr_email");
-                $pm_sjjzfllr_tel = HttpUtil::postString("pm_sjjzfllr_tel");
+                $pm_fzr = implode(",",$_REQUEST['pm_fzr']);               //项目负责人
+                //$pm_fzr_email = HttpUtil::postString("pm_fzr_email");
+                //$pm_fzr_tel = HttpUtil::postString("pm_fzr_tel");
+                $pm_llr = implode(",",$_REQUEST['pm_llr']);               //联络人
+                //$pm_llr_email = HttpUtil::postString("pm_llr_email");
+                //$pm_llr_tel = HttpUtil::postString("pm_llr_tel");
+                $pm_ckfzr = implode(",",$_REQUEST['pm_ckfzr']);           //筹款负责人
+                //$pm_ckfzr_email = HttpUtil::postString("pm_ckfzr_email");
+                //$pm_ckfzr_tel = HttpUtil::postString("pm_ckfzr_tel");
+                $pm_jzf = implode(",",$_REQUEST['pm_jzf']);               //捐赠方
+                //$pm_jzf_email = HttpUtil::postString("pm_jzf_email");
+                //$pm_jzf_tel = HttpUtil::postString("pm_jzf_tel");
+                $pm_jzfllr = implode(",",$_REQUEST['pm_jzfllr']);         //捐赠方联络人
+                //$pm_jzfllr_email = HttpUtil::postString("pm_jzfllr_email");
+                //$pm_jzfllr_tel = HttpUtil::postString("pm_jzfllr_tel");
+                $pm_sjjzf = implode(",",$_REQUEST['pm_sjjzf']);           //实际捐赠方
+                //$pm_sjjzf_email = HttpUtil::postString("pm_sjjzf_email");
+                //$pm_sjjzf_tel = HttpUtil::postString("pm_sjjzf_tel");
+                $pm_sjjzfllr = implode(",",$_REQUEST['pm_sjjzfllr']);     //捐赠方联络人
+                //$pm_sjjzfllr_email = HttpUtil::postString("pm_sjjzfllr_email");
+                //$pm_sjjzfllr_tel = HttpUtil::postString("pm_sjjzfllr_tel");
 
                 if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
@@ -350,32 +350,32 @@
                 $pm_chouziDAO->pname = $pname;
 
                 $pm_chouziDAO->pm_fzr = $pm_fzr;
-                $pm_chouziDAO->pm_fzr_email = $pm_fzr_email;
-                $pm_chouziDAO->pm_fzr_tel = $pm_fzr_tel;
+                //$pm_chouziDAO->pm_fzr_email = $pm_fzr_email;
+                //$pm_chouziDAO->pm_fzr_tel = $pm_fzr_tel;
 
                 $pm_chouziDAO->pm_llr = $pm_llr;
-                $pm_chouziDAO->pm_llr_email = $pm_llr_email;
-                $pm_chouziDAO->pm_llr_tel = $pm_llr_tel;
+                //$pm_chouziDAO->pm_llr_email = $pm_llr_email;
+                //$pm_chouziDAO->pm_llr_tel = $pm_llr_tel;
 
                 $pm_chouziDAO->pm_ckfzr = $pm_ckfzr;
-                $pm_chouziDAO->pm_ckfzr_email = $pm_ckfzr_email;
-                $pm_chouziDAO->pm_ckfzr_tel = $pm_ckfzr_tel;
+                //$pm_chouziDAO->pm_ckfzr_email = $pm_ckfzr_email;
+                //$pm_chouziDAO->pm_ckfzr_tel = $pm_ckfzr_tel;
 
                 $pm_chouziDAO->pm_jzf = $pm_jzf;
-                $pm_chouziDAO->pm_jzf_email = $pm_jzf_email;
-                $pm_chouziDAO->pm_jzf_tel = $pm_jzf_tel;
+                //$pm_chouziDAO->pm_jzf_email = $pm_jzf_email;
+                //$pm_chouziDAO->pm_jzf_tel = $pm_jzf_tel;
 
                 $pm_chouziDAO->pm_jzfllr = $pm_jzfllr;
-                $pm_chouziDAO->pm_jzfllr_email = $pm_jzfllr_email;;
-                $pm_chouziDAO->pm_jzfllr_tel = $pm_jzfllr_tel;
+                //$pm_chouziDAO->pm_jzfllr_email = $pm_jzfllr_email;;
+                //$pm_chouziDAO->pm_jzfllr_tel = $pm_jzfllr_tel;
 
                 $pm_chouziDAO->pm_sjjzf = $pm_sjjzf;
-                $pm_chouziDAO->pm_sjjzf_email = $pm_sjjzf_email;
-                $pm_chouziDAO->pm_sjjzf_tel = $pm_sjjzf_tel;
+                //$pm_chouziDAO->pm_sjjzf_email = $pm_sjjzf_email;
+                //$pm_chouziDAO->pm_sjjzf_tel = $pm_sjjzf_tel;
 
                 $pm_chouziDAO->pm_sjjzfllr = $pm_sjjzfllr;
-                $pm_chouziDAO->pm_sjjzfllr_email = $pm_sjjzfllr_email;
-                $pm_chouziDAO->pm_sjjzfllr_tel = $pm_sjjzfllr_tel;
+                //$pm_chouziDAO->pm_sjjzfllr_email = $pm_sjjzfllr_email;
+                //$pm_chouziDAO->pm_sjjzfllr_tel = $pm_sjjzfllr_tel;
 
                 $pid = HttpUtil::postString("pm_id");
                 if(!empty($pid)){
@@ -743,6 +743,15 @@
 			$departmentlist = new jjh_mg_departmentDAO();
 			$departmentlist = $departmentlist->get($this->dbhelper);
 			$this->view->assign("departmentlist",$departmentlist);
+
+            // pplist
+            $jjh_mg_ppDAO = $this->orm->createDAO('jjh_mg_pp')->get();
+            if(!empty($jjh_mg_ppDAO)){
+                foreach($jjh_mg_ppDAO as $k => $v){
+                    $temp_array[$v['pid']] = $v['ppname'];
+                }
+            }
+            $this->view->assign("jjh_mg_pp_list", $temp_array);
 
             //项目名称列表
             $pm_chouzi = new pm_mg_chouziDAO();

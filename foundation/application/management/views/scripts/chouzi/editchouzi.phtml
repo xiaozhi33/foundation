@@ -92,152 +92,208 @@
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">项目负责人：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" value="<?php echo $this->chouzi[0]['pm_fzr']?>" type="text"  name="pm_fzr"  size="14"/>
+                        <!--<div class="col-sm-3">
+                            <input class="form-control" value="<?php /*echo $this->chouzi[0]['pm_fzr']*/?>" type="text"  name="pm_fzr"  size="14"/>
+                        </div>-->
+                        <div class="col-sm-9">
+                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_fzr[]" id="pm_fzr">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">项目负责人邮箱：</label>
                         <div class="col-sm-3">
-                            <input class="form-control" value="<?php echo $this->chouzi[0]['pm_fzr_email']?>" type="text"  name="pm_fzr_email"  size="14"/>
+                            <input class="form-control" value="<?php /*echo $this->chouzi[0]['pm_fzr_email']*/?>" type="text"  name="pm_fzr_email"  size="14"/>
                         </div>
                     </div>
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">项目负责人电话：</label>
                         <div class="col-sm-3">
-                            <input class="form-control"  value="<?php echo $this->chouzi[0]['pm_fzr_tel']?>" type="text"  name="pm_fzr_tel"  size="14"/>
+                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_fzr_tel']*/?>" type="text"  name="pm_fzr_tel"  size="14"/>
                         </div>
-                    </div>
+                    </div>-->
 
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">联络人：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" value="<?php echo $this->chouzi[0]['pm_llr']?>" type="text"  name="pm_llr"  size="14"/>
+                        <!--<div class="col-sm-3">
+                            <input class="form-control" value="<?php /*echo $this->chouzi[0]['pm_llr']*/?>" type="text"  name="pm_llr"  size="14"/>
+                        </div>-->
+                        <div class="col-sm-9">
+                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_llr[]" id="pm_llr">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">联络人邮箱：</label>
                         <div class="col-sm-3">
-                            <input class="form-control" value="<?php echo $this->chouzi[0]['pm_llr_email']?>" type="text"  name="pm_llr_email"  size="14"/>
+                            <input class="form-control" value="<?php /*echo $this->chouzi[0]['pm_llr_email']*/?>" type="text"  name="pm_llr_email"  size="14"/>
                         </div>
                     </div>
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">联络人电话：</label>
                         <div class="col-sm-3">
-                            <input class="form-control" value="<?php echo $this->chouzi[0]['pm_llr_tel']?>" type="text"  name="pm_llr_tel"  size="14"/>
+                            <input class="form-control" value="<?php /*echo $this->chouzi[0]['pm_llr_tel']*/?>" type="text"  name="pm_llr_tel"  size="14"/>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">筹款负责人：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control"  value="<?php echo $this->chouzi[0]['pm_ckfzr']?>" type="text"  name="pm_ckfzr"  size="14"/>
+                        <!--<div class="col-sm-3">
+                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_ckfzr']*/?>" type="text"  name="pm_ckfzr"  size="14"/>
+                        </div>-->
+                        <div class="col-sm-9">
+                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_ckfzr[]" id="pm_ckfzr">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">筹款负责人邮箱：</label>
                         <div class="col-sm-3">
-                            <input class="form-control"  value="<?php echo $this->chouzi[0]['pm_ckfzr_email']?>" type="text"  name="pm_ckfzr_email"  size="14"/>
+                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_ckfzr_email']*/?>" type="text"  name="pm_ckfzr_email"  size="14"/>
                         </div>
                     </div>
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">筹款负责人电话：</label>
                         <div class="col-sm-3">
-                            <input class="form-control"  value="<?php echo $this->chouzi[0]['pm_ckfzr_tel']?>"  type="text"  name="pm_ckfzr_tel"  size="14"/>
+                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_ckfzr_tel']*/?>"  type="text"  name="pm_ckfzr_tel"  size="14"/>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" value="<?php echo $this->chouzi[0]['pm_jzf']?>" type="text"  name="pm_jzf"  size="14"/>
+                        <!--<div class="col-sm-3">
+                            <input class="form-control" value="<?php /*echo $this->chouzi[0]['pm_jzf']*/?>" type="text"  name="pm_jzf"  size="14"/>
+                        </div>-->
+                        <div class="col-sm-9">
+                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_jzf[]" id="pm_jzf">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方邮箱：</label>
                         <div class="col-sm-3">
-                            <input class="form-control"  value="<?php echo $this->chouzi[0]['pm_jzf_email']?>" type="text"  name="pm_jzf_email"  size="14"/>
+                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_jzf_email']*/?>" type="text"  name="pm_jzf_email"  size="14"/>
                         </div>
                     </div>
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方电话：</label>
                         <div class="col-sm-3">
-                            <input class="form-control"  value="<?php echo $this->chouzi[0]['pm_jzf_tel']?>" type="text"  name="pm_jzf_tel"  size="14"/>
+                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_jzf_tel']*/?>" type="text"  name="pm_jzf_tel"  size="14"/>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方联络人：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control"  value="<?php echo $this->chouzi[0]['pm_jzfllr']?>" type="text"  name="pm_jzfllr"  size="14"/>
+                        <!--<div class="col-sm-3">
+                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_jzfllr']*/?>" type="text"  name="pm_jzfllr"  size="14"/>
+                        </div>-->
+                        <div class="col-sm-9">
+                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_jzfllr[]" id="pm_jzfllr">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方联络人邮箱：</label>
                         <div class="col-sm-3">
-                            <input class="form-control"  value="<?php echo $this->chouzi[0]['pm_jzfllr_email']?>" type="text"  name="pm_jzfllr_email"  size="14"/>
+                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_jzfllr_email']*/?>" type="text"  name="pm_jzfllr_email"  size="14"/>
                         </div>
                     </div>
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方联络人电话：</label>
                         <div class="col-sm-3">
-                            <input class="form-control"  value="<?php echo $this->chouzi[0]['pm_jzfllr_tel']?>"  type="text"  name="pm_jzfllr_tel"  size="14"/>
+                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_jzfllr_tel']*/?>"  type="text"  name="pm_jzfllr_tel"  size="14"/>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control"  value="<?php echo $this->chouzi[0]['pm_sjjzf']?>"  type="text"  name="pm_sjjzf"  size="14"/>
+                        <!--<div class="col-sm-3">
+                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_sjjzf']*/?>"  type="text"  name="pm_sjjzf"  size="14"/>
+                        </div>-->
+                        <div class="col-sm-9">
+                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_sjjzf[]" id="pm_sjjzf">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方邮箱：</label>
                         <div class="col-sm-3">
-                            <input class="form-control" value="<?php echo $this->chouzi[0]['pm_sjjzf_email']?>"  type="text"  name="pm_sjjzf_email"  size="14"/>
+                            <input class="form-control" value="<?php /*echo $this->chouzi[0]['pm_sjjzf_email']*/?>"  type="text"  name="pm_sjjzf_email"  size="14"/>
                         </div>
                     </div>
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方电话：</label>
                         <div class="col-sm-3">
-                            <input class="form-control" value="<?php echo $this->chouzi[0]['pm_sjjzf_tel']?>" type="text"  name="pm_sjjzf_tel"  size="14"/>
+                            <input class="form-control" value="<?php /*echo $this->chouzi[0]['pm_sjjzf_tel']*/?>" type="text"  name="pm_sjjzf_tel"  size="14"/>
                         </div>
-                    </div>
+                    </div>-->
 
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方联络人：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control"  value="<?php echo $this->chouzi[0]['pm_sjjzfllr']?>" type="text"  name="pm_sjjzfllr"  size="14"/>
+                        <!--<div class="col-sm-3">
+                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_sjjzfllr']*/?>" type="text"  name="pm_sjjzfllr"  size="14"/>
+                        </div>-->
+                        <div class="col-sm-9">
+                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_sjjzfllr[]" id="pm_sjjzfllr">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方联络人邮箱：</label>
                         <div class="col-sm-3">
-                            <input class="form-control"  value="<?php echo $this->chouzi[0]['pm_sjjzfllr_email']?>" type="text"  name="pm_sjjzfllr_email"  size="14"/>
+                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_sjjzfllr_email']*/?>" type="text"  name="pm_sjjzfllr_email"  size="14"/>
                         </div>
                     </div>
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方联络人电话：</label>
                         <div class="col-sm-3">
-                            <input class="form-control"  value="<?php echo $this->chouzi[0]['pm_sjjzfllr_tel']?>"  type="text"  name="pm_sjjzfllr_tel"  size="14"/>
+                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_sjjzfllr_tel']*/?>"  type="text"  name="pm_sjjzfllr_tel"  size="14"/>
                         </div>
-                    </div>
+                    </div>-->
 
 					<!--<div class="form-group">
 							<label class="col-sm-2 control-label" for="input04">宣传推动期：</label>
@@ -381,6 +437,85 @@
 			  </section>
 			</div>
 		</div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="/include/management/css/bootstrap-select.min.css">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="/include/management/js/bootstrap-select.min.js"></script>
+
         <script language="javascript">
-            $(".menu li:eq(0)").addClass("open");
+            $(".menu li:eq(6)").addClass("open");
+
+            $('#pm_fzr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_llr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_ckfzr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_jzf').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_jzfllr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_sjjzf').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_sjjzfllr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            var str1='<?php echo $this->chouzi[0]['pm_fzr']?>';
+            var arr1=str1.split(',');
+            $('#pm_fzr').selectpicker('val', arr1);
+
+            var str2='<?php echo $this->chouzi[0]['pm_llr']?>';
+            var arr2=str2.split(',');
+            $('#pm_llr').selectpicker('val', arr2);
+
+            var str3='<?php echo $this->chouzi[0]['pm_ckfzr']?>';
+            var arr3=str3.split(',');
+            $('#pm_ckfzr').selectpicker('val', arr3);
+
+            var str4='<?php echo $this->chouzi[0]['pm_jzf']?>';
+            var arr4=str4.split(',');
+            $('#pm_jzf').selectpicker('val', arr4);
+
+            var str5='<?php echo $this->chouzi[0]['pm_jzfllr']?>';
+            var arr5=str5.split(',');
+            $('#pm_jzfllr').selectpicker('val', arr5);
+
+            var str6='<?php echo $this->chouzi[0]['pm_sjjzf']?>';
+            var arr6=str6.split(',');
+            $('#pm_sjjzf').selectpicker('val', arr6);
+
+            var str7='<?php echo $this->chouzi[0]['pm_sjjzfllr']?>';
+            var arr7=str7.split(',');
+            $('#pm_sjjzfllr').selectpicker('val', arr7);
         </script>

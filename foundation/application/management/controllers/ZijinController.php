@@ -80,7 +80,7 @@
 			$zhengshu = HttpUtil::postString("zhengshu");		         //证书
 			$pm_pp_company = HttpUtil::postString("pm_pp_company");      //捐赠人公司介绍
 			$beizhu = HttpUtil::postString("beizhu");		 //备注
-			
+
 			if($pname == "" || $pm_pp == "" || $pm_cate == "" || $zijin_daozhang_datetime == "" || $zijin_daozheng_jiner == ""){
 				alert_back("您输入的信息不完整，请查正后继续添加");
 			}
@@ -981,6 +981,15 @@
             //获取筹资项目list
             $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
             $this->view->assign("chouzi_lists",$chouziDAO);
+
+            // pplist
+            $jjh_mg_ppDAO = $this->orm->createDAO('jjh_mg_pp')->get();
+            if(!empty($jjh_mg_ppDAO)){
+                foreach($jjh_mg_ppDAO as $k => $v){
+                    $temp_array[$v['pid']] = $v['ppname'];
+                }
+            }
+            $this->view->assign("jjh_mg_pp_list", $temp_array);
 
             //ini_set("display_errors", "On");
             //error_reporting(E_ERROR);

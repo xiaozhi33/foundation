@@ -86,12 +86,20 @@
 电话：
                             </textarea>
                         </div>-->
-                        <div class="col-sm-3">
-                            <input class="form-control" type="text"  name="pm_fzr"  size="14"/>
-                        </div>
+
+                            <!--<input class="form-control" type="text"  name="pm_fzr"  size="14"/>-->
+                            <div class="col-sm-9">
+                                <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_fzr[]" id="pm_fzr">
+                                    <?php if($this->jjh_mg_pp_list != ""){
+                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                            <option value="<?php echo $k?>"><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+
                     </div>
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">项目负责人邮箱：</label>
                         <div class="col-sm-3">
                             <input class="form-control" type="text"  name="pm_fzr_email"  size="14"/>
@@ -103,17 +111,25 @@
                         <div class="col-sm-3">
                             <input class="form-control" type="text"  name="pm_fzr_tel"  size="14"/>
                         </div>
-                    </div>
+                    </div>-->
 
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">联络人：</label>
-                            <div class="col-sm-3">
-                                <input class="form-control" type="text"  name="pm_llr"  size="14"/>
-                            </div>
+
+                                <!--<input class="form-control" type="text"  name="pm_llr"  size="14"/>-->
+                                <div class="col-sm-9">
+                                    <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_llr[]" id="pm_llr">
+                                        <?php if($this->jjh_mg_pp_list != ""){
+                                            foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                                <option value="<?php echo $k?>"><?php echo $v?></option>
+                                            <?php }}?>
+                                    </select>
+                                </div>
+
                     </div>
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">联络人邮箱：</label>
                             <div class="col-sm-3">
                                 <input class="form-control" type="text"  name="pm_llr_email"  size="14"/>
@@ -125,16 +141,24 @@
                             <div class="col-sm-3">
                                 <input class="form-control" type="text"  name="pm_llr_tel"  size="14"/>
                             </div>
-                    </div>
+                    </div>-->
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">筹款负责人：</label>
-                            <div class="col-sm-3">
-                                <input class="form-control" type="text"  name="pm_ckfzr"  size="14"/>
-                            </div>
+
+                                <!--<input class="form-control" type="text"  name="pm_ckfzr"  size="14"/>-->
+                                <div class="col-sm-9">
+                                    <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_ckfzr[]" id="pm_ckfzr">
+                                        <?php if($this->jjh_mg_pp_list != ""){
+                                            foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                                <option value="<?php echo $k?>"><?php echo $v?></option>
+                                            <?php }}?>
+                                    </select>
+                                </div>
+
                     </div>
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">筹款负责人邮箱：</label>
                         <div class="col-sm-3">
                             <input class="form-control" type="text"  name="pm_ckfzr_email"  size="14"/>
@@ -146,16 +170,24 @@
                         <div class="col-sm-3">
                             <input class="form-control" type="text"  name="pm_ckfzr_tel"  size="14"/>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" type="text"  name="pm_jzf"  size="14"/>
-                        </div>
+
+                            <!--<input class="form-control" type="text"  name="pm_jzf"  size="14"/>-->
+                            <div class="col-sm-9">
+                                <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_jzf[]" id="pm_jzf">
+                                    <?php if($this->jjh_mg_pp_list != ""){
+                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                            <option value="<?php echo $k?>"><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+
                     </div>
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方邮箱：</label>
                         <div class="col-sm-3">
                             <input class="form-control" type="text"  name="pm_jzf_email"  size="14"/>
@@ -167,16 +199,24 @@
                         <div class="col-sm-3">
                             <input class="form-control" type="text"  name="pm_jzf_tel"  size="14"/>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方联络人：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" type="text"  name="pm_jzfllr"  size="14"/>
-                        </div>
+
+                            <!--<input class="form-control" type="text"  name="pm_jzfllr"  size="14"/>-->
+                            <div class="col-sm-9">
+                                <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_jzfllr[]" id="pm_jzfllr">
+                                    <?php if($this->jjh_mg_pp_list != ""){
+                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                            <option value="<?php echo $k?>"><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+
                     </div>
 
-                    <div class="form-group transparent-editor">
+                   <!-- <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方联络人邮箱：</label>
                         <div class="col-sm-3">
                             <input class="form-control" type="text"  name="pm_jzfllr_email"  size="14"/>
@@ -188,16 +228,24 @@
                         <div class="col-sm-3">
                             <input class="form-control" type="text"  name="pm_jzfllr_tel"  size="14"/>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" type="text"  name="pm_sjjzf"  size="14"/>
-                        </div>
+
+                            <!--<input class="form-control" type="text"  name="pm_sjjzf"  size="14"/>-->
+                            <div class="col-sm-9">
+                                <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_sjjzf[]" id="pm_sjjzf">
+                                    <?php if($this->jjh_mg_pp_list != ""){
+                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                            <option value="<?php echo $k?>"><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+
                     </div>
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方邮箱：</label>
                         <div class="col-sm-3">
                             <input class="form-control" type="text"  name="pm_sjjzf_email"  size="14"/>
@@ -209,17 +257,24 @@
                         <div class="col-sm-3">
                             <input class="form-control" type="text"  name="pm_sjjzf_tel"  size="14"/>
                         </div>
-                    </div>
+                    </div>-->
 
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方联络人：</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" type="text"  name="pm_sjjzfllr"  size="14"/>
+                        <div class="col-sm-9">
+                            <!--<input class="form-control" type="text"  name="pm_sjjzfllr"  size="14"/>-->
+                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_sjjzfllr[]" id="pm_sjjzfllr">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
+
                         </div>
                     </div>
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方联络人邮箱：</label>
                         <div class="col-sm-3">
                             <input class="form-control" type="text"  name="pm_sjjzfllr_email"  size="14"/>
@@ -231,7 +286,7 @@
                         <div class="col-sm-3">
                             <input class="form-control" type="text"  name="pm_sjjzfllr_tel"  size="14"/>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div class="form-group">
 					    <label class="col-sm-2 control-label" for="input03">项目类型：</label>
@@ -362,7 +417,56 @@
 		 </section>
 			</div>
 		</div>
+        <script src="/include/management/assets/js/jquery.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="/include/management/css/bootstrap-select.min.css">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="/include/management/js/bootstrap-select.min.js"></script>
 
         <script language="javascript">
-            $(".menu li:eq(0)").addClass("open");
+            $(".menu li:eq(6)").addClass("open");
+
+            $('#pm_fzr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_llr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_ckfzr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_jzf').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_jzfllr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_sjjzf').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_sjjzfllr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
         </script>
