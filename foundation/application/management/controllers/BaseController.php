@@ -236,4 +236,34 @@
                 }
             }
         }
+
+        public function getppinfobyids($str_ids){
+            if(!empty($str_ids)){
+                $ppDAO = $this->orm->createDAO('jjh_mg_pp');
+                $ppDAO->selectLimt .= ' AND pid in('.$str_ids.')';
+                return $ppDAO->get();
+            }else {
+                return array();
+            }
+        }
+
+        public function getppmeetingbypid($pp_ids = ''){
+            if(!empty($pp_ids)){
+                $meetingDAO = $this->orm->createDAO('jjh_meeting');
+                $meetingDAO->selectLimt .= ' AND meeting_joiner find_in_set('.$pp_ids.')';
+                return $meetingDAO->get();
+            }else {
+                return array();
+            }
+        }
+
+        public function getppfeedbackbypid($pp_ids = ''){
+            if(!empty($pp_ids)){
+                $feedbackDAO = $this->orm->createDAO('jjh_mg_feedback');
+                $feedbackDAO->selectLimt .= ' AND find_in_set('.$pp_ids.')';
+                return $feedbackDAO->get();
+            }else {
+                return array();
+            }
+        }
 	}

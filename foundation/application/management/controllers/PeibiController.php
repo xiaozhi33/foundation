@@ -89,7 +89,7 @@
 			$id = HttpUtil::getString("id");
             $peibiDAO = $this->orm->createDAO('pm_mg_peibi');
             $peibiDAO ->findId($id);
-            $peibiDAO = $peibiDAO ->delete();
+            $peibiDAO ->delete();
 
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
@@ -98,6 +98,36 @@
             echo('</script>');
             exit;
 
+        }
+
+        public function getpeibilist($start='',$end='',$department='',$cate='',$pname=''){
+            $pm_mg_info = $this->orm->createDAO("pm_mg_info");
+            $pm_mg_info ->select("
+                `pm_mg_info`.pm_name,
+                `pm_mg_info`.pm_pp,
+                `pm_mg_info`.pm_pp_cate,
+                `pm_mg_info`.zijin_daozheng_jiner,
+                `pm_mg_info`.zijin_daozhang_datetime,
+                `pm_mg_info`.zijin_laiyuan_qudao,
+                `pm_mg_info`.pm_juanzeng_yongtu,
+                `pm_mg_chouzi`.pm_liuben
+          ");
+            $pm_mg_info ->withPm_mg_chouzi(array("pm_name" => "pname"));
+            $pm_mg_info ->selectLimit .= ' AND cast(`pm_mg_info`.zijin_daozheng_jiner as SIGNED INTEGER)>100000 ';
+            if ($start != "" && $end != ""){
+                $pm_mg_info ->selectLimit .= " and `pm_mg_info`.zijin_daozhang_datetime between '$start' and '$end' ";
+            }
+            if ($department != ""){
+                $pm_mg_info ->selectLimit .= " and `pm_mg_chouzi`.department = '$department'";
+            }
+            if ($cate != ""){
+                $pm_mg_info ->selectLimit .= " and `pm_mg_chouzi`.cate = '$cate'";
+            }
+            if ($pname != ""){
+                $pm_mg_info ->selectLimit .= " and `pm_mg_chouzi`.pname = '$pname'";
+            }
+            $pm_mg_info ->selectLimit .= ' order by `pm_mg_chouzi`.id ';
+            return $pm_mg_info->get();
         }
 
          public function _init(){
