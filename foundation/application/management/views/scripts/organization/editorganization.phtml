@@ -26,7 +26,7 @@
         <div class="col-md-12">
             <section class="tile color transparent-white">
                 <div class="detailedbox tile-body">
-                    <form class="form-horizontal" id="form1" action="to-addorganizationmain" method="post" encType="multipart/form-data">
+                    <form class="form-horizontal" action="to-addorganizationmain" method="post" encType="multipart/form-data">
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">任职届数：</label>
@@ -52,8 +52,8 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">性别：</label>
                             <div class="col-sm-3">
-                                <input type="radio" name="sex" <?php echo $this->organization_info[0]['sex']=="1"?'checked="checked"':'';?> /> 男
-                                <input type="radio" name="sex" <?php echo $this->organization_info[0]['sex']=="2"?'checked="checked"':'';?> /> 女
+                                <input type="radio" value="1" name="sex" <?php echo $this->organization_info[0]['sex']=="1"?'checked="checked"':'';?> /> 男
+                                <input type="radio" value="2" name="sex" <?php echo $this->organization_info[0]['sex']=="2"?'checked="checked"':'';?> /> 女
                             </div>
                             <span class="col-sm-1" > * </span>
                         </div>
@@ -85,8 +85,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">简历：</label>
                             <div class="col-sm-3">
-                                <input class="form-control" type="file" name="resume" />
-                                <input type="file" name="xieyidianzi" /><font color="#0474d6" > * </font>
+                                <input class="form-control" type="file" name="resume" /><font color="#0474d6" > * </font>
                                 <?php if($this->organization_info[0]['resume'] != ""){?><a target="_blank" href="<?php echo $this->organization_info[0]['resume'];?>"><strong>点击下载</strong></a><?php }else{?>
                                     暂无电子版简历
                                 <?php }?>
@@ -132,7 +131,7 @@
                         <input class="btn btn-default" name="id" type="hidden" value="<?php echo $this->organization_info[0]['id'];?>" />
                         <div class="form-group form-footer">
                             <div class="col-sm-offset-5 col-sm-7">
-                                <input class="btn btn-primary" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
                                 <input class="btn btn-default" type="reset" value="重 置" />
                             </div>
                         </div>

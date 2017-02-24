@@ -58,7 +58,7 @@ class Management_organizationController extends BaseController
                 $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
                 $result = $uploadpic->uploadPic();
                 if($result['error']!=0){
-                    alert_back($result['msg']);
+                    alert_back_old($result['msg']);
                 }else{
                     $organizationDAO->resume =  __GETPICPATH__."jjh_download/".$result['picname'];
                 }
@@ -74,7 +74,7 @@ class Management_organizationController extends BaseController
                 $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
                 $result = $uploadpic->uploadPic();
                 if($result['error']!=0){
-                    alert_back($result['msg']);
+                    alert_back_old($result['msg']);
                 }else{
                     $organizationDAO->examination_approval =  __GETPICPATH__."jjh_download/".$result['picname'];
                 }
@@ -124,8 +124,14 @@ class Management_organizationController extends BaseController
             echo('</script>');
             exit;
         }else {
-            echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/organization/?'.$this->org_type_status));
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('保存成功');");
+            echo("location.href='/management/organization?".$this->org_type_status."';");
+            echo('</script>');
             exit;
+            //echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/organization/?'.$this->org_type_status));
+            //exit;
         }
     }
 
