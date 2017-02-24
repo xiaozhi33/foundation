@@ -36,7 +36,10 @@
             (int)$id = $_REQUEST['id'];
             $pm_id = HttpUtil::postString("pm_id");
             $pm_name = HttpUtil::postString("pm_name");
-            $is_peibi = HttpUtil::postString("is_peibi");
+
+            //$is_peibi = HttpUtil::postString("is_peibi");
+            $is_peibi = '1';
+
             $is_pass = HttpUtil::postString("is_pass");
             $jpyy = HttpUtil::postString("jpyy");
             $je = HttpUtil::postString("je");
@@ -49,8 +52,21 @@
 
             $peibiDAO = $this->orm->createDAO('pm_mg_peibi');
 
-            if($lk_main_id == "" || $is_peibi == ""){
+            if($lk_main_id == ""){
                 alert_back('您输入的信息不完整，请查正后继续添加！！！！！');
+            }
+
+            $lk_info = $this->orm->createDAO("pm_mg_info")->findId($lk_main_id)->get();
+            $lk_info_jr = $lk_info[0]['zijin_daozheng_jiner'];
+            $_lk_info_jr = $lk_info_jr * 0.3;
+
+            $lk_peibiDAO = $this->orm->createDAO('pm_mg_peibi');
+            $lk_peibiDAO ->findLk_main_id($lk_main_id);
+            $lk_peibiDAO ->select(' sum(je) as djr');
+            $lk_peibiDAO = $lk_peibiDAO->get();
+
+            if($je > ($_lk_info_jr-$lk_peibiDAO[0]['djr'])){
+                alert_back('配比金额不能超过总金额('.$lk_info_jr.')的30%，');
             }
 
             try{
@@ -71,7 +87,6 @@
                 $peibiDAO ->lk_main_id = $lk_main_id;   // 配比审批人
                 $peibiDAO ->save();
             }catch (Exception $e){
-                var_dump($e);exit();
                 alert_back('保存失败！！！！！');
             }
             alert_go('保存成功', "/management/peibi/index");
