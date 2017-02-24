@@ -141,6 +141,11 @@
             $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
             $this->view->assign("pmlist",$pm_chouzi);
 
+             //所属部门
+             $departmentlist = new jjh_mg_departmentDAO();
+             $departmentlist = $departmentlist->get($this->dbhelper);
+             $this->view->assign("departmentlist",$departmentlist);
+
             //获取筹资项目list
             $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
             $this->view->assign("chouzi_lists",$chouziDAO);
