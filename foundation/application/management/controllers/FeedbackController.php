@@ -35,6 +35,7 @@
             $jindu = HttpUtil::postString("jindu");
             $feedbacker = implode(",",$_REQUEST['feedbacker']);
             $jbr = implode(",",$_REQUEST['jbr']);
+            $bz = HttpUtil::postString("bz");
 
             $pm_mg_feedbackDAO = $this->orm->createDAO('pm_mg_feedback');
 
@@ -73,6 +74,7 @@
                 $pm_mg_feedbackDAO ->jindu = $jindu; // 进度
                 $pm_mg_feedbackDAO ->feedbacker = $feedbacker;  // 回馈人
                 $pm_mg_feedbackDAO ->jbr = $jbr;   // 经办人
+                $pm_mg_feedbackDAO ->bz = $bz;   // 经办人
                 $pm_mg_feedbackDAO ->save();
             }catch (Exception $e){
                 alert_back_old('保存失败！！！！！');
