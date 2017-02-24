@@ -68,14 +68,14 @@
 					  <?php
 						foreach($this->pageData as $k=>$v){?>
 						 <tr>
-						 	<td><?php echo $v['organization_name'];?>&nbsp;</td>
+						 	<td><?php echo $v['name'];?>&nbsp;</td>
 							<td><?php echo $v['sex'] == 1 ?'男':'女';?>&nbsp;</td>
 							<td><?php echo $v['jjh_post'];?>&nbsp;</td>
                             <td><?php echo $v['org_post'];?>&nbsp;</td>
                             <td><?php echo $v['tel'];?>&nbsp;</td>
-							<td><a href="/management/organization/editorganizationmain?id=<?php echo $v['id'];?>">
+							<td><a href="/management/organization/editorganization?id=<?php echo $v['id'];?>">
                             <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
-                             <a href="/management/organization/delorganizationmain?id=<?php echo $v['id'];?>">
+                             <a href="/management/organization/delorganization?id=<?php echo $v['id'];?>">
                              <button type="button" class="btn btn-danger margin-bottom-20" onclick= "if(confirm( '是否确定删除！ 删除将无法找回有关该机构的所有信息。')==false) return false; ">删除</button></a>
                             </td>
 						 </tr>

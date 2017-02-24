@@ -29,6 +29,19 @@
                     <form class="form-horizontal" id="form1" action="to-addorganizationmain" method="post" encType="multipart/form-data">
 
                         <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">任职届数：</label>
+
+                            <div class="col-sm-6">
+                                <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="director[]" id="director">
+                                    <?php if($this->jjh_mg_director_list != ""){
+                                        foreach ($this->jjh_mg_director_list as $k => $v){?>
+                                            <option value="<?php echo $k?>"><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">名称：</label>
                             <div class="col-sm-3">
                                 <input class="form-control" type="text" name="name" value="<?php echo $this->organization_info[0]['name'];?>"/>
@@ -39,8 +52,8 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">性别：</label>
                             <div class="col-sm-3">
-                                <input class="form-control" type="radio" name="sex" <?php echo $this->organization_info[0]['sex']=="1"?'checked="checked"':'';?> /> 男
-                                <input class="form-control" type="radio" name="sex" <?php echo $this->organization_info[0]['sex']=="2"?'checked="checked"':'';?> /> 女
+                                <input type="radio" name="sex" <?php echo $this->organization_info[0]['sex']=="1"?'checked="checked"':'';?> /> 男
+                                <input type="radio" name="sex" <?php echo $this->organization_info[0]['sex']=="2"?'checked="checked"':'';?> /> 女
                             </div>
                             <span class="col-sm-1" > * </span>
                         </div>
@@ -105,7 +118,7 @@
                             <div class="col-sm-3">
                                 <input class="form-control" data-date-format="YYYY-MM-DD" value="<?php echo $this->organization_info[0]['serving_time'];?>" type="text"  id="datepicker1"  name="serving_time" size="14"/>
                             </div>
-                            <span class="col-sm-1" > * （年－月－日）</span>serving_time
+                            <span class="col-sm-1" > * （年－月－日）</span>
                         </div>
 
                         <div class="form-group">
@@ -132,7 +145,24 @@
     </div>
 
     <script src="/include/management/assets/js/jquery.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/include/management/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/include/management/js/bootstrap-select.min.js"></script>
+
     <script language="javascript">
         $(".menu li:eq(28)").addClass("open");
+
+        $('#director').selectpicker({
+            selectedText: 'cat',
+            liveSearch: true,
+            size:8
+        });
+
+        var str='<?php echo $this->organization_info[0]['director']?>';
+        var arr=str.split(',');
+        $('#director').selectpicker('val', arr);
     </script>
 

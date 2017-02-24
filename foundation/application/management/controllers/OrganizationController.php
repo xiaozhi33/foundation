@@ -45,6 +45,8 @@ class Management_organizationController extends BaseController
         $department = HttpUtil::postString("department");
         $serving_time = HttpUtil::postString("serving_time");
         $tel = HttpUtil::postString("tel");
+        $director = implode(",",$_REQUEST['director']);
+        $birthday = HttpUtil::postString("birthday");
 
 
         if($_FILES['resume']['name']!=""){
@@ -96,6 +98,8 @@ class Management_organizationController extends BaseController
         $organizationDAO ->department = $department;
         $organizationDAO ->serving_time = $serving_time;
         $organizationDAO ->tel = $tel;
+        $organizationDAO ->director = $director;
+        $organizationDAO ->birthday = $birthday;
 
         if(!empty($id))  //修改流程
         {
@@ -135,7 +139,7 @@ class Management_organizationController extends BaseController
         {
             $this->view->assign("organization_info", $organizationDAO);
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("gift/editorganization.phtml?".$this->org_type_status);
+            echo $this->view->render("organization/editorganization.phtml");
             echo $this->view->render("index/footer.phtml");
             exit();
         }
@@ -144,12 +148,12 @@ class Management_organizationController extends BaseController
         $this->view->assign("organization_info", $organizationDAO);
 
         echo $this->view->render("index/header.phtml");
-        echo $this->view->render("gift/editorganization.phtml?".$this->org_type_status);
+        echo $this->view->render("organization/editorganization.phtml?".$this->org_type_status);
         echo $this->view->render("index/footer.phtml");
         exit();
     }
 
-    public function delgiftmainAction(){
+    public function delorganizationmainAction(){
         $id = HttpUtil::getString("id");
         $organizationDAO = $this->orm->createDAO('jjh_mg_organization');
         $organizationDAO ->findId($id);
@@ -185,11 +189,19 @@ class Management_organizationController extends BaseController
         SessionUtil::sessionStart();
         SessionUtil::checkmanagement();
 
+        $jjh_mg_director_list = $this->orm->createDAO('jjh_mg_director')->get();
+        if(!empty($jjh_mg_director_list)){
+            foreach($jjh_mg_director_list as $key => $value){
+                $_jjh_mg_directior_list[$value['id']] = $value['director'];
+            }
+        }
+
         $this->org_type_status =  HttpUtil::getString("type");
         $this->view->assign(array(
             'orgList' => $orgList,
             'org_type_status' => $this->org_type_status,
-            'org_type_array' => $this->org_type_array
+            'org_type_array' => $this->org_type_array,
+            'jjh_mg_director_list' => $_jjh_mg_directior_list
         ));
     }
 }

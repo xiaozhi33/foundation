@@ -27,6 +27,20 @@
 				<section class="tile color transparent-white">
 			<div class="detailedbox tile-body">
                 <form class="form-horizontal"  id="form1" action="to-addorganizationmain" method="post" encType="multipart/form-data">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">任职届数：</label>
+
+                        <div class="col-sm-6">
+                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="director[]" id="director">
+                                <?php if($this->jjh_mg_director_list != ""){
+                                    foreach ($this->jjh_mg_director_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">名称：</label>
                             <div class="col-sm-3">
@@ -123,7 +137,20 @@
 		</div>
 
         <script src="/include/management/assets/js/jquery.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="/include/management/css/bootstrap-select.min.css">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="/include/management/js/bootstrap-select.min.js"></script>
+
         <script language="javascript">
             $(".menu li:eq(28)").addClass("open");
+
+            $('#director').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
         </script>
 
