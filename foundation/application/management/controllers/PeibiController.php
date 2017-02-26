@@ -2,8 +2,37 @@
 	require_once("BaseController.php");
 	class Management_peibiController extends BaseController
     {
-
 		public function indexAction(){
+            $pname = $_REQUEST['pname'];
+            $pm_mg_info = $this->orm->createDAO("pm_mg_info");
+            $pm_mg_info ->select("
+                `pm_mg_info`.id,
+                `pm_mg_info`.pm_name,
+                `pm_mg_info`.pm_pp,
+                `pm_mg_info`.pm_pp_cate,
+                `pm_mg_info`.zijin_daozheng_jiner,
+                `pm_mg_info`.zijin_daozhang_datetime,
+                `pm_mg_info`.zijin_laiyuan_qudao,
+                `pm_mg_info`.pm_juanzeng_yongtu,
+                `pm_mg_chouzi`.pm_liuben
+          ");
+            $pm_mg_info ->withPm_mg_chouzi(array("pm_name" => "pname"));
+            $pm_mg_info ->selectLimit .= ' AND cast(`pm_mg_info`.zijin_daozheng_jiner as SIGNED INTEGER)>100000 ';
+            $pm_mg_info ->selectLimit .= ' AND cate_id = 0';
+            $pm_mg_info ->selectLimit .= ' AND peibi = 1';
+
+            if ($pname != ""){
+                $pm_mg_info ->selectLimit .= " and `pm_mg_chouzi`.pname = '$pname'";
+            }
+            $pm_mg_info ->selectLimit .= ' order by `pm_mg_chouzi`.id ';
+            $pm_mg_info->getPager(array('path'=>'/management/peibi/index'))->assignTo($this->view);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("peibi/index.phtml");
+            echo $this->view->render("index/footer.phtml");
+		}
+
+        public function peibiindexAction(){
             $peibikDAO = $this->orm->createDAO('pm_mg_peibi')->order('id DESC');
             if(!empty($_REQUEST['lk_main_id'])){
                 $peibikDAO->findLk_main_id($_REQUEST['lk_main_id']);
@@ -11,15 +40,17 @@
             }
 
             if(!empty($_REQUEST['pm_name'])){
-                $peibikDAO->findPm_name($_REQUEST['pm_name']);
-                $this->view->assign("pname", $_REQUEST['pm_name']);
-            }
+                 $peibikDAO->findPm_name($_REQUEST['pm_name']);
+                 $this->view->assign("pname", $_REQUEST['pm_name']);
+             }
             $peibikDAO->getPager(array('path'=>'/management/peibi/index'))->assignTo($this->view);
 
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("peibi/index.phtml");
+            echo $this->view->render("peibi/peibiindex.phtml");
             echo $this->view->render("index/footer.phtml");
-		}
+        }
+
+
         /*
          *  add feedback
          */
@@ -34,8 +65,8 @@
          */
         public function toAddAction(){
             (int)$id = $_REQUEST['id'];
-            $pm_id = HttpUtil::postString("pm_id");
-            $pm_name = HttpUtil::postString("pm_name");
+           /* $pm_id = HttpUtil::postString("pm_id");
+            $pm_name = HttpUtil::postString("pm_name");*/
 
             //$is_peibi = HttpUtil::postString("is_peibi");
             $is_peibi = '1';
@@ -62,6 +93,9 @@
 
             $lk_peibiDAO = $this->orm->createDAO('pm_mg_peibi');
             $lk_peibiDAO ->findLk_main_id($lk_main_id);
+            if(!empty($id)){
+                $lk_peibiDAO ->selectLimit .= ' AND id !='.$id;
+            }
             $lk_peibiDAO ->select(' sum(je) as djr');
             $lk_peibiDAO = $lk_peibiDAO->get();
 
@@ -73,8 +107,8 @@
                 if(!empty($id)){
                     $peibiDAO ->findId($id);
                 }
-                //$peibiDAO ->pm_id = $pm_id;
-                $peibiDAO ->pm_name = $pm_name;
+                //$peibiDAO ->pm_id = $lk_info[0]['id'];
+                $peibiDAO ->pm_name = $lk_info[0]['pm_name'];
                 $peibiDAO ->is_peibi = $is_peibi; // 是否配比
                 $peibiDAO ->is_pass = $is_pass; // 是否通过配比
                 $peibiDAO ->jpyy = $jpyy; // 拒批原因
@@ -89,7 +123,7 @@
             }catch (Exception $e){
                 alert_back('保存失败！！！！！');
             }
-            alert_go('保存成功', "/management/peibi/index");
+            alert_go('保存成功', "/management/peibi/peibiindex?lk_main_id=".$lk_main_id);
         }
 		
 		public function editAction(){
@@ -172,8 +206,8 @@
                     $_lk_list[$value['id']] = $value['pm_name']."-".date('Y-m-d',strtotime($value['zijin_daozhang_datetime']))."-".$value['pm_pp']."-金额为：".$value['zijin_daozheng_jiner'];
                 }
             }
-             $this->view->assign("l_lk_list",$_lk_list);
-
+            $this->view->assign("lk_list",$lk_list);
+            $this->view->assign("l_lk_list",$_lk_list);
 
             //项目名称列表
             $pm_chouzi = new pm_mg_chouziDAO();

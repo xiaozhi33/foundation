@@ -80,25 +80,18 @@
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">项目负责人：</label>
-                        <!--<div class="col-sm-9">
-                            <textarea parsley-validation-minlength="1" name="pm_fzr" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated">姓名：
-电邮：
-电话：
-                            </textarea>
-                        </div>-->
-
-                            <!--<input class="form-control" type="text"  name="pm_fzr"  size="14"/>-->
-                            <div class="col-sm-6">
-                                <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_fzr[]" id="pm_fzr">
-                                    <?php if($this->jjh_mg_pp_list != ""){
-                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
-                                            <option value="<?php echo $k?>"><?php echo $v?></option>
-                                        <?php }}?>
-                                </select>
-                            </div>
+                        <div class="col-sm-6">
+                            <select class="chosen-select-1 chosen-transparent form-control" multiple name="pm_fzr[]" id="pm_fzr">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
                         <span class="col-sm-2" > <a href="/management/admin/addpp" target="_blank">添加人员信息</a> </span>
                     </div>
 
+                    
                     <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">项目负责人邮箱：</label>
                         <div class="col-sm-3">
@@ -429,11 +422,11 @@
         <script language="javascript">
             $(".menu li:eq(6)").addClass("open");
 
-            $('#pm_fzr').selectpicker({
+            /*$('#pm_fzr').selectpicker({
                 selectedText: 'cat',
                 liveSearch: true,
                 size:8
-            });
+            });*/
 
             $('#pm_llr').selectpicker({
                 selectedText: 'cat',

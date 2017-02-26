@@ -745,7 +745,7 @@
 			$this->view->assign("departmentlist",$departmentlist);
 
             // pplist
-            $jjh_mg_ppDAO = $this->orm->createDAO('jjh_mg_pp')->get();
+            $jjh_mg_ppDAO = $this->orm->createDAO('jjh_mg_pp')->select('pid,ppname')->get();
             if(!empty($jjh_mg_ppDAO)){
                 foreach($jjh_mg_ppDAO as $k => $v){
                     $temp_array[$v['pid']] = $v['ppname'];

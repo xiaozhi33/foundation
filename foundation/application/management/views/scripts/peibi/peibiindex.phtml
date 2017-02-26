@@ -39,36 +39,46 @@
 		<div id="rightstyle02" class="row">
 
 			<div class="col-md-12">
-                <section class="tile color transparent-white">
+                <!--<section class="tile color transparent-white">
                     <div class="tile-body">
-                        <form action="#" method="get" name="search_form">
+                        <form action="#" method="post" name="search_form">
                             <div class="form-group">
 
                                 <div class="row">
                                     <div class="form-group col-sm-9">
-                                        <label for="pname" class="col-sm-4 control-label">来款项目：</label>
-                                        <select class="chosen-select-1 chosen-transparent form-control" name="pname" id="id">
-                                            <option value="">请选择来款项目</option>
-                                            <?php if($this->chouzi_lists != ""){
-                                                foreach ($this->chouzi_lists as $k => $v){
-                                                    ?>
-                                                    <option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pname'] == $v['pname'])echo 'selected="selected"';?>><?php echo $v['pname'];?></option>
-                                                <?php }}?>
+                                        <label for="pname" class="col-sm-4 control-label">项目来款：</label>
+                                        <select class="chosen-select-1 chosen-transparent form-control" name="lk_main_id" id="lk_main_id">
+                                            <option value="">请选择项目来款</option>
+                                            <?php /*if($this->l_lk_list != ""){
+                                                foreach ($this->l_lk_list as $k => $v){
+                                                    */?>
+                                                    <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
+                                                <?php /*}}*/?>
                                         </select>
-                                        <!--<input id="pname_info" type="hidden" name="pm_name" value=""/>-->
                                     </div>
                                 </div>
 
-                               <div class="row">
+                                <div class="row">
                                     <div class="form-group col-sm-3">
                                         <label for="input02"></label>
                                         <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
-                                        <!--<label for="input03"></label>
-                                        <a href="/management/peibi/add" target="_blank"><input class="btn btn-primary btn-block" type="botton" value="添加配比信息"/></a>-->
+                                        <label for="input03"></label>
+                                        <a href="/management/peibi/add" target="_blank"><input class="btn btn-primary btn-block" type="botton" value="添加配比信息"/></a>
                                     </div>
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </section>-->
+
+                <section>
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="input03"></label>
+                            <a href="/management/peibi/add?id=<?php echo $this->pageData[0]['lk_main_id'];?>" target="_blank">
+                                <input class="btn btn-primary btn-block" type="botton" value="追加配比信息"/>
+                            </a>
+                        </div>
                     </div>
                 </section>
 
@@ -78,10 +88,10 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="24%">来款项目</td>
-						<td width="12%">来款时间</td>
-                        <td width="20%">来款方</td>
-                        <td width="20%">来款金额</td>
+						<td width="24%">配比项目</td>
+                        <td width="12%">配比状态</td>
+						<td width="12%">配比下发时间</td>
+                        <td width="20%">配比金额</td>
                           <td width="20%">操作</td>
 					  </tr>
 					</thead>
@@ -93,21 +103,22 @@
                                 <?php echo $v['pm_name'];?>
                             </td>
                              <td>
-                                 <?php echo $v['zijin_daozhang_datetime'];?>
+                                 <?php echo $v['is_pass']='1'?'通过':'拒批';?>
                              </td>
                              <td>
-                                 <?php echo $v['pm_pp'];?>
+                                 <?php echo $v['peibi_datetime'];?>
                              </td>
                              <td>
-                                 <?php echo $v['zijin_daozheng_jiner'];?>
+                                 <?php echo $v['je'];?>
                              </td>
 
 							<td>
-                                <a href="/management/peibi/peibiindex?lk_main_id=<?php echo $v['id'];?>">
-                                    <button class="btn btn-greensea margin-bottom-20" type="button">查看配比信息</button>
-                                </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="/management/peibi/add?id=<?php echo $v['id'];?>">
-                                    <button class="btn btn-greensea margin-bottom-20" type="button">添加配比信息</button>
+                                <a href="/management/peibi/edit?id=<?php echo $v['id'];?>">
+                                    <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                                </a>
+                                &nbsp;&nbsp;
+                                <a href="/management/peibi/del?id=<?php echo $v['id']?>">
+                                    <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
                                 </a>
                             </td>
 						 </tr>
@@ -118,19 +129,19 @@
 					<div class="tile-footer">
 					<div class="row">
 					<div class="page col-md-12" align="right">
-                        共  <?php echo $this->totalItems;?> 条已申请配比信息         <?php echo $this->page['all'];?></div>
+                        共  <?php echo $this->totalItems;?> 条配比信息         <?php echo $this->page['all'];?></div>
 					
 				 <?php }else{?>
-				 	<!--<div style="margin: 10px;padding: 10px;">暂无配比信息！<a href="/management/peibi/add">点击添加</a></div>-->
+				 	<div style="margin: 10px;padding: 10px;">暂无配比信息！<a href="/management/peibi/add">点击添加</a></div>
 				 <?php }?>
 				 </div>
 
-                        <div class="row">
+                        <!--<div class="row">
                             <div class="form-group col-sm-3">
                                 <label for="input02"></label>
-                                <a href="/management/report/peibitoexcel?pname=<?php echo $this->pname;?>"><button class="btn btn-primary btn-block">全部配比信息导出Excel</button></a>
+                                <a href="/management/report/peibitoexcel?pname=<?php /*echo $this->pname;*/?>"><button class="btn btn-primary btn-block">导出Excel</button></a>
                             </div>
-                        </div>
+                        </div>-->
 
 				 </div>
 				 </section>

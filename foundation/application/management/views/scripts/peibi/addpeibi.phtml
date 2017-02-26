@@ -20,7 +20,6 @@
 </div>
 <!-- /page header -->
 
-	
 	<div id="main" class="main">
 		<div id="rightstyle02" class="row">
 			<div class="col-md-12">
@@ -28,45 +27,12 @@
 			<div class="detailedbox tile-body">
                 <form class="form-horizontal" action="to-add" id="form1" method="post" encType="multipart/form-data">
 
-				<!--<div class="form-group">
-						<label class="col-sm-2 control-label" for="input01">所属项目名称：</label>
-                        <div class="col-sm-3">
-                            <select class="chosen-select-1 chosen-transparent form-control" name="pm_id">
-                                <option value="">请选择项目名称</option>
-                                <?php /*if($this->pmlist != ""){
-                                    foreach ($this->pmlist as $k => $v){
-                                        */?>
-                                        <option value="<?php /*echo $v['id'];*/?>"><?php /*echo $v['pname'];*/?></option>
-                                    <?php /*}}*/?>
-                            </select>
-                            <input id="pname_info" type="hidden" name="pm_name" value=""/>
-                        </div>
-						<span class="col-sm-1" > * </span>
-				</div>-->
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input01">所属来款：</label>
-                        <div class="col-sm-9">
-                            <select class="chosen-select-1 chosen-transparent form-control" name="lk_main_id">
-                                <option value="">请选择所属来款</option>
-                                <?php if($this->l_lk_list != ""){
-                                    foreach ($this->l_lk_list as $k => $v){
-                                        ?>
-                                        <option value="<?php echo $k;?>"><?php echo $v;?></option>
-                                    <?php }}?>
-                            </select>
-                            <input id="pname_info" type="hidden" name="pm_name" value=""/>
-                        </div>
+                        <input class="col-sm-9" readonly type="text" name="_lk_main_id" value="<?php if($this->l_lk_list != ""){echo $this->l_lk_list[$_REQUEST['id']];}?>"/>
+                        <input readonlyclass="form-control" type="hidden" name="lk_main_id" value="<?php echo $_REQUEST['id'];?>"/>
                         <span class="col-sm-1" > * </span>
                     </div>
-
-                    <!--<div class="form-group" id="is_peibi">
-                        <label class="col-sm-2 control-label">是否可以申请配比：</label>
-                        <div class="col-sm-4">
-                            <input type="radio"  name="is_peibi" value="1"/> 是
-                            <input type="radio"  name="is_peibi" value="0"/> 否
-                        </div>
-                    </div>-->
 
                     <div class="form-group" id="is_pass">
                         <label class="col-sm-2 control-label">配比是否通过：</label>
@@ -79,7 +45,7 @@
                     <div class="form-group jpyy">
                         <label class="col-sm-2 control-label">配比拒批原因：</label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="text"   name="jpyy"/>
+                            <input class="form-control" type="text" name="jpyy"/>
                         </div>
                     </div>
 
