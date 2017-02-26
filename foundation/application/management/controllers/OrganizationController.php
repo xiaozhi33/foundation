@@ -47,6 +47,7 @@ class Management_organizationController extends BaseController
         $tel = HttpUtil::postString("tel");
         $director = implode(",",$_REQUEST['director']);
         $birthday = HttpUtil::postString("birthday");
+        $id_card = HttpUtil::postString("id_card");
 
 
         if($_FILES['resume']['name']!=""){
@@ -100,6 +101,7 @@ class Management_organizationController extends BaseController
         $organizationDAO ->tel = $tel;
         $organizationDAO ->director = $director;
         $organizationDAO ->birthday = $birthday;
+        $organizationDAO ->id_card = $id_card;
 
         if(!empty($id))  //修改流程
         {
