@@ -78,10 +78,23 @@
                         <span class="col-sm-1" >例：Emai：888@163.com  tel：13389890000 </span>
                     </div>-->
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">项目负责人：</label>
                         <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple name="pm_fzr[]" id="pm_fzr">
+                                <?php /*if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){*/?>
+                                        <option value="<?php /*echo $k*/?>"><?php /*echo $v*/?></option>
+                                    <?php /*}}*/?>
+                            </select>
+                        </div>
+                        <span class="col-sm-2" > <a href="/management/admin/addpp" target="_blank">添加人员信息</a> </span>
+                    </div>-->
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">项目负责人：</label>
+                        <div class="col-sm-6">
+                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="pm_fzr[]" id="pm_fzr">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>"><?php echo $v?></option>
@@ -108,7 +121,7 @@
 
 
                     <div class="form-group transparent-editor">
-                        <label class="col-sm-2 control-label" for="input14">联络人：</label>
+                        <label class="col-sm-2 control-label" for="input14">项目联络人：</label>
 
                                 <!--<input class="form-control" type="text"  name="pm_llr"  size="14"/>-->
                                 <div class="col-sm-6">
@@ -135,6 +148,32 @@
                                 <input class="form-control" type="text"  name="pm_llr_tel"  size="14"/>
                             </div>
                     </div>-->
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">执行负责人：</label>
+                        <div class="col-sm-6">
+                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="execute_fzr[]" id="execute_fzr">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+                        <span class="col-sm-2" > <a href="/management/admin/addpp" target="_blank">添加人员信息</a> </span>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">执行联络人：</label>
+                        <div class="col-sm-6">
+                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="execute_llr[]" id="execute_llr">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+                        <span class="col-sm-2" > <a href="/management/admin/addpp" target="_blank">添加人员信息</a> </span>
+                    </div>
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">筹款负责人：</label>
@@ -422,13 +461,25 @@
         <script language="javascript">
             $(".menu li:eq(6)").addClass("open");
 
-            /*$('#pm_fzr').selectpicker({
+            $('#pm_fzr').selectpicker({
                 selectedText: 'cat',
                 liveSearch: true,
                 size:8
-            });*/
+            });
 
             $('#pm_llr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#execute_fzr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#execute_llr').selectpicker({
                 selectedText: 'cat',
                 liveSearch: true,
                 size:8

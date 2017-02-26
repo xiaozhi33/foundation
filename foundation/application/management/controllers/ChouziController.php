@@ -97,6 +97,10 @@
                 $pm_llr = implode(",",$_REQUEST['pm_llr']);               //联络人
                 //$pm_llr_email = HttpUtil::postString("pm_llr_email");
                 //$pm_llr_tel = HttpUtil::postString("pm_llr_tel");
+
+                $execute_fzr = implode(",",$_REQUEST['execute_fzr']);
+                $execute_llr = implode(",",$_REQUEST['execute_llr']);
+
                 $pm_ckfzr = implode(",",$_REQUEST['pm_ckfzr']);           //筹款负责人
                 //$pm_ckfzr_email = HttpUtil::postString("pm_ckfzr_email");
                 //$pm_ckfzr_tel = HttpUtil::postString("pm_ckfzr_tel");
@@ -164,6 +168,9 @@
                 $pm_chouziDAO->pm_sjjzfllr = $pm_sjjzfllr;
                 $pm_chouziDAO->pm_sjjzfllr_email = $pm_sjjzfllr_email;
                 $pm_chouziDAO->pm_sjjzfllr_tel = $pm_sjjzfllr_tel;
+
+                $pm_chouziDAO->execute_fzr = $execute_fzr;
+                $pm_chouziDAO->execute_llr = $execute_llr;
 
                 // pm_id为所属父项目id 如果不为空，则新建子项目
                 $pid = HttpUtil::postString("pm_id"); // $pid 父项目id
