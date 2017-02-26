@@ -219,6 +219,15 @@
              $departmentlist = $departmentlist->get($this->dbhelper);
              $this->view->assign("departmentlist",$departmentlist);
 
+             // pplist
+             $jjh_mg_ppDAO = $this->orm->createDAO('jjh_mg_pp')->select('pid,ppname')->get();
+             if(!empty($jjh_mg_ppDAO)){
+                 foreach($jjh_mg_ppDAO as $k => $v){
+                     $temp_array[$v['pid']] = $v['ppname'];
+                 }
+             }
+             $this->view->assign("jjh_mg_pp_list", $temp_array);
+
             //获取筹资项目list
             $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
             $this->view->assign("chouzi_lists",$chouziDAO);

@@ -5,6 +5,7 @@
 		public $departmentlist;
 		public $pm = array();
 		public $department = array();
+        public $temp_array = array();
 		public function indexAction(){
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render("report/index.phtml");
@@ -1638,6 +1639,10 @@
                 }else{
                     $v['is_pass'] = "未通过";
                 }
+                $v['jffzr'] = $this->temp_array[$v['jffzr']];
+                $v['peibi_spr'] = $this->temp_array[$v['peibi_spr']];
+                $v['huabo_department'] = $this->department[$v['huabo_department']];
+
                 $zijintj->setActiveSheetIndex(0)
                     ->setCellValue('A'.$ii, $v['id'])
                     ->setCellValue('B'.$ii, $v['pm_id'])
@@ -2040,6 +2045,14 @@
 			foreach($departmentlist as $key => $value){
 				$this->department[$value['id']] = $value['pname'];
 			}
+
+            // pplist
+            $jjh_mg_ppDAO = $this->orm->createDAO('jjh_mg_pp')->select('pid,ppname')->get();
+            if(!empty($jjh_mg_ppDAO)){
+                foreach($jjh_mg_ppDAO as $k => $v){
+                    $this->temp_array[$v['pid']] = $v['ppname'];
+                }
+            }
 
 			//项目名称列表
 			$pm_chouzi = new pm_mg_chouziDAO();
