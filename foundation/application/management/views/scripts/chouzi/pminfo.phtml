@@ -99,107 +99,381 @@
 
                         <tr>
                             <td width="30%">项目负责人</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_fzr']?></td>
+                            <td width="70%">
+                                <?php
+                                    if($this->chouzi[0]['pm_fzr'] != ""){
+                                        $_pm_fzr = explode(',',$this->chouzi[0]['pm_fzr']);
+                                        foreach($_pm_fzr as $key => $value){
+                                            echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                        }
+                                    }
+                                ?></td>
                         </tr>
 
                         <tr>
                             <td width="30%">项目负责人邮箱</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_fzr_email']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_fzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_fzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">项目负责人电话</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_fzr_tel']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_fzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_fzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
-                            <td width="30%">联络人</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_llr']?></td>
+                            <td width="30%">项目联络人</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_llr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_llr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
-                            <td width="30%">联络人邮箱</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_llr_email']?></td>
+                            <td width="30%">项目联络人邮箱</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_llr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_llr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
-                            <td width="30%">联络人电话</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_llr_tel']?></td>
+                            <td width="30%">项目联络人电话</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_llr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_llr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
+
+
+                        <tr>
+                            <td width="30%">执行负责人</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['execute_fzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['execute_fzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">执行负责人邮箱</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['execute_fzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['execute_fzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">执行负责人电话</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['execute_fzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['execute_fzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">执行联络人</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['execute_llr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['execute_llr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">执行联络人邮箱</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['execute_llr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['execute_llr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">执行联络人电话</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['execute_llr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['execute_llr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
 
                         <tr>
                             <td width="30%">筹款负责人</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_ckfzr']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_ckfzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_ckfzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">筹款负责人邮箱</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_ckfzr_email']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_ckfzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_ckfzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">筹款负责人电话</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_ckfzr_tel']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_ckfzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_ckfzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">捐赠方</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_jzf']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_jzf'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_jzf']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">捐赠方邮箱</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_jzf_email']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_jzf'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_jzf']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">捐赠方电话</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_jzf_tel']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_jzf'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_jzf']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">捐赠方联络人</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_jzfllr']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_jzfllr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_jzfllr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">捐赠方联络人邮箱</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_jzfllr_email']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_jzfllr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_jzfllr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">捐赠方联络人电话</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_jzfllr_tel']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_jzfllr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_jzfllr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">实际捐赠方</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_sjjzf']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_sjjzf'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_sjjzf']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">实际捐赠方邮箱</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_sjjzf_email']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_sjjzf'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_sjjzf']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">实际捐赠方电话</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_sjjzf_tel']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_sjjzf'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_sjjzf']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">实际捐赠方联络人</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_sjjzfllr']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_sjjzfllr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_sjjzfllr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">实际捐赠方联络人邮箱</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_sjjzfllr_email']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_sjjzfllr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_sjjzfllr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
                             <td width="30%">实际捐赠方联络人电话</td>
-                            <td width="70%"><?php echo $this->chouzi[0]['pm_sjjzfllr_tel']?></td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_sjjzfllr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_sjjzfllr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
                         </tr>
 
                         <!--<tr>
@@ -462,8 +736,8 @@
                     <h5 class="text-left" ><strong>&nbsp;项目归档二维码</strong> </h5>
 
                     <div id="donut-example" style="height: 250px;" >
-                        <!--<img src="/include/upload_file/pmqrcode/<?php /*echo $this->chouzi[0]['id'];*/?>.png" alt=""/>-->
-                        <img src="http://www.8008mp.com/erweima/upload/28946/com/%E9%83%AB%E5%8E%BF%E5%8F%A3%E8%A2%8B%E8%9B%99%E7%AB%A5%E8%A3%85%E7%BB%8F%E8%90%A5%E9%83%A8_RJ36988.png" height="250px" alt=""/>
+                        <img src="/include/upload_file/pmqrcode/<?php echo $this->chouzi[0]['id'];?>.png" alt=""/>
+                        <!--<img src="http://www.8008mp.com/erweima/upload/28946/com/%E9%83%AB%E5%8E%BF%E5%8F%A3%E8%A2%8B%E8%9B%99%E7%AB%A5%E8%A3%85%E7%BB%8F%E8%90%A5%E9%83%A8_RJ36988.png" height="250px" alt=""/>-->
 
                     </div>
                     </div>

@@ -312,6 +312,9 @@
                 $beizhu = HttpUtil::postString("beizhu");         //备注
                 // $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
 
+                $execute_fzr = implode(",",$_REQUEST['execute_fzr']);
+                $execute_llr = implode(",",$_REQUEST['execute_llr']);
+
                 $pm_fzr = implode(",",$_REQUEST['pm_fzr']);               //项目负责人
                 //$pm_fzr_email = HttpUtil::postString("pm_fzr_email");
                 //$pm_fzr_tel = HttpUtil::postString("pm_fzr_tel");
@@ -338,7 +341,7 @@
                     alert_back("您输入的信息不完整，请查正后继续添加");
                 }
 
-                $pm_chouziDAO = new pm_mg_chouziDAO($_REQUEST['id']);
+                $pm_chouziDAO = $this->orm->createDAO('pm_mg_chouzi')->findId($_REQUEST['id']);
                 $pm_chouziDAO->beizhu = $beizhu;
                 $pm_chouziDAO->cate = $pm_cate;
                 $pm_chouziDAO->department = $department;
@@ -383,6 +386,9 @@
                 $pm_chouziDAO->pm_sjjzfllr = $pm_sjjzfllr;
                 //$pm_chouziDAO->pm_sjjzfllr_email = $pm_sjjzfllr_email;
                 //$pm_chouziDAO->pm_sjjzfllr_tel = $pm_sjjzfllr_tel;
+
+                $pm_chouziDAO->execute_fzr = $execute_fzr;
+                $pm_chouziDAO->execute_llr = $execute_llr;
 
                 $pid = HttpUtil::postString("pm_id");
                 if(!empty($pid)){
@@ -752,12 +758,20 @@
 			$this->view->assign("departmentlist",$departmentlist);
 
             // pplist
-            $jjh_mg_ppDAO = $this->orm->createDAO('jjh_mg_pp')->select('pid,ppname')->get();
+            $jjh_mg_ppDAO = $this->orm->createDAO('jjh_mg_pp')->get();
             if(!empty($jjh_mg_ppDAO)){
                 foreach($jjh_mg_ppDAO as $k => $v){
                     $temp_array[$v['pid']] = $v['ppname'];
                 }
             }
+            if(!empty($jjh_mg_ppDAO)){
+                foreach($jjh_mg_ppDAO as $k => $v){
+                    $_temp_array[$v['pid']]['ppname'] = $v['ppname'];
+                    $_temp_array[$v['pid']]['ppemail'] = $v['ppemail'];
+                    $_temp_array[$v['pid']]['ppmobile'] = $v['ppmobile'];
+                }
+            }
+            $this->view->assign("jjh_mg_pp_list_info", $_temp_array);
             $this->view->assign("jjh_mg_pp_list", $temp_array);
 
             //项目名称列表
