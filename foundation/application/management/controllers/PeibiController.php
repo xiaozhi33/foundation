@@ -171,7 +171,7 @@
                 `pm_mg_chouzi`.pm_liuben
           ");
             $pm_mg_info ->withPm_mg_chouzi(array("pm_name" => "pname"));
-            $pm_mg_info ->selectLimit .= ' AND cast(`pm_mg_info`.zijin_daozheng_jiner as SIGNED INTEGER)>100000 ';
+            $pm_mg_info ->selectLimit .= ' AND cast(`pm_mg_info`.zijin_daozheng_jiner as SIGNED INTEGER)>=100000 ';
             $pm_mg_info ->selectLimit .= ' AND cate_id = 0';
             $pm_mg_info ->selectLimit .= ' AND peibi = 1';
 

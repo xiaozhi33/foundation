@@ -1705,7 +1705,7 @@
                 `pm_mg_chouzi`.pm_liuben
           ");
             $pm_mg_info ->withPm_mg_chouzi(array("pm_name" => "pname"));
-            $pm_mg_info ->selectLimit .= ' AND cast(`pm_mg_info`.zijin_daozheng_jiner as SIGNED INTEGER)>100000 ';
+            $pm_mg_info ->selectLimit .= ' AND cast(`pm_mg_info`.zijin_daozheng_jiner as SIGNED INTEGER)>=100000 ';
             if ($start != "" && $end != ""){
                 $pm_mg_info ->selectLimit .= " and `pm_mg_info`.zijin_daozhang_datetime between '$start' and '$end' ";
             }
