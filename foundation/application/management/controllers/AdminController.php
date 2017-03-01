@@ -2,14 +2,6 @@
 	require_once("BaseController.php");
 	class Management_adminController extends BaseController {
 		private $dbhelper;
-		public $pp_config = array(
-			//'pp_cate' => array('捐赠方'=>'捐赠方','实际捐赠方'=>'实际捐赠方','使用方'=>'使用方','业务方'=>'业务方'),
-			'pp_jzf_cate' => array('个人'=>'个人','企业'=>'企业','公益组织'=>'公益组织','其他'=>'其他'),
-			'pp_jzf_attr1' => array('校友'=>'校友','校友联系'=>'校友联系','非校友'=>'非校友','其他'=>'其他'),
-			'pp_jzf_attr2' => array('海内'=>'海内','海外'=>'海外'),
-			'pp_syf_cate' => array('学校'=>'学校','机关'=>'机关','学院'=>'学院','直属单位'=>'直属单位','校外'=>'校外','其他'=>'其他'),
-			'pp_yuf_cate' => array('登记'=>'登记','业务主管'=>'业务主管','银行'=>'银行','财税'=>'财税','高校基金会'=>'高校基金会','其他'=>'其他'),
-		);
 		public function indexAction(){
 			$adminlist = new my_adminDAO();
 			$adminlist = $adminlist ->get($this->dbhelper);
@@ -903,6 +895,43 @@
                 return false;
             }
         }
+
+        public function ajaxaddppAction(){
+
+            $pp = $this->orm->createDAO('jjh_mg_pp')->findPpname($_REQUEST['ppname'])->get();
+            if(!empty($pp)){
+                echo json_encode(array('status'=>'error','message'=>'姓名／名称已经添加，请查证后再添加！'));
+                exit();
+            }
+
+            $ppinfo = $this->orm->createDAO('jjh_mg_pp');
+            $ppinfo ->ppname = $_REQUEST['ppname'];
+            $ppinfo ->pp_address = $_REQUEST['pp_address'];
+            $ppinfo ->pp_beizhu = $_REQUEST['pp_beizhu'];
+            $ppinfo ->pp_cate = $_REQUEST['pp_cate'];
+            $ppinfo ->pp_msn = $_REQUEST['pp_msn'];
+            $ppinfo ->pp_pm_id = $_REQUEST['pp_pm_id'];
+
+            $ppinfo ->pp_jzf_cate = $_REQUEST['pp_jzf_cate'];
+            $ppinfo ->pp_jzf_attr1 = $_REQUEST['pp_jzf_attr1'];
+            $ppinfo ->pp_jzf_attr2 = $_REQUEST['pp_jzf_attr2'];
+            $ppinfo ->pp_syf_cate = $_REQUEST['pp_syf_cate'];
+            $ppinfo ->pp_yuf_cate = $_REQUEST['pp_yuf_cate'];
+
+
+            $ppinfo ->pp_qq = $_REQUEST['pp_qq'];
+            $ppinfo ->ppemail = $_REQUEST['ppemail'];
+            $ppinfo ->ppmobile = $_REQUEST['ppmobile'];
+            $ppinfo ->ppphone = $_REQUEST['ppphone'];
+
+            if(empty($_REQUEST['ppname'])){
+                echo json_encode(array('status'=>'error','message'=>'姓名／名称不能为空'));
+                exit();
+            }
+            $pid = $ppinfo ->save();
+            echo json_encode(array('status'=>'success','message'=>'添加成功','pid'=>$pid,'ppname'=>$ppinfo['ppname']));
+            exit();
+        }
 		
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
@@ -910,17 +939,6 @@
 			SessionUtil::sessionStart();
 			SessionUtil::checkmanagement();
 
-			//config
-            // 人员类型
-            $jjh_mg_pp_catelist = $this->orm->createDAO("jjh_mg_pp_cate")->get();
-            if(!empty($jjh_mg_pp_catelist)){
-                foreach($jjh_mg_pp_catelist as $key => $value){
-                    $this->pp_config['pp_cate'][$value['pp_cate_name']] = $value['pp_cate_name'];
-                }
-            }
-            $this->view->assign("jjh_mg_pp_catelist",$jjh_mg_pp_catelist);
-			$this->view->assign("pp_config",$this->pp_config);
-			
 			//项目分类
 			$pcatelist = new jjh_mg_cateDAO();
 			$pcatelist =  $pcatelist ->get($this->dbhelper);
