@@ -1068,8 +1068,6 @@
 
 		// new
 		public function pmshouzhinewtoexcelAction(){
-            //ini_set("display_errors", "On");
-            //error_reporting(E_ERROR);
 			$cate = HttpUtil::postString("cate");
 			$department = HttpUtil::postString("department");
             $pname = HttpUtil::postString("pname");
@@ -1077,42 +1075,7 @@
 			$end =  HttpUtil::postString("end");
 
 			if($pname == '') {   //  -- all
-				$zhichuinfo = new pm_mg_infoDAO();
-				$zhichuinfo->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
-				$zhichuinfo->selectField("
-                    IF(
-                        parent_pm_id = '',
-                        concat(parent_pm_id, '-', c.id),
-                        concat('0-', parent_pm_id, '-', c.id)
-                    )AS bpath,
-                     c.id as main_id,
-                     c.parent_pm_id,
-                     c.parent_pm_id_path,
-                     pm_mg_info.pm_name,
-                     pm_mg_info.shiyong_zhichu_datetime,
-                     pm_mg_info.shiyong_zhichu_jiner,
-                     pm_mg_info.zijin_daozhang_datetime,
-                     pm_mg_info.zijin_daozheng_jiner,
-                     pm_mg_info.pm_juanzeng_cate,
-                     c.department,
-                     c.pm_fzr_mc,
-                     pm_mg_info.pm_pp
-                      ");
-
-				if($cate != ""){
-					$zhichuinfo ->pm_juanzeng_cate = $cate;
-				}
-				if($department != ""){
-					$zhichuinfo ->selectLimit .= " and c.department=".$department;
-				}
-				if ($start != "" && $end != "") {
-					$zhichuinfo->selectLimit .= " and ((shiyong_zhichu_datetime between '$start' and '$end') OR (zijin_daozhang_datetime between '$start' and '$end'))";
-				}
-                $zhichuinfo->selectLimit .= " and c.id!='' ";
-
-				$zhichuinfo->selectLimit .= " and pm_mg_info.is_renling=1 order by bpath";
-				//$zhichuinfo ->debugSql =true;
-				$zhichuinfo = $zhichuinfo->get($this->dbhelper);
+				$zhichuinfo = $this->get_chouzi_shouzi($cate,$department,$start,$end);
 
 				if (count($zhichuinfo) == 0) {
 					echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
@@ -1212,43 +1175,7 @@
 				$objWriter->save('php://output');
 				exit;
 			} else {  // 单个项目统计收支
-                $zhichuinfo = new pm_mg_infoDAO();
-                $zhichuinfo->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
-                $zhichuinfo->selectField("
-                    IF(
-                        parent_pm_id = '',
-                        concat(parent_pm_id, '-', c.id),
-                        concat('0-', parent_pm_id, '-', c.id)
-                    )AS bpath,
-                     c.id as main_id,
-                     c.parent_pm_id,
-                     c.parent_pm_id_path,
-                     pm_mg_info.pm_name,
-                     pm_mg_info.shiyong_zhichu_datetime,
-                     pm_mg_info.shiyong_zhichu_jiner,
-                     pm_mg_info.zijin_daozhang_datetime,
-                     pm_mg_info.zijin_daozheng_jiner,
-                     pm_mg_info.pm_juanzeng_cate,
-                     c.department,
-                     c.pm_fzr_mc,
-                     pm_mg_info.pm_pp");
-
-				if($cate != ""){
-					$zhichuinfo ->pm_juanzeng_cate = $cate;
-				}
-				if($department != ""){
-					$zhichuinfo ->selectLimit .= " and c.department=".$department;
-				}
-
-                if ($start != "" && $end != "") {
-                    $zhichuinfo->selectLimit .= " and ((shiyong_zhichu_datetime between '$start' and '$end') OR (zijin_daozhang_datetime between '$start' and '$end'))";
-                }
-                $zhichuinfo->selectLimit .= " and pm_mg_info.pm_name='".$pname."' ";
-                $zhichuinfo->selectLimit .= " and c.id!='' ";
-
-                $zhichuinfo->selectLimit .= " and pm_mg_info.is_renling=1 order by bpath";
-                //$zhichuinfo ->debugSql =true;
-                $zhichuinfo = $zhichuinfo->get($this->dbhelper);
+                $zhichuinfo = $this->get_chouzi_shouzi($cate,$department,$start,$end,$pname);
 
                 if (count($zhichuinfo) == 0) {
                     echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
@@ -1327,6 +1254,62 @@
                 $objWriter = PHPExcel_IOFactory::createWriter($zhichutj, 'Excel5');
                 $objWriter->save('php://output');
                 exit;
+			}
+		}
+
+		/**
+		 * 获取chouzi收支明细
+		 * @param string $cate
+		 * @param string $department
+		 * @param string $start
+		 * @param string $end
+		 * @param string $pname
+		 * @return mixed
+		 * @throws Exception
+		 */
+		public function get_chouzi_shouzi($cate='', $department='', $start='', $end='', $pname=''){
+			try{
+				$zhichuinfo = new pm_mg_infoDAO();
+				$zhichuinfo->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
+				$zhichuinfo->selectField("
+                    IF(
+                        parent_pm_id = '',
+                        concat(parent_pm_id, '-', c.id),
+                        concat('0-', parent_pm_id, '-', c.id)
+                    )AS bpath,
+                     c.id as main_id,
+                     c.parent_pm_id,
+                     c.parent_pm_id_path,
+                     pm_mg_info.pm_name,
+                     pm_mg_info.shiyong_zhichu_datetime,
+                     pm_mg_info.shiyong_zhichu_jiner,
+                     pm_mg_info.zijin_daozhang_datetime,
+                     pm_mg_info.zijin_daozheng_jiner,
+                     pm_mg_info.pm_juanzeng_cate,
+                     c.department,
+                     c.pm_fzr_mc,
+                     pm_mg_info.pm_pp");
+
+				if($cate != ""){
+					$zhichuinfo ->pm_juanzeng_cate = $cate;
+				}
+				if($department != ""){
+					$zhichuinfo ->selectLimit .= " and c.department=".$department;
+				}
+
+				if ($start != "" && $end != "") {
+					$zhichuinfo->selectLimit .= " and ((shiyong_zhichu_datetime between '$start' and '$end') OR (zijin_daozhang_datetime between '$start' and '$end'))";
+				}
+				if($pname != "") {
+					$zhichuinfo->selectLimit .= " and pm_mg_info.pm_name='" . $pname . "' ";
+				}
+				$zhichuinfo->selectLimit .= " and c.id!='' ";
+
+				$zhichuinfo->selectLimit .= " and pm_mg_info.is_renling=1 order by bpath";
+				//$zhichuinfo ->debugSql =true;
+				return $zhichuinfo->get($this->dbhelper);
+			}catch(Exception $e){
+				throw $e;
 			}
 		}
 
