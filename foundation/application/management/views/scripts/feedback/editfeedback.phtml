@@ -74,10 +74,17 @@
                         <label class="col-sm-2 control-label" for="input01">回馈人：</label>
 
                         <div class="col-sm-9">
-                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="feedbacker[]" id="feedbacker">
+                            <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="feedbacker[]" id="feedbacker">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
-                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                        <option value="<?php echo $k?>" <?php
+                                        if(!empty($this->pm_mg_feedbackDAO[0]['feedbacker'])){
+                                            foreach(explode($this->pm_mg_feedbackDAO[0]['feedbacker']) as $key => $value){
+                                                if($k == $value){
+                                                    echo "selected='selected'";
+                                                }
+                                            }
+                                        }?>><?php echo $v?></option>
                                     <?php }}?>
                             </select>
                         </div>
@@ -87,10 +94,17 @@
                         <label class="col-sm-2 control-label" for="input01">经办人：</label>
 
                         <div class="col-sm-9">
-                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="jbr[]" id="jbr">
+                            <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="jbr[]" id="jbr">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
-                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                        <option value="<?php echo $k?>" <?php
+                                        if(!empty($this->pm_mg_feedbackDAO[0]['jbr'])){
+                                            foreach(explode($this->pm_mg_feedbackDAO[0]['jbr']) as $key => $value){
+                                                if($k == $value){
+                                                    echo "selected='selected'";
+                                                }
+                                            }
+                                        }?>><?php echo $v?></option>
                                     <?php }}?>
                             </select>
                         </div>
@@ -130,15 +144,15 @@
         <script src="/include/management/assets/js/jquery.js"></script>
 
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="/include/management/css/bootstrap-select.min.css">
+        <!--<link rel="stylesheet" href="/include/management/css/bootstrap-select.min.css">-->
 
         <!-- Latest compiled and minified JavaScript -->
-        <script src="/include/management/js/bootstrap-select.min.js"></script>
+        <!--<script src="/include/management/js/bootstrap-select.min.js"></script>-->
 
         <script language="javascript">
             $(".menu li:eq(8)").addClass("open");
 
-            $('#feedbacker').selectpicker({
+            /*$('#feedbacker').selectpicker({
                 selectedText: 'cat',
                 liveSearch: true,
                 size:8
@@ -156,6 +170,6 @@
 
             var str2='<?php echo $this->pm_mg_feedbackDAO[0]['jbr']?>';
             var arr2=str2.split(',');
-            $('#jbr').selectpicker('val', arr2);
+            $('#jbr').selectpicker('val', arr2);*/
         </script>
 

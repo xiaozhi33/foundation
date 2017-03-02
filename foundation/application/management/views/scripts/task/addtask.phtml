@@ -81,7 +81,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input01">协助者：</label>
                         <div class="col-sm-3">
-                            <select class="selectpicker show-tick form-control" multiple data-live-search="false" name="helper[]" id="helper">
+                            <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="helper[]" id="helper">
                                 <!--<option value="" >请选择...</option>-->
                                 <?php if($this->admin_list != ""){
                                     foreach ($this->admin_list as $k => $v){?>
@@ -152,7 +152,7 @@
 
         <script language="javascript">
             $(".menu li:eq(35)").addClass("open");
-            $('#helper').selectpicker({
+            /*$('#helper').selectpicker({
                 selectedText: 'cat',
                 liveSearch: true,
                 size:8
@@ -160,6 +160,6 @@
 
             var str='<?php echo $this->task_info[0]['helper']?>';
             var arr=str.split(',');
-            $('#helper').selectpicker('val', arr);
+            $('#helper').selectpicker('val', arr);*/
         </script>
 
