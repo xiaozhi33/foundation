@@ -117,8 +117,8 @@
                         $zw_department_relatedDAO ->zw_bmmc = $_REQUEST['name'];
                         $zw_department_relatedDAO ->save();
 
-                    /*    alert_go("添加成功！", "/management/admin/department");
-                    }else {
+                       alert_go("添加成功！", "/management/admin/department");
+					/* }else {
                         alert_back("添加同步财务系统失败！");
                     }*/
                 }else {
