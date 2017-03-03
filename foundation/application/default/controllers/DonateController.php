@@ -36,7 +36,7 @@
 		
 		//获取子分类信息ajax
 		public function getsmallcateAction(){
-			$cate_id = HttpUtil::postInsString("cid");
+			(int)$cate_id = HttpUtil::postInsString("cid");
 			if($cate_id != 0){
 				$my_categoryDAO = new my_categoryDAO();
 				$my_categoryDAO ->selectField(" c_id,c_name");
