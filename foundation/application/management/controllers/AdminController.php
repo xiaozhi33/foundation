@@ -102,9 +102,9 @@
                     $deparmentlDAO = new CW_API();
                     $rs1 = $deparmentlDAO ->get_max_departmentID();
                     $bmbh = (int)$rs1[0]['bmbh'] + 1;
-                    $zwbmzdlDAO = new CW_API();
+                    /*$zwbmzdlDAO = new CW_API();
                     $rs = $zwbmzdlDAO ->sync_department($bmbh, $_REQUEST['name']);
-                    if($rs){
+                    if($rs){*/
                         $departmentinfo = new jjh_mg_departmentDAO();
                         $departmentinfo ->pname = $_REQUEST['name'];
                         $pid = $departmentinfo->save($this->dbhelper);
@@ -117,10 +117,10 @@
                         $zw_department_relatedDAO ->zw_bmmc = $_REQUEST['name'];
                         $zw_department_relatedDAO ->save();
 
-                        alert_go("添加成功！", "/management/admin/department");
+                    /*    alert_go("添加成功！", "/management/admin/department");
                     }else {
                         alert_back("添加同步财务系统失败！");
-                    }
+                    }*/
                 }else {
                     alert_back("添加失败");
                 }
