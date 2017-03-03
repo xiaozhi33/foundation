@@ -94,7 +94,8 @@
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">项目负责人：</label>
                         <div class="col-sm-6">
-                            <select data-placeholder="请选择相关人员..." class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_fzr[]" id="pm_fzr">
+                            <!--data-placeholder="请选择相关人员..."-->
+                            <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_fzr[]" id="pm_fzr">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>"><?php echo $v?></option>

@@ -140,13 +140,13 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">参会人员：</label>
 
-                            <div class="col-sm-9">
+                            <div class="col-sm-6">
                                 <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="meeting_joiner[]" id="meeting_joiner">
                                     <?php if($this->jjh_mg_pp_list != ""){
                                         foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                             <option value="<?php echo $v['pid']?>" <?php
                                             if(!empty($this->meeting_info[0]['meeting_joiner'])){
-                                                foreach(explode($this->meeting_info[0]['meeting_joiner']) as $key => $value){
+                                                foreach(explode(',',$this->meeting_info[0]['meeting_joiner']) as $key => $value){
                                                     if($v['pid'] == $value){
                                                         echo "selected='selected'";
                                                     }
@@ -155,6 +155,7 @@
                                         <?php }}?>
                                 </select>
                             </div>
+                            <span class="col-sm-2 addpp" >添加人员信息</span>
                         </div>
 
 

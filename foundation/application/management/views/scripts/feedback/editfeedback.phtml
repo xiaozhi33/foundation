@@ -73,13 +73,13 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input01">回馈人：</label>
 
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="feedbacker[]" id="feedbacker">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>" <?php
                                         if(!empty($this->pm_mg_feedbackDAO[0]['feedbacker'])){
-                                            foreach(explode($this->pm_mg_feedbackDAO[0]['feedbacker']) as $key => $value){
+                                            foreach(explode(',',$this->pm_mg_feedbackDAO[0]['feedbacker']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
@@ -88,18 +88,19 @@
                                     <?php }}?>
                             </select>
                         </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input01">经办人：</label>
 
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="jbr[]" id="jbr">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>" <?php
                                         if(!empty($this->pm_mg_feedbackDAO[0]['jbr'])){
-                                            foreach(explode($this->pm_mg_feedbackDAO[0]['jbr']) as $key => $value){
+                                            foreach(explode(',',$this->pm_mg_feedbackDAO[0]['jbr']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
@@ -108,6 +109,7 @@
                                     <?php }}?>
                             </select>
                         </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <div class="form-group">

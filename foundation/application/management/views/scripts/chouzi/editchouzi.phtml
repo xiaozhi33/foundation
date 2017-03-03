@@ -92,16 +92,13 @@
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">项目负责人：</label>
-                        <!--<div class="col-sm-3">
-                            <input class="form-control" value="<?php /*echo $this->chouzi[0]['pm_fzr']*/?>" type="text"  name="pm_fzr"  size="14"/>
-                        </div>-->
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_fzr[]" id="pm_fzr">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>" <?php
                                         if(!empty($this->chouzi[0]['pm_fzr'])){
-                                            foreach(explode($this->chouzi[0]['pm_fzr']) as $key => $value){
+                                            foreach(explode(',',$this->chouzi[0]['pm_fzr']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
@@ -110,6 +107,7 @@
                                     <?php }}?>
                             </select>
                         </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <!--<div class="form-group transparent-editor">
@@ -129,16 +127,13 @@
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">项目联络人：</label>
-                        <!--<div class="col-sm-3">
-                            <input class="form-control" value="<?php /*echo $this->chouzi[0]['pm_llr']*/?>" type="text"  name="pm_llr"  size="14"/>
-                        </div>-->
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_llr[]" id="pm_llr">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>" <?php
                                         if(!empty($this->chouzi[0]['pm_llr'])){
-                                            foreach(explode($this->chouzi[0]['pm_llr']) as $key => $value){
+                                            foreach(explode(',',$this->chouzi[0]['pm_llr']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
@@ -147,6 +142,7 @@
                                     <?php }}?>
                             </select>
                         </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <!--<div class="form-group transparent-editor">
@@ -165,13 +161,13 @@
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">执行负责人：</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="execute_fzr[]" id="execute_fzr">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>" <?php
                                         if(!empty($this->chouzi[0]['execute_fzr'])){
-                                            foreach(explode($this->chouzi[0]['execute_fzr']) as $key => $value){
+                                            foreach(explode(',',$this->chouzi[0]['execute_fzr']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
@@ -180,17 +176,18 @@
                                     <?php }}?>
                             </select>
                         </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">执行联络人：</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="execute_llr[]" id="execute_llr">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>" <?php
                                         if(!empty($this->chouzi[0]['execute_llr'])){
-                                            foreach(explode($this->chouzi[0]['execute_llr']) as $key => $value){
+                                            foreach(explode(',',$this->chouzi[0]['execute_llr']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
@@ -199,17 +196,18 @@
                                     <?php }}?>
                             </select>
                         </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">筹款负责人：</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_ckfzr[]" id="pm_ckfzr">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>" <?php
                                         if(!empty($this->chouzi[0]['pm_ckfzr'])){
-                                            foreach(explode($this->chouzi[0]['pm_ckfzr']) as $key => $value){
+                                            foreach(explode(',',$this->chouzi[0]['pm_ckfzr']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
@@ -218,6 +216,7 @@
                                     <?php }}?>
                             </select>
                         </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <!--<div class="form-group transparent-editor">
@@ -236,16 +235,13 @@
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方：</label>
-                        <!--<div class="col-sm-3">
-                            <input class="form-control" value="<?php /*echo $this->chouzi[0]['pm_jzf']*/?>" type="text"  name="pm_jzf"  size="14"/>
-                        </div>-->
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_jzf[]" id="pm_jzf">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>" <?php
                                         if(!empty($this->chouzi[0]['pm_jzf'])){
-                                            foreach(explode($this->chouzi[0]['pm_jzf']) as $key => $value){
+                                            foreach(explode(',',$this->chouzi[0]['pm_jzf']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
@@ -254,6 +250,7 @@
                                     <?php }}?>
                             </select>
                         </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <!--<div class="form-group transparent-editor">
@@ -272,16 +269,13 @@
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方联络人：</label>
-                        <!--<div class="col-sm-3">
-                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_jzfllr']*/?>" type="text"  name="pm_jzfllr"  size="14"/>
-                        </div>-->
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_jzfllr[]" id="pm_jzfllr">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>" <?php
                                         if(!empty($this->chouzi[0]['pm_jzfllr'])){
-                                            foreach(explode($this->chouzi[0]['pm_jzfllr']) as $key => $value){
+                                            foreach(explode(',',$this->chouzi[0]['pm_jzfllr']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
@@ -290,6 +284,7 @@
                                     <?php }}?>
                             </select>
                         </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <!--<div class="form-group transparent-editor">
@@ -311,13 +306,13 @@
                         <!--<div class="col-sm-3">
                             <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_sjjzf']*/?>"  type="text"  name="pm_sjjzf"  size="14"/>
                         </div>-->
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_sjjzf[]" id="pm_sjjzf">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>" <?php
                                         if(!empty($this->chouzi[0]['pm_sjjzf'])){
-                                            foreach(explode($this->chouzi[0]['pm_sjjzf']) as $key => $value){
+                                            foreach(explode(',',$this->chouzi[0]['pm_sjjzf']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
@@ -326,6 +321,7 @@
                                     <?php }}?>
                             </select>
                         </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <!--<div class="form-group transparent-editor">
@@ -345,16 +341,13 @@
 
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方联络人：</label>
-                        <!--<div class="col-sm-3">
-                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_sjjzfllr']*/?>" type="text"  name="pm_sjjzfllr"  size="14"/>
-                        </div>-->
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_sjjzfllr[]" id="pm_sjjzfllr">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>" <?php
                                         if(!empty($this->chouzi[0]['pm_sjjzfllr'])){
-                                            foreach(explode($this->chouzi[0]['pm_sjjzfllr']) as $key => $value){
+                                            foreach(explode(',',$this->chouzi[0]['pm_sjjzfllr']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
@@ -363,6 +356,7 @@
                                     <?php }}?>
                             </select>
                         </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <!--<div class="form-group transparent-editor">

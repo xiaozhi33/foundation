@@ -37,7 +37,7 @@
                                         foreach ($this->jjh_mg_director_list as $k => $v){?>
                                             <option value="<?php echo $k?>" <?php
                                             if(!empty($this->organization_info[0]['director'])){
-                                                foreach(explode($this->organization_info[0]['director']) as $key => $value){
+                                                foreach(explode(',',$this->organization_info[0]['director']) as $key => $value){
                                                     if($k == $value){
                                                         echo "selected='selected'";
                                                     }
