@@ -130,14 +130,14 @@ class Management_organizationController extends BaseController
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('保存成功');");
-            echo("location.href='/management/organization/index?director_id=".$director."';");
+            echo("location.href='/management/organization/index?director_id=".$director."&type=".$organization_type."';");
             echo('</script>');
             exit;
         }else {
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('保存成功');");
-            echo("location.href='/management/organization/index?director_id=".$director."';");
+            echo("location.href='/management/organization/index?director_id=".$director."&type=".$organization_type."';");
             echo('</script>');
             exit;
             //echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/organization/?'.$this->org_type_status));

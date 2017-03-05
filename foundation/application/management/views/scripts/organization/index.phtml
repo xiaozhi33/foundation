@@ -41,9 +41,8 @@
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="input02"> </label>
-                           <!-- <input class="btn btn-primary btn-block" type="button" value="添加<?php /*echo $this->org_type_array[$this->org_type_status];*/?>成员信息" onclick="window.location.href='/management/organization/addorganizationmain?type=<?php /*echo $this->org_type_status;*/?>'"/>-->
 
-                            <input class="btn btn-primary btn-block" type="button" value="添加成员信息" onclick="window.location.href='/management/organization/addorganizationmain?director_id=<?php echo $_REQUEST['director_id'];?>'"/>
+                            <input class="btn btn-primary btn-block" type="button" value="添加成员信息" onclick="window.location.href='/management/organization/addorganizationmain?director_id=<?php echo $_REQUEST['director_id'];?>&type=<?php echo $this->org_type_status;?>'"/>
 
                         </div>
                         <input type="hidden" name="type" value="<?php echo $this->org_type_status;?>">
@@ -100,9 +99,8 @@
                          <div class="row">
                              <div class="col-md-offset-1 col-sm-2">
                                  <label for="input02">暂无机构成员信息！ </label>
-                                 <!--<input class="btn btn-primary btn-block" type="button" value="添加<?php /*echo $this->org_type_array[$this->org_type_status];*/?>成员信息" onclick="window.location.href='/management/organization/addorganizationmain?type=<?php /*echo $this->org_type_status;*/?>'"/>-->
 
-                                 <input class="btn btn-primary btn-block" type="button" value="添加<?php echo $this->org_type_array[$this->org_type_status];?>成员信息" onclick="window.location.href='/management/organization/addorganizationmain?director_id=<?php echo $_REQUEST['director_id'];?>'"/>
+                                 <input class="btn btn-primary btn-block" type="button" value="添加<?php echo $this->org_type_array[$this->org_type_status];?>成员信息" onclick="window.location.href='/management/organization/addorganizationmain?director_id=<?php echo $_REQUEST['director_id'];?>&type=<?php echo $this->org_type_status;?>'"/>
                              </div>
                          </div>
                      </div>
