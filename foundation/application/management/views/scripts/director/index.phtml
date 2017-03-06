@@ -39,7 +39,7 @@
                                 <td><?php echo $v['star_datetime'];?></td>
                                 <td><?php echo $v['end_datetime'];?></td>
                                 <td>
-                                    <a href="/management/pp/editdirector?id=<?php echo $v['id'];?>">
+                                    <a href="/management/organization/editdirector?id=<?php echo $v['id'];?>">
                                         <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
 
                                     <a href="/management/organization/index?director_id=<?php echo $v['id'];?>" target="_blank">
@@ -48,7 +48,7 @@
                                     <a href="/management/organization/addorganizationmain?director_id=<?php echo $v['id'];?>">
                                         <button type="button" class="btn btn-greensea margin-bottom-20">添加成员信息</button></a>
 
-                                    <a href="/management/pp/deldirector?id=<?php echo $v['id'];?>" onclick= "if(confirm( '是否确定！ 删除将无法找回该历届理事会信息。')==false) return false; "><button type="button" class="btn btn-danger margin-bottom-20">删除</button></a></td>
+                                    <a href="/management/organization/deldirector?id=<?php echo $v['id'];?>" onclick= "if(confirm( '是否确定！ 删除将无法找回该历届理事会信息。')==false) return false; "><button type="button" class="btn btn-danger margin-bottom-20">删除</button></a></td>
                             </tr>
                         <?php }?>
                         </tbody>
@@ -60,7 +60,7 @@
                             共  <?php echo $this->total;?> 条          <?php echo $this->page;?></div>
 
                         <?php }else{?>
-                            <div>暂无历届理事会信息！<a href="/management/pp/adddirector">点击添加</a></div>
+                            <div>暂无历届理事会信息！<a href="/management/organization/adddirector">点击添加</a></div>
                         <?php }?>
                     </div>
                 </div>

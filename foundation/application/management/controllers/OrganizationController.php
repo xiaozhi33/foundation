@@ -205,6 +205,93 @@ class Management_organizationController extends BaseController
         }
     }
 
+    // ==========================  历届理事会信息 ================================================================
+
+    public function directorAction(){
+        $directorlist = $this->orm->createDAO("jjh_mg_director")->get();
+        $total = count($directorlist);
+        $pageDAO = new pageDAO();
+        $pageDAO = $pageDAO ->pageHelper($directorlist,null,"ppcate",null,'get',20,20);
+        $pages = $pageDAO['pageLink']['all'];
+        $pages = str_replace("/index.php","",$pages);
+        $this->view->assign('directorlist',$pageDAO['pageData']);
+        $this->view->assign('page',$pages);
+        $this->view->assign('total',$total);
+
+        echo $this->view->render("index/header.phtml");
+        echo $this->view->render('director/index.phtml');
+        echo $this->view->render("index/footer.phtml");
+    }
+
+    public function adddirectorAction(){
+        echo $this->view->render("index/header.phtml");
+        echo $this->view->render("director/adddirector.phtml");
+        echo $this->view->render("index/footer.phtml");
+    }
+
+    public function addrsdirectorAction(){
+        try{
+            if($_REQUEST['director'] != "" ){
+                $directorinfo = $this->orm->createDAO("jjh_mg_director");
+                $directorinfo ->director = $_REQUEST['director'];
+                $directorinfo ->star_datetime = $_REQUEST['star_datetime'];
+                $directorinfo ->end_datetime = $_REQUEST['end_datetime'];
+                $pid = $directorinfo->save($this->dbhelper);
+                alert_go("添加成功！", "/management/organization/director");
+            }else {
+                alert_back("添加失败！");
+            }
+        }catch (Exception $e){
+            throw $e;
+        }
+    }
+
+    public function editdirectorAction(){
+        if($_REQUEST['id'] != ""){
+            $directorinfo = $this->orm->createDAO("jjh_mg_director")->findId($_REQUEST['id']);
+            $directorinfo = $directorinfo->get($this->dbhelper);
+            $this->view->assign("directorinfo",$directorinfo);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("director/editdirector.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }else {
+            alert_back("操作失败");
+        }
+    }
+
+    public function editrsdirectorAction(){
+        if($_REQUEST['director'] != "" && $_REQUEST['id']){
+            $directorinfo = $this->orm->createDAO("jjh_mg_director")->findId($_REQUEST['id']);
+            $directorinfo ->director = $_REQUEST['director'];
+            $directorinfo ->star_datetime = $_REQUEST['star_datetime'];
+            $directorinfo ->end_datetime = $_REQUEST['end_datetime'];
+            $directorinfo->save();
+            alert_go("编辑成功。","/management/organization/director");
+        }else {
+            alert_back("添加失败");
+        }
+    }
+
+    public function deldirectorAction(){
+        if($_REQUEST['id'] != ""){
+            $this->orm->createDAO("jjh_mg_director")->findId($_REQUEST['id'])->delete();
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('删除成功');");
+            echo("location.href='/management/organization/director';");
+            echo('</script>');
+            exit;
+        }else {
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('操作失败');");
+            echo("location.href='/management/organization/director';");
+            echo('</script>');
+            exit;
+        }
+    }
+
     public function _init(){
         error_reporting(0);
         //error_reporting(E_ALL);
