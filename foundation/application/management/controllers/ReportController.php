@@ -1269,12 +1269,12 @@
 
                 if($end != ''){
                     // 统计结束日期的项目所有来款 - 所有支出
-                    $shouruDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($v['pm_name'])->select(' sum(zijin_daozheng_jiner) as shouru');
+                    $shouruDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($pname)->select(' sum(zijin_daozheng_jiner) as shouru');
                     $shouruDAO->selectLimit .= " AND is_renling = 1";
                     $shouruDAO->selectLimit .= " AND zijin_daozhang_datetime <".$end;
                     $shouruDAO = $shouruDAO->get();
 
-                    $zhichuDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($v['pm_name'])->select(' sum(shiyong_zhichu_jiner) as zhichu');
+                    $zhichuDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($pname)->select(' sum(shiyong_zhichu_jiner) as zhichu');
                     $zhichuDAO->selectLimit .= " AND is_renling = 1";
                     $zhichuDAO->selectLimit .= " AND shiyong_zhichu_datetime <".$end;
                     $zhichuDAO = $zhichuDAO->get();
@@ -1282,11 +1282,11 @@
                     $remaining_sum = round(($shouruDAO[0]['shouru'] - $zhichuDAO[0]['zhichu']),2);
                 }else {
                     // 统计项目所有来款 - 所有支出
-                    $shouruDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($v['pm_name'])->select(' sum(zijin_daozheng_jiner) as shouru');
+                    $shouruDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($pname)->select(' sum(zijin_daozheng_jiner) as shouru');
                     $shouruDAO->selectLimit .= " AND is_renling = 1";
                     $shouruDAO = $shouruDAO->get();
 
-                    $zhichuDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($v['pm_name'])->select(' sum(shiyong_zhichu_jiner) as zhichu');
+                    $zhichuDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($pname)->select(' sum(shiyong_zhichu_jiner) as zhichu');
                     $zhichuDAO->selectLimit .= " AND is_renling = 1";
                     $zhichuDAO = $zhichuDAO->get();
                     $remaining_sum = round(($shouruDAO[0]['shouru'] - $zhichuDAO[0]['zhichu']),2);
