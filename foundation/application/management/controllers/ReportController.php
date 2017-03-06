@@ -1121,6 +1121,7 @@
                         $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . round($shouru,2));
                         $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . round($zhichu,2));
 
+                        $remaining_sum = '';
                         if($end != ''){
                             // 统计结束日期的项目所有来款 - 所有支出
                             $shouruDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($v['pm_name'])->select(' sum(zijin_daozheng_jiner) as shouru');
@@ -1266,7 +1267,7 @@
                 }
                 $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . round($shouru,2));
                 $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . round($zhichu,2));
-
+                $remaining_sum = '';
                 if($end != ''){
                     // 统计结束日期的项目所有来款 - 所有支出
                     $shouruDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($pname)->select(' sum(zijin_daozheng_jiner) as shouru');
