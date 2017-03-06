@@ -501,14 +501,12 @@
                         </div>
                     </div>
 
-                    <?php if($this->chouzi[0]['history_pm_fzr'] != ''){?>
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">项目负责人变更：</label>
                         <div class="col-sm-9">
-                            <textarea parsley-validation-minlength="1" name="" parsley-rangelength="[20,200]" readonly parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->chouzi[0]['history_pm_fzr'];?></textarea>
+                            <textarea parsley-validation-minlength="1" name="history_pm_fzr" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->chouzi[0]['history_pm_fzr'];?></textarea>
                         </div>
                     </div>
-                    <?php }?>
 
 						<input type="hidden" name="id" value="<?php echo $this->chouzi[0]['id'];?>"/>
 						<input type="hidden" name="oldpic" value="<?php echo $this->chouzi[0]['pm_xieyii_dianziban'];?>"/>

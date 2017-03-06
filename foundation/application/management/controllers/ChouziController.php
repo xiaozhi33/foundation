@@ -435,13 +435,13 @@
                 $logName = SessionUtil::getAdmininfo();
                 addlog("修改筹资信息-" . $pname, $logName['admin_name'], $_SERVER['REMOTE_ADDR'], date("Y-m-d H:i:s", time()), json_encode($pm_chouziDAO));
 
+                $pm_chouziDAO->history_pm_fzr = $_REQUEST['history_pm_fzr'];
+
                 if($_pm_chouziDAO[0]['pm_fzr'] != $pm_fzr){
                     $pm_fzr_array = explode(',',$pm_fzr);
                     // 当项目负责人发生变化时，记录到历史负责人中。（ 变化时间，和变化到人员信息）
-                    $pm_chouziDAO ->history_pm_fzr .= $_pm_chouziDAO[0]['history_pm_fzr'];
-                    $pm_chouziDAO ->history_pm_fzr .= '\n项目负责人于：'.date('Y-m-d',time()).'发生变更；'.'变更负责人为：'.$this->jjh_mg_pp_list[$pm_fzr_array[0]].' '.$this->jjh_mg_pp_list[$pm_fzr_array[1]].' '.$this->jjh_mg_pp_list[$pm_fzr_array[2]].' '.$this->jjh_mg_pp_list[$pm_fzr_array[3]].' ';
+                    $pm_chouziDAO ->history_pm_fzr = $_REQUEST['history_pm_fzr'].'\n项目负责人于：'.date('Y-m-d',time()).'发生变更；'.'变更负责人为：'.$this->jjh_mg_pp_list[$pm_fzr_array[0]].' '.$this->jjh_mg_pp_list[$pm_fzr_array[1]].' '.$this->jjh_mg_pp_list[$pm_fzr_array[2]].' '.$this->jjh_mg_pp_list[$pm_fzr_array[3]].' ';
                 }
-
 
                 $pm_chouziDAO->save($this->dbhelper);
 
