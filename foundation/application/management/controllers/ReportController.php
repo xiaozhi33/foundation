@@ -1115,42 +1115,18 @@
 				$ii = 2;
 				$zhichu = '';
 				$shouru = '';
+                $remaining_sum = '';
+                $sub_pm_name = array();
 				$xiangmushuliang = array(); // 项目数量 只统计父类id
 				foreach ($zhichuinfo as $key => $v) {
                     if(!in_array($v['main_id'], $xiangmushuliang) && $v['parent_pm_id'] == 0 && $key > 2){  // 不是父子关系项目 结束统计
                         $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . round($shouru,2));
                         $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . round($zhichu,2));
-
-                        $remaining_sum = '';
-                        if($end != ''){
-                            // 统计结束日期的项目所有来款 - 所有支出
-                            $shouruDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($v['pm_name'])->select(' sum(zijin_daozheng_jiner) as shouru');
-                            $shouruDAO->selectLimit .= " AND zijin_daozhang_datetime <".$end;
-                            $shouruDAO->selectLimit .= " AND is_renling = 1";
-                            $shouruDAO = $shouruDAO->get();
-
-                            $zhichuDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($v['pm_name'])->select(' sum(shiyong_zhichu_jiner) as zhichu');
-                            $zhichuDAO->selectLimit .= " AND is_renling = 1";
-                            $zhichuDAO->selectLimit .= " AND shiyong_zhichu_datetime <".$end;
-                            $zhichuDAO = $zhichuDAO->get();
-
-                            $remaining_sum = round(($shouruDAO[0]['shouru'] - $zhichuDAO[0]['zhichu']),2);
-                        }else {
-                            // 统计项目所有来款 - 所有支出
-                            $shouruDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($v['pm_name'])->select(' sum(zijin_daozheng_jiner) as shouru');
-                            $shouruDAO->selectLimit .= " AND is_renling = 1";
-                            $shouruDAO = $shouruDAO->get();
-
-                            $zhichuDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($v['pm_name'])->select(' sum(shiyong_zhichu_jiner) as zhichu');
-                            $zhichuDAO->selectLimit .= " AND is_renling = 1";
-                            $zhichuDAO = $zhichuDAO->get();
-                            $remaining_sum = round(($shouruDAO[0]['shouru'] - $zhichuDAO[0]['zhichu']),2);
-                        }
-
                         $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . $ii, "余额" . $remaining_sum);
                         $remaining_sum = '';
                         $zhichu = '';
                         $shouru = '';
+                        $sub_pm_name = array();
                         $ii = $ii+3;
                         $xiangmushuliang[] = $v['main_id'];
 
@@ -1187,7 +1163,57 @@
 					$ii++;
 					$zhichu += $v['shiyong_zhichu_jiner'];
 					$shouru += $v['zijin_daozheng_jiner'];
-				}
+
+                    // 判断二级分类是否存在
+                    if(!in_array($v['pm_name'],$sub_pm_name)){
+                        $sub_pm_name[] = $v['pm_name'];
+                    }
+
+                    if($end != ''){
+                        // 统计结束日期的项目所有来款 - 所有支出
+                        $shouruDAO = $this->orm->createDAO('pm_mg_info')->select(' sum(zijin_daozheng_jiner) as shouru');
+                        if(count($sub_pm_name) == 1){
+                            $shouruDAO->selectLimit .= " AND pm_name ='".$sub_pm_name[0]."'" ;
+                        }else{
+                            $shouruDAO->selectLimit .= " AND (pm_name='".implode("' OR pm_name='", $sub_pm_name)."')";
+                        }
+                        $shouruDAO->selectLimit .= " AND zijin_daozhang_datetime <= '".$end."'";
+                        $shouruDAO->selectLimit .= " AND is_renling = 1";
+                        $shouruDAO = $shouruDAO->get();
+
+                        $zhichuDAO = $this->orm->createDAO('pm_mg_info')->select(' sum(shiyong_zhichu_jiner) as zhichu');
+                        if(count($sub_pm_name) == 1){
+                            $zhichuDAO->selectLimit .= " AND pm_name ='".$sub_pm_name[0]."'" ;
+                        }else{
+                            $zhichuDAO->selectLimit .= " AND (pm_name ='".implode("' OR pm_name ='", $sub_pm_name)."')";
+                        }
+                        $zhichuDAO->selectLimit .= " AND is_renling = 1";
+                        $zhichuDAO->selectLimit .= " AND shiyong_zhichu_datetime <= '".$end."'";
+                        $zhichuDAO = $zhichuDAO->get();
+                    }else {
+                        // 统计项目所有来款 - 所有支出
+                        $shouruDAO = $this->orm->createDAO('pm_mg_info')->select(' sum(zijin_daozheng_jiner) as shouru');
+                        if(count($sub_pm_name) == 1){
+                            $shouruDAO->selectLimit .= " AND pm_name ='".$sub_pm_name[0]."'" ;
+                        }else{
+                            $shouruDAO->selectLimit .= " AND (pm_name='".implode("' OR pm_name='", $sub_pm_name)."')";
+                        }
+                        $shouruDAO->selectLimit .= " AND is_renling = 1";
+                        $shouruDAO = $shouruDAO->get();
+
+                        $zhichuDAO = $this->orm->createDAO('pm_mg_info')->select(' sum(shiyong_zhichu_jiner) as zhichu');
+                        if(count($sub_pm_name) == 1){
+                            $zhichuDAO->selectLimit .= " AND pm_name ='".$sub_pm_name[0]."'" ;
+                        }else{
+                            $zhichuDAO->selectLimit .= " AND (pm_name='".implode("' OR pm_name='", $sub_pm_name)."')";
+                        }
+                        $zhichuDAO->selectLimit .= " AND is_renling = 1";
+                        $zhichuDAO = $zhichuDAO->get();
+                    }
+                    $remaining_sum = round(((int)$shouruDAO[0]['shouru'] - (int)$zhichuDAO[0]['zhichu']),2);
+                }
+
+
 				$ii = "";
 
 				$zhichutj->getActiveSheet()->setTitle('zijintongji');
@@ -1272,12 +1298,12 @@
                     // 统计结束日期的项目所有来款 - 所有支出
                     $shouruDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($pname)->select(' sum(zijin_daozheng_jiner) as shouru');
                     $shouruDAO->selectLimit .= " AND is_renling = 1";
-                    $shouruDAO->selectLimit .= " AND zijin_daozhang_datetime <".$end;
+                    $shouruDAO->selectLimit .= " AND zijin_daozhang_datetime <= '".$end."'";
                     $shouruDAO = $shouruDAO->get();
 
                     $zhichuDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($pname)->select(' sum(shiyong_zhichu_jiner) as zhichu');
                     $zhichuDAO->selectLimit .= " AND is_renling = 1";
-                    $zhichuDAO->selectLimit .= " AND shiyong_zhichu_datetime <".$end;
+                    $zhichuDAO->selectLimit .= " AND shiyong_zhichu_datetime <= '".$end."'";
                     $zhichuDAO = $zhichuDAO->get();
 
                     $remaining_sum = round(($shouruDAO[0]['shouru'] - $zhichuDAO[0]['zhichu']),2);
