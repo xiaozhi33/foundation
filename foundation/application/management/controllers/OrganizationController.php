@@ -184,7 +184,7 @@ class Management_organizationController extends BaseController
         if($organization1DAO[0]['director'] ){
             echo("location.href='/management/organization/index?director_id=".$organization1DAO[0]['director']."'");
         }else{
-            echo("location.href='/management/organization'");
+            echo("location.href='/management/organization?type=".$organization1DAO[0]['organization_type']."'");
         }
         echo('</script>');
         exit;
