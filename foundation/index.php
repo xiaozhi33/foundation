@@ -29,7 +29,10 @@ date_default_timezone_set('PRC');
 		'default'  =>  'application/default/controllers',
 		'admin'    =>  'application/admin/controllers',      //网站后台管理
 		'management'	=>	'application/management/controllers',	//项目管理系统
-        'oldmanagement'	=>	'application/management/controllers'	//老系统
+        'oldmanagement'	=>	'application/oldmanagement/controllers',	//老系统
+        'mobile'	=>	'application/mobile/controllers',	//m站
+        'api'	=>	'application/api/controllers',	//公共接口
+        'app'	=>	'application/api/controllers'	//app
 	)); 
 	
     $controller	->throwExceptions(true);  
