@@ -82,7 +82,7 @@
 					  <tr>
 						<td width="24%">文档名称</td>
 						<td width="12%">文档类型</td>
-                        <td width="20%">文档上传时间</td>
+                        <td width="20%">文档内容</td>
                         <td width="20%">上传者</td>
                         <td width="20%">操作</td>
 					  </tr>
@@ -98,7 +98,10 @@
                                  <?php echo $v['type'];?>
                              </td>
                              <td>
-                                 <?php echo $v['upload_datetime'];?>
+                                 <?php //echo $v['upload_datetime'];?>
+                                 <a href="/management/files/download?id=<?php echo $v['id'];?>">
+                                     <?php echo $this->files[0]['temp_name'];?>
+                                 </a>
                              </td>
                              <td>
                                  <?php echo $v['uploader'];?>
