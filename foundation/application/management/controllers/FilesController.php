@@ -6,7 +6,7 @@
             $filesDAO = $this->orm->createDAO('jjh_mg_files')->order('id DESC');
             if(!empty($_REQUEST['name'])){
                 //$filesDAO->findName($_REQUEST['name']);
-                $filesDAO->selectLimit .= " AND name like '%".$name."%'";
+                $filesDAO->selectLimit .= " AND name like '%".$_REQUEST['name']."%'";
                 $this->view->assign("name", $_REQUEST['name']);
             }
             if(!empty($_REQUEST['type'])){
