@@ -224,7 +224,7 @@ class Management_investmentproductController extends BaseController
         $logDAO ->rate_of_return = $rate_of_return;
         $logDAO ->end_datetime = $end_datetime;
         $logDAO ->remark = $remark;
-        $logDAO ->type =  HttpUtil::postString("type");
+        //$logDAO ->type =  HttpUtil::postString("type");
         if(!empty($id))  //修改流程
         {
             $logDAO ->findId($id);
@@ -232,7 +232,7 @@ class Management_investmentproductController extends BaseController
         try{
             $logDAO ->save();
         }catch (Exception $e){
-            echo $e;exit();
+            //echo $e;exit();
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('保存失败！！！！！');");
