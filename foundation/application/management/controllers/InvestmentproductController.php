@@ -232,6 +232,7 @@ class Management_investmentproductController extends BaseController
         try{
             $logDAO ->save();
         }catch (Exception $e){
+            echo $e;exit();
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('保存失败！！！！！');");
