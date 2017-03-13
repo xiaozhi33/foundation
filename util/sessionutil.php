@@ -66,7 +66,7 @@ class SessionUtil{
 	public static function checkmanagement($linkFor=null){
     	self::sessionStart();
     	if($_SESSION['mycmsvip']['admin_info']['admin_type'] == 6){
-    		alert_back("您没有进入项目管理后台的权限。请联系超级管理员。");
+    		alert_back_old("您没有该模块的管理权限。请联系系统管理员。");
     	}
         if(empty($_SESSION['mycmsvip'])){
         	if(isset($linkFor)) header('location: '.$linkFor);
