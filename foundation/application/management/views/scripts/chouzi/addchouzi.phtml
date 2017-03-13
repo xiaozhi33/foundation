@@ -94,7 +94,8 @@
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">项目负责人：</label>
                         <div class="col-sm-6">
-                            <select data-placeholder="请选择相关人员..." class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_fzr[]" id="pm_fzr">
+                            <!--data-placeholder="请选择相关人员..."-->
+                            <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_fzr[]" id="pm_fzr">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>"><?php echo $v?></option>
@@ -132,7 +133,7 @@
                                             <?php }}?>
                                     </select>
                                 </div>
-                        <span class="col-sm-2" > <a href="/management/admin/addpp" target="_blank">添加人员信息</a> </span>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <!--<div class="form-group transparent-editor">
@@ -159,7 +160,7 @@
                                     <?php }}?>
                             </select>
                         </div>
-                        <span class="col-sm-2" > <a href="/management/admin/addpp" target="_blank">添加人员信息</a> </span>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <div class="form-group transparent-editor">
@@ -172,7 +173,7 @@
                                     <?php }}?>
                             </select>
                         </div>
-                        <span class="col-sm-2" > <a href="/management/admin/addpp" target="_blank">添加人员信息</a> </span>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <div class="form-group transparent-editor">
@@ -187,7 +188,7 @@
                                             <?php }}?>
                                     </select>
                                 </div>
-                        <span class="col-sm-2" > <a href="/management/admin/addpp" target="_blank">添加人员信息</a> </span>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <!--<div class="form-group transparent-editor">
@@ -216,7 +217,7 @@
                                         <?php }}?>
                                 </select>
                             </div>
-                        <span class="col-sm-2" > <a href="/management/admin/addpp" target="_blank">添加人员信息</a> </span>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
 
@@ -246,7 +247,7 @@
                                         <?php }}?>
                                 </select>
                             </div>
-                        <span class="col-sm-2" > <a href="/management/admin/addpp" target="_blank">添加人员信息</a> </span>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                    <!-- <div class="form-group transparent-editor">
@@ -275,7 +276,7 @@
                                         <?php }}?>
                                 </select>
                             </div>
-                        <span class="col-sm-2" > <a href="/management/admin/addpp" target="_blank">添加人员信息</a> </span>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <!--<div class="form-group transparent-editor">
@@ -303,8 +304,8 @@
                                         <option value="<?php echo $k?>"><?php echo $v?></option>
                                     <?php }}?>
                             </select>
-
                         </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
                     <!--<div class="form-group transparent-editor">
@@ -379,14 +380,14 @@
 					<div class="form-group">
 					    <label class="col-sm-2 control-label" for="input08">协议起始年份：</label>
 						<div class="col-sm-4">
-							<input class="form-control" type="text"  data-date-format="YYYY-MM-DD" id="datepicker1"  name="qishi"  size="14"/>
+							<input class="form-control" type="text"  data-date-format="YYYY" id="datepicker1"  name="qishi"  size="14"/>
 						</div>
 						<span class="col-sm-1" > * </span>
 					</div>
 					<div class="form-group">
 					    <label class="col-sm-2 control-label" for="input09">协议截止年份：</label>
 						<div class="col-sm-4">
-							<input class="form-control" type="text" data-date-format="YYYY-MM-DD"  id="datepicker2"  name="jiezhi"  size="14"/>
+							<input class="form-control" type="text" data-date-format="YYYY"  id="datepicker2"  name="jiezhi"  size="14"/>
 						</div>
 					</div>
 					

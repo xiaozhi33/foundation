@@ -16,14 +16,14 @@
 <!-- /page header -->
 <div id="main" class="main">
     <div id="rightstyle02" class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <section class="tile color transparent-white">
                 <div class="tile-body nopadding">
                     <?php if(count($this->directorlist)!=0){?>
                     <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
                         <thead>
                         <tr>
-                            <td width="10%">序号</td>
+                            <!--<td width="10%">序号</td>-->
                             <td width="10%">历届理事会</td>
                             <td width="10%">起始时间</td>
                             <td width="10%">结束时间</td>
@@ -34,15 +34,21 @@
                         <?php
                         foreach($this->directorlist as $k=>$v){?>
                             <tr>
-                                <td><?php echo $v['id'];?></td>
+                                <!--<td><?php /*echo $v['id'];*/?></td>-->
                                 <td><?php echo $v['director'];?></td>
                                 <td><?php echo $v['star_datetime'];?></td>
                                 <td><?php echo $v['end_datetime'];?></td>
                                 <td>
-                                    <a href="/management/pp/editdirector?id=<?php echo $v['id'];?>">
+                                    <a href="/management/organization/editdirector?id=<?php echo $v['id'];?>">
                                         <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
 
-                                    <a href="/management/pp/deldirector?id=<?php echo $v['id'];?>" onclick= "if(confirm( '是否确定！ 删除将无法找回该历届理事会信息。')==false) return false; "><button type="button" class="btn btn-danger margin-bottom-20">删除</button></a></td>
+                                    <a href="/management/organization/index?director_id=<?php echo $v['id'];?>" target="_blank">
+                                        <button type="button" class="btn btn-greensea margin-bottom-20">查看成员信息</button></a>
+
+                                    <a href="/management/organization/addorganizationmain?director_id=<?php echo $v['id'];?>">
+                                        <button type="button" class="btn btn-greensea margin-bottom-20">添加成员信息</button></a>
+
+                                    <a href="/management/organization/deldirector?id=<?php echo $v['id'];?>" onclick= "if(confirm( '是否确定！ 删除将无法找回该历届理事会信息。')==false) return false; "><button type="button" class="btn btn-danger margin-bottom-20">删除</button></a></td>
                             </tr>
                         <?php }?>
                         </tbody>
@@ -54,7 +60,7 @@
                             共  <?php echo $this->total;?> 条          <?php echo $this->page;?></div>
 
                         <?php }else{?>
-                            <div>暂无历届理事会信息！<a href="/management/pp/adddirector">点击添加</a></div>
+                            <div>暂无历届理事会信息！<a href="/management/organization/adddirector">点击添加</a></div>
                         <?php }?>
                     </div>
                 </div>

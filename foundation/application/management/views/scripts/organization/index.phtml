@@ -41,7 +41,9 @@
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="input02"> </label>
-                            <input class="btn btn-primary btn-block" type="button" value="添加<?php echo $this->org_type_array[$this->org_type_status];?>成员信息" onclick="window.location.href='/management/organization/addorganizationmain?type=<?php echo $this->org_type_status;?>'"/>
+
+                            <input class="btn btn-primary btn-block" type="button" value="添加成员信息" onclick="window.location.href='/management/organization/addorganizationmain?director_id=<?php echo $_REQUEST['director_id'];?>&type=<?php echo $this->org_type_status;?>'"/>
+
                         </div>
                         <input type="hidden" name="type" value="<?php echo $this->org_type_status;?>">
                     </div>
@@ -73,10 +75,14 @@
 							<td><?php echo $v['jjh_post'];?>&nbsp;</td>
                             <td><?php echo $v['org_post'];?>&nbsp;</td>
                             <td><?php echo $v['tel'];?>&nbsp;</td>
-							<td><a href="/management/organization/editorganization?id=<?php echo $v['id'];?>">
-                            <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
-                             <a href="/management/organization/delorganization?id=<?php echo $v['id'];?>">
-                             <button type="button" class="btn btn-danger margin-bottom-20" onclick= "if(confirm( '是否确定删除！ 删除将无法找回有关该机构的所有信息。')==false) return false; ">删除</button></a>
+							<td>
+                                <a href="/management/organization/editorganization?id=<?php echo $v['id'];?>">
+                                    <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button>
+                                </a>
+
+                                 <a href="/management/organization/delorganization?id=<?php echo $v['id'];?>">
+                                     <button type="button" class="btn btn-danger margin-bottom-20" onclick= "if(confirm( '是否确定删除！ 删除将无法找回有关该条目的所有信息。')==false) return false; ">删除</button>
+                                 </a>
                             </td>
 						 </tr>
 					   <?php }?>
@@ -93,7 +99,8 @@
                          <div class="row">
                              <div class="col-md-offset-1 col-sm-2">
                                  <label for="input02">暂无机构成员信息！ </label>
-                                 <input class="btn btn-primary btn-block" type="button" value="添加<?php echo $this->org_type_array[$this->org_type_status];?>成员信息" onclick="window.location.href='/management/organization/addorganizationmain?type=<?php echo $this->org_type_status;?>'"/>
+
+                                 <input class="btn btn-primary btn-block" type="button" value="添加<?php echo $this->org_type_array[$this->org_type_status];?>成员信息" onclick="window.location.href='/management/organization/addorganizationmain?director_id=<?php echo $_REQUEST['director_id'];?>&type=<?php echo $this->org_type_status;?>'"/>
                              </div>
                          </div>
                      </div>

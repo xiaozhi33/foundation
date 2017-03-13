@@ -2,14 +2,6 @@
 	require_once("BaseController.php");
 	class Management_filesController extends BaseController
     {
-        public $type_arrays = array(
-                                    '查询协议' => '查询协议',
-                                    '工作报告' => '工作报告',
-                                    '策划书' => '策划书',
-                                    '印刷文档' => '印刷文档',
-                                    '会议资料' => '会议资料',
-                                    '业务资料' => '业务资料',
-                                 );
 		public function indexAction(){
             $filesDAO = $this->orm->createDAO('jjh_mg_files')->order('id DESC');
             if(!empty($_REQUEST['name'])){
@@ -45,7 +37,7 @@
             $upload_datetime = date("Y-m-d H:i:s", time());
             $description = HttpUtil::postString("description");
             $admininfo = SessionUtil::getAdmininfo();
-            $uploader = $admininfo['admin_name'];
+            $uploader = $this->admininfo['admin_info']['id'];
 
             $filesDAO = $this->orm->createDAO('jjh_mg_files');
             if($_FILES['files']['name']!=""){

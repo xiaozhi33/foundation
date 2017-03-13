@@ -14,12 +14,16 @@ class Management_organizationController extends BaseController
     public function indexAction()
     {
         $organizationDAO = $this->orm->createDAO('jjh_mg_organization');
-        $name = HttpUtil::postString("name");
+        $name = $_REQUEST['name'];
+        $director_id = $_REQUEST['director_id'];
         if(!empty($name)){
             $organizationDAO->findName($name);
         }
         if(!empty($this->org_type_status)){
             $organizationDAO->findOrganization_type($this->org_type_status);
+        }
+        if(!empty($director_id)){
+            $organizationDAO->findDirector($director_id);
         }
         $organizationDAO = $organizationDAO->order('id DESC');
         $organizationDAO->getPager(array('path'=>'/management/organization/index'))->assignTo($this->view);
@@ -30,6 +34,8 @@ class Management_organizationController extends BaseController
     }
 
     public function addorganizationmainAction(){
+        $director_id = $_REQUEST['director_id'];
+        $this->view->assign("director_id", $director_id);
         echo $this->view->render("index/header.phtml");
         echo $this->view->render("organization/addorganization.phtml");
         echo $this->view->render("index/footer.phtml");
@@ -45,9 +51,10 @@ class Management_organizationController extends BaseController
         $department = HttpUtil::postString("department");
         $serving_time = HttpUtil::postString("serving_time");
         $tel = HttpUtil::postString("tel");
-        $director = implode(",",$_REQUEST['director']);
+        $director = $_REQUEST['director'];
         $birthday = HttpUtil::postString("birthday");
         $id_card = HttpUtil::postString("id_card");
+        $organization_type = HttpUtil::postString("organization_type");
 
 
         if($_FILES['resume']['name']!=""){
@@ -102,6 +109,7 @@ class Management_organizationController extends BaseController
         $organizationDAO ->director = $director;
         $organizationDAO ->birthday = $birthday;
         $organizationDAO ->id_card = $id_card;
+        $organizationDAO ->organization_type = $organization_type;
 
         if(!empty($id))  //修改流程
         {
@@ -122,14 +130,14 @@ class Management_organizationController extends BaseController
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('保存成功');");
-            echo("location.href='/management/organization?".$this->org_type_status."';");
+            echo("location.href='/management/organization/index?director_id=".$director."&type=".$organization_type."';");
             echo('</script>');
             exit;
         }else {
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
             echo("alert('保存成功');");
-            echo("location.href='/management/organization?".$this->org_type_status."';");
+            echo("location.href='/management/organization/index?director_id=".$director."&type=".$organization_type."';");
             echo('</script>');
             exit;
             //echo json_encode(array('msg'=>"保存成功！",'return_url'=>'/management/organization/?'.$this->org_type_status));
@@ -161,8 +169,11 @@ class Management_organizationController extends BaseController
         exit();
     }
 
-    public function delorganizationmainAction(){
+    public function delorganizationAction(){
         $id = HttpUtil::getString("id");
+        $organization1DAO = $this->orm->createDAO('jjh_mg_organization');
+        $organization1DAO = $organization1DAO ->findId($id)->get();
+
         $organizationDAO = $this->orm->createDAO('jjh_mg_organization');
         $organizationDAO ->findId($id);
         $organizationDAO ->delete();
@@ -170,7 +181,11 @@ class Management_organizationController extends BaseController
         echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
         echo('<script language="JavaScript">');
         echo("alert('删除成功');");
-        echo("location.href='/management/organization?".$this->org_type_status."';");
+        if($organization1DAO[0]['director'] ){
+            echo("location.href='/management/organization/index?director_id=".$organization1DAO[0]['director']."'");
+        }else{
+            echo("location.href='/management/organization?type=".$organization1DAO[0]['organization_type']."'");
+        }
         echo('</script>');
         exit;
 
@@ -187,6 +202,93 @@ class Management_organizationController extends BaseController
             return true;
         }else {
             return false;
+        }
+    }
+
+    // ==========================  历届理事会信息 ================================================================
+
+    public function directorAction(){
+        $directorlist = $this->orm->createDAO("jjh_mg_director")->get();
+        $total = count($directorlist);
+        $pageDAO = new pageDAO();
+        $pageDAO = $pageDAO ->pageHelper($directorlist,null,"ppcate",null,'get',20,20);
+        $pages = $pageDAO['pageLink']['all'];
+        $pages = str_replace("/index.php","",$pages);
+        $this->view->assign('directorlist',$pageDAO['pageData']);
+        $this->view->assign('page',$pages);
+        $this->view->assign('total',$total);
+
+        echo $this->view->render("index/header.phtml");
+        echo $this->view->render('director/index.phtml');
+        echo $this->view->render("index/footer.phtml");
+    }
+
+    public function adddirectorAction(){
+        echo $this->view->render("index/header.phtml");
+        echo $this->view->render("director/adddirector.phtml");
+        echo $this->view->render("index/footer.phtml");
+    }
+
+    public function addrsdirectorAction(){
+        try{
+            if($_REQUEST['director'] != "" ){
+                $directorinfo = $this->orm->createDAO("jjh_mg_director");
+                $directorinfo ->director = $_REQUEST['director'];
+                $directorinfo ->star_datetime = $_REQUEST['star_datetime'];
+                $directorinfo ->end_datetime = $_REQUEST['end_datetime'];
+                $pid = $directorinfo->save($this->dbhelper);
+                alert_go("添加成功！", "/management/organization/director");
+            }else {
+                alert_back("添加失败！");
+            }
+        }catch (Exception $e){
+            throw $e;
+        }
+    }
+
+    public function editdirectorAction(){
+        if($_REQUEST['id'] != ""){
+            $directorinfo = $this->orm->createDAO("jjh_mg_director")->findId($_REQUEST['id']);
+            $directorinfo = $directorinfo->get($this->dbhelper);
+            $this->view->assign("directorinfo",$directorinfo);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("director/editdirector.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }else {
+            alert_back("操作失败");
+        }
+    }
+
+    public function editrsdirectorAction(){
+        if($_REQUEST['director'] != "" && $_REQUEST['id']){
+            $directorinfo = $this->orm->createDAO("jjh_mg_director")->findId($_REQUEST['id']);
+            $directorinfo ->director = $_REQUEST['director'];
+            $directorinfo ->star_datetime = $_REQUEST['star_datetime'];
+            $directorinfo ->end_datetime = $_REQUEST['end_datetime'];
+            $directorinfo->save();
+            alert_go("编辑成功。","/management/organization/director");
+        }else {
+            alert_back("添加失败");
+        }
+    }
+
+    public function deldirectorAction(){
+        if($_REQUEST['id'] != ""){
+            $this->orm->createDAO("jjh_mg_director")->findId($_REQUEST['id'])->delete();
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('删除成功');");
+            echo("location.href='/management/organization/director';");
+            echo('</script>');
+            exit;
+        }else {
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('操作失败');");
+            echo("location.href='/management/organization/director';");
+            echo('</script>');
+            exit;
         }
     }
 

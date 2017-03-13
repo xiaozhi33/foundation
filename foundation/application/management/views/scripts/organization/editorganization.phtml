@@ -29,26 +29,6 @@
                     <form class="form-horizontal" action="to-addorganizationmain" method="post" encType="multipart/form-data">
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">任职届数：</label>
-
-                            <div class="col-sm-6">
-                                <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="director[]" id="director">
-                                    <?php if($this->jjh_mg_director_list != ""){
-                                        foreach ($this->jjh_mg_director_list as $k => $v){?>
-                                            <option value="<?php echo $k?>" <?php
-                                            if(!empty($this->organization_info[0]['director'])){
-                                                foreach(explode($this->organization_info[0]['director']) as $key => $value){
-                                                    if($k == $value){
-                                                        echo "selected='selected'";
-                                                    }
-                                                }
-                                            }?>><?php echo $v?></option>
-                                        <?php }}?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">名称：</label>
                             <div class="col-sm-3">
                                 <input class="form-control" type="text" name="name" value="<?php echo $this->organization_info[0]['name'];?>"/>
@@ -151,6 +131,7 @@
                             </div>
                         </div>
 
+                        <input type="hidden" name="director" value="<?php echo $this->organization_info[0]['director'];?>"/>
                         <input type="hidden" name="type" value="<?php echo $this->org_type_status;?>"/>
                     </form>
                 </div>
@@ -160,23 +141,7 @@
 
     <script src="/include/management/assets/js/jquery.js"></script>
 
-    <!-- Latest compiled and minified CSS -->
-    <!--<link rel="stylesheet" href="/include/management/css/bootstrap-select.min.css">-->
-
-    <!-- Latest compiled and minified JavaScript -->
-    <!--<script src="/include/management/js/bootstrap-select.min.js"></script>-->
-
     <script language="javascript">
         $(".menu li:eq(28)").addClass("open");
-
-        /*$('#director').selectpicker({
-            selectedText: 'cat',
-            liveSearch: true,
-            size:8
-        });
-
-        var str='<?php echo $this->organization_info[0]['director']?>';
-        var arr=str.split(',');
-        $('#director').selectpicker('val', arr);*/
     </script>
 

@@ -55,8 +55,17 @@
 		
 		public function addrszijinAction(){
 			$pname = HttpUtil::postString("pname");      //项目名称
-			$pm_pp = HttpUtil::postString("pm_pp");      //项目捐赠人名称
-			$pm_cate = HttpUtil::postString("pm_cate");  //项目分类
+			//$pm_pp = HttpUtil::postString("pm_pp");      //项目捐赠人名称
+
+            // 立项时已经确定项目分类
+            // $pm_cate = HttpUtil::postString("pm_cate");  //项目分类
+
+            // 获取该项目的项目分类
+            $chouziDAO = $this->orm->createDAO('pm_mg_chouzi');
+            $chouziinfo = $chouziDAO ->findPname($pname)->get();
+
+            $pm_cate = $chouziinfo[0]['cate'];
+
 			$pm_pp_cate = HttpUtil::postString("pm_pp_cate");     //捐赠人类型
 			$pm_juanzeng_jibie = HttpUtil::postString("pm_juanzeng_jibie");    //捐赠类别
 			$pm_juanzeng_yongtu = HttpUtil::postString("pm_juanzeng_yongtu");  //项目用途
@@ -81,13 +90,22 @@
 			$pm_pp_company = HttpUtil::postString("pm_pp_company");      //捐赠人公司介绍
 			$beizhu = HttpUtil::postString("beizhu");		 //备注
 
-			if($pname == "" || $pm_pp == "" || $pm_cate == "" || $zijin_daozhang_datetime == "" || $zijin_daozheng_jiner == ""){
-				alert_back("您输入的信息不完整，请查正后继续添加");
-			}
-			
+            if($pm_cate == "")
+            {
+                alert_back("项目类型不能为空，请到对应到项目筹资中添加项目类型！");
+            }
+
 			$pm_zijinDAO = new pm_mg_infoDAO();
+
+            // 项目捐赠方
+            $pm_pp = implode(",",$_REQUEST['pm_pp']);
+            $pm_zijinDAO ->pm_pp = $pm_pp;
+            if($pname == "" || $pm_pp == "" || $zijin_daozhang_datetime == "" || $zijin_daozheng_jiner == ""){
+                alert_back("您输入的信息不完整，请查正后继续添加");
+            }
+
 			$pm_zijinDAO ->pm_name = $pname;
-			$pm_zijinDAO ->pm_pp = $pm_pp;
+			//$pm_zijinDAO ->pm_pp = $pm_pp;
 			$pm_zijinDAO ->pm_juanzeng_jibie = $pm_juanzeng_jibie;
 			$pm_zijinDAO ->pm_juanzeng_yongtu = $pm_juanzeng_yongtu;
 			$pm_zijinDAO ->zijin_daozhang_datetime = $zijin_daozhang_datetime;
@@ -158,7 +176,7 @@
 			if($_REQUEST['id'] != ""){
 				$pname = HttpUtil::postString("pname");      //项目名称
 				$pm_pp = HttpUtil::postString("pm_pp");      //项目捐赠人名称
-				$pm_cate = HttpUtil::postString("pm_cate");  //项目分类
+				//$pm_cate = HttpUtil::postString("pm_cate");  //项目分类
 				$pm_pp_cate = HttpUtil::postString("pm_pp_cate");     //捐赠人类型
 				$pm_juanzeng_jibie = HttpUtil::postString("pm_juanzeng_jibie");    //捐赠类别
 				$pm_juanzeng_yongtu = HttpUtil::postString("pm_juanzeng_yongtu");  //项目用途
@@ -182,7 +200,7 @@
 				$pm_pp_company = HttpUtil::postString("pm_pp_company");      //捐赠人公司介绍
 				$beizhu = HttpUtil::postString("beizhu");		 //备注
 				
-				if($pname == "" || $pm_pp == "" || $pm_cate == "" || $zijin_daozhang_datetime == "" || $zijin_daozheng_jiner == ""){
+				if($pname == "" || $pm_pp == "" || $zijin_daozhang_datetime == "" || $zijin_daozheng_jiner == ""){
 					alert_back("您输入的信息不完整，请查正后继续添加");
 				}
 				
@@ -213,7 +231,7 @@
 				$pm_zijinDAO ->pm_pp_company = $pm_pp_company;
 				$pm_zijinDAO ->beizhu = $beizhu;
 				$pm_zijinDAO ->zijin_laiyuan_qudao = $zijin_laiyuan_qudao;
-				$pm_zijinDAO ->pm_juanzeng_cate = $pm_cate;
+				//$pm_zijinDAO ->pm_juanzeng_cate = $pm_cate;
 				$pm_zijinDAO ->pm_pp_cate = $pm_pp_cate;
 
                 $pm_zijinDAO ->is_renling = $_REQUEST['is_renling'];
@@ -236,6 +254,10 @@
 						}		            	    
 					}
 				}
+
+                // 项目捐赠方
+                $pm_pp = implode(",",$_REQUEST['pm_pp']);
+                $pm_zijinDAO ->pm_pp = $pm_pp;
 				
 				//写日志
 				$logName = SessionUtil::getAdmininfo();

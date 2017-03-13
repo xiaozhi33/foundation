@@ -55,7 +55,7 @@
                     <div class="col-sm-4">
                         <input name="jindu" type="checkbox" value="1" <?php if($this->zijin[0]['jindu']) echo "checked='checked'";?>/>已到帐
                     </div>
-                    <span class="col-sm-2" > * </span>
+                    <!--<span class="col-sm-2" > * </span>-->
                 </div>
 
                 <div class="form-group">
@@ -73,12 +73,32 @@
                     <span class="col-sm-2" >* 个人、企业、事业单位、基金会、其他组织</span>
                 </div>
 
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label class="col-sm-2 control-label" for="input00">项目捐赠者：</label>
                         <div class="col-sm-4">
-                            <input readonly type="text" value="<?php echo $this->zijin[0]['pm_pp'];?>"  name="pm_pp"  size="14"/>
+                            <input readonly type="text" value="<?php /*echo $this->zijin[0]['pm_pp'];*/?>"  name="pm_pp"  size="14"/>
                         </div>
                     <span class="col-sm-2" >* </span>
+                </div>-->
+
+                <div class="form-group transparent-editor">
+                    <label class="col-sm-2 control-label" for="input14">项目捐赠方：</label>
+                    <div class="col-sm-4">
+                        <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_pp[]" id="pm_pp">
+                            <?php if($this->jjh_mg_pp_list != ""){
+                                foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                    <option value="<?php echo $v?>" <?php
+                                    if(!empty($this->zijin[0]['pm_pp'])){
+                                        foreach(explode(',',$this->zijin[0]['pm_pp']) as $key => $value){
+                                            if($v == $value){
+                                                echo "selected='selected'";
+                                            }
+                                        }
+                                    }?>><?php echo $v?></option>
+                                <?php }}?>
+                        </select>
+                    </div>
+                    <span class="col-sm-2 addpp" >添加人员信息</span>
                 </div>
 
 
@@ -104,19 +124,19 @@
                 </div>
 
 
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">项目捐赠类型：</label>
                     <div class="col-sm-4">
                         <select class="form-control" name="pm_cate">
                             <option value="" >请选择类型</option>
-                            <?php if($this->pcatelist != ""){
-                                foreach ($this->pcatelist as $k => $v){?>
-                                    <option value="<?php echo $v['id']?>" <?php if($v['id'] == $this->zijin[0]['pm_juanzeng_cate']){echo "selected='selected'";}?>><?php echo $v['catename']?></option>
-                                <?php }}?>
+                            <?php /*if($this->pcatelist != ""){
+                                foreach ($this->pcatelist as $k => $v){*/?>
+                                    <option value="<?php /*echo $v['id']*/?>" <?php /*if($v['id'] == $this->zijin[0]['pm_juanzeng_cate']){echo "selected='selected'";}*/?>><?php /*echo $v['catename']*/?></option>
+                                <?php /*}}*/?>
                         </select>
                     </div>
                     <span class="col-sm-2" >  * 教育基金、研究基金等 </span>
-                </div>
+                </div>-->
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">票据状态：</label>
