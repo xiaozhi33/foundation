@@ -84,7 +84,7 @@ class Management_investmentproductController extends BaseController
         try{
             $productDAO ->save();
         }catch (Exception $e){
-            echo $e;exit;
+            //echo $e;exit;
             /*alert_back("保存失败！");
             exit;*/
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
