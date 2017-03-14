@@ -1118,31 +1118,42 @@
                 $remaining_sum = '';
                 $sub_pm_name = array();
 				$xiangmushuliang = array(); // 项目数量 只统计父类id
-				foreach ($zhichuinfo as $key => $v) {
-                    if(!in_array($v['main_id'], $xiangmushuliang) && $v['parent_pm_id'] == 0 && $key > 2){  // 不是父子关系项目 结束统计
-                        $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . round($shouru,2));
-                        $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . round($zhichu,2));
-                        $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . $ii, "余额" . $remaining_sum);
-                        $remaining_sum = '';
-                        $zhichu = '';
-                        $shouru = '';
-                        $sub_pm_name = array();
-                        $ii = $ii+3;
-                        $xiangmushuliang[] = $v['main_id'];
 
-                        $zhichutj->setActiveSheetIndex(0)
-                            ->setCellValue('A'. $ii, '序号')
-                            ->setCellValue('B'. $ii, '父项目名称')
-                            ->setCellValue('C'. $ii, '项目名称')
-                            ->setCellValue('D'. $ii, '来款金额')
-                            ->setCellValue('E'. $ii, '来款时间')
-                            ->setCellValue('F'. $ii, '支出金额')
-                            ->setCellValue('G'. $ii, '支出时间')
-                            ->setCellValue('H'. $ii, '项目类型')
-                            ->setCellValue('I'. $ii, '所属部门')
-                            ->setCellValue('J'. $ii, '来款方')
-                            ->setCellValue('K'. $ii, '项目负责人');
-                        $ii++;
+                /**
+                 * 项目主id不在临时数组中
+                 * 父id为0，代表重新开始计算
+                 *
+                 */
+				foreach ($zhichuinfo as $key => $v) {
+                    if(!in_array($v['main_id'], $xiangmushuliang) && $v['parent_pm_id'] == 0){  // 不是父子关系项目 结束统计
+                        if($key == 0){
+                            $xiangmushuliang[] = $v['main_id'];
+                            $ii++;
+                        }else {
+                            $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . round($shouru,2));
+                            $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . round($zhichu,2));
+                            $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . $ii, "余额" . $remaining_sum);
+                            $remaining_sum = '';
+                            $zhichu = '';
+                            $shouru = '';
+                            $sub_pm_name = array();
+                            $ii = $ii+3;
+                            $xiangmushuliang[] = $v['main_id'];
+
+                            $zhichutj->setActiveSheetIndex(0)
+                                ->setCellValue('A'. $ii, '序号')
+                                ->setCellValue('B'. $ii, '父项目名称')
+                                ->setCellValue('C'. $ii, '项目名称')
+                                ->setCellValue('D'. $ii, '来款金额')
+                                ->setCellValue('E'. $ii, '来款时间')
+                                ->setCellValue('F'. $ii, '支出金额')
+                                ->setCellValue('G'. $ii, '支出时间')
+                                ->setCellValue('H'. $ii, '项目类型')
+                                ->setCellValue('I'. $ii, '所属部门')
+                                ->setCellValue('J'. $ii, '来款方')
+                                ->setCellValue('K'. $ii, '项目负责人');
+                            $ii++;
+                        }
                     }
 
                     if($v['zijin_daozhang_datetime'] != ""){$v['zijin_daozhang_datetime'] = date("Y-m-d",strtotime($v['zijin_daozhang_datetime']));}
