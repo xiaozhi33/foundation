@@ -31,6 +31,12 @@
                 $chouziinfo->cate = $cate;
             }
 
+            if(!empty($_REQUEST['rate']) && $_REQUEST['rate'][0] != ''){
+                foreach($_REQUEST['rate'] as $key => $value){
+                    $chouziinfo ->selectLimit .= ' AND find_in_set('.$value.',r.pm_rate)';
+                }
+            }
+
             /*if (HttpUtil::postString("starttime") != "" && HttpUtil::postString("endtime") != "") {
                 $starttime = HttpUtil::postString("starttime");
                 $endtime = HttpUtil::postString("endtime");
@@ -794,6 +800,8 @@
             $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
             $this->view->assign("pmlist",$pm_chouzi);
 
+            // 项目进度
+            $this->view->assign("rate_config",$this->rate_config);
 
             //获取筹资项目list
             $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->select("id, pname, parent_pm_id, parent_pm_id_path")->get();

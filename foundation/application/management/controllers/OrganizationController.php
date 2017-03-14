@@ -49,7 +49,8 @@ class Management_organizationController extends BaseController
         $jjh_post = HttpUtil::postString("jjh_post");
         $org_post = HttpUtil::postString("org_post");
         $department = HttpUtil::postString("department");
-        $serving_time = HttpUtil::postString("serving_time");
+        $serving_startime = HttpUtil::postString("serving_startime");
+        $serving_endtime = HttpUtil::postString("serving_endtime");
         $tel = HttpUtil::postString("tel");
         $director = $_REQUEST['director'];
         $birthday = HttpUtil::postString("birthday");
@@ -104,7 +105,8 @@ class Management_organizationController extends BaseController
         $organizationDAO ->jjh_post = $jjh_post;
         $organizationDAO ->org_post = $org_post;
         $organizationDAO ->department = $department;
-        $organizationDAO ->serving_time = $serving_time;
+        $organizationDAO ->serving_startime = $serving_startime;
+        $organizationDAO ->serving_endtime = $serving_endtime;
         $organizationDAO ->tel = $tel;
         $organizationDAO ->director = $director;
         $organizationDAO ->birthday = $birthday;

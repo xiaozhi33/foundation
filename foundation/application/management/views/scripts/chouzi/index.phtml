@@ -58,6 +58,17 @@
                             <input id="pname_info" type="hidden" name="pname" value=""/>
                         </div>
 
+                        <div class="form-group col-sm-3">
+                            <label for="input02">项目进度选择：</label>
+                            <select class="chosen-select-1 chosen-transparent form-control" name="rate[]">
+                                <option value="" >请选择类型</option>
+                                <?php if($this->rate_config != ""){
+                                    foreach ($this->rate_config as $k => $v){?>
+                                        <option value="<?php echo $k?>" ><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+
                     </div>
 
                     <div class="row">
@@ -72,7 +83,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2">
                             <label for="input01">所属部门：</label>
                             <select class="form-control" name="department">
                                 <option value="" >请选择类型</option>
@@ -83,7 +94,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group col-sm-3">
+                        <div class="form-group col-sm-2">
                             <label for="input02">项目类型：</label>
                             <select class="form-control" name="cate">
                                 <option value="" >请选择类型</option>
