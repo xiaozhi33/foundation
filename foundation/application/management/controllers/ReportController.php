@@ -1221,7 +1221,7 @@
                         $zhichuDAO->selectLimit .= " AND is_renling = 1";
                         $zhichuDAO = $zhichuDAO->get();
                     }
-                    $remaining_sum = round(((int)$shouruDAO[0]['shouru'] - (int)$zhichuDAO[0]['zhichu']),2);
+                    $remaining_sum = round((round($shouruDAO[0]['shouru'],2) - round($zhichuDAO[0]['zhichu'],2)),2);
                 }
 
 
