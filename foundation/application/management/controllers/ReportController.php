@@ -1128,7 +1128,6 @@
                     if(!in_array($v['main_id'], $xiangmushuliang) && $v['parent_pm_id'] == 0){  // 不是父子关系项目 结束统计
                         if($key == 0){
                             $xiangmushuliang[] = $v['main_id'];
-                            $ii++;
                         }else {
                             $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . round($shouru,2));
                             $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . round($zhichu,2));
@@ -1223,6 +1222,11 @@
                     }
                     $remaining_sum = round((round($shouruDAO[0]['shouru'],2) - round($zhichuDAO[0]['zhichu'],2)),2);
                 }
+
+                // 最后一次统计合计
+                $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . round($shouru,2));
+                $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . round($zhichu,2));
+                $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . $ii, "余额" . $remaining_sum);
 
 
 				$ii = "";
