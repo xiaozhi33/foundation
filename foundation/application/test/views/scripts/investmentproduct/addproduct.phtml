@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>添加投资产品信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>投资管理</li>
+            <li class="active">添加投资产品信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+	
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+			<div class="col-md-12">
+				<section class="tile color transparent-white">
+			<div class="detailedbox tile-body">
+                <form class="form-horizontal"  id="form1" action="to-addproduct" method="post" encType="multipart/form-data">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">投资账户：</label>
+                        <div class="col-sm-3">
+                            <select name="iid" class="form-control" >
+                                <?php
+                                    if(!empty($this->pm_mg_investment_account_list)){
+                                        foreach($this->pm_mg_investment_account_list as $key => $value){?>
+                                <option class="form-control"  value="<?php echo $value['id'];?>"/><?php echo $value['account_name'];?></option>
+
+                                <?php }}?>
+                            </select>
+                        </div>
+                        <span class="col-sm-2" > * </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">产品名称：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="product_name" />
+                        </div>
+                        <span class="col-sm-2" > * 例如：阳光一号理财</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">产品编号：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text" name="product_number" />
+                        </div>
+                        <span class="col-sm-2" > * 账户唯一编号</span>
+                    </div>
+
+                    <div class="form-group form-footer">
+						<div class="col-sm-offset-5 col-sm-7">
+							<input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input class="btn btn-default" type="reset" value="重 置" /> 
+						</div>
+					</div>
+			</form>
+			</div>
+		 </section>
+			</div>
+		</div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(5)").addClass("open");
+        </script>
+

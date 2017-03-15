@@ -1,0 +1,66 @@
+<!-- page header -->
+<div class="pageheader">
+	<h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>添加管理员</span>
+    </h2>
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>管理组成员管理</li>
+            <li class="active">添加管理员</li>
+        </ol>
+    </div>
+</div>
+<!-- /page header -->
+<div id="main" class="main">
+	<div id="rightstyle02" class="row">
+        <div class="col-md-6">
+<section class="tile color transparent-white">
+	<div class="detailedbox tile-body">
+	<form class="form-horizontal" action="addrs" id="form1"  method="post" encType="multipart/form-data">
+        <div class="form-group">
+				<label class="col-sm-3 control-label" for="input01">管理员类型：</label>
+				<div class="col-sm-7">
+				<select class="form-control" name="type">
+					<!--<option value="0">系统管理员</option>-->
+					<option value="1">项目筹资管理员</option>
+					<option value="2">项目资金管理员</option>
+					<option value="3">项目使用管理员</option>
+					<option value="4">项目管理员</option>
+					<option value="5">统计管理员</option>
+					<option value="6">网站管理员</option>
+					<option value="7">财务人员</option>
+				</select>
+                </div>
+				<span class="col-sm-2" > * </span>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="input02">管理员名称：</label>
+			<div class="col-sm-7">
+				<input class="form-control" type="text" name="name" />
+            </div>
+             <span class="col-sm-2" > * </span>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="input03">管理员初始化密码：</label>
+			<div class="col-sm-7">
+				<input class="form-control" type="password" name="pwd" />
+       		</div>
+    		<span class="col-sm-2" > * </span>
+		</div>				
+		<div class="form-group form-footer">
+			<div class="col-sm-offset-4 col-sm-7">
+				<input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+				<input class="btn btn-default" type="reset" value="重 置" /> 
+			</div>
+		</div>
+	</form>
+</div>
+</section>
+		</div>
+	</div>
+
+    <script src="/include/management/assets/js/jquery.js"></script>
+    <script language="javascript">
+        $(".menu li:eq(29)").addClass("open");
+    </script>

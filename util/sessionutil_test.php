@@ -68,7 +68,7 @@ class SessionUtil{
     	if($_SESSION['mycmsvip']['admin_info']['admin_type'] == 6){
     		alert_back_old("您没有该模块的管理权限。请联系系统管理员。");
     	}
-        if($_SESSION['environment'] != 'management'){
+        if($_SESSION['environment'] != 'test'){
             alert_go_old('非法操作！','/');
         }
         if(empty($_SESSION['mycmsvip'])){

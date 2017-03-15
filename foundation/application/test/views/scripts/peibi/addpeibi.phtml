@@ -1,0 +1,166 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>添加配比信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目信息管理</li>
+            <li class="active">添加配比信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+			<div class="col-md-12">
+				<section class="tile color transparent-white">
+			<div class="detailedbox tile-body">
+                <form class="form-horizontal" action="to-add" id="form1" method="post" encType="multipart/form-data">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">所属来款：</label>
+                        <input class="col-sm-9" readonly type="text" name="_lk_main_id" value="<?php if($this->l_lk_list != ""){echo $this->l_lk_list[$_REQUEST['id']];}?>"/>
+                        <input readonlyclass="form-control" type="hidden" name="lk_main_id" value="<?php echo $_REQUEST['id'];?>"/>
+                        <span class="col-sm-1" > * </span>
+                    </div>
+
+                    <div class="form-group" id="is_pass">
+                        <label class="col-sm-2 control-label">配比是否通过：</label>
+                        <div class="col-sm-4">
+                            <input type="radio"  name="is_pass" value="1"/> 是
+                            <input type="radio"  name="is_pass" value="0"/> 否
+                        </div>
+                    </div>
+
+                    <div class="form-group jpyy">
+                        <label class="col-sm-2 control-label">配比拒批原因：</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" name="jpyy"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group tongguo">
+                        <label class="col-sm-2 control-label" >配比金额：</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text"  name="je"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group tongguo">
+                        <label class="col-sm-2 control-label">配比下发时间：</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" data-date-format="YYYY-MM-DD" type="text"  id="datepicker"  name="peibi_datetime" size="14" />
+                        </div>
+                    </div>
+
+                    <div class="form-group tongguo">
+                        <label class="col-sm-2 control-label">划拨部门：</label>
+                        <div class="col-sm-4">
+                            <!--<input class="form-control" type="text"  name="huabo_department"/>-->
+                            <select class="chosen-select chosen-transparent form-control" name="huabo_department">
+                                <option value="" >请选择所属部门</option>
+                                <?php if($this->departmentlist != ""){
+                                    foreach ($this->departmentlist as $k => $v){?>
+                                        <option value="<?php echo $v['id']?>" ><?php echo $v['pname']?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group tongguo">
+                        <label class="col-sm-2 control-label">卡号：</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text"  name="card"/>
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group tongguo">
+                        <label class="col-sm-2 control-label" >经费负责人：</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text"  name="jffzr"/>
+                        </div>
+                    </div>-->
+
+
+                    <div class="form-group tongguo">
+                        <label for="pname" class="col-sm-2 control-label">经费负责人：</label>
+                        <div class="col-sm-4">
+                            <select class="chosen-select-1 chosen-transparent form-control" name="jffzr" id="jffzr">
+                                <option value="">请选择经费负责人</option>
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){
+                                        ?>
+                                        <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group tongguo">
+                        <label for="pname" class="col-sm-2 control-label">配比审批人：</label>
+                        <div class="col-sm-4">
+                            <select class="chosen-select-1 chosen-transparent form-control" name="peibi_spr" id="peibi_spr">
+                                <option value="">请选择配比审批人</option>
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){
+                                        ?>
+                                        <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+                    </div>
+
+					<div class="form-group form-footer">
+						<div class="col-sm-offset-5 col-sm-7">
+                            <input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input class="btn btn-default" type="reset" value="重 置" /> 
+						</div>
+					</div>
+			</form>
+			</div>
+		 </section>
+			</div>
+		</div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(8)").addClass("open");
+
+            $(document).ready(function(){
+                //$("#is_pass").hide();
+                $(".jpyy").hide();
+                $(".tongguo").hide();
+                // 切换状态
+                $("#is_peibi").change(function(){
+                    var $selectedvalue = $("input[name='is_peibi']:checked").val();
+                    if ($selectedvalue == 0) {
+                        $("#is_pass").hide();
+                        $(".jpyy").hide();
+                        $(".tongguo").hide();
+                    } else if($selectedvalue == 1) {
+                        $("#is_pass").show();
+                    }
+                });
+                $("#is_pass").change(function(){
+                    var $selectedvalue = $("input[name='is_pass']:checked").val();
+                    if ($selectedvalue == 0) {
+                        $(".tongguo").hide();
+                        $(".jpyy").show();
+                    } else if($selectedvalue == 1) {
+                        $(".tongguo").show();
+                        $(".jpyy").hide();
+                    }
+                });
+            });
+        </script>
+

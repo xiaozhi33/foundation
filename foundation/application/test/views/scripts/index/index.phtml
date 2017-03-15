@@ -1,0 +1,709 @@
+<!-- content main container -->
+          <div class="main">
+
+            <!-- cards -->
+            <div class="row cards">
+              
+              <div class="card-container col-lg-3 col-sm-6 col-sm-12">
+                <div class="card card-redbrown hover">
+                  <div class="front"> 
+
+                    <div class="media">        
+                      <span class="pull-left">
+                        <i class="fa fa-star media-object"></i>
+                      </span>
+
+                      <div class="media-body">
+                        <small>未认领项目</small>
+                        <h2 class="media-heading animate-number" data-value="<?php echo count($this->renling_weirenling_list);?>" data-animation-duration="1500"><?php echo count($this->renling_weirenling_list);?></h2>
+                      </div>
+                    </div> 
+
+                   <!-- <div class="progress-list">
+                      <div class="details">
+                        <div class="title">本月完成计划  %</div>
+                      </div>
+                      <div class="status pull-right bg-transparent-black-1">
+                        <span class="animate-number" data-value="83" data-animation-duration="1500">0</span>%
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="progress progress-little progress-transparent-black">
+                        <div class="progress-bar animate-progress-bar" data-percentage="83%"></div>
+                      </div>
+                    </div>-->
+
+                  </div>
+                  <div class="back">
+                    <a href="#">
+                      <i class="fa fa-bar-chart-o fa-4x"></i>
+                      <span>点击查看详情</span>
+                    </a>  
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="card-container col-lg-3 col-sm-6 col-sm-12">
+                <div class="card card-blue hover">
+                  <div class="front">        
+                    
+                    <div class="media">                  
+                      <span class="pull-left">
+                        <i class="fa fa-shopping-cart media-object"></i>
+                      </span>
+
+                      <div class="media-body">
+                        <small>捐赠项目总数</small>
+                        <h2 class="media-heading animate-number" data-value="<?php echo $this->pm_count;?>" data-animation-duration="1500"><?php echo $this->pm_count;?></h2>
+                      </div>
+                    </div> 
+
+                    <!--<div class="progress-list">
+                      <div class="details">
+                        <div class="title">本月完成计划  %</div>
+                      </div>
+                      <div class="status pull-right bg-transparent-black-1">
+                        <span class="animate-number" data-value="10" data-animation-duration="1500"><?php /*echo $this->pm_count;*/?></span>%
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="progress progress-little progress-transparent-black">
+                        <div class="progress-bar animate-progress-bar" data-percentage="100%"></div>
+                      </div>
+                    </div>-->
+
+                  </div>
+                  <div class="back">
+                    <a href="#">
+                      <i class="fa fa-bar-chart-o fa-4x"></i>
+                      <span>点击查看详情</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="card-container col-lg-3 col-sm-6 col-sm-12">
+                <div class="card card-greensea hover">
+                  <div class="front">        
+                    
+                    <div class="media">
+                      <span class="pull-left">
+                        <i class="fa fa-usd media-object"></i>
+                      </span>
+
+                      <div class="media-body">
+                        <small>捐赠项目金额</small>
+                        <h2 class="media-heading animate-number" data-value="<?php echo $this->allsum;?>" data-animation-duration="1500">allsum</h2>
+                      </div>
+                    </div>
+
+                    <!--<div class="progress-list">
+                      <div class="details">
+                        <div class="title">本月完成计划  %</div>
+                      </div>
+                      <div class="status pull-right bg-transparent-black-1">
+                        <span class="animate-number" data-value="42" data-animation-duration="1500">0</span>%
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="progress progress-little progress-transparent-black">
+                        <div class="progress-bar animate-progress-bar" data-percentage="42%"></div>
+                      </div>
+                    </div>-->
+
+                  </div>
+                  <div class="back">
+                    <a href="#">
+                      <i class="fa fa-bar-chart-o fa-4x"></i>
+                      <span>点击查看详情</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="card-container col-lg-3 col-sm-6 col-xs-12">
+                <div class="card card-slategray hover">
+                  <div class="front"> 
+
+                    <div class="media">                   
+                      <span class="pull-left">
+                        <i class="fa fa-eye media-object"></i>
+                      </span>
+
+                      <div class="media-body">
+                        <small>会议活动</small>
+                        <h2 class="media-heading animate-number" data-value="<?php echo $this->meeting_count;?>" data-animation-duration="1500"><?php echo $this->meeting_count;?></h2>
+                      </div>
+                    </div> 
+
+                    <!--<div class="progress-list">
+                      <div class="details">
+                        <div class="title">本月完成计划  %</div>
+                      </div>
+                      <div class="status pull-right bg-transparent-black-1">
+                        <span class="animate-number" data-value="1" data-animation-duration="1500">0</span>%
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="progress progress-little progress-transparent-black">
+                        <div class="progress-bar animate-progress-bar" data-percentage="15%"></div>
+                      </div>
+                    </div>-->
+
+                  </div>
+                  <div class="back">
+                    <a href="#">
+                      <i class="fa fa-bar-chart-o fa-4x"></i>
+                      <span>点击查看详情</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <!-- /cards -->
+            <!-- row -->
+            <div class="row">
+              <!-- col 8 -->
+              <div class="col-lg-8 col-md-12">
+                  <div>
+                      <select id="tongji_type" class="form-control" >
+                          <option class="form-control"  value ="1" <?php if($this->tongji_type ==1 ){echo 'selected="selected"';}?>>年度筹资金额统计</option>
+                          <option class="form-control"  value ="2" <?php if($this->tongji_type ==2 ){echo 'selected="selected"';}?>>年度使用金额统计</option>
+                      </select>
+                  </div>
+                  <script type="text/javascript" src="/include/management/js/echarts.min.js"></script>
+                  <section class="tile color transparent-white">
+                      <div id="zhouzi_main" style="width: 100%;height:400px ;"></div>
+                      <?php if($this->tongji_type == 1){
+                          $type = '筹资';
+                      }else{
+                          $type = '使用';
+                      }?>
+                      <script type="text/javascript">
+                          // 基于准备好的dom，初始化echarts实例
+                          var myChart = echarts.init(document.getElementById('zhouzi_main'));
+
+                          // 指定图表的配置项和数据
+                          var option = {
+                              title: {
+                                  text: '（万元）'
+                              },
+                              tooltip : {
+                                  trigger: 'axis'
+                              },
+                              legend: {
+                                  data:[<?php foreach($this->rs_year as $key => $value){
+                                        if($key == count($value) - 1){
+                                            echo "'".$key."年度".$type."金额'";
+                                        }else {
+                                            echo "'".$key."年度".$type."金额'".",";
+                                        }
+                                  }?>'过往三年平均筹资金额']
+                              },
+                              toolbox: {
+                                  feature: {
+                                      saveAsImage: {}
+                                  }
+                              },
+                              grid: {
+                                  left: '3%',
+                                  right: '4%',
+                                  bottom: '3%',
+                                  containLabel: true
+                              },
+                              xAxis : [
+                                  {
+                                      type : 'category',
+                                      boundaryGap : false,
+                                      data : ['1月', '2月', '3月', '4月', '5月', '6月','7月', '8月', '9月', '10月', '11月', '12月']
+                                  }
+                              ],
+                              yAxis : [
+                                  {
+                                      type : 'value'
+                                  }
+                              ],
+                              series : [
+                                  <?php
+                                        foreach($this->rs_year as $key => $value){
+                                            echo "{
+                                              name:'".$key."年度".$type."金额',
+                                              type:'line',
+                                              areaStyle: {normal: {}},
+                                              data:[".$value['json']."]
+                                          },";
+
+                                        }
+                                  ?>
+                                  {
+                                      name:'<?php echo "过往三年平均".$type."金额";?>',
+                                      type:'line',
+                                      areaStyle: {normal: {}},
+                                      data:[
+                                      <?php foreach($this->rs_avg as $key => $value){
+                                            if($key == count($this->rs_avg)){
+                                                echo $value;
+                                            }else{
+                                                echo $value.",";
+                                            }
+                                          }
+                                      ?>]
+                                  }
+                              ]
+                          };
+
+                          // 使用刚指定的配置项和数据显示图表。
+                          myChart.setOption(option);
+                      </script>
+                  </section>
+
+                  <?php if(!empty($this->tixing)){?>
+                  <section class="tile color transparent-white">
+
+                      <!-- tile header -->
+                      <div class="tile-header">
+                          <h1>待办工作提醒<strong>TodoList</strong> </h1>
+                          <div class="controls">
+                              <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                              <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                          </div>
+                      </div>
+                      <!-- /tile header -->
+
+                      <!-- tile body -->
+                      <div class="tile-body">
+
+                          <div class="panel-group accordion" id="multi-accordion">
+
+                              <!--<div class="panel panel-default">
+                                  <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                          <a data-toggle="collapse" href="#multicollapseOne" class="collapsed">
+                                              <strong>Multi-Collapsible</strong> Group Item #1
+                                          </a>
+                                      </h4>
+                                  </div>
+                                  <div id="multicollapseOne" class="panel-collapse collapse" style="height: 0px;">
+                                      <div class="panel-body">
+                                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                      </div>
+                                  </div>
+                              </div>-->
+
+                              <?php $colorarray = array(2=>'blue', 1=>'dutch',4=>'red',0=>'green',5=>'drank',3=>'default');?>
+
+                              <?php foreach($this->tixing as $k => $v){?>
+                              <div class="panel panel-<?php echo $colorarray[$k]?>">
+                                  <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                          <a data-toggle="collapse" href="#multicollapse<?php echo $v['id'];?>" class="collapsed">
+                                              <?php echo $v['title'];?>
+                                          </a>
+                                      </h4>
+                                  </div>
+                                  <div id="multicollapse<?php echo $v['id'];?>" class="panel-collapse collapse" style="height: 0px;">
+                                      <div class="panel-body">
+                                          <div>开始时间：<?php echo $v['start_time'];?> - 结束时间：<?php echo $this->tixing[0]['end_time'];?></div>
+                                          <div>报送部门：<?php echo $v['department'];?></div>
+                                          <div>报送途径：<?php echo $v['tujing'];?></div>
+                                          <div>所需材料：<?php echo $v['files'];?></div>
+                                          <div>具体流程：<?php echo $v['process'];?></div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <?php }?>
+
+                          </div>
+
+                      </div>
+                      <!-- /tile body -->
+
+
+                  </section>
+                  <?php }?>
+
+                  <!-- tile -->
+                  <section class="tile color transparent-white">
+                      <!-- tile header -->
+                      <div class="tile-header">
+                          <h1>项目进程<strong>Projects  Progress</strong> </h1>
+                          <!--<div class="search">
+                              <input type="text" placeholder="Search...">
+                          </div>-->
+                          <div class="controls">
+                              <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                              <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                          </div>
+                      </div>
+                      <!-- /tile header -->
+
+                      <!-- tile body -->
+                      <div class="tile-body no-vpadding">
+                          <div class="table-responsive">
+                              <table class="table table-custom table-sortable nomargin">
+                                  <thead>
+                                  <tr>
+                                      <th width="10%" class="">项目编号</th>
+                                      <th width="40%" class="">项目名称</th>
+                                      <th width="20%" class="">项目状态</th>
+                                      <th width="20%"class="">项目进度</th>
+                                      <th width="10%" class="">操作</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                      <?php foreach($this->chouzilist as $key => $value){ $nn = 0;?>
+                                      <tr>
+                                          <td><?php echo $value['id'];?></td>
+                                          <td><?php echo $value['pname'];?></td>
+                                          <td class="priority">
+                                              <?php if($value['pm_rate'] == ""){?>
+                                              ---
+                                              <?php }if(preg_match("/1/", $value['pm_rate'])){ $nn += 10;?>
+                                              洽谈中&nbsp;
+                                              <?php }if(preg_match("/2/", $value['pm_rate'])){ $nn += 40;?>
+                                              已签订&nbsp;
+                                              <?php }if(preg_match("/3/", $value['pm_rate'])){ $nn += 60;?>
+                                              已到帐&nbsp;
+                                              <?php }?>
+                                          </td>
+                                          </td>
+                                          <td class="progress-cell">
+                                              <div class="progress-info">
+                                                  <div class="percent"><span class="animate-number" data-value="<?php echo $nn?>" data-animation-duration="1500">0</span>%</div>
+                                              </div>
+                                              <div class="progress progress-little">
+                                                  <div class="progress-bar progress-bar-transparent-white animate-progress-bar" data-percentage="<?php echo $nn?>%"></div>
+                                              </div>
+                                          </td>
+                                          <td class="progress-cell">
+                                                <a href="/test/chouzi/pminfo?id=<?php echo $value['id'];?>" target="_blank">查看基本信息&gt;&gt;</a>
+                                          </td>
+                                      </tr>
+                                      <?php }?>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                      <!-- /tile body -->
+
+                      <!-- tile footer -->
+                      <div class="tile-footer text-center">
+                            <ul class="pagination pagination-sm nomargin pagination-custom">
+                                <?php
+                                    $this->page = str_replace("<a","<li><a",$this->page);
+                                    $this->page = str_replace("/a>","/a></li>",$this->page);
+                                    $this->page = str_replace('<span class="current">',"<li class='active'><a href='#'>",$this->page);
+                                    $this->page = str_replace('</span>',"</a></li>",$this->page);
+                                    echo $this->page;
+                                ?>
+                            </ul>
+                      </div>
+                      <!-- /tile footer -->
+
+                  </section>
+                  <!-- /tile -->
+
+                <!-- tile -->
+                <section class="tile transparent">
+
+                  <!-- tile header -->
+                  <!--<div class="tile-header color transparent-black textured rounded-top-corners">
+                    <h1>静态统计图<strong>Statistic Chart</strong></h1>
+                    <div class="controls">
+                      <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                      <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                  </div>
+                  <!-- /tile header -->
+
+                  <!-- tile widget -->
+                 <!-- <div class="tile-widget color transparent-black textured">
+                    <div id="statistics-chart" class="chart statistics" style="height: 250px;"></div>
+                  </div>-->
+                  <!-- /tile widget -->
+
+
+                  <!-- tile body -->
+                  <!--<div class="tile-body color transparent-white rounded-bottom-corners">
+                    <div class="row">
+                      <ul class="inline">
+
+                        <li class="col-md-8 col-sm-12 col-xs-12 text-center">
+
+                          <h4 class="underline text-left"><strong>Actual Statistics</strong> 访问者</h4>
+
+                          <div class="inner-container inline">
+                            <div data-percent="100" data-size="140" class="pie-chart inline" data-scale-color="false" data-track-color="rgba(0,0,0,0)" data-bar-color="#ffffff" data-line-width="5">
+                              <div class="text-center">
+                                <i class="fa fa-usd fa-5x"></i>
+                              </div>
+                            </div>
+                            <p class="chart-overall text-center medium-thin uppercase"><span class="big-medium animate-number" data-value="6175" data-animation-duration="2500">0</span> Sales</p>
+                          </div>
+
+
+                          <div class="inner-container inline">
+                            <div data-percent="85" data-size="140" class="pie-chart inline" data-scale-color="false" data-track-color="rgba(0,0,0,0)" data-bar-color="rgba(0,0,0,.4)" data-line-width="5">
+                              <div class="text-center">
+                                <span><i class="fa fa-eye fa-5x color-transparent-black"></i></span>
+                              </div>
+                            </div>
+                            <p class="chart-overall text-center medium-thin uppercase color-transparent-black"><span class="big-medium animate-number" data-value="8213" data-animation-duration="2500">0</span> Visits</p>
+                          </div>
+
+                        </li>
+
+                        <li class="col-md-4 col-sm-12 col-xs-12">
+                          <h4 class="underline"><strong>Visitors</strong> 访问者统计</h4>
+                          <ul class="progress-list">
+                            <li>
+                              <div class="details">
+                                <div class="title">Asia</div>
+                                <div class="description">来至亚洲</div>
+                              </div>
+                              <div class="status pull-right">
+                                <span class="animate-number" data-value="40" data-animation-duration="1500">0</span>%
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="progress progress-little">
+                                <div class="progress-bar progress-bar-green animate-progress-bar" data-percentage="40%" style="width: 0%;"></div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="details">
+                                <div class="title">Europe</div>
+                                <div class="description">来至欧洲</div>
+                              </div>
+                              <div class="status pull-right">
+                                 <span class="animate-number" data-value="38" data-animation-duration="1000">0</span>%
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="progress progress-little">
+                                <div class="progress-bar progress-bar-cyan animate-progress-bar" data-percentage="35%" style="width: 0%;"></div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="details">
+                                <div class="title">America</div>
+                                <div class="description">来至美洲</div>
+                              </div>
+                              <div class="status pull-right">
+                                <span class="animate-number" data-value="12" data-animation-duration="800">0</span>%
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="progress progress-little">
+                                <div class="progress-bar progress-bar-amethyst animate-progress-bar" data-percentage="12%" style="width: 0%;"></div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="details">
+                                <div class="title">Africa</div>
+                                <div class="description">来至非洲</div>
+                              </div>
+                              <div class="status pull-right">
+                                <span class="animate-number" data-value="7" data-animation-duration="600">0</span>%
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="progress progress-little">
+                                <div class="progress-bar progress-bar-orange animate-progress-bar" data-percentage="7%" style="width: 0%;"></div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="details">
+                                <div class="title">Other 其他</div>
+                              </div>
+                              <div class="status pull-right">
+                                <span class="animate-number" data-value="6" data-animation-duration="400">0</span>%
+                              </div>
+                              <div class="clearfix"></div>
+                              <div class="progress progress-little">
+                                <div class="progress-bar progress-bar-red animate-progress-bar" data-percentage="6%" style="width: 0%;"></div>
+                              </div>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>-->
+                  <!-- /tile body -->
+                </section>
+                <!-- /tile -->
+
+              </div>
+              <!-- /col 8 -->
+              <!-- col 4 -->
+              <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+
+                  <!-- tile -->
+                  <section class="tile transparent">
+
+                      <!-- tile header -->
+                      <div class="tile-header color redbrown rounded-top-corners text-center">
+                          <button class="btn pull-left btn-black-transparent" type="button"><i class="fa fa-caret-square-o-down"></i></button>
+                          <h2>代办事宜 <strong>Todo List</strong></h2>
+                          <div class="controls">
+                              <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                              <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                          </div>
+                      </div>
+                      <!-- /tile header -->
+
+                      <!-- tile body -->
+                      <div class="tile-body color transparent-black rounded-bottom-corners">
+                          <!--<input type="text" placeholder="添加新任务..." class="w100p bottommargin">-->
+                          <ul class="nolisttypes" id="todolist">
+                              <?php foreach($this->todolist as $k => $v){?>
+                                  <li>
+                                      <div class="checkbox check-transparent">
+                                          <input type="checkbox" value="<?php echo $v['id'];?>" onclick="savetodoliststatus(<?php echo $v['id'];?>,<?php echo $v['status'];?>)" <?php if($v['status'] == 1){echo "checked='checked'";}?> id="todo-0<?php echo $v['id'];?>">
+                                          <label for="todo-0<?php echo $v['id'];?>"><?php echo $v['title'];?></label>
+                                      </div>
+                                  </li>
+                              <?php }?>
+                          </ul>
+                      </div>
+                      <!-- /tile body -->
+
+                  </section>
+                  <!-- /tile -->
+
+
+                <!-- tile -->
+                <section class="tile color transparent-black textured">
+                  <!-- tile header -->
+                  <div class="tile-header">
+                    <h1>系统信息<strong>Server</strong></h1>
+                    <div class="controls">
+                      <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                      <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                  </div>
+                  <!-- /tile header -->
+
+
+
+                  <!-- tile widget -->
+                  <div class="tile-widget">
+                    <div class="progress-list with-heading">
+                      <div class="details">
+                        <div class="title"><h2><i class="fa fa-hdd-o"></i> <span class="animate-number" data-value="<?php echo $this->free;?>" data-animation-duration="1600">0</span> GB</h2></div>
+                      </div>
+                      <div class="status pull-right bg-transparent-black-1">
+                        <span class="animate-number" data-value="<?php echo round($this->free/$this->total*100, 2);?>" data-animation-duration="1500">0</span>%
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="progress progress-little progress-transparent-black" style="margin-bottom: 5px">
+                        <div class="progress-bar animate-progress-bar" data-percentage="<?php echo round($this->free/$this->total*100, 2);?>%"></div>
+                      </div>
+                    </div>  
+                    <p class="description"><strong><?php echo $this->total;?> GB</strong> 已用 <strong class="white-text"><?php echo $this->free;?></strong> 在服务器中</p>
+                  </div>
+                  <!-- /tile widget -->
+                  <!-- tile body -->
+                  <div class="tile-body paddingtop">
+                    <div id="serverload-chart"></div>
+                  </div>
+                  <!-- /tile body -->
+
+                </section>
+                <!-- /tile -->
+
+
+
+
+                <!-- tile -->
+                <!--<section class="tile color transparent-black">-->
+
+                  <!-- tile header -->
+                 <!-- <div class="tile-header">
+                    <h1>浏览器使用<strong>Browser</strong></h1>
+                    <div class="controls">
+                      <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                      <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                  </div>-->
+                  <!-- /tile header -->
+
+                  <!-- tile body -->
+                  <!--<div class="tile-body">
+                    <div id="browser-usage" style="height: 230px;" class="morris-chart"></div>
+                    <ul class="inline text-center chart-legend">
+                      <li><span class="badge badge-outline" style="border-color: #00a3d8"></span> Chrome <small>25%</small>,</li>
+                      <li><span class="badge badge-outline" style="border-color: #1693A5"></span> Other <small>10%</small>,</li>
+                      <li><span class="badge badge-outline" style="border-color: #2fbbe8"></span> Safari <small>5%</small>,</li>
+                      <li><span class="badge badge-outline" style="border-color: #72cae7"></span> Firefox <small>15%</small>,</li>
+                      <li><span class="badge badge-outline" style="border-color: #ffc100"></span> Internet Explorer <small>40%</small>,</li>
+                      <li><span class="badge badge-outline" style="border-color: #d9544f"></span> Opera <small>5%</small></li>
+                    </ul>
+                  </div>-->
+                  <!-- /tile body -->
+                <!--</section>-->
+                <!-- /tile -->
+
+
+
+              </div>
+              <!-- /col 4 -->
+              
+            </div>
+            <!-- /row -->
+
+            <!-- row -->
+            <div class="row">
+
+            </div>
+            <!-- /row -->
+          </div>
+          <!-- /content container -->
+        </div>
+        <!-- Page content end -->
+
+        <div id="mmenu" class="right-panel">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs nav-justified">
+            <li class="active"><a href="#mmenu-users" data-toggle="tab"><i class="fa fa-users"></i></a></li>
+            <li class=""><a href="#mmenu-history" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
+            <li class=""><a href="#mmenu-friends" data-toggle="tab"><i class="fa fa-heart"></i></a></li>
+            <li class=""><a href="#mmenu-settings" data-toggle="tab"><i class="fa fa-gear"></i></a></li>
+          </ul>
+
+
+            <script src="/include/management/assets/js/jquery.js"></script>
+            <script language="javascript">
+                $(".menu li:eq(0)").addClass("open");
+            </script>
+
+            <script type="text/javascript">
+                $("#tongji_type").change(function(){
+                    var tj_type = $(this).val();
+                    self.location='/management/index'+'?tongji_type='+tj_type;
+                });
+
+
+
+                function savetodoliststatus(id,status){
+                    $.ajax({
+                        url:'/management/index/savetodolist?id='+id,
+                        type:'POST', //GET
+                        async:true,    //或false,是否异步
+                        data:{
+                            status:status
+                        },
+                        timeout:5000,    //超时时间
+                        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                        success:function(data,textStatus,jqXHR){
+                            window.location.reload();
+                        },
+                        error:function(xhr,textStatus){
+
+                        },
+                        complete:function(){
+
+                        }
+                    });
+                    window.location.reload();
+                }
+
+            </script>

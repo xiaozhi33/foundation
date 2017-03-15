@@ -1,0 +1,136 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+<!-- page header -->
+    <div class="pageheader">
+
+        <h2><i class="fa fa-tachometer"></i> Dashboard
+            <span>资金统计管理</span></h2>
+
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li>您的位置</li>
+                <li>捐赠项目统计管理</li>
+                <li class="active">资金统计管理</li>
+            </ol>
+        </div>
+
+    </div>
+    <!-- /page header -->
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+			<div class="col-md-6">
+        <section class="tile color transparent-white">
+		<div class="detailedbox tile-body">
+			<form class="form-horizontal" action="zijintoexcel" method="post" id="search_form1">
+				<label class="col-sm-3 control-label" for="pname">
+					项目名称：</label>
+				<div class="col-sm-8">
+					<select class="chosen-select-1 chosen-transparent form-control" id="pname">
+						<option value="1">请选择项目名称</option>
+						<?php if($this->pmlist != ""){
+							foreach ($this->pmlist as $k => $v){
+								?>
+								<option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+							<?php }}?>
+					</select>
+					<input id="pname_info" type="hidden" name="pname" value=""/>
+				</div>
+				<div class="form-group">
+				<label class="col-sm-3 control-label" for="input01">
+						捐赠级别：</label>
+                        <div class="col-sm-8">
+						<select class="form-control" name="pm_juanzeng_jibie">
+							<option value="">请选择类型</option>
+							<option value="校级">校级</option>
+							<option value="院级">院级</option>
+							<option value="其他">其他</option>
+						</select>
+						</div>
+                        </div>
+					<div class="form-group">
+				<label class="col-sm-3 control-label" for="input01">	
+						配比状态：</label>
+                        <div class="col-sm-8">
+            
+               
+             
+               <label> 是
+               <input type="radio" name="pm_is_school"  value="1" /></label>
+               <label>否
+               <input type="radio" name="pm_is_school"  value="0"/></label>
+                  
+					</div>
+                    </div>
+					<div class="form-group">
+                    
+				<label class="col-sm-3 control-label" for="input01">	
+						是否校友：</label>
+                    <div class="col-sm-8">
+
+               <label> 是
+               <input type="radio" name="pm_is_school"  value="1" /></label>
+               <label>否
+               <input type="radio" name="pm_is_school"  value="0"/></label>
+                     
+					</div>
+                    </div>
+						<div class="form-group">
+				<label class="col-sm-3 control-label" for="input01">	
+						捐赠用途：</label>
+                        <div class="col-sm-8"> 
+						<select class="form-control" name="pm_juanzeng_yongtu">
+								<option value="">请选择类型</option>
+								<option value="资助家庭经济困难学生">资助家庭经济困难学生</option>
+								<option value="奖励优秀学生">奖励优秀学生</option>
+								<option value="支持毕业生就业">支持毕业生就业</option>
+								<option value="奖励教师">奖励教师</option>
+								<option value="教学科研及学科发展">教学科研及学科发展</option>
+								<option value="学校基建项目">学校基建项目</option>
+								<option value="其他指定用途">其他指定用途</option>
+								<option value="非指定用途">非指定用途</option>
+						</select>
+						</div>
+                        </div>
+						<div class="form-group">
+						<label class="col-sm-3 control-label" for="input01">
+						项目捐赠者：</label>
+                        <div class="col-sm-8">
+						<input class="form-control" type="text" name="pm_pp" size="14"/>
+						</div>
+						</div>
+						<div class="form-group">						
+						<label class="col-sm-3 control-label" for="input01">捐赠到账日期区间：</label>
+                        <div class="col-sm-3">
+                        <input class="form-control" type="text"  id="dateinput"  name="zijin_daozhang_datetime"  size="14"/></div><div class="col-sm-2" style="text-align:center;"> 至</div><div class="col-sm-3">
+						<input class="form-control" type="text"  id="dateinput1"  name="zijin_daozhang_datetime1"  size="14"/></div>
+                        </div>
+                        <div class="form-group">
+						<label class="col-sm-3 control-label" for="input01">捐赠到账金额：</label>
+                        <div class="col-sm-8">
+                        <input class="form-control" type="text" size="14" name="zijin_daozheng_jiner" value="">
+						</div>
+						</div>
+                        <div class="form-group">
+            <div class="col-md-offset-3 col-sm-2">
+						<input class="btn btn-greensea" onclick="post_submit()" type="button" value="下载excel报表"/></div></div>
+					</form>
+				</div>
+         </section>
+		</div>	
+		</div>	
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(18)").addClass("open");
+
+			function post_submit(){
+				if($(".chosen-single span").html() != "请选择项目名称"){
+					$("#pname_info").val($(".chosen-single span").html());
+				}
+				$('#search_form1').submit();
+			}
+        </script>
+			
+		

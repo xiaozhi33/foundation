@@ -1,0 +1,375 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>添加资金信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目资金管理</li>
+            <li class="active">添加资金信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+	
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+		<div class="col-md-12">
+				<section class="tile color transparent-white">
+			<div class="detailedbox tile-body">
+			<form class="form-horizontal" id="form1" action="addrszijin" method="post" encType="multipart/form-data">
+				<div class="form-group">
+			  	<label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                    <div class="col-sm-4">
+                        <select class="chosen-select-1 chosen-transparent form-control" id="pname">
+                            <option value="1">请选择项目名称</option>
+                            <?php if($this->pmlist != ""){
+                                foreach ($this->pmlist as $k => $v){
+                                    ?>
+                                    <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                <?php }}?>
+                        </select>
+                        <input id="pname_info" type="hidden" name="pname" value=""/>
+                        </div>
+                        <span class="col-sm-2" > * </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">捐赠到账金额：</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" name="zijin_daozheng_jiner"  size="14"/>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">选择进度：</label>
+                    <div class="col-sm-4">
+                        <input name="jindu" type="checkbox" value="1" />已到帐
+                    </div>
+                    <!--<span class="col-sm-2" > * </span>-->
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">捐赠者类型：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control"  name="pm_pp_cate">
+                            <option value="" >请选择类型</option>
+                            <option value="个人" >个人</option>
+                            <option value="企业" > 企业</option>
+                            <option value="事业单位" >事业单位</option>
+                            <option value="基金会" > 基金会</option>
+                            <option value="其他组织" >其他组织</option>
+                        </select>
+                    </div>
+                    <span class="col-sm-2" >* 个人、企业、事业单位、基金会、其他组织 </span>
+                </div>
+
+                <!--<div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">项目捐赠者：</label>
+                    <div class="col-sm-4">
+                        <select class="chosen-select-2 chosen-transparent form-control" id="pm_pp" name="pm_pp">
+                            <option value="">请选择项目捐赠者</option>
+                            <?php /*if($this->jjh_mg_pp_list != ""){
+                                foreach ($this->jjh_mg_pp_list as $k => $v){
+                                    */?>
+                                    <option value="<?php /*echo $v;*/?>"><?php /*echo $v;*/?></option>
+                                <?php /*}}*/?>
+                        </select>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>-->
+
+                <div class="form-group transparent-editor">
+                    <label class="col-sm-2 control-label" for="input14">项目捐赠方：</label>
+                    <div class="col-sm-4">
+                        <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_pp[]" id="pm_pp">
+                            <?php if($this->jjh_mg_pp_list != ""){
+                                foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                    <option value="<?php echo $v?>"><?php echo $v?></option>
+                                <?php }}?>
+                        </select>
+                    </div>
+                    <span class="col-sm-2 addpp" >添加人员信息</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">捐赠到账日期：</label>
+                    <div class="col-sm-4">
+                        <input type="text" size="14" name="zijin_daozhang_datetime" id="datepicker" data-date-format="YYYY-MM-DD" class="form-control">
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">资金来源渠道：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" name="zijin_laiyuan_qudao">
+                            <option value="" >请选择类型</option>
+                            <option value="境内" >境内</option>
+                            <option value="境外" >境外</option>
+                        </select>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
+
+                <!--<div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">项目捐赠类型：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control"  name="pm_cate">
+                            <option value="" >请选择类型</option>
+                            <?php /*if($this->pcatelist != ""){
+                                foreach ($this->pcatelist as $k => $v){*/?>
+                                    <option value="<?php /*echo $v['id']*/?>" ><?php /*echo $v['catename']*/?></option>
+                                <?php /*}}*/?>
+                        </select>
+                    </div>
+                    <span class="col-sm-2" >* 教育基金、研究基金等</span>
+                </div>-->
+
+                <!--<div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">捐赠级别：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control"  name="pm_juanzeng_jibie">
+                            <option value="" >请选择类型</option>
+                            <option value="校级" >校级</option>
+                            <option value="院级" >院级</option>
+                            <option value="其他" >其他</option>
+                        </select>
+                    </div>
+                    <span class="col-sm-2" > * 校级、院级、其他 </span>
+                </div>-->
+
+				<!--<div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">捐赠用途：</label>
+                    <div class="col-sm-4">
+                    <select class="form-control" name="pm_juanzeng_yongtu">
+                                        <option value="" >请选择类型</option>
+                                        <option value="资助家庭经济困难学生" >资助家庭经济困难学生</option>
+                                        <option value="奖励优秀学生" >奖励优秀学生</option>
+                                        <option value="支持毕业生就业" >支持毕业生就业</option>
+                                        <option value="奖励教师" >奖励教师</option>
+                                        <option value="教学科研及学科发展" >教学科研及学科发展</option>
+                                        <option value="学校基建项目" >学校基建项目</option>
+                                        <option value="其他指定用途" >其他指定用途</option>
+                                        <option value="非指定用途" >非指定用途</option>
+                                    </select>
+                    </div>
+                    <span class="col-sm-2" > * 资助家庭经济困难学生、奖励优秀学生、支持毕业生就业、奖励教师等</span>
+                </div>-->
+
+            <div class="form-group">
+            <label class="col-sm-2 control-label" for="input01">是否是校友：</label>
+            <div class="col-sm-4">
+            <input type="radio" name="pm_is_school" value="1"/> 是
+			<input type="radio" name="pm_is_school" value="0" checked="checked"/> 否
+           	</div>
+  
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input01">是否申请配比状态：</label>
+                <div class="col-sm-4">
+                    <input type="radio" name="peibi" value="1" checked="checked" /> 是
+                    <input type="radio" name="peibi" value="0" /> 否
+                </div>
+            </div>
+					 
+			<!--<div class="form-group">
+                <label class="col-sm-2 control-label" for="input01">配比状态：</label>
+                <div class="col-sm-4">
+                    <input type="radio" name="peibi" value="1" checked="checked" onclick="javascript:change_peibi();" /> 是
+                    <input type="radio" name="peibi" value="0" onclick="javascript:change_peibi();"/> 否
+                </div>
+            </div>
+
+                <div class="form-group peibi_1">
+                    <label class="col-sm-2 control-label" for="input01">配比金额：</label>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" name="peibi_jiner"  size="14"/>
+                    </div>
+                </div>
+
+                <div class="form-group peibi_1">
+                    <label class="col-sm-2 control-label" for="input01">划拨部门：</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" name="peibi_department"  size="14"/>
+                        </div>
+                </div>
+
+
+                <div class="form-group peibi_2" style="display: none;">
+                    <label class="col-sm-2 control-label" for="input01">拒批原因：</label>
+                        <div class="col-sm-8">
+                            <textarea id="input05" class="form-control parsley-validated" rows="6" parsley-trigger="keyup" parsley-rangelength="[20,200]" name="peibi_jupi" parsley-validation-minlength="1"></textarea>
+                        </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">证书状态：</label>
+                    <div class="col-sm-4">
+                        <input type="radio" name="zhengshu" value="1" checked="checked"/> 已开证书
+                        <input type="radio" name="zhengshu" value="0" /> 未开证书
+                    </div>
+                </div>
+
+                <div class="form-group">
+                 <label class="col-sm-2 control-label" for="input01">相关文档：</label>
+                    <div class="col-sm-4">
+                    <input type="file" name="pm_files"  size="14"/>
+                    </div>
+                    <span class="col-sm-3" >  * 相关文档以打包形式上传 格式为*.rar </span>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">捐赠单位介绍：</label>
+                    <div class="col-sm-8">
+                        <textarea class="ckeditor" name="pm_pp_company"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group peibi_2">
+                    <label class="col-sm-2 control-label" for="input01">捐赠仪式：</label>
+                    <div class="col-sm-8">
+                        <textarea id="input05" class="form-control parsley-validated" rows="6" parsley-trigger="keyup" parsley-rangelength="[20,200]" name="yishi" parsley-validation-minlength="1"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group peibi_2">
+                    <label class="col-sm-2 control-label" for="input01">纪念品情况：</label>
+                    <div class="col-sm-8">
+                        <textarea id="input05" class="form-control parsley-validated" rows="6" parsley-trigger="keyup" parsley-rangelength="[20,200]" name="jinianpin" parsley-validation-minlength="1"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group transparent-editor">
+                    <label class="col-sm-2 control-label" for="input14">捐赠用途：</label>
+                    <div class="col-sm-8">
+                        <textarea parsley-validation-minlength="1" name="pm_juanzeng_yongtu" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea>
+                    </div>
+                    <span class="col-sm-2" > * 资助家庭经济困难学生、奖励优秀学生、支持毕业生就业、奖励教师等</span>
+                </div>
+                -->
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">票据状态：</label>
+                        <div class="col-sm-4">
+                            <input type="radio" name="piaoju" value="0" class="radioItem" checked="checked"/> 未开票（默认）
+                            <input type="radio" name="piaoju" class="radioItem" value="1"/> 已开票
+                            <input type="radio" name="piaoju" class="radioItem" value="2"/> 借票
+                        </div>
+                    </div>
+
+                    <div class="form-group addfapiao">
+                        <label class="col-sm-2 control-label" for="input01">发票票号：</label>
+                        <div class="col-sm-4">
+                            <input size="38" name="piaoju_fph" type="text"/>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group addfapiao">
+                        <label class="col-sm-2 control-label" for="input01">发票反馈方式：</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" name="piaoju_fkfs">
+                                <option value="1" >领取</option>
+                                <option value="2" >寄送</option>
+                                <option value="3" >暂存</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group addfapiao">
+                        <label class="col-sm-2 control-label" for="input01">经办人：</label>
+                        <div class="col-sm-4">
+                            <input size="38" name="piaoju_jbr" type="text"/>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group addfapiao">
+                        <label class="col-sm-2 control-label" for="input01">快递单号：</label>
+                        <div class="col-sm-4">
+                            <input size="38" name="piaoju_kddh" type="text"/>
+                        </div>
+                    </div>
+
+
+                   <!-- <div class="form-group peibi_1">
+                        <label class="col-sm-2 control-label" for="input01">卡号：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" name="peibi_card"  size="14"/>
+                            </div>
+
+                    </div>
+
+                    <div class="form-group peibi_1">
+                        <label class="col-sm-2 control-label" for="input01">负责人：</label>
+
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" name="peibi_pp"  size="14"/>
+                            </div>
+                    </div>-->
+
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">补充其他信息(备注)：</label>
+                    <div class="col-sm-8">
+                        <textarea id="input05" class="form-control parsley-validated" rows="6" parsley-trigger="keyup" parsley-rangelength="[20,200]" name="beizhu" parsley-validation-minlength="1"></textarea>
+                    </div>
+                </div>
+
+					<div class="form-group form-footer">
+						<div class="col-sm-offset-5 col-sm-7">
+							<input class="btn btn-primary"  onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+							<input class="btn btn-default" type="reset" value="重 置" /> 
+						</div>
+					</div>
+			</form>
+            </div>
+            </section>
+		  </div>
+		</div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="/include/management/css/bootstrap-select.min.css">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="/include/management/js/bootstrap-select.min.js"></script>
+
+        <script language="javascript">
+            $(".menu li:eq(6)").addClass("open");
+
+            /*function change_peibi(status)
+            {
+                $(".peibi_1").toggle();
+				$(".peibi_2").toggle();
+            }*/
+
+            $(document).ready(function(){
+                $(".addfapiao").hide();
+                // 切换发票状态
+                $(".radioItem").change(function(){
+                    var $selectedvalue = $("input[name='piaoju']:checked").val();
+                    if ($selectedvalue == 0) {
+                        $(".addfapiao").hide();
+                    } else if($selectedvalue == 1 || $selectedvalue == 2) {
+                        $(".addfapiao").show();
+                    }
+                });
+            });
+
+        </script>

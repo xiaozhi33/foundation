@@ -1,0 +1,118 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+    <!-- page header -->
+    <div class="pageheader">
+
+        <h2><i class="fa fa-tachometer"></i> Dashboard
+            <span>机构列表</span></h2>
+
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li>您的位置</li>
+                <li>机构信息</li>
+                <li class="active">机构列表</li>
+            </ol>
+        </div>
+
+    </div>
+    <!-- /page header -->
+
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+
+			<div class="col-md-12">
+			<section class="tile color transparent-white">
+			<div class="tile-body">
+			<form action="#" method="post">
+				<div class="form-group">
+				<div class="row">
+					<div class="form-group col-sm-3">
+						<label for="input05">成员名称：</label>
+						<input type="text" class="form-control" name="organization_name" />
+					</div>
+					<div class="form-group">
+                        <div class="form-group col-sm-2">
+                            <label for="input01"> </label>
+                            <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="input02"> </label>
+
+                            <input class="btn btn-primary btn-block" type="button" value="添加成员信息" onclick="window.location.href='/management/organization/addorganizationmain?director_id=<?php echo $_REQUEST['director_id'];?>&type=<?php echo $this->org_type_status;?>'"/>
+
+                        </div>
+                        <input type="hidden" name="type" value="<?php echo $this->org_type_status;?>">
+                    </div>
+				</div>
+				</div>
+			</form>
+			</div>
+			</section>
+			<section class="tile color transparent-white">
+				<div class="tile-body nopadding">
+				<?php if(count($this->pageData) > 0){?>
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					 <thead>
+					  <tr>
+						<td width="12%">成员名称</td>
+						<td width="6%">性别</td>
+						<td width="12%">基金会职务</td>
+						<td width="12%">现任单位职务</td>
+                        <td width="13%">电话</td>
+                        <td width="13%">操作</td>
+					  </tr>
+					</thead>
+                    <tbody>
+					  <?php
+						foreach($this->pageData as $k=>$v){?>
+						 <tr>
+						 	<td><?php echo $v['name'];?>&nbsp;</td>
+							<td><?php echo $v['sex'] == 1 ?'男':'女';?>&nbsp;</td>
+							<td><?php echo $v['jjh_post'];?>&nbsp;</td>
+                            <td><?php echo $v['org_post'];?>&nbsp;</td>
+                            <td><?php echo $v['tel'];?>&nbsp;</td>
+							<td>
+                                <a href="/test/organization/editorganization?id=<?php echo $v['id'];?>">
+                                    <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button>
+                                </a>
+
+                                 <a href="/test/organization/delorganization?id=<?php echo $v['id'];?>">
+                                     <button type="button" class="btn btn-danger margin-bottom-20" onclick= "if(confirm( '是否确定删除！ 删除将无法找回有关该条目的所有信息。')==false) return false; ">删除</button>
+                                 </a>
+                            </td>
+						 </tr>
+					   <?php }?>
+                     </tbody>
+					</table>
+					</div>
+					<div class="tile-footer">
+					<div class="row">
+					<div class="page col-md-12" align="right">
+						共  <?php echo $this->totalItems;?> 成员   <?php echo $this->page['all'];?></div>
+					
+				 <?php }else{?>
+                     <div class="form-group">
+                         <div class="row">
+                             <div class="col-md-offset-1 col-sm-2">
+                                 <label for="input02">暂无机构成员信息！ </label>
+
+                                 <input class="btn btn-primary btn-block" type="button" value="添加<?php echo $this->org_type_array[$this->org_type_status];?>成员信息" onclick="window.location.href='/management/organization/addorganizationmain?director_id=<?php echo $_REQUEST['director_id'];?>&type=<?php echo $this->org_type_status;?>'"/>
+                             </div>
+                         </div>
+                     </div>
+				 <?php }?>
+				 </div>
+				 </div>
+				 </section>
+		  </div>
+		</div>
+
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(28)").addClass("open");
+        </script>

@@ -1,0 +1,81 @@
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>项目联系人子公司列表</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目联系人管理</li>
+            <li class="active">联系人子公司列表</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+	<div id="rightstyle02" class="row">
+		<div class="col-md-12">
+			<section class="tile color transparent-white">
+			</section>
+            <section class="tile color transparent-white">	
+                <div class="tile-body nopadding">				
+				<?php if(!empty($this->company_list)){?>
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                        <thead>
+                            <tr>
+                                <td width="20%">子公司名称</td>
+                                <td width="15%">联系人</td>
+                                <td width="15%">联系方式</td>
+                                <td width="10%">操作</td>
+                            </tr>
+                        </thead>
+                      <tbody>
+					  <?php 
+						foreach($this->company_list as $k=>$v){?>
+                        <tr>
+                            <td><?php echo $v['company_name'];?></td>
+                            <td><?php echo $v['company_contector'];?></td>
+                            <td><?php echo $v['company_cont_style'];?></td>
+                            <td>
+                            <a href="/test/admin/editppcompany?id=<?php echo $v['id'];?>">
+                                <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button>
+                            </a>
+                            <a href="/test/admin/delppcompany?id=<?php echo $v['id'];?>&pp_id=<?php echo $v['pp_id'];?>" onclick="javascript:if(!confirm('确定要删除选择的信息吗？\n此操作不可以恢复！')) { return false; }">
+                                <button type="button" class="btn btn-danger margin-bottom-20">删除</button>
+                            </a>
+                            </td>
+                        </tr>
+					   <?php }?>
+                       </tbody>
+					</table>
+				</div>
+				<div class="tile-footer">
+				<div class="row">
+					<!--<div class="page col-md-12" align="right">
+						共  <?php /*echo $this->total;*/?> 条          <?php /*echo $this->page;*/?>
+                    </div>-->
+
+                    <div class="row">
+                        <div class="page col-md-12" style="margin:10px;" >
+                            <a href="/test/admin/addppcompany?pp_id=<?php echo $this->pp_id;?>">继续添加（<?php echo $this->pp_info['ppname'];?>）子公司信息</a>
+                        </div>
+                    </div>
+				 <?php }else{?>
+				 	<div class="row">
+                        <div class="page col-md-12" style="margin:20px; ">暂无项目联系人（<?php echo $this->pp_info['ppname'];?>）子公司信息！<a href="/test/admin/addppcompany?pp_id=<?php echo $this->pp_id;?>">点击添加</a></div>
+                    </div>
+				 <?php }?>
+		  </div>
+		</div> 
+			</section>
+        </div>
+    </div>
+
+    <script src="/include/management/assets/js/jquery.js"></script>
+    <script language="javascript">
+        $(".menu li:eq(10)").addClass("open");
+    </script>

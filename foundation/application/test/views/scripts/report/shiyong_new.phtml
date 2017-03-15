@@ -1,0 +1,110 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+<!-- page header -->
+    <div class="pageheader">
+
+        <h2><i class="fa fa-tachometer"></i> Dashboard
+            <span>项目支出信息统计管理</span></h2>
+
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li>您的位置</li>
+                <li>捐赠项目统计管理</li>
+                <li class="active">项目支出信息统计管理</li>
+            </ol>
+        </div>
+
+    </div>
+    <!-- /page header -->
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+		<div class="col-md-6">
+        <section class="tile color transparent-white">
+
+		<div class="detailedbox tile-body">
+			<form class="form-horizontal" action="shiyongnewtoexcel" method="post" id="search_form1">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">项目名称：</label>
+                    <div class="col-sm-8">
+                        <select class="chosen-select-1 chosen-transparent form-control" id="pname">
+                            <option value="1">请选择项目名称</option>
+                            <?php if($this->pmlist != ""){
+                                foreach ($this->pmlist as $k => $v){
+                                    ?>
+                                    <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                <?php }}?>
+                        </select>
+                        <input id="pname_info" type="hidden" name="pname" value=""/>
+                        </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">项目类型：</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="cate">
+                            <option value="" >请选择类型</option>
+                            <?php if($this->pcatelist != ""){
+                                foreach ($this->pcatelist as $k => $v){?>
+                                    <option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
+                                <?php }}?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">所属部门：</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="department">
+                            <option value="" >请选择类型</option>
+                            <?php if($this->departmentlist != ""){
+                                foreach ($this->departmentlist as $k => $v){?>
+                                    <option value="<?php echo $v['id']?>" ><?php echo $v['pname']?></option>
+                                <?php }}?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">支出性质：</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="shiyong_type">
+                            <option value="" >请选择类型</option>
+                            <option value="1" >基金会列支</option>
+                            <option value="2" >转财务处</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">起止时间：</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="start" data-date-format="YYYY-MM-DD" id="datepicker1"/> ~ <input type="text" name="end" data-date-format="YYYY-MM-DD" id="datepicker2" />
+                    </div>
+                </div>
+
+                 <div class="form-group">
+                        <div class="col-sm-3 control-label">
+                            <input class="btn btn-greensea" onclick="post_submit()" type="button" value="下载excel报表"/>
+                        </div>
+                 </div>
+
+			</form>
+            </div>
+        </section>
+		</div>	
+	</div>	
+
+    <script src="/include/management/assets/js/jquery.js"></script>
+    <script language="javascript">
+        $(".menu li:eq(18)").addClass("open");
+
+        function post_submit(){
+            if($(".chosen-single span").html() != "请选择项目名称"){
+                $("#pname_info").val($(".chosen-single span").html());
+            }
+            $('#search_form1').submit();
+        }
+    </script>

@@ -1,0 +1,141 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>使用列表</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目使用管理</li>
+            <li class="active">使用列表</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+		<div class="col-md-12">
+                <section class="tile color transparent-white">
+                	<div class="tile-body">
+					<form class="form-horizontal" action="#" method="get" name="search_form">
+                    <input name="type" type="hidden" value="<?php echo $this->type;?>"/>
+                    <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                            <div class="col-sm-5">
+                                    <select class="chosen-select-1 chosen-transparent form-control" name="pname">
+                                        <option value="">请选择项目名称</option>
+                                        <?php if($this->pmlist != ""){
+                                                foreach ($this->pmlist as $k => $v){
+                                            ?>
+                                            <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                        <?php }}?>
+                                    </select>
+                                    <input id="pname_info" type="hidden" name="pname" value=""/>
+                             </div>
+                       </div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label" for="input01">支出性质：</label>
+							<div class="col-sm-8">
+								<select class="form-control" name="shiyong_type">
+									<option value="" >请选择类型</option>
+									<option value="1" >基金会列支</option>
+									<option value="2" >转财务处</option>
+								</select>
+							</div>
+						</div>
+
+                       <div class="form-group">
+                           <label class="col-sm-offset-2 col-sm-10" for="input01"> * 项目资金和使用必须在拥有具体项目以后才可以进行操作，如目前还没有项目请添加筹资项目。</label></div>
+                            <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-2">
+                                    <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                               </div>
+                             </div>
+
+                   
+					</form>
+
+				   </div>
+        		</section>
+				<section class="tile color transparent-white">
+					<div class="tile-body nopadding">
+				<?php if($this->shiyonglist != ""){?>
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  <thead>
+                          <tr>
+                            <td width="12%">项目名称</td>
+                            <td width="12%">支出方式</td>
+                            <td width="12%">项目类型</td>
+                            <td width="8%">资助人数</td>
+                            <td width="12%">项目支出日期</td>
+                            <td width="12%">项目支出金额</td>
+                            <td width="10%">操作</td>
+                          </tr>
+					</thead>
+                      <tbody>
+					  <?php 
+						foreach($this->shiyonglist as $k=>$v){?>
+						 <tr>
+						 	<td><?php echo $v['pm_name'];?>&nbsp;</td>
+                             <td><?php if($v["shiyong_type"]==1){echo "基金会列支";}elseif($v["shiyong_type"]==2){echo "转财务处";}?>&nbsp;</td>
+
+							<!--<td><?php /*echo $v['jiangli_fanwei'];*/?>&nbsp;</td>-->
+							 <td><?php echo $v['catename'];?></td>
+							<td><?php echo $v['jiangli_renshu'];?>&nbsp;人</td>
+                             <!--<td><?php /*echo substr($v['shiyong_zhichu_datetime'],0,10);*/?>&nbsp;</td>-->
+								
+							<td><?php echo substr($v['shiyong_zhichu_datetime'],0,10);?>&nbsp;</td>
+							<td><?php echo $v['shiyong_zhichu_jiner'];?>&nbsp;元</td>
+							<td><a href="/test/shiyong/editshiyong?id=<?php echo $v['id'];?>">
+                            <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                            </a>
+                            <a href="#"><button class="btn btn-danger margin-bottom-20" type="button">删除</button></a></td>
+						 </tr>
+					   <?php }?>
+                       </tbody>
+					</table>
+				</div>
+					<div class="tile-footer">
+					<div class="row">
+					<div align="right" class="page col-md-12">
+						共  <?php echo $this->total;?> 条使用信息          <?php echo $this->page;?></div>
+					
+				 <?php }else{?>
+				 	<div>暂无使用信息！<a href="/admin/shiyong/addshiyong">点击添加</a></div>
+				 <?php }?>
+		  			</div>
+				</div> 
+				</section>
+         </div>
+        </div>    
+		<script language="javascript"> 
+			$(document).ready(function() {   
+			       $('#dateinput').datepicker({   
+			           dateFormat: 'yy-mm-dd',  //日期格式，自己设置 
+			           buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置 
+			           buttonImageOnly: true,  //Show an image trigger without any button. 
+			           //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效 
+			       yearRange: '2008:2020',//年份范围 
+			       clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置 
+			       closeText:'关闭', 
+			       prevText:'前一月', 
+			       nextText:'后一月', 
+			       currentText:' ', 
+			       monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'] 
+			       });   
+			   });   
+			</script>
+
+
+        <script language="javascript">
+            $(".menu li:eq(0)").addClass("open");
+        </script>

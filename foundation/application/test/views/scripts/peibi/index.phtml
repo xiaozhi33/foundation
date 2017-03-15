@@ -1,0 +1,142 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<link rel="stylesheet" href="/include/management/assets/css/vendor/animate/animate.css">
+<link type="text/css" rel="stylesheet" media="all" href="/include/management/assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/include/management/assets/js/vendor/videobackground/css/jquery.videobackground.css">
+<link rel="stylesheet" href="/include/management/assets/css/vendor/bootstrap-checkbox.css">
+
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote-bs3.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen.min.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen-bootstrap.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/datepicker/css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpicker/css/bootstrap-colorpicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpalette/bootstrap-colorpalette.css">
+<link href="/include/management/assets/css/minimal.css" rel="stylesheet">
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>项目配比列表</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目配比管理</li>
+            <li class="active">项目配比列表</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+
+			<div class="col-md-12">
+                <section class="tile color transparent-white">
+                    <div class="tile-body">
+                        <form action="#" method="get" name="search_form">
+                            <div class="form-group">
+
+                                <div class="row">
+                                    <div class="form-group col-sm-9">
+                                        <label for="pname" class="col-sm-4 control-label">来款项目：</label>
+                                        <select class="chosen-select-1 chosen-transparent form-control" name="pname" id="id">
+                                            <option value="">请选择来款项目</option>
+                                            <?php if($this->chouzi_lists != ""){
+                                                foreach ($this->chouzi_lists as $k => $v){
+                                                    ?>
+                                                    <option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pname'] == $v['pname'])echo 'selected="selected"';?>><?php echo $v['pname'];?></option>
+                                                <?php }}?>
+                                        </select>
+                                        <!--<input id="pname_info" type="hidden" name="pm_name" value=""/>-->
+                                    </div>
+                                </div>
+
+                               <div class="row">
+                                    <div class="form-group col-sm-3">
+                                        <label for="input02"></label>
+                                        <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                                        <!--<label for="input03"></label>
+                                        <a href="/test/peibi/add" target="_blank"><input class="btn btn-primary btn-block" type="botton" value="添加配比信息"/></a>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+			<section class="tile color transparent-white">
+				<div class="tile-body nopadding">
+				<?php if($this->pageData != ""){?>
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					 <thead>
+					  <tr>
+						<td width="24%">来款项目</td>
+						<td width="12%">来款时间</td>
+                        <td width="20%">来款方</td>
+                        <td width="20%">来款金额</td>
+                          <td width="20%">操作</td>
+					  </tr>
+					</thead>
+                    <tbody>
+					  <?php
+						foreach($this->pageData as $k=>$v){?>
+						 <tr>
+						 	<td>
+                                <?php echo $v['pm_name'];?>
+                            </td>
+                             <td>
+                                 <?php echo $v['zijin_daozhang_datetime'];?>
+                             </td>
+                             <td>
+                                 <?php echo $v['pm_pp'];?>
+                             </td>
+                             <td>
+                                 <?php echo $v['zijin_daozheng_jiner'];?>
+                             </td>
+
+							<td>
+                                <a href="/test/peibi/peibiindex?lk_main_id=<?php echo $v['id'];?>">
+                                    <button class="btn btn-greensea margin-bottom-20" type="button">查看配比信息</button>
+                                </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="/test/peibi/add?id=<?php echo $v['id'];?>">
+                                    <button class="btn btn-greensea margin-bottom-20" type="button">添加配比信息</button>
+                                </a>
+                            </td>
+						 </tr>
+					   <?php }?>
+                     </tbody>
+					</table>
+					</div>
+					<div class="tile-footer">
+					<div class="row">
+					<div class="page col-md-12" align="right">
+                        共  <?php echo $this->totalItems;?> 条已申请配比信息         <?php echo $this->page['all'];?></div>
+					
+				 <?php }else{?>
+				 	<!--<div style="margin: 10px;padding: 10px;">暂无配比信息！<a href="/test/peibi/add">点击添加</a></div>-->
+				 <?php }?>
+				 </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-3">
+                                <label for="input02"></label>
+                                <a href="/test/report/peibitoexcel?pname=<?php echo $this->pname;?>"><button class="btn btn-primary btn-block">全部配比信息导出Excel</button></a>
+                            </div>
+                        </div>
+
+				 </div>
+				 </section>
+		  </div>
+		</div>
+
+        <script language="javascript">
+            $(".menu li:eq(18)").addClass("open");
+        </script>

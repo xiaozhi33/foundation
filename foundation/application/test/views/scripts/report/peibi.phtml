@@ -1,0 +1,98 @@
+<link rel="stylesheet" href="/include/management/datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="/include/management/datepicker/ui.datepicker.css" type="text/css"  />
+<!--<script src="/include/management/datepicker/jquery.js"></script>-->
+
+<link rel="stylesheet" href="/include/management/jiansuo/base/jquery.ui.all.css">
+<script src="/include/management/jiansuo/jquery-1.6.2.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.core.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.widget.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.button.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.position.js"></script>
+<script src="/include/management/jiansuo/ui/jquery.ui.autocomplete.js"></script>
+
+<script src="/include/management/jiansuo/ui/jquery.ui.datepicker.js"></script>
+<!--<script src="/include/management/datepicker/ui.datepicker.js"></script>-->
+<!-- page header -->
+    <div class="pageheader">
+
+        <h2><i class="fa fa-tachometer"></i> Dashboard
+            <span>配比统计管理</span></h2>
+
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li>您的位置</li>
+                <li>捐赠项目统计管理</li>
+                <li class="active">配比统计管理</li>
+            </ol>
+        </div>
+
+    </div>
+    <!-- /page header -->
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+        <div class="col-md-6">
+        <section class="tile color transparent-white">
+		<div class="detailedbox tile-body">
+			<form class="form-horizontal" action="allpeibitoexcel" method="post">
+            <div class="form-group">
+				<label class="col-sm-2 control-label" for="input01">所属部门：</label>
+                <div class="col-sm-8">
+					<select class="form-control" name="department">
+							<option value="" >请选择类型</option>
+								<?php if($this->departmentlist != ""){
+								foreach ($this->departmentlist as $k => $v){?>
+									<option value="<?php echo $v['id']?>" ><?php echo $v['pname']?></option>
+								<?php }}?>
+						</select>
+                 </div>
+             </div>
+            <div class="form-group">	
+			<label class="col-sm-2 control-label" for="input01">			项目类型：</label>
+            <div class="col-sm-8">
+						<select class="form-control" name="cate">
+							<option value="" >请选择类型</option>
+								<?php if($this->pcatelist != ""){
+								foreach ($this->pcatelist as $k => $v){?>
+									<option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
+								<?php }}?>
+						</select>
+                        </div>
+			</div>
+			<!--<div class="form-group">
+				<label class="col-sm-2" for="input01">配比日期区间：</label>
+            </div> -->
+			<div class="form-group">				
+				<label class="col-sm-2 control-label" for="input01">
+                        开始时间 ：</label>
+                        <div class="col-sm-4">
+                            <input class="form-control"  type="text" name="starttime" data-date-format="YYYY-MM-DD" id="datepicker1"  size="14"/>
+                        </div>
+						<label class="col-sm-2 control-label" for="input01">结束时间 ：</label>
+                        <div class="col-sm-4">
+                            <input class="form-control"  type="text" name="endtime" data-date-format="YYYY-MM-DD" id="datepicker2" size="14"/>
+                        </div>
+            </div>
+            <div class="form-group">     
+				<label class="col-sm-2 control-label" for="input01">
+						项目名称：</label>
+                <div class="col-sm-10">
+                        <input class="form-control" type="text" name="pname" /></div></div>
+            <div class="form-group">
+            <div class="col-md-offset-2 col-sm-2">
+						<input class="btn btn-greensea" type="submit" value="下载excel报表"/></div>
+                        </div>
+					</form>
+		</div>
+		</section>
+		</div>
+		</div>
+
+
+
+
+
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(18)").addClass("open");
+        </script>

@@ -1,0 +1,98 @@
+<style>
+	.ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text{
+		padding:0em;
+	}
+	.ui-widget .ui-widget{
+		font-size: 12px;
+	}
+	.ui-menu .ui-menu-item a{
+		font-size: 12px;
+	}
+
+</style>
+
+ <!-- page header -->
+    <div class="pageheader">
+
+        <h2><i class="fa fa-tachometer"></i> Dashboard
+            <span>查看项目统计报表</span></h2>
+
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li>您的位置</li>
+                <li>捐赠项目统计管理</li>
+                <li class="active">查看项目统计报表</li>
+            </ol>
+        </div>
+
+    </div>
+    <!-- /page header -->
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+       	 <div class="col-md-6">
+        	<section class="tile color transparent-white">
+                <div class="detailedbox tile-body">
+                    <form class="form-horizontal" action="/test/report/reportinfo" name="search_form" method="post" target="_blank">
+                        <div class="form-group">
+                            <label class="col-sm-4" for="input01">根据项目统计项目收支明细</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">项目名称:</label>
+                            <div class="col-sm-8">
+                                <select class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                    <option value="1">请选择项目名称</option>
+                                    <?php if($this->pmlist != ""){
+                                        foreach ($this->pmlist as $k => $v){
+                                            ?>
+                                            <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                        <?php }}?>
+                                </select>
+                                <input id="pname_info" type="hidden" name="pname" value=""/>
+                             </div>
+                            <span class="col-sm-1" > * </span>
+
+                        </div>
+                        <div class="form-group">
+                         <div class="col-md-offset-2 col-sm-2">
+
+                            <input type="submit" class="btn btn-greensea" value="查看报表"/></div></div>
+                        <input type="hidden" name="style" value="style1"/>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-6">
+        	<section class="tile color transparent-white">
+                <div class="detailedbox tile-body">
+                    <form class="form-horizontal" action="/test/report/reportinfo" method="post" target="_blank">
+                    <div class="form-group">
+                    <label class="col-sm-4" for="input01">根据时间统计项目收支明细</label>
+                    </div>
+                    <div class="form-group">
+
+                    <label class="col-sm-3 control-label" for="input01">统计明细时间区间：</label>
+                    <div class="col-sm-4">
+                         <input name="start_datetime" data-date-format="YYYY-MM-DD"  type="text" class="form-control" id="datepicker">
+                    </div>
+                    <div class="col-sm-1" style="text-align:center;"> —</div>
+                    <div class="col-sm-4">
+                         <input name="end_datetime" data-date-format="YYYY-MM-DD"  type="text" class="form-control" id="datepicker1">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="col-md-offset-3 col-sm-2">
+                    <input class="btn btn-greensea" type="submit" value="查看报表"/></div>
+                    </div>
+                    <input type="hidden" name="style" value="style1"/>
+
+                  </form>
+                </div>
+        	</section>
+		</div>
+		</div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(18)").addClass("open");
+        </script>
+

@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+
+	<div id="main">
+		<div id="rightstyle02">
+		<h4>系统日志管理<span class="font_red"> >> </span><span class="font_red_big">日志列表</span></h4>
+			<div class="detailedbox">
+				
+				<?php if(count($this->loglistinfo) != 0){?>
+					<table class="table01" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  
+					  <tr>
+						<td width="24%" bgcolor="#f5f5f5">日志类型</td>
+						<td width="12%" bgcolor="#f5f5f5">相关操作人</td>
+						<td width="12%" bgcolor="#f5f5f5">操作IP</td>
+						<td width="26%" bgcolor="#f5f5f5">日志日期</td>
+						<td width="13%" bgcolor="#f5f5f5"></td>
+					  </tr>
+					
+					  <?php 
+						foreach($this->loglistinfo as $k=>$v){?>
+						 <tr>
+						 	<td><?php echo $v['logType'];?>&nbsp;</td>
+							<td><?php echo $v['logName'];?>&nbsp;</td>
+							<td><?php echo $v['logIp'];?>&nbsp;</td>
+							<td><?php echo $v['logTime'];?>&nbsp;</td>
+							<td><a target="_blank" href="/test/log/slowone?id=<?php echo $v['logPid'];?>">查看日志详细</a></td></tr>
+					   <?php }?>
+					</table>
+					
+					<div align="right" style="margin-right: 10px;margin-top: 5px;">
+						共  <?php echo $this->total;?> 条日志          <?php echo $this->page;?></div>
+					
+				 <?php }else{?>
+				 	<div>暂无日志信息！</div>
+				 <?php }?>
+		  </div>
+		</div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(33)").addClass("open");
+        </script>

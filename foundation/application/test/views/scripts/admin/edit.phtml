@@ -1,0 +1,61 @@
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>编辑管理员</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>管理组成员管理</li>
+            <li class="active">编辑管理员</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->	
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+        	<div class="col-md-6">
+				<section class="tile color transparent-white">
+			<div class="detailedbox tile-body">
+				<form class="form-horizontal" action="editrs"  id="form1" method="post" encType="multipart/form-data">
+			<div class="form-group">
+            <label class="col-sm-2 control-label" for="input01">管理员类型：</label>
+            <div class="col-sm-6">
+            	<select class="form-control" name="type">
+								<!--<option value="0" <?php /*if($this->adminlist[0]['admin_type'] == 0){echo "selected='selected'";}*/?>>系统管理员</option>-->
+								<option value="1" <?php if($this->adminlist[0]['admin_type'] == 1){echo "selected='selected'";}?>>项目筹资管理员</option>
+								<option value="2" <?php if($this->adminlist[0]['admin_type'] == 2){echo "selected='selected'";}?>>项目资金管理员</option>
+								<option value="3" <?php if($this->adminlist[0]['admin_type'] == 3){echo "selected='selected'";}?>>项目使用管理员</option>
+								<option value="4" <?php if($this->adminlist[0]['admin_type'] == 4){echo "selected='selected'";}?>>项目管理员</option>
+								<option value="5" <?php if($this->adminlist[0]['admin_type'] == 5){echo "selected='selected'";}?>>统计管理员</option>
+								<option value="6" <?php if($this->adminlist[0]['admin_type'] == 6){echo "selected='selected'";}?>>网站管理员</option>
+							</select>
+            </div>
+            <span class="col-sm-2" > * </span>
+            </div>
+			<div class="form-group">
+            <label class="col-sm-2 control-label" for="input01">管理员名称：</label>
+            <div class="col-sm-6">
+           <input class="form-control" type="text" name="name" value="<?php echo $this->adminlist[0]['admin_name'];?>"/>
+            </div>
+            <span class="col-sm-2" > * </span>
+            </div>	
+			<input type="hidden" name="id" value="<?php echo $this->adminlist[0]['id'];?>"/>					
+			<div class="form-group form-footer">
+				<div class="col-sm-offset-4 col-sm-7">
+					<input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+					<input class="btn btn-default" type="reset" value="重 置" /> 
+				</div>
+			</div>
+			</form>
+		  	</div>
+        		</section>
+			</div>
+        </div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(29)").addClass("open");
+        </script>

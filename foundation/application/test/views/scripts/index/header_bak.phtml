@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>天津大学北洋教育发展基金会 - 项目管理系统后台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8" />
+	
+    <!--<link rel="icon" type="image/ico" href="http://tattek.com/minimal/assets/images/favicon.ico" />-->
+    <!-- Bootstrap -->
+    <link href="/include/management/assets/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/include/management/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="/include/management/assets/css/vendor/animate/animate.min.css">
+    <link type="text/css" rel="stylesheet" media="all" href="/include/management/assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+    <link rel="stylesheet" href="/include/management/assets/js/vendor/videobackground/css/jquery.videobackground.css">
+    <link rel="stylesheet" href="/include/management/assets/css/vendor/bootstrap-checkbox.css">
+
+    <!--<link rel="stylesheet" href="/include/management/assets/js/vendor/rickshaw/css/rickshaw.min.css">-->
+    <link rel="stylesheet" href="/include/management/assets/js/vendor/morris/css/morris.css">
+    <link rel="stylesheet" href="/include/management/assets/js/vendor/tabdrop/css/tabdrop.css">
+    <link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote.css">
+    <link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote-bs3.css">
+    <link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen.min.css">
+    <link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen-bootstrap.css">
+    <link rel="stylesheet" href="/include/management/assets/js/vendor/datepicker/css/bootstrap-datetimepicker.css">
+	<link rel="stylesheet" href="/include/management/assets/css/minimal.css">
+	<link rel="stylesheet" href="/include/management/assets/css/jjhstyle.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    
+  </head>
+  <body class="bg-0">
+
+    <!-- Preloader -->
+    <div class="mask"><div id="loader"></div></div>
+    <!--/Preloader -->
+
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+
+      <!-- Make page fluid -->
+      <div class="row">
+
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-default navbar-fixed-top navbar-transparent-black mm-fixed-top" role="navigation" id="navbar">
+          
+          <!-- Branding -->
+          <div class="navbar-header col-md-2">
+            <a class="navbar-brand" href="/management">
+              <strong>ADMIN</strong>
+            </a>
+            <div class="sidebar-collapse">
+              <a href="#">
+                <i class="fa fa-bars"></i>
+              </a>
+            </div>
+          </div>
+          
+          <!-- .nav-collapse -->
+          <div class="navbar-collapse">
+                        
+            <!-- Page refresh -->
+            <ul class="nav navbar-nav refresh">
+              <li class="divided">
+                <a href="#" class="page-refresh"><i class="fa fa-refresh"></i></a>
+              </li>
+            </ul>
+            <!-- /Page refresh -->
+
+            <!-- Search -->
+            <!--<div class="search" id="main-search">
+              <i class="fa fa-search"></i> <input type="text" placeholder="Search...">
+            </div>-->
+            <!-- Search end -->
+
+            <!-- Quick Actions -->
+            <ul class="nav navbar-nav quick-actions">
+              
+              <!--<li class="dropdown divided">
+                
+                <a class="dropdown-toggle button" data-toggle="dropdown" href="#">
+                  <i class="fa fa-tasks"></i>
+                  <span class="label label-transparent-black">2</span>
+                </a>
+
+                <ul class="dropdown-menu wide arrow nopadding bordered">
+                  <li><h1>You have <strong>2</strong> new tasks</h1></li>
+                  <li>
+                    <a href="#">
+                      <div class="task-info">
+                        <div class="desc">Layout</div>
+                        <div class="percent">80%</div>
+                      </div>
+                      <div class="progress progress-striped progress-thin">
+                        <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                          <span class="sr-only">40% Complete (success)</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="task-info">
+                        <div class="desc">Schemes</div>
+                        <div class="percent">15%</div>
+                      </div>
+                      <div class="progress progress-striped active progress-thin">
+                        <div class="progress-bar progress-bar-cyan" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 15%">
+                          <span class="sr-only">45% Complete</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="task-info">
+                        <div class="desc">Forms</div>
+                        <div class="percent">5%</div>
+                      </div>
+                      <div class="progress progress-striped progress-thin">
+                        <div class="progress-bar progress-bar-orange" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 5%">
+                          <span class="sr-only">5% Complete (warning)</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="task-info">
+                        <div class="desc">JavaScript</div>
+                        <div class="percent">30%</div>
+                      </div>
+                      <div class="progress progress-striped progress-thin">
+                        <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                          <span class="sr-only">30% Complete (danger)</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <div class="task-info">
+                        <div class="desc">Dropdowns</div>
+                        <div class="percent">60%</div>
+                      </div>
+                      <div class="progress progress-striped progress-thin">
+                        <div class="progress-bar progress-bar-amethyst" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                          <span class="sr-only">60% Complete</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li><a href="#">Check all tasks <i class="fa fa-angle-right"></i></a></li>
+                </ul>
+
+              </li>-->
+
+              <!--<li class="dropdown divided">
+                
+                <a class="dropdown-toggle button" data-toggle="dropdown" href="#">
+                  <i class="fa fa-envelope"></i>
+                  <span class="label label-transparent-black">1</span>
+                </a>
+
+                <ul class="dropdown-menu wider arrow nopadding messages">
+                  <li><h1>You have <strong>1</strong> new message</h1></li>
+                  <li>
+                    <a class="cyan" href="#">
+                      <div class="profile-photo">
+                        <img src="/include/management/assets/images/ici-avatar.jpg" alt />
+                      </div>
+                      <div class="message-info">
+                        <span class="sender">Ing. Imrich Kamarel</span>
+                        <span class="time">12 mins</span>
+                        <div class="message-content">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</div>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a class="green" href="#">
+                      <div class="profile-photo">
+                        <img src="/include/management/assets/images/arnold-avatar.jpg" alt />
+                      </div>
+                      <div class="message-info">
+                        <span class="sender">Arnold Karlsberg</span>
+                        <span class="time">1 hour</span>
+                        <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit</div>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#">
+                      <div class="profile-photo">
+                        <img src="/include/management/assets/images/profile-photo.jpg" alt />
+                      </div>
+                      <div class="message-info">
+                        <span class="sender">John Douey</span>
+                        <span class="time">3 hours</span>
+                        <div class="message-content">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</div>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a class="red" href="#">
+                      <div class="profile-photo">
+                        <img src="/include/management/assets/images/peter-avatar.jpg" alt />
+                      </div>
+                      <div class="message-info">
+                        <span class="sender">Peter Kay</span>
+                        <span class="time">5 hours</span>
+                        <div class="message-content">Ut enim ad minim veniam, quis nostrud exercitation</div>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a class="orange" href="#">
+                      <div class="profile-photo">
+                        <img src="/include/management/assets/images/george-avatar.jpg" alt />
+                      </div>
+                      <div class="message-info">
+                        <span class="sender">George McCain</span>
+                        <span class="time">6 hours</span>
+                        <div class="message-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit</div>
+                      </div>
+                    </a>
+                  </li>
+
+
+                  <li class="topborder"><a href="#">Check all messages <i class="fa fa-angle-right"></i></a></li>
+                </ul>
+
+              </li>-->
+
+              <!--<li class="dropdown divided">
+                
+                <a class="dropdown-toggle button" data-toggle="dropdown" href="#">
+                  <i class="fa fa-bell"></i>
+                  <span class="label label-transparent-black">3</span>
+                </a>
+
+                <ul class="dropdown-menu wide arrow nopadding bordered">
+                  <li><h1>You have <strong>3</strong> new notifications</h1></li>
+                  
+                  <li>
+                    <a href="#">
+                      <span class="label label-green"><i class="fa fa-user"></i></span>
+                      New user registered.
+                      <span class="small">18 mins</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#">
+                      <span class="label label-red"><i class="fa fa-power-off"></i></span>
+                      Server down.
+                      <span class="small">27 mins</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#">
+                      <span class="label label-orange"><i class="fa fa-plus"></i></span>
+                      New order.
+                      <span class="small">36 mins</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#">
+                      <span class="label label-cyan"><i class="fa fa-power-off"></i></span>
+                      Server restared.
+                      <span class="small">45 mins</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="#">
+                      <span class="label label-amethyst"><i class="fa fa-power-off"></i></span>
+                      Server started.
+                      <span class="small">50 mins</span>
+                    </a>
+                  </li>
+
+                   <li><a href="#">Check all notifications <i class="fa fa-angle-right"></i></a></li>
+                </ul>
+
+              </li>-->
+
+              <li class="dropdown divided user" id="current-user">
+                <div class="profile-photo">
+                  <img src="/include/management/assets/images/profile-photo.jpg" alt />
+                </div>
+                <a class="dropdown-toggle options" data-toggle="dropdown" href="#">
+                 <?php $admininfo = SessionUtil::getAdmininfo();print_r($admininfo['admin_name']);?> <i class="fa fa-caret-down"></i>
+                </a>
+                
+                <ul class="dropdown-menu arrow settings">
+
+                  <li>
+                    
+                    <h3>风格style:</h3>
+                    <ul id="color-schemes">
+                      <li><a href="#" class="bg-0"></a></li>
+                      <li><a href="#" class="bg-1"></a></li>
+                      <li><a href="#" class="bg-2"></a></li>
+                      <li><a href="#" class="bg-3"></a></li>
+                      <li><a href="#" class="bg-4"></a></li>
+                      <li><a href="#" class="bg-5"></a></li>
+                      <li><a href="#" class="bg-6"></a></li>
+                    </ul>
+
+                    <!--<div class="form-group videobg-check">
+                      <label class="col-xs-8 control-label">Video BG</label>
+                      <div class="col-xs-4 control-label">
+                        <div class="onoffswitch greensea small">
+                          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="videobg-check">
+                          <label class="onoffswitch-label" for="videobg-check">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>-->
+
+                  </li>
+
+                  <li class="divider"></li>
+
+                  <!--<li>
+                    <a href="#"><i class="fa fa-user"></i> 个人中心Profile</a>
+                  </li>
+
+                  <li>
+                    <a href="#"><i class="fa fa-calendar"></i> 日历Calendar</a>
+                  </li>
+
+                  <li>
+                    <a href="#"><i class="fa fa-envelope"></i> 消息Indexs <span class="badge badge-red" id="user-inbox">3</span></a>
+                  </li>-->
+
+                  <li class="divider"></li>
+
+                  <li>
+                    <a href="/test/index/logout"><i class="fa fa-power-off"></i> 安全退出</a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- //侧边联系人菜单<li>
+                <a href="#mmenu"><i class="fa fa-comments"></i></a>
+              </li> -->
+            </ul>
+            <!-- /Quick Actions -->
+
+
+
+            <!-- Sidebar -->
+            <ul class="nav navbar-nav side-nav collapsed" id="sidebar">
+              
+              <li class="collapsed-content"> 
+                <ul>
+                  <li class="search"><!-- Collapsed search pasting here at 768px --></li>
+                </ul>
+              </li>
+
+              <li class="navigation" id="navigation">
+                <a href="#" class="sidebar-toggle" data-toggle="#navigation">Navigation 导航<i class="fa fa-angle-up"></i></a>
+                
+                <ul class="menu">
+                  
+                  <!--<li class="active">
+                    <a href="/test/zijin/claimlist">
+                      <i class="fa fa-tachometer"></i> 未认的领目来款
+                      <span class="badge badge-red"><?php /*echo count($this->renling_weirenling_list);*/?></span>
+                    </a>
+                  </li>-->
+
+				  <?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,4))){?>
+				  
+				  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-list"></i> 项目信息编辑 <b class="fa fa-plus dropdown-plus"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                          <!--<li>
+                            <a href="/test/chouzi/index">
+                              <i class="fa fa-caret-right"></i> 项目列表
+                            </a>
+                          </li>-->
+                          <li>
+                            <a href="/test/chouzi/addchouzi">
+                              <i class="fa fa-caret-right"></i> 筹资立项
+                            </a>
+                          </li>
+                        <li>
+                            <a href="/test/zijin/newsigninfo">
+                                <i class="fa fa-caret-right"></i> 签约信息
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/test/zijin/claimlist">
+                                <i class="fa fa-caret-right"></i> 来款认领 - 财务推送认领
+                                <?php if(count($this->renling_weirenling_list) > 0){?>
+                                    <span class="badge badge-red"><?php echo count($this->renling_weirenling_list);?></span>
+                                <?php }?>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/test/zijin/addzijin">
+                                <i class="fa fa-caret-right"></i> 来款认领 - 添加来款
+                                <span class="badge badge-red"><?php //echo count($this->renling_weirenling_list);?></span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/test/shiyong/index?type=1">
+                                <i class="fa fa-caret-right"></i> 项目支出
+                                <span class="badge badge-red"><?php /*echo count($this->shiyong_weirenling_list);*/?></span>
+                            </a>
+                        </li>
+
+                        <!--<li>
+                            <a href="/test/shiyong/claimlist?type=1">
+                                <i class="fa fa-caret-right"></i> 项目支出 - 财务系统支出认领
+                                <span class="badge badge-red"><?php /*echo count($this->shiyong_weirenling_list);*/?></span>
+                            </a>
+                        </li>-->
+
+                        <li>
+                            <a href="/test/shiyong/addshiyong?type=1"><!-- 添加转财务支出 -->
+                                <i class="fa fa-caret-right"></i> 项目支出 - 添加支出
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/test/feedback/add">
+                                <i class="fa fa-caret-right"></i> 项目回馈
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/test/peibi/add">
+                                <i class="fa fa-caret-right"></i> 项目配比
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/test/chouzi/index">
+                                <i class="fa fa-caret-right"></i> 项目信息编辑
+                            </a>
+                        </li>
+                    </ul>
+                  </li>
+					
+				 <?php }?>
+				 
+				 <?php if (in_array($admininfo['admin_info']['admin_type'],array(0,2,4))){?>
+
+				 <?php }?>
+			
+				<?php if (in_array($admininfo['admin_info']['admin_type'],array(0,3,4))){?>
+
+                   <!-- <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-list"></i> 项目进度管理 <b class="fa fa-plus dropdown-plus"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/test/zijin/rate">
+                                    <i class="fa fa-caret-right"></i> 项目进度管理
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/test/zijin/index">
+                                    <i class="fa fa-caret-right"></i> 项目资金列表（财务推送）
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/test/zijin/addzijin">
+                                    <i class="fa fa-caret-right"></i> 添加项目资金（系统追加）
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/test/zijin/claimlist">
+                                    <i class="fa fa-caret-right">
+                                        <span class="badge badge-red">
+                                            <?php /*echo count($this->renling_weirenling_list);*/?></span>
+                                    </i> 认领项目来款
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+				
+				<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-list"></i> 项目支出管理 <b class="fa fa-plus dropdown-plus"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a href="/test/shiyong/index?type=1">
+                          <i class="fa fa-caret-right"></i> 转财务支出列表
+                        </a>
+                      </li>
+                        <li>
+                            <a href="/test/shiyong/addshiyong?type=1">
+                                <i class="fa fa-caret-right"></i> 添加转财务支出
+                            </a>
+                        </li>
+                      <li>
+                        <a href="/test/shiyong/index?type=2">
+                            <i class="fa fa-caret-right"></i> 基金会列支支出列表
+                        </a>
+                      </li>
+                        <li>
+                            <a href="/test/shiyong/addshiyong?type=2">
+                                <i class="fa fa-caret-right"></i> 添加基金会列支支出
+                            </a>
+                        </li>
+                    </ul>
+                  </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-list"></i> 项目回馈管理 <b class="fa fa-plus dropdown-plus"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-caret-right"></i> 项目回馈列表
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-caret-right"></i> 添加项目回馈
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    -->
+
+
+                    <!--<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-list"></i> 项目分类管理 <b class="fa fa-plus dropdown-plus"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/test/admin/cate">
+                                    <i class="fa fa-caret-right"></i> 项目分类列表
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/test/admin/addcate">
+                                    <i class="fa fa-caret-right"></i> 添加项目分类
+                                </a>
+                            </li>
+                        </ul>
+                    </li>-->
+
+
+                    <!--<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-th-large"></i> 捐赠方管理 <b class="fa fa-plus dropdown-plus"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/test/admin/pp">
+                                    <i class="fa fa-caret-right"></i> 捐赠方列表
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/test/admin/addpp">
+                                    <i class="fa fa-caret-right"></i> 添加捐赠方信息
+                                </a>
+                            </li>
+                        </ul>
+                    </li>-->
+				
+				<?php }?>
+
+
+                <?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4))){?>
+				<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-desktop"></i> 业务相关管理 <b class="fa fa-plus dropdown-plus"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a href="/test/admin/department">
+                                <i class="fa fa-caret-right"></i> 部门管理 - 部门信息列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/test/admin/adddepartment">
+                                <i class="fa fa-caret-right"></i> 部门管理 - 添加部门信息
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/test/admin/pp">
+                                <i class="fa fa-caret-right"></i> 捐赠方管理 - 捐赠方列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/test/admin/addpp">
+                                <i class="fa fa-caret-right"></i> 捐赠方管理 - 添加捐赠方
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/test/meeting">
+                                <i class="fa fa-caret-right"></i> 会议管理 - 会议列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/test/meeting/add">
+                                <i class="fa fa-caret-right"></i> 会议管理 - 添加会议
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/test/admin/cate">
+                                <i class="fa fa-caret-right"></i> 项目分类管理 - 项目分类列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/test/admin/addcate">
+                                <i class="fa fa-caret-right"></i> 项目分类管理 - 添加项目分类
+                            </a>
+                        </li>
+
+                    </ul>
+                  </li>
+                <?php }?>
+                    <!--<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-desktop"></i> 项目负责人管理 <b class="fa fa-plus dropdown-plus"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/test/admin/department">
+                                    <i class="fa fa-caret-right"></i> 项目负责人列表
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/test/admin/adddepartment">
+                                    <i class="fa fa-caret-right"></i> 添加项目负责人
+                                </a>
+                            </li>
+                        </ul>
+                    </li>-->
+	
+				<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-bar-chart-o"></i> 项目信息查询与统计 <b class="fa fa-plus dropdown-plus"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5,7))){?>
+                        <li>
+                            <a href="/test/chouzi/index">
+                                <i class="fa fa-caret-right"></i> 项目信息列表
+                            </a>
+                        </li>
+                        <?php }?>
+                        <?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
+                        <li>
+                            <a href="/test/zijin/rate">
+                                <i class="fa fa-caret-right"></i> 项目签约信息统计
+                            </a>
+                        </li>
+                        <li>
+                        <a href="/test/report/index">
+                          <i class="fa fa-caret-right"></i> 项目管理统计
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/test/report/chouzi">
+                          <i class="fa fa-caret-right"></i> 项目筹资管理统计
+                        </a>
+                      </li>
+					  <li>
+                        <a href="/test/report/zijin">
+                          <i class="fa fa-caret-right"></i> 项目收入信息统计
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/test/report/shiyong">
+                          <i class="fa fa-caret-right"></i> 项目支出信息统计
+                        </a>
+                      </li>
+                        <li>
+                            <a href="/test/report/pmshouzhi">
+                                <i class="fa fa-caret-right"></i> 项目收支统计
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/test/feedback/">
+                                <i class="fa fa-caret-right"></i> 项目回馈统计
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/test/peibi/">
+                                <i class="fa fa-caret-right"></i> 项目配比统计
+                            </a>
+                        </li>
+                        <?php }?>
+                    </ul>
+                  </li>
+				
+
+			
+				<?php if (in_array($admininfo['admin_info']['admin_type'],array(0))){?>
+				<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-th"></i> 管理组成员管理 <b class="fa fa-plus dropdown-plus"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a href="/test/admin">
+                          <i class="fa fa-caret-right"></i> 管理员列表
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/test/admin/add">
+                          <i class="fa fa-caret-right"></i> 添加管理员
+                        </a>
+                      </li>
+					  <li>
+                        <a href="/test/admin/editpwd">
+                          <i class="fa fa-caret-right"></i> 编辑管理员密码
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+				  
+				  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-pencil"></i> 日志管理 <b class="fa fa-plus dropdown-plus"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a href="/test/log">
+                          <i class="fa fa-caret-right"></i> 网站日志列表
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+				<?php }?>
+
+                </ul>
+
+              </li>
+
+              <li class="summary" id="order-summary">
+                <a href="#" class="sidebar-toggle underline" data-toggle="#order-summary">Orders Summary <i class="fa fa-angle-up"></i></a>
+
+                <div class="media">
+                  <a class="pull-right" href="#">
+                    <span id="sales-chart"></span>
+                  </a>
+                  <div class="media-body">
+                    This week sales
+                    <h3 class="media-heading">26, 149</h3>
+                  </div>
+                </div>
+
+                <div class="media">
+                  <a class="pull-right" href="#">
+                    <span id="balance-chart"></span>
+                  </a>
+                  <div class="media-body">
+                    This week balance
+                    <h3 class="media-heading">318, 651</h3>
+                  </div>
+                </div>
+
+              </li>
+
+              <!--<li class="settings" id="general-settings">
+                <a href="#" class="sidebar-toggle underline" data-toggle="#general-settings">General Settings <i class="fa fa-angle-up"></i></a>
+
+                <div class="form-group">
+                  <label class="col-xs-8 control-label">Switch ON</label>
+                  <div class="col-xs-4 control-label">
+                    <div class="onoffswitch greensea">
+                      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-on" checked="">
+                      <label class="onoffswitch-label" for="switch-on">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-xs-8 control-label">Switch OFF</label>
+                  <div class="col-xs-4 control-label">
+                    <div class="onoffswitch greensea">
+                      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-off">
+                      <label class="onoffswitch-label" for="switch-off">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+              </li>-->
+
+            </ul>
+            <!-- Sidebar end -->
+
+          </div>
+          <!--/.nav-collapse -->
+
+        </div>
+        <!-- Fixed navbar end -->
+
+        <!-- Page content -->
+        <div id="content" class="col-md-12">
+          	
+          	<link href="/include/management/css/common.css" rel="stylesheet" type="text/css" />
+			<!--<link href="/include/management/css/submain.css" rel="stylesheet" type="text/css" />-->
+			
+			<!--<script type="text/javascript" src="/include/ckeditor/ckeditor.js"></script>-->

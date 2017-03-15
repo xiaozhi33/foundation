@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+            <!-- page header -->
+            <div class="pageheader">
+
+                <h2><i class="fa fa-tachometer"></i> Dashboard
+                    <span>系统日志管理</span></h2>
+
+                <div class="breadcrumbs">
+                    <ol class="breadcrumb">
+                        <li>您的位置</li>
+                        <li>系统日志管理</li>
+                        <li class="active">查看系统日志</li>
+                    </ol>
+                </div>
+
+            </div>
+            <!-- /page header -->
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+        <div class="col-md-12">
+        <section class="tile color transparent-white">
+		<div class="detailedbox tile-body">
+		<div class="row"><b class="col-md-3">根据时间统计项目收支明细</b></div>
+        <div class="row">
+<form class="form-horizontal" action="/test/log/slowlogrs" method="post" target="_blank">
+			<label class="col-sm-2 control-label" for="input01" style="font-weight:normal;">日志明细时间区间：</label> 
+            <div class="col-sm-3"> 
+            <input class="form-control" type="text"  id="dateinput"  name="start"  size="14"/>
+            </div>
+            <div class="col-sm-1" style="text-align:center;"> -- </div>
+            <div class="col-sm-3">
+            <input class="form-control" type="text"  id="dateinput1"  name="end"  size="14"/>
+            </div>
+            <div class="col-sm-2">
+			<input class="btn btn-primary btn-block"type="submit" value="查看日志"/>
+			<input type="hidden" name="style" value="style1"/>
+			</div>
+			</form>
+			</div>	
+			</div>
+            </section>	
+        <section class="tile color transparent-white">
+            <div class="tile-body nopadding">
+				<?php if(count($this->loglistinfo) != 0){?>
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  
+					  <tr>
+						<td width="24%">日志类型</td>
+						<td width="12%">相关操作人</td>
+						<td width="12%">操作IP</td>
+						<td width="26%">日志日期</td>
+						<td width="13%"></td>
+					  </tr>
+					
+					  <?php 
+						foreach($this->loglistinfo as $k=>$v){?>
+						 <tr>
+						 	<td><?php echo $v['logType'];?>&nbsp;</td>
+							<td><?php echo $v['logName'];?>&nbsp;</td>
+							<td><?php echo $v['logIp'];?>&nbsp;</td>
+							<td><?php echo $v['logTime'];?>&nbsp;</td>
+							<td><a target="_blank" href="/test/log/slowone?id=<?php echo $v['logPid'];?>">
+                            <button class="btn btn-greensea margin-bottom-20" type="button">查看日志详细</button></a>
+                            </td></tr>
+					   <?php }?>
+					</table>
+			</div>
+			<div class="tile-footer">
+					<div class="row">
+					<div class="page col-md-12" align="right">
+						共  <?php echo $this->total;?> 条日志          <?php echo $this->page;?></div>
+					
+				 <?php }else{?>
+				 	<div>暂无日志信息！</div>
+				 <?php }?>
+				</div>
+				 	 </div>
+			</section> 
+		</div>
+		</div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(33)").addClass("open");
+        </script>

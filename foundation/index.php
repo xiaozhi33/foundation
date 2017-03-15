@@ -23,7 +23,7 @@ date_default_timezone_set('PRC');
     //echo substr(md5(serialize( $pwd)), 0, 32);exit();
 
 	require_once("configs.php");
-	
+
     $controller = Zend_Controller_Front::getInstance();
 	$controller->setControllerDirectory(array(
 		'default'  =>  'application/default/controllers',
@@ -32,9 +32,10 @@ date_default_timezone_set('PRC');
         'oldmanagement'	=>	'application/oldmanagement/controllers',	//老系统
         'mobile'	=>	'application/mobile/controllers',	//m站
         'api'	=>	'application/api/controllers',	//公共接口
-        'app'	=>	'application/api/controllers'	//app
-	)); 
-	
+        'app'	=>	'application/api/controllers',	//app
+        'test'	=>	'application/test/controllers'	//演示环境
+	));
+
     $controller	->throwExceptions(true);  
     $controller ->setParam('noViewRenderer', true);
     $controller ->dispatch();        

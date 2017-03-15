@@ -1,0 +1,262 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>来款认领</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目进度管理</li>
+            <li class="active">来款认领</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+	<div id="main" class="main">
+   
+		<div id="rightstyle02" class="row">
+        
+        <div class="col-md-12">
+			<section class="tile color transparent-white">
+				<div class="tile-body nopadding">
+                <form method="post" action="savebindingclaim" id="form1" encType="multipart/form-data"> 
+                        <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                         <thead>
+                              <tr>
+                                   <td width="30%">栏目名称</td>
+                                   <td width="70%">明细</td>
+                              </tr>
+                        </thead>
+                         <tbody>
+                            <input type="hidden" name="pm_id" value="<?echo $_REQUEST['pm_id'];?>"/>
+                            <input type="hidden" name="lsh" value="<?echo $this->zw_lkrl_logs[0]['lsh'];?>"/>
+                            <input type="hidden" name="lrrq	" value="<?echo $this->zw_lkrl_logs[0]['lrrq'];?>"/>
+                            <input type="hidden" name="lrr" value="<?echo $this->zw_lkrl_logs[0]['lrr'];?>"/>
+
+                            <!-- 项目相关 start-->
+                            <tr>
+                                <td>认领到项目：</td>
+                                <td>
+                                    <select name="pm_xmbh" class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                        <option value="">请选择项目名称</option>
+                                        <?php if($this->pmlist != ""){
+                                            foreach ($this->pmlist as $k => $v){
+                                                ?>
+                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                            <?php }}?>
+                                    </select>
+                                    <input id="pname_info" type="hidden" name="pname" value=""/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>财务系统对应项目：</td>
+                                <td id="zw_xm"><input size="38" type="text" id="zw_xmmc" name="zw_xmmc" value="" readonly/></td>
+                                <input type="hidden" name="zw_xmbh" id="zw_xmbh" value=""/>
+                            </tr>
+                            <!-- 项目相关 end-->
+                            <!-- 部门相关信息 start-->
+                            <tr>
+                                <td>认领到部门：</td>
+                                <td>
+                                    <select class="chosen-select-1 chosen-transparent form-control" name="pm_bmbh" id="department">
+                                        <?php if($this->department_list != ""){
+                                            foreach ($this->department_list as $k => $v){
+                                                ?>
+                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                            <?php }}?>
+                                    </select>
+                                    <input id="department_id" type="hidden" name="department_id" value=""/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>财务系统对应部门：</td>
+                                <td id="zw_bm"><input size="38" type="text" id="zw_bmmc" name="zw_bmmc" readonly/></td>
+                                <input type="hidden" name="zw_bmbh" id="zw_bmbh"/>
+                            </tr>
+                            <!-- 部门相关信息  end-->
+                            <tr>
+                                <td>确认金额：</td>
+                                <td><input name="je" size="36" type="text" readonly value="<?php echo $this->pm_mg_info[0]['zijin_daozheng_jiner'];?>"/> 元</td>
+                            </tr>
+                            <tr>
+                                <td>补充其它信息：</td>
+                                <td><textarea parsley-validation-minlength="1" name="other" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>来款方：</td>
+                                <td><input size="38" name="pm_pp" type="text" readonly value="<?php echo $this->zw_lkrl_logs[0]['fkdw'];?>"/></td>
+                            </tr>
+                            <tr>
+                                <td>捐赠方类型：</td>
+                                <td>
+                                    <select class="form-control"  name="pm_pp_cate">
+                                        <option value="" >请选择类型</option>
+                                        <option value="个人" >个人</option>
+                                        <option value="企业" > 企业</option>
+                                        <option value="事业单位" >事业单位</option>
+                                        <option value="基金会" > 基金会</option>
+                                        <option value="其他组织" >其他组织</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>资金来源渠道：</td>
+                                <td> <select class="form-control" name="zijin_laiyuan_qudao">
+                                        <option value="" >请选择类型</option>
+                                        <option value="境内" >境内</option>
+                                        <option value="境外" >境外</option>
+                                    </select></td>
+                            </tr>
+                            <tr>
+                                <td>来款日期：</td>
+                                <td><input size="38" name="lkrq" type="text" readonly value="<?php echo $this->pm_mg_info[0]['zijin_daozhang_datetime'];?>"/> </td>
+                            </tr>
+                            <tr>
+                                <td>认领负责人：</td>
+                                <td>
+                                    <input size="38" name="fzr" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>选择进度：</td>
+                                <td><input name="jindu" type="checkbox" value="1" />已到帐</td>
+                            </tr>
+                            <!--<tr>
+                                <td>选择进度：</td>
+                                <input type="radio" name="zhengshu" value="1" checked="checked"/> 已开证书
+                                <input type="radio" name="zhengshu" value="0" /> 未开证书
+                            </tr>-->
+                            <tr>
+                                <td>发票状态：</td>
+                                <td>
+                                    <input class="radioItem" type="radio" name="piaoju" value="0" checked="checked"/> 未开票（默认）
+                                    <input class="radioItem" type="radio" name="piaoju" value="1" /> 已开票
+                                    <input class="radioItem" type="radio" name="piaoju" value="2" /> 借票
+                                </td>
+                            </tr>
+                            <tr class="addfapiao" style="display:none; ">
+                                    <td>添加发票信息：</td>
+                                </tr>
+                            <tr class="addfapiao" style="display:none; ">
+                                    <td>发票票号：</td>
+                                    <td> <input size="38" name="piaoju_fph" type="text"/> </td>
+                                </tr>
+                            <tr class="addfapiao" style="display:none; ">
+                                    <td>发票反馈方式：</td>
+                                    <td>
+                                        <select class="form-control" name="piaoju_fkfs">
+                                            <option value="1" >领取</option>
+                                            <option value="2" >寄送</option>
+                                            <option value="3" >暂存</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            <tr class="addfapiao" style="display:none; ">
+                                    <td>经办人：</td>
+                                    <td><input size="38" name="piaoju_jbr" type="text"/></td>
+                                </tr>
+                            <tr class="addfapiao" style="display:none; ">
+                                    <td>快递单号：</td>
+                                    <td><input size="38" name="piaoju_kddh" type="text"/></td>
+                                </tr>
+                            <tr>
+                                <input  onclick="javascript:noTips();" value="点击认领" class="btn btn-primary btn-block">
+                            </tr>
+                        </tbody>
+                        </table>
+                   </form>
+                   
+				 </div> 
+		  </section>
+         </div>
+         
+		 </div>
+
+
+        <script language="javascript">
+            $(".menu li:eq(8)").addClass("open");
+
+            $(document).ready(function(){
+
+                $(".addfapiao").hide();
+
+                // 切换项目ajax对应财务项目信息
+                $("#pname").change(function(){
+                    GetZWxm($(this).children('option:selected').val());
+                });
+
+                // 切换部门ajax对应财务部门信息
+                $("#department").change(function(){
+                    GetZWbm($(this).children('option:selected').val());
+                });
+
+                // 切换发票状态
+                $(".radioItem").change(function(){
+                    var $selectedvalue = $("input[name='piaoju']:checked").val();
+                    if ($selectedvalue == 0) {
+                        $(".addfapiao").hide();
+                    } else if($selectedvalue == 1 || $selectedvalue == 2) {
+                        $(".addfapiao").show();
+                    }
+                });
+            });
+
+            function GetZWxm(pm_id){
+                $.ajax({
+                    type:'post',
+                    url: '/management/zijin/ajaxgetzwxm?pm_id='+pm_id,
+                    data:{},
+                    cache:false,
+                    dataType:'json',
+                    success:function(data){
+                        if( data != null)
+                        {
+                            //console.log(data);
+                            $("#zw_xmbh").val(data.zw_xmbh);
+                            $("#zw_xmmc").val(data.zw_xmmc);
+                        }else {
+                            $("#zw_xmbh").attr("value","");
+                            $("#zw_xmbh").val("");
+                            $("#zw_xmmc").attr("value","");
+                            $("#zw_xmmc").val("");
+                            alert("对不起，没有对应财务系统项目或父类项目，请添加对照关系后认领");
+                        }
+                    },
+                    error:function(){}
+                });
+            }
+
+            function GetZWbm(pm_pid){
+                $.ajax({
+                    type:'post',
+                    url: '/management/zijin/ajaxgetzwbm?pm_pid='+pm_pid,
+                    data:{},
+                    cache:false,
+                    dataType:'json',
+                    success:function(data){
+                        if( data != null)
+                        {
+                            //console.log(data);
+                            $("#zw_bmbh").val(data.zw_bmbh);
+                            $("#zw_bmmc").val(data.zw_bmmc);
+                        }else {
+                            $("#zw_bmbh").attr("value","");
+                            $("#zw_bmbh").val("");
+                            $("#zw_bmmc").attr("value","");
+                            $("#zw_bmmc").val("");
+                            alert("对不起，没有对应财务系统部门目，请添加对照关系后认领");
+                        }
+                    },
+                    error:function(){}
+                });
+            }
+        </script>

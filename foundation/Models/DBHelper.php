@@ -1,8 +1,13 @@
 <?php
 class DBHelper{
     private $db;
-    public function connect(){
-        $conn = "mysql:host=". __HOST__ .";port=".__PORT__.";dbname=" . __DBNAME__;
+    public function connect($DBNAME=''){
+        if(empty($DBNAME)){
+            $conn = "mysql:host=". __HOST__ .";port=".__PORT__.";dbname=" . __DBNAME__;
+        }else {
+            $conn = "mysql:host=". __HOST__ .";port=".__PORT__.";dbname=" . $DBNAME;
+        }
+
         $username = __ROOT__;
         $password = __PASSWD__;
         try{

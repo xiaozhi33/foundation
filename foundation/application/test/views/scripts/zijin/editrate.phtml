@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>编辑项目进度</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目筹资管理</li>
+            <li class="active">编辑项目进度</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+	
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+			<div class="col-md-12">
+				<section class="tile color transparent-white">
+				<div class="detailedbox tile-body">
+				<form class="form-horizontal" action="/test/zijin/editrsrate" id="form1"  method="post" encType="multipart/form-data">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input01">项目进度：</label>
+                        <div class="col-sm-4">
+                            <div class="checkbox check-transparent">
+                                <input type="checkbox" id="opt01" name="rate[]" value="1" <?php if(preg_match("/1/", $this->rate_list_new[0]['pm_rate']))echo 'checked=""';?>>
+                                <label for="opt01">已立项</label>
+                            </div>
+                            <div class="checkbox check-transparent">
+                                <input type="checkbox" id="opt02" name="rate[]" value="2" <?php if(preg_match("/2/", $this->rate_list_new[0]['pm_rate']))echo 'checked=""';?>>
+                                <label for="opt02">已签约</label>
+                            </div>
+                            <div class="checkbox check-transparent">
+                                <input type="checkbox" id="opt03" name="rate[]" value="3" <?php if(preg_match("/3/", $this->rate_list_new[0]['pm_rate']))echo 'checked=""';?>>
+                                <label for="opt03">已到账</label>
+                            </div>
+                            <div class="checkbox check-transparent">
+                                <input type="checkbox" id="opt04" name="rate[]" value="4" <?php if(preg_match("/4/", $this->rate_list_new[0]['pm_rate']))echo 'checked=""';?>>
+                                <label for="opt04">已执行</label>
+                            </div>
+                            <div class="checkbox check-transparent">
+                                <input type="checkbox" id="opt05" name="rate[]" value="5" <?php if(preg_match("/5/", $this->rate_list_new[0]['pm_rate']))echo 'checked=""';?>>
+                                <label for="opt05">已回馈</label>
+                            </div>
+                            <div class="checkbox check-transparent">
+                                <input type="checkbox" id="opt06" name="rate[]" value="6" <?php if(preg_match("/6/", $this->rate_list_new[0]['pm_rate']))echo 'checked=""';?>>
+                                <label for="opt06">已完结</label>
+                            </div>
+                        </div>
+                        <!--<span class="col-sm-2" >  * 教育基金、研究基金等 </span>-->
+                    </div>
+
+                    <input name="pm_id" type="hidden" value="<?php echo $this->pm_id;?>"/>
+                    <div class="form-group form-footer">
+							<div class="col-sm-offset-5 col-sm-7">
+								<input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;
+								<input class="btn btn-default" type="reset" value="重 置" /> 
+							</div>
+					</div>
+				</form>
+			  </div>
+			  </section>
+			</div>
+		</div>
+        <script language="javascript">
+            $(".menu li:eq(8)").addClass("open");
+
+            // 已签约 和 已到帐选定后自动取消洽谈中
+            $("#opt02").click(function(){
+                if($(this).is(":checked")){
+                    $("#opt01").attr("checked", false);
+                    if(confirm("是否现在补充签约信息？")){
+                        window.open("/test/zijin/addzijin?pid=<?php $this->pm_id;?>");
+                    }
+
+                }
+            });
+            $("#opt03").click(function(){
+                if($(this).is(":checked")){
+                    $("#opt01").attr("checked", false);
+                    if(confirm("是否现在补充到帐信息？")) {
+                        window.open("/test/zijin/addzijin?pid=<?php $this->pm_id;?>");
+                    }
+                }
+            });
+        </script>

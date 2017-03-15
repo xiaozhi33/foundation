@@ -1,0 +1,518 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>添加项目基本信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目基本信息管理</li>
+            <li class="active">添加项目基本信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+	
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+			<div class="col-md-12">
+				<section class="tile color transparent-white">
+			<div class="detailedbox tile-body">
+				<form class="form-horizontal" id="form1" action="addrschouzi" method="post" encType="multipart/form-data">
+				<div class="form-group">
+						<label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                        <div class="col-sm-4">
+                          <input class="form-control" type="text" name="pname" />
+                        </div>
+						<span class="col-sm-1" > * </span>
+				</div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input02">所属项目：</label>
+                    <div class="col-sm-4">
+                        <select class="chosen-select chosen-transparent form-control" name="pm_id">
+                            <option value="0" >请选择所属项目名称</option>
+                            <?php if($this->chouzi_lists != ""){
+                                foreach ($this->chouzi_lists as $k => $v){?>
+                                    <option value="<?php echo $v['id']?>" ><?php echo $v['pname']?></option>
+                                <?php }}?>
+                        </select>
+                    </div>
+                    <span class="col-sm-2" > 如果有父类项目请选择此项 选填</span>
+                </div>
+
+				<div class="form-group">
+					    <label class="col-sm-2 control-label" for="input02">所属部门：</label>
+						<div class="col-sm-4">
+							<select class="chosen-select chosen-transparent form-control" name="department">
+								<option value="" >请选择所属部门</option>
+								<?php if($this->departmentlist != ""){
+								foreach ($this->departmentlist as $k => $v){?>
+									<option value="<?php echo $v['id']?>" ><?php echo $v['pname']?></option>
+								<?php }}?>
+							</select>
+						</div>
+						<span class="col-sm-1" > * </span>
+				</div>
+
+                    <!--<div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">所属部门联系人：</label>
+                        <div class="col-sm-4">
+                            <textarea parsley-validation-minlength="1" name="department_contacts" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea>
+                        </div>
+                        <span class="col-sm-1" > 例：张** </span>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">所属部门联系方式：</label>
+                        <div class="col-sm-4">
+                            <textarea parsley-validation-minlength="1" name="department_contact_information" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea>
+                        </div>
+                        <span class="col-sm-1" >例：Emai：888@163.com  tel：13389890000 </span>
+                    </div>-->
+
+                    <!--<div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">项目负责人：</label>
+                        <div class="col-sm-6">
+                            <select class="chosen-select-1 chosen-transparent form-control" multiple name="pm_fzr[]" id="pm_fzr">
+                                <?php /*if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){*/?>
+                                        <option value="<?php /*echo $k*/?>"><?php /*echo $v*/?></option>
+                                    <?php /*}}*/?>
+                            </select>
+                        </div>
+                        <span class="col-sm-2" > <a href="/test/admin/addpp" target="_blank">添加人员信息</a> </span>
+                    </div>-->
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">项目负责人：</label>
+                        <div class="col-sm-6">
+                            <!--data-placeholder="请选择相关人员..."-->
+                            <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_fzr[]" id="pm_fzr">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
+                    </div>
+
+                    
+                    <!--<div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">项目负责人邮箱：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text"  name="pm_fzr_email"  size="14"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">项目负责人电话：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text"  name="pm_fzr_tel"  size="14"/>
+                        </div>
+                    </div>-->
+
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">项目联络人：</label>
+
+                                <!--<input class="form-control" type="text"  name="pm_llr"  size="14"/>-->
+                                <div class="col-sm-6">
+                                    <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_llr[]" id="pm_llr">
+                                        <?php if($this->jjh_mg_pp_list != ""){
+                                            foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                                <option value="<?php echo $k?>"><?php echo $v?></option>
+                                            <?php }}?>
+                                    </select>
+                                </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
+                    </div>
+
+                    <!--<div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">联络人邮箱：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text"  name="pm_llr_email"  size="14"/>
+                            </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">联络人电话：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text"  name="pm_llr_tel"  size="14"/>
+                            </div>
+                    </div>-->
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">执行负责人：</label>
+                        <div class="col-sm-6">
+                            <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="execute_fzr[]" id="execute_fzr">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">执行联络人：</label>
+                        <div class="col-sm-6">
+                            <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="execute_llr[]" id="execute_llr">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">筹款负责人：</label>
+
+                                <!--<input class="form-control" type="text"  name="pm_ckfzr"  size="14"/>-->
+                                <div class="col-sm-6">
+                                    <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_ckfzr[]" id="pm_ckfzr">
+                                        <?php if($this->jjh_mg_pp_list != ""){
+                                            foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                                <option value="<?php echo $k?>"><?php echo $v?></option>
+                                            <?php }}?>
+                                    </select>
+                                </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
+                    </div>
+
+                    <!--<div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">筹款负责人邮箱：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text"  name="pm_ckfzr_email"  size="14"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">筹款负责人电话：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text"  name="pm_ckfzr_tel"  size="14"/>
+                        </div>
+                    </div>-->
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">捐赠方：</label>
+
+                            <!--<input class="form-control" type="text"  name="pm_jzf"  size="14"/>-->
+                            <div class="col-sm-6">
+                                <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_jzf[]" id="pm_jzf">
+                                    <?php if($this->jjh_mg_pp_list != ""){
+                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                            <option value="<?php echo $k?>"><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
+                    </div>
+
+
+                    <!--<div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">捐赠方邮箱：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text"  name="pm_jzf_email"  size="14"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">捐赠方电话：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text"  name="pm_jzf_tel"  size="14"/>
+                        </div>
+                    </div>-->
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">捐赠方联络人：</label>
+
+                            <!--<input class="form-control" type="text"  name="pm_jzfllr"  size="14"/>-->
+                            <div class="col-sm-6">
+                                <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_jzfllr[]" id="pm_jzfllr">
+                                    <?php if($this->jjh_mg_pp_list != ""){
+                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                            <option value="<?php echo $k?>"><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
+                    </div>
+
+                   <!-- <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">捐赠方联络人邮箱：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text"  name="pm_jzfllr_email"  size="14"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">捐赠方联络人电话：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text"  name="pm_jzfllr_tel"  size="14"/>
+                        </div>
+                    </div>-->
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">实际捐赠方：</label>
+
+                            <!--<input class="form-control" type="text"  name="pm_sjjzf"  size="14"/>-->
+                            <div class="col-sm-6">
+                                <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_sjjzf[]" id="pm_sjjzf">
+                                    <?php if($this->jjh_mg_pp_list != ""){
+                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                            <option value="<?php echo $k?>"><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
+                    </div>
+
+                    <!--<div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">实际捐赠方邮箱：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text"  name="pm_sjjzf_email"  size="14"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">实际捐赠方电话：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text"  name="pm_sjjzf_tel"  size="14"/>
+                        </div>
+                    </div>-->
+
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">实际捐赠方联络人：</label>
+                        <div class="col-sm-6">
+                            <!--<input class="form-control" type="text"  name="pm_sjjzfllr"  size="14"/>-->
+                            <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_sjjzfllr[]" id="pm_sjjzfllr">
+                                <?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k?>"><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+                        <span class="col-sm-2 addpp" >添加人员信息</span>
+                    </div>
+
+                    <!--<div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">实际捐赠方联络人邮箱：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text"  name="pm_sjjzfllr_email"  size="14"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">实际捐赠方联络人电话：</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" type="text"  name="pm_sjjzfllr_tel"  size="14"/>
+                        </div>
+                    </div>-->
+
+                    <div class="form-group">
+					    <label class="col-sm-2 control-label" for="input03">项目类型：</label>
+						<div class="col-sm-4">
+							<select class="chosen-select chosen-transparent form-control" name="pm_cate">
+								<option value="" >请选择项目类型</option>
+								<?php if($this->pcatelist != ""){
+								foreach ($this->pcatelist as $k => $v){?>
+									<option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
+								<?php }}?>
+							</select>
+						</div>
+						<span class="col-sm-1" > * </span>
+				</div>
+
+				<!--<div class="form-group">
+					    <label class="col-sm-2 control-label" for="input04">宣传推动期：</label>
+						<div class="col-sm-4">
+							<select class="chosen-select chosen-transparent form-control" name="tuidongqi">
+								<option value="" >请选择类型</option>
+								<option value="初期" >初期</option>
+								<option value="中期" >中期</option>
+								<option value="末期" >末期</option>
+							</select>
+						</div>
+				</div>
+					
+					<div class="form-group">
+					    <label class="col-sm-2 control-label" for="input05">项目孵化期：</label>
+						<div class="col-sm-4">
+							<select class="chosen-select chosen-transparent form-control" name="fuhuaqi">
+								<option value="" >请选择类型</option>
+								<option value="初期" >初期</option>
+								<option value="中期" >中期</option>
+								<option value="末期" >末期</option>
+							</select>
+						</div>
+					</div>-->
+					
+					<!--<div class="form-group">
+					    <label class="col-sm-2 control-label" for="input06">项目签约日期：</label>
+						<div class="col-sm-4">
+							<input class="form-control" data-date-format="YYYY-MM-DD HH:mm:ss" type="text"  id="datepicker"  name="qianyuedate" size="14"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+					    <label class="col-sm-2 control-label" for="input07">项目协议电子版：</label>
+						<div class="col-sm-4">
+							<input id="exampleInputFile" type="file" name="xieyidianzi" />
+							<span class="help-block"> 电子版为图片格式存储，文件后缀名为*.jpg,*.gif,*.png</span>
+						</div>
+					</div>-->
+					
+					
+					
+					<div class="form-group">
+					    <label class="col-sm-2 control-label" for="input08">协议起始年份：</label>
+						<div class="col-sm-4">
+							<input class="form-control" type="text"  data-date-format="YYYY" id="datepicker1"  name="qishi"  size="14"/>
+						</div>
+						<span class="col-sm-1" > * </span>
+					</div>
+					<div class="form-group">
+					    <label class="col-sm-2 control-label" for="input09">协议截止年份：</label>
+						<div class="col-sm-4">
+							<input class="form-control" type="text" data-date-format="YYYY"  id="datepicker2"  name="jiezhi"  size="14"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+					    <label class="col-sm-2 control-label" for="input10">协议捐赠金额：</label>
+						<div class="col-sm-3">
+							<input class="form-control" type="text"  name="jiner"  size="14"/>
+						</div>
+						<span class="col-sm-2" >元&nbsp;&nbsp;&nbsp;&nbsp;  * 例如：3000000元</span>
+					</div>
+
+					<!--<div class="form-group">
+					    <label class="col-sm-2 control-label" for="input11">项目反馈日期：</label>
+						<div class="col-sm-4">
+							<input class="form-control" type="text" data-date-format="YYYY-MM-DD HH:mm:ss"  id="datepicker3"  name="fankui"  size="14"/>
+						</div>
+					</div>-->
+					
+					
+					<div class="form-group">
+					    <label class="col-sm-2 control-label" for="input12">留本基金：</label>
+						<div class="col-sm-2">
+							<label class="radio-inline"><input type="radio" name="liuben" value="1" size="14"/> 是  </label>
+							<label class="radio-inline"><input type="radio" name="liuben" value="0"  checked="checked"  size="14"/> 否  </label>
+						</div>
+						<span class="col-sm-1" >  </span>
+					</div>
+
+                    <!--<div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">捐赠仪式：</label>
+                        <div class="col-sm-9">
+                            <textarea parsley-validation-minlength="1" name="yishi" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea>
+                        </div>
+                    </div>-->
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">是否立项：</label>
+                        <div class="col-sm-3">
+                            <div class="checkbox check-transparent" style="padding-left:0px;">
+                                <input type="checkbox" id="opt03" name="is_lixiang" value="1">
+                                <label for="opt03">已立项</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">捐赠用途：</label>
+                        <div class="col-sm-9">
+                            <textarea parsley-validation-minlength="1" name="beizhu" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea>
+                        </div>
+                    </div>
+
+					<div class="form-group form-footer">
+						<div class="col-sm-offset-5 col-sm-7">
+							<input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;
+							<input class="btn btn-default" type="reset" value="重 置" /> 
+						</div>
+					</div>
+			</form>
+			</div>
+		 </section>
+			</div>
+		</div>
+        <script src="/include/management/assets/js/jquery.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <!--<link rel="stylesheet" href="/include/management/css/bootstrap-select.min.css">-->
+
+        <!-- Latest compiled and minified JavaScript -->
+        <!--<script src="/include/management/js/bootstrap-select.min.js"></script>-->
+
+        <script language="javascript">
+            $(".menu li:eq(6)").addClass("open");
+
+            /*$('#pm_fzr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_llr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#execute_fzr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#execute_llr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_ckfzr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_jzf').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_jzfllr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_sjjzf').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });
+
+            $('#pm_sjjzfllr').selectpicker({
+                selectedText: 'cat',
+                liveSearch: true,
+                size:8
+            });*/
+        </script>

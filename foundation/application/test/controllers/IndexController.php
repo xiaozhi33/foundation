@@ -1,6 +1,6 @@
 <?php
 	require_once("BaseController.php");
-	class Management_indexController extends BaseController {
+	class Test_indexController extends BaseController {
 		private $dbhelper;
 		public function indexAction(){
 			SessionUtil::checkmanagement();
@@ -37,7 +37,7 @@
 
             $total = count($chouziDAO);
             $pageDAO = new pageDAO();
-            $pageDAO = $pageDAO->pageHelper($chouziDAO, null, "/management/index/index", null, 'get', 7, 5);
+            $pageDAO = $pageDAO->pageHelper($chouziDAO, null, "/test/index/index", null, 'get', 7, 5);
             $pages = $pageDAO['pageLink']['all'];
             $pages = str_replace("/index.php", "", $pages);
 
@@ -157,7 +157,7 @@
 		
 		public function loginviewAction(){
             if(!empty($this->admininfo['admin_info']['id'])){
-                header("location:".__BASEURL__."/management/index");
+                header("location:".__BASEURL__."/test/index");
             }
 			$returnURL = HttpUtil::getString('returnURL');
 			$this->view->assign("returnURL",$returnURL);
@@ -172,22 +172,22 @@
                 echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
                 echo('<script language="JavaScript">');
                 echo("alert('您输入的验证码有误');");
-                echo("location.href='/management/index/loginview';");
+                echo("location.href='/test/index/loginview';");
                 echo('</script>');
                 exit;
             }
 			
 			//判定用户名密码的正确性			
 			if(!$passwordpost = $this->getpasswordpostAction($username,$password)){
-				//alert_go('您输入的密码有误！','/management/index/loginview');
+				//alert_go('您输入的密码有误！','/test/index/loginview');
                 echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
                 echo('<script language="JavaScript">');
                 echo("alert('您输入的密码有误');");
-                echo("location.href='/management/index/loginview';");
+                echo("location.href='/test/index/loginview';");
                 echo('</script>');
                 exit;
 			}else{
-				SessionUtil::initSession($passwordpost, true);
+				SessionUtil::initSession($passwordpost);
 
 				if ($_REQUEST['returnURL']!=''){
                 	$returnURL = HttpUtil::valueString($_REQUEST['returnURL']);
@@ -202,14 +202,14 @@
             	}
             	
             	//跳转到个人主页（管理）
-            	header("location:".__BASEURL__."/management/index");
+            	header("location:".__BASEURL__."/test/index");
 			}
 		}
 		
 		public function logoutAction(){
 	        try{
 	           	SessionUtil::sessionEnd();
-	            header("location:".__BASEURL__."/management/index/loginview");
+	            header("location:".__BASEURL__."/test/index/loginview");
 	        }catch (Exception $e){
 	            echo $e->getMessage();
 	            exit;
@@ -297,7 +297,7 @@
 		
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
-			$this ->dbhelper ->connect();
+            $this ->dbhelper ->connect('test');
 			SessionUtil::sessionStart();
 		}
 

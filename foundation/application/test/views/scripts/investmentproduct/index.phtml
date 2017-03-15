@@ -1,0 +1,124 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>投资产品列表</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>投资产品信息</li>
+            <li class="active">投资产品列表</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+
+        <div class="col-md-12">
+            <section class="tile color transparent-white">
+                <div class="tile-body">
+                    <form action="#" method="get">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <label for="input05">投资产品名称：</label>
+                                    <input type="text" class="form-control" name="product_name" value="<?php echo $_REQUEST['product_name'];?>" />
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group col-sm-2">
+                                        <label for="input01"> </label>
+                                        <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="input02"> </label>
+                                        <input class="btn btn-primary btn-block" type="button" value="添加投资产品信息" onclick="window.location.href='/management/investmentproduct/addproduct?id=<?php echo $_REQUEST['id']?>'"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            <section class="tile color transparent-white">
+                <div class="tile-body nopadding">
+                    <?php if(count($this->pageData) > 0){?>
+                    <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                        <thead>
+                        <tr>
+                            <td width="24%">投资产品名称</td>
+                            <td width="24%">所属投资账户</td>
+                            <td width="24%">投资产品编号</td>
+                            <td width="13%">操作</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach($this->pageData as $k=>$v){?>
+                            <tr>
+                                <td><?php echo $v['product_name'];?>&nbsp;</td>
+
+                                <td>
+                                    <?php if(!empty($this->pm_mg_investment_account_list)){
+                                        foreach($this->pm_mg_investment_account_list as $key => $value){
+                                            if($value['id'] == $v['investment_account_id']){
+                                                echo $value['account_name'];
+                                            }
+                                        }
+                                    }?>
+                                    &nbsp;
+                                </td>
+
+                                <td><?php echo $v['product_number'];?>&nbsp;</td>
+
+                                <td>
+                                    <a href="/test/investmentproduct/log?id=<?php echo $v['id'];?>">
+                                        <button type="button" class="btn btn-greensea margin-bottom-20">管理投资产品收支</button>
+                                    </a>
+                                    <a href="/test/investmentproduct/editproduct?id=<?php echo $v['id'];?>">
+                                        <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button>
+                                    </a>
+                                    <a href="/test/investmentproduct/delproduct?id=<?php echo $v['id'];?>">
+                                        <button type="button" class="btn btn-danger margin-bottom-20" onclick= "if(confirm( '是否确定删除！ 删除将无法找回有关该账户的所有信息。')==false) return false; ">删除</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php }?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tile-footer">
+                    <div class="row">
+                        <div class="page col-md-12" align="right">
+                            共  <?php echo $this->totalItems;?> 个账户          <?php echo $this->page['all'];?></div>
+
+                        <?php }else{?>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-offset-1 col-sm-2">
+                                        <label for="input02">暂无投资产品信息！ </label>
+                                        <input class="btn btn-primary btn-block" type="button" value="添加投资产品信息" onclick="window.location.href='/management/investmentproduct/addproduct?id=<?php echo $_REQUEST['id']?>'"/>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php }?>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+    <script src="/include/management/assets/js/jquery.js"></script>
+    <script language="javascript">
+        $(".menu li:eq(5)").addClass("open");
+    </script>

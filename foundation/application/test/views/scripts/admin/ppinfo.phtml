@@ -1,0 +1,247 @@
+<!-- page header -->
+<div class="pageheader">
+    <script src="/include/management/js/echarts.js"></script>
+    <!--<script src="../asset/js/codemirror.js"></script>
+    <script src="../asset/js/javascript.js"></script>-->
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>编辑联系人</span></h2>
+
+    <!--<div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目联系人管理</li>
+            <li class="active">编辑联系人</li>
+            <li> <?php /*echo $this->ppinfo[0]['ppname'];*/?> </li>
+        </ol>
+    </div>-->
+
+</div>
+<!-- /page header -->		
+    <div id="main" class="main">
+        <!--<div class="row">
+            <div class="col-md-4">
+                <a href="/test/admin/relation?id=<?php /*echo $this->ppinfo[0]['pid']*/?>" target="_blank"><h3>>> 人立方</h3></a>
+            </div>
+        </div>-->
+        <div class="row">
+            <!-- col 8 -->
+            <div class="col-md-4">
+
+                <!-- tile -->
+                <section class="tile color transparent-white">
+
+
+                    <!-- tile header -->
+                    <div class="tile-header">
+                        <h4><strong>人员信息 - <?php echo $this->ppinfo[0]['ppname'];?> </strong> Information</h4>
+                        <div class="controls">
+                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile body -->
+                    <div class="tile-body">
+
+                        <!--<h4><strong>捐赠方：<?php echo $this->ppinfo[0]['ppname']?></strong> </h4>
+                        <p></p>
+
+                        <h4><strong>相关项目名称：
+                            <?php if($this->pmlist != ""){
+                                foreach ($this->pmlist as $k => $v){
+                                    if ($this->ppinfo[0]['pp_pm_id'] == $v['pname']){echo $v['pname'];}}}?></strong></h4>
+
+                        <h5 class="filled">联系人类型</h5>
+                        <p class="filled"></p>-->
+
+                        <h5 class="filled blue">姓名/名称</h5>
+                        <p class="filled blue"><?php echo $this->ppinfo[0]['ppname']?></p>
+
+                        <!--<h5 class="filled greensea">相关项目名称</h5>
+                        <p class="filled greensea">
+                            <?php /*if($this->pmlist != ""){
+                                foreach ($this->pmlist as $k => $v){
+                                    if ($this->ppinfo[0]['pp_pm_id'] == $v['pname']){
+                                        echo $v['pname'];
+                                        $pname = $v['pname'];
+                                    }
+                                }
+                            }
+                            */?>
+                            <a href="/test/chouzi/index?pname=<?php /*echo $pname;*/?>" target="_blank"> 》》点击查看项目 </a>
+                        </p>-->
+
+                        <h5 class="filled slategray">联系人email</h5>
+                        <p class="filled slategray"><?php echo $this->ppinfo[0]['ppemail']?></p>
+
+                        <h5 class="filled blue">联系人移动电话</h5>
+                        <p class="filled blue"><?php echo $this->ppinfo[0]['ppmobile']?></p>
+
+                        <h5 class="filled greensea">联系人电话</h5>
+                        <p class="filled greensea"><?php echo $this->ppinfo[0]['ppphone']?></p>
+
+                        <h5 class="filled slategray">联系人地址</h5>
+                        <p class="filled slategray"><?php echo $this->ppinfo[0]['pp_address']?></p>
+
+                        <h5 class="filled redbrown">备注</h5>
+                        <p class="filled redbrown"><?php echo strip_tags($this->ppinfo[0]['pp_beizhu']);?></p>
+
+                    </div>
+                    <!-- /tile body -->
+
+                </section>
+                <!-- /tile -->
+
+            </div>
+            <!-- /col 8 -->
+
+
+            <!-- col 4 -->
+            <div class="col-md-4">
+
+                <!-- tile -->
+                <section class="tile color transparent-white">
+                    <!-- tile header -->
+                    <div class="tile-header">
+                        <h4><strong>参加学校活动</strong> Information</h4>
+                        <div class="controls">
+                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile body -->
+                    <div class="tile-body">
+
+                        <?php
+                        if(!empty($this->meeting_list)){
+                            foreach($this->meeting_list as $key => $value) {
+                                ?>
+                                <h4 class="filled">
+                                    <a href="/test/meeting/edit?id=<?php echo $value['id'];?>" target="_blank">
+                                        <?php echo $value['meeting_name'];?>
+                                    </a>
+                                </h4>
+                                <p class="filled">
+                                    <small>
+                                        类型：<?php echo $this->meeting_cate[$value['meeting_cate']];?></br>
+                                        开始时间：<?php echo $value['meeting_start_time'];?></br>
+                                        结束时间：<?php echo $value['meeting_end_time'];?></br>
+                                        地点：<?php echo $value['meeting_address'];?></br>
+                                    </small>
+                                </p>
+                            <?php }
+                        }
+                        ?>
+                    </div>
+                    <!-- /tile body -->
+                </section>
+                <!-- /tile -->
+
+
+                <!-- tile -->
+                <section class="tile color transparent-white">
+                    <!-- tile header -->
+                    <div class="tile-header">
+                        <h4><strong>相关回馈拜访</strong> Information</h4>
+                        <div class="controls">
+                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile body -->
+                    <div class="tile-body">
+
+                        <?php
+                        if(!empty($this->feedback_list)){
+                            foreach($this->feedback_list as $key => $value) {
+                                ?>
+                                <h4 class="filled">
+                                    <a href="/test/feedback/edit?id=<?php echo $value['id'];?>" target="_blank">
+                                        <?php echo $value['pm_name'];?>
+                                    </a>
+                                </h4>
+                                <p class="filled">
+                                    <small>
+                                        回馈方式：<?php echo $value['feedback_type'];?></br>
+                                        回馈时间：<?php echo $value['feedback_datetime'];?></br>
+                                        备注：<?php echo $value['bz'];?></br>
+                                    </small>
+                                </p>
+                            <?php }
+                        }
+                        ?>
+                    </div>
+                    <!-- /tile body -->
+                </section>
+                <!-- /tile -->
+
+            </div>
+            <!-- /col 4 -->
+
+
+            <!-- col 4 -->
+            <div class="col-md-4">
+
+                <!-- tile -->
+                <section class="tile color transparent-white">
+
+                    <!-- tile header -->
+                    <div class="tile-header">
+                        <h4><strong>下属子公司</strong> Information</h4>
+                        <div class="controls">
+                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <!-- /tile header -->
+
+                    <!-- tile body -->
+                    <div class="tile-body">
+
+                        <?php
+                        if(!empty($this->pp_company_list)){
+                            foreach($this->pp_company_list as $key => $value) {
+                                ?>
+                                <h4 class="filled"><?php echo $value['company_name'];?></h4>
+                                <p class="filled">
+                                    <small>
+                                        联系人：<?php echo $value['company_contector'];?></br>
+                                        联系方式：<?php echo $value['company_cont_style'];?></br>
+                                    </small>
+                                </p>
+                            <?php }
+                        }
+                        ?>
+
+                        <!--<h4>Emphasis Classes</h4>
+                        <p class="text-muted">Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.</p>
+                        <p class="color-red">Etiam porta sem malesuada magna mollis euismod.</p>
+                        <p class="color-cyan">Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p class="color-green">Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis.</p>
+                        <p class="color-orange">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+                        <p class="color-amethyst">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+                        <p class="thin">Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.</p>
+                        <p class="uppercase">Etiam porta sem malesuada magna mollis euismod.</p>
+                        <p class="italic">Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p class="bold">Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis.</p>-->
+
+                    </div>
+                    <!-- /tile body -->
+                </section>
+                <!-- /tile -->
+
+            </div>
+            <!-- /col 4 -->
+
+        </div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(10)").addClass("open");
+        </script>

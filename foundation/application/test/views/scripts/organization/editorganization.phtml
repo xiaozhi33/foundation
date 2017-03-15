@@ -1,0 +1,153 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>编辑<?php echo $this->org_type_array[$this->org_type_status];?>成员信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>机构信息</li>
+            <li class="active">编辑<?php echo $this->org_type_array[$this->org_type_status];?>成员信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+        <div class="col-md-12">
+            <section class="tile color transparent-white">
+                <div class="detailedbox tile-body">
+                    <form class="form-horizontal" action="to-addorganizationmain" method="post" encType="multipart/form-data">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">名称：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="name" value="<?php echo $this->organization_info[0]['name'];?>"/>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">性别：</label>
+                            <div class="col-sm-3">
+                                <input type="radio" value="1" name="sex" <?php echo $this->organization_info[0]['sex']=="1"?'checked="checked"':'';?> /> 男
+                                <input type="radio" value="2" name="sex" <?php echo $this->organization_info[0]['sex']=="2"?'checked="checked"':'';?> /> 女
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <!--<div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">出生年月日：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" data-date-format="YYYY-MM-DD" value="<?php /*echo $this->organization_info[0]['birthday'];*/?>" type="text"  id="datepicker"  name="birthday" size="14"/>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>-->
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">身份证：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="id_card"  value="<?php echo $this->organization_info[0]['id_card'];?>"/>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">基金会职务：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="jjh_post" value="<?php echo $this->organization_info[0]['jjh_post'];?>"/>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">现任单位职务：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="org_post" value="<?php echo $this->organization_info[0]['org_post'];?>"/>
+                            </div>
+                            <!--<span class="col-sm-1" > * </span>-->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">简历：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="file" name="resume" /><font color="#0474d6" > * </font>
+                                <?php if($this->organization_info[0]['resume'] != ""){?><a target="_blank" href="<?php echo $this->organization_info[0]['resume'];?>"><strong>点击下载</strong></a><?php }else{?>
+                                    暂无电子版简历
+                                <?php }?>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">审批件：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="file" name="examination_approval" />
+                                <?php if($this->organization_info[0]['examination_approval'] != ""){?><a target="_blank" href="<?php echo $this->organization_info[0]['examination_approval'];?>"><strong>点击下载</strong></a><?php }else{?>
+                                    暂无电子版审批件
+                                <?php }?>
+                            </div>
+                            <!--<span class="col-sm-1" > * </span>-->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">所属部门：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="department" value="<?php echo $this->organization_info[0]['department'];?>"/>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">任职起始时间：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" data-date-format="YYYY-MM-DD" value="<?php echo $this->organization_info[0]['serving_startime'];?>" type="text"  id="datepicker1"  name="serving_startime" size="14"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">任职结束时间：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" data-date-format="YYYY-MM-DD" value="<?php echo $this->organization_info[0]['serving_endtime'];?>" type="text"  id="datepicker2"  name="serving_endtime" size="14"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">电话：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="tel" value="<?php echo $this->organization_info[0]['tel'];?>"/>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <input class="btn btn-default" name="id" type="hidden" value="<?php echo $this->organization_info[0]['id'];?>" />
+                        <div class="form-group form-footer">
+                            <div class="col-sm-offset-5 col-sm-7">
+                                <input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input class="btn btn-default" type="reset" value="重 置" />
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="director" value="<?php echo $this->organization_info[0]['director'];?>"/>
+                        <input type="hidden" name="type" value="<?php echo $this->org_type_status;?>"/>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="/include/management/assets/js/jquery.js"></script>
+
+    <script language="javascript">
+        $(".menu li:eq(28)").addClass("open");
+    </script>
+

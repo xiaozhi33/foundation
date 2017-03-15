@@ -1,0 +1,1281 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="/include/management/js/jquery-1.11.1.min.js"></script>
+<script src="/include/management/datepicker/ui.datepicker.js"></script>
+
+<link rel="stylesheet" href="/include/management/assets/css/vendor/animate/animate.css">
+<link type="text/css" rel="stylesheet" media="all" href="/include/management/assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/include/management/assets/js/vendor/videobackground/css/jquery.videobackground.css">
+<link rel="stylesheet" href="/include/management/assets/css/vendor/bootstrap-checkbox.css">
+
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote-bs3.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen.min.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen-bootstrap.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/datepicker/css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpicker/css/bootstrap-colorpicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpalette/bootstrap-colorpalette.css">
+<link href="/include/management/assets/css/minimal.css" rel="stylesheet">
+<style type="text/css">
+    .word-icon {
+        font-family:"Helvetica", sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+        background-color: #0054a6;
+        color: white;
+        padding: 2px 5px;
+        vertical-align: middle;
+    }
+</style>
+
+<!-- page header -->
+<div class="pageheader" id="01">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>筹资列表</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目筹资管理</li>
+            <li class="active">项目详情</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+			<div class="col-md-8">
+			    <section class="tile color transparent-white" id="02">
+				<div class="tile-body nopadding">
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					 <thead>
+                          <tr>
+                              <th colspan="2">项目基本信息</th>
+                              
+                          </tr>
+					</thead>
+                    <tbody>
+                        <tr>
+                            <td width="30%">项目名称</td>
+                            <td width="70%"><?php echo $this->chouzi[0]['pname'];?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目编号</td>
+                            <td width="70%"><?php echo $this->chouzi[0]['pid'];?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">所属项目</td>
+                            <td width="70%">
+                                <?php if($this->chouzi_lists != ""){
+                                    foreach ($this->chouzi_lists as $k => $v){?>
+                                        <?php if($v['id'] ==$this->chouzi[0]['parent_pm_id']) echo $v['pname'];?>
+                                    <?php }}?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">所属部门</td>
+                            <td width="70%">
+                                <?php if($this->departmentlist != ""){
+                                    foreach ($this->departmentlist as $k => $v){?>
+                                         <?php if($this->chouzi[0]['department'] == $v['id']){echo $v['pname'];}?>
+                                    <?php }}?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目分类</td>
+                            <td width="70%">
+                                <?php if($this->pcatelist != ""){
+                                    foreach ($this->pcatelist as $k => $v){?>
+                                        <?php if($this->chouzi[0]['cate'] == $v['id']){echo $v['catename'];}?>
+                                    <?php }}?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目负责人</td>
+                            <td width="70%">
+                                <?php
+                                    if($this->chouzi[0]['pm_fzr'] != ""){
+                                        $_pm_fzr = explode(',',$this->chouzi[0]['pm_fzr']);
+                                        foreach($_pm_fzr as $key => $value){
+                                            echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                        }
+                                    }
+                                ?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目负责人邮箱</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_fzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_fzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目负责人电话</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_fzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_fzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目联络人</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_llr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_llr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目联络人邮箱</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_llr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_llr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目联络人电话</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_llr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_llr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td width="30%">执行负责人</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['execute_fzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['execute_fzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">执行负责人邮箱</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['execute_fzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['execute_fzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">执行负责人电话</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['execute_fzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['execute_fzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">执行联络人</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['execute_llr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['execute_llr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">执行联络人邮箱</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['execute_llr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['execute_llr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">执行联络人电话</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['execute_llr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['execute_llr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td width="30%">筹款负责人</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_ckfzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_ckfzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">筹款负责人邮箱</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_ckfzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_ckfzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">筹款负责人电话</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_ckfzr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_ckfzr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">捐赠方</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_jzf'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_jzf']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">捐赠方邮箱</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_jzf'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_jzf']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">捐赠方电话</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_jzf'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_jzf']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">捐赠方联络人</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_jzfllr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_jzfllr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">捐赠方联络人邮箱</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_jzfllr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_jzfllr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">捐赠方联络人电话</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_jzfllr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_jzfllr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">实际捐赠方</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_sjjzf'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_sjjzf']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">实际捐赠方邮箱</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_sjjzf'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_sjjzf']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">实际捐赠方电话</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_sjjzf'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_sjjzf']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">实际捐赠方联络人</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_sjjzfllr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_sjjzfllr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">实际捐赠方联络人邮箱</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_sjjzfllr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_sjjzfllr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppemail']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">实际捐赠方联络人电话</td>
+                            <td width="70%">
+                                <?php
+                                if($this->chouzi[0]['pm_sjjzfllr'] != ""){
+                                    $_pm_fzr = explode(',',$this->chouzi[0]['pm_sjjzfllr']);
+                                    foreach($_pm_fzr as $key => $value){
+                                        echo $this->jjh_mg_pp_list_info[$value]['ppmobile']."&nbsp;&nbsp;";
+                                    }
+                                }
+                                ?>
+                            </td>
+                        </tr>
+
+                        <!--<tr>
+                            <td width="30%">宣传推动期</td>
+                            <td width="70%"><?php /*echo $this->chouzi[0]['pm_tuidongqi']*/?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目孵化期</td>
+                            <td width="70%"><?php /*echo $this->chouzi[0]['pm_fuhuaqi']*/?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">项目反馈日期</td>
+                            <td width="70%"><?php /*echo $this->chouzi[0]['pm_fankui_datetime'];*/?></td>
+                        </tr>-->
+
+                        <tr>
+                            <td width="30%">项目起始日期</td>
+                            <td width="70%"><?php echo $this->chouzi[0]['pm_qishi_datetime'];?></td>
+                        </tr>
+
+                        <!--<tr>
+                            <td width="30%">项目限期</td>
+                            <td width="70%"><?php /*echo $this->chouzi[0]['pm_qixian'];*/?></td>
+                        </tr>-->
+
+                        <tr>
+                            <td width="30%">项目截止日期</td>
+                            <td width="70%"><?php echo $this->chouzi[0]['pm_jiezhi_datetime'];?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">协议捐赠金额</td>
+                            <td width="70%"><?php echo $this->chouzi[0]['pm_xieyi_juanzeng_jiner'];?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">留本基金</td>
+                            <td width="70%"><?php if($this->chouzi[0]['pm_liuben'] == 1){echo "是";}else{echo "否";}?></td>
+                        </tr>
+
+                        <tr>
+                            <td width="30%">备注</td>
+                            <td width="70%"></td>
+                        </tr>
+
+                    </tbody>
+					</table>
+					</div>
+				 </section>
+                <section class="tile color transparent-white" id="03">
+                    <div class="tile-body nopadding">
+                        <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                            <thead>
+                            <tr>
+                                <th colspan="4">项目签约信息</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <!--<td>项目名称</td>-->
+                                <td>签约时间</td>
+                                <td>签约协议</td>
+                                <td>协议金额</td>
+                            </tr>
+                            <?php
+                            foreach($this->signDAO as $k=>$v){?>
+                                <tr>
+                                   <!-- <td><?php /*echo $v['pname'];*/?>&nbsp;</td>-->
+                                    <td><?php echo date("Y-m-d",strtotime($v['sign_time']));?></td>
+                                    <td>
+                                        <!--<a href="<?php /*echo $v['sign_files'];*/?>">-->
+                                        <a href="/test/zijin/download?id=<?php echo $v['id'];?>">
+                                            >>点击下载 <?php if(!empty($v['sign_files_name'])){
+                                                echo $v['sign_files_name'];
+                                            }elseif(!empty($v['sign_files'])){
+                                                echo "协议文件";
+                                            }?>
+                                        </a></td>
+                                    <td><?php if(!empty($v['xyje'])){echo $v['xyje'];}else{echo "--";}?></td>
+                                </tr>
+                            <?php }?>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </section>
+                <section class="tile color transparent-white" id="04">
+                    <div class="tile-body nopadding">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                            <thead>
+                            <tr>
+                                <th colspan="2" style="text-align:left;">项目收支信息</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>父项目名称</td>
+                                    <!--<td>所属项目名称</td>-->
+
+                                    <td>来款时间</td>
+                                    <td>来款金额</td>
+                                    <td>来款方</td>
+
+                                    <td>支出时间</td>
+                                    <td>支出金额</td>
+
+                                    <!--<td>项目类型</td>-->
+                                    <td>奖励范围</td>
+                                    <td>奖励人数</td>
+                                    <!--<td>所属部门</td>-->
+
+                                    <td>项目负责人</td>
+                                </tr>
+                                <?php foreach($this->zhichuinfo as $key => $value){?>
+                                    <tr>
+                                        <td><?php echo $value['parent_pm_name'];?></td>
+                                        <!--<td><?php /*echo $value['pm_name'];*/?></td>-->
+
+                                        <td><?php echo $value['zijin_daozhang_datetime'];?></td>
+                                        <td><?php echo $value['zijin_daozheng_jiner'];?></td>
+                                        <td><?php echo $value['pm_pp'];?></td>
+
+                                        <td><?php echo $value['shiyong_zhichu_datetime'];?></td>
+                                        <td><?php echo $value['shiyong_zhichu_jiner'];?></td>
+
+                                        <!--<td><?php /*echo $value['leixing'];*/?></td>-->
+                                        <td><?php echo $value['jiangli_fanwei'];?></td>
+                                        <td><?php echo $value['jiangli_renshu'];?></td>
+                                        <!--<td><?php /*echo $value['department'];*/?></td>-->
+
+                                        <td><?php echo $value['pm_fzr_mc'];?></td>
+                                    </tr>
+                                <?php }?>
+                            </tbody>
+
+                        </table>
+						</div>
+                    </div>
+                </section>
+                <section class="tile color transparent-white">
+                    <div class="tile-body nopadding">
+                        <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                            <tbody>
+                            <tr>
+                                <td>来款合计</td>
+                                <td>支出合计</td>
+                                <td>余额</td>
+                            </tr>
+                            <tr>
+                                <td><?php echo $this->shouru;?></td>
+                                <td><?php echo $this->zhichu;?></td>
+                                <td><?php echo $this->yuer;?></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="tile color transparent-white" id="05">
+                    <div class="tile-body nopadding">
+                        <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                            <thead>
+                            <tr>
+                                <th colspan="5">项目回馈信息</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <!--<td>项目名称</td>-->
+                                <td>回馈时间</td>
+                                <td>回馈方式</td>
+                                <td>回馈人</td>
+                                <td>经办人</td>
+                            </tr>
+                            <?php
+                            foreach($this->feedbackDAO as $k=>$v){?>
+                                <tr>
+                                    <!--<td>
+                                        <?php /*echo $v['pm_name'];*/?>
+                                    </td>-->
+                                    <td>
+                                        <?php echo $v['feedback_datetime'];?>
+                                    </td>
+                                    <td>
+                                        <?php echo $v['feedback_type'];?>
+                                    </td>
+                                    <td>
+                                        <?php echo $v['feedbacker'];?>
+                                    </td>
+                                    <td>
+                                        <?php echo $v['jbr'];?>
+                                    </td>
+                                </tr>
+                            <?php }?>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="tile color transparent-white" id="06">
+                    <div class="tile-body nopadding">
+                        <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                            <thead>
+                            <tr>
+                                <th colspan="2">项目配比信息</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <!--<td>项目名称</td>-->
+                                <td>是否配比</td>
+                                <td>配比下发时间</td>
+                                <td>配比金额</td>
+                            </tr>
+                            <?php
+                            foreach($this->peibikDAO as $k=>$v){?>
+                                <tr>
+                                    <!--<td>
+                                        <?php /*echo $v['pm_name'];*/?>
+                                    </td>-->
+                                    <td>
+                                        <?php echo $v['is_peibi']==1?"是":"否";?>
+                                    </td>
+                                    <td>
+                                        <?php echo $v['peibi_datetime'];?>
+                                    </td>
+                                    <td>
+                                        <?php echo $v['je'];?>
+                                    </td>
+                                </tr>
+                            <?php }?>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <!--<section class="tile color transparent-white">
+                    <h5 class="text-left"><strong>Donut</strong> chart</h5>
+                    <div id="donut-example" style="height: 250px;">
+                        <svg height="250" version="1.1" width="378" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative; left: -0.25px;">
+                            <desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc>
+                            <defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs>
+                            <path fill="none" stroke="#00a3d8" d="M189,201.66666666666669A76.66666666666667,76.66666666666667,0,0,0,261.59407492337823,149.65518330486972" stroke-width="2" opacity="0" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"></path>
+                            <path fill="#00a3d8" stroke="#ffffff" d="M189,204.66666666666669A79.66666666666667,79.66666666666667,0,0,0,264.4347126377713,150.61995134723418L293.15671619441224,160.37482822003045A110,110,0,0,1,189,235Z" stroke-width="3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                            <path fill="none" stroke="#2fbbe8" d="M261.59407492337823,149.65518330486972A76.66666666666667,76.66666666666667,0,0,0,120.24672005251156,91.0770833470932" stroke-width="2" opacity="0" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 0;"></path>
+                            <path fill="#2fbbe8" stroke="#ffffff" d="M264.4347126377713,150.61995134723418A79.66666666666667,79.66666666666667,0,0,0,117.55637431543593,89.74966486937075L90.35398964056007,76.32798915017719A110,110,0,0,1,293.15671619441224,160.37482822003045Z" stroke-width="3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                            <path fill="none" stroke="#72cae7" d="M120.24672005251156,91.0770833470932A76.66666666666667,76.66666666666667,0,0,0,188.97591445671867,201.66666288331834" stroke-width="2" opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1;"></path>
+                            <path fill="#72cae7" stroke="#ffffff" d="M117.55637431543593,89.74966486937075A79.66666666666667,79.66666666666667,0,0,0,188.9749719789381,204.6666627352743L188.96387168507803,239.99999432497754A115,115,0,0,1,85.87008007876736,74.11562502063978Z" stroke-width="3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                            <text x="189" y="115" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: 800; font-stretch: normal; font-size: 15px; line-height: normal; font-family: Arial;" font-size="15px" font-weight="800" transform="matrix(1.0222,0,0,1.0222,-4.2,-2.8)" stroke-width="0.9782608695652175"><tspan dy="6" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Mail-Order Sales</tspan></text>
+                            <text x="189" y="135" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 14px; line-height: normal; font-family: Arial;" font-size="14px" transform="matrix(1.5972,0,0,1.5972,-112.875,-75.8472)" stroke-width="0.6260869565217391"><tspan dy="5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">20</tspan></text>
+                        </svg>
+                </div>
+                </section>-->
+
+
+                <section class="tile color transparent-white">
+                    <div align="center">
+                    <h5 class="text-left" ><strong>&nbsp;项目归档二维码</strong> </h5>
+
+                    <div id="donut-example" style="height: 250px;" >
+                        <img src="/include/upload_file/pmqrcode/<?php echo $this->chouzi[0]['id'];?>.png" alt=""/>
+                        <!--<img src="http://www.8008mp.com/erweima/upload/28946/com/%E9%83%AB%E5%8E%BF%E5%8F%A3%E8%A2%8B%E8%9B%99%E7%AB%A5%E8%A3%85%E7%BB%8F%E8%90%A5%E9%83%A8_RJ36988.png" height="250px" alt=""/>-->
+
+                    </div>
+                    </div>
+                </section>
+
+                <section class="tile color transparent-white">
+                <!-- /.blog-main -->
+                <div class="col-xs-5">
+                    <a class="btn jquery-word-export" href="javascript:void(0)">
+                        <span class="word-icon">W</span>
+                        导出word文档 .doc
+                    </a>
+                </div>
+                <!-- /.blog-sidebar -->
+                </section>
+		</div>
+        </div>
+        <div class="back-box">
+        	<ul>
+                <li><a href="#02">基本信息</a></li>
+                <li><a href="#03">签约信息</a></li>
+                <li><a href="#04">收支信息</a></li>
+                <li><a href="#05">回馈信息</a></li>
+                <li><a href="#06">配比信息</a></li>
+                <li><a href="#01">返回顶部</a></li>
+            </ul>
+        </div>
+
+        <script type="text/javascript">
+            $(".menu li:eq(19)").addClass("open");
+        </script>
+
+        <script src="/include/management/js/FileSaver.js"></script>
+        <script src="/include/management/js/jquery.wordexport.js"></script>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $("a.jquery-word-export").click(function(event) {
+                    $("#rightstyle02").wordExport();
+                });
+            });
+        </script>
+
+
+    </div><!-- tab-pane -->
+</div><!-- tab-content -->
+</div>
+</div>
+<!-- Make page fluid-->
+
+</div>
+<!-- Wrap all page content end -->
+<section class="videocontent" id="video"></section>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/include/management/assets/js/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/include/management/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+<script src="/include/management/assets/js/vendor/summernote/summernote.min.js"></script>
+
+<script src="/include/management/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+
+<script src="/include/management/assets/js/vendor/momentjs/moment-with-langs.min.js"></script>
+<script src="/include/management/assets/js/vendor/datepicker/bootstrap-datetimepicker.min.js"></script>
+
+<script src="/include/management/assets/js/minimal.min.js"></script>
+
+<script>
+    $(function(){
+        //initialize datepicker
+        $('#datepicker').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker").on("dp.show",function (e) {
+            var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker1').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker1").on("dp.show",function (e) {
+            var newtop1 = $(".bootstrap-datetimepicker-widget").position(relative).top - 45;
+            alert(newtop1);
+            $('.bootstrap-datetimepicker-widget').css('top', newtop1 + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker2').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker2").on("dp.show",function (e) {
+            var newtop2 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop2 + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker3').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker3").on("dp.show",function (e) {
+            var newtop3 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop3 + 'px');
+        });
+
+        // Initialize flot chart
+        var d1 =[ [1, 715],
+            [2, 985],
+            [3, 1525],
+            [4, 1254],
+            [5, 1861],
+            [6, 2621],
+            [7, 1987],
+            [8, 2136],
+            [9, 2364],
+            [10, 2851],
+            [11, 1546],
+            [12, 2541]
+        ];
+        var d2 =[ [1, 463],
+            [2, 578],
+            [3, 327],
+            [4, 984],
+            [5, 1268],
+            [6, 1684],
+            [7, 1425],
+            [8, 1233],
+            [9, 1354],
+            [10, 1200],
+            [11, 1260],
+            [12, 1320]
+        ];
+        var months = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+
+        <?php if($this->module == "management" && $this->controller == "index" && $this->action == "index"){?>
+        // flot chart generate
+        var plot = $.plotAnimator($("#statistics-chart"),
+            [
+                {
+                    label: 'Sales',
+                    data: d1,
+                    lines: {lineWidth:3},
+                    shadowSize:0,
+                    color: '#ffffff'
+                },
+                { label: "Visits",
+                    data: d2,
+                    animator: {steps: 99, duration: 500, start:200, direction: "right"},
+                    lines: {
+                        fill: .15,
+                        lineWidth: 0
+                    },
+                    color:['#ffffff']
+                },{
+                label: 'Sales',
+                data: d1,
+                points: { show: true, fill: true, radius:6,fillColor:"rgba(0,0,0,.5)",lineWidth:2 },
+                color: '#fff',
+                shadowSize:0
+            },
+                { label: "Visits",
+                    data: d2,
+                    points: { show: true, fill: true, radius:6,fillColor:"rgba(255,255,255,.2)",lineWidth:2 },
+                    color: '#fff',
+                    shadowSize:0
+                }
+            ],{
+
+                xaxis: {
+
+                    tickLength: 0,
+                    tickDecimals: 0,
+                    min:1,
+                    ticks: [[1,"一月"], [2, "二月"], [3, "三月"], [4, "四月"], [5, "五月"], [6, "六月"], [7, "七月"], [8, "八月"], [9, "九月"], [10, "十月"], [11, "十一月"], [12, "十二月  "]],
+
+                    font :{
+                        lineHeight: 24,
+                        weight: "300",
+                        color: "#ffffff",
+                        size: 14
+                    }
+                },
+
+                yaxis: {
+                    ticks: 4,
+                    tickDecimals: 0,
+                    tickColor: "rgba(255,255,255,.3)",
+
+                    font :{
+                        lineHeight: 13,
+                        weight: "300",
+                        color: "#ffffff"
+                    }
+                },
+
+                grid: {
+                    borderWidth: {
+                        top: 0,
+                        right: 0,
+                        bottom: 1,
+                        left: 1
+                    },
+                    borderColor: 'rgba(255,255,255,.3)',
+                    margin:0,
+                    minBorderMargin:0,
+                    labelMargin:20,
+                    hoverable: true,
+                    clickable: true,
+                    mouseActiveRadius:6
+                },
+
+                legend: { show: false}
+            });
+
+
+        $(window).resize(function() {
+            // redraw the graph in the correctly sized div
+            plot.resize();
+            plot.setupGrid();
+            plot.draw();
+        });
+
+        $('#mmenu').on(
+            "opened.mm",
+            function()
+            {
+                // redraw the graph in the correctly sized div
+                plot.resize();
+                plot.setupGrid();
+                plot.draw();
+            }
+        );
+
+        $('#mmenu').on(
+            "closed.mm",
+            function()
+            {
+                // redraw the graph in the correctly sized div
+                plot.resize();
+                plot.setupGrid();
+                plot.draw();
+            }
+        );
+
+        // tooltips showing
+        $("#statistics-chart").bind("plothover", function (event, pos, item) {
+            if (item) {
+                var x = item.datapoint[0],
+                    y = item.datapoint[1];
+
+                $("#tooltip").html('<h1 style="color: #418bca">' + months[x - 1] + '</h1>' + '<strong>' + y + '</strong>' + ' ' + item.series.label)
+                    .css({top: item.pageY-30, left: item.pageX+5})
+                    .fadeIn(200);
+            } else {
+                $("#tooltip").hide();
+            }
+        });
+
+        //tooltips options
+        $("<div id='tooltip'></div>").css({
+            position: "absolute",
+            //display: "none",
+            padding: "10px 20px",
+            "background-color": "#ffffff",
+            "z-index":"99999"
+        }).appendTo("body");
+
+        //generate actual pie charts
+        $('.pie-chart').easyPieChart();
+
+
+        //server load rickshaw chart
+        var graph;
+
+        var seriesData = [ [], []];
+        var random = new Rickshaw.Fixtures.RandomData(50);
+
+        for (var i = 0; i < 50; i++) {
+            random.addData(seriesData);
+        }
+
+        graph = new Rickshaw.Graph( {
+            element: document.querySelector("#serverload-chart"),
+            height: 150,
+            renderer: 'area',
+            series: [
+                {
+                    data: seriesData[0],
+                    color: '#6e6e6e',
+                    name:'File Server'
+                },{
+                    data: seriesData[1],
+                    color: '#fff',
+                    name:'Mail Server'
+                }
+            ]
+        } );
+
+        var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+            graph: graph,
+        });
+
+        setInterval( function() {
+            random.removeData(seriesData);
+            random.addData(seriesData);
+            graph.update();
+
+        },1000);
+
+        // Morris donut chart
+        Morris.Donut({
+            element: 'browser-usage',
+            data: [
+                {label: "Chrome", value: 25},
+                {label: "Safari", value: 5},
+                {label: "Firefox", value: 15},
+                {label: "Opera", value: 5},
+                {label: "Internet Explorer", value: 40},
+                {label: "Other", value: 10}
+            ],
+            colors: ['#00a3d8', '#2fbbe8', '#72cae7', '#d9544f', '#ffc100', '#1693A5']
+        });
+
+        $('#browser-usage').find("path[stroke='#ffffff']").attr('stroke', 'rgba(0,0,0,0)');
+
+        //sparkline charts
+        $('#projectbar1').sparkline('html', {type: 'bar', barColor: '#22beef', barWidth: 4, height: 20});
+        $('#projectbar2').sparkline('html', {type: 'bar', barColor: '#cd97eb', barWidth: 4, height: 20});
+        $('#projectbar3').sparkline('html', {type: 'bar', barColor: '#a2d200', barWidth: 4, height: 20});
+        $('#projectbar4').sparkline('html', {type: 'bar', barColor: '#ffc100', barWidth: 4, height: 20});
+        $('#projectbar5').sparkline('html', {type: 'bar', barColor: '#ff4a43', barWidth: 4, height: 20});
+        $('#projectbar6').sparkline('html', {type: 'bar', barColor: '#a2d200', barWidth: 4, height: 20});
+
+        // sortable table
+        $('.table.table-sortable th.sortable').click(function() {
+            var o = $(this).hasClass('sort-asc') ? 'sort-desc' : 'sort-asc';
+            $('th.sortable').removeClass('sort-asc').removeClass('sort-desc');
+            $(this).addClass(o);
+        });
+
+        //todo's
+        $('#todolist li label').click(function() {
+            $(this).toggleClass('done');
+        });
+
+        // Initialize tabDrop
+        $('.tabdrop').tabdrop({text: '<i class="fa fa-th-list"></i>'});
+
+        //load wysiwyg editor
+        $('#quick-message-content').summernote({
+            toolbar: [
+                //['style', ['style']], // no style button
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                //['insert', ['picture', 'link']], // no insert buttons
+                //['table', ['table']], // no table button
+                //['help', ['help']] //no help button
+            ],
+            height: 143   //set editable area's height
+        });
+
+        //multiselect input
+        $(".chosen-select").chosen({disable_search_threshold: 10});
+
+        <?php }?>
+    })
+
+</script>
+
+<!-- //遮罩层效果 -->
+<style>
+    .theme-popover-mask {
+        z-index: 9998;
+        position:fixed;
+        top:0;  left:0;  width:100%;
+        height:100%;  background:#000;  opacity:0.4;
+        filter:alpha(opacity=40);  display:none;
+    }
+    .theme-popover {
+        z-index:9999;  position:fixed;
+        top:20%;  left:35%;
+        width:45%;
+        max-height:220px;
+        /*margin:-180px 0 0 -330px;*/
+        border-radius:5px;  border:solid 2px #666;
+        display:none;
+        box-shadow: 0 0 10px #666;
+        background-color: #f7f7f7;
+        border-bottom: 1px solid #ebebeb;
+        border-radius: 5px 5px 0 0;
+        font-size: 14px;
+    }
+    .theme-signin{
+        margin-top: 40px;
+    }
+    #popover-close{
+        float: right;
+        margin-right: 12px;
+        margin-top: 12px;
+    }
+    #popover-msg{
+        margin-top: 12px;
+        align-content: center;
+        text-align: center;
+    }
+    #popover-img{
+        margin: 0 auto;
+        text-align: center;
+    }
+    #popover-img img{
+        display: inline;
+        max-width:30%;
+        height:auto;
+
+    }
+</style>
+
+<div class="theme-popover">
+    <div class="theme-poptit">
+        <a href="javascript:void(0);" title="关闭" class="close" id="popover-close" name="">×</a>
+    </div>
+    <div class="theme-popbod dform">
+        <form class="theme-signin" name="loginform" action="" method="post">
+            <ol>
+                <li id="popover-img"><img src="/include/management/images/warning.png" width="100" height="100" alt=""></li>
+                <li id="popover-msg"><?php echo $mess = "系统消息提示";?></li>
+            </ol>
+        </form>
+    </div>
+</div>
+<div class="theme-popover-mask"></div>
+
+
+<script>
+    function noTips(){
+
+        if($(".chosen-single span").html() != "请选择项目名称"){
+            $("#pname_info").val($(".chosen-single span").html());
+        }
+
+        var formParam = $("#form1").serialize();//序列化表格内容为字符串
+        $.ajax({
+            type:'post',
+            url: $("#form1").attr("action"),
+            data:formParam,
+            cache:false,
+            dataType:'json',
+            success:function(data){
+                $('.theme-popover-mask').fadeIn(100);
+                $('.theme-popover').slideDown(200);
+                $('#popover-msg').html(data['msg']);
+                if(data['return_url'] != ''){
+                    $('#popover-close').attr("name", data['return_url']);
+                }
+                if(data['error'] != true){
+                    $('#popover-img img').attr("src", "/include/management/images/yes.png");
+                }
+            },
+            complete:function(data){
+
+            },
+            error:function(data){
+                //console.log(data);
+                $('.theme-popover-mask').fadeIn(100);
+                $('.theme-popover').slideDown(200);
+                $('#popover-msg').html(data['msg']);
+            }
+        });
+    }
+
+    jQuery(document).ready(function($) {
+        $('.theme-poptit .close').click(function(){
+            $('.theme-popover-mask').fadeOut(100);
+            $('.theme-popover').slideUp(200);
+            if($('#popover-close').attr("name") != '') {
+                location.href = $('#popover-close').attr("name");
+            }
+        });
+    });
+</script>
+<!-- //遮罩层效果 -->
+
+<style>
+    .margin-bottom-20{
+        margin-bottom: 0px;
+        padding: 2px 12px;
+        font-size: 12px;
+    }
+</style>
+
+<script language="javascript">
+    //搜索功能采用get方式 关键词下拉提示，
+    $(".chosen-select-1").chosen({
+        search_contains: true,
+        disable_search_threshold: 10
+    });
+
+    $("[name='search_form']").submit(function(){
+        if($(".chosen-single span").html() != "请选择项目名称"){
+            $("#pname_info").val($(".chosen-single span").html());
+        }
+        return true;
+    });
+</script>
