@@ -32,7 +32,7 @@ date_default_timezone_set('PRC');
         'oldmanagement'	=>	'application/oldmanagement/controllers',	//老系统
         'mobile'	=>	'application/mobile/controllers',	//m站
         'api'	=>	'application/api/controllers',	//公共接口
-        'app'	=>	'application/api/controllers',	//app
+        'app'	=>	'application/app/controllers',	//app
         'test'	=>	'application/test/controllers'	//演示环境
 	));
 
