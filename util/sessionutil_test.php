@@ -78,7 +78,7 @@ class SessionUtil{
         		if ($_SERVER['QUERY_STRING']!=''){
         			$returnURL = base64_encode($_SERVER['REQUEST_URI'].'?'.$_SERVER['QUERY_STRING']);
         		}
-        		header('location: '.__BASEURL__.'/management/index/loginview?returnURL='.$returnURL);
+        		header('location: '.__BASEURL__.'/test/index/loginview?returnURL='.$returnURL);
         		exit();
         	}
         }
