@@ -1,0 +1,190 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>编辑权限</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>权限管理</li>
+            <li class="active">编辑权限</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+
+<table cellpadding="0" cellspacing="0" width="100%" height="100%">
+	<tr>
+		<td width="100%" valign="top" style="padding-right:30px;">
+            <section class="tile color transparent-white">
+			<div class="maincontentright">
+					<div class="condetail">
+						<style type="text/css">
+							form p,form div {
+								margin-top:15px;
+							}
+							form span {
+								float:left;
+								width:80px;
+								margin-left:40px;
+							}
+							form label {
+								margin-right:10px;
+							}
+							form .txt {
+								width:500px;
+							}
+							form textarea {
+								width:500px;
+								height:80px;
+								overflow:auto;
+							}
+							form .submit {
+								margin-left:110px;
+							}
+							form .submit input {
+								margin-right:30px;
+							}
+							form .control_name {
+								margin-left:120px;
+								overflow:hidden;
+							}
+							form .control_name div {
+								float:left;
+								width:260px;
+								height:430px;
+								overflow:hidden;
+								margin-top:0;
+								border: 1px dotted;
+								padding:10px;
+							}
+							form .control_name table th {
+								line-height:30px;
+								text-align:left;
+							}
+							form .control_name table td {
+								padding-left:15px;
+								line-height:25px;
+							}
+							form .control_name table td input {
+								margin-right:10px;
+							}
+						</style>
+						<script type="text/javascript">
+						$(function(){
+							$('th :checkbox').click(function(){
+								var isChecked = !!$(this).attr('checked');
+								$(this).parents('table:first').find('td :checkbox').attr('checked',isChecked);
+							});
+							
+							$('td :checkbox').click(function(){
+								var isChecked = !!$(this).attr('checked');
+								var this_table = $(this).parents('table:first');
+								if(!isChecked) {
+									this_table.find('th :checkbox').attr('checked',false);
+								}else {
+									var all_true = true;
+									this_table.find('td :checkbox').each(function(){
+										if(!!!$(this).attr('checked')) {
+											all_true = false;
+										}
+									});
+									this_table.find('th :checkbox').attr('checked',all_true);
+								}
+							});
+							
+							$('.control_name table').each(function(){
+								var checkboxDoms = $(this).find('td :checkbox');
+								if(checkboxDoms.size() == checkboxDoms.filter(':checked').size()) {
+									$(this).find('th :checkbox').attr('checked',true);
+								}
+							});
+						});
+						</script>
+						<form name="" action="/management/acl/addacl" method="post" enctype="multipart/form-data">
+							<p><span>用户组名称：</span><?php echo $this->acl_admin_info[0]['gname']?></p>
+							<div>
+								<span>权限列表：</span>
+								<div class="control_name">
+								<?php
+									$controller_name = array(
+										'admin'			=> '相关业务管理',
+                                        'pp'			    => '人员管理',
+										'investment'		=> '投资管理',
+                                        'investmentproduct' => '投资产品管理',
+										'chouzi'			=> '项目信息编辑-筹资管理',
+										'zijin'			=> '项目信息编辑-资金管理',
+										'shiyong'			=> '项目信息编辑-使用管理',
+										'feedback'			=> '项目信息编辑-回馈管理',
+										'peibi'		    => '项目信息编辑-配比管理',
+                                        'report'		    => '项目信息查询与统计',
+										'organization'	=> '机构管理',
+                                        'files'	=> '文档管理',
+										'task'		        => '我的任务',
+										'meeting'			=> '会议管理',
+                                        'gift'			    => '礼品管理',
+                                        'car'			    => '车辆管理',
+                                        'acl'			    => '权限管理',
+                                        'log'			    => '系统日志管理'
+									);
+									
+									$acl_admin_info = $this->acl_admin_info[0]['acl_admin_info'];
+									if(!empty($acl_admin_info)){
+										$acl_admin_info = unserialize($acl_admin_info);
+									}
+									$current_controller_name = '';
+								?>
+								<div>
+								<table>
+								<?php
+									
+									foreach($this->aclinfo as $k => $v){
+										if($v['controller'] != $current_controller_name) {
+											$current_controller_name = $v['controller'];
+											if($k > 0) echo '</table></div><div><table>';
+								?>
+									<tr>
+										<th><?php echo $controller_name[$current_controller_name] ?> <input type="checkbox" /></th>
+									</tr>
+									<?php } ?>
+									<tr>
+										<td>
+											<input type="checkbox" name="acl[]" value="<?php echo $v['id'];?>" 
+												<?php 
+												if(is_array($acl_admin_info)){?>
+													<?php if(in_array($v['id'],$acl_admin_info)){echo "checked='checked'";}?>
+												<?php }?>
+											/><?php echo $v["discription"];?>
+										</td>
+									</tr>
+								<?php } ?>
+								</table>
+								</div>
+								</div>
+							</div>
+							<input type="hidden" name="gid" value="<?php echo $this->acl_admin_info[0]['gid']?>"/> 
+							<p class="submit"><input type="submit" value="确定"/><input type="reset"/></p>
+						</form>
+					</div>
+			</div>
+            </section>
+		</td>
+	</tr>
+</table>
+
+</div>
+
+<script src="/include/management/assets/js/jquery.js"></script>
+<script language="javascript">
+    $(".menu li:eq(43)").addClass("open");
+</script>

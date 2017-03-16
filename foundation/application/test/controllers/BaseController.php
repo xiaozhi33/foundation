@@ -138,9 +138,44 @@
             $this->view->assign("jjh_mg_pp_catelist",$jjh_mg_pp_catelist);
             $this->view->assign("pp_config",$this->pp_config);
 
-
+            $this->acl();
             $this->_init();
 	    }
+
+        //判断权限
+        public function acl() {
+            //判断是否需要权限限制
+            $isacllist = $this->IsAclList();
+            //var_dump($isacllist);
+            if($isacllist === false) {
+                if(HttpUtil::isJsonRequest()) {
+                    echo json_encode(array('success'=>0,'msg'=> '您无权访问此页面'));
+                    exit;
+                }else {
+                    $this->alert_back('您无权访问此页面');
+                }
+            }
+        }
+
+        //JS返回信息提示
+        public function alert_back($msg){
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('$msg');");
+            echo('history.back();');
+            echo('</script>');
+            exit;
+        }
+
+        //JS返回信息提示并跳转
+        public function alert_go($msg,$url){
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('$msg');");
+            echo("location.href='$url';");
+            echo('</script>');
+            exit;
+        }
 
         public function byte_format($size,$dec=2)
         {
