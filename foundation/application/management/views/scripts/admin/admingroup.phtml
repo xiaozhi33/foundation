@@ -29,7 +29,8 @@
 					  </tr>
 					
 					  <?php 
-						foreach($this->admingrpouplist as $k=>$v){?>
+						foreach($this->admingrpouplist as $k=>$v){
+                            if($v['gid']!=1){?>
 						 <tr>
 						 	<td><?php echo $v['gid'];?></td>
 							<td><?php echo $v['gname'];?></td>
@@ -43,7 +44,7 @@
 
                              <a onclick="if(confirm('是否要删除管理员角色，如删除将无法找回！') == false){return false;}" href="/management/admin/deladmingroup?gid=<?php echo $v['gid'];?>"><button type="button" class="btn btn-danger margin-bottom-20">删除</button></a></td>
 						 </tr>
-					   <?php }?>
+					   <?php }}?>
 					</table>
                 </div>
 					<div class="tile-footer">
