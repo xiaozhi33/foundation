@@ -39,9 +39,10 @@
             <label class="col-sm-3 control-label" for="input01">管理员角色：</label>
             <div class="col-sm-7">
                 <select class="form-control" name="gid">
-                    <?php foreach($this->admingrouplist as $key => $value){?>
+                    <?php foreach($this->admingrouplist as $key => $value){
+                        if($value['gid'] != 1){?>
                         <option value="<?php echo $value['gid'];?>"><?php echo $value['gname'];?></option>
-                    <?php }?>
+                    <?php }}?>
                 </select>
             </div>
             <span class="col-sm-2" > * </span>
