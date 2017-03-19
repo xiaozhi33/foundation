@@ -227,4 +227,19 @@
                 'meetingCateList' => $meetingCateList
             ));
         }
+
+        //权限
+        public function acl()
+        {
+            $action = $this->getRequest()->getActionName();
+            $except_actions = array(
+                'to-add',
+                'download',
+                'add-connector',
+            );
+            if (in_array($action, $except_actions)) {
+                return;
+            }
+            parent::acl();
+        }
 	}

@@ -43,7 +43,7 @@
 			}
 			$Acl_admin_groupDAO ->acl_admin_info = $acl;
 			$Acl_admin_groupDAO ->save();
-			$this->alert_go("权限修改成功", "/admin/ucenter/group?iid=2");
+			$this->alert_go("权限修改成功", "/management/admin/admingroup");
 		}
 		
 		private function isacltrue($gid){

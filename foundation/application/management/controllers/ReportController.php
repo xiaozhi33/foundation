@@ -2145,5 +2145,32 @@
 				$this->pm[$value['id']] = $value['pname'];
 			}
 		}
+
+        //权限
+        public function acl()
+        {
+            $action = $this->getRequest()->getActionName();
+            $except_actions = array(
+                'chouzitoexcel',
+                'zijinnewtoexcel',
+                'shiyongnewtoexcel',
+                'zijintoexcel',
+                'shiyongtoexcel',
+                'pmshouzitoexcel',
+                'pmshouzinewtoexcel',
+                'reportinfo',
+                'getdepartment',
+                'getcate',
+                'feedbacktoexcel',
+                'peibitoexcel',
+                'allpeibi',
+                'allpeibitoexcel',
+                'newshouzitoexcel',
+            );
+            if (in_array($action, $except_actions)) {
+                return;
+            }
+            parent::acl();
+        }
 	}
 ?>

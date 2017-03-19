@@ -316,4 +316,19 @@ class Management_investmentproductController extends BaseController
             'productList' => $productList
         ));
     }
+
+    //权限
+    public function acl()
+    {
+        $action = $this->getRequest()->getActionName();
+        $except_actions = array(
+            'to-addproduct',
+            'hasproduct',
+            'to-addlog',
+        );
+        if (in_array($action, $except_actions)) {
+            return;
+        }
+        parent::acl();
+    }
 }

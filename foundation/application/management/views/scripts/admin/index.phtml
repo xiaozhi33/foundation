@@ -31,8 +31,8 @@
 					  <?php 
 						foreach($this->adminlist as $k=>$v){?>
 						 <tr>
-						 	<td><?php 
-						 		if($v['admin_type'] == 0){
+						 	<!--<td><?php
+/*						 		if($v['admin_type'] == 0){
 						 			echo "系统管理员";
 						 		}elseif($v['admin_type'] == 1){
 						 			echo "项目筹资管理员";
@@ -49,7 +49,16 @@
 						 		}elseif($v['admin_type'] == 7){
 									echo "财务人员";
 								}
-						 	?></td>
+						 	*/?></td>
+-->
+                             <td><?php
+                                    foreach($this->admingrouplist as $key => $value){
+                                        if($value['gid'] == $v['gid']){
+                                            echo $value['gname'];
+                                        }
+                                 }
+                                 ?></td>
+
 							<td><?php echo $v['admin_name'];?></td>
 							<td>
                             <a href="/management/admin/edit?id=<?php echo $v['id'];?>"> 

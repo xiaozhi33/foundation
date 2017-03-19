@@ -87,5 +87,22 @@
 			$this ->dbhelper ->connect();
 			SessionUtil::sessionStart();
 		}
+
+        //权限
+        public function acl()
+        {
+            $action = $this->getRequest()->getActionName();
+            $except_actions = array(
+                'index',
+                'modify',
+                'viewrizhi',
+                'editrizhi',
+                'delrizhi',
+            );
+            if (in_array($action, $except_actions)) {
+                return;
+            }
+            parent::acl();
+        }
 	}
 ?>

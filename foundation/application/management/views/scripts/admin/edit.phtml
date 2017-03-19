@@ -20,21 +20,35 @@
 				<section class="tile color transparent-white">
 			<div class="detailedbox tile-body">
 				<form class="form-horizontal" action="editrs"  id="form1" method="post" encType="multipart/form-data">
-			<div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">管理员类型：</label>
-            <div class="col-sm-6">
-            	<select class="form-control" name="type">
-								<!--<option value="0" <?php /*if($this->adminlist[0]['admin_type'] == 0){echo "selected='selected'";}*/?>>系统管理员</option>-->
-								<option value="1" <?php if($this->adminlist[0]['admin_type'] == 1){echo "selected='selected'";}?>>项目筹资管理员</option>
-								<option value="2" <?php if($this->adminlist[0]['admin_type'] == 2){echo "selected='selected'";}?>>项目资金管理员</option>
-								<option value="3" <?php if($this->adminlist[0]['admin_type'] == 3){echo "selected='selected'";}?>>项目使用管理员</option>
-								<option value="4" <?php if($this->adminlist[0]['admin_type'] == 4){echo "selected='selected'";}?>>项目管理员</option>
-								<option value="5" <?php if($this->adminlist[0]['admin_type'] == 5){echo "selected='selected'";}?>>统计管理员</option>
-								<option value="6" <?php if($this->adminlist[0]['admin_type'] == 6){echo "selected='selected'";}?>>网站管理员</option>
-							</select>
+
+                    <!--<div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">管理员类型：</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="type">
+                                        <option value="0" <?php if($this->adminlist[0]['admin_type'] == 0){echo "selected='selected'";}?>>系统管理员</option>
+                                        <option value="1" <?php /*if($this->adminlist[0]['admin_type'] == 1){echo "selected='selected'";}*/?>>项目筹资管理员</option>
+                                        <option value="2" <?php /*if($this->adminlist[0]['admin_type'] == 2){echo "selected='selected'";}*/?>>项目资金管理员</option>
+                                        <option value="3" <?php /*if($this->adminlist[0]['admin_type'] == 3){echo "selected='selected'";}*/?>>项目使用管理员</option>
+                                        <option value="4" <?php /*if($this->adminlist[0]['admin_type'] == 4){echo "selected='selected'";}*/?>>项目管理员</option>
+                                        <option value="5" <?php /*if($this->adminlist[0]['admin_type'] == 5){echo "selected='selected'";}*/?>>统计管理员</option>
+                                        <option value="6" <?php /*if($this->adminlist[0]['admin_type'] == 6){echo "selected='selected'";}*/?>>网站管理员</option>
+                                    </select>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                    </div>-->
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input01">管理员角色：</label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="gid">
+                        <?php foreach($this->admingrouplist as $key => $value){?>
+                        <option value="<?php echo $value['gid'];?>" <?php if($this->adminlist[0]['gid'] == $value['gid']){echo "selected='selected'";}?>><?php echo $value['gname'];?></option>
+                        <?php }?>
+                    </select>
+                </div>
+                <span class="col-sm-2" > * </span>
             </div>
-            <span class="col-sm-2" > * </span>
-            </div>
+
 			<div class="form-group">
             <label class="col-sm-2 control-label" for="input01">管理员名称：</label>
             <div class="col-sm-6">

@@ -327,6 +327,23 @@ class Management_carController extends BaseController
 
     }
 
+    //权限
+    public function acl()
+    {
+        $action = $this->getRequest()->getActionName();
+        $except_actions = array(
+            'to-addcarmain',
+            'has-car-number',
+            'usecar_now',
+            'to-addusecar',
+            'has-user-car',
+        );
+        if (in_array($action, $except_actions)) {
+            return;
+        }
+        parent::acl();
+    }
+
     public function hasUserCarAction($star_time,$end_time,$car_number){
         $carDAO = $this->orm->createDAO('material_mg_cars');
         $carDAO ->selectLimit .= " AND (use_starttime < '".$star_time."' OR use_endtime >'".$end_time."')";

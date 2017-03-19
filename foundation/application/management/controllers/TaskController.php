@@ -159,4 +159,17 @@ class Management_taskController extends BaseController
             'admin_list' => $admin_list,
         ));
     }
+
+    //权限
+    public function acl()
+    {
+        $action = $this->getRequest()->getActionName();
+        $except_actions = array(
+            'to-addtaskmain',
+        );
+        if (in_array($action, $except_actions)) {
+            return;
+        }
+        parent::acl();
+    }
 }

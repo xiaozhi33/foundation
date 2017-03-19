@@ -62,7 +62,8 @@
             $this->shiyong_weirenling_list = $shiyong_weirenling_list = $this->orm->createDAO("pm_mg_info")->findCate_id("1")->findIs_renling("0")->get();
 
             $admininfo = SessionUtil::getAdmininfo();
-            $this->admininfo = SessionUtil::getAdmininfo();
+            $_admininfo = SessionUtil::getAdmininfo();
+            $this->admininfo = $_admininfo['admininfo'];
 
             //捐赠项目金额
             $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findCate_id(0)->select(" sum(zijin_daozheng_jiner) as allsum")->get();
@@ -137,9 +138,68 @@
             $this->view->assign("jjh_mg_pp_catelist",$jjh_mg_pp_catelist);
             $this->view->assign("pp_config",$this->pp_config);
 
-
+            $this->acl();
             $this->_init();
 	    }
+
+        //判断权限
+        public function acl() {
+            //判断是否需要权限限制
+            $isacllist = $this->IsAclList();
+            if($isacllist === false) {
+                if(HttpUtil::isJsonRequest()) {
+                    $this->alert_back('您无权访问此页面');
+                }else {
+                    $this->alert_back('您无权访问此页面');
+                }
+            }
+        }
+
+        public function IsAclList($action = null,$controller = null){
+            if($controller == null) {
+                $controller = $this->getRequest()->getControllerName();
+            }
+            if($action == null) {
+                $action = $this->getRequest()->getActionName();
+            }
+
+            $acl_admin_info = $this->orm->createDAO('acl_admin_group')->findGid($this->admin_info['gid'])->get();
+            $acl_admin_info = unserialize($acl_admin_info[0]['acl_admin_info']);
+            if(empty($acl_admin_info)) {
+                return false;
+            }
+
+            $AclDAO = $this->orm->createDAO("acl_info");
+            $AclDAO ->findController($controller);
+            $AclDAO ->findAction($action);
+            $AclDAO ->findId($acl_admin_info);
+            $rs = $AclDAO ->get();
+            if(!empty($rs)){
+                return TRUE;
+            }else {
+                return FALSE;
+            }
+        }
+
+        //JS返回信息提示
+        public function alert_back($msg){
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('$msg');");
+            echo('history.back();');
+            echo('</script>');
+            exit;
+        }
+
+        //JS返回信息提示并跳转
+        public function alert_go($msg,$url){
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('$msg');");
+            echo("location.href='$url';");
+            echo('</script>');
+            exit;
+        }
 
         public function byte_format($size,$dec=2)
         {

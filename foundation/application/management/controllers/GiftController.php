@@ -342,4 +342,19 @@ class Management_giftController extends BaseController
             'admin_list' => $admin_list
         ));
     }
+
+    //权限
+    public function acl()
+    {
+        $action = $this->getRequest()->getActionName();
+        $except_actions = array(
+            'to-addgiftmain',
+            'has-gift-name',
+            'to-addusegift',
+        );
+        if (in_array($action, $except_actions)) {
+            return;
+        }
+        parent::acl();
+    }
 }

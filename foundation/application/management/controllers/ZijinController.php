@@ -1016,5 +1016,31 @@
             //ini_set("display_errors", "On");
             //error_reporting(E_ERROR);
 		}
+
+        //权限
+        public function acl()
+        {
+            $action = $this->getRequest()->getActionName();
+            $except_actions = array(
+                'addrszijin',
+                'editrszijin',
+                'savebindingclaim',
+                'del-claim',
+                'ajaxgetzwxm',
+                'ajaxgetzwbn',
+                'editrsrate',
+                'syncsign',
+                'signinfo',
+                'addsign',
+                'editsign',
+                'newsigninfo',
+                'newsavesign',
+                'download',
+            );
+            if (in_array($action, $except_actions)) {
+                return;
+            }
+            parent::acl();
+        }
 	}
 ?>

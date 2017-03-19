@@ -60,5 +60,19 @@
 			SessionUtil::sessionStart();
 			SessionUtil::checkmanagement();
 		}
+
+        //权限
+        public function acl()
+        {
+            $action = $this->getRequest()->getActionName();
+            $except_actions = array(
+                'slowlogrs',
+                'slowone',
+            );
+            if (in_array($action, $except_actions)) {
+                return;
+            }
+            parent::acl();
+        }
 	}
 ?>

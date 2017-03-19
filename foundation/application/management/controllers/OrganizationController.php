@@ -316,4 +316,20 @@ class Management_organizationController extends BaseController
             'jjh_mg_director_list' => $_jjh_mg_directior_list
         ));
     }
+
+    //权限
+    public function acl()
+    {
+        $action = $this->getRequest()->getActionName();
+        $except_actions = array(
+            'to-addorganizationmain',
+            'has-is',
+            'addrsdirector',
+            'editrsdirector',
+        );
+        if (in_array($action, $except_actions)) {
+            return;
+        }
+        parent::acl();
+    }
 }

@@ -280,4 +280,19 @@ class Management_investmentController extends BaseController
             'accountList' => $accountList
         ));
     }
+
+    //权限
+    public function acl()
+    {
+        $action = $this->getRequest()->getActionName();
+        $except_actions = array(
+            'to-addaccount',
+            'has-addaccount',
+            'to-addlog',
+        );
+        if (in_array($action, $except_actions)) {
+            return;
+        }
+        parent::acl();
+    }
 }

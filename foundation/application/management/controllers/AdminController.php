@@ -3,7 +3,7 @@
 	class Management_adminController extends BaseController {
 		private $dbhelper;
 		public function indexAction(){
-			$adminlist = new my_adminDAO();
+			$adminlist =  $this->orm->createDAO("my_admin");
 			$adminlist = $adminlist ->get($this->dbhelper);
 			$this->view->assign("adminlist",$adminlist);
 			echo $this->view->render("index/header.phtml");
@@ -23,11 +23,11 @@
 				alert_back("该用户名已经存在。");
 			}
 			
-			if($_REQUEST['name'] != "" && $_REQUEST['pwd'] != "" && $_REQUEST['type'] != ""){
-				$adminlist = new my_adminDAO();
+			if($_REQUEST['name'] != "" && $_REQUEST['pwd'] != "" && $_REQUEST['gid'] != ""){
+				$adminlist = $this->orm->createDAO("my_admin");
 				$adminlist ->admin_name = $_REQUEST['name'];
 				$adminlist ->admin_pwd = substr(md5(serialize($_REQUEST['pwd'])), 0, 32);
-				$adminlist ->admin_type = $_REQUEST['type'];
+				$adminlist ->gid = $_REQUEST['gid'];
 				$adminlist ->save($this->dbhelper);
 				alert_go("添加成功。","/management/admin");
 			}else{
@@ -37,7 +37,7 @@
 		
 		//判断该用户是否存在
 		public function isadminAction($name){
-			$adminlist = new my_adminDAO();
+			$adminlist = $this->orm->createDAO("my_admin");
 			$adminlist ->admin_name = $name;
 			$isadmin = $adminlist->get($this->dbhelper);
 			return $isadmin;
@@ -65,7 +65,7 @@
 		
 		public function editAction(){
 			if($_REQUEST['id'] != ""){
-				$adminlist = new my_adminDAO($_REQUEST['id']);
+				$adminlist =  $this->orm->createDAO("my_admin")->findId($_REQUEST['id']);
 				$adminlist = $adminlist->get($this->dbhelper);
 				$this->view->assign("adminlist",$adminlist);
 				echo $this->view->render("index/header.phtml");
@@ -78,9 +78,9 @@
 		
 		public function editrsAction(){
 			if($_REQUEST['id'] != ""){
-				$adminlist = new my_adminDAO($_REQUEST['id']);
+				$adminlist =  $this->orm->createDAO("my_admin")->findId($_REQUEST['id']);
 				$adminlist ->admin_name = $_REQUEST['name'];
-				$adminlist ->admin_type = $_REQUEST['type'];
+				$adminlist ->gid = $_REQUEST['gid'];
 				$adminlist->save($this->dbhelper);
 				alert_go("修改成功。","/management/admin");
 			}else{
@@ -932,6 +932,103 @@
             echo json_encode(array('status'=>'success','message'=>'添加成功','pid'=>$pid,'ppname'=>$ppinfo['ppname']));
             exit();
         }
+
+        // 管理组 角色
+        public function admingroupAction(){
+            $admingrpouplist = $this->orm->createDAO("admingroup")->get();
+            $total = count($admingrpouplist);
+            $pageDAO = new pageDAO();
+            $pageDAO = $pageDAO ->pageHelper($admingrpouplist,null,"admingrouplist",null,'get',20,20);
+            $pages = $pageDAO['pageLink']['all'];
+            $pages = str_replace("/index.php","",$pages);
+            $this->view->assign('admingrpouplist',$pageDAO['pageData']);
+            $this->view->assign('page',$pages);
+            $this->view->assign('total',$total);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render('admin/admingroup.phtml');
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        public function addadmingroupAction(){
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("admin/addadmingroup.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        public function toAddadmingroupAction(){
+            $gid = $_REQUEST['gid'];
+            $admingroupDAO = $this->orm->createDAO('admingroup');
+            $gname = $_REQUEST['gname'];
+
+            if($gname == ''){
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('您输入的信息不完整，请查正后继续添加！！！！！');");
+                echo('history.back();');
+                echo('</script>');
+                exit;
+            }
+
+            $admingroupDAO ->gname = $gname;
+            $admingroupDAO ->rank = 1;
+
+
+            if(!empty($gid))  //修改流程
+            {
+                $admingroupDAO ->findGid($gid);
+            }
+            try{
+                $admingroupDAO ->save();
+            }catch (Exception $e){
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('保存失败！！！！！');");
+                echo('history.back();');
+                echo('</script>');
+                exit;
+            }
+
+            if(empty($id)){
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('保存成功');");
+                echo("location.href='/management/admin/admingroup';");
+                echo('</script>');
+                exit;
+            }else {
+                echo json_encode(array('msg'=>'保存成功！','return_url'=>'/management/admin/admingroup'));
+                exit;
+            }
+        }
+
+        public function deladmingroupAction(){
+            $gid = (int)HttpUtil::getString("gid");
+            $admingroupDAO = $this->orm->createDAO('admingroup');
+            $admingroupDAO ->findGid($gid);
+            $admingroupDAO ->delete();
+
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('删除成功');");
+            echo("location.href='/management/admin/admingroup';");
+            echo('</script>');
+            exit;
+        }
+
+        public function editadmingroupAction(){
+            if($_REQUEST['gid'] != ""){
+                $admingroupinfo = $this->orm->createDAO("admingroup")->findGid($_REQUEST['gid']);
+                $admingroupinfo = $admingroupinfo->get($this->dbhelper);
+                $this->view->assign("admingroupinfo",$admingroupinfo);
+
+                echo $this->view->render("index/header.phtml");
+                echo $this->view->render("admin/editadmingroup.phtml");
+                echo $this->view->render("index/footer.phtml");
+            }else {
+                alert_back("操作失败");
+            }
+        }
 		
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
@@ -953,6 +1050,41 @@
 			$pm_chouzi = new pm_mg_chouziDAO();
 			$pm_chouzi = $pm_chouzi ->get($this->dbhelper);
 			$this->view->assign("pmlist",$pm_chouzi);
+
+            //管理员角色类型
+            $admingroupDAO = $admingroupDAO = $this->orm->createDAO("admingroup")->get();
+            $this->view->assign("admingrouplist",$admingroupDAO);
 		}
-	}
+
+        //权限
+        public function acl()
+        {
+            //return;
+            $action = $this->getRequest()->getActionName();
+            $except_actions = array(
+                'isadmin',
+                'addrs',
+                'editrs',
+                'addrsdepartment',
+                'editrsdepartment',
+                'addrscate',
+                'editrscate',
+                'addrspp',
+                'editrspp',
+                'editrspwd',
+                'saveppcompany',
+                'savepphuodong',
+                'saveppvisit',
+                'relation',
+                'syncjzf',
+                'isnot_pp',
+                'ajaxaddpp',
+                'to-addadmingroup',
+            );
+            if (in_array($action, $except_actions)) {
+                return;
+            }
+            parent::acl();
+        }
+}
 ?>

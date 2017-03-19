@@ -436,5 +436,22 @@
 			$pm_chouzi = $pm_chouzi ->get($this->dbhelper);
 			$this->view->assign("pmlist",$pm_chouzi);
 		}
+
+        //权限
+        public function acl()
+        {
+            $action = $this->getRequest()->getActionName();
+            $except_actions = array(
+                'addrsshiyong',
+                'editrsshiyong',
+                'claimlist',
+                'savebindingclaim',
+                //'binding-claim',
+            );
+            if (in_array($action, $except_actions)) {
+                return;
+            }
+            parent::acl();
+        }
 	}
 ?>

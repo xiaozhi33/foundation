@@ -83,11 +83,24 @@
 						<script type="text/javascript">
 						$(function(){
 							$('th :checkbox').click(function(){
-								var isChecked = !!$(this).attr('checked');
-								$(this).parents('table:first').find('td :checkbox').attr('checked',isChecked);
+								var isChecked = !!$(this).prop('checked');
+								$(this).parents('table:first').find('td :checkbox').prop('checked',isChecked);
+
+                                /*var this_table = $(this).parents('table:first');
+                                alert($(this).prop('checked'));
+                                if(isChecked){
+                                    this_table.find('td :checkbox').attr('checked',false);
+                                    alert(1);
+                                    alert($(this).attr('checked'));
+                                    alert(this_table.html());
+                                }else {
+                                    this_table.find('td :checkbox').attr('checked',true);
+                                    alert($(this).attr('checked'));
+                                    alert(this_table.html());
+                                }*/
 							});
 							
-							$('td :checkbox').click(function(){
+							/*$('td :checkbox').click(function(){
 								var isChecked = !!$(this).attr('checked');
 								var this_table = $(this).parents('table:first');
 								if(!isChecked) {
@@ -101,8 +114,9 @@
 									});
 									this_table.find('th :checkbox').attr('checked',all_true);
 								}
-							});
-							
+							});*/
+
+                            // 初始化加载，如果子项目都选，则全选按钮选中
 							$('.control_name table').each(function(){
 								var checkboxDoms = $(this).find('td :checkbox');
 								if(checkboxDoms.size() == checkboxDoms.filter(':checked').size()) {
@@ -129,8 +143,8 @@
 										'peibi'		    => '项目信息编辑-配比管理',
                                         'report'		    => '项目信息查询与统计',
 										'organization'	=> '机构管理',
-                                        'files'	=> '文档管理',
-										'task'		        => '我的任务',
+                                        'files'	        => '文档管理',
+										'task'		        => '任务管理',
 										'meeting'			=> '会议管理',
                                         'gift'			    => '礼品管理',
                                         'car'			    => '车辆管理',
@@ -169,11 +183,18 @@
 									</tr>
 								<?php } ?>
 								</table>
+
+
 								</div>
 								</div>
+
 							</div>
-							<input type="hidden" name="gid" value="<?php echo $this->acl_admin_info[0]['gid']?>"/> 
-							<p class="submit"><input type="submit" value="确定"/><input type="reset"/></p>
+							<input type="hidden" name="gid" value="<?php echo $this->acl_admin_info[0]['gid']?>"/>
+
+                            <div class="col-sm-offset-5 col-sm-7">
+                                <input class="btn btn-primary" type="submit" value="保存权限">
+                            </div>
+
 						</form>
 					</div>
 			</div>

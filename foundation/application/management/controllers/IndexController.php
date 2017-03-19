@@ -218,11 +218,10 @@
 
 		//getpasswordpost方法判定用户名密码的正确性
 		public function getpasswordpostAction($username,$password){
-			$my_adminDAO = new my_adminDAO();
+			$my_adminDAO = $this->orm->createDAO('my_admin');
 			$my_adminDAO ->admin_name = $username;
 			$my_adminDAO ->admin_pwd = substr(md5(serialize($password)), 0, 32);
-			//$my_adminDAO ->admin_password = substr(md5(md5($password)."wangnan-mycms-ok100"),0,12);
-			$admininfo = $my_adminDAO->get($this->dbhelper);
+			$admininfo = $my_adminDAO->get();
 						
 			if($admininfo){
 				return $admininfo;
@@ -294,7 +293,14 @@
             $rss = $this->dbhelper->fetchAllData($selectSQL);
             return $rss;
         }
-		
+
+        //权限
+        public function acl()
+        {
+            // 不需要权限检查直接返回
+            return;
+        }
+
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
 			$this ->dbhelper ->connect();

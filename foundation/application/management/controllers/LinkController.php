@@ -103,4 +103,10 @@ class Management_linkController extends BaseController
         $this ->dbhelper ->connect();
         error_reporting("E_ALL");
     }
+
+    //权限
+    public function acl()
+    {
+        return;
+    }
 }

@@ -90,4 +90,18 @@ class Management_ppController extends BaseController {
         SessionUtil::sessionStart();
         SessionUtil::checkadmin();
     }
+
+    //权限
+    public function acl()
+    {
+        $action = $this->getRequest()->getActionName();
+        $except_actions = array(
+            'addrsppcate',
+            'editrsppcate',
+        );
+        if (in_array($action, $except_actions)) {
+            return;
+        }
+        parent::acl();
+    }
 }
