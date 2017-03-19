@@ -138,7 +138,7 @@
             $this->view->assign("jjh_mg_pp_catelist",$jjh_mg_pp_catelist);
             $this->view->assign("pp_config",$this->pp_config);
 
-            $this->acl();
+            //$this->acl();
             $this->_init();
 	    }
 
@@ -146,14 +146,38 @@
         public function acl() {
             //判断是否需要权限限制
             $isacllist = $this->IsAclList();
-            //var_dump($isacllist);
             if($isacllist === false) {
                 if(HttpUtil::isJsonRequest()) {
-                    echo json_encode(array('success'=>0,'msg'=> '您无权访问此页面'));
-                    exit;
+                    $this->alert_back('您无权访问此页面');
                 }else {
                     $this->alert_back('您无权访问此页面');
                 }
+            }
+        }
+
+        public function IsAclList($action = null,$controller = null){
+            if($controller == null) {
+                $controller = $this->getRequest()->getControllerName();
+            }
+            if($action == null) {
+                $action = $this->getRequest()->getActionName();
+            }
+
+            $acl_admin_info = $this->orm->createDAO('acl_admin_group')->findGid($this->admin_info['gid'])->get();
+            $acl_admin_info = unserialize($acl_admin_info[0]['acl_admin_info']);
+            if(empty($acl_admin_info)) {
+                return false;
+            }
+
+            $AclDAO = $this->orm->createDAO("acl_info");
+            $AclDAO ->findController($controller);
+            $AclDAO ->findAction($action);
+            $AclDAO ->findId($acl_admin_info);
+            $rs = $AclDAO ->get();
+            if(!empty($rs)){
+                return TRUE;
+            }else {
+                return FALSE;
             }
         }
 
