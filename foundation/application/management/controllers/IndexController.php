@@ -220,8 +220,8 @@
 		//getpasswordpost方法判定用户名密码的正确性
 		public function getpasswordpostAction($username,$password){
 			$my_adminDAO = $this->orm->createDAO('my_admin');
-			$my_adminDAO ->admin_name = $username;
-			$my_adminDAO ->admin_pwd = substr(md5(serialize($password)), 0, 32);
+			$my_adminDAO ->findAdmin_name($username);
+			$my_adminDAO ->findAdmin_pwd(substr(md5(serialize($password)), 0, 32));
 			$admininfo = $my_adminDAO->get();
 						
 			if($admininfo){
