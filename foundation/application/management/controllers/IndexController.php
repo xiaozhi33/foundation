@@ -208,6 +208,7 @@
 		
 		public function logoutAction(){
 	        try{
+                $_SESSION = array();
 	           	SessionUtil::sessionEnd();
 	            header("location:".__BASEURL__."/management/index/loginview");
 	        }catch (Exception $e){
