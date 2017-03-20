@@ -38,7 +38,7 @@
 		//判断该用户是否存在
 		public function isadminAction($name){
 			$adminlist = $this->orm->createDAO("my_admin");
-			$adminlist ->admin_name = $name;
+			$adminlist ->findAdmin_name($name);
 			$isadmin = $adminlist->get($this->dbhelper);
 			return $isadmin;
 		}
