@@ -42,12 +42,12 @@
                                                 <ul>
                                                 <li>车号：<?php echo $value['car_number']?> <span onClick="javascript:$('.car-ifo').fadeOut();" style="float:right;">>>关闭</span></li>
                                                 <li>目的地及用途：<?php echo $value['destination_use']?> </li>
-                                                <li>公里数：<?php echo $value['kilometers']?> 公里 </li>
+                                                <!--<li>公里数：<?php /*echo $value['kilometers']*/?> 公里 </li>-->
                                                 <li>出车时间：<?php echo date("Y-m-d h:i:s",$value['use_starttime'])?> </li>
                                                 <li>返回时间：<?php echo date("Y-m-d h:i:s",$value['use_endtime'])?>  </li>
-                                                <li>加油数：<?php echo $value['cost_oil_counts']?> L</li>
-                                                <li>金额：<?php echo $value['cost_price']?> 元</li>
-                                                <li>停车过路：<?php echo $value['cost_road_toll']?> 元</li>
+                                                <!--<li>加油数：<?php /*echo $value['cost_oil_counts']*/?> L</li>
+                                                <li>金额：<?php /*echo $value['cost_price']*/?> 元</li>
+                                                <li>停车过路：<?php /*echo $value['cost_road_toll']*/?> 元</li>-->
                                                 <li>使用人：<?php echo $value['user']?> </li>
                                                 <li>驾驶人：<?php echo $value['driver']?></li>
                                                 </ul>
@@ -119,12 +119,12 @@
 					  <tr>
 						<td width="8%">车号</td>
 						<td width="12%">目的地及用途</td>
-                          <td width="6%">公里数</td>
+                          <!--<td width="6%">公里数</td>-->
                           <td width="12%">出车时间</td>
                           <td width="12%">返回时间</td>
-                          <td width="6%">加油数</td>
+                         <!-- <td width="6%">加油数</td>
                           <td width="6%">金额</td>
-                          <td width="12%">停车过路</td>
+                          <td width="12%">停车过路</td>-->
                           <td width="6%">使用人</td>
                           <td width="6%">驾驶人</td>
 						<td width="13%">操作</td>
@@ -136,12 +136,12 @@
 						 <tr>
 						 	<td><?php echo $v['car_number'];?>&nbsp;</td>
 							<td><?php echo $v['destination_use'];?>&nbsp;</td>
-                             <td><?php echo $v['kilometers'];?>&nbsp;公里</td>
+                            <!-- <td><?php /*echo $v['kilometers'];*/?>&nbsp;公里</td>-->
                              <td><?php echo date("Y-m-d h:i:s",$v['use_starttime']);?>&nbsp;</td>
                              <td><?php echo date("Y-m-d h:i:s",$v['use_endtime']);?>&nbsp;</td>
-                             <td><?php echo $v['cost_oil_counts'];?>&nbsp;L</td>
-                             <td><?php echo $v['cost_price'];?>&nbsp;元</td>
-                             <td><?php echo $v['cost_road_toll'];?>&nbsp;元</td>
+                             <!--<td><?php /*echo $v['cost_oil_counts'];*/?>&nbsp;L</td>
+                             <td><?php /*echo $v['cost_price'];*/?>&nbsp;元</td>
+                             <td><?php /*echo $v['cost_road_toll'];*/?>&nbsp;元</td>-->
                              <td><?php echo $v['user'];?>&nbsp;</td>
                              <td><?php echo $v['driver'];?>&nbsp;</td>
 
