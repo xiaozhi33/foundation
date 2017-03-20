@@ -214,19 +214,6 @@ class Management_carController extends BaseController
         $driver = HttpUtil::postString("driver");
         $description = HttpUtil::postString("description");
 
-        if(empty($id))  //首次判断同一时间一台车辆不能添加多条记录
-        {
-            $rs = $this->hasUserCarAction($use_starttime,$use_endtime,$car_id);
-            if(!empty($rs)){
-                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
-                echo('<script language="JavaScript">');
-                echo("alert('该车辆在".$use_starttime."-".$use_endtime."期间已有使用记录，请查正后继续添加！');");
-                echo('history.back();');
-                echo('</script>');
-                exit;
-            }
-        }
-
         if($destination_use == ''|| $car_id == ''|| $user == ''|| $driver == ''|| $use_starttime == ''|| $use_endtime == ''){
             if(!empty($id)){
                 echo json_encode(array('msg'=>"您输入的信息不完整，请查正后继续添加！！！！！",'return_url'=>''));
@@ -238,6 +225,19 @@ class Management_carController extends BaseController
             echo('history.back();');
             echo('</script>');
             exit;
+        }
+
+        if(empty($id))  //首次判断同一时间一台车辆不能添加多条记录
+        {
+            $rs = $this->hasUserCarAction($use_starttime,$use_endtime,$car_id);
+            if(!empty($rs)){
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('该车辆在".$use_starttime."-".$use_endtime."期间已有使用记录，请查正后继续添加！');");
+                echo('history.back();');
+                echo('</script>');
+                exit;
+            }
         }
 
         $carDAO ->car_id = $car_id;
