@@ -393,21 +393,6 @@
                                     <i class="fa fa-caret-right"></i>添加人员信息
                                 </a>
                             </li>
-                            <!--<li>
-                                <a href="/management/admin/pp?pp_cate=捐赠方">
-                                    <i class="fa fa-caret-right"></i>捐赠方管理
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/management/admin/pp?pp_cate=使用方">
-                                    <i class="fa fa-caret-right"></i>使用方管理
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/management/admin/pp?pp_cate=业务方">
-                                    <i class="fa fa-caret-right"></i>业务方管理
-                                </a>
-                            </li>-->
                          </ul>
                     </li>
 
@@ -597,14 +582,14 @@
                             <i class="fa fa-bar-chart-o"></i> 项目信息查询与统计 <b class="fa fa-plus dropdown-plus"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5,7))){?>
+                            <?php //if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5,7))){?>
                                 <li>
                                     <a href="/management/chouzi/index">
                                         <i class="fa fa-caret-right"></i> 项目信息列表
                                     </a>
                                 </li>
-                            <?php }?>
-                            <?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
+                            <?php //}?>
+                            <?php //if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
                                 <li>
                                     <a href="/management/zijin/rate">
                                         <i class="fa fa-caret-right"></i> 项目签约信息统计
@@ -645,7 +630,7 @@
                                         <i class="fa fa-caret-right"></i> 项目配比统计
                                     </a>
                                 </li>
-                            <?php }?>
+                            <?php //}?>
                         </ul>
                     </li>
 
@@ -800,7 +785,7 @@
                         </ul>
                     </li>
 
-                <?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4))){?>
+                <?php //if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4))){?>
 				<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <i class="fa fa-desktop"></i> 业务相关管理 <b class="fa fa-plus dropdown-plus"></b>
@@ -842,7 +827,7 @@
 
                     </ul>
                   </li>
-                <?php }?>
+                <?php //}?>
                     <!--<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-desktop"></i> 项目负责人管理 <b class="fa fa-plus dropdown-plus"></b>
