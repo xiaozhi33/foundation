@@ -88,7 +88,7 @@ class Management_ppController extends BaseController {
         $this ->dbhelper = new DBHelper();
         $this ->dbhelper ->connect();
         SessionUtil::sessionStart();
-        SessionUtil::checkadmin();
+        //SessionUtil::checkadmin();
     }
 
 
