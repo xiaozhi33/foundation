@@ -88,6 +88,6 @@ class Test_ppController extends BaseController {
         $this ->dbhelper = new DBHelper();
         $this ->dbhelper ->connect('test');
         SessionUtil::sessionStart();
-        SessionUtil::checkadmin();
+        //SessionUtil::checkadmin();
     }
 }
