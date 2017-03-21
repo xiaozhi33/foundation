@@ -93,7 +93,7 @@
 						foreach($this->pplist as $k=>$v){?>
 						 <tr>
 						 	<td>
-                                <a href="/management/admin/ppinfo?id=<?php echo $v['pid'];?>" target="_blank" style="text-decoration:underline;">
+                                <a href="/management/pp/ppinfo?id=<?php echo $v['pid'];?>" target="_blank" style="text-decoration:underline;">
                                     <?php echo $v['ppname'];?>
                                 </a>
                             </td>
@@ -111,11 +111,11 @@
                                      <button type="button" class="btn btn-greensea margin-bottom-20">查看</button>
                                  </a>-->
 
-                                 <a href="/management/admin/editpp?id=<?php echo $v['pid'];?>">
+                                 <a href="/management/pp/editpp?id=<?php echo $v['pid'];?>">
                                      <button type="button" class="btn btn-greensea margin-bottom-20" >编辑<?php //echo $_REQUEST['pp_cate']?></button>
                                  </a>
 
-                                 <a href="/management/admin/ppcompany?pp_id=<?php echo $v['pid'];?>">
+                                 <a href="/management/pp/ppcompany?pp_id=<?php echo $v['pid'];?>">
                                      <button type="button" class="btn btn-greensea margin-bottom-20">编辑子公司</button>
                                  </a>
                                  <!--<a href="#">
@@ -152,7 +152,7 @@
 						共  <?php echo $this->total;?> 条          <?php echo $this->page;?></div>
 					
 				 <?php }else{?>
-				 	<div>暂无项目联系人信息！<a href="/management/admin/addpp">点击添加</a></div>
+				 	<div>暂无项目联系人信息！<a href="/management/pp/addpp">点击添加</a></div>
 				 <?php }?>
 		  </div>
 		</div> 

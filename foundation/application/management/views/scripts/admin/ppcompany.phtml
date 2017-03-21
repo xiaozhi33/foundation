@@ -41,10 +41,10 @@
                             <td><?php echo $v['company_contector'];?></td>
                             <td><?php echo $v['company_cont_style'];?></td>
                             <td>
-                            <a href="/management/admin/editppcompany?id=<?php echo $v['id'];?>">
+                            <a href="/management/pp/editppcompany?id=<?php echo $v['id'];?>">
                                 <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button>
                             </a>
-                            <a href="/management/admin/delppcompany?id=<?php echo $v['id'];?>&pp_id=<?php echo $v['pp_id'];?>" onclick="javascript:if(!confirm('确定要删除选择的信息吗？\n此操作不可以恢复！')) { return false; }">
+                            <a href="/management/pp/delppcompany?id=<?php echo $v['id'];?>&pp_id=<?php echo $v['pp_id'];?>" onclick="javascript:if(!confirm('确定要删除选择的信息吗？\n此操作不可以恢复！')) { return false; }">
                                 <button type="button" class="btn btn-danger margin-bottom-20">删除</button>
                             </a>
                             </td>
@@ -61,12 +61,12 @@
 
                     <div class="row">
                         <div class="page col-md-12" style="margin:10px;" >
-                            <a href="/management/admin/addppcompany?pp_id=<?php echo $this->pp_id;?>">继续添加（<?php echo $this->pp_info['ppname'];?>）子公司信息</a>
+                            <a href="/management/pp/addppcompany?pp_id=<?php echo $this->pp_id;?>">继续添加（<?php echo $this->pp_info['ppname'];?>）子公司信息</a>
                         </div>
                     </div>
 				 <?php }else{?>
 				 	<div class="row">
-                        <div class="page col-md-12" style="margin:20px; ">暂无项目联系人（<?php echo $this->pp_info['ppname'];?>）子公司信息！<a href="/management/admin/addppcompany?pp_id=<?php echo $this->pp_id;?>">点击添加</a></div>
+                        <div class="page col-md-12" style="margin:20px; ">暂无项目联系人（<?php echo $this->pp_info['ppname'];?>）子公司信息！<a href="/management/pp/addppcompany?pp_id=<?php echo $this->pp_id;?>">点击添加</a></div>
                     </div>
 				 <?php }?>
 		  </div>

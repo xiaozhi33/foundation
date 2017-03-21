@@ -91,6 +91,288 @@ class Management_ppController extends BaseController {
         SessionUtil::checkadmin();
     }
 
+
+    ////////////////////////////////////////////////////////////////
+    /**
+     * 联系人子公司列表
+     */
+    public function ppcompanyAction()
+    {
+        $pp_id = $_REQUEST['pp_id'];
+        $pp_id = (int)$pp_id;
+        if(!empty($pp_id))
+        {
+            $jjh_mg_pp_companyDAO = $this->orm->createDAO("jjh_mg_pp_company");
+            $jjh_mg_pp_companyDAO ->findPp_id($pp_id);
+            $jjh_mg_pp_companyDAO = $jjh_mg_pp_companyDAO ->get();
+
+            $ppinfo = $this->getppbyppid($pp_id);
+
+            if(!empty($ppinfo)){
+                $this->view->assign("pp_info",$ppinfo[0]);
+            }
+            $this->view->assign("company_list",$jjh_mg_pp_companyDAO);
+            $this->view->assign("pp_id",$pp_id);
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("admin/ppcompany.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+    }
+
+    /**
+     * 添加联系人子公司信息
+     */
+    public function addppcompanyAction()
+    {
+        $pp_id = $_REQUEST['pp_id'];
+        $pp_id = (int)$pp_id;
+        if(!empty($pp_id)) {
+            $jjh_mg_pp_companyDAO = $this->orm->createDAO("jjh_mg_pp_company");
+            $jjh_mg_pp_companyDAO->findPp_id($pp_id);
+            $jjh_mg_pp_companyDAO = $jjh_mg_pp_companyDAO->get();
+            $this->view->assign("ppcompany", $jjh_mg_pp_companyDAO);
+        }
+        $this->view->assign("pp_id", $pp_id);
+        echo $this->view->render("index/header.phtml");
+        echo $this->view->render("admin/addppcompany.phtml");
+        echo $this->view->render("index/footer.phtml");
+    }
+
+    /**
+     * 编辑联系人子公司信息
+     */
+    public function editppcompanyAction()
+    {
+        $id = (int)$_REQUEST['id'];
+        if(!empty($id)) {
+            $jjh_mg_pp_companyDAO = $this->orm->createDAO("jjh_mg_pp_company");
+            $jjh_mg_pp_companyDAO->findId($id);
+            $jjh_mg_pp_companyDAO = $jjh_mg_pp_companyDAO->get();
+            $this->view->assign("ppcompany", $jjh_mg_pp_companyDAO);
+        }
+        echo $this->view->render("index/header.phtml");
+        echo $this->view->render("admin/editppcompany.phtml");
+        echo $this->view->render("index/footer.phtml");
+    }
+
+    public function saveppcompanyAction()
+    {
+        $id = (int)$_REQUEST['id'];
+        $pp_id = $_REQUEST['pp_id'];
+        $pp_id = (int)$pp_id;
+        $jjh_mg_pp_companyDAO = $this->orm->createDAO("jjh_mg_pp_company");
+
+        $company_name = HttpUtil::postString("company_name");
+        $company_contector = HttpUtil::postString("company_contector");
+        $company_cont_style = HttpUtil::postString("company_cont_style");
+        if($company_name == "" || $company_contector== "" || $company_cont_style == "")
+        {
+            alert_back("信息不全，请查看信息的完整性，并重新提交。");
+        }
+
+        if(!empty($id)) {
+            $jjh_mg_pp_companyDAO->findid($id);
+        }
+        $jjh_mg_pp_companyDAO ->pp_id = $pp_id;
+        $jjh_mg_pp_companyDAO ->company_name = $company_name;
+        $jjh_mg_pp_companyDAO ->company_contector = $company_contector;
+        $jjh_mg_pp_companyDAO ->company_cont_style = $company_cont_style;
+
+        $jjh_mg_pp_companyDAO ->save();
+        alert_go("子公司信息添加成功。","ppcompany?pp_id=".$pp_id);
+    }
+
+    public function delppcompanyAction()
+    {
+        $id = (int)$_REQUEST['id'];
+        $pp_id = (int)$_REQUEST['pp_id'];
+        if(empty($id)) {
+            alert_back("操作失败。");
+            $this->_redirect("/management/admin/ppcompany?pp_id=".$pp_id);
+        }
+        $jjh_mg_pp_companyDAO = $this->orm->createDAO("jjh_mg_pp_company");
+        $jjh_mg_pp_companyDAO->findid($id);
+        $jjh_mg_pp_companyDAO->delete();
+
+        $this->_redirect("/management/pp/ppcompany?pp_id=".$pp_id);
+    }
+
+    //////////////////////////////////////////////////////////////////////////
+    //联系人管理
+    public function addppAction(){
+        echo $this->view->render("index/header.phtml");
+        echo $this->view->render("admin/addpp.phtml");
+        echo $this->view->render("index/footer.phtml");
+    }
+
+    public function addrsppAction(){
+        if($_REQUEST['ppname'] != ""){
+            $ppinfo = $this->orm->createDAO("jjh_mg_pp");
+            $ppinfo ->ppname = $_REQUEST['ppname'];
+            $ppinfo ->pp_address = $_REQUEST['pp_address'];
+            $ppinfo ->pp_beizhu = $_REQUEST['pp_beizhu'];
+            $ppinfo ->pp_cate = $_REQUEST['pp_cate'];
+            $ppinfo ->pp_msn = $_REQUEST['pp_msn'];
+            $ppinfo ->pp_pm_id = $_REQUEST['pp_pm_id'];
+
+            $ppinfo ->pp_jzf_cate = $_REQUEST['pp_jzf_cate'];
+            $ppinfo ->pp_jzf_attr1 = $_REQUEST['pp_jzf_attr1'];
+            $ppinfo ->pp_jzf_attr2 = $_REQUEST['pp_jzf_attr2'];
+            $ppinfo ->pp_syf_cate = $_REQUEST['pp_syf_cate'];
+            $ppinfo ->pp_yuf_cate = $_REQUEST['pp_yuf_cate'];
+
+
+            $ppinfo ->pp_qq = $_REQUEST['pp_qq'];
+            $ppinfo ->ppemail = $_REQUEST['ppemail'];
+            $ppinfo ->ppmobile = $_REQUEST['ppmobile'];
+            $ppinfo ->ppphone = $_REQUEST['ppphone'];
+
+            $ppinfo->save($this->dbhelper);
+            // alert_go("联系人添加成功。","/management/admin/pp?pp_cate=".$_REQUEST['pp_cate']);
+            alert_go("联系人添加成功。","/management/pp/pp");
+        }else {
+            alert_back("添加失败");
+        }
+    }
+
+    public function editppAction(){
+        if($_REQUEST['id'] != ""){
+            $ppinfo = new jjh_mg_ppDAO($_REQUEST['id']);
+            $ppinfo = $ppinfo->get($this->dbhelper);
+
+            $meeting_pp_companyDAO = $this->orm->createDAO('jjh_mg_pp_company');
+            $meeting_pp_companyDAO ->findPp_id($ppinfo[0]['pid']);
+            $meeting_pp_companyDAO = $meeting_pp_companyDAO->get();
+
+            $this->view->assign("pp_company_list",$meeting_pp_companyDAO);
+            $this->view->assign("ppinfo",$ppinfo);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("admin/editpp.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }else {
+            alert_back("操作失败");
+        }
+    }
+
+    public function editrsppAction(){
+        if($_REQUEST['ppname'] != "" && $_REQUEST['pid']){
+            $ppinfo = $this->orm->createDAO("jjh_mg_pp");
+            $ppinfo ->findPid($_REQUEST['pid']);
+            $ppinfo ->ppname = $_REQUEST['ppname'];
+            $ppinfo ->pp_address = $_REQUEST['pp_address'];
+            $ppinfo ->pp_beizhu = $_REQUEST['pp_beizhu'];
+            $ppinfo ->pp_cate = $_REQUEST['pp_cate'];
+
+            $ppinfo ->pp_jzf_cate = $_REQUEST['pp_jzf_cate'];
+            $ppinfo ->pp_jzf_attr1 = $_REQUEST['pp_jzf_attr1'];
+            $ppinfo ->pp_jzf_attr2 = $_REQUEST['pp_jzf_attr2'];
+            $ppinfo ->pp_syf_cate = $_REQUEST['pp_syf_cate'];
+            $ppinfo ->pp_yuf_cate = $_REQUEST['pp_yuf_cate'];
+
+            $ppinfo ->pp_msn = $_REQUEST['pp_msn'];
+            $ppinfo ->pp_pm_id = $_REQUEST['pp_pm_id'];
+            $ppinfo ->pp_qq = $_REQUEST['pp_qq'];
+            $ppinfo ->ppemail = $_REQUEST['ppemail'];
+            $ppinfo ->ppmobile = $_REQUEST['ppmobile'];
+            $ppinfo ->ppphone = $_REQUEST['ppphone'];
+
+            $ppinfo ->save($this->dbhelper);
+            // alert_go("编辑成功。","/management/admin/pp?pp_cate=".$_REQUEST['pp_cate']);
+            alert_go("编辑成功。","/management/pp/pp");
+        }else {
+            alert_back("添加失败");
+        }
+    }
+
+    /**
+     * 捐赠人列表
+     */
+    public function ppAction(){
+        $ppinfo = $this->orm->createDAO("jjh_mg_pp");
+        if($_REQUEST['ppname'] != ""){
+            $ppinfo->selectLimit .= " and ppname like '%".$_REQUEST['ppname']."%'";
+        }
+        if($_REQUEST['pp_address'] != ""){
+            $ppinfo->selectLimit .= " and pp_address like '%".$_REQUEST['pp_address']."%'";
+        }
+        if($_REQUEST['pname'] != ""){
+            $ppinfo->selectLimit .= " and pp_pm_id = '".$_REQUEST['pname']."'";
+        }
+        if($_REQUEST['pp_cate'] != ""){
+            $ppinfo->selectLimit .= " and pp_cate like '%".$_REQUEST['pp_cate']."%'";
+        }
+
+        $ppinfo->selectLimit .= " order by pid DESC";
+        $ppinfo = $ppinfo->get($this->dbhelper);
+
+        $total = count($ppinfo);
+        $pageDAO = new pageDAO();
+        $pageDAO = $pageDAO ->pageHelper($ppinfo,null,"pp",null,'get',20,8);
+        $pages = $pageDAO['pageLink']['all'];
+        $pages = str_replace("/index.php","",$pages);
+        $this->view->assign('pplist',$pageDAO['pageData']);
+        $this->view->assign('page',$pages);
+        $this->view->assign('total',$total);
+        $this->view->assign('pname',$_REQUEST['pname']);
+        $this->view->assign('ppname',$_REQUEST['ppname']);
+
+        echo $this->view->render("index/header.phtml");
+        echo $this->view->render("admin/pp.phtml");
+        echo $this->view->render("index/footer.phtml");
+    }
+
+    public function ppinfoAction(){
+        if($_REQUEST['id'] != ""){
+            $ppinfo = $this->orm->createDAO("jjh_mg_pp");
+            $ppinfo ->findPid($_REQUEST['id']);
+            $ppinfo = $ppinfo->get($this->dbhelper);
+
+            $meeting_pp_companyDAO = $this->orm->createDAO('jjh_mg_pp_company');
+            $meeting_pp_companyDAO ->findPp_id($ppinfo[0]['pid']);
+            $meeting_pp_companyDAO = $meeting_pp_companyDAO->get();
+
+            $this->view->assign("pp_company_list",$meeting_pp_companyDAO);
+            $this->view->assign("ppinfo",$ppinfo);
+
+            //参加学校活动
+            $meetingDAO = $this->orm->createDAO('jjh_meeting');
+            $meetingDAO ->selectLimit .= ' AND find_in_set('.$_REQUEST['id'].',meeting_joiner)';
+            $meetingDAO = $meetingDAO->get();
+            $this->view->assign("meeting_list",$meetingDAO);
+
+            $_meeting_cate = array();
+            $_meeting_cate = array('理事会会议','理事长会议','工作推动会','工作例会','捐赠仪式','其他单位来访交流','捐赠人交流会','学习交流会');
+            $this->view->assign('meeting_cate',$_meeting_cate);
+
+
+            //拜访捐赠人 － 回馈
+            $feedbackDAO = $this->orm->createDAO('pm_mg_feedback');
+            $feedbackDAO ->selectLimit .= ' AND (FIND_IN_SET('.$_REQUEST['id'].',feedbacker) OR FIND_IN_SET('.$_REQUEST['id'].',jbr))';
+            //$feedbackDAO ->selectLimit .= ' OR FIND_IN_SET('.$_REQUEST['id'].',jbr)';
+            $feedbackDAO = $feedbackDAO->get();
+            $this->view->assign("feedback_list",$feedbackDAO);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("admin/ppinfo.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }else {
+            alert_back("操作失败");
+        }
+    }
+
+    public function getppbyppid($pp_id)
+    {
+        if(!empty($pp_id)){
+            $jjh_mg_ppDAO = $this->orm->createDAO("jjh_mg_pp");
+            $jjh_mg_ppDAO->findPid($pp_id);
+            $jjh_mg_ppDAO = $jjh_mg_ppDAO->get();
+            return $jjh_mg_ppDAO;
+        }else {
+            return false;
+        }
+    }
+
     //权限
     public function acl()
     {
@@ -98,6 +380,9 @@ class Management_ppController extends BaseController {
         $except_actions = array(
             'addrsppcate',
             'editrsppcate',
+            'saveppcompany',
+            'addrspp',
+            'editrspp',
         );
         if (in_array($action, $except_actions)) {
             return;
