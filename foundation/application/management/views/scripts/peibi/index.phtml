@@ -43,9 +43,8 @@
                     <div class="tile-body">
                         <form action="#" method="get" name="search_form">
                             <div class="form-group">
-
                                 <div class="row">
-                                    <div class="form-group col-sm-9">
+                                    <div class="form-group col-sm-4">
                                         <label for="pname" class="col-sm-4 control-label">来款项目：</label>
                                         <select class="chosen-select-1 chosen-transparent form-control" name="pname" id="id">
                                             <option value="">请选择来款项目</option>
@@ -55,7 +54,27 @@
                                                     <option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pname'] == $v['pname'])echo 'selected="selected"';?>><?php echo $v['pname'];?></option>
                                                 <?php }}?>
                                         </select>
-                                        <!--<input id="pname_info" type="hidden" name="pm_name" value=""/>-->
+                                    </div>
+                                </div>
+
+                                <!--<div class="row">
+                                    <div class="form-group col-sm-4">
+                                        <label for="pname" class="col-sm-3 control-label">相关部门：</label>
+                                        <select class="chosen-select-1 chosen-transparent form-control col-sm-3 " name="pname" id="id">
+                                            <option value="">请选择相关部门</option>
+                                            <?php /*if($this->departmentlist != ""){
+                                                foreach ($this->departmentlist as $k => $v){
+                                                    */?>
+                                                    <option value="<?php /*echo $v['pname'];*/?>" <?php /*if($_REQUEST['pname'] == $v['pname'])echo 'selected="selected"';*/?>><?php /*echo $v['pname'];*/?></option>
+                                                <?php /*}}*/?>
+                                        </select>
+                                    </div>
+                                </div>-->
+
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="pname" class="col-sm-3 control-label">来款时间( 年份 )：</label>
+                                        <input name="yeartime" data-date-format="YYYY" id="datepicker1"  type="text" value="<?php echo $this->yeartime;?>" class="col-sm-5 control-label"/>
                                     </div>
                                 </div>
 
@@ -128,7 +147,7 @@
                         <div class="row">
                             <div class="form-group col-sm-3">
                                 <label for="input02"></label>
-                                <a href="/management/report/peibitoexcel?pname=<?php echo $this->pname;?>"><button class="btn btn-primary btn-block">全部配比信息导出Excel</button></a>
+                                <a href="/management/report/peibitoexcel?pname=<?php echo $this->pname;?>"><button class="btn btn-primary btn-block">全部已划拨配比信息导出Excel</button></a>
                             </div>
                         </div>
 

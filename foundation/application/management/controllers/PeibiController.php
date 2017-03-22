@@ -24,7 +24,17 @@
             if ($pname != ""){
                 $pm_mg_info ->selectLimit .= " and `pm_mg_chouzi`.pname = '$pname'";
             }
-            $pm_mg_info ->selectLimit .= ' order by `pm_mg_chouzi`.id ';
+
+            if($_REQUEST['yeartime'] != ''){
+                $yeartime = date('Y',strtotime($_REQUEST['yeartime'].'-01-01'));
+                $starttime = $yeartime.'-01-01';
+                $endtime = $yeartime.'-12-31';
+                $pm_mg_info->selectLimit .= " and zijin_daozhang_datetime >= '$starttime' and zijin_daozhang_datetime <= '$endtime'";
+            }
+
+            $this->view->assign("yeartime", $_REQUEST['yeartime']);
+
+            $pm_mg_info ->selectLimit .= ' order by zijin_daozhang_datetime desc, `pm_mg_chouzi`.id ';
             $pm_mg_info->getPager(array('path'=>'/management/peibi/index'))->assignTo($this->view);
 
             echo $this->view->render("index/header.phtml");

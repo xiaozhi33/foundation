@@ -2141,10 +2141,46 @@
 			$pm_chouzi = $pm_chouzi ->get($this->dbhelper);
 			$this->view->assign("pmlist",$pm_chouzi);
 
+            //获取筹资项目list
+            $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
+            $this->view->assign("chouzi_lists",$chouziDAO);
+
 			foreach($pm_chouzi as $key => $value){
 				$this->pm[$value['id']] = $value['pname'];
 			}
 		}
+
+
+        public function peibiindexAction(){
+            $pname = $_REQUEST['pname'];
+            $pm_mg_info = $this->orm->createDAO("pm_mg_info");
+            $pm_mg_info ->select("
+                `pm_mg_info`.id,
+                `pm_mg_info`.pm_name,
+                `pm_mg_info`.pm_pp,
+                `pm_mg_info`.pm_pp_cate,
+                `pm_mg_info`.zijin_daozheng_jiner,
+                `pm_mg_info`.zijin_daozhang_datetime,
+                `pm_mg_info`.zijin_laiyuan_qudao,
+                `pm_mg_info`.pm_juanzeng_yongtu,
+                `pm_mg_chouzi`.pm_liuben
+          ");
+            $pm_mg_info ->withPm_mg_chouzi(array("pm_name" => "pname"));
+            $pm_mg_info ->selectLimit .= ' AND cast(`pm_mg_info`.zijin_daozheng_jiner as SIGNED INTEGER) >= 100000 ';
+            $pm_mg_info ->selectLimit .= ' AND cate_id = 0';
+            $pm_mg_info ->selectLimit .= ' AND peibi = 1';
+
+            if ($pname != ""){
+                $pm_mg_info ->selectLimit .= " and `pm_mg_chouzi`.pname = '$pname'";
+            }
+            $pm_mg_info ->selectLimit .= ' order by `pm_mg_chouzi`.id ';
+            $pm_mg_info->getPager(array('path'=>'/management/peibi/index'))->assignTo($this->view);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("report/index.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
 
         //权限
         public function acl()
