@@ -1,0 +1,133 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>查看配比信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目信息管理</li>
+            <li class="active">查看配比信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+        <div class="col-md-12">
+            <section class="tile color transparent-white">
+                <div class="detailedbox tile-body">
+                    <form class="form-horizontal" action="" method="post" id="form1" encType="multipart/form-data">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"  for="input01">所属来款：</label>
+                            <div class="col-sm-3">
+                                <h6><?php echo $this->l_lk_list[$this->peibiDAO[0]['lk_main_id']]?></h6>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group" id="is_peibi">
+                            <label class="col-sm-2 control-label">是否可以申请配比：</label>
+                            <div class="col-sm-3">
+                                <h6><?php if($this->peibiDAO[0]['is_peibi'] == "1"){echo "是";}else{echo "否";}?></h6>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="is_pass">
+                            <label class="col-sm-2 control-label">配比是否通过：</label>
+                            <div  class="col-sm-3">
+                                <h6><?php if($this->peibiDAO[0]['is_pass'] == "1"){echo "是";}else{echo "否";}?></h6>
+                            </div>
+                        </div>
+
+                        <div class="form-group jpyy">
+                            <label class="col-sm-2 control-label">配比拒批原因：</label>
+                            <div class="col-sm-3">
+                                <h6><?php echo $this->peibiDAO[0]['jpyy']?></h6>
+                            </div>
+                        </div>
+
+                        <div class="form-group tongguo">
+                            <label class="col-sm-2 control-label" >配比金额：</label>
+                            <div  class="col-sm-3">
+                                <h6><?php echo $this->peibiDAO[0]['je']?></h6>
+                            </div>
+                        </div>
+
+                        <div class="form-group tongguo">
+                            <label class="col-sm-2 control-label">配比下发时间：</label>
+                            <div class="col-sm-3">
+                                <h6><?php echo $this->peibiDAO[0]['peibi_datetime']?></h6>
+                            </div>
+                        </div>
+
+                        <div class="form-group tongguo">
+                            <label class="col-sm-2 control-label">划拨部门：</label>
+                            <div class="col-sm-3">
+                                <h6><?php if($this->departmentlist != ""){
+                                    foreach ($this->departmentlist as $k => $v){?>
+                                        <?php if($this->peibiDAO[0]['huabo_department'] == $v['id']){echo $v['pname'];}?>
+                                    <?php }}?></h6>
+                            </div>
+                        </div>
+
+                        <div class="form-group tongguo">
+                            <label class="col-sm-2 control-label">卡号：</label>
+                            <div class="col-sm-3">
+                                <h6><?php echo $this->peibiDAO[0]['card']?></h6>
+                            </div>
+                        </div>
+
+                        <div class="form-group tongguo">
+                            <label for="pname" class="col-sm-2 control-label">经费负责人：</label>
+                            <div class="col-sm-3">
+                                <h6><?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                      <?php
+                                        if(!empty($this->peibiDAO[0]['jffzr'])){
+                                            foreach(explode(',',$this->peibiDAO[0]['jffzr']) as $key => $value){
+                                                if($k == $value){
+                                                    echo $v;
+                                                }
+                                            }
+                                        }?>
+                                    <?php }}?></h6>
+                            </div>
+                        </div>
+
+                        <div class="form-group tongguo">
+                            <label for="pname" class="col-sm-2 control-label">配比审批人：</label>
+                            <div  class="col-sm-3">
+                                <h6><?php if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                      <?php
+                                        if(!empty($this->peibiDAO[0]['peibi_spr'])){
+                                            foreach(explode(',',$this->peibiDAO[0]['peibi_spr']) as $key => $value){
+                                                if($k == $value){
+                                                    echo $v;
+                                                }
+                                            }
+                                        }?>
+                                    <?php }}?></h6>
+                            </div>
+                        </div>
+
+
+
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="/include/management/assets/js/jquery.js"></script>

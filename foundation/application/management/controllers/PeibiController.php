@@ -246,6 +246,22 @@
             $this->view->assign("chouzi_lists",$chouziDAO);
         }
 
+        public function peibiinfoAction(){
+            $id = HttpUtil::getString("id");
+            $peibiDAO = $this->orm->createDAO('pm_mg_peibi');
+            $peibiDAO ->findId($id);
+            $peibiDAO = $peibiDAO ->get();
+
+            if($peibiDAO != "")
+            {
+                $this->view->assign("peibiDAO", $peibiDAO);
+                echo $this->view->render("index/header.phtml");
+                echo $this->view->render("peibi/peibiinfo.phtml");
+                echo $this->view->render("index/footer.phtml");
+                exit();
+            }
+        }
+
         //权限
         public function acl()
         {
