@@ -383,6 +383,7 @@ class Management_ppController extends BaseController {
             'saveppcompany',
             'addrspp',
             'editrspp',
+            'ppinfo',
         );
         if (in_array($action, $except_actions)) {
             return;
