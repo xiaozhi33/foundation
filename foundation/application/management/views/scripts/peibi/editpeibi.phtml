@@ -116,29 +116,43 @@
                         <div class="form-group tongguo">
                             <label for="pname" class="col-sm-2 control-label">经费负责人：</label>
                             <div class="col-sm-4">
-                                <select class="chosen-select-1 chosen-transparent form-control" name="jffzr" id="jffzr">
+                                <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="jffzr[]" id="jffzr">
                                     <option value="">请选择经费负责人</option>
                                     <?php if($this->jjh_mg_pp_list != ""){
-                                        foreach ($this->jjh_mg_pp_list as $k => $v){
-                                            ?>
-                                            <option value="<?php echo $k;?>" <?php if($k==$this->peibiDAO[0]['jffzr'])echo 'selected="selected"';?>><?php echo $v;?></option>
+                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                            <option value="<?php echo $k?>" <?php
+                                            if(!empty($this->peibiDAO[0]['jffzr'])){
+                                                foreach(explode(',',$this->peibiDAO[0]['jffzr']) as $key => $value){
+                                                    if($k == $value){
+                                                        echo "selected='selected'";
+                                                    }
+                                                }
+                                            }?>><?php echo $v?></option>
                                         <?php }}?>
                                 </select>
                             </div>
+                            <span class="col-sm-2 addpp" >添加人员信息</span>
                         </div>
 
                         <div class="form-group tongguo">
                             <label for="pname" class="col-sm-2 control-label">配比审批人：</label>
                             <div class="col-sm-4">
-                                <select class="chosen-select-1 chosen-transparent form-control" name="peibi_spr" id="peibi_spr">
+                                <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="peibi_spr[]" id="peibi_spr">
                                     <option value="">请选择配比审批人</option>
                                     <?php if($this->jjh_mg_pp_list != ""){
-                                        foreach ($this->jjh_mg_pp_list as $k => $v){
-                                            ?>
-                                            <option value="<?php echo $k;?>" <?php if($k==$this->peibiDAO[0]['peibi_spr'])echo 'selected="selected"';?>><?php echo $v;?></option>
+                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                            <option value="<?php echo $k?>" <?php
+                                            if(!empty($this->peibiDAO[0]['peibi_spr'])){
+                                                foreach(explode(',',$this->peibiDAO[0]['peibi_spr']) as $key => $value){
+                                                    if($k == $value){
+                                                        echo "selected='selected'";
+                                                    }
+                                                }
+                                            }?>><?php echo $v?></option>
                                         <?php }}?>
                                 </select>
                             </div>
+                            <span class="col-sm-2 addpp" >添加人员信息</span>
                         </div>
 
 

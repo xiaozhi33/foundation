@@ -86,10 +86,13 @@
             $je = HttpUtil::postString("je");
             $peibi_datetime = HttpUtil::postString("peibi_datetime");
             $card = HttpUtil::postString("card");
-            $jffzr = HttpUtil::postString("jffzr");
-            $peibi_spr = HttpUtil::postString("peibi_spr");
+            $jffzr = $_REQUEST["jffzr"];
+            $peibi_spr = $_REQUEST["peibi_spr"];
             $huabo_department = HttpUtil::postString("huabo_department");
             $lk_main_id = HttpUtil::postString("lk_main_id");
+
+            $jffzr = implode(',',$jffzr);
+            $peibi_spr = implode(',',$peibi_spr);
 
             $peibiDAO = $this->orm->createDAO('pm_mg_peibi');
 
