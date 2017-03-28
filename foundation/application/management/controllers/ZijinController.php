@@ -38,10 +38,13 @@
             if(!empty($id)){
                 $pm_zijinDAO = $this->orm->createDAO("pm_mg_info");
                 $pm_zijinDAO ->findId($id);
-                $pm_zijinDAO ->delete($this->dbhelper);
+                $pm_zijinDAO ->is_renling = '2';
+                $pm_zijinDAO ->save($this->dbhelper);
 
-                echo "<script>alert('删除成功！');";
-                echo "window.location.href='/management/zijin/index'";
+                //$pm_zijinDAO ->delete($this->dbhelper);
+
+                echo "<script>alert('操作成功！');";
+                echo "window.location.href='/management/zijin/claimlist'";
                 echo "</script>";
                 exit();
             }
