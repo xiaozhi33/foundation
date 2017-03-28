@@ -112,9 +112,9 @@
             $lk_peibiDAO ->select(' sum(je) as djr');
             $lk_peibiDAO = $lk_peibiDAO->get();
 
-            if($je > ($_lk_info_jr-$lk_peibiDAO[0]['djr'])){
+            /*if($je > ($_lk_info_jr-$lk_peibiDAO[0]['djr'])){
                 alert_back('配比金额不能超过总金额('.$lk_info_jr.')的30%，');
-            }
+            }*/
 
             try{
                 if(!empty($id)){
