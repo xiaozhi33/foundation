@@ -1731,6 +1731,8 @@
 
                 $_temp = '';
                 $_temp1= '';
+                $jffzr='';
+                $peibi_spr='';
 
                 $_temp = explode(',',$v['jffzr']);
                 if(is_array($_temp)){
