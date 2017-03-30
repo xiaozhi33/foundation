@@ -1670,12 +1670,20 @@
 
         //配比toExcel - 院系申请使用配比基金
         public function peibitoexcelAction(){
-            $pname = $_REQUEST["pname"];
-            $pm_mg_peibi = $this->orm->createDAO("pm_mg_peibi");
-            if($pname != ""){
-                $pm_mg_peibi ->findPm_name($pname);
+            $peibikDAO = $this->orm->createDAO('pm_mg_peibi')->order('id DESC');
+            if(!empty($_REQUEST['pm_name'])){
+                $peibikDAO->findPm_name($_REQUEST['pm_name']);
             }
-            $pm_mg_peibi = $pm_mg_peibi->get();
+
+            if(!empty($_REQUEST['lk_main_id'])){
+                $peibikDAO->selectLimit .=" and lk_main_id in(".implode(',',$_REQUEST['lk_main_id']).")";
+            }
+
+            if(!empty($_REQUEST['huabo_department'])){
+                $peibikDAO->findHuabo_department($_REQUEST['huabo_department']);
+            }
+
+            $pm_mg_peibi = $peibikDAO->get();
 
             if (count($pm_mg_peibi) == 0){
                 alert_back("查无结果，请重新查询");
@@ -1720,8 +1728,31 @@
                 }else{
                     $v['is_pass'] = "未通过";
                 }
-                $v['jffzr'] = $this->temp_array[$v['jffzr']];
-                $v['peibi_spr'] = $this->temp_array[$v['peibi_spr']];
+
+                $_temp = '';
+                $_temp1= '';
+
+                $_temp = explode(',',$v['jffzr']);
+                if(is_array($_temp)){
+                    foreach($_temp as $key => $value){
+                        $jffzr .=  $this->temp_array[$value].'  ';
+                    }
+                }else {
+                    $jffzr = $this->temp_array[$v['jffzr']];
+                }
+
+                $v['jffzr'] = $jffzr;
+
+                $_temp1 = explode(',',$v['peibi_spr']);
+                if(is_array($_temp1)){
+                    foreach($_temp1 as $key => $value){
+                        $peibi_spr .= $this->temp_array[$value].'  ';
+                    }
+                }else {
+                    $peibi_spr = $this->temp_array[$v['peibi_spr']];
+                }
+
+                $v['peibi_spr'] = $peibi_spr;
                 $v['huabo_department'] = $this->department[$v['huabo_department']];
 
                 $zijintj->setActiveSheetIndex(0)
@@ -1738,6 +1769,8 @@
                     ->setCellValue('K'.$ii, $v['jffzr'])
                     ->setCellValue('L'.$ii, $v['peibi_spr']);
                 $ii++;
+
+
             }
             $ii = "";
 
@@ -2181,6 +2214,92 @@
             echo $this->view->render("index/footer.phtml");
         }
 
+        public function huaboAction(){
+            $peibikDAO = $this->orm->createDAO('pm_mg_peibi')->order('id DESC');
+            if(!empty($_REQUEST['pm_name'])){
+                $peibikDAO->findPm_name($_REQUEST['pm_name']);
+                $this->view->assign("pname", $_REQUEST['pm_name']);
+            }
+
+            if(!empty($_REQUEST['lk_main_id'])){
+                $peibikDAO->selectLimit .=" and lk_main_id in(".implode(',',$_REQUEST['lk_main_id']).")";
+                $this->view->assign("lk_main_id", $_REQUEST['lk_main_id']);
+            }
+
+            if(!empty($_REQUEST['huabo_department'])){
+                $peibikDAO->findHuabo_department($_REQUEST['huabo_department']);
+                $this->view->assign("huabo_department", $_REQUEST['huabo_department']);
+            }
+
+            $peibikDAO->getPager(array('path'=>'/management/report/huabo'))->assignTo($this->view);
+
+            // pplist
+            $jjh_mg_ppDAO = $this->orm->createDAO('jjh_mg_pp')->get();
+            if(!empty($jjh_mg_ppDAO)){
+                foreach($jjh_mg_ppDAO as $k => $v){
+                    $temp_array[$v['pid']] = $v['ppname'];
+                }
+            }
+            $this->view->assign("jjh_mg_pp_list", $temp_array);
+            $this->view->assign("department", $this->department);
+
+
+            //来款列表
+            $lk_list = $this->getpeibilist();
+            $this->view->assign("lk_list",$lk_list);
+
+            if(!empty($lk_list)){
+                foreach($lk_list as $key => $value){
+                    $_lk_list[$value['id']] = $value['pm_name']."-".date('Y-m-d',strtotime($value['zijin_daozhang_datetime']))."-".$value['pm_pp']."-金额为：".$value['zijin_daozheng_jiner'];
+                }
+            }
+            $this->view->assign("lk_list",$lk_list);
+            $this->view->assign("l_lk_list",$_lk_list);
+
+            //项目名称列表
+            $pm_chouzi = new pm_mg_chouziDAO();
+            $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
+            $this->view->assign("pmlist",$pm_chouzi);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("report/huabo.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        public function getpeibilist($start='',$end='',$department='',$cate='',$pname=''){
+            $pm_mg_info = $this->orm->createDAO("pm_mg_info");
+            $pm_mg_info ->select("
+                `pm_mg_info`.id,
+                `pm_mg_info`.pm_name,
+                `pm_mg_info`.pm_pp,
+                `pm_mg_info`.pm_pp_cate,
+                `pm_mg_info`.zijin_daozheng_jiner,
+                `pm_mg_info`.zijin_daozhang_datetime,
+                `pm_mg_info`.zijin_laiyuan_qudao,
+                `pm_mg_info`.pm_juanzeng_yongtu,
+                `pm_mg_chouzi`.pm_liuben
+          ");
+            $pm_mg_info ->withPm_mg_chouzi(array("pm_name" => "pname"));
+            $pm_mg_info ->selectLimit .= ' AND cast(`pm_mg_info`.zijin_daozheng_jiner as SIGNED INTEGER) >= 100000 ';
+            $pm_mg_info ->selectLimit .= ' AND cate_id = 0';
+            $pm_mg_info ->selectLimit .= ' AND peibi = 1';
+
+            if ($start != "" && $end != ""){
+                $pm_mg_info ->selectLimit .= " and `pm_mg_info`.zijin_daozhang_datetime between '$start' and '$end' ";
+            }
+            if ($department != ""){
+                $pm_mg_info ->selectLimit .= " and `pm_mg_chouzi`.department = '$department'";
+            }
+            if ($cate != ""){
+                $pm_mg_info ->selectLimit .= " and `pm_mg_chouzi`.cate = '$cate'";
+            }
+            if ($pname != ""){
+                $pm_mg_info ->selectLimit .= " and `pm_mg_chouzi`.pname = '$pname'";
+            }
+            $pm_mg_info ->selectLimit .= ' order by `pm_mg_chouzi`.id ';
+            return $pm_mg_info->get();
+        }
+
 
         //权限
         public function acl()
@@ -2202,6 +2321,7 @@
                 'allpeibi',
                 'allpeibitoexcel',
                 'newshouzitoexcel',
+                'huabo',
             );
             if (in_array($action, $except_actions)) {
                 return;
