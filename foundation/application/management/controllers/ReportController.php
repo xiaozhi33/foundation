@@ -1684,6 +1684,7 @@
             }
 
             $pm_mg_peibi = $peibikDAO->get();
+            alert_back(count($pm_mg_peibi).json_encode($_REQUEST));
 
             if (count($pm_mg_peibi) == 0){
                 alert_back("查无结果，请重新查询");
