@@ -697,7 +697,11 @@
                     }else if(data['status'] == 'success'){
                         // 加载新数据
                         $(".chosen-select-1 option[value='"+data['pid']+"']").attr("selected","selected");
+                        <?php if(($this->controller == 'zijin' && $this->controller == 'addzijin') || ($this->controller == 'zijin' && $this->controller == 'editzijin')){?>
+                        $(".chosen-select-1").append("<option value="+data['ppname']+">"+data['ppname']+"</option>");
+                        <?php }else {?>
                         $(".chosen-select-1").append("<option value="+data['pid']+">"+data['ppname']+"</option>");
+                        <?php }?>
                         $(".chosen-select-1").trigger("chosen:updated");
 
                         alert(data['message']);
