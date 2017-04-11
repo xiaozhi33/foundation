@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"
+      xmlns="http://www.w3.org/1999/html"/>
 <link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
@@ -43,6 +44,13 @@
                 <div class="tile-body">
                     <form action="#" method="get" name="search_form">
                         <div class="form-group">
+
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="pname" class="col-sm-2 control-label">划拨年份：</label>
+                                    <input name="yeartime" data-date-format="YYYY" id="datepicker1"  type="text" value="<?php echo $this->yeartime;?>" class="col-sm-3 control-label"/>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="form-group col-sm-6">

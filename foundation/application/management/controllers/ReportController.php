@@ -2228,6 +2228,15 @@
                 $this->view->assign("lk_main_id", $_REQUEST['lk_main_id']);
             }
 
+            // 划拨年份
+            if($_REQUEST['yeartime'] != ''){
+                $yeartime = date('Y',strtotime($_REQUEST['yeartime'].'-01-01'));
+                $starttime = $yeartime.'-01-01';
+                $endtime = $yeartime.'-12-31';
+                $peibikDAO->selectLimit .= " and peibi_datetime >= '$starttime' and peibi_datetime <= '$endtime'";
+                $this->view->assign("yeartime", $_REQUEST['yeartime']);
+            }
+
             if(!empty($_REQUEST['huabo_department'])){
                 $peibikDAO->findHuabo_department($_REQUEST['huabo_department']);
                 $this->view->assign("huabo_department", $_REQUEST['huabo_department']);
