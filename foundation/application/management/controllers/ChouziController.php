@@ -214,7 +214,7 @@
                 }
 
                 // 同步财务系统项目信息
-                /*$pmDAO = new CW_API();
+                $pmDAO = new CW_API();
                 $rs1 = $pmDAO ->get_max_xmnmID();
                 $rs_1 = $pmDAO ->get_max_xmnm_copyID();
                 $xmnm = (int)$rs1[0]['xmnm'] + 1;
@@ -236,7 +236,7 @@
 
                     $zwxmzdDAO = new CW_API();
                     $rs = $zwxmzdDAO ->sync_pm('000'.$xmnm, $xmbh, $pname, $zw_department_related[0]['zw_bmbh']);
-                }*/
+                }
 
                 $_pid = $pm_chouziDAO->save();   // $_pid 项目系统pm_id
                 if($_pid) {
