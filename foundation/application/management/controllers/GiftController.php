@@ -3,6 +3,7 @@ require_once("BaseController.php");
 class Management_giftController extends BaseController
 {
     private $dbhelper;
+    public $jjh_mg_pp_list;
 
     public function indexAction()
     {
@@ -191,7 +192,7 @@ class Management_giftController extends BaseController
 
         $gift_remarks = HttpUtil::postString("gift_remarks");
 
-        if($gift_datetime == ''|| $use == ''|| $brokerage == ''|| $customer_name == ''|| $gift_count == ''|| $customer_tel == ''){
+        if($gift_datetime == ''|| $use == ''|| $brokerage == ''|| $customer_name == ''|| $gift_count == ''){
             if(!empty($id)){
                 echo json_encode(array('msg'=>"您输入的信息不完整，请查正后继续添加！！！！！",'return_url'=>''));
                 exit;
@@ -242,9 +243,10 @@ class Management_giftController extends BaseController
         $giftDAO ->gift_datetime = $gift_datetime;
         $giftDAO ->brokerage = $brokerage;
         $giftDAO ->use = $use;
-        $giftDAO ->customer_name = $customer_name;
-        $giftDAO ->customer_tel = $customer_tel;
-        $giftDAO ->customer_address = $customer_address;
+        //$giftDAO ->customer_name = $customer_name;
+        $giftDAO ->customer_name = implode(",",$_REQUEST['customer_name']);
+        /*$giftDAO ->customer_tel = $customer_tel;
+        $giftDAO ->customer_address = $customer_address;*/
         $giftDAO ->gift_count = $gift_count;
         $giftDAO ->gift_remarks = $gift_remarks;
 
@@ -334,6 +336,25 @@ class Management_giftController extends BaseController
         $giftList = $this->orm->createDAO('material_mg_gift_main')->get();
         SessionUtil::sessionStart();
         SessionUtil::checkmanagement();
+
+        // pplist
+        $jjh_mg_ppDAO = $this->orm->createDAO('jjh_mg_pp')->get();
+        if(!empty($jjh_mg_ppDAO)){
+            foreach($jjh_mg_ppDAO as $k => $v){
+                $temp_array[$v['pid']] = $v['ppname'];
+            }
+        }
+        if(!empty($jjh_mg_ppDAO)){
+            foreach($jjh_mg_ppDAO as $k => $v){
+                $_temp_array[$v['pid']]['ppname'] = $v['ppname'];
+                $_temp_array[$v['pid']]['ppemail'] = $v['ppemail'];
+                $_temp_array[$v['pid']]['ppmobile'] = $v['ppmobile'];
+                $_temp_array[$v['pid']]['pp_address'] = $v['pp_address'];
+            }
+        }
+        $this->view->assign("jjh_mg_pp_list_info", $_temp_array);
+        $this->view->assign("jjh_mg_pp_list", $temp_array);
+        $this->jjh_mg_pp_list = $temp_array;
 
         $admin_list = $this->orm->createDAO("my_admin")->get();
 

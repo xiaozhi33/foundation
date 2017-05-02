@@ -74,9 +74,22 @@
 							<td><?php echo $v['gift_datetime'];?>&nbsp;</td>
                              <td><?php echo $this->admin_list_info[$v['brokerage']];;?>&nbsp;</td>
                              <td><?php echo $v['use'];?>&nbsp;</td>
-                             <td><?php echo $v['customer_name'];?>&nbsp;</td>
-                             <td><?php echo $v['customer_tel'];?>&nbsp;</td>
-                             <td><?php echo $v['customer_address'];?>&nbsp;</td>
+                             <td><?php
+                                    $v['customer_name'] = explode(",",$v['customer_name']);
+                                    foreach($v['customer_name'] as $key => $value){
+                                        echo $this->jjh_mg_pp_list[$value].' ';
+                                    }
+                                 ?>&nbsp;</td>
+                             <td><?php
+                                 foreach($v['customer_name'] as $key => $value){
+                                     echo $this->jjh_mg_pp_list_info[$value]['ppmobile'].' ';
+                                 }
+                                 ?>&nbsp;</td>
+                             <td><?php
+                                 foreach($v['customer_name'] as $key => $value){
+                                     echo $this->jjh_mg_pp_list_info[$value]['pp_address'].' ';
+                                 }
+                                 ?>&nbsp;</td>
                              <td><?php echo $v['gift_count'];?>&nbsp;</td>
 
 							<td><a href="/management/gift/editusegift?id=<?php echo $v['id'];?>">
