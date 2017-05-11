@@ -307,7 +307,7 @@
         public function claimlistAction()
         {
             // 同步财务来款信息
-            $zw_lkglDAO = new CW_API();
+            /*$zw_lkglDAO = new CW_API();
             $lkgl_list = $zw_lkglDAO ->getlkgl();
 
             // 遍历循环插入lkrl_log表中
@@ -329,7 +329,7 @@
                 }
             }
 
-            $this->synclkrl();  // 同步财务系统来款数据
+            $this->synclkrl();  // 同步财务系统来款数据*/
 
             $keywords = HttpUtil::getString("pm_name");
             $is_renling = HttpUtil::getString("is_renling");
@@ -795,6 +795,8 @@
                         }*/
             $pm_signDAO ->pm_id = $pm_id;
             $pm_signDAO ->sign_time = HttpUtil::postString("sign_time");
+            $pm_signDAO ->jzys_time = HttpUtil::postString("jzys_time");
+            $pm_signDAO ->xydz_time = HttpUtil::postString("xydz_time");
 
             if($_REQUEST['id']){
                 $pm_signDAO ->findId($_REQUEST['id']);

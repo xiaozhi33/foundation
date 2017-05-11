@@ -169,6 +169,7 @@
                      pm_mg_info.zijin_daozheng_jiner,
                      pm_mg_info.pm_juanzeng_yongtu,
                      pm_mg_info.pm_pp_cate,
+                     pm_mg_info.pm_is_school,
                      pm_mg_info.pm_juanzeng_cate,
                      pm_mg_info.zijin_laiyuan_qudao,
                      pm_mg_info.shiyong_type,
@@ -187,6 +188,11 @@
                     if($zijin_daozhang_datetime != "" && $zijin_daozhang_datetime1 != ""){
                         $zijininfo ->selectLimit .= " and zijin_daozhang_datetime between '$zijin_daozhang_datetime' and '$zijin_daozhang_datetime1'";
                     }
+
+					$pm_is_school = HttpUtil::postString("pm_is_school");
+					if($pm_is_school != ""){
+						$zijininfo ->selectLimit .= " and pm_is_school = ".$pm_is_school;
+					}
 
                     $zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by bpath";
                     //$zijininfo ->debugSql =true;
@@ -230,7 +236,8 @@
                         ->setCellValue('M1', '反馈方式')
                         ->setCellValue('N1', '快递单号')
                         ->setCellValue('O1', '来款信息添加来源')
-                        ->setCellValue('P1', '领取人');
+                        ->setCellValue('P1', '领取人')
+						->setCellValue('Q1', '是否校友');
 
                     $ii = 2;
 					$shouru = '';
@@ -244,6 +251,11 @@
                         }else{
                             $piaoju = '未开票';
                         }
+						if($v['pm_is_school'] == 1){
+							$pm_is_school = '校友';
+						}else{
+							$pm_is_school = '非校友';
+						}
                         $zijintj->setActiveSheetIndex(0)
                             ->setCellValue('A'.$ii, $v['bpath'])
                             ->setCellValue('B'.$ii, $this->pm[$v[parent_pm_id]])
@@ -260,7 +272,8 @@
                             ->setCellValue('M'.$ii, $v['piaoju_fkfs'])
                             ->setCellValue('N'.$ii, $v['piaoju_kddh'])
                             ->setCellValue('O'.$ii, $v['pm_juanzeng_yongtu'])
-                            ->setCellValue('P'.$ii, $v['renling_name']);
+                            ->setCellValue('P'.$ii, $v['renling_name'])
+							->setCellValue('Q'.$ii, $pm_is_school);
                         $ii++;
                         $piaoju = '';
                         $shouru += $v['zijin_daozheng_jiner'];
@@ -452,7 +465,7 @@
 			try{
 				$shiyong_type = HttpUtil::postString("shiyong_type");
 				$pname = HttpUtil::postString("pname");
-				// $cate = HttpUtil::postString("cate");
+				$cate = HttpUtil::postString("cate");
 				$department = HttpUtil::postString("department");
 				$shiyong_zhichu_datetime =  HttpUtil::postString("start");
 				$shiyong_zhichu_datetime1 =  HttpUtil::postString("end");
@@ -469,6 +482,7 @@
                      c.id as main_id,
                      c.parent_pm_id,
                      c.parent_pm_id_path,
+                     c.cate,
                      pm_mg_info.pm_name,
                      c.department,
                      pm_mg_info.pm_pp,
@@ -483,6 +497,10 @@
 						$zhichuinfo ->selectLimit .= " and c.department=".$department;
 					}
 
+					if($cate != ""){
+						$zhichuinfo ->selectLimit .= " and c.cate=".$cate;
+					}
+
 					if($shiyong_type != ""){
 						$zhichuinfo ->selectLimit .= " and pm_mg_info.shiyong_type=".$shiyong_type;
 					}
@@ -494,6 +512,11 @@
 					$zhichuinfo ->selectLimit .= " and cate_id=1 and is_renling=1 order by bpath";
 					//$zhichuinfo ->debugSql =true;
 					$zhichuinfo = $zhichuinfo->get($this->dbhelper);
+
+					$_jjh_mg_cate = $this->orm->createDAO("jjh_mg_cate")->get();
+					foreach($_jjh_mg_cate as $key => $value){
+						$jjh_mg_cate_list[$value['id']] = $value['catename'];
+					}
 
 					if (count($zhichuinfo) == 0){
 						echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
@@ -526,7 +549,8 @@
 						->setCellValue('F1', '支出金额')
 						->setCellValue('G1', '支出时间')
 						->setCellValue('H1', '支出对象')
-						->setCellValue('I1', '奖励人数');
+						->setCellValue('I1', '奖励人数')
+						->setCellValue('J1', '项目类型');
 
 					$ii = 2;
 					$zhichu = '';
@@ -536,6 +560,13 @@
                         if(!in_array($v['main_id'],$xiangmushuliang) && $v['parent_pm_id'] == 0){
                             $xiangmushuliang[] = $v['main_id'];
                         }
+
+						// 项目分类类型 -- 教育基金 奖学金 励学金 其他
+						if(!empty($jjh_mg_cate_list[$v['cate']])){
+							$v['cate_name'] = $jjh_mg_cate_list[$v['cate']];
+						}else{
+							$v['cate_name'] = '';
+						}
 
                         if($v['shiyong_type'] == 1){
                             $shiyong_type = '基金会列支';
@@ -552,7 +583,8 @@
 							->setCellValue('F'.$ii, $v['shiyong_zhichu_jiner'])
 							->setCellValue('G'.$ii, date("Y-m-d",strtotime($v['shiyong_zhichu_datetime'])))
 							->setCellValue('H'.$ii, $v['jiangli_fanwei'])
-							->setCellValue('I'.$ii, $v['jiangli_renshu']);
+							->setCellValue('I'.$ii, $v['jiangli_renshu'])
+							->setCellValue('J'.$ii, $v['cate_name']);
 						$ii++;
                         $shiyong_type = '';
 						$zhichu += $v['shiyong_zhichu_jiner'];

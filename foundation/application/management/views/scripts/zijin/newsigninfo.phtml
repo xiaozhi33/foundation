@@ -51,6 +51,22 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">签约时间：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" value="<?php echo $this->signinfo['sign_time'];?>"  data-date-format="YYYY-MM-DD" id="datepicker1"  name="sign_time"  size="14"/>
+                            </div>
+                            <span class="col-sm-2" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">协议到账时间：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" value="<?php echo $this->signinfo['xydz_time'];?>"  data-date-format="YYYY-MM-DD" id="datepicker2"  name="xydz_time"  size="14"/>
+                            </div>
+                            <span class="col-sm-2" > * </span>
+                        </div>
+
+                        <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">协议金额：</label>
                             <div class="col-sm-4">
                                 <input type="text" size="14" name="xyje" class="form-control" value="<?php echo $this->signinfo['xyje'];?>"  />
@@ -98,7 +114,7 @@
                         <div class="form-group qianyue">
                             <label class="col-sm-2 control-label" for="input01">签约仪式时间：</label>
                             <div class="col-sm-4">
-                                <input type="text" size="14" name="sign_time" id="datepicker" data-date-format="YYYY-MM-DD" class="form-control" value="<?php echo $this->signinfo['sign_time'];?>">
+                                <input type="text" size="14" name="jzys_time" id="datepicker" data-date-format="YYYY-MM-DD" class="form-control" value="<?php echo $this->signinfo['jzys_time'];?>">
                             </div>
                             <span class="col-sm-2" > * </span>
                         </div>

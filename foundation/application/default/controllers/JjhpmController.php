@@ -41,6 +41,7 @@
 		
 		public function tuijiancateAction(){
 			$id = HttpUtil::getString("id");
+            $id = (int)$id;
 			$url_info = "jjhpm/tuijian".$id.".phtml";
 			echo $this->view->render($url_info);
 		}

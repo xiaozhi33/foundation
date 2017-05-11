@@ -30,6 +30,7 @@
 		
 		public function downloadoneAction(){
 			$id = $_REQUEST['id'];
+            $id = (int)$id;
 			$my_download = new my_downloadDAO($id);
 			$my_download = $my_download->get($this->dbhelper);
 			
