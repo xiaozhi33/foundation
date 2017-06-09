@@ -1145,11 +1145,11 @@
                                 ->setCellValue('C'. $ii, '项目名称')
                                 ->setCellValue('D'. $ii, '来款时间')
                                 ->setCellValue('E'. $ii, '来款金额')
-                                ->setCellValue('F'. $ii, '支出时间')
-                                ->setCellValue('G'. $ii, '支出金额')
-                                ->setCellValue('H'. $ii, '项目类型')
-                                ->setCellValue('I'. $ii, '所属部门')
-                                ->setCellValue('J'. $ii, '来款方')
+                                ->setCellValue('F'. $ii, '来款方')
+                                ->setCellValue('G'. $ii, '支出时间')
+                                ->setCellValue('H'. $ii, '支出金额')
+                                ->setCellValue('I'. $ii, '项目类型')
+                                ->setCellValue('J'. $ii, '所属部门')
                                 ->setCellValue('K'. $ii, '项目负责人');
                             $ii++;
                         }
@@ -1164,11 +1164,11 @@
 						->setCellValue('C' . $ii, $v['pm_name'])
 						->setCellValue('D' . $ii, $v['zijin_daozhang_datetime'])
 						->setCellValue('E' . $ii, $v['zijin_daozheng_jiner'])
-						->setCellValue('F' . $ii, $v['shiyong_zhichu_datetime'])
-						->setCellValue('G' . $ii, $v['shiyong_zhichu_jiner'])
-                        ->setCellValue('H' . $ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
-                        ->setCellValue('I' . $ii, $this->getdepartmentAction($this->departmentlist,$v['department']))
-                        ->setCellValue('J' . $ii, $v['pm_pp'])
+                        ->setCellValue('F' . $ii, $v['pm_pp'])
+						->setCellValue('G' . $ii, $v['shiyong_zhichu_datetime'])
+						->setCellValue('H' . $ii, $v['shiyong_zhichu_jiner'])
+                        ->setCellValue('I' . $ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
+                        ->setCellValue('J' . $ii, $this->getdepartmentAction($this->departmentlist,$v['department']))
                         ->setCellValue('K' . $ii, $v['pm_fzr_mc']);
 					$ii++;
 					$zhichu += $v['shiyong_zhichu_jiner'];
@@ -1274,11 +1274,11 @@
                     ->setCellValue('C1', '项目名称')
                     ->setCellValue('D1', '来款时间')
                     ->setCellValue('E1', '来款金额')
-                    ->setCellValue('F1', '支出时间')
-                    ->setCellValue('G1', '支出金额')
-                    ->setCellValue('H1', '项目类型')
-                    ->setCellValue('I1', '所属部门')
-                    ->setCellValue('J1', '来款方')
+                    ->setCellValue('F1', '来款方')
+                    ->setCellValue('G1', '支出时间')
+                    ->setCellValue('H1', '支出金额')
+                    ->setCellValue('I1', '项目类型')
+                    ->setCellValue('J1', '所属部门')
                     ->setCellValue('K1', '项目负责人');
 
                 $ii = 2;
@@ -1296,11 +1296,11 @@
                         ->setCellValue('C' . $ii, $v['pm_name'])
                         ->setCellValue('D' . $ii, $v['zijin_daozhang_datetime'])
                         ->setCellValue('E' . $ii, $v['zijin_daozheng_jiner'])
-                        ->setCellValue('F' . $ii, $v['shiyong_zhichu_datetime'])
-                        ->setCellValue('G' . $ii, $v['shiyong_zhichu_jiner'])
-                        ->setCellValue('H' . $ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
-                        ->setCellValue('I' . $ii, $this->getdepartmentAction($this->departmentlist,$v['department']))
-                        ->setCellValue('J' . $ii, $v['pm_pp'])
+                        ->setCellValue('F' . $ii, $v['pm_pp'])
+                        ->setCellValue('G' . $ii, $v['shiyong_zhichu_datetime'])
+                        ->setCellValue('H' . $ii, $v['shiyong_zhichu_jiner'])
+                        ->setCellValue('I' . $ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
+                        ->setCellValue('J' . $ii, $this->getdepartmentAction($this->departmentlist,$v['department']))
                         ->setCellValue('K' . $ii, $v['pm_fzr_mc']);
                     $ii++;
                     $zhichu += $v['shiyong_zhichu_jiner'];
