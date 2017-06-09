@@ -38,7 +38,7 @@
             $upload_datetime = date("Y-m-d H:i:s", time());
             $description = HttpUtil::postString("description");
             $admininfo = SessionUtil::getAdmininfo();
-            $uploader = $this->admininfo['admin_info']['id'];
+            $uploader = $this->admininfo['admin_info']['admin_name'];
 
             $filesDAO = $this->orm->createDAO('jjh_mg_files');
             if($_FILES['files']['name']!=""){
