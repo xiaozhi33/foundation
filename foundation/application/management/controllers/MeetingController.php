@@ -228,6 +228,34 @@
             ));
         }
 
+        // 查看会议详细
+        public function infoAction(){
+            (int)$id = $_REQUEST['id'];
+            if(!empty($id)){
+                $jjh_meetingDAO = $this->orm->createDAO('jjh_meeting');
+                $jjh_meetingDAO = $jjh_meetingDAO ->findId($id);
+                $jjh_meetingDAO = $jjh_meetingDAO ->get();
+
+                if(!empty($jjh_meetingDAO)){
+                    $this->view->assign('jjh_meeting_info', $jjh_meetingDAO);
+                    echo $this->view->render("index/header.phtml");
+                    echo $this->view->render("meeting/meetinginfo.phtml");
+                    echo $this->view->render("index/footer.phtml");
+                    exit();
+                }else {
+                    echo "<script>alert('未检索到该会议详细信息，请查正后再试！');";
+                    echo "window.location.href='/management/meeting'; ";
+                    echo "</script>";
+                    exit();
+                }
+            }else {
+                echo "<script>alert('操作失败！');";
+                echo "window.location.href='/management/meeting'; ";
+                echo "</script>";
+                exit();
+            }
+        }
+
         //权限
         public function acl()
         {
