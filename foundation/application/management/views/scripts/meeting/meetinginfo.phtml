@@ -39,7 +39,7 @@
                             <div class="col-sm-3">
                             <?php if($this->meetingCateList != ""){
                                 foreach ($this->meetingCateList as $k => $v){?>
-                                    <?php echo $v['catename']?>
+                                    <?php if($this->meeting_info[0]["meeting_cate"] == $v['id']) echo $v['catename'];?>
                                 <?php }}?>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">会议文档二：</label>
-                            <div class="col-sm-4">\
+                            <div class="col-sm-4">
                                 <a href="/management/meeting/download?id=<?php echo $this->meeting_info[0]['id'];?>&fid=1">
                                     <?php echo $this->meeting_info[0]['meeting_files_name1'];?>
                                 </a>
