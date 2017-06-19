@@ -1236,6 +1236,8 @@
                 }
                 $all_total = $all_total->get();
                 if($pname == ''){  // 多项目统计时才统计这一项
+                    if($all_total[0]['shouru'] == '') $all_total[0]['shouru'] = 0;
+                    if($all_total[0]['zhichu'] == '') $all_total[0]['zhichu'] = 0;
                     $zhichutj->setActiveSheetIndex(0)->setCellValue('H' . ($ii+3), "来款总合计" . $all_total[0]['shouru']);
                     $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . ($ii+3), "支出总合计" . $all_total[0]['zhichu']);
                 }
