@@ -1984,7 +1984,8 @@
 
             $pm_mg_chouzi ->withJjh_mg_cate(array("cate" => "id"));
             $pm_mg_chouzi ->withJjh_mg_department(array("department" => "id"));
-            $pm_mg_chouzi ->select(" pm_mg_chouzi.*, jjh_mg_cate.catename, jjh_mg_department.pname as department_name");
+            $pm_mg_chouzi ->withJjh_mg_rate(array('id' => "pm_id"));
+            $pm_mg_chouzi ->select(" pm_mg_chouzi.*, jjh_mg_cate.catename, jjh_mg_department.pname as department_name, jjh_mg_rate.pm_rate");
             $pm_mg_chouzi = $pm_mg_chouzi->get();
 
             if (count($pm_mg_chouzi) == 0){
@@ -2039,7 +2040,8 @@
                 ->setCellValue('Z1', '项目起始年份')
                 ->setCellValue('AA1', '项目截止年份')
                 ->setCellValue('AB1', '协议捐赠金额')
-                ->setCellValue('AC1', '是否留本');
+                ->setCellValue('AC1', '是否留本')
+                ->setCellValue('AD1', '进度');
                 //->setCellValue('P1', '捐赠类别');
 
             $ii = 2;
@@ -2051,6 +2053,19 @@
                 }
 
                 $p_pname = $this->findparentname($v['parent_pm_id']);
+
+                // 项目进度
+                $_array_rate = array(0=>'',1=>'已立项',2=>'已签约',3=>'已到账',4=>'已执行',5=>'已回馈',6=>'已完结');
+                $_rate_str = '';
+                if($v['pm_rate'] != ''){
+                    $rate_array = explode(',',$v['pm_rate']);
+                    if(!empty($rate_array)){
+                        foreach($rate_array as $key => $value){
+                            $_rate_str .= $_array_rate[$value].' ';
+                        }
+                    }
+                }
+
                 $zijintj->setActiveSheetIndex(0)
                     ->setCellValue('A'.$ii, $p_pname)
                     ->setCellValue('B'.$ii, $v['pname'])
@@ -2080,7 +2095,8 @@
                     ->setCellValue('Z'.$ii, $v['pm_qishi_datetime'])
                     ->setCellValue('AA'.$ii, $v['pm_jiezhi_datetime'])
                     ->setCellValue('AB'.$ii, $v['pm_xieyi_juanzeng_jiner'])
-                    ->setCellValue('AC'.$ii, $v['pm_liuben']);
+                    ->setCellValue('AC'.$ii, $v['pm_liuben'])
+                    ->setCellValue('AD'.$ii, $v['$_rate_str']);
                     //->setCellValue('P'.$ii, $v['peibi_spr']);
                 $ii++;
             }
