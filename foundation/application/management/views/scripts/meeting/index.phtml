@@ -95,7 +95,10 @@
                                     };?>
                             </td>
 							<td><?php echo $v['meeting_content'];?>&nbsp;</td>
-							<td><a href="/management/meeting/edit?id=<?php echo $v['id'];?>">
+							<td>
+                                <a href="/management/meeting/info?id=<?php echo $v['id'];?>">
+                                    <button type="button" class="btn btn-cyan margin-bottom-20">查看</button></a>
+                                <a href="/management/meeting/edit?id=<?php echo $v['id'];?>">
                             <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
                              <a href="/management/meeting/del?id=<?php echo $v['id'];?>">
                              <button type="button" class="btn btn-danger margin-bottom-20">删除</button></a>
