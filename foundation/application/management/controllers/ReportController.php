@@ -1228,6 +1228,17 @@
                 $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . round($zhichu,2));
                 $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . $ii, "余额" . $remaining_sum);
 
+                // 统计总体的收入和支出 － 多项目统计时才统计这一项
+                $all_total = $this->orm->createDAO('pm_mg_info')->select(' sum(shiyong_zhichu_jiner) as zhichu, sum(zijin_daozheng_jiner) as shouru');
+                $all_total ->selectLimit .= ' AND is_renling =1';
+                if ($start != "" && $end != "") {
+                    $all_total->selectLimit .= " and ((shiyong_zhichu_datetime between '$start' and '$end') OR (zijin_daozhang_datetime between '$start' and '$end'))";
+                }
+                $all_total = $all_total->get();
+                if($pname == ''){  // 多项目统计时才统计这一项
+                    $zhichutj->setActiveSheetIndex(0)->setCellValue('H' . ($ii+3), "来款总合计" . $all_total[0]['shouru']);
+                    $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . ($ii+3), "支出总合计" . $all_total[0]['zhichu']);
+                }
 
 				$ii = "";
 
