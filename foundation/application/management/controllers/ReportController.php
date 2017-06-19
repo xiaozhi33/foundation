@@ -2061,6 +2061,7 @@
                 if($v['pm_rate'] != ''){
                     $rate_array = explode(',',$v['pm_rate']);
                     if(!empty($rate_array)){
+                        $rate_array = array_unique($rate_array);
                         foreach($rate_array as $key => $value){
                             $_rate_str .= $_array_rate[$value].' ';
                         }
