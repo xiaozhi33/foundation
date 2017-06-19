@@ -2057,6 +2057,7 @@
                 // 项目进度
                 $_array_rate = array(0=>'',1=>'已立项',2=>'已签约',3=>'已到账',4=>'已执行',5=>'已回馈',6=>'已完结');
                 $_rate_str = '';
+                $rate_array = '';
                 if($v['pm_rate'] != ''){
                     $rate_array = explode(',',$v['pm_rate']);
                     if(!empty($rate_array)){
@@ -2096,7 +2097,7 @@
                     ->setCellValue('AA'.$ii, $v['pm_jiezhi_datetime'])
                     ->setCellValue('AB'.$ii, $v['pm_xieyi_juanzeng_jiner'])
                     ->setCellValue('AC'.$ii, $v['pm_liuben'])
-                    ->setCellValue('AD'.$ii, $v['$_rate_str']);
+                    ->setCellValue('AD'.$ii, $_rate_str);
                     //->setCellValue('P'.$ii, $v['peibi_spr']);
                 $ii++;
             }
