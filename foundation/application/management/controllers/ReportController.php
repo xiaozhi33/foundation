@@ -1984,8 +1984,8 @@
 
             $pm_mg_chouzi ->withJjh_mg_cate(array("cate" => "id"));
             $pm_mg_chouzi ->withJjh_mg_department(array("department" => "id"));
-            $pm_mg_chouzi ->withJjh_mg_rate(array('id' => "pm_id"));
-            $pm_mg_chouzi ->select(" pm_mg_chouzi.*, jjh_mg_cate.catename, jjh_mg_department.pname as department_name, jjh_mg_rate.pm_rate");
+            $pm_mg_chouzi ->withPm_mg_rate(array('id' => "pm_id"));
+            $pm_mg_chouzi ->select(" pm_mg_chouzi.*, jjh_mg_cate.catename, jjh_mg_department.pname as department_name, pm_mg_rate.pm_rate");
             $pm_mg_chouzi = $pm_mg_chouzi->get();
 
             if (count($pm_mg_chouzi) == 0){
