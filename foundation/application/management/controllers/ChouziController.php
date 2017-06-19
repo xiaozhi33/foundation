@@ -814,6 +814,7 @@
             $action = $this->getRequest()->getActionName();
             $except_actions = array(
                 'addrschouzi',
+                'editrschouzi',
                 'check-pname',
                 'getsignbypmid',
                 'toaddsign',
