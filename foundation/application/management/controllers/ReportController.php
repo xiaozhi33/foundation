@@ -2346,6 +2346,7 @@
                 'allpeibitoexcel',
                 'newshouzitoexcel',
                 'huabo',
+                'newchouzitoexcel',
             );
             if (in_array($action, $except_actions)) {
                 return;
