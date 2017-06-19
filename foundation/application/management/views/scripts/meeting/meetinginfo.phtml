@@ -37,13 +37,10 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input02">会议类型：</label>
                             <div class="col-sm-3">
-                                <select class="chosen-select chosen-transparent form-control" name="meeting_cate" readonly="readonly">
-                                    <option value="" >请选择类型</option>
-                                    <?php if($this->meetingCateList != ""){
-                                        foreach ($this->meetingCateList as $k => $v){?>
-                                            <option value="<?php echo $v['id']?>" <?php if($this->meeting_info[0]["meeting_cate"] == $v['id']) echo "selected='selected'";?>><?php echo $v['catename']?></option>
-                                        <?php }}?>
-                                </select>
+                            <?php if($this->meetingCateList != ""){
+                                foreach ($this->meetingCateList as $k => $v){?>
+                                    <?php echo $v['catename']?>
+                                <?php }}?>
                             </div>
                         </div>
 
@@ -121,19 +118,17 @@
                             <label class="col-sm-2 control-label" for="input01">参会人员：</label>
 
                             <div class="col-sm-6">
-                                <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="meeting_joiner[]" id="meeting_joiner" readonly="readonly">
-                                    <?php if($this->jjh_mg_pp_list != ""){
-                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
-                                            <option value="<?php echo $v['pid']?>" <?php
-                                            if(!empty($this->meeting_info[0]['meeting_joiner'])){
-                                                foreach(explode(',',$this->meeting_info[0]['meeting_joiner']) as $key => $value){
-                                                    if($v['pid'] == $value){
-                                                        echo "selected='selected'";
-                                                    }
-                                                }
-                                            }?>><?php echo $v['ppname']?></option>
-                                        <?php }}?>
-                                </select>
+                            <?php if($this->jjh_mg_pp_list != ""){
+                                foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                    <?php
+                                    if(!empty($this->meeting_info[0]['meeting_joiner'])){
+                                        foreach(explode(',',$this->meeting_info[0]['meeting_joiner']) as $key => $value){
+                                            if($v['pid'] == $value){
+                                                echo $v['ppname'].'&nbsp;&nbsp;';
+                                            }
+                                        }
+                                    }?>
+                                <?php }}?>
                             </div>
                         </div>
 

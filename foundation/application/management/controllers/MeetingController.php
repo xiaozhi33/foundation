@@ -237,7 +237,7 @@
                 $jjh_meetingDAO = $jjh_meetingDAO ->get();
 
                 if(!empty($jjh_meetingDAO)){
-                    $this->view->assign('jjh_meeting_info', $jjh_meetingDAO);
+                    $this->view->assign('meeting_info', $jjh_meetingDAO);
                     echo $this->view->render("index/header.phtml");
                     echo $this->view->render("meeting/meetinginfo.phtml");
                     echo $this->view->render("index/footer.phtml");
