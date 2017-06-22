@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>支付</title>
+	<title>沙盒支付</title>
 </head>
 <?php
 require_once dirname(dirname(__FILE__)).'/config.php';
