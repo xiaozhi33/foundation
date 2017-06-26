@@ -14,10 +14,6 @@
 
 require_once 'config.php';
 require_once 'pagepay/service/AlipayTradeService.php';
-set_include_path('.' .PATH_SEPARATOR .'../../library');
-
-require_once '../configs.php';
-$ORM = ORM::getInstance();
 
 $arr=$_POST;
 $alipaySevice = new AlipayTradeService($config); 
@@ -27,6 +23,10 @@ $result = $alipaySevice->check($arr);
 ini_set("display_errors", "On");
 error_reporting(E_ALL);
 
+
+set_include_path('.' .PATH_SEPARATOR .'../../library');
+require_once '../configs.php';
+$ORM = ORM::getInstance();
 try {
     // 纪录notify详情
     $notify_infoDAO = $ORM->createDAO("jjh_orders_notify_log");
