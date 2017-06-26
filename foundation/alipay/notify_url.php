@@ -14,6 +14,18 @@
 
 require_once 'config.php';
 require_once 'pagepay/service/AlipayTradeService.php';
+set_include_path('.' .PATH_SEPARATOR .'../../library');
+
+require_once '../configs.php';
+$ORM = ORM::getInstance();
+
+// 纪录notify详情
+$notify_infoDAO = $ORM->createDAO("jjh_orders_notify_log");
+$notify_infoDAO ->jjh_orders_id = $_POST['out_trade_no'];
+$notify_infoDAO ->datetime = $_POST['notify_time'];
+$notify_infoDAO ->notify_info = json_encode($_POST);
+$notify_infoDAO ->pay_type = 3;   // 支付宝支付
+$notify_infoDAO ->save();
 
 $arr=$_POST;
 $alipaySevice = new AlipayTradeService($config); 
@@ -29,17 +41,6 @@ $result = $alipaySevice->check($arr);
 if($result) {//验证成功
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//请在这里加上商户的业务逻辑程序代
-    set_include_path('.' .PATH_SEPARATOR .'../../library');
-    require_once '../configs.php';
-    $ORM = ORM::getInstance();
-
-    // 纪录notify详情
-    $notify_infoDAO = $ORM->createDAO("jjh_orders_notify_log");
-    $notify_infoDAO ->jjh_orders_id = $_POST['out_trade_no'];
-    $notify_infoDAO ->datetime = $_POST['notify_time'];
-    $notify_infoDAO ->notify_info = json_encode($_POST);
-    $notify_infoDAO ->pay_type = 3;   // 支付宝支付
-    $notify_infoDAO ->save();
 
     // 查询DB中是否有该订单信息
     $ordersDAO = $ORM->greateDAO("jjh_orders");
@@ -55,7 +56,7 @@ if($result) {//验证成功
     $ordersinfoDAO ->findJjh_order_id($_POST['out_trade_no']);
     $ordersinfo = $ordersinfoDAO->get();
 
-    if($ordersinfo[0]['jjh_money'] != $_POST['total_amount']){
+    if(sprintf('%.2f',$ordersinfo[0]['jjh_money']) != $_POST['total_amount']){
         echo "fail";
     }
 
