@@ -48,10 +48,11 @@ if($result) {//验证成功
 	//请在这里加上商户的业务逻辑程序代
 
     // 查询DB中是否有该订单信息
-    $ordersDAO = $ORM->greateDAO("jjh_orders");
+    $ordersDAO = $ORM->createDAO("jjh_orders");
     $ordersDAO ->findJjh_order_id($_POST['out_trade_no']);
     $orders_info = $ordersDAO ->get();
 
+    $alipaySevice->writeLog(var_export($ordersDAO,true));
     $alipaySevice->writeLog(var_export($orders_info,true));
 
     if($orders_info[0]['jjh_order_id'] != $_POST['out_trade_no']){
