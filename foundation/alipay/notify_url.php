@@ -106,7 +106,7 @@ if($result) {//验证成功
         // 纪录订单交易状态 0 交易失败 -1 退款
         $orders = $ORM->createDAO("jjh_orders");
         $orders ->findJjh_order_id($out_trade_no);
-        $orders ->jjh_order_statue = '1';
+        $orders ->jjh_order_statue = 1;
         $orders ->save();
     }
     else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
@@ -114,7 +114,7 @@ if($result) {//验证成功
         // 纪录订单交易状态 0 交易失败 -1 退款
         $orders = $ORM->createDAO("jjh_orders");
         $orders ->findJjh_order_id($out_trade_no);
-        $orders ->jjh_order_statue = '1';
+        $orders ->jjh_order_statue = 1;
         $orders ->save();
 
 		//判断该笔订单是否在商户网站中已经做过处理
@@ -128,7 +128,7 @@ if($result) {//验证成功
         // 未付款交易超时关闭，或支付完成后全额退款
         $orders = $ORM->createDAO("jjh_orders");
         $orders ->findJjh_order_id($out_trade_no);
-        $orders ->jjh_order_statue = '-1';
+        $orders ->jjh_order_statue = -1;
         $orders ->save();
     }
 	//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
