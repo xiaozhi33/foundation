@@ -29,8 +29,13 @@ $result = $alipaySevice->check($arr);
 4、验证app_id是否为该商户本身。
 */
 
-require_once '../configs.php';
-$ORM = ORM::getInstance();
+try{
+    require_once '../configs.php';
+    $ORM = ORM::getInstance();
+}catch (Exception $e){
+    var_dump($e);
+}
+
 
 $orderDAO = $ORM->orm->createDAO("jjh_orders")->findJjh_order_id('20110628-5653-002509-090602')->get();
 var_dump($orderDAO);
