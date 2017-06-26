@@ -13,7 +13,7 @@ class AopClient {
 	public $rsaPrivateKey;
 
 	//网关
-	public $gatewayUrl = "https://openapi.alipaydev.com/gateway.do";
+	public $gatewayUrl = "https://openapi.alipay.com/gateway.do";
 	//返回数据格式
 	public $format = "json";
 	//api版本
