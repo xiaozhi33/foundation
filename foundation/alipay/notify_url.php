@@ -27,19 +27,15 @@ error_reporting(E_ALL);
 set_include_path('.' .PATH_SEPARATOR .'../../library');
 require_once '../configs.php';
 $ORM = ORM::getInstance();
-try {
-    // 纪录notify详情
-    $notify_infoDAO = $ORM->createDAO("jjh_orders_notify_log");
-    $notify_infoDAO->jjh_orders_id = $_POST['out_trade_no'];
-    $notify_infoDAO->datetime = $_POST['notify_time'];
-    $notify_infoDAO->notify_info = json_encode($_POST);
-    $notify_infoDAO->pay_type = 3;   // 支付宝支付
-    $notify_infoDAO->other = $result;
-    $log_se = $notify_infoDAO->save();
-}catch (Exception $e){
-    print $e->getMessage();
-    exit();
-}
+
+// 纪录notify详情
+$notify_infoDAO = $ORM->createDAO("jjh_orders_notify_log");
+$notify_infoDAO->jjh_orders_id = $_POST['out_trade_no'];
+$notify_infoDAO->datetime = $_POST['notify_time'];
+$notify_infoDAO->notify_info = json_encode($_POST);
+$notify_infoDAO->pay_type = 3;   // 支付宝支付
+$notify_infoDAO->other = $result;
+$log_se = $notify_infoDAO->save();
 
 /* 实际验证过程建议商户添加以下校验。
 1、商户需要验证该通知数据中的out_trade_no是否为商户系统中创建的订单号，
@@ -71,7 +67,7 @@ if($result) {//验证成功
 
     // 验证通知中的seller_id 是否为out_trade_no
     if($orders_info[0]['jjh_order_id'] != $_POST['seller_id']){
-        echo "fail";
+        // echo "fail";
     }
 
     // 验证app_id是否为该商户本身
@@ -104,13 +100,19 @@ if($result) {//验证成功
 				
 		//注意：
 		//退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
+
+        // 纪录订单交易状态 0 交易失败 -1 退款
+        $orders = $ORM->createDAO("jjh_orders");
+        $orders ->findJjh_order_id($out_trade_no);
+        $orders ->jjh_order_statue = '1';
+        $orders ->save();
     }
     else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
 
         // 纪录订单交易状态 0 交易失败 -1 退款
         $orders = $ORM->createDAO("jjh_orders");
         $orders ->findJjh_order_id($out_trade_no);
-        $orders ->jjh_order_status = '1';
+        $orders ->jjh_order_statue = '1';
         $orders ->save();
 
 		//判断该笔订单是否在商户网站中已经做过处理
@@ -119,6 +121,13 @@ if($result) {//验证成功
 			//如果有做过处理，不执行商户的业务程序			
 		//注意：
 		//付款完成后，支付宝系统发送该交易状态通知
+    }
+    else if ($_POST['trade_status'] == 'TRADE_CLOSED') {
+        // 未付款交易超时关闭，或支付完成后全额退款
+        $orders = $ORM->createDAO("jjh_orders");
+        $orders ->findJjh_order_id($out_trade_no);
+        $orders ->jjh_order_statue = '-1';
+        $orders ->save();
     }
 	//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 	echo "success";	//请不要修改或删除
