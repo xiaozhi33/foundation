@@ -20,22 +20,17 @@ require_once 'pagepay/service/AlipayTradeService.php';
 ini_set("display_errors", "On");
 error_reporting(E_ALL);
 
-try{
-    set_include_path('.' .PATH_SEPARATOR .'../../library');
-    require_once '../configs.php';
-    $ORM = ORM::getInstance();
-
-    $orderDAO = $ORM->createDAO("jjh_orders")->findJjh_order_id('20110628-5653-002509-090602')->get();
-    var_dump($orderDAO);
-}catch (Exception $e){
-    print $e->getMessage();
-    exit();
-}
+set_include_path('.' .PATH_SEPARATOR .'../../library');
+require_once '../configs.php';
+$ORM = ORM::getInstance();
 
 
 $arr=$_GET;
 $alipaySevice = new AlipayTradeService($config); 
 $result = $alipaySevice->check($arr);
+
+var_dump($arr);
+var_dump($result);
 
 /* 实际验证过程建议商户添加以下校验。
 1、商户需要验证该通知数据中的out_trade_no是否为商户系统中创建的订单号，
