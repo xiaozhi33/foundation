@@ -35,7 +35,7 @@ try {
     $notify_infoDAO->notify_info = json_encode($_POST);
     $notify_infoDAO->pay_type = 3;   // 支付宝支付
     $notify_infoDAO->other = $result;
-    $notify_infoDAO->save();
+    $log_se = $notify_infoDAO->save();
 }catch (Exception $e){
     print $e->getMessage();
     exit();
