@@ -17,7 +17,7 @@
 require_once("config.php");
 require_once 'pagepay/service/AlipayTradeService.php';
 
-error_reporting('all');
+error_reporting(E_ALL);
 
 
 $arr=$_GET;
