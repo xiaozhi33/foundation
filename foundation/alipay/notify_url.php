@@ -29,7 +29,44 @@ $result = $alipaySevice->check($arr);
 if($result) {//验证成功
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//请在这里加上商户的业务逻辑程序代
+    require_once '../configs.php';
+    $ORM = ORM::getInstance();
 
+    // 纪录notify详情
+    $notify_infoDAO = $ORM ->orm->createDAO("jjh_orders_notify_log");
+    $notify_infoDAO ->jjh_orders_id = $_POST['out_trade_no'];
+    $notify_infoDAO ->datetime = now();
+    $notify_infoDAO ->notify_info = json_encode($_POST);
+    $notify_infoDAO ->pay_type = 3;   // 支付宝支付
+    $notify_infoDAO ->save();
+
+    // 查询DB中是否有该订单信息
+    $ordersDAO = $ORM ->orm->greateDAO("jjh_orders");
+    $ordersDAO ->findJjh_order_id($_POST['out_trade_no']);
+    $orders_info = $ordersDAO ->get();
+
+    if($orders_info[0]['jjh_order_id'] != $_POST['out_trade_no']){
+        echo "fail";
+    }
+
+    // 判断total_amount是否为订单到实际金额
+    $ordersinfoDAO = $ORM ->orm->createDAO("jjh_orders_info");
+    $ordersinfoDAO ->findJjh_order_id($_POST['out_trade_no']);
+    $ordersinfo = $ordersinfoDAO->get();
+
+    if($ordersinfo[0]['jjh_money'] != $_POST['total_amount']){
+        echo "fail";
+    }
+
+    // 验证通知中的seller_id 是否为out_trade_no
+    if($orders_info[0]['jjh_order_id'] != $_POST['seller_id']){
+        echo "fail";
+    }
+
+    // 验证app_id是否为该商户本身
+    if($config['app_id'] != $_POST['app_id']){
+        echo "fail";
+    }
 	
 	//——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
 	
@@ -58,6 +95,13 @@ if($result) {//验证成功
 		//退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
     }
     else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
+
+        // 纪录订单交易状态 0 交易失败 -1 退款
+        $orders = $ORM->orm->createDAO("jjh_orders");
+        $orders ->findJjh_order_id($out_trade_no);
+        $orders ->jjh_order_status = '1';
+        $orders ->save();
+
 		//判断该笔订单是否在商户网站中已经做过处理
 			//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 			//请务必判断请求时的total_amount与通知时获取的total_fee为一致的
