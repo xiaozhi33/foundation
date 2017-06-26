@@ -17,9 +17,11 @@
 require_once("config.php");
 require_once 'pagepay/service/AlipayTradeService.php';
 
+ini_set("display_errors", "On");
 error_reporting(E_ALL);
 
 try{
+    set_include_path('.' .PATH_SEPARATOR .'../../library');
     require_once '../configs.php';
     $ORM = ORM::getInstance();
 
