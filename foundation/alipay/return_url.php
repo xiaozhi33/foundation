@@ -19,6 +19,14 @@ require_once 'pagepay/service/AlipayTradeService.php';
 
 error_reporting(E_ALL);
 
+try{
+    require_once '../configs.php';
+    $ORM = ORM::getInstance();
+}catch (Exception $e){
+    print $e->getMessage();
+    exit();
+}
+
 
 $arr=$_GET;
 $alipaySevice = new AlipayTradeService($config); 
@@ -30,13 +38,6 @@ $result = $alipaySevice->check($arr);
 3、校验通知中的seller_id（或者seller_email) 是否为out_trade_no这笔单据的对应的操作方（有的时候，一个商户可能有多个seller_id/seller_email）
 4、验证app_id是否为该商户本身。
 */
-
-try{
-    require_once '../configs.php';
-    $ORM = ORM::getInstance();
-}catch (Exception $e){
-    var_dump($e);
-}
 
 
 $orderDAO = $ORM->orm->createDAO("jjh_orders")->findJjh_order_id('20110628-5653-002509-090602')->get();
