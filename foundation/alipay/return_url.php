@@ -25,7 +25,7 @@ try{
     require_once '../configs.php';
     $ORM = ORM::getInstance();
 
-    $orderDAO = $ORM->orm->createDAO("jjh_orders")->findJjh_order_id('20110628-5653-002509-090602')->get();
+    $orderDAO = $ORM->createDAO("jjh_orders")->findJjh_order_id('20110628-5653-002509-090602')->get();
     var_dump($orderDAO);
 }catch (Exception $e){
     print $e->getMessage();

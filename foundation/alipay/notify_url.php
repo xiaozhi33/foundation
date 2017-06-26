@@ -33,7 +33,7 @@ if($result) {//验证成功
     $ORM = ORM::getInstance();
 
     // 纪录notify详情
-    $notify_infoDAO = $ORM ->orm->createDAO("jjh_orders_notify_log");
+    $notify_infoDAO = $ORM->createDAO("jjh_orders_notify_log");
     $notify_infoDAO ->jjh_orders_id = $_POST['out_trade_no'];
     $notify_infoDAO ->datetime = $_POST['notify_time'];
     $notify_infoDAO ->notify_info = json_encode($_POST);
@@ -41,7 +41,7 @@ if($result) {//验证成功
     $notify_infoDAO ->save();
 
     // 查询DB中是否有该订单信息
-    $ordersDAO = $ORM ->orm->greateDAO("jjh_orders");
+    $ordersDAO = $ORM->greateDAO("jjh_orders");
     $ordersDAO ->findJjh_order_id($_POST['out_trade_no']);
     $orders_info = $ordersDAO ->get();
 
@@ -50,7 +50,7 @@ if($result) {//验证成功
     }
 
     // 判断total_amount是否为订单到实际金额
-    $ordersinfoDAO = $ORM ->orm->createDAO("jjh_orders_info");
+    $ordersinfoDAO = $ORM->createDAO("jjh_orders_info");
     $ordersinfoDAO ->findJjh_order_id($_POST['out_trade_no']);
     $ordersinfo = $ordersinfoDAO->get();
 
@@ -97,7 +97,7 @@ if($result) {//验证成功
     else if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
 
         // 纪录订单交易状态 0 交易失败 -1 退款
-        $orders = $ORM->orm->createDAO("jjh_orders");
+        $orders = $ORM->createDAO("jjh_orders");
         $orders ->findJjh_order_id($out_trade_no);
         $orders ->jjh_order_status = '1';
         $orders ->save();
