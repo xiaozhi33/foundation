@@ -29,6 +29,7 @@ $result = $alipaySevice->check($arr);
 if($result) {//验证成功
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//请在这里加上商户的业务逻辑程序代
+    set_include_path('.' .PATH_SEPARATOR .'../../library');
     require_once '../configs.php';
     $ORM = ORM::getInstance();
 
