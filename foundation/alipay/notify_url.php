@@ -52,6 +52,8 @@ if($result) {//验证成功
     $ordersDAO ->findJjh_order_id($_POST['out_trade_no']);
     $orders_info = $ordersDAO ->get();
 
+    $alipaySevice->writeLog(json_encode($orders_info));
+
     if($orders_info[0]['jjh_order_id'] != $_POST['out_trade_no']){
         echo "fail";
     }
