@@ -1,6 +1,6 @@
 <?php
 ini_set('date.timezone','Asia/Shanghai');
-error_reporting(E_ERROR);
+error_reporting(E_All);
 
 require_once "../lib/WxPay.Api.php";
 require_once "WxPay.NativePay.php";
