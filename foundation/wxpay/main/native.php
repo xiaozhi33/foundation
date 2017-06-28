@@ -35,6 +35,9 @@ try {
      */
     set_include_path('.' . PATH_SEPARATOR . '../../../library');
     require_once '../../configs.php';
+
+    echo __BASEURL__; exit();
+
     $ORM = ORM::getInstance();
     $order_id = $_REQUEST['order_id'];
 // 判断total_amount是否为订单到实际金额
