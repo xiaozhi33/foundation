@@ -36,14 +36,14 @@ try {
     set_include_path('.' . PATH_SEPARATOR . '../../../library');
     require_once '../../configs.php';
 
-    echo __BASEURL__; exit();
-
     $ORM = ORM::getInstance();
-    $order_id = $_REQUEST['order_id'];
+    $order_id = $_REQUEST['WIDout_trade_no'];
 // 判断total_amount是否为订单到实际金额
     $ordersinfoDAO = $ORM->createDAO("jjh_orders_info");
     $ordersinfoDAO->findJjh_order_id($order_id);
     $ordersinfo = $ordersinfoDAO->get();
+
+    var_dump($ordersinfo);exit;
 
     if (emtpy($ordersinfo[0])) {
         echo '查无此订单，本次操作失败！';
