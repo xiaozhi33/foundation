@@ -64,6 +64,8 @@ try {
     $result = $notify->GetPayUrl($input);
     $url2 = $result["code_url"];
 
+    echo $url2;exit;
+
 }catch(Exception $e){
     echo $e->getMessage();
     exit();
