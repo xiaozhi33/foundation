@@ -75,7 +75,24 @@
                               }
                           </script>
                       </form>
-                 <?php }?>
+                 <?php //}?>
+
+                      <?php }elseif($this->PayType == 4){?>
+                          <form name="form1" action="/wxpay/main/notive.php" target="_blank" method="post">
+                              <input type="hidden" name="WIDout_trade_no" value="<?php echo $this->jjh_order_id;?>"/>
+                              <input type="hidden" name="WIDsubject" value="<?php echo $this->orderinfo['jjh_pm'];?>"/>
+                              <input type="hidden" name="WIDtotal_amount" value="<?php echo $this->orderinfo['Amount'];?>"/>
+                              <input type="hidden" name="WIDbody" value="支付宝支付"/>
+                              <input type="submit" class="jjh_donate_submit_bt1" value="确定" />
+                              <input type="button" class="jjh_donate_submit_bt1" value="重新支付" onclick="window.open('/donate', '_blank')" />
+                              <script>
+                                  function onsubmiting(){
+                                      document.charset="gb2312";
+                                      document.form1.submit();
+                                  }
+                              </script>
+                          </form>
+                      <?php }?>
 
                   </div>
               </div>

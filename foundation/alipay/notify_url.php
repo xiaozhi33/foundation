@@ -20,8 +20,8 @@ $alipaySevice = new AlipayTradeService($config);
 $alipaySevice->writeLog(var_export($_POST,true));
 $result = $alipaySevice->check($arr);
 
-ini_set("display_errors", "On");
-error_reporting(E_ALL);
+/*ini_set("display_errors", "On");
+error_reporting(E_ALL);*/
 
 
 set_include_path('.' .PATH_SEPARATOR .'../../library');
