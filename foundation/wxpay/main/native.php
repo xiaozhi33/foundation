@@ -18,8 +18,8 @@ try {
      * 5、支付完成之后，微信服务器会通知支付成功
      * 6、在支付成功通知中需要查单确认是否真正支付成功（见：notify.php）
      */
-$notify = new NativePay();
-//$url1 = $notify->GetPrePayUrl("123456789");
+    $notify = new NativePay();
+    //$url1 = $notify->GetPrePayUrl("123456789");
 
 //模式二
     /**
@@ -74,14 +74,14 @@ $notify = new NativePay();
 <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" /> 
-    <title>微信支付样例</title>
+    <title>微信支付</title>
 </head>
 <body>
 	<!--<div style="margin-left: 10px;color:#556B2F;font-size:30px;font-weight: bolder;">扫描支付模式一</div><br/>
 	<img alt="模式一扫码支付" src="http://paysdk.weixin.qq.com/example/qrcode.php?data=<?php echo urlencode($url1);?>" style="width:150px;height:150px;"/>
 	<br/><br/><br/>-->
-	<div style="margin-left: 10px;color:#556B2F;font-size:30px;font-weight: bolder;">扫描支付模式二</div><br/>
-	<img alt="模式二扫码支付" src="http://202.113.6.233/main/qrcode.php?data=<?php echo urlencode($url2);?>" style="width:150px;height:150px;"/>
+	<div style="margin-left: 10px;color:#556B2F;font-size:30px;font-weight: bolder;">微信扫描支付</div><br/>
+	<img alt="微信扫码支付" src="http://202.113.6.233/wxpay/main/qrcode.php?data=<?php echo urlencode($url2);?>" style="width:150px;height:150px;"/>
 	
 </body>
 </html>
