@@ -43,7 +43,7 @@ try {
     $ordersinfoDAO->findJjh_order_id($order_id);
     $ordersinfo = $ordersinfoDAO->get();
 
-    var_dump($ordersinfo);exit;
+    var_dump($_REQUEST);exit;
 
     if (emtpy($ordersinfo[0])) {
         echo '查无此订单，本次操作失败！';
