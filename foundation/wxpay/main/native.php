@@ -1,7 +1,7 @@
 <?php
 ini_set('date.timezone','Asia/Shanghai');
-ini_set("display_errors", "On");
-error_reporting(E_ALL);
+//ini_set("display_errors", "On");
+//error_reporting(E_ALL);
 
 try {
 
@@ -65,7 +65,7 @@ try {
     $result = $notify->GetPayUrl($input);
     $url2 = $result["code_url"];
 
-    echo $url2;exit;
+    var_dump($result);exit;
 
 }catch(Exception $e){
     echo $e->getMessage();
