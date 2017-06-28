@@ -51,6 +51,7 @@ try {
     //var_dump($ordersinfo);exit();
 
     $input = new WxPayUnifiedOrder();
+    var_dump($input);exit();
     $input->SetBody($ordersinfo[0]['jjh_donors_cname']);
     $input->SetAttach($ordersinfo[0]['jjh_donors_alumni']);
     $input->SetOut_trade_no(WxPayConfig::MCHID . date("YmdHis"));
