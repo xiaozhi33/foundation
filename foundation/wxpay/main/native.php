@@ -43,24 +43,22 @@ try {
     $ordersinfoDAO->findJjh_order_id($order_id);
     $ordersinfo = $ordersinfoDAO->get();
 
-    var_dump($_REQUEST);exit;
-
-    if (emtpy($ordersinfo[0])) {
+    if (emtpy($ordersinfo[0]['jjh_order_id'])) {
         echo '查无此订单，本次操作失败！';
         exit;
     }
 
     $input = new WxPayUnifiedOrder();
-    $input->SetBody($_POST['WIDsubject']);
-    $input->SetAttach($_POST['WIDsubject']);
+    $input->SetBody($ordersinfo[0]['jjh_donors_cname']);
+    $input->SetAttach($ordersinfo[0]['jjh_donors_alumni']);
     $input->SetOut_trade_no(WxPayConfig::MCHID . date("YmdHis"));
-    $input->SetTotal_fee($ordersinfo[0]['WIDtotal_amount']);
+    $input->SetTotal_fee($ordersinfo[0]['jjh_money']);
     $input->SetTime_start(date("YmdHis"));
     $input->SetTime_expire(date("YmdHis", time() + 600));
-    $input->SetGoods_tag($_POST['WIDout_trade_no']);
+    $input->SetGoods_tag($ordersinfo[0]['jjh_order_id']);
     $input->SetNotify_url("http://202.113.6.233/main/notify.php");
     $input->SetTrade_type("NATIVE");
-    $input->SetProduct_id($_POST['WIDout_trade_no']);
+    $input->SetProduct_id($ordersinfo[0]['jjh_order_id']);
     $result = $notify->GetPayUrl($input);
     $url2 = $result["code_url"];
 
