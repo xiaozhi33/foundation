@@ -43,10 +43,10 @@ try {
     $ordersinfoDAO->findJjh_order_id($order_id);
     $ordersinfo = $ordersinfoDAO->get();
 
-    if (emtpy($ordersinfo[0]['jjh_order_id'])) {
+    /*if (emtpy($ordersinfo[0]['jjh_order_id'])) {
         echo '查无此订单，本次操作失败！';
         exit;
-    }
+    }*/
 
     var_dump($ordersinfo);exit();
 
