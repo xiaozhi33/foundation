@@ -78,7 +78,7 @@
                  <?php //}?>
 
                       <?php }elseif($this->PayType == 4){?>
-                          <form name="form1" action="/wxpay/main/notive.php" target="_blank" method="post">
+                          <form name="form1" action="/wxpay/main/native.php" target="_blank" method="post">
                               <input type="hidden" name="WIDout_trade_no" value="<?php echo $this->jjh_order_id;?>"/>
                               <input type="hidden" name="WIDsubject" value="<?php echo $this->orderinfo['jjh_pm'];?>"/>
                               <input type="hidden" name="WIDtotal_amount" value="<?php echo $this->orderinfo['Amount'];?>"/>
