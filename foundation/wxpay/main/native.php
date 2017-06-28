@@ -51,7 +51,6 @@ try {
     //var_dump($ordersinfo);exit();
 
     $input = new WxPayUnifiedOrder();
-    var_dump($input);exit();
     $input->SetBody($ordersinfo[0]['jjh_donors_cname']);
     $input->SetAttach($ordersinfo[0]['jjh_donors_alumni']);
     $input->SetOut_trade_no(WxPayConfig::MCHID . date("YmdHis"));
@@ -59,7 +58,7 @@ try {
     $input->SetTime_start(date("YmdHis"));
     $input->SetTime_expire(date("YmdHis", time() + 600));
     $input->SetGoods_tag($ordersinfo[0]['jjh_order_id']);
-    $input->SetNotify_url("http://202.113.6.233/main/notify.php");
+    $input->SetNotify_url("http://202.113.6.233/wxpay/main/notify.php");
     $input->SetTrade_type("NATIVE");
     $input->SetProduct_id($ordersinfo[0]['jjh_order_id']);
     $result = $notify->GetPayUrl($input);
