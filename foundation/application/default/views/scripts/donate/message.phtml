@@ -33,6 +33,9 @@
                   如果在支付过程中遇到什么问题请及时联系校方：电话0086－022－27403247
                   <br />
                   <div >
+
+                  <?php if($this->PayType == 2){?>
+
                   <form name="form1" action="http://pay.beijing.com.cn/prs/user_payment.checkit" accept-charset="gb2312" target="_blank" method="post">
                         <input type="hidden" name="v_mid" value="5653"/> 
                         <input type="hidden" name="v_oid" value="<?php echo $this->jjh_order_id;?>"/> 
@@ -55,7 +58,42 @@
 								document.form1.submit();
 							}
 						</script>
-                 </form>    
+                 </form>
+
+                 <?php }elseif($this->PayType == 3){?>
+                      <form name="form1" action="/alipay/pagepay/pagepay.php" target="_blank" method="post">
+                          <input type="hidden" name="WIDout_trade_no" value="<?php echo $this->jjh_order_id;?>"/>
+                          <input type="hidden" name="WIDsubject" value="<?php echo $this->orderinfo['jjh_pm'];?>"/>
+                          <input type="hidden" name="WIDtotal_amount" value="<?php echo $this->orderinfo['Amount'];?>"/>
+                          <input type="hidden" name="WIDbody" value="支付宝支付"/>
+                          <input type="submit" class="jjh_donate_submit_bt1" value="确定" />
+                          <input type="button" class="jjh_donate_submit_bt1" value="重新支付" onclick="window.open('/donate', '_blank')" />
+                          <script>
+                              function onsubmiting(){
+                                  document.charset="gb2312";
+                                  document.form1.submit();
+                              }
+                          </script>
+                      </form>
+                 <?php //}?>
+
+                      <?php }elseif($this->PayType == 4){?>
+                          <form name="form1" action="/wxpay/main/native.php" target="_blank" method="post">
+                              <input type="hidden" name="WIDout_trade_no" value="<?php echo $this->jjh_order_id;?>"/>
+                              <input type="hidden" name="WIDsubject" value="<?php echo $this->orderinfo['jjh_pm'];?>"/>
+                              <input type="hidden" name="WIDtotal_amount" value="<?php echo $this->orderinfo['Amount'];?>"/>
+                              <input type="hidden" name="WIDbody" value="支付宝支付"/>
+                              <input type="submit" class="jjh_donate_submit_bt1" value="确定" />
+                              <input type="button" class="jjh_donate_submit_bt1" value="重新支付" onclick="window.open('/donate', '_blank')" />
+                              <script>
+                                  function onsubmiting(){
+                                      document.charset="gb2312";
+                                      document.form1.submit();
+                                  }
+                              </script>
+                          </form>
+                      <?php }?>
+
                   </div>
               </div>
          </div>

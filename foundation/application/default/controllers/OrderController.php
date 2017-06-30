@@ -70,6 +70,7 @@
 			if($PayType == 2){
 				$this->_redirect("/donate/fangshi");exit;
 			}
+
 			if ( $Amount > 100000){
 				alert_go("感谢您的捐赠，由于捐款数额过大，为了保证安全，请以电汇,转账等方式捐赠。或者咨询校方，电话：0086－22－27403247。","/donate/fangshi");
 			}
@@ -167,6 +168,7 @@
 			$this->view->assign("orderinfo",$orderinfo);
 			$this->view->assign("jjh_order_id",$jjh_order_id);
 			$this->view->assign("jjh_datetime",$jjh_datetime);
+            $this->view->assign("PayType",$PayType);
 			echo $this->view->render("donate/message.phtml");
 		}
 		
