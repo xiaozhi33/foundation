@@ -104,8 +104,35 @@ $controller_name = "donate";
 	<img alt="模式一扫码支付" src="http://paysdk.weixin.qq.com/example/qrcode.php?data=<?php echo urlencode($url1);?>" style="width:150px;height:150px;"/>
 	<br/><br/><br/>-->
 
-<div style="margin-left: 10px;color:#556B2F;font-size:30px;font-weight: bolder;">微信扫描支付</div><br/>
-<img alt="微信扫码支付" src="http://202.113.6.233/wxpay/main/qrcode.php?data=<?php echo urlencode($url2);?>" style="width:150px;height:150px;"/>
+<div style="background-color: #FFFFFF;
+    padding: 50px 0px;
+    border-top: 4px solid #02c801;
+    border-bottom: 4px solid #02c801;" class="center-box">
+
+    <div class="center-box-inner" style="
+    width: 760px;
+    height: 422px;
+    margin: 0 auto;
+    background: url(http://pyedf.tju.edu.cn/foundation/include/default/images/pay_weixin_img01.jpg) right center no-repeat;">
+
+        <div class="left-box" style="width: 300px;">
+            <div class="tit-box">微信支付</div>
+            <div class="code-box" style="border: 1px solid #02c801;">
+                <div class="code-img" id="code_weixin" style="
+                width: 255px;
+                height: 255px;
+                margin: 15px auto;">
+                    <img alt="微信扫码支付" src="http://pyedf.tju.edu.cn/wxpay/main/qrcode.php?data=<?php echo urlencode($url2);?>" style="width:150px;height:150px;"/>
+                </div>
+                <div class="btm-box" style="    background-color: #02c801;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 10px 0px;">请使用微信扫一扫<br>扫描二维码支付</div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
     <div class="jjh_footer">
         版权所有 &copy 天津大学<?php echo $this->websiteinfo[0]['web_copyright'];?> 北洋教育发展基金会   津ICP备05004358号    津教备0316号
