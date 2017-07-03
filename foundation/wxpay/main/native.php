@@ -126,7 +126,7 @@ $controller_name = "donate";
                 width: 255px;
                 height: 255px;
                 margin: 15px auto;">
-                    <img alt="微信扫码支付" src="http://pyedf.tju.edu.cn/wxpay/main/qrcode.php?data=<?php echo urlencode($url2);?>" style="width:150px;height:150px;"/>
+                    <img alt="微信扫码支付" src="http://pyedf.tju.edu.cn/wxpay/main/qrcode.php?data=<?php echo urlencode($url2);?>" style="width:255px;height:255px;"/>
                 </div>
                 <div class="btm-box" style="    background-color: #02c801;
     color: #FFFFFF;
