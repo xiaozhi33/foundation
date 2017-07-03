@@ -120,7 +120,9 @@ $controller_name = "donate";
     width: 100px;
     font-size: 20px;
     margin: 0 auto 10px;
-    padding-left: 40px;">微信支付</div>
+    padding-left: 40px;
+    height: 35px;
+    line-height: 35px;">微信支付</div>
             <div class="code-box" style="border: 1px solid #02c801;">
                 <div class="code-img" id="code_weixin" style="
                 width: 255px;
