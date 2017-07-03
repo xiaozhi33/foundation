@@ -116,7 +116,11 @@ $controller_name = "donate";
     background: url(http://pyedf.tju.edu.cn/include/default/images/pay_weixin_img01.jpg) right center no-repeat;">
 
         <div class="left-box" style="width: 300px;">
-            <div class="tit-box">微信支付</div>
+            <div class="tit-box" style="background: url(http://pyedf.tju.edu.cn/include/default/images/pay_weixin_icon.gif) top left no-repeat;
+    width: 100px;
+    font-size: 20px;
+    margin: 0 auto 10px;
+    padding-left: 40px;">微信支付</div>
             <div class="code-box" style="border: 1px solid #02c801;">
                 <div class="code-img" id="code_weixin" style="
                 width: 255px;
