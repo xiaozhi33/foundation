@@ -161,6 +161,12 @@
                                      已回馈&nbsp;
                                  <?php }if(preg_match("/6/", $v['pm_rate'])){?>
                                      已完结&nbsp;
+                                 <?php }if(preg_match("/7/", $v['pm_rate'])){?>
+                                     待催款&nbsp;
+                                 <?php }if(preg_match("/8/", $v['pm_rate'])){?>
+                                     正常执行&nbsp;
+                                 <?php }if(preg_match("/9/", $v['pm_rate'])){?>
+                                     待结项&nbsp;
                                  <?php }?>
                              </td>
                              <?php if (in_array($this->admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>

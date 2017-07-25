@@ -38,8 +38,16 @@
                                 <label for="opt02">已签约</label>
                             </div>
                             <div class="checkbox check-transparent">
+                                <input type="checkbox" id="opt03" name="rate[]" value="7" <?php if(preg_match("/3/", $this->rate_list_new[0]['pm_rate']))echo 'checked=""';?>>
+                                <label for="opt03">待催款</label>
+                            </div>
+                            <div class="checkbox check-transparent">
                                 <input type="checkbox" id="opt03" name="rate[]" value="3" <?php if(preg_match("/3/", $this->rate_list_new[0]['pm_rate']))echo 'checked=""';?>>
                                 <label for="opt03">已到账</label>
+                            </div>
+                            <div class="checkbox check-transparent">
+                                <input type="checkbox" id="opt03" name="rate[]" value="8" <?php if(preg_match("/3/", $this->rate_list_new[0]['pm_rate']))echo 'checked=""';?>>
+                                <label for="opt03">正常执行</label>
                             </div>
                             <div class="checkbox check-transparent">
                                 <input type="checkbox" id="opt04" name="rate[]" value="4" <?php if(preg_match("/4/", $this->rate_list_new[0]['pm_rate']))echo 'checked=""';?>>
@@ -48,6 +56,10 @@
                             <div class="checkbox check-transparent">
                                 <input type="checkbox" id="opt05" name="rate[]" value="5" <?php if(preg_match("/5/", $this->rate_list_new[0]['pm_rate']))echo 'checked=""';?>>
                                 <label for="opt05">已回馈</label>
+                            </div>
+                            <div class="checkbox check-transparent">
+                                <input type="checkbox" id="opt03" name="rate[]" value="9" <?php if(preg_match("/3/", $this->rate_list_new[0]['pm_rate']))echo 'checked=""';?>>
+                                <label for="opt03">待结项</label>
                             </div>
                             <div class="checkbox check-transparent">
                                 <input type="checkbox" id="opt06" name="rate[]" value="6" <?php if(preg_match("/6/", $this->rate_list_new[0]['pm_rate']))echo 'checked=""';?>>
@@ -61,7 +73,7 @@
                     <div class="form-group form-footer">
 							<div class="col-sm-offset-5 col-sm-7">
 								<input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;
-								<input class="btn btn-default" type="reset" value="重 置" /> 
+								<!--<input class="btn btn-default" type="reset" value="重 置" />-->
 							</div>
 					</div>
 				</form>
