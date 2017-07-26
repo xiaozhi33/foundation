@@ -64,7 +64,7 @@
                                 <option value="" >请选择类型</option>
                                 <?php if($this->rate_config != ""){
                                     foreach ($this->rate_config as $k => $v){?>
-                                        <option value="<?php echo $k?>" ><?php echo $v?></option>
+                                        <option value="<?php echo $k?>" <?php if($_GET['rate[]']==$k){echo 'selected=selected';}?>><?php echo $v?></option>
                                     <?php }}?>
                             </select>
                         </div>
