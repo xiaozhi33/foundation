@@ -43,7 +43,8 @@
                 $chouziinfo->selectLimit = " and pm_qishi_datetime<'$starttime' and pm_jiezhi_datetime>'$endtime'";
             }*/
 
-            $chouziinfo ->selectLimit .= " order by star, id desc";
+            // 按照星级倒序，之后按照创建id倒序
+            $chouziinfo ->selectLimit .= " order by star desc, id desc";
 
             //$chouziinfo ->debugSql =true;
             $chouziinfo = $chouziinfo->get($this->dbhelper);
@@ -58,7 +59,7 @@
 
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("chouzi/index.phtml");
-            echo $this->view->render("index/footer.phtml");
+            //echo $this->view->render("index/footer.phtml");
         }
 
         public function addchouziAction()
@@ -818,13 +819,14 @@
             $star = $_REQUEST['star'];
 
             if(!empty($pm_id)){
-                $pm_infoDAO = $this->orm->createDAO("pm_mg_info");
+                $pm_infoDAO = $this->orm->createDAO("pm_mg_chouzi");
                 $pm_infoDAO ->findId($pm_id);
                 $pm_infoDAO ->star = $star;
                 $pm_infoDAO ->save();
-                alert_go("标星成功", "/management/chouzi");
+
+                echo json_encode(array('status'=>'success','message'=>'标星成功'));exit;
             }else {
-                alert_go("标星失败", "/management/chouzi");
+                echo json_encode(array('status'=>'success','message'=>'标星失败'));exit;
             }
         }
 
