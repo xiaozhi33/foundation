@@ -134,7 +134,10 @@
 					  <?php 
 						foreach($this->chouzilist as $k=>$v){?>
 						 <tr>
-						 	<td><a href="/management/chouzi/pminfo?id=<?php echo $v['id'];?>" target="_blank"><?php echo $v['pname'];?></a>&nbsp;</td>
+						 	<td><a href="/management/chouzi/pminfo?id=<?php echo $v['id'];?>" target="_blank">
+                                <?php if($v['star'] != 0){echo '<font color="red">';}?>    <?php echo $v['pname'];?>
+                                <?php if($v['star'] != 0){echo '</font>';}?>
+                                </a>&nbsp;</td>
                              <td><?php  foreach ($this->pcatelist as $kk => $vv){
                                      if($vv['id'] == $v['cate']){ echo $vv['catename'];}
                                  }?>&nbsp;</td>
@@ -175,6 +178,10 @@
                                         <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
                                     </a>
                                     &nbsp;&nbsp;
+                                    <a href="javascript:void(0);" onclick="add_star(this)" pm_id="<?php echo $this->admininfo['admin_info']['id'];?>">
+                                        <button class="btn btn-greensea margin-bottom-20" type="button">标星</button>
+                                    </a>
+                                    &nbsp;&nbsp;
                                     <a href="/management/zijin/rateinfo/?pm_id=<?php echo $v['id'];?>">
                                         <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
                                     </a>
@@ -211,6 +218,120 @@
 		  </div>
 		</div>
 
+
+        <div class="theme1-popover" style="display: block;">
+            <div class="theme1-poptit">
+                <a href="javascript:void(0);" title="关闭" class="close" id="popover1-close" name="">×</a>
+            </div>
+            <div class="theme1-popbod dform">
+                <form class="theme1-signin form-horizontal" id="add_star" name="add_star" method="post" enctype="multipart/form-data">
+                    <div class="starbox">
+                        <span class="s_name">标星级：</span>
+                        <ul class="star_ul fl">
+                            <li><a class="one-star" title="1" href="#"></a></li>
+                            <li><a class="two-star" title="2" href="#"></a></li>
+                            <li><a class="three-star" title="3" href="#"></a></li>
+                            <li><a class="four-star" title="4" href="#"></a></li>
+                            <li><a class="five-star" title="5" href="#"></a></li>
+                        </ul>
+                        <span class="s_result fl">请标星</span>
+                    </div>
+                    <input id="input_star" type="hidden" name="star" value="0"/>
+                    <input id="input_pm_id" type="hidden" name="pm_id" value=""/>
+                </form>
+            </div>
+        </div>
+
+        <style type="text/css">
+            /*{margin:0;padding:0;list-style-type:none;}
+            a,img{border:0;}
+            body{font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}*/
+            /* starbox */
+            .starbox{width:480px;margin:20px auto;height:30px;}
+            .fl{float:left;display:inline;}
+            .s_name{float:left;display:block;width:60px;text-align:right;}
+            .star_ul{background:url(/include/management/assets/images/star.png) no-repeat 0 -150px;width:132px;z-index:10;position:relative;height:25px;}
+            .star_ul li{float:left;margin-right:1px;width:25px;height:25px;}
+            .star_ul li a{display:block;height:25px;position:absolute;left:0;top:0;text-indent:-999em;}
+            .star_ul li .active-star{background:url(/include/management/assets/images/star.png) no-repeat;}
+            .star_ul li .one-star{width:25px;background-position:0 -120px;z-index:50;}
+            .star_ul li .two-star{width:51px;background-position:0 -90px;z-index:40;}
+            .star_ul li .three-star{width:79px;background-position:0 -60px;z-index:30;}
+            .star_ul li .four-star{width:105px;background-position:0 -30px;z-index:20;}
+            .star_ul li .five-star{width:129px;margin-right:0;background-position:0 0;z-index:10;}
+            .s_result{padding:6px 0 0 5px;}
+        </style>
+
+
         <script language="javascript">
             $(".menu li:eq(18)").addClass("open");
+
+            // 标星
+            $(function(){
+
+                $('.star_ul a').hover(function(){
+                    $(this).addClass('active-star');
+                    $('.s_result').css('color','#c00').html($(this).attr('title'))
+                },function(){
+                    $(this).removeClass('active-star');
+                    $('.s_result').css('color','#333').html('请打分')
+                });
+
+                $('.star_ul a').click(function(){
+                    alert($('.s_result').html());
+                });
+
+            })
+
+
+            jQuery(document).ready(function($) {
+                // 消息提示框
+                $('.theme-poptit .close').click(function(){
+                    $('.theme-popover-mask').fadeOut(100);
+                    $('.theme-popover').slideUp(200);
+                    if($('#popover-close').attr("name") != '') {
+                        location.href = $('#popover-close').attr("name");
+                    }
+                });
+
+                // 添加人员信息
+                $('#addstar').click(function(){
+                    $('.theme1-popover').show();
+                });
+                $('.theme1-poptit .close').click(function(){
+                    $('.theme1-popover-mask').fadeOut(100);
+                    $('.theme1-popover').slideUp(200);
+                });
+            });
+
+            function add_star(obj){
+                var formParam = $("#add_star").serialize();//序列化表格内容为字符串
+
+                var thisObj=${obj};
+                var userId=thsiObj.attr("userId");
+
+                $.ajax({
+                    type:'post',
+                    url: '/management/chouzi/ajaxaddstar',
+                    data:formParam,
+                    cache:false,
+                    dataType:'json',
+                    success:function(data){
+                        if(data['status'] == 'error'){
+                            alert(data['message']);
+                        }else if(data['status'] == 'success'){
+                            // 加载新数据
+                            parent.location.reload();
+                        }
+                    },
+                    complete:function(data){
+
+                    },
+                    error:function(data){
+                        //console.log(data);
+                        alert('添加失败！');
+                    }
+                });
+            }
+
         </script>

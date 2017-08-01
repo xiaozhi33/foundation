@@ -43,7 +43,7 @@
                 $chouziinfo->selectLimit = " and pm_qishi_datetime<'$starttime' and pm_jiezhi_datetime>'$endtime'";
             }*/
 
-            $chouziinfo ->selectLimit .= " order by id desc";
+            $chouziinfo ->selectLimit .= " order by star, id desc";
 
             //$chouziinfo ->debugSql =true;
             $chouziinfo = $chouziinfo->get($this->dbhelper);
@@ -808,6 +808,26 @@
             $this->view->assign("chouzi_lists",$chouziDAO);
 		}
 
+        /**
+         * function star
+         * action ajax
+         */
+        public function ajaxaddstarAction()
+        {
+            $pm_id = $_REQUEST['pm_id'];
+            $star = $_REQUEST['star'];
+
+            if(!empty($pm_id)){
+                $pm_infoDAO = $this->orm->createDAO("pm_mg_info");
+                $pm_infoDAO ->findId($pm_id);
+                $pm_infoDAO ->star = $star;
+                $pm_infoDAO ->save();
+                alert_go("标星成功", "/management/chouzi");
+            }else {
+                alert_go("标星失败", "/management/chouzi");
+            }
+        }
+
         //权限
         public function acl()
         {
@@ -823,6 +843,7 @@
                 'pminfo',
                 'getdepartment',
                 'getcate',
+                'ajaxaddstar',
             );
             if (in_array($action, $except_actions)) {
                 return;
