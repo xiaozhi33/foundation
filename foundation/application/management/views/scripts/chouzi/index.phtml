@@ -121,8 +121,9 @@
 					 <thead>
 					  <tr>
 						<td width="24%">项目名称</td>
-                        <td width="20%">项目类型</td>
-                        <td width="18%">项目进度</td>
+                        <td width="18%">项目类型</td>
+                        <td width="14%">项目进度</td>
+                        <td width="14%">星级</td>
 						<!--<td width="12%">部门名称</td><td width="18%">项目签约日期</td>
 						<td width="13%">协议捐赠金额</td>-->
                           <?php if (in_array($this->admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
@@ -187,10 +188,23 @@
                                     </a>
                                     &nbsp;&nbsp;
                                     <a href="#" onclick="alert('对不起，项目清单不提供删除功能，请联系管理员');">
-                                        <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
+                                       <!-- <button class="btn btn-danger margin-bottom-20" type="button">删除</button>-->
                                     </a>
                                 </td>
                              <?php }?>
+
+                             <td>
+                                 <div class="starbox">
+                                     <ul class="star_ul fl">
+                                         <li><a class="one-star1 <?php if($v['star'] == 1)echo 'active-star';?>" title="1" href="#"></a></li>
+                                         <li><a class="two-star1 <?php if($v['star'] == 2)echo 'active-star';?>" title="2" href="#"></a></li>
+                                         <li><a class="three-star1 <?php if($v['star'] == 3)echo 'active-star';?>" title="3" href="#"></a></li>
+                                         <li><a class="four-star1 <?php if($v['star'] == 4)echo 'active-star';?>" title="4" href="#"></a></li>
+                                         <li><a class="five-star1 <?php if($v['star'] == 5)echo 'active-star';?>" title="5" href="#"></a></li>
+                                     </ul>
+                                     <!--<span class="s_result fl">请标星</span>-->
+                                 </div>
+                             </td>
 						 </tr>
 					   <?php }?>
                      </tbody>
@@ -258,7 +272,14 @@
             .star_ul li .two-star{width:51px;background-position:0 -90px;z-index:40;}
             .star_ul li .three-star{width:79px;background-position:0 -60px;z-index:30;}
             .star_ul li .four-star{width:105px;background-position:0 -30px;z-index:20;}
-            .star_ul li .five-star{width:129px;margin-right:0;background-position:0 0;z-index:10;}
+            .star_ul li .five-star{width:129px;margin-right:0;background-position:0 0;z-index:10;
+
+            .star_ul li .one-star1{width:25px;background-position:0 -120px;z-index:50;}
+            .star_ul li .two-star1{width:51px;background-position:0 -90px;z-index:40;}
+            .star_ul li .three-star1{width:79px;background-position:0 -60px;z-index:30;}
+            .star_ul li .four-star1{width:105px;background-position:0 -30px;z-index:20;}
+            .star_ul li .five-star1{width:129px;margin-right:0;background-position:0 0;z-index:10;}
+
             .s_result{padding:6px 0 0 5px;}
         </style>
 
