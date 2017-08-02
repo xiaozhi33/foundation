@@ -173,6 +173,20 @@
                                      待结项&nbsp;
                                  <?php }?>
                              </td>
+
+                             <td>
+                                 <div class="starbox">
+                                     <span class="s_name">请标星：</span>
+                                     <ul class="star_ul fl">
+                                         <li><a class="one-star1 <?php if($v['star'] == 1)echo 'active-star';?>" title="1" href="#"></a></li>
+                                         <li><a class="two-star1 <?php if($v['star'] == 2)echo 'active-star';?>" title="2" href="#"></a></li>
+                                         <li><a class="three-star1 <?php if($v['star'] == 3)echo 'active-star';?>" title="3" href="#"></a></li>
+                                         <li><a class="four-star1 <?php if($v['star'] == 4)echo 'active-star';?>" title="4" href="#"></a></li>
+                                         <li><a class="five-star1 <?php if($v['star'] == 5)echo 'active-star';?>" title="5" href="#"></a></li>
+                                     </ul>
+                                 </div>
+                             </td>
+
                              <?php if (in_array($this->admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
                                 <td>
                                     <a href="/management/chouzi/editchouzi?id=<?php echo $v['id'];?>">
@@ -192,19 +206,6 @@
                                     </a>
                                 </td>
                              <?php }?>
-
-                             <td>
-                                 <div class="starbox">
-                                     <ul class="star_ul fl">
-                                         <li><a class="one-star1 <?php if($v['star'] == 1)echo 'active-star';?>" title="1" href="#"></a></li>
-                                         <li><a class="two-star1 <?php if($v['star'] == 2)echo 'active-star';?>" title="2" href="#"></a></li>
-                                         <li><a class="three-star1 <?php if($v['star'] == 3)echo 'active-star';?>" title="3" href="#"></a></li>
-                                         <li><a class="four-star1 <?php if($v['star'] == 4)echo 'active-star';?>" title="4" href="#"></a></li>
-                                         <li><a class="five-star1 <?php if($v['star'] == 5)echo 'active-star';?>" title="5" href="#"></a></li>
-                                     </ul>
-                                     <!--<span class="s_result fl">请标星</span>-->
-                                 </div>
-                             </td>
 						 </tr>
 					   <?php }?>
                      </tbody>
