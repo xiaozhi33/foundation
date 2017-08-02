@@ -348,6 +348,13 @@
                     $('.theme1-popover').fadeOut(100);
                     ajaxaddstar();
                 });
+
+                //取消标星
+                $('.s_result a').click(function(){
+                    $('#input_star').val($(this).attr('title'));
+                    $('.theme1-popover').fadeOut(100);
+                    ajaxaddstar();
+                });
             })
 
 
