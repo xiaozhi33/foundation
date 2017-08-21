@@ -52,7 +52,7 @@ class Management_userController extends BaseController
 		$admininfo = SessionUtil::getAdmininfo();
         //$this->admininfo = $admininfo['admin_info'];
 			
-		$name = $admininfo['admin_id'];
+		echo $name = $admininfo['admin_id'];exit;
 		$pwd = $_REQUEST['pwd'];
 		
 		if($name !="" && $pwd != ""){
