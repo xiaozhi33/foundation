@@ -60,9 +60,9 @@ class Management_userController extends BaseController
 			$my_admin = new my_adminDAO($name);
 			$my_admin ->admin_pwd = substr(md5(serialize($pwd)), 0, 32);
 			$my_admin ->save($this->dbhelper);
-			alert_go_old("密码修改成功","/management/user/editpwd");
+			$this->alert_go("密码修改成功","/management/user/editpwd");
 		}else{
-			alert_back_old("请输入管理员名称或密码");
+			$this->alert_back("请输入管理员名称或密码");
 		}
 	}
 	
