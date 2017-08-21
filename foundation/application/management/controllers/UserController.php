@@ -39,6 +39,20 @@ class Management_userController extends BaseController
             throw $e;
         }
     }
+	
+	//权限
+	public function acl()
+	{
+		$action = $this->getRequest()->getActionName();
+		$except_actions = array(
+			'index',
+		);
+		if (in_array($action, $except_actions)) {
+			return;
+		}
+		parent::acl();
+	}
+		
     public function _init(){
         //error_reporting(0);
         SessionUtil::sessionStart();
