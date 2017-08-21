@@ -57,6 +57,15 @@
 				return FALSE;
 			}
 		}
+		
+		public function _init(){
+			$this ->dbhelper = new DBHelper();
+			$this ->dbhelper ->connect();
+			SessionUtil::sessionStart();
+			SessionUtil::checkmanagement();
+            $this->admininfo = SessionUtil::getAdmininfo();
+            $this->view->assign("admininfo",$this->admininfo);
+		}
 
 		//权限
 		public function acl() {
