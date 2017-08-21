@@ -2,6 +2,7 @@
 require_once("BaseController.php");
 class Management_userController extends BaseController
 {
+	public $dbhelper;
     /**
      * @用户首页 - 任务一览，消息一览
      */
@@ -52,7 +53,7 @@ class Management_userController extends BaseController
 		$admininfo = SessionUtil::getAdmininfo();
         //$this->admininfo = $admininfo['admin_info'];
 			
-		echo $name = $admininfo['admin_id'];exit;
+		$name = $admininfo['admin_id'];
 		$pwd = $_REQUEST['pwd'];
 		
 		if($name !="" && $pwd != ""){
@@ -81,6 +82,8 @@ class Management_userController extends BaseController
 	}
 		
     public function _init(){
+		$this ->dbhelper = new DBHelper();
+		$this ->dbhelper ->connect();
         //error_reporting(0);
         SessionUtil::sessionStart();
         SessionUtil::checkmanagement();
