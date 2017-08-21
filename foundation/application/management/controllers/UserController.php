@@ -40,12 +40,39 @@ class Management_userController extends BaseController
         }
     }
 	
+	public function editpwdAction()
+	{
+		echo $this->view->render("index/header.phtml");
+		echo $this->view->render("user/editpwd.phtml");
+		echo $this->view->render("index/footer.phtml");
+	}
+	
+	
+	public function editrspwdAction(){
+		$admininfo = SessionUtil::getAdmininfo();
+        //$this->admininfo = $admininfo['admin_info'];
+			
+		$name = $admininfo['admin_info']['admin_id'];
+		$pwd = $_REQUEST['pwd'];
+		
+		if($name !="" && $pwd != ""){
+			$my_admin = new my_adminDAO($name);
+			$my_admin ->admin_pwd = substr(md5(serialize($pwd)), 0, 32);
+			$my_admin ->save($this->dbhelper);
+			alert_go("密码修改成功","/management/user/editpwd");
+		}else{
+			alert_back("请输入管理员名称或密码");
+		}
+	}
+	
 	//权限
 	public function acl()
 	{
 		$action = $this->getRequest()->getActionName();
 		$except_actions = array(
 			'index',
+			'editpwd',
+			'editrspwd'
 		);
 		if (in_array($action, $except_actions)) {
 			return;
