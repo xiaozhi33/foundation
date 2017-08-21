@@ -52,9 +52,8 @@ class Management_userController extends BaseController
 	public function editrspwdAction(){
 		$admininfo = SessionUtil::getAdmininfo();
         //$this->admininfo = $admininfo['admin_info'];
-			
-			var_dump($admininfo);exit;
-		$name = $admininfo['admin_id'];
+
+		$name = $admininfo['admin_info']['id'];
 		$pwd = $_REQUEST['pwd'];
 		
 		if($name !="" && $pwd != ""){
