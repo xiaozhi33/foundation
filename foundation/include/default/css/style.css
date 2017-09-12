@@ -190,7 +190,7 @@ padding-bottom:6px;
 .jjh_sub_topimg{ width:165px; height:89px; float:none; margin:7px 7px 0px;}
 .jjh_sub_nav_tit{ position:absolute; right:0px; top:96px; background:url(../images/left_navbg.jpg) no-repeat; width:204px; height:42px; }
 .jjh_sub_nav_tit span{ text-align:left; font-size:14px; color:#fff; font-weight:bold; padding:5px 0px 0px 35px; float:left;}
-.jjh_sub_nav_con{ width:165px; float:none; margin:7px; background:#fff url(../images/leftnavconbg.jpg) no-repeat left bottom; height:240px; }
+.jjh_sub_nav_con{ width:165px; float:none; margin:7px; background:#fff url(../images/leftnavconbg.jpg) no-repeat left bottom; height:255px; }
 .jjh_sub_nav_con ul{ margin:0px; padding:0px; list-style:none; float:none; margin:42px 0px 5px 6px;}
 .jjh_sub_nav_con ul li{ list-style:none; margin:0px; background:url(../images/leftiocn.jpg) no-repeat left top; float:none; padding:4px 0px 0px 12px; height:20px;}
 .jjh_sub_nav_con ul li span{ color:#901823; font-weight:bold;}
