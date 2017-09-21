@@ -1030,7 +1030,7 @@
                 'savebindingclaim',
                 'del-claim',
                 'ajaxgetzwxm',
-                'ajaxgetzwbn',
+                'ajaxgetzwbm',
                 'editrsrate',
                 'syncsign',
                 'signinfo',
