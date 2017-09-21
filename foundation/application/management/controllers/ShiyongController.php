@@ -290,7 +290,7 @@
                     if($islog){   // 判断是否已经存在同步记录
                         $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
                         $pm_mg_infoDAO ->cate_id = 0;
-                        $pm_mg_infoDAO ->pm_pp_company = $value["fkdw"];              // 付款单位
+                        $pm_mg_infoDAO ->pm_pp = $value["fkdw"];              // 付款单位
                         $pm_mg_infoDAO ->zijin_daozhang_datetime = $value["lkrq"];  //  来款日期
                         $pm_mg_infoDAO ->zijin_daozheng_jiner = $value["je"];        // 金额
                         //$pm_mg_infoDAO ->pm_pp_company = $value["lrrq"];              // 付款单位
