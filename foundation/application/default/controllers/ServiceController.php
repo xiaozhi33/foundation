@@ -6,6 +6,8 @@
 	class serviceController extends BaseController {
 		private $dbhelper;
 		public function indexAction(){
+			header('Location:/service/guide1');
+			exit;
 			$survey_info = new jjh_surveyDAO(10);
 			$survey_info = $survey_info ->get($this->dbhelper);
 			$this->view->assign("info",$survey_info);
