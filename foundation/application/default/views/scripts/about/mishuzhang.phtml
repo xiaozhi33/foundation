@@ -1,0 +1,24 @@
+<?= $this->partial("common/header.phtml");?>
+<div class="jjh_content_sub" style="height:480px;">
+         <div class="jjh_content_sub_left">
+              <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/about_top_img.jpg" /></div>
+              <div class="jjh_sub_nav_tit"><span>基金会概况</span></div>
+              <div class="jjh_sub_nav_con">
+                   <ul>
+                      <li><a href="/about">基金会简介</a></li>
+                      <li><a href="/about/lingdaotici">领导致辞</a></li>
+                      <li><a href="/about/zhangcheng">基金会章程</a></li>
+                      <li><a href="/about/zuzhi">组织机构设置</a></li>
+					  <li><a href="/about/mishuzhang"><span>秘书长简历</span></a></li>
+                      <li><a href="/about/baogao">年度报告</a></li>
+                      <li><a href="/about/caiwushenji">财务审计报告</a></li>
+                      <li><a href="/about/guanlizhidu">项目管理制度</a></li>
+                   </ul>
+              </div>
+         </div>
+         <div class="jjh_content_sub_right">
+              <div class="jjh_sub_con_tit"><em>秘书长简历</em><span>当前位置：<a href="/about">基金会概况</a> > 秘书长简历</span></div>
+         <?php echo $this->info[0]['content'];?>
+         </div>
+     </div>
+<?= $this->partial('common/footer.phtml'); ?>   
