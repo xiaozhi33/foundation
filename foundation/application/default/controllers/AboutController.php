@@ -73,6 +73,13 @@
 			echo $this->view->render("about/guanlizhidu.phtml");
 		}
 
+		public function mishuzhangAction(){
+			$survey_info = new jjh_surveyDAO(16);
+			$survey_info = $survey_info ->get($this->dbhelper);
+			$this->view->assign("info",$survey_info);
+			echo $this->view->render("about/mishuzhang.phtml");
+		}
+
 		public function _init(){
 			$this->dbhelper = new DBHelper();
 			$this->dbhelper ->connect();
