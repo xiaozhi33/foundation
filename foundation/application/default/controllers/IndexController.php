@@ -36,7 +36,7 @@
 			
 			//最新捐赠
 			$juanzeng = new jjh_juanzeng_infoDAO();
-			$juanzeng ->selectLimit = "  order by jjh_juanzeng_datetime desc limit 0,6";
+			$juanzeng ->selectLimit = "  and is_renling=1 order by jjh_juanzeng_datetime desc limit 0,6";
 			$juanzenglist = $juanzeng ->get($this->dbhelper);
 			$this->view->assign("juanzenglist",$juanzenglist);
 			
