@@ -66,7 +66,7 @@
 			
 			//new最新捐赠
 			$zizhuinfo = new pm_mg_infoDAO();
-			$zizhuinfo ->selectLimit = " and zijin_daozheng_jiner != '' order by zijin_daozhang_datetime desc limit 0,6";
+			$zizhuinfo ->selectLimit = " and is_renling=1 and zijin_daozheng_jiner != '' order by zijin_daozhang_datetime desc limit 0,6";
 			$zizhuinfo = $zizhuinfo ->get($this->dbhelper);
 			$this->view->assign("zizhuinfo",$zizhuinfo);
 			
