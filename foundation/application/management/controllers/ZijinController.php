@@ -542,7 +542,7 @@
 
             // 取得项目的部门信息
             $pm_mg_chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
-            $pm_mg_chouziDAO ->findPm_id($pm_id);
+            $pm_mg_chouziDAO ->findId($pm_id);
             $pm_mg_chouziDAO = $pm_mg_chouziDAO->get();
 
             $zw_pm_relatedDAO[0]['department'] = $pm_mg_chouziDAO[0]['department'];
