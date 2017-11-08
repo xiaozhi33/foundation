@@ -231,6 +231,10 @@
                             //$("#department").val(data.department);
                             $("#department option[value='"+data.department+"']").attr("selected","selected");
                             $("#department").chosen();
+
+                            $("#dialogOLanguage").trigger("liszt:updated");
+                            $("#dialogOLanguage").trigger("liszt:updated");
+
                         }else {
                             $("#zw_xmbh").attr("value","");
                             $("#zw_xmbh").val("");
