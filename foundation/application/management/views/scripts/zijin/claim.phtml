@@ -228,7 +228,9 @@
                             $("#zw_xmmc").val(data.zw_xmmc);
 
                             //关联部门
-                            $("#department").val(data.department);
+                            //$("#department").val(data.department);
+                            $("#department option[value='"+data.department+"']").attr("selected","selected");
+                            $("#department").chosen();
                         }else {
                             $("#zw_xmbh").attr("value","");
                             $("#zw_xmbh").val("");
