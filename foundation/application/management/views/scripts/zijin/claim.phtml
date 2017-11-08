@@ -235,6 +235,8 @@
                             $("#department").trigger("liszt:updated");
                             $("#department").trigger("chosen:updated");
 
+                            GetZWbm(data.department);
+
                         }else {
                             $("#zw_xmbh").attr("value","");
                             $("#zw_xmbh").val("");
