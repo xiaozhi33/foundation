@@ -221,11 +221,11 @@
 		{
             $time_str = "";
 			// 同步财务支出（使用）信息
-			$zwpzflDAO = new CW_API();
-			$zwpzfl_list = $zwpzflDAO ->getzwpzfl($time_str); // $time_str 上次同步最大时间
+			//$zwpzflDAO = new CW_API();
+			//$zwpzfl_list = $zwpzflDAO ->getzwpzfl($time_str); // $time_str 上次同步最大时间
 
 			// 遍历循环插入zw_mg_pzfl_log表中
-			foreach($zwpzfl_list as $k => $v){
+			/*foreach($zwpzfl_list as $k => $v){
 				$lk = $this->islkrl($v['lsh']);  // 判断是否重复添加
 
 				if(empty($lk)){
@@ -243,7 +243,7 @@
 				}
 			}
 
-			$this->synclkrl();  // 同步财务系统来款数据
+			$this->synclkrl();  // 同步财务系统来款数据*/
 
 			$keywords = HttpUtil::getString("pm_name");
 			$is_renling = HttpUtil::getString("is_renling");
@@ -351,8 +351,9 @@
 				$rlpznm = "";            // 认领凭证内码
 				$czy = "admin";                                     // 操作员
 
-				$zw_lkrlDAO = new CW_API();
-				$rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $ispz, $rlpznm, $czy);
+				/*$zw_lkrlDAO = new CW_API();
+				$rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $ispz, $rlpznm, $czy);*/
+				$rs = ture;
 				if($rs){
 					// 更新项目来款表
 					$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");

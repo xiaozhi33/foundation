@@ -332,11 +332,11 @@
         public function claimlistAction()
         {
             // 同步财务来款信息
-            $zw_lkglDAO = new CW_API();
-            $lkgl_list = $zw_lkglDAO ->getlkgl();
+            //$zw_lkglDAO = new CW_API();
+            //$lkgl_list = $zw_lkglDAO ->getlkgl();
 
             // 遍历循环插入lkrl_log表中
-            foreach($lkgl_list as $k => $v){
+            /*foreach($lkgl_list as $k => $v){
                 $lk = $this->islkrl($v['lsh']);  // 判断是否重复添加
 
                 if(empty($lk[0]['lsh'])){
@@ -354,7 +354,7 @@
                 }
             }
 
-            $this->synclkrl();  // 同步财务系统来款数据
+            $this->synclkrl();  // 同步财务系统来款数据*/
 
             $keywords = HttpUtil::getString("pm_name");
             $is_renling = HttpUtil::getString("is_renling");
@@ -433,8 +433,9 @@
                 $rlpznm = "";            // 认领凭证内码
                 $czy = "admin";                                     // 操作员
 
-                $zw_lkrlDAO = new CW_API();
-                $rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $ispz, $rlpznm, $czy);
+                /*$zw_lkrlDAO = new CW_API();
+                $rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $ispz, $rlpznm, $czy);*/
+                $rs = ture;
                 if($rs){
                     // 更新项目来款表
                     $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
@@ -1032,6 +1033,7 @@
         {
             $action = $this->getRequest()->getActionName();
             $except_actions = array(
+                'index',
                 'addrszijin',
                 'editrszijin',
                 'savebindingclaim',

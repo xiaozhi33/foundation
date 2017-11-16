@@ -543,9 +543,12 @@
                             <?php
                             foreach($this->signDAO as $k=>$v){?>
                                 <tr>
+
                                    <!-- <td><?php /*echo $v['pname'];*/?>&nbsp;</td>-->
                                     <td><?php echo date("Y-m-d",strtotime($v['sign_time']));?></td>
+
                                     <td>
+                                        <?php if(!empty($v['sign_files_name'])){?>
                                         <!--<a href="<?php /*echo $v['sign_files'];*/?>">-->
                                         <a href="/management/zijin/download?id=<?php echo $v['id'];?>">
                                             >>点击下载 <?php if(!empty($v['sign_files_name'])){
@@ -553,7 +556,12 @@
                                             }elseif(!empty($v['sign_files'])){
                                                 echo "协议文件";
                                             }?>
-                                        </a></td>
+                                        </a>
+                                        <?php }else {
+                                            echo '无';
+                                        }?>
+                                    </td>
+
                                     <td><?php if(!empty($v['xyje'])){echo $v['xyje'];}else{echo "--";}?></td>
                                 </tr>
                             <?php }?>
@@ -592,7 +600,11 @@
                                 </tr>
                                 <?php foreach($this->zhichuinfo as $key => $value){?>
                                     <tr>
-                                        <td><?php echo $value['parent_pm_name'];?></td>
+                                        <td><?php if(!empty($value['parent_pm_name'])){
+                                                echo $value['parent_pm_name'];
+                                            }else{
+                                                echo '无';
+                                            }?></td>
                                         <!--<td><?php /*echo $value['pm_name'];*/?></td>-->
 
                                         <td><?php echo $value['zijin_daozhang_datetime'];?></td>
@@ -623,7 +635,7 @@
                             <tr>
                                 <td>来款合计</td>
                                 <td>支出合计</td>
-                                <td>余额</td>
+                                <td>实际余额</td>
                             </tr>
                             <tr>
                                 <td><?php echo $this->shouru;?></td>
@@ -663,10 +675,26 @@
                                         <?php echo $v['feedback_type'];?>
                                     </td>
                                     <td>
-                                        <?php echo $v['feedbacker'];?>
+                                        <?php
+                                        if($v['feedbacker'] != ""){
+                                            $_pm_fzr = explode(',',$v['feedbacker']);
+                                            foreach($_pm_fzr as $key => $value){
+                                                echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                            }
+                                        }
+                                        ?>
+                                        <?php //echo $v['feedbacker'];?>
                                     </td>
                                     <td>
-                                        <?php echo $v['jbr'];?>
+                                        <?php
+                                        if($v['jbr'] != ""){
+                                            $_pm_fzr = explode(',',$v['jbr']);
+                                            foreach($_pm_fzr as $key => $value){
+                                                echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                            }
+                                        }
+                                        ?>
+                                        <?php //echo $v['jbr'];?>
                                     </td>
                                 </tr>
                             <?php }?>

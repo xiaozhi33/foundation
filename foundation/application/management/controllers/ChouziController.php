@@ -215,7 +215,8 @@
                 }
 
                 // 同步财务系统项目信息
-                $pmDAO = new CW_API();
+                ////////////////////////////////////////////////////////////////////////////////////////
+                /*$pmDAO = new CW_API();
                 $rs1 = $pmDAO ->get_max_xmnmID();
                 $rs_1 = $pmDAO ->get_max_xmnm_copyID();
                 $xmnm = (int)$rs1[0]['xmnm'] + 1;
@@ -223,7 +224,8 @@
                 if($xmnm_copy > $xmnm) $xmnm = $xmnm_copy;  // 如果临时表的最大值大，取临时表
 
                 $rs2 = $pmDAO ->get_max_xmbhID();
-                $xmbh = (int)$rs2[0]['xmbh'] + 1;
+                $xmbh = (int)$rs2[0]['xmbh'] + 1;*/
+                ////////////////////////////////////////////////////////////////////////////////////////
 
                 if(empty($pid) || (int)$pid == 0){   // 只有父类项目同步到财务系统
                     // 获取对应部门信息
@@ -235,8 +237,11 @@
                         alert("没有找到对应的财务部门信息，请联系管理员！或添加对应关系！");
                     }
 
-                    $zwxmzdDAO = new CW_API();
-                    $rs = $zwxmzdDAO ->sync_pm('000'.$xmnm, $xmbh, $pname, $zw_department_related[0]['zw_bmbh']);
+                    // 同步财务系统项目信息
+                    ////////////////////////////////////////////////////////////////////////////////////////
+                    /*$zwxmzdDAO = new CW_API();
+                    $rs = $zwxmzdDAO ->sync_pm('000'.$xmnm, $xmbh, $pname, $zw_department_related[0]['zw_bmbh']);*/
+                    ////////////////////////////////////////////////////////////////////////////////////////
                 }
 
                 $_pid = $pm_chouziDAO->save();   // $_pid 项目系统pm_id
