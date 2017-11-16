@@ -65,6 +65,75 @@ class Management_userController extends BaseController
 			$this->alert_back("请输入管理员名称或密码");
 		}
 	}
+
+	///////////////////// 用户头像编辑 ///////////////////////////////////////////////////////////////////
+
+	public function editheadimgAction(){
+		// 预加载用户头像
+		$admininfo = SessionUtil::getAdmininfo();
+		$my_admin = $this->orm->createDAO('my_admin');
+		$my_admin ->findId($admininfo['admin_info']['id']);
+		$my_admin = $my_admin ->get();
+		$this->view->assign("my_admin", $my_admin[0]);
+
+		echo $this->view->render("index/header.phtml");
+		echo $this->view->render("user/editheadimg.phtml");
+	}
+
+	public function saveheadimgAction(){
+		if($_POST['headpic'] == null){
+			$this->alert_go("请先上传，并剪裁图片！","/management/user/editheadimg");
+		}
+		$admininfo = SessionUtil::getAdmininfo();
+		$id['id'] = $admininfo['admin_info']['id'];   // 用户id
+		$data =array(
+			'face' => $_POST['headpic'],
+		);
+		//处理用户裁剪的图片
+		if($data['face']){
+			$face = $this->SaveFormUpload($id['id'], $data['face']);
+			if($face['error']){
+				$this->alert_back($face['msg']);
+			}
+			$data['face']= $face['url'];
+		}else{
+			unset($data['face']);
+		}
+
+		$my_admin = $this->orm->createDAO('my_admin');
+		$my_admin ->findId($admininfo['admin_info']['id']);
+		$my_admin ->headimg = $face['url'];
+		try{
+			$my_admin ->save();
+		}catch(Exception $e){
+			$this->alert_go("修改失败".'-'.$e,"/management/user/editheadimg");
+		}
+		$this->alert_go("修改成功","/management/user/editheadimg");
+	}
+
+	function SaveFormUpload($savepath, $img, $types=array())
+	{
+		$basedir = '/include/upload_file/headimg/'.$savepath;
+		$fullpath = dirname(THINK_PATH).$basedir;
+		if(!is_dir($fullpath)){
+			mkdir($fullpath,0777,true);
+		}
+		$types = empty($types)? array('jpg', 'gif', 'png', 'jpeg'):$types;
+		$img = str_replace(array('_','-'), array('/','+'), $img);
+		$b64img = substr($img, 0,100);
+		if(preg_match('/^(data:\s*image\/(\w+);base64,)/', $b64img, $matches)){
+			$type = $matches[2];
+			if(!in_array($type, $types)){
+				return array('error'=>1,'msg'=>'图片格式不正确','url'=>'');
+			}
+			$img = str_replace($matches[1], '', $img);
+			$img = base64_decode($img);
+			$photo = '/'.md5(date('YmdHis').rand(1000, 9999)).'.'.$type;
+			file_put_contents($fullpath.$photo, $img);
+			return array('error'=>0,'msg'=>'保存图片成功','url'=>$basedir.$photo);
+		}
+		return array('error'=>2,'msg'=>'请选择要上传的图片','url'=>'');
+	}
 	
 	//权限
 	public function acl()
@@ -73,7 +142,9 @@ class Management_userController extends BaseController
 		$except_actions = array(
 			'index',
 			'editpwd',
-			'editrspwd'
+			'editrspwd',
+			'editheadimg',  // 头像上传
+			'saveheadimg',
 		);
 		if (in_array($action, $except_actions)) {
 			return;

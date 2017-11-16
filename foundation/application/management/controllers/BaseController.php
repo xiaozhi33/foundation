@@ -65,7 +65,11 @@
             $this->shiyong_weirenling_list = $shiyong_weirenling_list = $this->orm->createDAO("pm_mg_info")->findCate_id("1")->findIs_renling("0")->get();
 
             $admininfo = SessionUtil::getAdmininfo();
-            $this->admininfo = $admininfo['admin_info'];
+            //$this->admininfo = $admininfo['admin_info'];
+            $my_adminDAO = $this->orm->createDAO('my_admin');
+            $my_adminDAO ->findId($admininfo['admin_info']['id']);
+            $my_adminDAO = $my_adminDAO->get();
+            $admininfo = $my_adminDAO[0];
 
             //捐赠项目金额
             $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findCate_id(0)->select(" sum(zijin_daozheng_jiner) as allsum")->get();

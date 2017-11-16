@@ -298,7 +298,7 @@
 
               <li class="dropdown divided user" id="current-user">
                 <div class="profile-photo">
-                  <img src="/include/management/assets/images/profile-photo.jpg" alt />
+                  <img src="<?php if($this->admininfo['headimg']!=''){echo $this->admininfo['headimg'];}else{?>/include/management/assets/images/profile-photo.jpg<?php }?>"  alt />
                 </div>
                 <a class="dropdown-toggle options" data-toggle="dropdown" href="#">
                  <?php $admininfo = SessionUtil::getAdmininfo();print_r($admininfo['admin_name']);?> <i class="fa fa-caret-down"></i>
