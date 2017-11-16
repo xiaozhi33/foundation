@@ -447,7 +447,8 @@
                     $pm_mg_infoDAO ->piaoju_fph = $_REQUEST["piaoju_fph"];    // 发票号
 
                     $pm_mg_infoDAO ->cate_id = 0;   // 类型 0资金 1使用
-                    $pm_mg_infoDAO ->pm_name = $_REQUEST['zw_xmmc'];   // 类型 0资金 1使用
+                    //$pm_mg_infoDAO ->pm_name = $_REQUEST['zw_xmmc'];   // 来款项目名称 以项目管理系统名称为准
+                    $pm_mg_infoDAO ->pm_name = $pm_relateDAO[0]['pm_name'];   // 来款项目名称 以项目管理系统名称为准
                     $pm_mg_infoDAO ->pm_pp = HttpUtil::postString("pm_pp");   // 付款单位
                     $pm_mg_infoDAO ->pm_pp_cate = HttpUtil::postString("pm_pp_cate");   // 捐赠者类型 基金会/企业/校友/社会人士
                     $pm_mg_infoDAO ->zijin_laiyuan_qudao = HttpUtil::postString("zijin_laiyuan_qudao");   // 渠道 境内 境外
