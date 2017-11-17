@@ -1,0 +1,113 @@
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>个人中心</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>个人中心</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+        <div class="col-md-12">
+            <section class="tile color transparent-white">
+                <div class="detailedbox tile-body">
+                    <div><h3>基本信息</h3></div>
+                    <div>
+                        <img src="<?php echo $this->admininfo['headimg'];?>" alt/>
+                        <a href="/management/user/editheadimg">上传头像</a>
+                        支持JPG，PNG等格式的图片，且小于2M
+                        <div><?php echo $this->admininfo['admin_name'];?></div>
+                        <div></div>
+                    </div>
+
+                    <h3>修改个人信息 >></h3>
+
+                    <div>用户名：</div><div>隔壁老王</div>
+                    <div>性  别：</div><div>男</div>
+                    <div>邮  箱：</div><div>xxxxx@xxx.com</div>
+                    <div>电  话：</div><div>13378682737</div>
+                    <div>微  信：</div><div>jdutyyyo</div>
+                    <button>保存</button>
+                </div>
+            </section>
+        </div>
+
+
+        <div  class="col-md-6">
+            <!-- tile -->
+            <section class="tile color transparent-white">
+                <!-- tile header -->
+                <div class="tile-header">
+                    <h1>消息提示<strong>Message prompt</strong>             查看全部消息>> </h1>
+                    <!--<div class="search">
+                        <input type="text" placeholder="Search...">
+                    </div>-->
+                    <div class="controls">
+                        <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <!-- /tile header -->
+
+                <!-- tile body -->
+                <div class="tile-body no-vpadding">
+                    <div class="table-responsive">
+                        <table class="table table-custom table-sortable nomargin">
+                            <thead>
+                            <tr>
+                                <th width="10%" class="">是否已读</th>
+                                <th width="20%" class="">消息时间</th>
+                                <th width="70%" class="">消息预览</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>●</td>
+                                <td><div>2017-11-03</div><div>10:30:20</div></td>
+                                <td>今天有一个项目需要跟进</td>
+                            </tr>
+                            <tr>
+                                <td>●</td>
+                                <td><div>2017-11-03</div><div>10:30:20</div></td>
+                                <td>今天有一个项目需要跟进</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><div>2017-11-03</div><div>10:30:20</div></td>
+                                <td>今天有一个项目需要跟进</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /tile body -->
+
+                <!-- tile footer -->
+                <div class="tile-footer text-center">
+                    <ul class="pagination pagination-sm nomargin pagination-custom">
+                        <?php
+                        $this->page = str_replace("<a","<li><a",$this->page);
+                        $this->page = str_replace("/a>","/a></li>",$this->page);
+                        $this->page = str_replace('<span class="current">',"<li class='active'><a href='#'>",$this->page);
+                        $this->page = str_replace('</span>',"</a></li>",$this->page);
+                        echo $this->page;
+                        ?>
+                    </ul>
+                </div>
+                <!-- /tile footer -->
+
+            </section>
+            <!-- /tile -->
+        </div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <!--<script language="javascript">
+            $(".menu li:eq(29)").addClass("open");
+        </script>-->

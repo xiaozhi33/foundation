@@ -35,7 +35,12 @@ class Management_userController extends BaseController
                 'task_from' => $task_from,
                 'task_helper' => $task_helper,
                 'task_to' => $task_to,
+				'admininfo' => $this->admininfo
             ));
+
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("user/index.phtml");
+			echo $this->view->render("index/footer.phtml");
         }catch (Exception $e){
             throw $e;
         }
@@ -108,7 +113,7 @@ class Management_userController extends BaseController
 		}catch(Exception $e){
 			$this->alert_go("修改失败".'-'.$e,"/management/user/editheadimg");
 		}
-		$this->alert_go("修改成功","/management/user/editheadimg");
+		$this->alert_go("修改成功","/management/user/index");
 	}
 
 	function SaveFormUpload($savepath, $img, $types=array())
