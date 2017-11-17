@@ -69,7 +69,7 @@
             $my_adminDAO = $this->orm->createDAO('my_admin');
             $my_adminDAO ->findId($admininfo['admin_info']['id']);
             $my_adminDAO = $my_adminDAO->get();
-            $admininfo = $my_adminDAO[0];
+            $this->admininfo = $my_adminDAO[0];
 
             //捐赠项目金额
             $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findCate_id(0)->select(" sum(zijin_daozheng_jiner) as allsum")->get();
@@ -128,7 +128,7 @@
                 "pm_count" => count($this->pm_count),
                 "allsum" => (int)$pm_mg_infoDAO[0]['allsum'],
                 "meeting_count" => count($meetingDAO),
-                'admininfo' => $admininfo,
+                'admininfo' =>  $this->admininfo,
                 'task_init_array' => $this->task_init_array,
                 'admin_list_info' => $_admin_list,
 			));
