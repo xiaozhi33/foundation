@@ -139,6 +139,27 @@ class Management_userController extends BaseController
 		}
 		return array('error'=>2,'msg'=>'请选择要上传的图片','url'=>'');
 	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////
+	public function edituserinfoAction()
+	{
+		if(!empty($_POST)){
+			// 编辑保存
+			$userinfoDAO = $this->orm->createDAO('my_admin');
+			$userinfoDAO ->findId($this->admininfo['id']);
+			$userinfoDAO ->sex = $_POST['sex'];
+			$userinfoDAO ->phone = $_POST['phone'];
+			$userinfoDAO ->mobile = $_POST['mobile'];
+			$userinfoDAO ->email = $_POST['email'];
+			$userinfoDAO ->wechat = $_POST['wechat'];
+			$userinfoDAO ->save();
+			$this->alert_go("修改成功","/management/user/index");
+		}else {
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("user/edituserinfo.phtml");
+			echo $this->view->render("index/footer.phtml");
+		}
+	}
 	
 	//权限
 	public function acl()
@@ -150,6 +171,7 @@ class Management_userController extends BaseController
 			'editrspwd',
 			'editheadimg',  // 头像上传
 			'saveheadimg',
+			'edituserinfo',
 		);
 		if (in_array($action, $except_actions)) {
 			return;

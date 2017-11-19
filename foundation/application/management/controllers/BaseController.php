@@ -143,6 +143,9 @@
             }
             $this->view->assign("jjh_mg_pp_catelist",$jjh_mg_pp_catelist);
             $this->view->assign("pp_config",$this->pp_config);
+			
+			//网站配置
+			$this->systemSetting = $this->getSystemSetting();
 
             $this->acl();
             $this->_init();
@@ -370,4 +373,128 @@
                 return array();
             }
         }
+		
+		
+		
+		/**
+		 * 发送消息
+		 * @param int $author_id 发送人ID
+		 * @param int $user_id 接收人ID
+		 * @param string $title 消息标题
+		 * @param string $message 消息内容
+		 * @param int $is_system 是否为系统该消息
+		 * @param int $app_id 应用ID
+		 * @return string
+		 */
+		protected function savemessage($author_id, $user_id, $title, $message, $is_system=0, $app_id=1){
+			try {
+				$user_infoDAO = $this->orm->createDAO('_users_info')->findUser_id($user_id);
+				$user_infoDAO->notice += 1;
+				$user_infoDAO->save();
+				
+				$user_pmDAO = $this->orm->createDAO('_users_pm');
+				$user_pmDAO->author_id = $author_id;
+				$user_pmDAO->user_id = $user_id;
+				$user_pmDAO->title = $title;
+				$user_pmDAO->message = str_replace("'", '"', $message);
+				$user_pmDAO->is_system = $is_system;
+				$user_pmDAO->is_new = 1;
+				$user_pmDAO->app_id = $app_id;
+				$user_pmDAO->datetime = time();
+				return $user_pmDAO->save();
+				
+			}catch(Exception $e) {
+				//$this->toErrorLogs($e);
+				$this->alert_back(addslashes($e->getMessage()));
+			}
+		}
+		
+		/**
+		 * 发送邮件
+		 * @param string $subject
+		 * @param string $body
+		 * @param string $address
+		 * @param string $user user_name
+		 * @return boolean
+		 */
+		protected function SendEmail($subject, $body, $address, $user)
+		{
+			require_once 'phpmailer/class.phpmailer.php';
+			$mail = new PHPMailer();
+			$mail->IsSMTP(); 																				// telling the class to use SMTP
+			$mail->Host = $this->systemSetting['smtp_server']; 								// SMTP server
+			//$mail->SMTPDebug = 2;                     												// enables SMTP debug information (for testing)
+			$mail->SMTPAuth = true;                 		 											// enable SMTP authentication
+			$mail->SMTPSecure = $this->systemSetting['smtp_ssl']=='Y'?'ssl':'';		// sets the prefix to the servier
+			$mail->Port = $this->systemSetting['smtp_port']?$this->systemSetting['smtp_port']:($this->systemSetting['smtp_ssl']=='Y'?'465':'25');		// set the SMTP port for the server
+			$mail->Username = $this->systemSetting['smtp_username']; 				// SMTP account username
+			$mail->Password = $this->systemSetting['smtp_password'];        			// SMTP account password
+			$mail->SetFrom($this->systemSetting['from_email'], $this->systemSetting['site_name']);
+			$mail->AddReplyTo($this->systemSetting['from_email'], $this->systemSetting['site_name']);
+			$mail->Subject =$subject;
+			$mail->CharSet = 'utf-8';
+			$mail->MsgHTML($body);
+			$mail->AddAddress($address, $user);
+			return $mail->Send();
+		}
+		
+		/**
+		 * 获取用户信息
+		 * @param string $uid
+		 * @return $userinfo
+		 */
+		
+		public function getuserinfoByidAction($uid){
+			try {
+				if(!empty($uid)){
+					$user_infoDAO = $this->orm->createDAO("_users_info")->alias('u');
+					$user_groupDAO = $user_infoDAO->with_users_group(array('group_id'=>'group_id'))->alias('g');
+					$user_infoDAO ->findUser_id($uid);
+					$userinfo = $user_infoDAO->get();
+					return $userinfo;
+				}	
+			}catch(Exception $e) {
+				$this->toErrorLogs($e);
+				$this->alert_back(addslashes($e->getMessage()));
+			}
+		}
+		
+		/**
+		 * 读取基本配置信息
+		 * @param string $varname
+		 */
+		public function getSystemSetting(){
+			try{
+				$system = $this->orm->createDAO('_system_setting')->get();
+				foreach ($system as $key => $value){
+					$setting[$value['varname']] = unserialize($value['value']);
+				}
+				return $setting;
+			}catch(Exception $e) {
+				$this->toErrorLogs($e);
+				$this->alert_back(addslashes($e->getMessage()));
+			}
+		}
+		
+		/**
+		 * 设置系统配置
+		 * @param array $setting
+		 */
+		public function setSystemSeting($setting){
+			try{
+				if($setting){
+					foreach ($setting as $key => $value){
+						$systemDAO = $this->orm->createDAO('_system_setting')->findVarname($key);
+						$systemDAO->value = serialize($value);
+						$systemDAO->save();
+					}
+					return true;
+				} else {
+					return false;
+				}
+			}catch(Exception $e) {
+				$this->toErrorLogs($e);
+				$this->alert_back(addslashes($e->getMessage()));
+			}
+		}
 	}

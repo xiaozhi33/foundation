@@ -13,39 +13,74 @@
 
 </div>
 <!-- /page header -->
+<style>
+    .user-handpic img{
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        margin-left: 20px;
+    }
+    .user-handbtn a{
+        height: 40px;
+        width: 90px;
+        background-color:#1088ce;
+        display: block;
+        text-align: center;
+        line-height: 40px;
+        color:#ffffff;
+        font-size: 16px;
+        border-radius: 3px;
+        margin: 8px 0 10px 0;
+    }
+    .user-handbtn a:-webkit-any-link:visited{
+        color:#ffffff;
+    }
+</style>
 <div id="main" class="main">
     <div id="rightstyle02" class="row">
         <div class="col-md-12">
             <section class="tile color transparent-white">
                 <div class="detailedbox tile-body">
-                    <div><h3>基本信息</h3></div>
-                    <div>
-                        <img src="<?php echo $this->admininfo['headimg'];?>" alt/>
-                        <a href="/management/user/editheadimg">上传头像</a>
-                        支持JPG，PNG等格式的图片，且小于2M
-                        <div><?php echo $this->admininfo['admin_name'];?></div>
-                        <div></div>
+                    <!--<div><h3>基本信息</h3></div>-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-3 user-handpic">
+                                <img src="<?php echo $this->admininfo['headimg'];?>" alt/>
+                            </div>
+
+                            <div class="col-md-9 user-handbtn">
+                            <div><h4><?php echo $this->admininfo['admin_name'];?></h4></div>
+                            <a href="/management/user/editheadimg">上传头像</a>
+                            支持JPG，PNG等格式的图片，且小于2M
+
+                            <div></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h4><a href="/management/user/edituserinfo">&nbsp;&nbsp;修改个人信息 >></a></h4>
+                        </div>
+                        <!--<div>用户名：</div><div><?php echo $this->admininfo['admin_name'];?></div>
+                        <div>邮  箱：</div><div><?php echo $this->admininfo['email'];?></div>
+                        <div>电  话：</div><div><?php echo $this->admininfo['mobile'];?></div>
+                        <div>微  信：</div><div><?php echo $this->admininfo['wechat'];?></div>
+                        <button>保存</button>-->
+                    </div>
+                        </div>
                     </div>
 
-                    <h3>修改个人信息 >></h3>
-
-                    <div>用户名：</div><div>隔壁老王</div>
-                    <div>性  别：</div><div>男</div>
-                    <div>邮  箱：</div><div>xxxxx@xxx.com</div>
-                    <div>电  话：</div><div>13378682737</div>
-                    <div>微  信：</div><div>jdutyyyo</div>
-                    <button>保存</button>
-                </div>
             </section>
         </div>
-
-
+    </div>
+    <div class="row">
         <div  class="col-md-6">
             <!-- tile -->
             <section class="tile color transparent-white">
                 <!-- tile header -->
                 <div class="tile-header">
-                    <h1>消息提示<strong>Message prompt</strong>             查看全部消息>> </h1>
+                    <div class="row">
+                        <div class="col-md-9"><h1>消息提示<strong>Message prompt</strong></h1></div>
+                        <div class="col-md-3"><h5>查看全部消息>></h5></div>
+                    </div>
                     <!--<div class="search">
                         <input type="text" placeholder="Search...">
                     </div>-->
