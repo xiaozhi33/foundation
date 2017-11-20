@@ -55,6 +55,7 @@
             $this->view->assign('tixing', $pm_mg_todolistDAO);
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $year_month_array = array(0,0,0,0,0,0,0,0,0,0,0,0);  //12个月初始化
 
             if($_REQUEST['tongji_type'] == '2'){
                 // 资金到账年度统计
@@ -69,12 +70,11 @@
                 if(!empty($_rs_year)){
                     foreach($_rs_year as $k => $v){
                         foreach($v as $k1 => $v1){
-                            if($k1 == count($v) - 1){
-                                $_rs_year[$k]['json'] .=  $v1['jiner'];
-                            }else {
-                                $_rs_year[$k]['json'] .=  $v1['jiner'].",";
-                            }
+                            $_month = (int)$v1['month'] - 1;
+                            $year_month_array[$_month] = $v1['jiner'];
+                            $_rs_year[$k]['json'] = implode(',',$year_month_array);
                         }
+                        $year_month_array = array(0,0,0,0,0,0,0,0,0,0,0,0);
                     }
                 }
                 $this->view->assign('rs_year', $_rs_year);
@@ -85,8 +85,9 @@
                     $_rs_sum = array();
                     foreach($_rs_year as $k => $v){
                         if($ii<4){
-                            foreach($v as $k1 => $v1){
-                                $_rs_sum[$k1+1] += $v1['jiner'];
+                            $v['json'] = explode(',',$v['json']);
+                            foreach($v['json'] as $k1 => $v1){
+                                $_rs_sum[$k1+1] += $v1;
                             }
                         }
                         $ii++;
@@ -110,15 +111,15 @@
                 if(!empty($_rs_year)){
                     foreach($_rs_year as $k => $v){
                         foreach($v as $k1 => $v1){
-                            if($k1 == count($v) - 1){
-                                $_rs_year[$k]['json'] .=  $v1['jiner'];
-                            }else {
-                                $_rs_year[$k]['json'] .=  $v1['jiner'].",";
-                            }
+                            $_month = (int)$v1['month'] - 1;
+                            $year_month_array[$_month] = $v1['jiner'];
+                            $_rs_year[$k]['json'] = implode(',',$year_month_array);
                         }
+                        $year_month_array = array(0,0,0,0,0,0,0,0,0,0,0,0);
                     }
                 }
                 $this->view->assign('rs_year', $_rs_year);
+                //var_dump($_rs_year);exit;
 
                 // 前3年的筹资平均值统计
                 if(!empty($_rs_year)){
@@ -126,8 +127,9 @@
                     $_rs_sum = array();
                     foreach($_rs_year as $k => $v){
                         if($ii<4){
-                            foreach($v as $k1 => $v1){
-                                $_rs_sum[$k1+1] += $v1['jiner'];
+                            $v['json'] = explode(',',$v['json']);
+                            foreach($v['json'] as $k1 => $v1){
+                                $_rs_sum[$k1+1] += $v1;
                             }
                         }
                         $ii++;
@@ -139,6 +141,7 @@
                     }
                 }
             }
+            //var_dump($_rs_year);exit();
             $this->view->assign("tongji_type",$_REQUEST['tongji_type']);
             $this->view->assign('rs_avg', $_rs_avg);
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
