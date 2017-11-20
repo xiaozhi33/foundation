@@ -224,7 +224,7 @@ class Management_investmentproductController extends BaseController
         $logDAO ->rate_of_return = $rate_of_return;
         $logDAO ->end_datetime = $end_datetime;
         $logDAO ->remark = $remark;
-        //$logDAO ->type =  HttpUtil::postString("type");
+        $logDAO ->type =  HttpUtil::postString("type");
         if(!empty($id))  //修改流程
         {
             $logDAO ->findId($id);
