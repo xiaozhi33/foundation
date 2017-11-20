@@ -2,13 +2,13 @@
 <div class="pageheader">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
-        <span>项目<?php echo $_REQUEST['pp_cate']?>列表</span></h2>
+        <span>人员信息列表</span></h2>
 
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
-            <li>项目<?php echo $_REQUEST['pp_cate']?>管理</li>
-            <li class="active">项目<?php echo $_REQUEST['pp_cate']?>列表</li>
+            <li>人员管理</li>
+            <li class="active">人员信息列表</li>
         </ol>
     </div>
 
@@ -50,14 +50,14 @@
                                 </select>
                             </div>
 
-                            <label class="col-sm-1 control-label" for="input01"><?php echo $_REQUEST['pp_cate']?>名称：</label>
+                            <label class="col-sm-1 control-label" for="input01"><?php //echo $_REQUEST['pp_cate']?>人员名称：</label>
                             <div class="col-sm-3">
-                               <input type="text" name="ppname" value="<?php echo $this->ppname;?>"/>
+                               <input type="text" name="ppname" value="<?php echo $_REQUEST['ppname'];?>"/>
                             </div>
 
                             <label class="col-sm-1 control-label" for="input01">地区：</label>
                             <div class="col-sm-3">
-                                <input type="text" name="pp_address" value="<?php echo $this->pp_address;?>"/>
+                                <input type="text" name="pp_address" value="<?php echo $_REQUEST['pp_address'];?>"/>
                             </div>
 
                             <div class="col-sm-1"><input class="btn btn-primary" type="submit" value="搜索"></div>
@@ -112,7 +112,7 @@
                                  </a>-->
 
                                  <a href="/management/pp/editpp?id=<?php echo $v['pid'];?>">
-                                     <button type="button" class="btn btn-greensea margin-bottom-20" >编辑<?php //echo $_REQUEST['pp_cate']?></button>
+                                     <button type="button" class="btn btn-greensea margin-bottom-20" >查看/编辑<?php //echo $_REQUEST['pp_cate']?></button>
                                  </a>
 
                                  <a href="/management/pp/ppcompany?pp_id=<?php echo $v['pid'];?>">
