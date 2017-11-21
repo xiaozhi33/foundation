@@ -185,12 +185,21 @@
 				//alert_go('您输入的密码有误！','/management/index/loginview');
                 echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
                 echo('<script language="JavaScript">');
-                echo("alert('您输入的密码有误');");
+                echo("alert('您的账户名或密码有误');");
                 echo("location.href='/management/index/loginview';");
                 echo('</script>');
                 exit;
 			}else{
 				SessionUtil::initSession($passwordpost, true);
+
+                // 记录登录logo
+                $loginDAO = $this->orm->createDAO('my_login_log');
+                $admininfo_array = SessionUtil::getAdmininfo();
+                $loginDAO ->logUid = $admininfo_array['admin_info']['id'];
+                $loginDAO ->logName = $admininfo_array['admin_info']['admin_name'];
+                $loginDAO ->logIp = $this->GetIP();
+                $loginDAO ->logTime = date('Y-m-d H:i:s',time());
+                $loginDAO ->save();
 
 				if ($_REQUEST['returnURL']!=''){
                 	$returnURL = HttpUtil::valueString($_REQUEST['returnURL']);

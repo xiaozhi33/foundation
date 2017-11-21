@@ -30,12 +30,20 @@ class Management_userController extends BaseController
 
             // 我的回馈 pm_mg_feedback
 
+			// 我的上次登录记录
+			$loginDAO = $this->orm->createDAO('my_login_log');
+			$admininfo_array = SessionUtil::getAdmininfo();
+			$loginDAO ->findLogUid($admininfo_array['admin_info']['id']);
+			$loginDAO ->selectLimit .= ' order by logTime desc limit 0,1 ';
+			$loginDAO = $loginDAO->get();
+
 
             $this->view->assign(array(
                 'task_from' => $task_from,
                 'task_helper' => $task_helper,
                 'task_to' => $task_to,
-				'admininfo' => $this->admininfo
+				'admininfo' => $this->admininfo,
+				'login_log' => $loginDAO[0]
             ));
 
 			echo $this->view->render("index/header.phtml");

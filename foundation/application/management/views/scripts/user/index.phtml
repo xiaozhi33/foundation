@@ -44,20 +44,20 @@
                     <!--<div><h3>基本信息</h3></div>-->
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="col-md-3 user-handpic">
-                                <img src="<?php echo $this->admininfo['headimg'];?>" alt/>
+                            <div class="col-md-3 user-handpic"  style="margin-right: 20px;">
+                                <a href="/management/user/editheadimg"><img src="<?php echo $this->admininfo['headimg'];?>" alt/></a>
                             </div>
 
-                            <div class="col-md-9 user-handbtn">
-                            <div><h4><?php echo $this->admininfo['admin_name'];?></h4></div>
-                            <a href="/management/user/editheadimg">上传头像</a>
-                            支持JPG，PNG等格式的图片，且小于2M
-
-                            <div></div>
+                            <div class="col-md-8 user-handbtn">
+                                <div><h4><?php echo $this->admininfo['admin_name'];?></h4></div>
+                                <a href="/management/user/editheadimg">上传头像</a>
+                                支持JPG，PNG等格式的图片，且小于2M
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <h4><a href="/management/user/edituserinfo">&nbsp;&nbsp;修改个人信息 >></a></h4>
+                            <div><h4><a href="/management/user/edituserinfo">修改个人信息 >></a></h4></div>
+                            <div>上次登陆时间：<?php echo $this->login_log['logTime'];?></div>
+                            <div>上次登陆IP：<?php echo $this->login_log['logIp'];?></div>
                         </div>
                         <!--<div>用户名：</div><div><?php echo $this->admininfo['admin_name'];?></div>
                         <div>邮  箱：</div><div><?php echo $this->admininfo['email'];?></div>
@@ -65,9 +65,7 @@
                         <div>微  信：</div><div><?php echo $this->admininfo['wechat'];?></div>
                         <button>保存</button>-->
                     </div>
-                        </div>
-                    </div>
-
+                </div>
             </section>
         </div>
     </div>
