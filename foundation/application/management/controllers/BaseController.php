@@ -119,6 +119,11 @@
                 $_admin_list[$v['id']] = $v['admin_name'];
             }
 
+            $admin_groupDAO  = $this->orm->createDAO("admingroup")->get();
+            foreach($admin_groupDAO as $k => $v){
+                $_g_list[$v['gid']] = $v['gname'];
+            }
+
             $this->view->assign(array(
 				"module" => $request_mod['module'],
 				"controller" => $request_mod['controller'],
@@ -131,6 +136,7 @@
                 'admininfo' =>  $this->admininfo,
                 'task_init_array' => $this->task_init_array,
                 'admin_list_info' => $_admin_list,
+                'group_list' => $_g_list,
 			));
 
             //config

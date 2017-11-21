@@ -35,6 +35,22 @@
     .user-handbtn a:-webkit-any-link:visited{
         color:#ffffff;
     }
+
+    .user-handbtn1 a{
+        height: 40px;
+        width: 160px;
+        background-color:#1088ce;
+        display: block;
+        text-align: center;
+        line-height: 40px;
+        color:#ffffff;
+        font-size: 16px;
+        border-radius: 3px;
+        margin: 8px 0 10px 18px;
+    }
+    .user-handbtn1 a:-webkit-any-link:visited{
+        color:#ffffff;
+    }
 </style>
 <div id="main" class="main">
     <div id="rightstyle02" class="row">
@@ -48,13 +64,13 @@
                                 <a href="/management/user/editheadimg"><img src="<?php echo $this->admininfo['headimg'];?>" alt/></a>
                             </div>
 
-                            <div class="col-md-8 user-handbtn">
-                                <div><h4><?php echo $this->admininfo['admin_name'];?></h4></div>
+                            <div class="col-md-8 user-handbtn" style="margin-top: 10px;">
+                                <div><strong style="font-size: 18px;"><?php echo $this->admininfo['admin_name'];?></strong> - <?php echo $this->group_list[$this->admininfo['gid']]?></div>
                                 <a href="/management/user/editheadimg">上传头像</a>
                                 支持JPG，PNG等格式的图片，且小于2M
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 user-handbtn1" >
                             <div><h4><a href="/management/user/edituserinfo">&nbsp;&nbsp;&nbsp;修改个人信息 >></a></h4></div>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;上次登陆时间：<?php echo $this->login_log['logTime'];?></div>
                             <div>&nbsp;&nbsp;&nbsp;&nbsp;上次登陆IP：<?php echo $this->login_log['logIp'];?></div>

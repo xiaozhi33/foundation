@@ -94,8 +94,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input02">优先级：</label>
                         <div class="col-sm-3">
-                            <select class="chosen-select chosen-transparent form-control" name="schedule">
-                                <!--<option value="" >请选择...</option>-->
+                            <select class="chosen-select chosen-transparent form-control" name="priority">
                                 <?php if($this->task_init_array['priority'] != ""){
                                     foreach ($this->task_init_array['priority'] as $k => $v){?>
                                         <option value="<?php echo $k?>" ><?php echo $v?></option>
