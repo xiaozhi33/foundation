@@ -35,7 +35,7 @@ class Management_taskController extends BaseController
         $taskDAO = $this->orm->createDAO('jjh_mg_task');
         $title = HttpUtil::postString("title");
         $type = HttpUtil::postString("type");
-        $sponsor = $this->admininfo['admin_info']['id'];  //发起人
+        $sponsor = $this->admininfo['id'];  //发起人
         $executor = HttpUtil::postString("executor");  //执行者 （指派给）
         $helper = implode(',',$_REQUEST["helper"]);   //协助者
         $star_time = HttpUtil::postString("star_time");

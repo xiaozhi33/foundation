@@ -159,7 +159,7 @@
 		}
 		
 		public function loginviewAction(){
-            if(!empty($this->admininfo['admin_info']['id'])){
+            if(!empty($this->admininfo['id'])){
                 header("location:".__BASEURL__."/management/index");
             }
 			$returnURL = HttpUtil::getString('returnURL');

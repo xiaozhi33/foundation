@@ -8,17 +8,18 @@ class Management_userController extends BaseController
      */
     public function indexAction(){
         try{
-            $uid = $this->admininfo['admin_info']['id'];
+            $uid = $this->admininfo['id'];
             // 发起的任务
-            $task_from = $this->orm->createDAO('jjh_mg_task')->findSponsor($uid)->get();
+            $task_from = $this->orm->createDAO('jjh_mg_task')->findSponsor($uid)->order(' schedule DESC, priority DESC, id DESC LIMIT 0,5')->get();
 
             // 协助的任务
             $task_helper = $this->orm->createDAO('jjh_mg_task');
             $task_helper->selectLimit .= " AND find_in_set('".$uid."',helper)";
+			$task_helper->order(' schedule DESC, priority DESC, id DESC LIMIT 0,5');
             $task_helper = $task_helper->get();
 
             // 需执行的任务
-            $task_to = $this->orm->createDAO('jjh_mg_task')->findExecutor($uid)->get();
+            $task_to = $this->orm->createDAO('jjh_mg_task')->findExecutor($uid)->order(' schedule DESC, priority DESC, id DESC LIMIT 0,5')->get();
 
             // 和我有关的项目 jjh_mg_chouzi fzr
 
