@@ -153,6 +153,13 @@
 			//网站配置
 			$this->systemSetting = $this->getSystemSetting();
 
+            // 待办任务列表list
+            $task_list_infoDAO = $this->orm->createDAO('jjh_mg_task');
+            $task_list_infoDAO ->selectLimit .= ' AND (FIND_IN_SET('.$this->admininfo['id'].',sponsor) OR FIND_IN_SET('.$this->admininfo['id'].',executor) OR FIND_IN_SET('.$this->admininfo['id'].',helper))';
+            $task_list_infoDAO ->selectLimit .= ' AND schedule!=100 ';
+            $task_list_infoDAO = $task_list_infoDAO->order(' schedule ASC, priority DESC, id DESC ')->get();
+            $this->view->assign("task_list_info",$task_list_infoDAO);
+
             $this->acl();
             $this->_init();
 	    }

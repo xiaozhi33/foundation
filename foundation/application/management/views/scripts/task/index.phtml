@@ -79,13 +79,14 @@
 
 							<td>
 								<a href="/management/task/taskinfo?id=<?php echo $v['id'];?>">
-									<button type="button" class="btn btn-greensea margin-bottom-20">查看</button>
+									<button type="button" class="btn btn-greensea margin-bottom-20">查看/编辑</button>
 								</a>
-								<a href="/management/task/edittaskmain?id=<?php echo $v['id'];?>">
+								<!--<a href="/management/task/edittaskmain?id=<?php /*echo $v['id'];*/?>">
                             		<button type="button" class="btn btn-greensea margin-bottom-20">编辑</button>
 								</a>
                              	<a href="/management/task/deltaskmain?id=<?php echo $v['id'];?>">
                              	<button type="button" class="btn btn-danger margin-bottom-20" onclick= "if(confirm( '是否确定删除！ 删除将无法找回有关该任务的信息。')==false) return false; ">删除</button></a>
+                             	-->
                             </td>
 						 </tr>
 					   <?php }?>

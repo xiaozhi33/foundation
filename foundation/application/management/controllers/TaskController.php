@@ -16,7 +16,7 @@ class Management_taskController extends BaseController
         $taskDAO ->selectLimit .= ' AND (FIND_IN_SET('.$this->admininfo['id'].',sponsor) OR FIND_IN_SET('.$this->admininfo['id'].',executor) OR FIND_IN_SET('.$this->admininfo['id'].',helper))';
 
 
-        $taskDAO = $taskDAO->order(' schedule DESC, priority DESC, id DESC');
+        $taskDAO = $taskDAO->order(' schedule ASC, priority DESC, id DESC');
         $taskDAO->getPager(array('path'=>'/management/task/index'))->assignTo($this->view);
 
         echo $this->view->render("index/header.phtml");
@@ -221,6 +221,10 @@ class Management_taskController extends BaseController
         $priority = HttpUtil::postString("priority");  //优先级
         $schedule = HttpUtil::postString("schedule");  //进度表
         $description = HttpUtil::postString("description");
+
+        if(empty($description)){
+            $this->alert_back('任务变更描述不能为空，请填写描述后再试！');exit();
+        }
 
         $taskDAO ->executor = $executor;
         $taskDAO ->helper = $helper;
