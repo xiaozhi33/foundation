@@ -14110,5 +14110,11 @@ a:-webkit-any-link:active{ color: transparent;text-decoration:none;}
     display: none;
   }
 	}
+
+@media only screen and (max-width: 414px) {
+  body #content.full-page .inside-block, body #content.full-page.error .inside-block {
+    width: 79%;
+    height: 100%; }
+}
 	  
 	  
