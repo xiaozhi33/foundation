@@ -75,7 +75,7 @@ class Management_taskController extends BaseController
             $taskDAO ->findId($id);
         }
         try{
-            $taskDAO ->save();
+            $re_id = $taskDAO ->save();
         }catch (Exception $e){
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');
@@ -85,6 +85,17 @@ class Management_taskController extends BaseController
             exit;
         }
 
+        if(empty($id) && $re_id != '')  // 新增流程，添加到log表中
+        {
+            $task_array = $this->orm->createDAO('jjh_mg_task')->findId($re_id)->get();
+
+            $jjh_mg_task_logDAO = $this->orm->createDAO('jjh_mg_task_log');
+            $jjh_mg_task_logDAO ->task_id = $re_id;
+            $jjh_mg_task_logDAO ->lastmodify = time();
+            $jjh_mg_task_logDAO ->new_info = serialize($task_array);
+            $jjh_mg_task_logDAO ->uid = $this->admininfo['id'];
+            $jjh_mg_task_logDAO ->save();
+        }
         if(empty($id)){
             echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
             echo('<script language="JavaScript">');

@@ -23,13 +23,13 @@
 
 <div id="main" class="main">
     <div id="rightstyle02" class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <section class="tile color transparent-white">
 
                 <!-- tile header -->
                 <div class="tile-header">
                     <div class="row">
-                        <div class="col-md-9"><h3>任务进度详情<strong>T-Info</strong></h3></div>
+                        <div class="col-md-9"><h3>任务进度详情<strong> T-Info</strong></h3></div>
                         <!--<div class="col-md-3"><h5><a href="/management/task" target="_blank">查看全部消息>></a></h5></div>-->
                     </div>
                     <div class="controls">
@@ -44,14 +44,14 @@
                     <form class="form-horizontal" id="form1" action="to-add" method="post" encType="multipart/form-data">
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">任务名称：</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-6 input_inline">
                                 <?php echo $this->task_info[0]['title'];?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">优先级：</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 input_inline">
                                 <?php if($this->task_init_array['priority'] != ""){
                                     foreach ($this->task_init_array['priority'] as $k => $v){?>
                                         <?php if($this->task_info[0]["priority"] == $k) echo $v;?>
@@ -61,14 +61,14 @@
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">进度完成度：</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 input_inline">
                                 <?php echo $this->task_info[0]['schedule'];?> %
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">任务执行日期：</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 input_inline">
                                 <?php echo $this->task_info[0]['star_time'];?> ~ <?php echo $this->task_info[0]['end_time'];?>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">任务指派给：</label>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 input_inline">
                                 <?php
                                         if(!empty($this->task_info[0]['executor'])){
                                             foreach($this->admin_list_info as $key => $value){
@@ -92,7 +92,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">协助者：</label>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 input_inline">
                                 <?php if($this->admin_list_info != ""){
                                     foreach ($this->admin_list_info as $k => $v){?>
                                         <?php
@@ -107,6 +107,12 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">任务描述：</label>
+                            <div class="col-sm-8 input_inline">
+                                <?php echo $this->task_info[0]['description'];?>
+                            </div>
+                        </div>
 
                     </form>
                 </div>
@@ -120,7 +126,7 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            margin: 20px;
+            margin: 30px 0px 20px 80px
         }
         .user-handbtn a{
             height: 40px;
@@ -212,17 +218,20 @@
         .askinfo-hidden:hover{
             color:#428bca;
         }
+        .input_inline{
+            padding-top: 7px;
+        }
     </style>
 
     <?php if(!empty($this->task_log_array)){?>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <section class="tile color transparent-white">
 
                 <!-- tile header -->
                 <div class="tile-header">
                     <div class="row">
-                        <div class="col-md-9"><h3>任务变更记录<strong>Logs</strong></h3></div>
+                        <div class="col-md-9"><h3>任务变更记录<strong> Logs</strong></h3></div>
                         <!--<div class="col-md-3"><h5><a href="/management/task" target="_blank">查看全部消息>></a></h5></div>-->
                     </div>
                     <div class="controls">
@@ -240,7 +249,7 @@
                             <img src="<?php echo $value['user_info'][0]['headimg'];?>" alt/>
                         </div>
 
-                        <div class="col-md-10 taskinfo-box">
+                        <div class="col-md-8 taskinfo-box">
                             <div class="taskinfo-user"><?php echo $value['user_info'][0]['admin_name'];?></div>
                             <div class="taskinfo-info"><?php echo $value['new_info'][0]['description'];?></div>
                             <div class="taskinfo-time"><?php echo date('Y-m-d H:i:s', $value['lastmodify']);?></div>
@@ -260,14 +269,14 @@
     <?php }?>
 
     <div id="rightstyle02" class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <section class="tile color transparent-white">
 
 
                 <!-- tile header -->
                 <div class="tile-header">
                     <div class="row">
-                        <div class="col-md-9"><h3>任务进度变更<strong>T-Changeing</strong></h3></div>
+                        <div class="col-md-9"><h3>任务进度变更<strong> T-Changing</strong></h3></div>
                         <!--<div class="col-md-3"><h5><a href="/management/task" target="_blank">查看全部消息>></a></h5></div>-->
                     </div>
                     <div class="controls">
