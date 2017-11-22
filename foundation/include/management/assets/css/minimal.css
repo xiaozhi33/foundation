@@ -14043,7 +14043,7 @@ a:-webkit-any-link:active{ color: transparent;text-decoration:none;}
     display: none;
   }
 }
-@media only screen and (max-width: 479px) {
+@media only screen and (max-width: 414px) {
   body {
     /* pageheader */
     /* tiles */
@@ -14111,9 +14111,9 @@ a:-webkit-any-link:active{ color: transparent;text-decoration:none;}
   }
 	}
 
-@media only screen and (max-width: 414px) {
+@media only screen and (max-width: 375px) {
   body #content.full-page .inside-block, body #content.full-page.error .inside-block {
-    width: 79%;
+    width: 80%;
     height: 100%; }
 }
 	  
