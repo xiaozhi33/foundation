@@ -369,7 +369,7 @@
                                       <?php foreach($this->chouzilist as $key => $value){ $nn = 0;?>
                                       <tr>
                                           <td><?php echo $value['id'];?></td>
-                                          <td><?php echo $value['pname'];?></td>
+                                          <td><a href="/management/chouzi/pminfo?id=<?php echo $value['id'];?>" target="_blank"><?php echo $value['pname'];?></a></td>
                                           <td class="priority">
                                               <?php if($value['pm_rate'] == ""){?>
                                               ---
