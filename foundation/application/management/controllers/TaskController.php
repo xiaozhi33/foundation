@@ -159,9 +159,26 @@ class Management_taskController extends BaseController
         $taskDAO ->findId($id);
         $taskDAO = $taskDAO ->get();
 
+        $task_logDAO = $this->orm->createDAO('jjh_mg_task_log')->findTask_id($id);
+        $task_logDAO ->selectLimit .= ' order by lastmodify DESC';
+        $task_logDAO = $task_logDAO->get();
+
+        $task_log_array = array();
+        foreach($task_logDAO as $k => $v){
+            $task_log_array[$k] = $v;
+            if($v['old_info'] != ''){
+                $task_log_array[$k]['old_info'] = unserialize($v['old_info']); // 旧数据
+            }
+            if($v['new_info'] != ''){
+                $task_log_array[$k]['new_info'] = unserialize($v['new_info']); // 新数据
+            }
+            $task_log_array[$k]['user_info'] = $this->getadmininfoByidAction($v['uid']);
+        }
+
         if($taskDAO != "")
         {
             $this->view->assign("task_info", $taskDAO);
+            $this->view->assign("task_log_array", $task_log_array);
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("task/taskinfo.phtml");
             echo $this->view->render("index/footer.phtml");
@@ -188,6 +205,57 @@ class Management_taskController extends BaseController
         }
     }
 
+    public function addtasklogAction()
+    {
+        $id = $_REQUEST['id'];
+        // 旧值
+        $task_old_array = $this->orm->createDAO('jjh_mg_task')->findId($id)->get();
+        $taskDAO = $this->orm->createDAO('jjh_mg_task')->findId($id);
+
+        $executor = HttpUtil::postString("executor");  //执行者 （指派给）
+        $helper = implode(',',$_REQUEST["helper"]);   //协助者
+        /*$star_time = HttpUtil::postString("star_time");
+        $end_time = HttpUtil::postString("end_time");
+        $plan_time = HttpUtil::postString("plan_time");
+        $status = HttpUtil::postString("status");*/
+        $priority = HttpUtil::postString("priority");  //优先级
+        $schedule = HttpUtil::postString("schedule");  //进度表
+        $description = HttpUtil::postString("description");
+
+        $taskDAO ->executor = $executor;
+        $taskDAO ->helper = $helper;
+        $taskDAO ->priority = $priority;
+        $taskDAO ->schedule = $schedule;
+        $taskDAO ->description = $description;
+        $taskDAO ->save();
+        // 新值
+        $task_array = $this->orm->createDAO('jjh_mg_task')->findId($id)->get();
+
+        $jjh_mg_task_logDAO = $this->orm->createDAO('jjh_mg_task_log');
+        $jjh_mg_task_logDAO ->task_id = $id;
+        $jjh_mg_task_logDAO ->lastmodify = time();
+        $jjh_mg_task_logDAO ->old_info = serialize($task_old_array);
+        $jjh_mg_task_logDAO ->new_info = serialize($task_array);
+        $jjh_mg_task_logDAO ->uid = $this->admininfo['id'];
+
+        try{
+            $jjh_mg_task_logDAO ->save();
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('更新成功');");
+            echo("location.href='/management/task/taskinfo?id=".$id."';");
+            echo('</script>');
+            exit;
+        }catch (Exception $e){
+            echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+            echo('<script language="JavaScript">');
+            echo("alert('更新失败！！！！！');");
+            echo('history.back();');
+            echo('</script>');
+            exit;
+        }
+    }
+
     public function _init(){
         //error_reporting(0);
         $orgList = $this->orm->createDAO('jjh_mg_task')->get();
@@ -208,6 +276,7 @@ class Management_taskController extends BaseController
         $except_actions = array(
             'to-addtaskmain',
             'taskinfo',
+            'addtasklog'
         );
         if (in_array($action, $except_actions)) {
             return;

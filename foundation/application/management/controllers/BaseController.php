@@ -464,6 +464,26 @@
 				$this->alert_back(addslashes($e->getMessage()));
 			}
 		}
+
+        /**
+         * 获取用户信息
+         * @param string $uid
+         * @return $userinfo
+         */
+
+        public function getadmininfoByidAction($uid){
+            try {
+                if(!empty($uid)){
+                    $admininfoDAO = $this->orm->createDAO("my_admin");
+                    $admininfoDAO ->findId($uid);
+                    $admininfoDAO = $admininfoDAO->get();
+                    return $admininfoDAO;
+                }
+            }catch(Exception $e) {
+                $this->toErrorLogs($e);
+                $this->alert_back(addslashes($e->getMessage()));
+            }
+        }
 		
 		/**
 		 * 读取基本配置信息
