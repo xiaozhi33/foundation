@@ -11909,6 +11909,17 @@ table tbody.files > tr > td {
 .colorbox .colorbox-list {
   padding: 0;
   margin: 5px; }
+.bg-title{
+  position: absolute;
+  display: block;
+  left: 50px;
+  top: 110px;
+  width: 300px;
+}
+.bg-title img{
+  width: 100%;
+  height: 100%;
+}
 
 @media only screen and (min-width: 320px) {
   .superbox-list,
@@ -13757,7 +13768,11 @@ a:-webkit-any-link:active{ color: transparent;text-decoration:none;}
     .timeline > li > .el-container .content span.time i {
       font-size: 14px; }
   .timeline > li > .el-container .content h1 {
-    font-size: 16px; } }
+    font-size: 16px; }
+  .bg-title{
+    display: none;
+  }
+}
 @media only screen and (max-width: 970px) {
   body {
     /* tables */
@@ -13787,7 +13802,11 @@ a:-webkit-any-link:active{ color: transparent;text-decoration:none;}
           padding-top: 5px;
           border-top: 1px solid rgba(255, 255, 255, 0.1); }
     body #content ul.inbox > li.msg div p {
-      width: 180px; } }
+      width: 180px; }
+  .bg-title{
+    display: none;
+  }
+}
 @media only screen and (max-width: 768px) {
   body {
     /* navbar */
@@ -14020,6 +14039,9 @@ a:-webkit-any-link:active{ color: transparent;text-decoration:none;}
 		right: -20px;
 		border-radius: 4px;
 	}
+  .bg-title{
+    display: none;
+  }
 }
 @media only screen and (max-width: 479px) {
   body {
@@ -14084,6 +14106,9 @@ a:-webkit-any-link:active{ color: transparent;text-decoration:none;}
 		right: -20px;
 		border-radius: 4px;
 	}
+  .bg-title{
+    display: none;
+  }
 	}
 	  
 	  
