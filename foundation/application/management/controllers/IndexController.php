@@ -54,6 +54,10 @@
             $pm_mg_todolistDAO = $pm_mg_todolistDAO ->get();
             $this->view->assign('tixing', $pm_mg_todolistDAO);
 
+            // 通讯录
+            $my_adminDAO = $this->orm->createDAO('my_admin')->get();
+            $this->view->assign("addressbook",$my_adminDAO);
+
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             $year_month_array = array(0,0,0,0,0,0,0,0,0,0,0,0);  //12个月初始化
 

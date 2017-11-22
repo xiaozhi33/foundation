@@ -1,0 +1,168 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>通讯录</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>通讯录</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+
+    <style>
+        .user-handpic img{
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 20px;
+        }
+        .user-handbtn a{
+            height: 40px;
+            width: 90px;
+            background-color:#1088ce;
+            display: block;
+            text-align: center;
+            line-height: 40px;
+            color:#ffffff;
+            font-size: 16px;
+            border-radius: 3px;
+            margin: 8px 0 10px 0;
+        }
+        .user-handbtn a:-webkit-any-link:visited{
+            color:#ffffff;
+        }
+
+        .user-handbtn1 a{
+            height: 40px;
+            width: 160px;
+            background-color:#1088ce;
+            display: block;
+            text-align: center;
+            line-height: 40px;
+            color:#ffffff;
+            font-size: 16px;
+            border-radius: 3px;
+            margin: 8px 0 10px 18px;
+        }
+        .user-handbtn1 a:-webkit-any-link:visited{
+            color:#ffffff;
+        }
+        .taskinfo-box{
+            border-bottom: 1px #ddd solid;
+        }
+        .taskinfo-user{
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+            margin: 30px 0 10px;
+        }
+        .taskinfo-info{
+            margin-bottom: 10px;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            display:-webkit-box;
+            -webkit-box-orient:vertical;
+            -webkit-line-clamp:3;
+        }
+        .taskinfo-time{
+            text-align: right;
+            margin: 0 10px 10px 0;
+        }
+        .askinfo-show{
+            position: absolute;
+            right: 40px;
+            bottom: 35px;
+            color: #428bca;
+        }
+        .askinfo-show i{
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 7px solid #428bca;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .askinfo-show:hover{
+            color:#428bca;
+        }
+        .askinfo-hidden{
+            display: none;
+            position: absolute;
+            right: 40px;
+            bottom: 35px;
+            color: #428bca;
+        }
+        .askinfo-hidden i{
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 7px solid #428bca;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .askinfo-hidden:hover{
+            color:#428bca;
+        }
+    </style>
+
+    <?php if(!empty($this->admin_list)){?>
+        <div class="row">
+            <div class="col-md-8">
+                <section class="tile color transparent-white">
+
+                    <!-- tile header -->
+                    <div class="tile-header">
+                        <div class="row">
+                            <div class="col-md-9"><h3>基金会成员通讯录 <strong> Lists</strong></h3></div>
+                            <!--<div class="col-md-3"><h5><a href="/management/task" target="_blank">查看全部消息>></a></h5></div>-->
+                        </div>
+                        <div class="controls">
+                            <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                            <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <!-- /tile header -->
+
+                    <?php
+                    foreach($this->admin_list as $key => $value){?>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2 user-handpic">
+                                    <img src="<?php echo $value['headimg'];?>" alt/>
+                                </div>
+
+                                <div class="col-md-10 taskinfo-box">
+                                    <div class="taskinfo-user"><?php echo $value['admin_name'];?></div>
+                                    <div class="taskinfo-info">【办公电话】<?php echo $value['phone'];?></div>
+                                    <div class="taskinfo-info">【移动电话】<?php echo $value['mobile'];?></div>
+                                    <div class="taskinfo-info">【电子邮箱】<?php echo $value['email'];?></div>
+                                    <div class="taskinfo-info">【个人微信】<?php echo $value['wechat'];?></div>
+                                    <div class="taskinfo-info"> </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php }?>
+
+                </section>
+            </div>
+        </div>
+    <?php }?>
+
+
+
+    <script src="/include/management/assets/js/jquery.js"></script>

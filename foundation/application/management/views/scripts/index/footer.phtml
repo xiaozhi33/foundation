@@ -69,6 +69,13 @@
           	}
         });
 
+        // Initialize card flip
+        $('.card.hover').hover(function(){
+            $(this).addClass('flip');
+        },function(){
+            $(this).removeClass('flip');
+        });
+
         $("#datepicker").on("dp.show",function (e) {
           	var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;
           	$('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
@@ -151,7 +158,7 @@
 
       <?php if($this->module == "management" && $this->controller == "index" && $this->action == "index"){?>
       // flot chart generate
-      var plot = $.plotAnimator($("#statistics-chart"), 
+      /*var plot = $.plotAnimator($("#statistics-chart"),
         [
           {
             label: 'Sales', 
@@ -257,7 +264,7 @@
                 plot.setupGrid();
                 plot.draw();
             }
-        );
+        );*/
 
         // tooltips showing
         $("#statistics-chart").bind("plothover", function (event, pos, item) {
@@ -325,7 +332,7 @@
         },1000);
 
         // Morris donut chart
-        Morris.Donut({
+        /*Morris.Donut({
             element: 'browser-usage',
             data: [
                 {label: "Chrome", value: 25},
@@ -336,7 +343,7 @@
                 {label: "Other", value: 10}
             ],
             colors: ['#00a3d8', '#2fbbe8', '#72cae7', '#d9544f', '#ffc100', '#1693A5']
-        });
+        });*/
 
         $('#browser-usage').find("path[stroke='#ffffff']").attr('stroke', 'rgba(0,0,0,0)');
 
@@ -755,7 +762,3 @@
                     return true;
                 });
             </script>
-
-            <!--
-                <?php var_dump($this->admininfo);?>
-            -->

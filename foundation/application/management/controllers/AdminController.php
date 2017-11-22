@@ -764,6 +764,16 @@
                 alert_back("操作失败");
             }
         }
+
+		// 通讯录
+		public function addressbookAction()
+		{
+			$admin_list = $this->orm->createDAO("my_admin")->get();
+			$this->view->assign("admin_list",$admin_list);
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("admin/addressbook.phtml");
+			echo $this->view->render("index/footer.phtml");
+		}
 		
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
@@ -812,6 +822,7 @@
                 'isnot_pp',
                 'ajaxaddpp',
                 'to-addadmingroup',
+				'addressbook',
             );
             if (in_array($action, $except_actions)) {
                 return;
