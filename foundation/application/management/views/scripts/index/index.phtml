@@ -598,18 +598,22 @@
                   <!-- tile widget -->
                   <div class="tile-widget">
                     <div class="progress-list with-heading">
-                      <div class="details">
-                        <div class="title"><h2><i class="fa fa-hdd-o"></i> <span class="animate-number" data-value="<?php echo $this->free;?>" data-animation-duration="1600">0</span> GB</h2></div>
-                      </div>
+                      <!--<div class="details">
+                        <div class="title">
+                            <h2><i class="fa fa-hdd-o"></i>
+                                <span class="animate-number" data-value="<?php /*echo $this->use;*/?>" data-animation-duration="<?php /*echo $this->total_nosign;*/?>">0</span> GB
+                            </h2>
+                        </div>
+                      </div>-->
                       <div class="status pull-right bg-transparent-black-1">
-                        <span class="animate-number" data-value="<?php echo round($this->free/$this->total*100, 2);?>" data-animation-duration="1500">0</span>%
+                        <span class="animate-number" data-value="<?php echo round($this->use/$this->total_nosign * 100, 2);?>" data-animation-duration="<?php echo $this->total_nosign;?>">0</span>%
                       </div>
                       <div class="clearfix"></div>
                       <div class="progress progress-little progress-transparent-black" style="margin-bottom: 5px">
-                        <div class="progress-bar animate-progress-bar" data-percentage="<?php echo round($this->free/$this->total*100, 2);?>%"></div>
+                        <div class="progress-bar animate-progress-bar" data-percentage="<?php echo round($this->use/$this->total_nosign * 100, 2);?>%"></div>
                       </div>
                     </div>  
-                    <p class="description"><strong><?php echo $this->total;?> GB</strong> 已用 <strong class="white-text"><?php echo $this->free;?></strong> 在服务器中</p>
+                    <p class="description">系统共 <strong><?php echo $this->total_bf;?></strong> 已用 <strong class="white-text"><?php echo $this->total_bf-$this->free_bf;?></strong> GB 在服务器中</p>
                   </div>
                   <!-- /tile widget -->
                   <!-- tile body -->

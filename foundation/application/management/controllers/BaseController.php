@@ -216,7 +216,7 @@
             exit;
         }
 
-        public function byte_format($size,$dec=2)
+        public function byte_format($size,$dec=2,$is_ex='true')
         {
             $a = array("B", "KB", "MB", "GB", "TB", "PB","EB","ZB","YB");
             $pos = 0;
@@ -225,7 +225,11 @@
                 $size /= 1024;
                 $pos++;
             }
-            return round($size,$dec)." ".$a[$pos];
+            if($is_ex){
+                return round($size,$dec)." ".$a[$pos];
+            }else {
+                return round($size,$dec);
+            }
         }
 	    
 	    public function _init(){

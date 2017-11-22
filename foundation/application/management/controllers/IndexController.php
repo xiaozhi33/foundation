@@ -6,15 +6,17 @@
 			SessionUtil::checkmanagement();
 
             // 系统信息 - 磁盘占用空间数
-            $free_df = disk_free_space("/");
-            $total_df = disk_total_space("/");
-            $free_df = $this->byte_format($free_df);
-            $total_df = $this->byte_format($total_df);
+            $free = disk_free_space("/");
+            $total = disk_total_space("/");
+            $free_bf = $this->byte_format($free);
+            $total_bf = $this->byte_format($total);
 
-            $this->view->assign("free_df",disk_free_space("/"));
-            $this->view->assign("free",$free_df);
-            $this->view->assign("total_df",disk_total_space("/"));
-            $this->view->assign("total",$total_df);
+            $this->view->assign("free_bf",$free_bf);
+            $this->view->assign("free",$free);
+            $this->view->assign("use",($this->byte_format($total,2,false) - $this->byte_format($free,2,false)));
+            $this->view->assign("total_bf",$total_bf);
+            $this->view->assign("total",$total);
+            $this->view->assign("total_nosign",$this->byte_format($total,2,false));
 
             // 项目进度
             $name = HttpUtil::postString("pname");
