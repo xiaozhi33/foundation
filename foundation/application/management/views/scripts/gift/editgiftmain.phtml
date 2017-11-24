@@ -31,7 +31,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">礼品名称：</label>
                             <div class="col-sm-3">
-                                <input class="form-control" value="<?php echo $this->gift_info[0]['name'];?>" type="text" name="name" />
+                                <input class="form-control" value="<?php echo $this->gift_info[0]['name'];?>" type="text" name="name" readonly="readonly"/>
                             </div>
                             <span class="col-sm-1" > * </span>
                         </div>
@@ -42,6 +42,13 @@
                                 <input class="form-control" value="<?php echo $this->gift_info[0]['store'];?>" type="text" name="store" />
                             </div>
                             <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">礼品存放处：</label>
+                            <div class="col-sm-3">
+                                <textarea class="form-control" name="place"><?php echo $this->gift_info[0]['place'];?></textarea>
+                            </div>
                         </div>
 
                         <input class="btn btn-default" name="id" type="hidden" value="<?php echo $this->gift_info[0]['id'];?>" />

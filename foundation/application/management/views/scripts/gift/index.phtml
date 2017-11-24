@@ -57,6 +57,7 @@
 					  <tr>
 						<td width="24%">礼品名称</td>
 						<td width="24%">礼品库存</td>
+						<td width="24%">礼品存放处</td>
 						<td width="13%">操作</td>
 					  </tr>
 					</thead>
@@ -66,6 +67,7 @@
 						 <tr>
 						 	<td><?php echo $v['name'];?>&nbsp;</td>
 							<td><a href="/management/gift/usegift?gift_name=<?php echo $v['name'];?>"><?php echo $v['store'];?>&nbsp;</td>
+							<td><?php echo $v['place'];?></td>
 							<td><a href="/management/gift/editgiftmain?id=<?php echo $v['id'];?>">
                             <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
                              <a href="/management/gift/delgiftmain?id=<?php echo $v['id'];?>">
