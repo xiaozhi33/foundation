@@ -28,7 +28,7 @@
             <section class="tile color transparent-white">
 
                 <div id="rootwizard" class="tabbable tabs-left">
-
+                    <div id="crumbs">
                     <ul>
                         <li><a href="#tab1" data-toggle="tab">第1步</a></li>
                         <li><a href="#tab2" data-toggle="tab">第2步</a></li>
@@ -36,8 +36,8 @@
                         <li><a href="#tab4" data-toggle="tab">第4步</a></li>
                         <li><a href="#tab5" data-toggle="tab">第5步</a></li>
                     </ul>
-
-                    <div class="tab-content">
+                    </div>
+                    <div class="tab-content" style="margin: 20px;">
                         <div class="tab-pane" id="tab1">
                             <p>下载电子版立项模板并认真填写立项信息，确认无误后，提交电子版立项文档( 以word的形式 )。</p>
                             <div>
@@ -188,7 +188,7 @@
                 if($this->project_info[0]['status'] == 2){
                 ?>
 
-                <section class="tile color transparent-white">
+                <section class="tile color transparent-white" style="padding: 10px;">
                     <div style="margin: 10px;"><h5> 立项进度状态：<strong style="color: red;"><?php $number = (int)$this->project_info[0]['status']; echo $this->project_status[$number];?></strong> -- 请重新填写并上传立项电子版文档</h5></div>
                     <div style="margin: 10px;"><h5> 审核失败理由：<?php echo $this->shsb[0]['desc'];?></h5></div>
                     <div style="margin: 10px;"><h5> 审核失败图示：<img src="<?php echo $this->shsb[0]['img'];?>" /></h5></div>
@@ -197,7 +197,7 @@
 
                 <?php }elseif($this->project_info[0]['status'] == 5){ ?>
 
-                <section class="tile color transparent-white">
+                <section class="tile color transparent-white" style="padding: 10px;">
                     <div style="margin: 10px;"><h5> 立项进度状态：<strong style="color: red;"><?php $number = (int)$this->project_info[0]['status']; echo $this->project_status[$number];?></strong> -- 请重新填写并上传签字盖章pdf文件</h5></div>
                     <div style="margin: 10px;"><h5> 审核失败理由：<?php echo $this->pdfshsb[0]['desc'];?></h5></div>
                     <div style="margin: 10px;"><h5> 审核失败图示：<img src="<?php echo $this->pdfshsb[0]['img'];?>" /></h5></div>
@@ -205,7 +205,7 @@
                     </section>
 
                 <?php }else{ ?>
-                    <section class="tile color transparent-white">
+                    <section class="tile color transparent-white" style="padding: 10px;">
                         <div style="margin: 10px;"><h5> 立项进度状态：<strong style="color: red;"><?php $number = (int)$this->project_info[0]['status']; echo $this->project_status[$number];?></strong></div>
                     </section>
                 <?php }?>
@@ -279,4 +279,73 @@
             }
         ?>);
 </script>
+
+<style>
+
+    #crumbs {
+        text-align: left;
+        margin-left: 20px;
+    }
+
+    #crumbs ul {
+        list-style: none;
+        display: inline-table;
+    }
+    #crumbs ul li {
+        display: inline;
+    }
+
+    #crumbs ul li a {
+        display: block;
+        float: left;
+        height: 50px;
+        background: #3498db;
+        text-align: center;
+        padding: 10px 50px 0px 60px;
+        position: relative;
+        margin: 30px 15px 0px 0px;
+
+        font-size: 20px;
+        text-decoration: none;
+        color: #fff;
+    }
+    #crumbs ul li a:after {
+        content: "";
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+        border-left: 42px solid #3498db;
+        position: absolute; right: -40px; top: 0;
+        z-index: 1;
+    }
+
+    #crumbs ul li a:before {
+        content: "";
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+        border-left: 42px solid #d4f2ff;
+        position: absolute; left: 0; top: 0;
+    }
+
+    #crumbs ul li:first-child a {
+        border-top-left-radius: 10px; border-bottom-left-radius: 10px;
+    }
+    #crumbs ul li:first-child a:before {
+        display: none;
+    }
+
+    #crumbs ul li:last-child a {
+        padding-right: 80px;
+        border-top-right-radius: 10px; border-bottom-right-radius: 10px;
+    }
+    #crumbs ul li:last-child a:after {
+        display: none;
+    }
+
+    #crumbs ul li a:hover {
+        background: #fa5ba5;
+    }
+    #crumbs ul li a:hover:after {
+        border-left-color: #fa5ba5;
+    }
+</style>
 

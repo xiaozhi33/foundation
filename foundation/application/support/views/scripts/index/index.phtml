@@ -118,7 +118,7 @@
         <section class="tile color transparent-white">
             <!-- tile header -->
             <div class="tile-header">
-                <h1>待完成的立项申请<strong>3 个</strong> </h1>
+                <h1>待完成的立项申请<strong><?php echo count($this->project_list);?> 个</strong> </h1>
                 <!--<div class="search">
                     <input type="text" placeholder="Search...">
                 </div>-->
@@ -142,7 +142,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach($this->chouzilist as $key => $value){ $nn = 0;?>
+                        <?php foreach($this->project_list as $key => $value){ $nn = 0;?>
                             <tr>
                                 <td><?php echo $value['id'];?></td>
                                 <td><a href="/management/chouzi/pminfo?id=<?php echo $value['id'];?>" target="_blank"><?php echo $value['pname'];?></a></td>
@@ -223,7 +223,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach($this->chouzilist as $key => $value){ $nn = 0;?>
+                        <?php foreach($this->project_list as $key => $value){ $nn = 0;?>
                             <tr>
                                 <td><?php echo $value['id'];?></td>
                                 <td><a href="/management/chouzi/pminfo?id=<?php echo $value['id'];?>" target="_blank"><?php echo $value['pname'];?></a></td>

@@ -5,6 +5,13 @@
 		public function indexAction(){
 			SessionUtil::checkSupport();
 
+			// 有待完成的立项申请
+			$_support_projectDAO = $this->orm->createDAO('_support_project');
+			$_support_projectDAO ->findUid($this->admininfo['admin_info']['id'])->order(' lastmodify DESC ');
+			$_support_projectDAO ->selectLimit .= ' AND status!=8';
+			$_support_projectDAO = $_support_projectDAO ->get();
+			$this->view->assign("project_list",$_support_projectDAO);
+
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render('index/index.phtml');
 			echo $this->view->render("index/footer.phtml");
