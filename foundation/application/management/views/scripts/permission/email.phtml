@@ -1,16 +1,30 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
 
-<!-- Page content -->
-<div id="page">
-	<!-- Wrapper -->
-	<div class="wrapper">
-		<!-- left column/section -->
+<!-- page header -->
+<div class="pageheader">
 
-		<!-- End of left column/section -->
-		
+	<h2><i class="fa fa-tachometer"></i> Dashboard
+		<span>邮件设置</span></h2>
+
+	<div class="breadcrumbs">
+		<ol class="breadcrumb">
+			<li>您的位置</li>
+			<li class="active">邮件设置</li>
+		</ol>
+	</div>
+
+</div>
+<!-- /page header -->
+
+<div id="main" class="main">
+	<div id="rightstyle02" class="row col-md-10">
 		<!-- right column/section -->
-		<section class="column width6 right_content">
-			<div class="add-group">
-				<span class="label label-gray"><a>邮件设置 </a></span>
+		<section class="tile color transparent-white">
+			<div class="add-group" style="margin-left: 30px;margin-top:20px; margin-bottom: 20px;">
+
 				<form action="" method="post" id="sampleform" enctype="multipart/form-data">
 					<fieldset>
 						<p>
@@ -42,7 +56,7 @@
 							<input type="text" class="half" name="from_email" value="<?php echo $this->system['from_email']?>"  />
 						</p>
 					</fieldset>
-					<p class="box"><input type="submit" value="确定" class="btn btn-green big"></p>
+					<p class="box"><input type="submit" value="保存设置" class="btn btn-green big"></p>
 				</form>
 			</div>
 		</section>
