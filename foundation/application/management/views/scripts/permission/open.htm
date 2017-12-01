@@ -1,0 +1,65 @@
+<?php echo $this->render('inc/header.htm') ?>
+	<link rel="stylesheet" type="text/css" href="css/start/jquery-ui-1.9.1.custom.min.css" />
+	<!-- Page content -->
+	<div id="page">
+		<!-- Wrapper -->
+		<div class="wrapper">
+			<!-- left column/section -->
+			<?php echo $this->render('inc/_left_nav.htm') ?>
+			<!-- End of left column/section -->
+			
+			<!-- right column/section -->
+			<section class="column width6 right_content">
+				<div class="add-group">
+					<span class="label label-gray"><a>开放平台</a></span>
+					<form action="" method="post" id="sampleform" enctype="multipart/form-data">
+						<fieldset>
+							<p>
+								<label for="qq_login_enabled">开启QQ登录功能：</label><br>
+								<input type="radio" <?php if($this->system['qq_login_enabled']=='Y') echo 'checked' ?> value="Y" name="qq_login_enabled">是<input type="radio" <?php if($this->system['qq_login_enabled']=='N') echo 'checked' ?> value="N" name="qq_login_enabled">否 
+							</p>
+							<p>
+								<label for="qq_login_app_id">QQ登录 AppID：</label><br>
+								<input type="text" class="half" name="qq_login_app_id" value="<?php echo $this->system['qq_login_app_id']?>"  />
+							</p>
+							<p>
+								<label for="qq_login_app_key">QQ登录 AppKey：</label><br>
+								<input type="text" class="half" name="qq_login_app_key" value="<?php echo $this->system['qq_login_app_key']?>"  />
+							</p>
+							<hr>
+							<p>
+								<label for="sina_weibo_enabled">开启新浪微博登录功能：</label><br>
+								<input type="radio" <?php if($this->system['sina_weibo_enabled']=='Y') echo 'checked' ?> value="Y" name="sina_weibo_enabled">是<input type="radio" <?php if($this->system['sina_weibo_enabled']=='N') echo 'checked' ?> value="N" name="sina_weibo_enabled">否 
+							</p>
+							<p>
+								<label for="sina_akey">新浪微博 AppKey(akey)：(对应分享的来源网站)</label><br>
+								<input type="text" class="half" name="sina_akey" value="<?php echo $this->system['sina_akey']?>"  />
+							</p>
+							<p>
+								<label for="sina_skey">新浪微博 AppKey(skey)：</label><br>
+								<input type="text" class="half" name="sina_skey" value="<?php echo $this->system['sina_skey']?>"  />
+							</p>
+							<hr>
+							<p>
+								<label for="qq_t_enabled">开启腾讯微博登录功能：</label><br>
+								<input type="radio" <?php if($this->system['qq_t_enabled']=='Y') echo 'checked' ?> value="Y" name="qq_t_enabled">是<input type="radio" <?php if($this->system['qq_t_enabled']=='N') echo 'checked' ?> value="N" name="qq_t_enabled">否 
+							</p>
+							<p>
+								<label for="qq_app_key">腾讯微博 AppKey(app_key)：(对应分享的来源网站)</label><br>
+								<input type="text" class="half" name="qq_app_key" value="<?php echo $this->system['qq_app_key']?>"  />
+							</p>
+							<p>
+								<label for="qq_app_secret">腾讯微博 AppKey(app_secret)：</label><br>
+								<input type="text" class="half" name="qq_app_secret" value="<?php echo $this->system['qq_app_secret']?>"  />
+							</p>
+						</fieldset>
+						<p class="box"><input type="submit" value="确定" class="btn btn-green big"></p>
+					</form>
+				</div>
+			</section>
+			<!-- End of right column/section -->
+		</div>
+		<!-- End of Wrapper -->
+	</div>
+	<!-- End of Page content -->
+<?php echo $this->render('inc/footer.htm') ?>

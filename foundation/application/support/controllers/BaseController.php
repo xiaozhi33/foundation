@@ -41,15 +41,6 @@
             '9' => '待结项',
         );
 
-        public $type_arrays = array(
-            '查询协议' => '查询协议',
-            '工作报告' => '工作报告',
-            '策划书' => '策划书',
-            '印刷文档' => '印刷文档',
-            '会议资料' => '会议资料',
-            '业务资料' => '业务资料',
-        );
-
         public $project_status = array(
             //'0' => '未提交',
             '1' => '电子版待审核',
@@ -62,11 +53,20 @@
             '8' => '立项成功',
         );
 
+        public $type_arrays = array(
+            '查询协议' => '查询协议',
+            '工作报告' => '工作报告',
+            '策划书' => '策划书',
+            '印刷文档' => '印刷文档',
+            '会议资料' => '会议资料',
+            '业务资料' => '业务资料',
+        );
+
 		public function init()
 	    {
 	    	$request_mod = $this->getRequest()->getParams();
 			$this->view = new Zend_View();
-			$this->view ->addScriptPath('application/management/views/scripts');
+			$this->view ->addScriptPath('application/support/views/scripts');
             $this->orm = ORM::getInstance();
             $this->mssql_class = new msSQL();  // mssql操作类
             //$this->WhiteIP();  //设置白名单
@@ -77,8 +77,7 @@
             $this->shiyong_weirenling_list = $shiyong_weirenling_list = $this->orm->createDAO("pm_mg_info")->findCate_id("1")->findIs_renling("0")->get();
 
             $admininfo = SessionUtil::getAdmininfo();
-            //$this->admininfo = $admininfo['admin_info'];
-            $my_adminDAO = $this->orm->createDAO('my_admin');
+            $my_adminDAO = $this->orm->createDAO('_support_college_user');
             $my_adminDAO ->findId($admininfo['admin_info']['id']);
             $my_adminDAO = $my_adminDAO->get();
             $this->admininfo = $my_adminDAO[0];
@@ -162,38 +161,9 @@
             }
             $this->view->assign("jjh_mg_pp_catelist",$jjh_mg_pp_catelist);
             $this->view->assign("pp_config",$this->pp_config);
-
-
-            // 立项申请审核
-            $_support_project_list = $this->orm->createDAO('_support_project');
-            $_support_project_list ->selectLimit .= ' AND status!=8';
-            $_support_project_list ->order(' lastmodify DESC ');
-            $_support_project_list = $_support_project_list->get();
-
-            $this->view->assign("support_project_list",$_support_project_list);
-            // 项目支出申请审核
-
-
-            // 操作类型
-            $active_array = array(
-                'tjdzsq' => '提交电子版申请',
-                'shtg' => '电子版申请审核通过',
-                'shsb' => '电子版申请审核失败',
-                'tjpdf' => '签字盖章pdf文件待审核',
-                'pdfshtg' => '签字盖章pdf文件审核通过',
-                'pdfshsb' => '签字盖章pdf文件审核失败',
-            );
-            $this->view->assign("active_array",$active_array);
 			
 			//网站配置
 			$this->systemSetting = $this->getSystemSetting();
-
-            // 待办任务列表list
-            $task_list_infoDAO = $this->orm->createDAO('jjh_mg_task');
-            $task_list_infoDAO ->selectLimit .= ' AND (FIND_IN_SET('.$this->admininfo['id'].',sponsor) OR FIND_IN_SET('.$this->admininfo['id'].',executor) OR FIND_IN_SET('.$this->admininfo['id'].',helper))';
-            $task_list_infoDAO ->selectLimit .= ' AND schedule!=100 ';
-            $task_list_infoDAO = $task_list_infoDAO->order(' schedule ASC, priority DESC, id DESC ')->get();
-            $this->view->assign("task_list_info",$task_list_infoDAO);
 
             $this->acl();
             $this->_init();
@@ -569,8 +539,4 @@
 				$this->alert_back(addslashes($e->getMessage()));
 			}
 		}
-
-        public function toErrorLogs(){
-
-        }
 	}

@@ -533,6 +533,12 @@
                                   </a>
                                 </li>-->
                                 <li>
+                                    <a href="/management/chouzi/application-project">
+                                        <i class="fa fa-caret-right"></i> 立项申请审核
+                                        <span class="badge badge-red"><?php if(count($this->support_project_list) > 0){echo count($this->support_project_list);}?></span>
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="/management/chouzi/addchouzi">
                                         <i class="fa fa-caret-right"></i> 筹资立项
                                     </a>
@@ -561,6 +567,13 @@
                                     <a href="/management/zijin/addzijin">
                                         <i class="fa fa-caret-right"></i> 来款认领 - 添加来款
                                         <span class="badge badge-red"><?php //echo count($this->renling_weirenling_list);?></span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/management/task">
+                                        <i class="fa fa-caret-right"></i> 项目支出申请审核
+                                        <span class="badge badge-red"><?php echo count(1);?></span>
                                     </a>
                                 </li>
 
@@ -813,49 +826,6 @@
                         </ul>
                     </li>
 
-                <?php //if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4))){?>
-				<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <i class="fa fa-desktop"></i> 业务相关管理 <b class="fa fa-plus dropdown-plus"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-
-                        <li>
-                            <a href="/management/admin/department">
-                                <i class="fa fa-caret-right"></i> 部门管理 - 部门信息列表
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/management/admin/adddepartment">
-                                <i class="fa fa-caret-right"></i> 部门管理 - 添加部门信息
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="/management/admin/cate">
-                                <i class="fa fa-caret-right"></i> 项目分类管理 - 项目分类列表
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/management/admin/addcate">
-                                <i class="fa fa-caret-right"></i> 项目分类管理 - 添加项目分类
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="/management/pp/ppcate">
-                                <i class="fa fa-caret-right"></i> 人员管理 - 类型信息列表
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/management/pp/addppcate">
-                                <i class="fa fa-caret-right"></i> 人员管理 - 添加类型信息
-                            </a>
-                        </li>
-
-                    </ul>
-                  </li>
-                <?php //}?>
                     <!--<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-desktop"></i> 项目负责人管理 <b class="fa fa-plus dropdown-plus"></b>
@@ -910,6 +880,58 @@
                       </li>
                     </ul>
                   </li>
+
+
+                    <?php //if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4))){?>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-desktop"></i> 业务相关及系统设置 <b class="fa fa-plus dropdown-plus"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <a href="/management/ ">
+                                    <i class="fa fa-caret-right"></i> 系统邮件SMTP设置
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/management/admin/department">
+                                    <i class="fa fa-caret-right"></i> 部门管理 - 部门信息列表
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/management/admin/adddepartment">
+                                    <i class="fa fa-caret-right"></i> 部门管理 - 添加部门信息
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/management/admin/cate">
+                                    <i class="fa fa-caret-right"></i> 项目分类管理 - 项目分类列表
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/management/admin/addcate">
+                                    <i class="fa fa-caret-right"></i> 项目分类管理 - 添加项目分类
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/management/pp/ppcate">
+                                    <i class="fa fa-caret-right"></i> 人员管理 - 类型信息列表
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/management/pp/addppcate">
+                                    <i class="fa fa-caret-right"></i> 人员管理 - 添加类型信息
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <?php //}?>
+
 				  
 				  <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -1,0 +1,118 @@
+<?php echo $this->render('inc/header.htm') ?>
+	<!-- Page content -->
+	<div id="page">
+		<!-- Wrapper -->
+		<div class="wrapper">
+			<!-- left column/section -->
+			<?php echo $this->render('inc/_left_nav.htm') ?>
+			<!-- End of left column/section -->
+			
+			<!-- right column/section -->
+			<section class="column width6 right_content">
+				<form action="" method="post" id="ruleform">
+				<div class="background-permission">
+
+					<div class="content-box corners"  style="width:50%">
+						<header style="cursor: s-resize;">
+							<h3>积分规则</h3>
+						</header>
+						<section>
+							<table class="no-style full">
+								<tbody>
+									<tr>
+										<td><b>规则名</b></td>
+										<td><b>规则动作</b></td>
+										<td><b>积分</b></td>
+										<td><b>威望</b></td>
+										<td><b>操作</b></td>
+									</tr>
+									<?php foreach($this->rule_list as $row) { ?>
+									<tr>
+										<td><?php echo $row['rulename'] ?><input type="hidden" name="rule[<?php echo $row['rid'] ?>][rid]" value="<?php echo $row['rid'] ?>" /><input type="hidden" name="rule[<?php echo $row['rid'] ?>][action]" value="<?php echo $row['action'] ?>" /></td>
+										<td><?php echo $row['action'] ?></td>
+										<td><input type="text" name="rule[<?php echo $row['rid'] ?>][integral]" value="<?php echo $row['integral'] ?>" /></td>
+										<td><input type="text" name="rule[<?php echo $row['rid'] ?>][reputation]" value="<?php echo $row['reputation'] ?>" /></td>
+										<td><a onclick="javascript:return confirm('您确认要删除规则 <?php echo $row['rulename'] ?>(<?php echo $row['action'] ?>) 么？');" href="/admin/permission/delIntegral/rid/<?php echo $row['rid'] ?>">删除</a></td>
+									</tr>
+									<?php } ?>
+								</tbody>
+							</table>
+							<table>
+								<tbody>
+									<tr>
+										<td>
+											<strong><a class="addrule" href="#">新增积分规则</a></strong>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</section>
+					</div>
+
+				</div>
+				<p class="box"><input type="submit" value="确定" class="btn btn-green big"></p>
+				</form>
+			</section>
+			<!-- End of right column/section -->
+		</div>
+		<!-- End of Wrapper -->
+	</div>
+	
+	<div id="addrule" title="新增积分规则">
+		<div class="content">
+			<table style="width: 100%;">
+				<tr>
+					<td>
+						<form action="/admin/permission/addIntegral" method="post" id="addruleform" target="target_iframe">
+							<p>
+								<label for="input">规则名称:</label><br>
+								<input type="text" name="rulename" value="" class="half title" id="rulename">
+							</p>
+							
+							<p>
+								<label for="input">规则动作:</label><br>
+								<input type="text" name="ruleaction" value="" class="half title" id="ruleaction">
+							</p>
+							
+							<p>
+								<label for="input">积分奖励（负数为扣分）</label><br>
+								<input type="text" name="integral" value="0" class="half title" id="integral">
+							</p>
+							
+							<p>
+								<label for="inpu2">威望奖励（负数为扣分）</label><br>
+								<input type="text" name="reputation" value="0" class="half title" id="reputation">
+							</p>
+						</form>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+	<link rel="stylesheet" type="text/css" href="css/start/jquery-ui-1.9.1.custom.min.css" media="all" />
+	<script>
+		var addrule = $('#addrule').dialog({
+			modal: true,
+			autoOpen: false,
+			resizable: false,
+			dialogClass:'dialog',
+			width: 450,
+			buttons:[{
+				text:'提交',
+				click:function(){
+					$('#addrule #addruleform').submit();
+				}
+			}]
+		});
+		
+		$('.addrule').click(function(){
+			addrule.dialog('option','title',$(this).text());
+			addrule.dialog('open');
+			return false;
+		});
+	</script>
+	<iframe src="" style="display: none;" id="target_iframe" name="target_iframe" frameborder="0"></iframe>
+	
+	<!-- End of Page content -->
+<?php echo $this->render('inc/footer.htm') ?>

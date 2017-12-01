@@ -30,6 +30,7 @@ date_default_timezone_set('PRC');
         'mobile'	=>	'application/mobile/controllers',	//m站
         'api'	=>	'application/api/controllers',	//公共接口
         'app'	=>	'application/app/controllers',	//app
+		'support' => 'application/support/controllers', // 支撑系统 查询和申请系统
         //'test'	=>	'application/test/controllers'	//演示环境
 	));
 
