@@ -31,7 +31,7 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-    
+
   </head>
   <body class="bg-0">
 
@@ -47,10 +47,10 @@
 
         <!-- Fixed navbar -->
         <div class="navbar navbar-default navbar-fixed-top navbar-transparent-white mm-fixed-top" role="navigation" id="navbar">
-          
+
           <!-- Branding -->
           <div class="navbar-header col-md-2">
-            <a class="navbar-brand" href="/management">
+            <a class="navbar-brand" href="/support">
               高校教育发展基金会
             </a>
             <div class="sidebar-collapse">
@@ -59,10 +59,10 @@
               </a>
             </div>
           </div>
-          
+
           <!-- .nav-collapse -->
           <div class="navbar-collapse">
-                        
+
             <!-- Page refresh -->
             <ul class="nav navbar-nav refresh">
               <li class="divided">
@@ -85,7 +85,7 @@
                 <a class="dropdown-toggle options" data-toggle="dropdown" href="#">
                     您好，<?php $admininfo = SessionUtil::getAdmininfo();print_r($admininfo['admin_name']);?> <i class="fa fa-caret-down"></i>
                 </a>
-                
+
                 <ul class="dropdown-menu arrow settings">
 
                   <li class="divider"></li>
@@ -117,7 +117,7 @@
 
               <li class="navigation" id="navigation">
                 <a href="#" class="sidebar-toggle" data-toggle="#navigation">Navigation 导航<i class="fa fa-angle-up"></i></a>
-                
+
                 <ul class="menu">
 
                     <li class="dropdown">
@@ -126,62 +126,62 @@
                         </a>
                         <ul class="dropdown-menu">
                                 <li>
-                                    <a href="/management/chouzi/index">
+                                    <a href="/support/chouzi/index">
                                         <i class="fa fa-caret-right"></i> 项目信息列表
                                     </a>
                                 </li>
 
-                                <li>
-                                    <a href="/management/zijin/rate">
+                                <!--<li>
+                                    <a href="/support/zijin/rate">
                                         <i class="fa fa-caret-right"></i> 项目签约信息统计
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/management/report/index">
+                                    <a href="/support/report/index">
                                         <i class="fa fa-caret-right"></i> 项目管理统计
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/management/report/chouzi">
+                                    <a href="/support/report/chouzi">
                                         <i class="fa fa-caret-right"></i> 项目筹资管理统计
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/management/report/zijin">
+                                    <a href="/support/report/zijin">
                                         <i class="fa fa-caret-right"></i> 项目收入信息统计
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/management/report/shiyong">
+                                    <a href="/support/report/shiyong">
                                         <i class="fa fa-caret-right"></i> 项目支出信息统计
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/management/report/pmshouzhi">
+                                    <a href="/support/report/pmshouzhi">
                                         <i class="fa fa-caret-right"></i> 项目收支统计
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/management/feedback/">
+                                    <a href="/support/feedback/">
                                         <i class="fa fa-caret-right"></i> 项目回馈统计
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/management/report/allpeibi">
+                                    <a href="/support/report/allpeibi">
                                         <i class="fa fa-caret-right"></i> 项目可申请项目配比查询
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/management/report/huabo">
+                                    <a href="/support/report/huabo">
                                         <i class="fa fa-caret-right"></i> 项目已划拨项目配比查询
                                     </a>
-                                </li>
+                                </li>-->
 
                         </ul>
                     </li>
 
 
-                    <li class="dropdown">
+                    <!--<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-tasks"></i> 事务/任务管理 <b class="fa fa-plus dropdown-plus"></b>
                         </a>
@@ -192,68 +192,12 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li>-->
 
 
                 </ul>
 
               </li>
-			<!--统计-->
-              <!--<li class="summary" id="order-summary">
-                <a href="#" class="sidebar-toggle underline" data-toggle="#order-summary">Orders Summary <i class="fa fa-angle-up"></i></a>
-
-                <div class="media">
-                  <a class="pull-right" href="#">
-                    <span id="sales-chart"></span>
-                  </a>
-                  <div class="media-body">
-                    This week sales
-                    <h3 class="media-heading">26, 149</h3>
-                  </div>
-                </div>
-
-                <div class="media">
-                  <a class="pull-right" href="#">
-                    <span id="balance-chart"></span>
-                  </a>
-                  <div class="media-body">
-                    This week balance
-                    <h3 class="media-heading">318, 651</h3>
-                  </div>
-                </div>
-
-              </li>-->
-
-              <!--<li class="settings" id="general-settings">
-                <a href="#" class="sidebar-toggle underline" data-toggle="#general-settings">General Settings <i class="fa fa-angle-up"></i></a>
-
-                <div class="form-group">
-                  <label class="col-xs-8 control-label">Switch ON</label>
-                  <div class="col-xs-4 control-label">
-                    <div class="onoffswitch greensea">
-                      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-on" checked="">
-                      <label class="onoffswitch-label" for="switch-on">
-                        <span class="onoffswitch-inner"></span>
-                        <span class="onoffswitch-switch"></span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-xs-8 control-label">Switch OFF</label>
-                  <div class="col-xs-4 control-label">
-                    <div class="onoffswitch greensea">
-                      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch-off">
-                      <label class="onoffswitch-label" for="switch-off">
-                        <span class="onoffswitch-inner"></span>
-                        <span class="onoffswitch-switch"></span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-              </li>-->
 
             </ul>
             <!-- Sidebar end -->
@@ -266,7 +210,7 @@
 
         <!-- Page content -->
         <div id="content" class="col-md-12">
-          	
+
           	<link href="/include/management/css/common.css" rel="stylesheet" type="text/css" />
 			<!--<link href="/include/management/css/submain.css" rel="stylesheet" type="text/css" />-->
 			

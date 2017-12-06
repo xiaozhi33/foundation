@@ -182,6 +182,7 @@
                 'tjpdf' => '签字盖章pdf文件待审核',
                 'pdfshtg' => '签字盖章pdf文件审核通过',
                 'pdfshsb' => '签字盖章pdf文件审核失败',
+                'lxcg'  => '立项成功',
             );
             $this->view->assign("active_array",$active_array);
 			

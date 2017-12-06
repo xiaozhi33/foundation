@@ -19,6 +19,9 @@
             $chouziinfo ->joinTable (" left join pm_mg_rate as r on r.pm_id = id");
             $chouziinfo ->selectField(" *");
 
+            //
+            $chouziinfo ->department = $this->admininfo['admin_info']['department_id'];
+
             if ($pname != "") {
                 $chouziinfo->pname = $pname;
             }
@@ -54,6 +57,142 @@
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("chouzi/index.phtml");
             //echo $this->view->render("index/footer.phtml");
+        }
+
+        /**
+         * 项目详情
+         */
+        public function pminfoAction(){
+            (int)$pid = HttpUtil::getString("id");
+            if(!empty($pid)){
+                $pm_mg_chouziDAO = $this->orm->createDAO('pm_mg_chouzi');
+                $pm_mg_chouziDAO ->findId($pid);
+                $pm_mg_chouziDAO = $pm_mg_chouziDAO ->get();
+
+                //生产二维码
+                if(!file_exists(__UPLOADPICPATH__ . '/pmqrcode/')) {
+                    mkdir(__UPLOADPICPATH__ . '/pmqrcode/' ,0777);
+                }
+                if(!file_exists(__BASEURL__ ."/include/upload_file/pmqrcode/".$pid.".png")){
+                    require_once 'phpqrcode/qrlib.php';
+                    QRcode::png(__BASEURL__ ."/management/chouzi/pminfo?id=".$pid , __UPLOADPICPATH__ . '/pmqrcode/' . $pid .".png", 'H', 5, 2);
+                }
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                // 收支统计信息
+                $zhichuinfo = new pm_mg_infoDAO();
+                $zhichuinfo->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
+                $zhichuinfo->selectField("
+                    IF(
+                        parent_pm_id = '',
+                        concat(parent_pm_id, '-', c.id),
+                        concat('0-', parent_pm_id, '-', c.id)
+                    )AS bpath,
+                     c.id as main_id,
+                     c.parent_pm_id,
+                     c.parent_pm_id_path,
+                     pm_mg_info.pm_name,
+                     pm_mg_info.shiyong_zhichu_datetime,
+                     pm_mg_info.shiyong_zhichu_jiner,
+                     pm_mg_info.zijin_daozhang_datetime,
+                     pm_mg_info.zijin_daozheng_jiner,
+                     pm_mg_info.pm_juanzeng_cate,
+                     pm_mg_info.jiangli_fanwei,
+                     pm_mg_info.jiangli_renshu,
+                     c.department,
+                     c.pm_fzr_mc,
+                     pm_mg_info.pm_pp");
+                $zhichuinfo->selectLimit .= " and pm_mg_info.pm_name='".$pm_mg_chouziDAO[0]['pname']."' ";
+                $zhichuinfo->selectLimit .= " and c.id!='' ";
+
+                $zhichuinfo->selectLimit .= " order by bpath";
+                $zhichuinfo = $zhichuinfo->get($this->dbhelper);
+
+                $zhichu = '';
+                $shouru = '';
+                $xiangmushuliang = array(); // 项目数量 只统计父类id
+                foreach ($zhichuinfo as $key => $v) {
+                    $zhichuinfo[$key]['parent_pm_name'] = $this->pm[$v[parent_pm_id]];
+                    $zhichuinfo[$key]['leixing'] = $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']);
+                    $zhichuinfo[$key]['deparment'] = $this->getdepartmentAction($this->departmentlist,$v['department']);
+                    $zhichu += $v['shiyong_zhichu_jiner'];
+                    $shouru += $v['zijin_daozheng_jiner'];
+                }
+
+                $this->view->assign("zhichu", round($zhichu,2));
+                $this->view->assign("shouru", round($shouru,2));
+                $this->view->assign("yuer", round(($shouru - $zhichu),2));
+                $this->view->assign("zhichuinfo", $zhichuinfo);
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                // 签约信息
+                $signDAO = $this->orm->createDAO("pm_mg_sign");
+                $signDAO ->withPm_mg_chouzi(array("pm_id" => "id"));
+                $like_sql = "";
+                if($pm_mg_chouziDAO[0]['pname'] != "")
+                {
+                    $like_sql .= " AND pm_mg_chouzi.pname like '%".$pm_mg_chouziDAO[0]['pname']."%'";
+                }
+                $like_sql .= " order by id desc";
+                $signDAO->select(" pm_mg_sign.*,pm_mg_chouzi.pname");
+                $signDAO->selectLimit = $like_sql;
+                $signDAO = $signDAO ->get();
+                $this->view->assign("signDAO", $signDAO);
+                //////////////////////////////////////////////////////////////////////////////////////////////
+
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                // 回馈信息
+                $feedbackDAO = $this->orm->createDAO('pm_mg_feedback')->order('id DESC');
+                $feedbackDAO->findPm_name($pm_mg_chouziDAO[0]['pname']);
+                $feedbackDAO = $feedbackDAO ->get();
+                $this->view->assign("feedbackDAO", $feedbackDAO);
+                //////////////////////////////////////////////////////////////////////////////////////////////
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                // 配比信息
+                $peibikDAO = $this->orm->createDAO('pm_mg_peibi')->order('id DESC');
+                $peibikDAO->findPm_name($pm_mg_chouziDAO[0]['pname']);
+                $peibikDAO = $peibikDAO ->get();
+                $this->view->assign("peibikDAO", $peibikDAO);
+                //////////////////////////////////////////////////////////////////////////////////////////////
+
+                $this->view->assign("chouzi", $pm_mg_chouziDAO);
+                echo $this->view->render("index/header.phtml");
+                echo $this->view->render("chouzi/pminfo.phtml");
+                //echo $this->view->render("index/footer.phtml");
+            }else {
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('该项目不存在！');");
+                echo('history.back();');
+                echo('</script>');
+                exit;
+            }
+        }
+
+        //获取部门名称
+        public function getdepartmentAction($departmentlist,$id){
+            if($departmentlist != ""){
+                foreach ($departmentlist as $v){
+                    if($v['id'] == $id){
+                        $department = $v['pname'];
+                    }
+                }
+            }
+            return $department;
+        }
+
+        //获取项目分类名称
+        public function getcateAction($catelist,$id){
+            if($catelist != ""){
+                foreach ($catelist as $v){
+                    if($v['id'] == $id){
+                        $cate = $v['catename'];
+                    }
+                }
+            }
+            return $cate;
         }
 
 		public function _init(){
@@ -95,8 +234,35 @@
             //项目名称列表
             $pm_chouzi = new pm_mg_chouziDAO();
             $pm_chouzi ->selectLimit .= " order by id desc";
+            $pm_chouzi ->department = $this->admininfo['admin_info']['department_id'];
             $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
             $this->view->assign("pmlist",$pm_chouzi);
+
+            // 获取可以申请使用的项目列表，并显示余额和项目信息
+            $expenditurelistDAO = new pm_mg_chouziDAO();
+            $expenditurelistDAO ->joinTable(" left join pm_mg_info as c on pm_mg_chouzi.pname=c.pm_name");
+            $expenditurelistDAO ->selectField("
+                     pm_mg_chouzi.*,
+                     sum(c.zijin_daozheng_jiner) as shouru,
+                     sum(c.shiyong_zhichu_jiner) as shiyong
+                      ");
+
+            $expenditurelistDAO ->selectLimit .= " and c.is_renling=1 and pm_mg_chouzi.department=".$this->admininfo['admin_info']['department_id'];
+            $expenditurelistDAO = $expenditurelistDAO ->get($this->dbhelper);
+
+            // 查看能申请使用的项目
+            if(!empty($expenditurelistDAO)) {
+                foreach($expenditurelistDAO as $key => $value){
+                    if(!$this->checkfeedback($value['pname'], $value['id'])){
+                        unset($expenditurelistDAO[$key]);
+                    }
+                    if(((float)$value['shouru'] - (float)$value['shiyong']) <= 0){
+                        unset($expenditurelistDAO[$key]);
+                    }
+                }
+            }
+            //var_dump($expenditurelistDAO);
+            $this->view->assign("expenditurelist",$expenditurelistDAO);
 
             // 项目进度
             $this->view->assign("rate_config",$this->rate_config);
@@ -323,6 +489,246 @@
             }
         }
 
+        /**
+         * 使用申请入口
+         */
+        public function expenditureAction()
+        {
+            $id = $_REQUEST['id'];
+            if(!empty($id)){
+                $_support_expenditureDAO = $this->orm->createDAO('_support_expenditure');
+                $_support_expenditureDAO ->findId($id);
+                $_support_expenditureDAO = $_support_expenditureDAO->get();
+                // 是否属于该管理员的项目
+                if($_support_expenditureDAO['0']['uid'] != $this->admininfo['admin_info']['id']){
+                    echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                    echo('<script language="JavaScript">');
+                    echo("alert('您的操作有误!');");
+                    echo "window.location.href='/support/index';";
+                    echo('</script>');
+                    exit;
+                }
+
+                $_support_expenditure_logDAO = $this->orm->createDAO('_support_expenditure_log');
+                $_support_expenditure_logDAO ->findMain_id($id);
+                $_support_expenditure_logDAO ->selectLimit .= ' ORDER BY lastmodify DESC';
+                $_support_expenditure_logDAO = $_support_expenditure_logDAO->get();
+
+                $this->view->assign("expenditure_info",$_support_expenditureDAO);
+                $this->view->assign("expenditure_info_log",$_support_expenditure_logDAO);
+
+                // 获取最后一次审核失败的log记录
+                $_support_project_log1DAO = $this->orm->createDAO('_support_project_log')->findMain_id($id)->findActive('shsb');
+                $_support_project_log1DAO ->selectLimit .= ' ORDER BY lastmodify DESC LIMIT 0,1';
+                $_support_project_log1DAO = $_support_project_log1DAO->get();
+                $this->view->assign("shsb",$_support_project_log1DAO);
+
+                // pdf审核失败
+                $_support_project_log5DAO = $this->orm->createDAO('_support_project_log')->findMain_id($id)->findActive('pdfshsb');
+                $_support_project_log5DAO ->selectLimit .= ' ORDER BY lastmodify DESC LIMIT 0,1';
+                $_support_project_log5DAO = $_support_project_log5DAO->get();
+                $this->view->assign("pdfshsb",$_support_project_log5DAO);
+            }
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("chouzi/expenditure.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        public function savesteponeAction(){
+            try{
+                $this->orm->beginTran();
+                $id = (int)$_REQUEST['id'];
+                $pname = HttpUtil::postString("pname");
+                $instruction = HttpUtil::postString("instruction");
+                $_support_projectDAO = $this->orm->createDAO('_support_project');
+                $_support_project_logDAO = $this->orm->createDAO('_support_project_log');
+
+                if(!empty($id)){
+                    $_support_projectDAO ->findId($id);
+                    //$_support_project_logDAO ->findMain_id($id);
+                }
+
+                if($pname == "" || $_FILES['img']['name'] == ""){
+                    echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                    echo('<script language="JavaScript">');
+                    echo("alert('您输入的信息不完整，请查正后继续添加！！！！！');");
+                    echo('history.back();');
+                    echo('</script>');
+                    exit;
+                }
+
+                // 检查项目是否已经存在 从申请和现有项目两个维度进行校验
+                $pm_mg_chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->findPname($pname)->get();
+                if(!empty($pm_mg_chouziDAO)){
+                    $this->alert_back("该项目已存在，或已在申请中！请核对后重新申请！");
+                }
+                $spDAO = $this->orm->createDAO("_support_project")->findP_name($pname)->get();
+                if(!empty($spDAO) && (int)$spDAO[0]['id'] != $id){
+                    $this->alert_back("该项目已存在！请核对后重新申请！");
+                }
+
+                // 项目不存在，生产申请项目的唯一id
+                $_support_projectDAO ->uid = $this->admininfo['admin_info']['id'];
+                $_support_projectDAO ->department_id = $this->admininfo['admin_info']['department_id'];
+                $_support_projectDAO ->p_name = $pname;
+                $_support_projectDAO ->lastmodify = time();
+                $_support_projectDAO ->status = 1;
+                $_support_projectDAO ->instruction = $instruction;
+
+                $p_id = $_support_projectDAO ->save();
+
+                if($p_id == "" && $id == ''){
+                    echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                    echo('<script language="JavaScript">');
+                    echo("alert('操作失败！！！！！');");
+                    echo('history.back();');
+                    echo('</script>');
+                    exit;
+                }
+
+                if($id != ''){  // 重新编辑时赋值
+                    $p_id = $id;
+                }
+
+                // 完善申请log表
+                $_support_project_logDAO -> main_id = $p_id;
+                $_support_project_logDAO -> lastmodify = time();
+                $_support_project_logDAO -> desc = $instruction;
+                $_support_project_logDAO -> username = $this->admininfo['admin_info']['username'];
+                $_support_project_logDAO -> active = 'tjdzsq';
+
+                if($_FILES['img']['name']!=""){
+                    if($_FILES['img']['error'] != 4){
+                        if(!is_dir(__UPLOADPICPATH__ ."jjh_project/".$this->admininfo['admin_info']['department_id']."/")){
+                            mkdir(__UPLOADPICPATH__ ."jjh_project/".$this->admininfo['admin_info']['department_id']."/");
+                        }
+                        $uploadpic = new uploadPic($_FILES['img']['name'],$_FILES['img']['error'],$_FILES['img']['size'],$_FILES['img']['tmp_name'],$_FILES['img']['type'],2);
+                        $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_project/".$this->admininfo['admin_info']['department_id']."/" ;
+                        $result = $uploadpic->uploadPic();
+                        if($result['error'] != 0){
+                            echo "<script>alert('".$result['msg']."');";
+                            echo "window.location.href='/support/chouzi/application-entry';";
+                            echo "</script>";
+                            exit();
+                        }else{
+                            $_support_project_logDAO->img =  __GETPICPATH__."jjh_project/".$this->admininfo['admin_info']['department_id']."/".$result['picname'];
+                            //$_support_projectDAO->meeting_files_name = $_FILES['meeting_files']['name'];
+                        }
+                    }
+                }
+
+                $_support_project_logDAO->save();
+                $this->orm->commit();
+                echo "<script>";
+                echo "window.location.href='/support/chouzi/application-entry?id=".$p_id."&step=2';";
+                echo "</script>";
+                exit();
+            }catch(Exception $e){
+                $this->orm->rollback();
+                echo $e->getMessage();
+                return false;exit();
+            }
+        }
+
+        public function savesteptwoAction(){
+            try{
+                $this->orm->beginTran();
+                $id = (int)$_REQUEST['id'];
+                $instruction = HttpUtil::postString("instruction");
+                $_support_projectDAO = $this->orm->createDAO('_support_project');
+                $_support_project_logDAO = $this->orm->createDAO('_support_project_log');
+
+                if(!empty($id)){
+                    $_support_projectDAO ->findId($id);
+                }else {
+                    $this->alert_back('操作失败！');
+                }
+
+                if($_FILES['img']['name'] == ""){
+                    $this->alert_back('请上传pdf文档！');
+                }
+
+                if($_FILES['img']['type'] != "application/pdf"){
+                    $this->alert_back('上传文件格式必须为pdf文档！');
+                }
+
+                // 项目不存在，生产申请项目的唯一id
+                $_support_projectDAO ->lastmodify = time();
+                $_support_projectDAO ->status = 4;  // '4' => '签字盖章pdf文件待审核',
+                $_support_projectDAO ->instruction = $instruction;
+
+                $p_id = $_support_projectDAO ->save();
+
+                if($p_id == "" && $id == ''){
+                    $this->alert_back('操作失败！');
+                }
+
+                if($id != ''){  // 重新编辑时赋值
+                    $p_id = $id;
+                }
+
+                // 完善申请log表
+                $_support_project_logDAO -> main_id = $p_id;
+                $_support_project_logDAO -> lastmodify = time();
+                $_support_project_logDAO -> desc = $instruction;
+                $_support_project_logDAO -> username = $this->admininfo['admin_info']['username'];
+                $_support_project_logDAO -> active = 'tjpdf';
+
+                if($_FILES['img']['name']!=""){
+                    if($_FILES['img']['error'] != 4){
+                        if(!is_dir(__UPLOADPICPATH__ ."jjh_project/".$this->admininfo['admin_info']['department_id']."/")){
+                            mkdir(__UPLOADPICPATH__ ."jjh_project/".$this->admininfo['admin_info']['department_id']."/");
+                        }
+                        $uploadpic = new uploadPic($_FILES['img']['name'],$_FILES['img']['error'],$_FILES['img']['size'],$_FILES['img']['tmp_name'],$_FILES['img']['type'],2);
+                        $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_project/".$this->admininfo['admin_info']['department_id']."/" ;
+                        $result = $uploadpic->uploadPic();
+                        if($result['error'] != 0){
+                            echo "<script>alert('".$result['msg']."');";
+                            echo "window.location.href='/support/chouzi/application-entry';";
+                            echo "</script>";
+                            exit();
+                        }else{
+                            $_support_project_logDAO->img =  __GETPICPATH__."jjh_project/".$this->admininfo['admin_info']['department_id']."/".$result['picname'];
+                            //$_support_projectDAO->meeting_files_name = $_FILES['meeting_files']['name'];
+                        }
+                    }
+                }
+
+                $_support_project_logDAO->save();
+                $this->orm->commit();
+                $this->alert_go('操作成功！', '/support/chouzi/application-entry?id='.$p_id);
+                exit();
+            }catch(Exception $e){
+                $this->orm->rollback();
+                echo $e->getMessage();
+                return false;exit();
+            }
+        }
+
+        /**
+         * @param $pname
+         * @param $pid
+         * @return bool
+         * check是否已经填写反馈情况
+         * pm_mg_support_feedback表，support_id,lastmodify,pid,pname,expenditure_id,files_info,text_info,status 0,1
+         */
+        public function checkfeedback($pname, $pid)
+        {
+            if(empty($pname) || empty($pid)){
+                // $this->alert_back('操作失败！');
+                return false;
+            }
+            $pm_mg_infoDAO = $this->orm->createDAO('pm_mg_info')->findPm_name($pname)->findCate_id(1)->findIs_renling(1)->get();
+            $feedbackDAO = $this->orm->createDAO('pm_mg_support_feedback')->findPid($pid)->findStatus(1)->get();
+
+            if((count($pm_mg_infoDAO) - count($feedbackDAO))  <=  1){
+                return ture;
+            }else {
+                return false;
+            }
+        }
+
         //权限
         public function acl()
         {
@@ -332,6 +738,10 @@
                 'application-entry',
                 'savestep1',
                 'savestep3',
+                'pminfo',
+                'expenditure',
+                'savestepone',
+                'savesteptwo'
             );
             if (in_array($action, $except_actions)) {
                 return;

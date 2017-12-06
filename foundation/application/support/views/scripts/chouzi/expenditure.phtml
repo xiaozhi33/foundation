@@ -7,12 +7,12 @@
 <div class="pageheader">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
-        <span>筹资立项申请</span></h2>
+        <span>项目资金使用申请</span></h2>
 
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
-            <li class="active">筹资立项申请</li>
+            <li class="active">项目资金使用申请</li>
         </ol>
     </div>
 
@@ -39,19 +39,27 @@
                     </div>
                     <div class="tab-content" style="margin: 20px;">
                         <div class="tab-pane" id="tab1">
-                            <p>下载电子版立项模板并认真填写立项信息，确认无误后，提交电子版立项文档( 以word的形式 )。</p>
+                            <p>下载电子版资金使用模板并认真填写资金使用信息，确认无误后，提交电子版资金使用文档( 以word的形式 )。</p>
                             <div>
-                                <form class="form-horizontal" id="form1" action="savestep1" method="post" encType="multipart/form-data">
+                                <form class="form-horizontal" id="form1" action="savestepone" method="post" encType="multipart/form-data">
+
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                                        <label class="col-sm-2 control-label" for="input01">所属项目名称：</label>
                                         <div class="col-sm-4">
-                                            <input class="form-control" type="text" name="pname" value="<?php echo $this->project_info[0]['p_name'];?>"/>
+                                            <select class="chosen-select-1 chosen-transparent form-control" name="pm_id">
+                                                <option value="">请选择项目名称</option>
+                                                <?php if($this->expenditurelist != ""){
+                                                    foreach ($this->expenditurelist as $k => $v){
+                                                        ?>
+                                                        <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                                    <?php }}?>
+                                            </select>
+                                            <input id="pname_info" type="hidden" name="pname" value=""/>
                                         </div>
-                                        <span class="col-sm-1" > * </span>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="input01">电子版立项文档：</label>
+                                        <label class="col-sm-2 control-label" for="input01">电子版资金使用文档：</label>
                                         <div class="col-sm-4">
                                             <input name="img" type="file" value="" />
                                         </div>
@@ -67,41 +75,12 @@
                                         <span class="col-sm-1" >  </span>
                                     </div>
 
-                                    <!--<div class="form-group">
-                                        <label class="col-sm-2 control-label" for="input02">所属项目：</label>
-                                        <div class="col-sm-4">
-                                            <select class="chosen-select chosen-transparent form-control" name="pm_id">
-                                                <option value="0" >请选择所属项目名称</option>
-                                                <?php /*if($this->chouzi_lists != ""){
-                                                    foreach ($this->chouzi_lists as $k => $v){*/?>
-                                                        <option value="<?php /*echo $v['id']*/?>" ><?php /*echo $v['pname']*/?></option>
-                                                    <?php /*}}*/?>
-                                            </select>
-                                        </div>
-                                        <span class="col-sm-2" > 如果有父类项目请选择此项 选填</span>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label" for="input02">所属部门：</label>
-                                        <div class="col-sm-4">
-                                            <select class="chosen-select chosen-transparent form-control" name="department">
-                                                <option value="" >请选择所属部门</option>
-                                                <?php /*if($this->departmentlist != ""){
-                                                    foreach ($this->departmentlist as $k => $v){*/?>
-                                                        <option value="<?php /*echo $v['id']*/?>" ><?php /*echo $v['pname']*/?></option>
-                                                    <?php /*}}*/?>
-                                            </select>
-                                        </div>
-                                        <span class="col-sm-1" > * </span>
-                                    </div>-->
-
                                     <input type="hidden" name="id" value="<?php echo $this->project_info[0]['id'];?>"/>
 
                                     <?php if($this->project_info[0]['status'] == 0 || $this->project_info[0]['status'] == 2){?>
                                     <div class="form-group">
                                         <div class="col-sm-offset-5 col-sm-7">
                                             <input class="btn btn-primary" type="submit" value="提交审核，进入下一步" /> &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <!--<input class="btn btn-default" type="reset" value="重 置" />-->
                                         </div>
                                     </div>
                                     <?php }?>
@@ -112,10 +91,10 @@
                         </div>
 
                         <div class="tab-pane" id="tab2">
-                            <p>等待项目负责人审核，若通过则通知可以进行第三步，如不符合要求，则需修改并重新上传立项文档电子版。</p>
+                            <p>等待项目负责人审核，若通过则通知可以进行第三步，如不符合要求，则需修改并重新上传资金使用文档电子版。</p>
 
                             <p>
-                                <button class="btn btn-large btn-primary" type="button"> 项目申请已提交，请等待审核结果。</button>
+                                <button class="btn btn-large btn-primary" type="button"> 资金使用申请已提交，请等待审核结果。</button>
                             </p>
 
                             <p>温馨提示：审核结果通过会以邮件或短信的方式提醒您。</p>
@@ -169,7 +148,7 @@
                         </div>
 
                         <div class="tab-pane" id="tab5">
-                            <p>立项申请成功后，寄送立项文档到基金会，立项完成。</p>
+                            <p>资金使用申请成功后，寄送资金使用文档到基金会，申领完成。</p>
                         </div>
 
                         <!--<ul class="pager wizard">
@@ -189,7 +168,7 @@
                 ?>
 
                 <section class="tile color transparent-white" style="padding: 10px;">
-                    <div style="margin: 10px;"><h5> 立项进度状态：<strong style="color: red;"><?php $number = (int)$this->project_info[0]['status']; echo $this->project_status[$number];?></strong> -- 请重新填写并上传立项电子版文档</h5></div>
+                    <div style="margin: 10px;"><h5> 进度状态：<strong style="color: red;"><?php $number = (int)$this->project_info[0]['status']; echo $this->project_status[$number];?></strong> -- 请重新填写并上传立项电子版文档</h5></div>
                     <div style="margin: 10px;"><h5> 审核失败理由：<?php echo $this->shsb[0]['desc'];?></h5></div>
                     <div style="margin: 10px;"><h5> 审核失败图示：<img src="<?php echo $this->shsb[0]['img'];?>" /></h5></div>
                     <div style="margin: 10px;"><h5> 审核时间：<?php echo date("Y-m-d H:i:s", $this->shsb[0]['lastmodify']);?></h5></div>
@@ -198,7 +177,7 @@
                 <?php }elseif($this->project_info[0]['status'] == 5){ ?>
 
                 <section class="tile color transparent-white" style="padding: 10px;">
-                    <div style="margin: 10px;"><h5> 立项进度状态：<strong style="color: red;"><?php $number = (int)$this->project_info[0]['status']; echo $this->project_status[$number];?></strong> -- 请重新填写并上传签字盖章pdf文件</h5></div>
+                    <div style="margin: 10px;"><h5> 进度状态：<strong style="color: red;"><?php $number = (int)$this->project_info[0]['status']; echo $this->project_status[$number];?></strong> -- 请重新填写并上传签字盖章pdf文件</h5></div>
                     <div style="margin: 10px;"><h5> 审核失败理由：<?php echo $this->pdfshsb[0]['desc'];?></h5></div>
                     <div style="margin: 10px;"><h5> 审核失败图示：<img src="<?php echo $this->pdfshsb[0]['img'];?>" /></h5></div>
                     <div style="margin: 10px;"><h5> 审核时间：<?php echo date("Y-m-d H:i:s", $this->pdfshsb[0]['lastmodify']);?></h5></div>
@@ -206,7 +185,7 @@
 
                 <?php }else{ ?>
                     <section class="tile color transparent-white" style="padding: 10px;">
-                        <div style="margin: 10px;"><h5> 立项进度状态：<strong style="color: red;"><?php $number = (int)$this->project_info[0]['status']; echo $this->project_status[$number];?></strong></div>
+                        <div style="margin: 10px;"><h5> 进度状态：<strong style="color: red;"><?php $number = (int)$this->project_info[0]['status']; echo $this->project_status[$number];?></strong></div>
                     </section>
                 <?php }?>
             <?php }?>
@@ -236,10 +215,6 @@
 <script src="/include/support/js/prettify.js"></script>
 
 <script language="javascript">
-    $(document).ready(function(){
-
-    });
-
     $('#rootwizard').bootstrapWizard({
         tabClass: 'nav nav-pills',
         onTabClick: function(tab, navigation, index) {

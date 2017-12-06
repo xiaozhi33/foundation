@@ -56,4 +56,29 @@
     <script src="/include/management/assets/js/minimal.min.js"></script>
 
 
+    <script>
+        // Initialize card flip
+        $('.card.hover').hover(function(){
+            $(this).addClass('flip');
+        },function(){
+            $(this).removeClass('flip');
+        });
+    </script>
+
+            <script language="javascript">
+                //搜索功能采用get方式 关键词下拉提示，
+                $(".chosen-select-1").chosen({
+                    search_contains: true,
+                    no_results_text : "未找到此选项!",
+                    //width:"70%",
+                    height:"60%",
+                    disable_search_threshold: 10
+                });
+
+                $(".chosen-select-2").chosen({
+                    search_contains: true,
+                    disable_search_threshold: 10
+                });
+            </script>
+
     

@@ -354,8 +354,18 @@
                 //$pm_sjjzfllr_email = HttpUtil::postString("pm_sjjzfllr_email");
                 //$pm_sjjzfllr_tel = HttpUtil::postString("pm_sjjzfllr_tel");
 
+                $percent = HttpUtil::postString("percent");  //项目编号
+
                 if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
+                }
+
+                if (empty($percent)){
+                    alert_back('请设置资金使用限额');
+                }
+
+                if($percent > 100){
+                    alert_back('资金使用限额，不能大于余额的100%');
                 }
 
                 $pm_chouziDAO = $this->orm->createDAO('pm_mg_chouzi')->findId($_REQUEST['id']);
@@ -406,6 +416,8 @@
 
                 $pm_chouziDAO->execute_fzr = $execute_fzr;
                 $pm_chouziDAO->execute_llr = $execute_llr;
+
+                $pm_chouziDAO->percent = $percent;
 
                 $pid = HttpUtil::postString("pm_id");
                 if(!empty($pid)){
@@ -1199,6 +1211,28 @@
             }
         }
 
+        // 项目使用申请 金额限制
+        public function changeLimitAction(){
+            $id = (int)$_REQUEST['id'];
+            if (empty($id)){
+                $this->alert_back('操作失败！');
+            }
+            $percent = (int)$_REQUEST['percent'];
+            if (empty($percent)){
+                $this->alert_back('请设置资金使用限额');
+            }
+
+            if($percent > 100){
+                $this->alert_back('资金使用限额，不能大于余额的100%');
+            }
+
+            $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->findId($id);
+            $chouziDAO ->findId($id);
+            $chouziDAO ->percent = $percent;
+            $chouziDAO ->save();
+            $this->alert_go('设置成功！', '/management/index');
+        }
+
         //权限
         public function acl()
         {
@@ -1220,6 +1254,7 @@
                 'savepinfo',
                 'savepinfo4',
                 'savepinfo7',
+                'change-limit',
             );
             if (in_array($action, $except_actions)) {
                 return;
