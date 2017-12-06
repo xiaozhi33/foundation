@@ -185,6 +185,18 @@
                 'lxcg'  => '立项成功',
             );
             $this->view->assign("active_array",$active_array);
+
+            // 操作类型
+            $active_shiyong_array = array(
+                'tjsysq' => '提交资金使用申请',
+                'shtg' => '电子版申请审核通过',
+                'shsb' => '电子版申请审核失败',
+                'tjpdf' => '签字盖章pdf文件待审核',
+                'pdfshtg' => '签字盖章pdf文件审核通过',
+                'pdfshsb' => '签字盖章pdf文件审核失败',
+                'sqcg'  => '资金使用申请成功',
+            );
+            $this->view->assign("active_array",$active_array);
 			
 			//网站配置
 			$this->systemSetting = $this->getSystemSetting();

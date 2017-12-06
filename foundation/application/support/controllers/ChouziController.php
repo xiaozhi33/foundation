@@ -541,12 +541,11 @@
                 $id = (int)$_REQUEST['id'];
                 $pname = HttpUtil::postString("pname");
                 $instruction = HttpUtil::postString("instruction");
-                $_support_projectDAO = $this->orm->createDAO('_support_project');
-                $_support_project_logDAO = $this->orm->createDAO('_support_project_log');
+                $_support_expenditureDAO = $this->orm->createDAO('_support_expenditure');
+                $_support_expenditure_logDAO = $this->orm->createDAO('_support_expenditure_log');
 
                 if(!empty($id)){
-                    $_support_projectDAO ->findId($id);
-                    //$_support_project_logDAO ->findMain_id($id);
+                    $_support_expenditureDAO ->findId($id);
                 }
 
                 if($pname == "" || $_FILES['img']['name'] == ""){
@@ -558,25 +557,17 @@
                     exit;
                 }
 
-                // 检查项目是否已经存在 从申请和现有项目两个维度进行校验
-                $pm_mg_chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->findPname($pname)->get();
-                if(!empty($pm_mg_chouziDAO)){
-                    $this->alert_back("该项目已存在，或已在申请中！请核对后重新申请！");
-                }
-                $spDAO = $this->orm->createDAO("_support_project")->findP_name($pname)->get();
-                if(!empty($spDAO) && (int)$spDAO[0]['id'] != $id){
-                    $this->alert_back("该项目已存在！请核对后重新申请！");
-                }
+                // 检查项目是否有余额，并且已经完成资金使用反馈 todo
 
                 // 项目不存在，生产申请项目的唯一id
-                $_support_projectDAO ->uid = $this->admininfo['admin_info']['id'];
-                $_support_projectDAO ->department_id = $this->admininfo['admin_info']['department_id'];
-                $_support_projectDAO ->p_name = $pname;
-                $_support_projectDAO ->lastmodify = time();
-                $_support_projectDAO ->status = 1;
-                $_support_projectDAO ->instruction = $instruction;
+                $_support_expenditureDAO ->uid = $this->admininfo['admin_info']['id'];
+                $_support_expenditureDAO ->department_id = $this->admininfo['admin_info']['department_id'];
+                $_support_expenditureDAO ->p_name = $pname;
+                $_support_expenditureDAO ->lastmodify = time();
+                $_support_expenditureDAO ->status = 1;
+                $_support_expenditureDAO ->instruction = $instruction;
 
-                $p_id = $_support_projectDAO ->save();
+                $p_id = $_support_expenditureDAO ->save();
 
                 if($p_id == "" && $id == ''){
                     echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
@@ -592,11 +583,11 @@
                 }
 
                 // 完善申请log表
-                $_support_project_logDAO -> main_id = $p_id;
-                $_support_project_logDAO -> lastmodify = time();
-                $_support_project_logDAO -> desc = $instruction;
-                $_support_project_logDAO -> username = $this->admininfo['admin_info']['username'];
-                $_support_project_logDAO -> active = 'tjdzsq';
+                $_support_expenditure_logDAO -> main_id = $p_id;
+                $_support_expenditure_logDAO -> lastmodify = time();
+                $_support_expenditure_logDAO -> desc = $instruction;
+                $_support_expenditure_logDAO -> username = $this->admininfo['admin_info']['username'];
+                $_support_expenditure_logDAO -> active = 'tjsysq';
 
                 if($_FILES['img']['name']!=""){
                     if($_FILES['img']['error'] != 4){
@@ -608,20 +599,20 @@
                         $result = $uploadpic->uploadPic();
                         if($result['error'] != 0){
                             echo "<script>alert('".$result['msg']."');";
-                            echo "window.location.href='/support/chouzi/application-entry';";
+                            echo "window.location.href='/support/chouzi/expenditure';";
                             echo "</script>";
                             exit();
                         }else{
-                            $_support_project_logDAO->img =  __GETPICPATH__."jjh_project/".$this->admininfo['admin_info']['department_id']."/".$result['picname'];
+                            $_support_expenditure_logDAO->img =  __GETPICPATH__."jjh_project/".$this->admininfo['admin_info']['department_id']."/".$result['picname'];
                             //$_support_projectDAO->meeting_files_name = $_FILES['meeting_files']['name'];
                         }
                     }
                 }
 
-                $_support_project_logDAO->save();
+                $_support_expenditure_logDAO->save();
                 $this->orm->commit();
                 echo "<script>";
-                echo "window.location.href='/support/chouzi/application-entry?id=".$p_id."&step=2';";
+                echo "window.location.href='/support/chouzi/expenditure?id=".$p_id."&step=2';";
                 echo "</script>";
                 exit();
             }catch(Exception $e){
@@ -636,11 +627,11 @@
                 $this->orm->beginTran();
                 $id = (int)$_REQUEST['id'];
                 $instruction = HttpUtil::postString("instruction");
-                $_support_projectDAO = $this->orm->createDAO('_support_project');
-                $_support_project_logDAO = $this->orm->createDAO('_support_project_log');
+                $_support_expenditureDAO = $this->orm->createDAO('_support_expenditure');
+                $_support_expenditure_logDAO = $this->orm->createDAO('_support_expenditure_log');
 
                 if(!empty($id)){
-                    $_support_projectDAO ->findId($id);
+                    $_support_expenditureDAO ->findId($id);
                 }else {
                     $this->alert_back('操作失败！');
                 }
@@ -654,11 +645,11 @@
                 }
 
                 // 项目不存在，生产申请项目的唯一id
-                $_support_projectDAO ->lastmodify = time();
-                $_support_projectDAO ->status = 4;  // '4' => '签字盖章pdf文件待审核',
-                $_support_projectDAO ->instruction = $instruction;
+                $_support_expenditureDAO ->lastmodify = time();
+                $_support_expenditureDAO ->status = 4;  // '4' => '签字盖章pdf文件待审核',
+                $_support_expenditureDAO ->instruction = $instruction;
 
-                $p_id = $_support_projectDAO ->save();
+                $p_id = $_support_expenditureDAO ->save();
 
                 if($p_id == "" && $id == ''){
                     $this->alert_back('操作失败！');
@@ -669,11 +660,11 @@
                 }
 
                 // 完善申请log表
-                $_support_project_logDAO -> main_id = $p_id;
-                $_support_project_logDAO -> lastmodify = time();
-                $_support_project_logDAO -> desc = $instruction;
-                $_support_project_logDAO -> username = $this->admininfo['admin_info']['username'];
-                $_support_project_logDAO -> active = 'tjpdf';
+                $_support_expenditure_logDAO -> main_id = $p_id;
+                $_support_expenditure_logDAO -> lastmodify = time();
+                $_support_expenditure_logDAO -> desc = $instruction;
+                $_support_expenditure_logDAO -> username = $this->admininfo['admin_info']['username'];
+                $_support_expenditure_logDAO -> active = 'tjpdf';
 
                 if($_FILES['img']['name']!=""){
                     if($_FILES['img']['error'] != 4){
@@ -689,15 +680,15 @@
                             echo "</script>";
                             exit();
                         }else{
-                            $_support_project_logDAO->img =  __GETPICPATH__."jjh_project/".$this->admininfo['admin_info']['department_id']."/".$result['picname'];
+                            $_support_expenditure_logDAO->img =  __GETPICPATH__."jjh_project/".$this->admininfo['admin_info']['department_id']."/".$result['picname'];
                             //$_support_projectDAO->meeting_files_name = $_FILES['meeting_files']['name'];
                         }
                     }
                 }
 
-                $_support_project_logDAO->save();
+                $_support_expenditure_logDAO->save();
                 $this->orm->commit();
-                $this->alert_go('操作成功！', '/support/chouzi/application-entry?id='.$p_id);
+                $this->alert_go('操作成功！', '/support/chouzi/expenditure?id='.$p_id);
                 exit();
             }catch(Exception $e){
                 $this->orm->rollback();
@@ -729,6 +720,32 @@
             }
         }
 
+        public function ajaxpinfoAction(){
+            if(empty((int)$_REQUEST['pid'])) {
+                echo json_encode(array('error'=>'error'));
+                exit();
+            }
+            $id = (int)$_REQUEST['pid'];
+            // 获取可以申请使用的项目列表，并显示余额和项目信息
+            $expenditurelistDAO = new pm_mg_chouziDAO();
+            $expenditurelistDAO ->joinTable(" left join pm_mg_info as c on pm_mg_chouzi.pname=c.pm_name");
+            $expenditurelistDAO ->selectField("
+                     pm_mg_chouzi.*,
+                     sum(c.zijin_daozheng_jiner) as shouru,
+                     sum(c.shiyong_zhichu_jiner) as shiyong
+                      ");
+
+            $expenditurelistDAO ->selectLimit .= " and c.is_renling=1 and pm_mg_chouzi.id=".$id;
+            $expenditurelistDAO = $expenditurelistDAO ->get($this->dbhelper);
+
+            $result_array['rs']['yuer'] = (float)$expenditurelistDAO[0]['shouru']-(float)$expenditurelistDAO[0]['shiyong'];
+            $result_array['rs']['percent'] = $expenditurelistDAO[0]['percent'];
+            $result_array['rs']['shiyong'] = (int)($result_array['rs']['yuer'] * $result_array['rs']['percent'] / 100);
+
+            echo json_encode($result_array);
+            exit();
+        }
+
         //权限
         public function acl()
         {
@@ -741,7 +758,8 @@
                 'pminfo',
                 'expenditure',
                 'savestepone',
-                'savesteptwo'
+                'savesteptwo',
+                'ajaxpinfo',
             );
             if (in_array($action, $except_actions)) {
                 return;

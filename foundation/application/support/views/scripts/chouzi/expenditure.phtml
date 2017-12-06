@@ -67,6 +67,16 @@
                                         <span class="col-sm-2" > * </span>-->
                                     </div>
 
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input01">申请使用金额：</label>
+                                        <div class="col-sm-2">
+                                            <input name="money" type="text" value="" /> 元
+                                        </div>
+                                        <span> * </span>
+                                        <span id="yuer"> </span>
+                                        <span id="zcsx"> </span>
+                                    </div>
+
                                     <div class="form-group transparent-editor">
                                         <label class="col-sm-2 control-label" for="input14">申请说明：</label>
                                         <div class="col-sm-4">
@@ -254,7 +264,24 @@
             }
         ?>);
 
-        $()
+        $('#chosen-select-1').onChange(function(){
+            $.ajax({
+                type:'post',
+                url: '/support/chouzi/ajaxpinfo',
+                data:{"id":$('.chosen-select-1').val()},
+                cache:false,
+                dataType:'json',
+                success:function(data){
+                    if(data['rs']['yuer'] != '' && data['rs']['percent'] != '' && data['rs']['shiyong'] != ''){
+                        $('#yuer').html("该项目余额为"+data['rs']['yuer']+"万元");
+                        $('#zcsx').html("本次支出不能超过余额的"+data['rs']['yuer']+""+"即："+"*"+"% = "+"元");
+                    }
+                },
+                complete:function(data){
+
+                }
+            });
+        });
 </script>
 
 <style>
