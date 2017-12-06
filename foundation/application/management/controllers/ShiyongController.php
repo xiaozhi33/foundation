@@ -22,7 +22,7 @@
 			}
             //$pminfo ->shiyong_type = $type;
 			
-			$pminfo ->selectLimit .= " and cate_id = 1 order by shiyong_zhichu_datetime desc";
+			$pminfo ->selectLimit .= " and cate_id = 1 order by lastmodify DESC,shiyong_zhichu_datetime desc";
 			//$pminfo ->debugSql = true;
 			
 			$pminfo = $pminfo->get($this->dbhelper);
