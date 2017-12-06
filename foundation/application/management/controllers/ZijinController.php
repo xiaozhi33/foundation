@@ -1048,6 +1048,7 @@
                 'newsavesign',
                 'download',
                 'binding-claim',
+                'index',
             );
             if (in_array($action, $except_actions)) {
                 return;
