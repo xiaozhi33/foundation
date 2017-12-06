@@ -22,7 +22,7 @@
 			}
             //$pminfo ->shiyong_type = $type;
 			
-			$pminfo ->selectLimit .= " and cate_id = 1 order by shiyong_zhichu_datetime desc";
+			$pminfo ->selectLimit .= " and cate_id = 1 order by lastmodify DESC,shiyong_zhichu_datetime desc";
 			//$pminfo ->debugSql = true;
 			
 			$pminfo = $pminfo->get($this->dbhelper);
@@ -103,6 +103,8 @@
 				$pm_mg_infoDAO ->cate_id = 1;
 				$pm_mg_infoDAO ->is_renling = 1; // 后台添加默认为已认领
 
+				$pm_mg_infoDAO ->lastmodify = time();
+
 				if($_FILES['pm_files']['name']!=""){
 					if($_FILES['pm_files']['error'] != 4){
 						if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
@@ -179,6 +181,8 @@
 				$pm_mg_infoDAO ->shiyong_zhichu_datetime = $shiyong_zhichu_datetime;
 				$pm_mg_infoDAO ->shiyong_zhichu_jiner = $shiyong_zhichu_jiner;
 				$pm_mg_infoDAO ->pm_juanzeng_cate = HttpUtil::postString("pm_cate");
+
+				$pm_mg_infoDAO ->lastmodify = time();
 				
 				if($_FILES['pm_files']['name']!=""){
 					if($_FILES['pm_files']['error'] != 4){

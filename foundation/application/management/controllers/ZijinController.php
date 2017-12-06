@@ -15,7 +15,7 @@
 				$zijininfo ->department = $department;
 			}
 
-			$zijininfo ->selectLimit = " and cate_id=0 order by id desc";
+			$zijininfo ->selectLimit = " and cate_id=0 order by lastmodify DESC,id desc";
             //$zijininfo ->selectLimit = " and is_renling=1"; // 显示已认领的项目
 			//$chouziinfo ->debugSql =true;
 			$zijininfo = $zijininfo->get($this->dbhelper);
@@ -141,6 +141,8 @@
             $pm_zijinDAO ->is_renling = 1;
 			$pm_zijinDAO ->cate_id = 0;
 
+            $pm_zijinDAO ->lastmodify = time();
+
 			if($_FILES['pm_files']['name']!=""){
 				if($_FILES['pm_files']['error'] != 4){
 					if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
@@ -241,6 +243,8 @@
 
                 $pm_zijinDAO ->yishi = $yishi;
                 $pm_zijinDAO ->jinianpin = $jinianpin;
+
+                $pm_zijinDAO ->lastmodify = time();
 	
 				if($_FILES['pm_files']['name']!=""){
 					if($_FILES['pm_files']['error'] != 4){
@@ -368,7 +372,7 @@
             }else {
                 $this->renling_weirenling_list->findIs_renling("0");
             }
-            $like_sql .= "  ORDER BY `zijin_daozhang_datetime` DESC";
+            $like_sql .= "  ORDER BY `lastmodify` DESC,`zijin_daozhang_datetime` DESC";
             $this->renling_weirenling_list->findCate_id("0");
             $this->renling_weirenling_list->selectLimit = $like_sql;
             $this->renling_weirenling_list = $this->renling_weirenling_list->get();
@@ -448,7 +452,8 @@
                     $pm_mg_infoDAO ->piaoju_fph = $_REQUEST["piaoju_fph"];    // 发票号
 
                     $pm_mg_infoDAO ->cate_id = 0;   // 类型 0资金 1使用
-                    $pm_mg_infoDAO ->pm_name = $_REQUEST['zw_xmmc'];   // 类型 0资金 1使用
+                    //$pm_mg_infoDAO ->pm_name = $_REQUEST['zw_xmmc'];   // 来款项目名称 以项目管理系统名称为准
+                    $pm_mg_infoDAO ->pm_name = $pm_relateDAO[0]['pm_name'];   // 来款项目名称 以项目管理系统名称为准
                     $pm_mg_infoDAO ->pm_pp = HttpUtil::postString("pm_pp");   // 付款单位
                     $pm_mg_infoDAO ->pm_pp_cate = HttpUtil::postString("pm_pp_cate");   // 捐赠者类型 基金会/企业/校友/社会人士
                     $pm_mg_infoDAO ->zijin_laiyuan_qudao = HttpUtil::postString("zijin_laiyuan_qudao");   // 渠道 境内 境外
@@ -1033,7 +1038,6 @@
         {
             $action = $this->getRequest()->getActionName();
             $except_actions = array(
-                'index',
                 'addrszijin',
                 'editrszijin',
                 'savebindingclaim',
@@ -1049,6 +1053,7 @@
                 'newsavesign',
                 'download',
                 'binding-claim',
+                'index',
             );
             if (in_array($action, $except_actions)) {
                 return;
