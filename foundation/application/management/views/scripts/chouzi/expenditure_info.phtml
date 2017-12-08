@@ -1,0 +1,268 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>资金使用申请信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目信息编辑</li>
+            <li class="active">资金使用申请信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+        <div class="col-md-12">
+            <section class="tile color transparent-white">
+                <!-- tile header -->
+                <div class="tile-header">
+                    <h3>资金使用所属项目：<a href="/management/chouzi/pminfo?id=<?php echo $this->expenditure_info[0]['p_id'];?>" target="_blank">【<strong><?php echo $this->expenditure_info[0]['p_name'];?></strong> -  点击查看】</a> - <font style="color: #d70302;font-size: 13px;"><?php echo $this->expenditure_status[$this->expenditure_info[0]['status']];?></font></h3>
+
+                    <div class="controls">
+                        <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <!-- /tile header -->
+
+                <div class="detailedbox tile-body">
+                    <?php if($this->expenditure_info[0]['status'] == 1){?>
+                        <form class="form-horizontal" id="form1" action="saveexpenditureinfo" method="post" encType="multipart/form-data">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">申请立项项目名称：</label>
+                            <div class="col-sm-1 control-label">
+                                <?php echo $this->expenditure_info[0]['p_name'];?>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">申请人：</label>
+                            <div class="col-sm-1 control-label">
+                                <?php echo $this->support_expenditure_log[0]['username'];?>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">申请部门：</label>
+                            <div class="col-sm-1 control-label">
+                                <?php foreach ($this->departmentlist as $key => $value){?>
+                                    <?php if($value['id']== $this->expenditure_info[0]['department_id'])echo $value['pname'];?>
+                                <?php }?>
+                            </div>
+                        </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input01">申请资金使用金额：</label>
+                                <div class="col-sm-1 control-label">
+                                    <?php echo number_format($this->expenditure_info[0]['jiner'],2,".",",");?> 元
+                                </div>
+                            </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">待审核电子版：</label>
+                            <div class="col-sm-10 control-label">
+                                <img src="<?php echo $this->support_expenditure_log[0]['img'];?>" width="60%"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">进度状态：</label>
+                            <div class="col-sm-1 control-label">
+                                <font style="color: #d70302"><?php echo $this->expenditure_status[$this->expenditure_info[0]['status']];?></font>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="is_tg">
+                            <label class="col-sm-2 control-label" for="input01">是否通过审核：</label>
+                            <div class="col-sm-2 control-label">
+                                审核通过 <input type="radio" name="auditing" value="1" checked="checked"/>
+                                审核未通过 <input type="radio" name="auditing" value="2" />
+                            </div>
+                        </div>
+
+                        <div class="wtg">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input01">批示图片上传：</label>
+                                <div class="col-sm-2 control-label">
+                                    <div class="col-sm-4">
+                                        <input name="img" type="file" value="" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input01">拒批原因：</label>
+                                <div class="col-sm-6 control-label">
+                                    <textarea parsley-validation-minlength="1" name="desc" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <input type="hidden" name="id" value="<?php echo $this->expenditure_info[0]['id'];?>"/>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-5 col-sm-7">
+                                <input class="btn btn-primary" type="submit" value="确认提交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                        </div>
+
+                    </form>
+                    <?php }elseif($this->expenditure_info[0]['status'] == 2){?>
+
+                        <p>进度状态：<strong><font style="color: #d70302;font-size: 15px;"><?php echo $this->expenditure_status[$this->expenditure_info[0]['status']];?></font></strong></p>
+                        <p>等待重新上传资金使用电子版</p>
+
+                    <?php }elseif($this->expenditure_info[0]['status'] == 4){?>
+                        <form class="form-horizontal" id="form1" action="savepinfofour" method="post" encType="multipart/form-data">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input01">待审核签字盖章pdf：</label>
+                                <div class="col-sm-2 control-label">
+                                    <a href="<?php echo $this->dsh_pdf[0]['img'];?>" target="_blank">点击查看</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input01">进度状态：</label>
+                                <div class="col-sm-2 control-label">
+                                    <font style="color: #d70302"><?php echo $this->expenditure_status[$this->expenditure_info[0]['status']];?></font>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="is_tg">
+                                <label class="col-sm-2 control-label" for="input01">是否通过审核：</label>
+                                <div class="col-sm-2 control-label">
+                                    审核通过 <input type="radio" name="auditing" value="1" checked="checked"/>
+                                    审核未通过 <input type="radio" name="auditing" value="2" />
+                                </div>
+                            </div>
+
+                            <div class="wtg">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input01">批示图片上传：</label>
+                                    <div class="col-sm-2 control-label">
+                                        <div class="col-sm-4">
+                                            <input name="img" type="file" value="" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input01">拒批原因：</label>
+                                    <div class="col-sm-6 control-label">
+                                        <textarea parsley-validation-minlength="1" name="desc" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="id" value="<?php echo $this->expenditure_info[0]['id'];?>"/>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-5 col-sm-7">
+                                    <input class="btn btn-primary" type="submit" value="确认提交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                            </div>
+
+                        </form>
+                    <?php }elseif($this->expenditure_info[0]['status'] == 7){?>
+                        <form class="form-horizontal" id="form1" action="savepinfoseven" method="post" encType="multipart/form-data">
+
+                            <input type="hidden" name="id" value="<?php echo $this->expenditure_info[0]['id'];?>"/>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-5">
+                                    <input class="btn btn-primary" type="submit" value="领导已签字，点击完成立项 >>" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                            </div>
+
+                        </form>
+                    <?php }?>
+                </div>
+            </section>
+
+            <section class="tile color transparent-white">
+                <!-- tile header -->
+                <div class="tile-header">
+                    <h3>资金使用记录 Logs</h3>
+                    <div class="controls">
+                        <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <!-- /tile header -->
+
+                <div class="tile-body nopadding">
+                    <?php if($this->support_expenditure_log_list != ""){?>
+                    <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                        <thead>
+                        <tr>
+                            <td width="10%">操作人</td>
+                            <td width="15%">操作类型</td>
+                            <td width="15%">操作时间</td>
+                            <td width="10%">相关文档</td>
+                            <td width="60%">申请说明</td>
+                            <!--<td width="15%">操作</td>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach($this->support_expenditure_log_list as $k=>$v){?>
+                            <tr>
+                                <td><?php echo $v['username'];?></td>
+                                <td><?php echo $this->active_expenditure_array[$v['active']];?></td>
+                                <td><?php echo date("Y-m-d H:i:s", $v['lastmodify']);?></td>
+                                <td><a href="<?php echo $v['img'];?>" target="_blank"><?php if($v['img'] != "")echo '点击查看';?></a></td>
+                                <td><?php echo $v['desc'];?></td>
+                            </tr>
+                        <?php }?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tile-footer">
+                    <div class="row">
+                        <div class="page col-md-12" align="right">
+                            共  <?php echo count($this->support_expenditure_log_list);?> 条记录          <?php echo $this->page;?></div>
+
+                        <?php }else {?>
+                            <div style="margin: 20px;">暂无资金使用申请记录</div>
+                        <?php }?>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    <script src="/include/management/assets/js/jquery.js"></script>
+
+    <script language="javascript">
+        /*$(".menu li:eq(8)").addClass("open");*/
+        $(document).ready(function(){
+            $(".wtg").hide();
+            $("#is_tg").change(function(){
+                var $selectedvalue = $("input[name='auditing']:checked").val();
+                if ($selectedvalue == 1) {
+                    $(".wtg").hide();
+                } else if($selectedvalue == 2) {
+                    $(".wtg").show();
+                }
+            });
+        });
+    </script>
+
+

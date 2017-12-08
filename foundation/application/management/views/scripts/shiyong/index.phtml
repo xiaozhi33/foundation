@@ -90,7 +90,7 @@
 
 							<!--<td><?php /*echo $v['jiangli_fanwei'];*/?>&nbsp;</td>-->
 							 <td><?php echo $v['catename'];?></td>
-							<td><?php echo $v['jiangli_renshu'];?>&nbsp;人</td>
+							<td><?php echo $v['jiangli_renshu']!=''?$v['jiangli_renshu']:0;?>&nbsp;人</td>
                              <!--<td><?php /*echo substr($v['shiyong_zhichu_datetime'],0,10);*/?>&nbsp;</td>-->
 								
 							<td><?php echo substr($v['shiyong_zhichu_datetime'],0,10);?>&nbsp;</td>

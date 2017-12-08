@@ -571,9 +571,9 @@
                                 </li>
 
                                 <li>
-                                    <a href="/management/task">
+                                    <a href="/management/chouzi/expenditure">
                                         <i class="fa fa-caret-right"></i> 项目支出申请审核
-                                        <span class="badge badge-red"><?php echo count(1);?></span>
+                                        <span class="badge badge-red"><?php if(count($this->support_expenditure_list) > 0){echo count($this->support_expenditure_list);}?></span>
                                     </a>
                                 </li>
 

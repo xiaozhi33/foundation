@@ -53,6 +53,18 @@
             '8' => '立项成功',
         );
 
+        public $expenditure_status = array(
+            //'0' => '未提交',
+            '1' => '电子版待审核',
+            '2' => '电子版审核未通过',
+            '3' => '电子版审核通过',
+            '4' => '签字盖章pdf文件待审核',
+            '5' => '签字盖章pdf文件审核未通过',
+            '6' => '签字盖章pdf文件审核通过',
+            '7' => '等待领导审核并签字',
+            '8' => '资金使用申请成功',
+        );
+
         public $type_arrays = array(
             '查询协议' => '查询协议',
             '工作报告' => '工作报告',
@@ -149,6 +161,7 @@
                 'admin_list_info' => $_admin_list,
                 'group_list' => $_g_list,
                 'project_status' => $this->project_status,
+                'expenditure_status' => $this->expenditure_status,
 			));
 
             //config

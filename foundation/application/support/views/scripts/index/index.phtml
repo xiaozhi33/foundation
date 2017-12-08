@@ -177,7 +177,7 @@
             <section class="tile color transparent-white">
             <!-- tile header -->
             <div class="tile-header">
-                <h1>待完成的使用申请<strong>5 个</strong> </h1>
+                <h1>待完成的使用申请<strong><?php echo count($this->expenditure_list);?> 个</strong> </h1>
                 <!--<div class="search">
                     <input type="text" placeholder="Search...">
                 </div>-->
@@ -196,37 +196,18 @@
                         <tr>
                             <th width="40%" class="">项目名称</th>
                             <th width="20%" class="">申请进度</th>
-                            <th width="20%" class="">最新状态</th>
+                            <th width="20%" class="">申请使用金额</th>
                             <th width="10%" class="">操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach($this->project_list as $key => $value){ $nn = 0;?>
+                        <?php foreach($this->expenditure_list as $key => $value){ $nn = 0;?>
                             <tr>
-                                <td><?php echo $value['id'];?></td>
-                                <td><a href="/management/chouzi/pminfo?id=<?php echo $value['id'];?>" target="_blank"><?php echo $value['pname'];?></a></td>
-                                <td class="priority">
-                                    <?php if($value['pm_rate'] == ""){?>
-                                        ---
-                                    <?php }if(preg_match("/1/", $value['pm_rate'])){ $nn += 10;?>
-                                        洽谈中&nbsp;
-                                    <?php }if(preg_match("/2/", $value['pm_rate'])){ $nn += 40;?>
-                                        已签订&nbsp;
-                                    <?php }if(preg_match("/3/", $value['pm_rate'])){ $nn += 60;?>
-                                        已到帐&nbsp;
-                                    <?php }?>
-                                </td>
-                                </td>
+                                <td><a href="/support/chouzi/expenditure?id=<?php echo $value['id'];?>" target="_blank"><?php echo $value['p_name'];?></a></td>
+                                <td class="priority"><?php echo $this->expenditure_status[$value['status']]  ;?></td>
+                                <td class="priority"><?php echo $value['jiner'];?> 元</td>
                                 <td class="progress-cell">
-                                    <div class="progress-info">
-                                        <div class="percent"><span class="animate-number" data-value="<?php echo $nn?>" data-animation-duration="1500">0</span>%</div>
-                                    </div>
-                                    <div class="progress progress-little">
-                                        <div class="progress-bar progress-bar-transparent-white animate-progress-bar" data-percentage="<?php echo $nn?>%"></div>
-                                    </div>
-                                </td>
-                                <td class="progress-cell">
-                                    <a href="/management/chouzi/pminfo?id=<?php echo $value['id'];?>" target="_blank">查看基本信息&gt;&gt;</a>
+                                    <a href="/support/chouzi/expenditure?id=<?php echo $value['id'];?>" target="_blank">继续完成使用申请&gt;&gt;</a>
                                 </td>
                             </tr>
                         <?php }?>

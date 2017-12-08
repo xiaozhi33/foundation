@@ -62,6 +62,18 @@
             '8' => '立项成功',
         );
 
+        public $expenditure_status = array(
+            //'0' => '未提交',
+            '1' => '电子版待审核',
+            '2' => '电子版审核未通过',
+            '3' => '电子版审核通过',
+            '4' => '签字盖章pdf文件待审核',
+            '5' => '签字盖章pdf文件审核未通过',
+            '6' => '签字盖章pdf文件审核通过',
+            '7' => '等待领导审核并签字',
+            '8' => '资金使用申请成功',
+        );
+
 		public function init()
 	    {
 	    	$request_mod = $this->getRequest()->getParams();
@@ -150,6 +162,7 @@
                 'admin_list_info' => $_admin_list,
                 'group_list' => $_g_list,
                 'project_status' => $this->project_status,
+                'expenditure_status' => $this->expenditure_status,
 			));
 
             //config
@@ -172,7 +185,12 @@
 
             $this->view->assign("support_project_list",$_support_project_list);
             // 项目支出申请审核
+            $_support_expenditure_list = $this->orm->createDAO('_support_expenditure');
+            $_support_expenditure_list ->selectLimit .= ' AND status!=8';
+            $_support_expenditure_list ->order(' lastmodify DESC ');
+            $_support_expenditure_list = $_support_expenditure_list->get();
 
+            $this->view->assign("support_expenditure_list",$_support_expenditure_list);
 
             // 操作类型
             $active_array = array(
@@ -187,7 +205,7 @@
             $this->view->assign("active_array",$active_array);
 
             // 操作类型
-            $active_shiyong_array = array(
+            $active_expenditure_array = array(
                 'tjsysq' => '提交资金使用申请',
                 'shtg' => '电子版申请审核通过',
                 'shsb' => '电子版申请审核失败',
@@ -196,7 +214,7 @@
                 'pdfshsb' => '签字盖章pdf文件审核失败',
                 'sqcg'  => '资金使用申请成功',
             );
-            $this->view->assign("active_array",$active_array);
+            $this->view->assign("active_expenditure_array",$active_expenditure_array);
 			
 			//网站配置
 			$this->systemSetting = $this->getSystemSetting();

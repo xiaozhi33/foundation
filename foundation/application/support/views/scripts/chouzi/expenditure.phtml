@@ -46,7 +46,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="input01">所属项目名称：</label>
                                         <div class="col-sm-4">
-                                            <select class="chosen-select-1 chosen-transparent form-control" name="pm_id">
+                                            <select class="chosen-select-1 chosen-transparent form-control" id="pm_id" name="pm_id">
                                                 <option value="">请选择项目名称</option>
                                                 <?php if($this->expenditurelist != ""){
                                                     foreach ($this->expenditurelist as $k => $v){
@@ -63,14 +63,14 @@
                                         <div class="col-sm-4">
                                             <input name="img" type="file" value="" />
                                         </div>
-                                        <!--<div><a  id="dzb" href="<?php echo $this->project_info_log[0]['img'];?>" target="_blank">已上传电子版立项文档，点击查看</a></div>
+                                        <!--<div><a  id="dzb" href="<?php echo $this->expenditure_info_log[0]['img'];?>" target="_blank">已上传电子版立项文档，点击查看</a></div>
                                         <span class="col-sm-2" > * </span>-->
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="input01">申请使用金额：</label>
                                         <div class="col-sm-2">
-                                            <input name="money" type="text" value="" /> 元
+                                            <input name="jiner" type="text" value="" /> 元
                                         </div>
                                         <span> * </span>
                                         <span id="yuer"> </span>
@@ -80,14 +80,14 @@
                                     <div class="form-group transparent-editor">
                                         <label class="col-sm-2 control-label" for="input14">申请说明：</label>
                                         <div class="col-sm-4">
-                                            <textarea parsley-validation-minlength="1" name="instruction" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->project_info[0]['instruction'];?></textarea>
+                                            <textarea parsley-validation-minlength="1" name="instruction" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->expenditure_info[0]['instruction'];?></textarea>
                                         </div>
                                         <span class="col-sm-1" >  </span>
                                     </div>
 
-                                    <input type="hidden" name="id" value="<?php echo $this->project_info[0]['id'];?>"/>
+                                    <input type="hidden" name="id" value="<?php echo $this->expenditure_info[0]['id'];?>"/>
 
-                                    <?php if($this->project_info[0]['status'] == 0 || $this->project_info[0]['status'] == 2){?>
+                                    <?php if($this->expenditure_info[0]['status'] == 0 || $this->expenditure_info[0]['status'] == 2){?>
                                     <div class="form-group">
                                         <div class="col-sm-offset-5 col-sm-7">
                                             <input class="btn btn-primary" type="submit" value="提交审核，进入下一步" /> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -114,11 +114,11 @@
                         <div class="tab-pane" id="tab3">
                             <p>电子版本通过后，打印并签字盖章，扫描成pdf格式，再次上传并等待审核。</p>
                             <div>
-                                <form class="form-horizontal" id="form1" action="savestep3" method="post" encType="multipart/form-data">
+                                <form class="form-horizontal" id="form1" action="savestepthree" method="post" encType="multipart/form-data">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="input01">项目名称：</label>
                                         <div class="col-sm-2">
-                                            <?php echo $this->project_info[0]['p_name'];?>
+                                            <?php echo $this->expenditure_info[0]['p_name'];?>
                                         </div>
                                     </div>
 
@@ -127,21 +127,21 @@
                                         <div class="col-sm-4">
                                             <input name="img" type="file" value="" />
                                         </div>
-                                        <!--<div><a  id="dzb" href="<?php echo $this->project_info_log[0]['img'];?>" target="_blank">已上传电子版立项文档，点击查看</a></div>
+                                        <!--<div><a  id="dzb" href="<?php echo $this->expenditure_info_log[0]['img'];?>" target="_blank">已上传电子版立项文档，点击查看</a></div>
                                         <span class="col-sm-2" > * </span>-->
                                     </div>
 
                                     <div class="form-group transparent-editor">
                                         <label class="col-sm-2 control-label" for="input14">申请说明：</label>
                                         <div class="col-sm-4">
-                                            <textarea parsley-validation-minlength="1" placeholder="请填写申请说明" name="instruction" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php /*echo $this->project_info[0]['instruction'];*/?></textarea>
+                                            <textarea parsley-validation-minlength="1" placeholder="请填写申请说明" name="instruction" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php /*echo $this->expenditure_info[0]['instruction'];*/?></textarea>
                                         </div>
                                         <span class="col-sm-1" >  </span>
                                     </div>
 
-                                    <input type="hidden" name="id" value="<?php echo $this->project_info[0]['id'];?>"/>
+                                    <input type="hidden" name="id" value="<?php echo $this->expenditure_info[0]['id'];?>"/>
 
-                                    <?php if($this->project_info[0]['status'] == 3 || $this->project_info[0]['status'] == 5){?>
+                                    <?php if($this->expenditure_info[0]['status'] == 3 || $this->expenditure_info[0]['status'] == 5){?>
                                         <div class="form-group">
                                             <div class="col-sm-offset-5 col-sm-7">
                                                 <input class="btn btn-primary" type="submit" value="提交审核，进入下一步" /> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -173,21 +173,21 @@
             </section>
 
             <?php
-            if($this->project_info[0]['status'] != 0){
-                if($this->project_info[0]['status'] == 2){
+            if($this->expenditure_info[0]['status'] != 0){
+                if($this->expenditure_info[0]['status'] == 2){
                 ?>
 
                 <section class="tile color transparent-white" style="padding: 10px;">
-                    <div style="margin: 10px;"><h5> 进度状态：<strong style="color: red;"><?php $number = (int)$this->project_info[0]['status']; echo $this->project_status[$number];?></strong> -- 请重新填写并上传立项电子版文档</h5></div>
+                    <div style="margin: 10px;"><h5> 进度状态：<strong style="color: red;"><?php $number = (int)$this->expenditure_info[0]['status']; echo $this->project_status[$number];?></strong> -- 请重新填写并上传立项电子版文档</h5></div>
                     <div style="margin: 10px;"><h5> 审核失败理由：<?php echo $this->shsb[0]['desc'];?></h5></div>
                     <div style="margin: 10px;"><h5> 审核失败图示：<img src="<?php echo $this->shsb[0]['img'];?>" /></h5></div>
                     <div style="margin: 10px;"><h5> 审核时间：<?php echo date("Y-m-d H:i:s", $this->shsb[0]['lastmodify']);?></h5></div>
                 </section>
 
-                <?php }elseif($this->project_info[0]['status'] == 5){ ?>
+                <?php }elseif($this->expenditure_info[0]['status'] == 5){ ?>
 
                 <section class="tile color transparent-white" style="padding: 10px;">
-                    <div style="margin: 10px;"><h5> 进度状态：<strong style="color: red;"><?php $number = (int)$this->project_info[0]['status']; echo $this->project_status[$number];?></strong> -- 请重新填写并上传签字盖章pdf文件</h5></div>
+                    <div style="margin: 10px;"><h5> 进度状态：<strong style="color: red;"><?php $number = (int)$this->expenditure_info[0]['status']; echo $this->project_status[$number];?></strong> -- 请重新填写并上传签字盖章pdf文件</h5></div>
                     <div style="margin: 10px;"><h5> 审核失败理由：<?php echo $this->pdfshsb[0]['desc'];?></h5></div>
                     <div style="margin: 10px;"><h5> 审核失败图示：<img src="<?php echo $this->pdfshsb[0]['img'];?>" /></h5></div>
                     <div style="margin: 10px;"><h5> 审核时间：<?php echo date("Y-m-d H:i:s", $this->pdfshsb[0]['lastmodify']);?></h5></div>
@@ -195,7 +195,7 @@
 
                 <?php }else{ ?>
                     <section class="tile color transparent-white" style="padding: 10px;">
-                        <div style="margin: 10px;"><h5> 进度状态：<strong style="color: red;"><?php $number = (int)$this->project_info[0]['status']; echo $this->project_status[$number];?></strong></div>
+                        <div style="margin: 10px;"><h5> 进度状态：<strong style="color: red;"><?php $number = (int)$this->expenditure_info[0]['status']; echo $this->expenditure_status[$number];?></strong></div>
                     </section>
                 <?php }?>
             <?php }?>
@@ -214,9 +214,76 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/include/management/assets/js/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/include/management/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
 <script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
 <script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+
+<?php if($this->controller == "index") {?>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="/include/management/assets/js/vendor/easypiechart/jquery.easypiechart.min.js"></script>
+    <!--<script src="/include/management/assets/js/vendor/flot/jquery.flot.orderBars.js"></script>-->
+
+    <script type="text/javascript" src="/include/management/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.time.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.selection.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.animator.min.js"></script>
+
+    <script src="/include/management/assets/js/vendor/rickshaw/raphael-min.js"></script>
+    <script src="/include/management/assets/js/vendor/rickshaw/d3.v2.js"></script>
+    <script src="/include/management/assets/js/vendor/rickshaw/rickshaw.min.js"></script>
+
+    <script src="/include/management/assets/js/vendor/morris/morris.min.js"></script>
+    <script src="/include/management/assets/js/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
+    <script src="/include/management/assets/js/vendor/summernote/summernote.min.js"></script>
+    <script src="/include/management/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+<?php }?>
+
+<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+<script src="/include/management/assets/js/vendor/summernote/summernote.min.js"></script>
+
+<script src="/include/management/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+
+<script src="/include/management/assets/js/vendor/momentjs/moment-with-langs.min.js"></script>
+<script src="/include/management/assets/js/vendor/datepicker/bootstrap-datetimepicker.min.js"></script>
+
+<script src="/include/management/assets/js/minimal.min.js"></script>
+
+
+<script>
+    // Initialize card flip
+    $('.card.hover').hover(function(){
+        $(this).addClass('flip');
+    },function(){
+        $(this).removeClass('flip');
+    });
+</script>
+
+<script language="javascript">
+    //搜索功能采用get方式 关键词下拉提示，
+    $(".chosen-select-1").chosen({
+        search_contains: true,
+        no_results_text : "未找到此选项!",
+        //width:"70%",
+        height:"60%",
+        disable_search_threshold: 10
+    });
+
+    $(".chosen-select-2").chosen({
+        search_contains: true,
+        disable_search_threshold: 10
+    });
+</script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/include/support/bootstrap/js/bootstrap.min.js"></script>
@@ -225,6 +292,32 @@
 <script src="/include/support/js/prettify.js"></script>
 
 <script language="javascript">
+
+    $(".chosen-select-1").change(function(){
+        var ss = $(this).children('option:selected').val();
+        if(ss != ""){
+            $.ajax({
+                type:'post',
+                url: '/support/chouzi/ajaxpinfo',
+                data:{"pid":ss},
+                cache:false,
+                dataType:'json',
+                success:function(data){
+                    if("undefined" != typeof data['rs']['yuer']){
+                        if(data['rs']['yuer'] != '' && data['rs']['percent'] != '' && data['rs']['shiyong'] != ''){
+                            $('#yuer').html(" 该项目剩余资金为 "+data['rs']['yuer']+" 元");
+                            $('#zcsx').html(" 本次支出不能超过剩余资金的 "+data['rs']['percent']+"%"+" "+"即："+data['rs']['yuer']+" * "+data['rs']['percent']+"% = "+ data['rs']['shiyong']+"元");
+                        }
+                    }
+                    //console.log(data);return false;
+                },
+                complete:function(data){
+
+                }
+            });
+        }
+    });
+
     $('#rootwizard').bootstrapWizard({
         tabClass: 'nav nav-pills',
         onTabClick: function(tab, navigation, index) {
@@ -246,42 +339,23 @@
             if($_REQUEST['step'] !=''){
                 echo (int)$_REQUEST['step']-1;
             }else{
-                if($this->project_info[0]['status'] != 0) {
-                    if ($this->project_info[0]['status'] == 1 || $this->project_info[0]['status'] == 2) {
+                if($this->expenditure_info[0]['status'] != 0) {
+                    if ($this->expenditure_info[0]['status'] == 1 || $this->expenditure_info[0]['status'] == 2) {
                         echo 0;
-                    } elseif ($this->project_info[0]['status'] == 6 || $this->project_info[0]['status'] == 7) {
+                    } elseif ($this->expenditure_info[0]['status'] == 6 || $this->expenditure_info[0]['status'] == 7) {
                         echo 3;
-                    }elseif($this->project_info[0]['status'] == 5) {
+                    }elseif($this->expenditure_info[0]['status'] == 5) {
                         echo 2;
-                    }elseif($this->project_info[0]['status'] > 7) {
+                    }elseif($this->expenditure_info[0]['status'] > 7) {
                         echo 4;
                     }else {
-                        echo (int)$this->project_info[0]['status']-1;
+                        echo (int)$this->expenditure_info[0]['status']-1;
                     }
                 }else {
                     echo 0;
                 }
             }
         ?>);
-
-        $('#chosen-select-1').onChange(function(){
-            $.ajax({
-                type:'post',
-                url: '/support/chouzi/ajaxpinfo',
-                data:{"id":$('.chosen-select-1').val()},
-                cache:false,
-                dataType:'json',
-                success:function(data){
-                    if(data['rs']['yuer'] != '' && data['rs']['percent'] != '' && data['rs']['shiyong'] != ''){
-                        $('#yuer').html("该项目余额为"+data['rs']['yuer']+"万元");
-                        $('#zcsx').html("本次支出不能超过余额的"+data['rs']['yuer']+""+"即："+"*"+"% = "+"元");
-                    }
-                },
-                complete:function(data){
-
-                }
-            });
-        });
 </script>
 
 <style>

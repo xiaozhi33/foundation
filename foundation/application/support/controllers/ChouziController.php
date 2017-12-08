@@ -532,14 +532,39 @@
 
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("chouzi/expenditure.phtml");
-            echo $this->view->render("index/footer.phtml");
+            //echo $this->view->render("index/footer.phtml");
         }
 
         public function savesteponeAction(){
             try{
                 $this->orm->beginTran();
                 $id = (int)$_REQUEST['id'];
-                $pname = HttpUtil::postString("pname");
+                $pm_id = (int)$_REQUEST['pm_id'];
+
+                if(!empty($pm_id)) {
+                    $expenditurelistDAO = new pm_mg_chouziDAO();
+                    $expenditurelistDAO ->joinTable(" left join pm_mg_info as c on pm_mg_chouzi.pname=c.pm_name");
+                    $expenditurelistDAO ->selectField("
+                     pm_mg_chouzi.*,
+                     sum(c.zijin_daozheng_jiner) as shouru,
+                     sum(c.shiyong_zhichu_jiner) as shiyong
+                      ");
+
+                    $expenditurelistDAO ->selectLimit .= " and c.is_renling=1 and pm_mg_chouzi.id=".$pm_id;
+                    $expenditurelistDAO = $expenditurelistDAO ->get($this->dbhelper);
+
+                    $result_array['rs']['yuer'] = (float)$expenditurelistDAO[0]['shouru']-(float)$expenditurelistDAO[0]['shiyong'];
+                    $result_array['rs']['percent'] = $expenditurelistDAO[0]['percent'];
+                    $result_array['rs']['shiyong'] = (int)($result_array['rs']['yuer'] * $result_array['rs']['percent'] / 100);
+                }
+                $pname = $expenditurelistDAO[0]['pname'];
+
+                $jiner = HttpUtil::postString("jiner");
+                if(!is_numeric($jiner))
+                {
+                    $this->alert_back("使用资金金额必须为数字！");
+                    exit;
+                }
                 $instruction = HttpUtil::postString("instruction");
                 $_support_expenditureDAO = $this->orm->createDAO('_support_expenditure');
                 $_support_expenditure_logDAO = $this->orm->createDAO('_support_expenditure_log');
@@ -548,23 +573,25 @@
                     $_support_expenditureDAO ->findId($id);
                 }
 
-                if($pname == "" || $_FILES['img']['name'] == ""){
-                    echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
-                    echo('<script language="JavaScript">');
-                    echo("alert('您输入的信息不完整，请查正后继续添加！！！！！');");
-                    echo('history.back();');
-                    echo('</script>');
+                if($pm_id == "" || $_FILES['img']['name'] == "" || $jiner == "" || $pname == ""){
+                    $this->alert_back("您输入的信息不完整，请查正后继续添加！");
                     exit;
                 }
 
                 // 检查项目是否有余额，并且已经完成资金使用反馈 todo
+                if(($result_array['rs']['shiyong'] - $jiner) < 0){
+                    $this->alert_back("申请资金使用金额不能超出限额：".$result_array['rs']['shiyong']."元");
+                    exit;
+                }
 
                 // 项目不存在，生产申请项目的唯一id
                 $_support_expenditureDAO ->uid = $this->admininfo['admin_info']['id'];
                 $_support_expenditureDAO ->department_id = $this->admininfo['admin_info']['department_id'];
+                $_support_expenditureDAO ->p_id = $pm_id;
                 $_support_expenditureDAO ->p_name = $pname;
                 $_support_expenditureDAO ->lastmodify = time();
                 $_support_expenditureDAO ->status = 1;
+                $_support_expenditureDAO ->jiner = $jiner;
                 $_support_expenditureDAO ->instruction = $instruction;
 
                 $p_id = $_support_expenditureDAO ->save();
@@ -578,7 +605,7 @@
                     exit;
                 }
 
-                if($id != ''){  // 重新编辑时赋值
+                if($id   != ''){  // 重新编辑时赋值
                     $p_id = $id;
                 }
 
@@ -622,7 +649,7 @@
             }
         }
 
-        public function savesteptwoAction(){
+        public function savestepthreeAction(){
             try{
                 $this->orm->beginTran();
                 $id = (int)$_REQUEST['id'];
@@ -758,7 +785,7 @@
                 'pminfo',
                 'expenditure',
                 'savestepone',
-                'savesteptwo',
+                'savestepthree',
                 'ajaxpinfo',
             );
             if (in_array($action, $except_actions)) {

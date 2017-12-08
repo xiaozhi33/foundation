@@ -12,6 +12,13 @@
 			$_support_projectDAO = $_support_projectDAO ->get();
 			$this->view->assign("project_list",$_support_projectDAO);
 
+			// 有待完成的资金使用申请
+			$_support_expenditureDAO = $this->orm->createDAO('_support_expenditure');
+			$_support_expenditureDAO ->findUid($this->admininfo['admin_info']['id'])->order(' lastmodify DESC ');
+			$_support_expenditureDAO ->selectLimit .= ' AND status!=8';
+			$_support_expenditureDAO = $_support_expenditureDAO ->get();
+			$this->view->assign("expenditure_list",$_support_expenditureDAO);
+
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render('index/index.phtml');
 			echo $this->view->render("index/footer.phtml");
