@@ -956,6 +956,17 @@
                     $_support_project_logDAO ->save();
 
                     $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($projectDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "立项审核通知";
+                        $body = "您好：您的【".$projectDAO[0]['p_name']."】立项申请电子版上传已经审核通过，请再次上传签字盖章pdf版本。";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
                     $this->alert_go('审核成功！', '/management/chouzi/support-info?id='.$id);
                     exit();
                 }elseif($auditing == 2) {
@@ -1001,6 +1012,17 @@
                     $_support_project_logDAO ->save();
 
                     $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($projectDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "立项审核通知";
+                        $body = "您好：您的【".$projectDAO[0]['p_name']."】未通过审核，请修改后重新上传立项电子版文档。";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
                     $this->alert_go('提交成功！', '/management/chouzi/support-info?id='.$id);
                     exit();
                 }
@@ -1049,6 +1071,17 @@
                     $_support_project_logDAO ->save();
 
                     $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($projectDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "立项审核通知";
+                        $body = "您好：您的【".$projectDAO[0]['p_name']."】pdf电子版已通过审核，请等待领导签字审核。";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
                     $this->alert_go('审核成功！', '/management/chouzi/support-info?id='.$id);
                     exit();
                 }elseif($auditing == 2) {
@@ -1094,6 +1127,17 @@
                     $_support_project_logDAO ->save();
 
                     $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($projectDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "立项审核通知";
+                        $body = "您好：您的【".$projectDAO[0]['p_name']."】pdf电子版文档未通过审核，请重新上传立项pdf电子版文档。";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
                     $this->alert_go('提交成功！', '/management/chouzi/support-info?id='.$id);
                     exit();
                 }
@@ -1203,6 +1247,17 @@
 
                 //////////////////////////////////////////////////////////////////////////////////////////////////
                 $this->orm->commit();
+
+                $sinfo = $this->getSupportinfo($projectDAO[0]['uid']);
+                if(!empty($sinfo[0]['email'])){
+                    // 邮件通知
+                    $subject = "立项审核通知";
+                    $body = "您好：您的【".$projectDAO[0]['p_name']."】立项申请已成功！";
+                    $address = $sinfo[0]['email'];
+                    $user = "";
+                    $this->SendEmail($subject, $body, $address, $user);
+                }
+
                 $this->alert_go('立项申请已成功！', '/management/chouzi/support-info?id='.$id);
                 exit();
             }catch(Exception $e){
@@ -1320,7 +1375,18 @@
                     $_support_expenditure_logDAO ->save();
 
                     $this->orm->commit();
-                        $this->alert_go('审核成功！', '/management/chouzi/expenditure-info?id='.$id);
+
+                    $sinfo = $this->getSupportinfo($expenditureDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "资金使用申请通知";
+                        $body = "您好：您的【".$expenditureDAO[0]['p_name']."】资金使用申请电子版申请已成功，请继续上传签字盖章后的pdf版本！";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
+                    $this->alert_go('审核成功！', '/management/chouzi/expenditure-info?id='.$id);
                     exit();
                 }elseif($auditing == 2) {
                     // 审核失败
@@ -1365,6 +1431,17 @@
                     $_support_expenditure_logDAO ->save();
 
                     $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($expenditureDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "资金使用申请通知";
+                        $body = "您好：您的【".$expenditureDAO[0]['p_name']."】资金使用申请电子版申请未通过，请修改后重新上传！";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
                     $this->alert_go('提交成功！', '/management/chouzi/expenditure-info?id='.$id);
                     exit();
                 }
@@ -1413,6 +1490,17 @@
                     $_support_expenditure_logDAO ->save();
 
                     $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($expenditureDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "资金使用申请通知";
+                        $body = "您好：您的【".$expenditureDAO[0]['p_name']."】资金使用申请pdf版申请已通过，请等待领导审核确认！";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
                     $this->alert_go('审核成功！', '/management/chouzi/expenditure-info?id='.$id);
                     exit();
                 }elseif($auditing == 2) {
@@ -1458,6 +1546,17 @@
                     $_support_expenditure_logDAO ->save();
 
                     $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($expenditureDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "资金使用申请通知";
+                        $body = "您好：您的【".$expenditureDAO[0]['p_name']."】资金使用申请pdf版申请未通过，请重新上传pdf版！";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
                     $this->alert_go('提交成功！', '/management/chouzi/expenditure-info?id='.$id);
                     exit();
                 }
@@ -1511,6 +1610,17 @@
 
                 //////////////////////////////////////////////////////////////////////////////////////////////////
                 $this->orm->commit();
+
+                $sinfo = $this->getSupportinfo($expenditureDAO[0]['uid']);
+                if(!empty($sinfo[0]['email'])){
+                    // 邮件通知
+                    $subject = "资金使用申请通知";
+                    $body = "您好：您的【".$expenditureDAO[0]['p_name']."】资金使用申请已成功！";
+                    $address = $sinfo[0]['email'];
+                    $user = "";
+                    $this->SendEmail($subject, $body, $address, $user);
+                }
+
                 $this->alert_go('资金使用申请已成功！', '/management/chouzi/expenditure-info?id='.$id);
                 exit();
             }catch(Exception $e){
@@ -1541,6 +1651,15 @@
             $chouziDAO ->percent = $percent;
             $chouziDAO ->save();
             $this->alert_go('设置成功！', '/management/index');
+        }
+
+        public function getSupportinfo($uid){
+            if(!empty(uid)) {
+                $_support_college_user = $this->orm->createDAO("_support_college_user")->findId($uid)->get();;
+                return $_support_college_user;
+            }else {
+                return false;
+            }
         }
 
         //权限
