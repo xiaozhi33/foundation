@@ -59,7 +59,7 @@ try {
     $input->SetTime_start(date("YmdHis"));
     $input->SetTime_expire(date("YmdHis", time() + 600));
     $input->SetGoods_tag($ordersinfo[0]['jjh_order_id']);
-    $input->SetNotify_url("http://202.113.6.233/wxpay/main/notify.php");
+    $input->SetNotify_url("http://pyedf.tju.edu.cn/wxpay/main/notify.php");
     $input->SetTrade_type("NATIVE");
     $input->SetProduct_id($ordersinfo[0]['jjh_order_id']);
     $result = $notify->GetPayUrl($input);
