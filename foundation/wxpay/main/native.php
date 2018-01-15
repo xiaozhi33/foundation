@@ -55,7 +55,7 @@ try {
     $input->SetBody($ordersinfo[0]['jjh_donors_cname']);
     $input->SetAttach($ordersinfo[0]['jjh_donors_alumni']);
     $input->SetOut_trade_no(WxPayConfig::MCHID . date("YmdHis"));
-    $input->SetTotal_fee($ordersinfo[0]['jjh_money']);
+    $input->SetTotal_fee($ordersinfo[0]['jjh_money']*100);
     $input->SetTime_start(date("YmdHis"));
     $input->SetTime_expire(date("YmdHis", time() + 600));
     $input->SetGoods_tag($ordersinfo[0]['jjh_order_id']);
@@ -84,7 +84,7 @@ try {
 	<img alt="模式一扫码支付" src="http://paysdk.weixin.qq.com/example/qrcode.php?data=<?php echo urlencode($url1);?>" style="width:150px;height:150px;"/>
 	<br/><br/><br/>-->
 	<div style="margin-left: 10px;color:#556B2F;font-size:30px;font-weight: bolder;">微信扫描支付</div><br/>
-	<img alt="微信扫码支付" src="http://202.113.6.233/wxpay/main/qrcode.php?data=<?php echo urlencode($url2);?>" style="width:150px;height:150px;"/>
+	<img alt="微信扫码支付" src="http://pyedf.tju.edu.cn/wxpay/main/qrcode.php?data=<?php echo urlencode($url2);?>" style="width:150px;height:150px;"/>
 	
 </body>
 </html>
