@@ -383,6 +383,14 @@
             $pages = $pageDAO['pageLink']['all'];
             $pages = str_replace("/index.php", "", $pages);
 
+            // 查看是否有重复的认领数据
+            /*$cf_DAO = $this->orm->createDAO('pm_mg_info');
+            $cf_DAO ->selectLimit .= ' AND renling_name IN ( SELECT renling_name ss FROM pm_mg_info WHERE is_renling = 0 GROUP BY renling_name HAVING count(*) > 1 ) AND zijin_daozheng_jiner IN ( SELECT zijin_daozheng_jiner ss FROM pm_mg_info WHERE is_renling = 0 GROUP BY zijin_daozheng_jiner HAVING count(*) > 1 ) ';
+            $cf_DAO = $cf_DAO->get();
+
+            $this->view->assign('cf_DAO', $cf_DAO);
+            var_dump($cf_DAO);exit();*/
+
             $this->view->assign('is_renling', $is_renling);
             $this->view->assign('claimlist', $pageDAO['pageData']);
             $this->view->assign('page', $pages);
