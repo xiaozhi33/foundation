@@ -191,7 +191,7 @@
                 <section class="tile color transparent-white" style="padding: 10px;">
                     <div style="margin: 10px;"><h5> 立项进度状态：<strong style="color: red;"><?php $number = (int)$this->project_info[0]['status']; echo $this->project_status[$number];?></strong> -- 请重新填写并上传立项电子版文档</h5></div>
                     <div style="margin: 10px;"><h5> 审核失败理由：<?php echo $this->shsb[0]['desc'];?></h5></div>
-                    <div style="margin: 10px;"><h5> 审核失败图示：<img src="<?php echo $this->shsb[0]['img'];?>" /></h5></div>
+                    <div style="margin: 10px;"><h5> 审核失败图示：<img src="<?php echo $this->shsb[0]['img'];?>" width="90%"/></h5></div>
                     <div style="margin: 10px;"><h5> 审核时间：<?php echo date("Y-m-d H:i:s", $this->shsb[0]['lastmodify']);?></h5></div>
                 </section>
 
@@ -200,7 +200,7 @@
                 <section class="tile color transparent-white" style="padding: 10px;">
                     <div style="margin: 10px;"><h5> 立项进度状态：<strong style="color: red;"><?php $number = (int)$this->project_info[0]['status']; echo $this->project_status[$number];?></strong> -- 请重新填写并上传签字盖章pdf文件</h5></div>
                     <div style="margin: 10px;"><h5> 审核失败理由：<?php echo $this->pdfshsb[0]['desc'];?></h5></div>
-                    <div style="margin: 10px;"><h5> 审核失败图示：<img src="<?php echo $this->pdfshsb[0]['img'];?>" /></h5></div>
+                    <div style="margin: 10px;"><h5> 审核失败图示：<img src="<?php echo $this->pdfshsb[0]['img'];?>" width="90%"/></h5></div>
                     <div style="margin: 10px;"><h5> 审核时间：<?php echo date("Y-m-d H:i:s", $this->pdfshsb[0]['lastmodify']);?></h5></div>
                     </section>
 
