@@ -232,7 +232,7 @@
                     $zw_department_related = $zw_department_related ->get();
 
                     if(empty($zw_department_related[0]['zw_bmbh'])){
-                        alert("没有找到对应的财务部门信息，请联系管理员！或添加对应关系！");
+                        alert_back("没有找到对应的财务部门信息，请联系管理员！或添加对应关系！");
                     }
 
                     $zwxmzdDAO = new CW_API();
