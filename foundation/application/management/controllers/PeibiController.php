@@ -118,7 +118,7 @@
             }*/
 
             // 同步配比是否奖励信息
-            $lkDAO = $this->orm->createDAO("pm_mg_info")->findId($lk_info[0]['id']);
+            $lkDAO = $this->orm->createDAO("pm_mg_info")->findId($lk_main_id);
             $lkDAO ->is_show_peibi = $is_show_peibi;
             $lkDAO ->save();
 
@@ -151,7 +151,7 @@
             $peibiDAO ->findId($id);
             $peibiDAO = $peibiDAO ->get();
 
-            $lk_info = $this->orm->createDAO("pm_mg_info")->findId($id)->get();
+            $lk_info = $this->orm->createDAO("pm_mg_info")->findId($peibiDAO[0]['lk_main_id'])->get();
             $this->view->assign("lk_info", $lk_info);
 			
 			if($peibiDAO != "")
