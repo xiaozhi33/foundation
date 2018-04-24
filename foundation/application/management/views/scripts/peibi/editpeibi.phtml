@@ -158,8 +158,8 @@
                         <div class="form-group" id="is_show">
                             <label class="col-sm-2 control-label">是否完成配比奖励：</label>
                             <div class="col-sm-4">
-                                <input type="radio"  name="is_show" value="1"/> 是
-                                <input type="radio"  name="is_show" value="0"/> 否
+                                <input type="radio"  name="is_show" value="1" <?php if($this->lk_info[0]['is_show_peibi'] == 1){echo "checked='checked'";}?>/> 是
+                                <input type="radio"  name="is_show" value="0" <?php if($this->lk_info[0]['is_show_peibi'] == 0){echo "checked='checked'";}?>/> 否
                             </div>
                         </div>
 

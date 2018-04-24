@@ -150,6 +150,9 @@
             $peibiDAO = $this->orm->createDAO('pm_mg_peibi');
             $peibiDAO ->findId($id);
             $peibiDAO = $peibiDAO ->get();
+
+            $lk_info = $this->orm->createDAO("pm_mg_info")->findId($id)->get();
+            $this->view->assign("lk_info", $lk_info);
 			
 			if($peibiDAO != "")
 			{
