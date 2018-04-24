@@ -95,7 +95,7 @@
 
             if($pm_cate == "")
             {
-                alert_back("项目类型不能为空，请到对应到项目筹资中添加项目类型！");
+                //alert_back("项目类型不能为空，请到对应到项目筹资中添加项目类型！");
             }
 
 			$pm_zijinDAO = new pm_mg_infoDAO();
