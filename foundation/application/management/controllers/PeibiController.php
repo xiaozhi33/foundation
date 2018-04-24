@@ -28,7 +28,7 @@
             }
 
             if($is_show != ""){
-                $pm_mg_info ->selectLimit .= " and `pm_mg_chouzi`.is_show_peibi = '$is_show'";
+                $pm_mg_info ->selectLimit .= " and `pm_mg_info`.is_show_peibi = '$is_show'";
             }
 
             if($_REQUEST['yeartime'] != ''){
