@@ -4,6 +4,7 @@
     {
 		public function indexAction(){
             $pname = $_REQUEST['pname'];
+            $is_show = $_REQUEST['is_show'];
             $pm_mg_info = $this->orm->createDAO("pm_mg_info");
             $pm_mg_info ->select("
                 `pm_mg_info`.id,
@@ -20,9 +21,14 @@
             $pm_mg_info ->selectLimit .= ' AND cast(`pm_mg_info`.zijin_daozheng_jiner as SIGNED INTEGER) >= 100000 ';
             $pm_mg_info ->selectLimit .= ' AND cate_id = 0';
             $pm_mg_info ->selectLimit .= ' AND peibi = 1';
+            $pm_mg_info ->selectLimit .= ' AND `pm_mg_info`.is_show_peibi = 0';
 
             if ($pname != ""){
                 $pm_mg_info ->selectLimit .= " and `pm_mg_chouzi`.pname = '$pname'";
+            }
+
+            if($is_show != ""){
+                $pm_mg_info ->selectLimit .= " and `pm_mg_chouzi`.is_show_peibi = '$is_show'";
             }
 
             if($_REQUEST['yeartime'] != ''){
