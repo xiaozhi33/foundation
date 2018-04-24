@@ -21,7 +21,7 @@
 			$zijininfo = $zijininfo->get($this->dbhelper);
 			$total = count($zijininfo);
 			$pageDAO = new pageDAO();
-			$pageDAO = $pageDAO ->pageHelper($zijininfo,null,"index",null,'get',20,8);
+			$pageDAO = $pageDAO ->pageHelper($zijininfo,null,"/management/zijin/index",null,'get',20,8);
 			$pages = $pageDAO['pageLink']['all'];
 			$pages = str_replace("/index.php","",$pages);	
 			$this->view->assign('zijinlist',$pageDAO['pageData']);
