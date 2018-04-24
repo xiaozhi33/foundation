@@ -36,7 +36,7 @@
 
 			$total = count($pminfo);
 			$pageDAO = new pageDAO();
-			$pageDAO = $pageDAO ->pageHelper($pminfo,null,"index",null,'get',20,8);
+			$pageDAO = $pageDAO ->pageHelper($pminfo,null,"/management/shiyong/index",null,'get',20,8);
 			$pages = $pageDAO['pageLink']['all'];
 			$pages = str_replace("/index.php","",$pages);	
 			$this->view->assign('shiyonglist',$pageDAO['pageData']);
