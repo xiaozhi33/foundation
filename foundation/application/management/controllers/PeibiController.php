@@ -82,6 +82,7 @@
             $is_peibi = '1';
 
             $is_pass = HttpUtil::postString("is_pass");
+            $is_show_peibi = HttpUtil::postString("is_show");
             $jpyy = HttpUtil::postString("jpyy");
             $je = HttpUtil::postString("je");
             $peibi_datetime = HttpUtil::postString("peibi_datetime");
@@ -116,6 +117,11 @@
                 alert_back('配比金额不能超过总金额('.$lk_info_jr.')的30%，');
             }*/
 
+            // 同步配比是否奖励信息
+            $lkDAO = $this->orm->createDAO("pm_mg_info")->findId($lk_main_id);
+            $lkDAO ->is_show_peibi = $is_show_peibi;
+            $lkDAO ->save();
+
             try{
                 if(!empty($id)){
                     $peibiDAO ->findId($id);
@@ -131,7 +137,7 @@
                 $peibiDAO ->card = $card;   // 卡号
                 $peibiDAO ->jffzr = $jffzr;   // 经费负责人
                 $peibiDAO ->peibi_spr = $peibi_spr;   // 配比审批人
-                $peibiDAO ->lk_main_id = $lk_main_id;   // 配比审批人
+                $peibiDAO ->lk_main_id = $lk_main_id;   // 来款id
                 $peibiDAO ->save();
             }catch (Exception $e){
                 alert_back('保存失败！！！！！');
