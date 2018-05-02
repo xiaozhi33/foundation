@@ -61,7 +61,9 @@
                  </form>
 
                  <?php }elseif($this->PayType == 3){?>
-                      <form name="form1" action="/alipay/pagepay/pagepay.php" target="_blank" method="post">
+                      <!--<form name="form1" action="/alipay/pagepay/pagepay.php" target="_blank" method="post">-->
+                      <form name="form1" action="/alipaydonatetradephp/index.php" target="_blank" method="post">
+
                           <input type="hidden" name="WIDout_trade_no" value="<?php echo $this->jjh_order_id;?>"/>
                           <input type="hidden" name="WIDsubject" value="<?php echo $this->orderinfo['jjh_pm'];?>"/>
                           <input type="hidden" name="WIDtotal_amount" value="<?php echo $this->orderinfo['Amount'];?>"/>
