@@ -246,7 +246,7 @@
             }*/
 
             $('#pname').on('chosen:ready', function(e, params) {
-                $("#pname").val(<?php echo $pm_id;?>)//设置值
+                $("#pname").val('<?php echo $pm_id;?>');//设置值
             });
             $('#pname').trigger('chosen:updated');//更新选项
         </script>
