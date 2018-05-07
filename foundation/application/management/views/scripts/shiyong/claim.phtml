@@ -50,7 +50,7 @@
                                         <?php if($this->pmlist != ""){
                                             foreach ($this->pmlist as $k => $v){
                                                 ?>
-                                                <option <?php if($v['pname'] == $this->pm_mg_info[0]['pm_name'])echo "checked=checked";?> value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                                <option <?php if($v['pname'] == $this->pm_mg_info[0]['pm_name']) $pm_id = $v['id'];?> value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
                                             <?php }}?>
                                     </select>
                                     <input id="pname_info" type="hidden" name="pname" value=""/>
@@ -244,4 +244,9 @@
                     error:function(){}
                 });
             }*/
+
+            $('#pname').on('chosen:ready', function(e, params) {
+                $("#pname").val(<?php echo $pm_id;?>)//设置值
+            });
+            $('#pname').trigger('chosen:updated');//更新选项
         </script>
