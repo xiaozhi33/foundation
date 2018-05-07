@@ -349,7 +349,7 @@
 				$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
 				$pm_mg_infoDAO ->findId($_REQUEST["pm_id"]);
 				$pm_mg_infoDAO ->pm_pp_cate = $_REQUEST["pm_pp_cate"];                	// 支出类型
-				$pm_mg_infoDAO ->fanwei = $_REQUEST["fanwei"];              				// 范围
+				$pm_mg_infoDAO ->jiangli_fanwei = $_REQUEST["fanwei"];              				// 范围
 				$pm_mg_infoDAO ->jiangli_renshu = (int)$_REQUEST["jiangli_renshu"];  		// 奖励人数
 				$pm_mg_infoDAO ->is_zhixing = $_REQUEST["is_zhixing"];    				// 是否执行
 				$pm_mg_infoDAO ->beizhu = $_REQUEST["beizhu"];
