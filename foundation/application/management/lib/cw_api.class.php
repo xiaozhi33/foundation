@@ -44,7 +44,7 @@
          * 获取项目列表
          */
         public function getxmlist(){
-            $select_SQL = "SELECT bmbh,xmbh FROM zwxmzd";
+            $select_SQL = "SELECT bmbh,xmbh,xmmc FROM zwxmzd";
             $this->connect();
             $query = $this->query($select_SQL);
 
