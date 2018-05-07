@@ -233,7 +233,7 @@
 				$zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
 				$zw_pm_relatedDAO ->findZw_xmmc($v['xmmc']);
 				$zw_pm_relatedDAO ->findZw_xmbh($v['xmbh']);
-				$zw_pm_relatedDAO ->zw_bmbh($v['xmmc']);
+				$zw_pm_relatedDAO ->zw_bmbh = $v['xmmc'];
 				$zw_pm_relatedDAO ->save();
 			}
 			exit();
