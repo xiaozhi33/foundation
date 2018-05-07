@@ -424,7 +424,7 @@
 			$this->view->assign('department_list', $department_list);
 
 			// 项目相关信息取得
-			(int)$pid = $_REQUEST['pm_id'];
+			(int)$pid = $_REQUEST['id'];
 			$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
 			$pm_mg_infoDAO ->findId($pid);
 			$pm_mg_infoDAO = $pm_mg_infoDAO ->get();
