@@ -247,6 +247,7 @@
                     $zw_pm_relatedDAO ->pm_name = $pname;
                     $zw_pm_relatedDAO ->zw_xmbh = $xmbh;
                     $zw_pm_relatedDAO ->zw_xmmc = $pname;
+                    $zw_pm_relatedDAO ->zw_bmbh = $zw_department_related[0]['zw_bmbh'];
                     $zw_pm_relatedDAO ->save();
 
                     // 更新项目进度

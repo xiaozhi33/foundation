@@ -227,6 +227,17 @@
 			$zwpzflDAO = new CW_API();
 			$zwpzfl_list = $zwpzflDAO ->getzwpzfl();
 
+			// 同步bmbh
+			$xmlist = $zwpzflDAO ->getxmlist();
+			foreach ($xmlist as $k => $v){
+				$zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
+				$zw_pm_relatedDAO ->findZw_xmmc($v['xmmc']);
+				$zw_pm_relatedDAO ->findZw_xmbh($v['xmbh']);
+				$zw_pm_relatedDAO ->zw_bmbh($v['xmmc']);
+				$zw_pm_relatedDAO ->save();
+			}
+			exit();
+
 			// 遍历循环插入zw_mg_pzfl_log表中
 			foreach($zwpzfl_list as $k => $v){
 				$pzfl = $this->ispzfl($v['pzrq'],$v['xmbh'],$v['jje']);  // 判断是否重复添加
@@ -296,6 +307,7 @@
 					// 获取项目名称
 					$zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
 					$zw_pm_relatedDAO ->findZw_xmbh($value['xmbh']);
+					$zw_pm_relatedDAO ->findZw_bmbh($value['bmbh']);
 					$zw_pm_relatedDAO = $zw_pm_relatedDAO->get();
 
 					if(!empty($zw_pm_relatedDAO[0]['pm_name'])){
