@@ -228,7 +228,7 @@
 			$zwpzfl_list = $zwpzflDAO ->getzwpzfl();
 
 			// 同步bmbh
-			$xmlist = $zwpzflDAO ->getxmlist();
+			/*$xmlist = $zwpzflDAO ->getxmlist();
 			foreach ($xmlist as $k => $v){
 				$zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
 				$zw_pm_relatedDAO ->findZw_xmmc($v['xmmc']);
@@ -236,7 +236,7 @@
 				$zw_pm_relatedDAO ->zw_bmbh = $v['bmbh'];
 				$zw_pm_relatedDAO ->save();
 			}
-			exit();
+			exit();*/
 
 			// 遍历循环插入zw_mg_pzfl_log表中
 			foreach($zwpzfl_list as $k => $v){
@@ -444,7 +444,7 @@
 		}
 
 		public function getisuselog($pzrq,$xmmc,$jje){
-			if(!empty($jje) && !empty($pzrq) && !empty($xmmc1)){
+			if(!empty($jje) && !empty($pzrq) && !empty($xmmc)){
 				$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
 				$pm_mg_infoDAO ->findShiyong_zhichu_jiner($jje);
 				$pm_mg_infoDAO ->findPm_name($xmmc);
