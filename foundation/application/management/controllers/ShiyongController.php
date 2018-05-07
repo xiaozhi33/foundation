@@ -223,31 +223,33 @@
 		 */
 		public function claimlistAction()
 		{
-            $time_str = "";
 			// 同步财务支出（使用）信息
 			$zwpzflDAO = new CW_API();
-			$zwpzfl_list = $zwpzflDAO ->getzwpzfl($time_str); // $time_str 上次同步最大时间
+			$zwpzfl_list = $zwpzflDAO ->getzwpzfl();
 
 			// 遍历循环插入zw_mg_pzfl_log表中
 			foreach($zwpzfl_list as $k => $v){
-				$lk = $this->islkrl($v['lsh']);  // 判断是否重复添加
+				$pzfl = $this->ispzfl($v['pzrq'],$v['xmbh'],$v['jje']);  // 判断是否重复添加
 
-				if(empty($lk)){
-					$zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
-					$zw_lkrl_logsDAO ->lsh = $v['lsh'];
-					$zw_lkrl_logsDAO ->lkrq = $v['lkrq'];
-					$zw_lkrl_logsDAO ->fkdw = $v['fkdw'];
-					$zw_lkrl_logsDAO ->je = $v['je'];
-					$zw_lkrl_logsDAO ->rlje = $v['rlje'];
-					$zw_lkrl_logsDAO ->lrrq = $v['lrrq'];
-					$zw_lkrl_logsDAO ->lrr = $v['lrr'];
-					$zw_lkrl_logsDAO ->save();
+				if(empty($pzfl)){
+					$zw_mg_pzfl_logDAO = $this->orm->createDAO("zw_mg_pzfl_log");
+					$zw_mg_pzfl_logDAO ->pzrq = $v['pzrq'];
+					$zw_mg_pzfl_logDAO ->pznm = $v['pznm'];
+					$zw_mg_pzfl_logDAO ->flbh = $v['flbh'];
+					$zw_mg_pzfl_logDAO ->jje = $v['jje'];
+					$zw_mg_pzfl_logDAO ->zy = $v['zy'];    // 用途
+					$zw_mg_pzfl_logDAO ->status = 0;  // 状态为0 未同步  1已同步  2忽略
+					$zw_mg_pzfl_logDAO ->last_modify = time();
+					$zw_mg_pzfl_logDAO ->kmbh = $v['kmbh'];
+					$zw_mg_pzfl_logDAO ->bmbh = $v['bmbh'];
+					$zw_mg_pzfl_logDAO ->xmbh = $v['xmbh'];
+					$zw_mg_pzfl_logDAO ->save();
 				}else {
 					continue;
 				}
 			}
 
-			$this->synclkrl();  // 同步财务系统来款数据
+			$this->syncpzfl();  // 同步财务系统支出数据
 
 			$keywords = HttpUtil::getString("pm_name");
 			$is_renling = HttpUtil::getString("is_renling");
@@ -262,13 +264,13 @@
 				$this->renling_weirenling_list->findIs_renling("0");
 			}
 			$like_sql .= "  ORDER BY `zijin_daozhang_datetime` DESC";
-			$this->renling_weirenling_list->findCate_id("0");
+			$this->renling_weirenling_list->findCate_id("1");
 			$this->renling_weirenling_list->selectLimit = $like_sql;
 			$this->renling_weirenling_list = $this->renling_weirenling_list->get();
 
 			$total = count($this->renling_weirenling_list);
 			$pageDAO = new pageDAO();
-			$pageDAO = $pageDAO->pageHelper($this->renling_weirenling_list, null, "/management/zijin/claimlist", null, 'get', 25, 8);
+			$pageDAO = $pageDAO->pageHelper($this->renling_weirenling_list, null, "/management/shiyong/claimlist", null, 'get', 25, 8);
 			$pages = $pageDAO['pageLink']['all'];
 			$pages = str_replace("/index.php", "", $pages);
 			$this->view->assign('claimlist', $pageDAO['pageData']);
@@ -276,37 +278,45 @@
 			$this->view->assign('total', $total);
 
 			echo $this->view->render("index/header.phtml");
-			echo $this->view->render("zijin/claimlist.phtml");
+			echo $this->view->render("shiyong/claimlist.phtml");
 			echo $this->view->render("index/footer.phtml");
 		}
 
         /**
-         * 同步来款信息，新同步到项目信息表中，并记录到同步记录表中
          */
-        public function synclkrl(){
-            $zw_lkrl_logsDAO = $this->orm->createDAO("zw_lkrl_logs");
-            $zw_lkrl_logsDAO ->selectLimit .= " and status=0";
-            $zw_lkrl_list = $zw_lkrl_logsDAO->get();
+        public function syncpzfl(){
+            $zw_mg_pzfl_logDAO = $this->orm->createDAO("zw_mg_pzfl_log");
+			$zw_mg_pzfl_logDAO ->selectLimit .= " and status=0";
+            $zw_pzfl_list = $zw_mg_pzfl_logDAO->get();
 
-            if(!empty($zw_lkrl_list)){
-                foreach($zw_lkrl_list as $key => $value){  // 批量添加财务来款到项目info中
-                    $islog = $this->getisuselog($value['lsh']);
-                    if($islog){   // 判断是否已经存在同步记录
-                        $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
-                        $pm_mg_infoDAO ->cate_id = 0;
-                        $pm_mg_infoDAO ->pm_pp = $value["fkdw"];              // 付款单位
-                        $pm_mg_infoDAO ->zijin_daozhang_datetime = $value["lkrq"];  //  来款日期
-                        $pm_mg_infoDAO ->zijin_daozheng_jiner = $value["je"];        // 金额
-                        //$pm_mg_infoDAO ->pm_pp_company = $value["lrrq"];              // 付款单位
-                        $pm_mg_infoDAO ->renling_name = $value["lrr"];                // 付款单位
-                        $pm_mg_infoDAO ->lsh = $value["lsh"];                           // 财务流水号
-                        $pm_mg_infoDAO ->save();
+            if(!empty($zw_pzfl_list)){
+                foreach($zw_pzfl_list as $key => $value){  // 批量添加财务来款到项目info中
+					// 获取项目名称
+					$zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
+					$zw_pm_relatedDAO ->findZw_xmbh($value['xmbh']);
+					$zw_pm_relatedDAO = $zw_pm_relatedDAO->get();
 
-                        $zw_lkrl_logs1DAO = $this->orm->createDAO("zw_lkrl_logs");
-                        $zw_lkrl_logs1DAO ->findLsh($value['lsh']);
-                        $zw_lkrl_logs1DAO ->status = 1;
-                        $zw_lkrl_logs1DAO ->save();
-                    }
+					if(!empty($zw_pm_relatedDAO[0]['pm_name'])){
+						$islog = $this->getisuselog($value['pzrq'],$zw_pm_relatedDAO[0]['pm_name'],$value['jje']);
+						if($islog){   // 判断是否已经存在同步记录
+							$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+							$pm_mg_infoDAO ->cate_id = 1;
+							$pm_mg_infoDAO ->pm_name = $zw_pm_relatedDAO[0]['pm_name'];
+							$pm_mg_infoDAO ->shiyong_zhichu_datetime = date("Y-m-d H:i:s",strtotime($value['pzrq']));
+							$pm_mg_infoDAO ->shiyong_zhichu_jiner = $value['jje'];
+							$pm_mg_infoDAO ->beizhu = $value['zy'];
+							$pm_mg_infoDAO ->is_renling = 0;
+
+							$pm_mg_infoDAO ->save();
+
+							$zw_mg_pzfl_log1DAO = $this->orm->createDAO("zw_mg_pzfl_log");
+							$zw_mg_pzfl_log1DAO ->findPzrq($value['pzrq']);
+							$zw_mg_pzfl_log1DAO ->findXmbh($value['xmbh']);
+							$zw_mg_pzfl_log1DAO ->findJje($value['jje']);
+							$zw_mg_pzfl_log1DAO ->status = 1;
+							$zw_mg_pzfl_log1DAO ->save();
+						}
+					}
                 }
             }
         }
@@ -368,7 +378,7 @@
 					$pm_mg_infoDAO ->piaoju_fkfs = $_REQUEST["piaoju_fkfs"];  // 反馈方式 领取 寄送 暂存
 					$pm_mg_infoDAO ->piaoju_fph = $_REQUEST["piaoju_fph"];    // 发票号
 
-					$pm_mg_infoDAO ->cate_id = 0;   // 类型 0资金 1使用
+					$pm_mg_infoDAO ->cate_id = 1;   // 类型 0资金 1使用
 					$pm_mg_infoDAO ->pm_name = $_REQUEST['zw_xmmc'];   // 类型 0资金 1使用
 					$pm_mg_infoDAO ->pm_pp = HttpUtil::postString("pm_pp");   // 付款单位
 					$pm_mg_infoDAO ->pm_pp_cate = HttpUtil::postString("pm_pp_cate");   // 捐赠者类型 基金会/企业/校友/社会人士
@@ -378,7 +388,7 @@
 
 					$pm_mg_infoDAO ->save();
 					if($rs){
-						alert_go("认领成功！", "/management/zijin/claimlist");
+						alert_go("认领成功！", "/management/shiyong/claimlist");
 					}else {
 						alert_back("认领失败！请联系管理员");
 					}
@@ -407,15 +417,34 @@
 			$pm_mg_infoDAO = $pm_mg_infoDAO ->get();
 			$this->view->assign('pm_mg_info', $pm_mg_infoDAO);
 
-			// 获取支出（使用）认领详细信息
-			$zw_mg_pzfl_logDAO = $this->orm->createDAO("zw_mg_pzfl_log");
-			$zw_mg_pzfl_logDAO ->findLsh($pm_mg_infoDAO[0]['lsh']);
-			$zw_mg_pzfl_logDAO = $zw_mg_pzfl_logDAO ->get();
-			$this->view->assign('zw_mg_pzfl_log', $zw_mg_pzfl_logDAO);
-
 			echo $this->view->render("index/header.phtml");
-			echo $this->view->render("zijin/claim.phtml");
+			echo $this->view->render("shiyong/claim.phtml");
 			echo $this->view->render("index/footer.phtml");
+		}
+
+		public function ispzfl($pzrq,$xmbh,$jje){
+			$zw_mg_pzfl_logDAO = $this->orm->createDAO("zw_mg_pzfl_log");
+			$zw_mg_pzfl_logDAO ->findPzrq($pzrq);
+			$zw_mg_pzfl_logDAO ->findXmbh($xmbh);
+			$zw_mg_pzfl_logDAO ->findJje($jje);
+			return $zw_mg_pzfl_logDAO->get();
+		}
+
+		public function getisuselog($pzrq,$xmmc,$jje){
+			if(!empty($jje) && !empty($pzrq) && !empty($xmbh)){
+				$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+				$pm_mg_infoDAO ->findShiyong_zhichu_jiner($jje);
+				$pm_mg_infoDAO ->findPm_name($xmmc);
+				$pm_mg_infoDAO ->findShiyong_zhichu_datetime(date("Y-m-d H:i:s",strtotime($pzrq)));
+				$pm_mg_infoDAO = $pm_mg_infoDAO->get();
+				if(empty($pm_mg_infoDAO)){
+					return true;
+				}else {
+					return false;
+				}
+			}else {
+				return false;
+			}
 		}
 		
 		public function _init(){

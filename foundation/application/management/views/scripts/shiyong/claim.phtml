@@ -1,0 +1,159 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>来款认领</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目进度管理</li>
+            <li class="active">支出认领</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+	<div id="main" class="main">
+   
+		<div id="rightstyle02" class="row">
+        
+        <div class="col-md-12">
+			<section class="tile color transparent-white">
+				<div class="tile-body nopadding">
+                <form method="post" action="savebindingclaim" id="form1" encType="multipart/form-data"> 
+                        <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                         <thead>
+                              <tr>
+                                   <td width="30%">栏目名称</td>
+                                   <td width="70%">明细</td>
+                              </tr>
+                        </thead>
+                         <tbody>
+                            <input type="hidden" name="pm_id" value="<?echo $_REQUEST['pm_id'];?>"/>
+                            <input type="hidden" name="lsh" value="<?echo $this->zw_mg_pzfl_log[0]['lsh'];?>"/>
+                            <input type="hidden" name="lrrq	" value="<?echo $this->zw_mg_pzfl_log[0]['lrrq'];?>"/>
+                            <input type="hidden" name="lrr" value="<?echo $this->zw_mg_pzfl_log[0]['lrr'];?>"/>
+
+                            <!-- 项目相关 start-->
+                            <tr>
+                                <td>认领到项目：</td>
+                                <td>
+                                    <select name="pm_xmbh" class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                        <option value="">请选择项目名称</option>
+                                        <?php if($this->pmlist != ""){
+                                            foreach ($this->pmlist as $k => $v){
+                                                ?>
+                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                            <?php }}?>
+                                    </select>
+                                    <input id="pname_info" type="hidden" name="pname" value=""/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>财务系统对应项目：</td>
+                                <td id="zw_xm"><input size="38" type="text" id="zw_xmmc" name="zw_xmmc" value="" readonly/></td>
+                                <input type="hidden" name="zw_xmbh" id="zw_xmbh" value=""/>
+                            </tr>
+                            <!-- 项目相关 end-->
+                            <!-- 部门相关信息 start-->
+
+                            <tr>
+                                <td>认领到部门：</td>
+                                <td>
+                                    <select class="chosen-select-1 chosen-transparent form-control" name="pm_bmbh" id="department">
+                                        <?php if($this->department_list != ""){
+                                            foreach ($this->department_list as $k => $v){
+                                                ?>
+                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                            <?php }}?>
+                                    </select>
+                                    <input id="department_id" type="hidden" name="department_id" value=""/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>财务系统对应部门：</td>
+                                <td id="zw_bm"><input size="38" type="text" id="zw_bmmc" name="zw_bmmc" readonly/></td>
+                                <input type="hidden" name="zw_bmbh" id="zw_bmbh"/>
+                            </tr>
+
+                            <!-- 部门相关信息  end-->
+
+
+                            <tr>
+                                <td>项目支出类型：</td>
+                                <td>
+                                    <select class="form-control"  name="pm_pp_cate">
+                                        <option value="1" checked="checked">基金会列支</option>
+                                        <option value="2" >转财务处</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>项目支出日期：</td>
+                                <td>
+                                    <input size="38" type="text" id="shiyong_zhichu_datetime" name="shiyong_zhichu_datetime" value="<?echo $this->pm_mg_info[0]['shiyong_zhichu_datetime'];?>"/>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>确认金额：</td>
+                                <td><input name="shiyong_zhichu_jiner" size="36" type="text" value="<?php echo $this->pm_mg_info[0]['shiyong_zhichu_jiner'];?>"/> 元</td>
+                            </tr>
+
+                            <tr>
+                                <td>捐赠范围：</td>
+                                <td>
+                                    <select class="form-control"  name="fanwei">
+                                        <option value="" >请选择类型</option>
+                                        <option value="本科生" >本科生</option>
+                                        <option value="研究生" >研究生</option>
+                                        <option value="本科研究生" >本科研究生</option>
+                                        <option value="其他" >其他</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>资助人数：</td>
+                                <td>
+                                    <input size="38" type="text" id="jiangli_renshu" name="jiangli_renshu" value="<?echo $this->pm_mg_info[0]['jiangli_renshu'];?>"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>是否执行：</td>
+                                <td><input name="is_zhixing" type="checkbox" value="4" />已执行</td>
+                            </tr>
+
+                            <tr>
+                                <td>补充其它信息：</td>
+                                <td><textarea parsley-validation-minlength="1" name="beizhu" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->pm_mg_info[0]['beizhu'];?></textarea></td>
+                            </tr>
+
+
+
+                        </tbody>
+                        </table>
+                   </form>
+                   
+				 </div> 
+		  </section>
+         </div>
+         
+		 </div>
+
+
+        <script language="javascript">
+            $(".menu li:eq(8)").addClass("open");
+        </script>
