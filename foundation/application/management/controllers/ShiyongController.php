@@ -339,72 +339,28 @@
 		 */
 		public function savebindingclaimAction(){
 			try{
-				(int)$pid = $_REQUEST['zw_xmbh'];
-				(int)$department_id = $_REQUEST['zw_bmbh'];
-				if(empty($pid) || empty($department_id)){
-					alert_back("请选择认领项目和部门 或 该部门没有绑定财务部门，请联系管理员");
-				}
+				(int)$pm_id = $_REQUEST['pm_id'];
 
-				// 1, 查看项目财务对照表－取得财务对应项目名称和编号
-				$pm_relateDAO = $this->orm->createDAO("zw_pm_related");
-				$pm_relateDAO ->findPm_id($_REQUEST['pm_xmbh']);
-				$pm_relateDAO = $pm_relateDAO->get();
+				// 更新项目来款表
+				$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+				$pm_mg_infoDAO ->findId($_REQUEST["pm_id"]);
+				$pm_mg_infoDAO ->pm_pp_cate = $_REQUEST["pm_pp_cate"];                	// 支出类型
+				$pm_mg_infoDAO ->fanwei = $_REQUEST["fanwei"];              				// 范围
+				$pm_mg_infoDAO ->jiangli_renshu = $_REQUEST["jiangli_renshu"];  		// 奖励人数
+				$pm_mg_infoDAO ->is_zhixing = $_REQUEST["is_zhixing"];    				// 是否执行
+				$pm_mg_infoDAO ->beizhu = $_REQUEST["beizhu"];
+				$pm_mg_infoDAO ->is_renling = 1;                            				// 是否认领flag 已认领
 
-				if(empty($pm_relateDAO[0]['zw_xmbh']) || empty($pm_relateDAO[0]['zw_xmmc'])){
-					alert_back("该项目没有绑定财务系统，请联系管理员");
-				}
+				$admininfo = SessionUtil::getAdmininfo();
 
-				// 2, 部门信息同步
-				$department_info = $this->orm->createDAO("zw_department_related");
-				$department_info ->findPm_pid($_REQUEST['pm_bmbh']);
-				$department_info = $department_info->get();
+				$pm_mg_infoDAO ->renling_name = $admininfo['admin_name'];               // 认领人
+				$pm_mg_infoDAO ->claim = $admininfo['admin_id'];                         // 认领人id
+				$pm_mg_infoDAO ->claim_time = time();                                     // 认领时间
+				$pm_mg_infoDAO ->lastmodify = time();
 
-				if(empty($department_info[0]['zw_bmbh']) || empty($department_info[0]['zw_bmmc'])){
-					alert_back("该部门没有绑定财务部门，请联系管理员");
-				}
-
-				// 3, 负者人信息同步
-
-				// 4, 同步更新财务系统lkrl表
-				$lsh = $_REQUEST['lsh'];    // 流水号
-				$rlxh = $_REQUEST["pm_id"];   // 认领序号
-				$rlrq = date("Ymd" , time());   // 认领日期
-				$rlr = $_REQUEST['lrr'];        // 认领人
-				$rlrbh = $_REQUEST['lsh'];      // 认领人编号
-				$bmbh = $_REQUEST['zw_bmbh'];   // 部门编号
-				$xmbh = $_REQUEST['zw_xmbh'];   // 项目编号
-				$rlje = $_REQUEST['je'];   // 认领金额
-				$ispz = 0;                       // 是否制单
-				$rlpznm = "";            // 认领凭证内码
-				$czy = "admin";                                     // 操作员
-
-				$zw_lkrlDAO = new CW_API();
-				$rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $ispz, $rlpznm, $czy);
+				$rs = $pm_mg_infoDAO ->save();
 				if($rs){
-					// 更新项目来款表
-					$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
-					$pm_mg_infoDAO ->findId($_REQUEST["pm_id"]);
-					$pm_mg_infoDAO ->jindu = $_REQUEST["jindu"];                // 来款进度 已到帐 未到帐
-					$pm_mg_infoDAO ->piaoju = $_REQUEST["piaoju"];              // 票据
-					$pm_mg_infoDAO ->piaoju_kddh = $_REQUEST["piaoju_kddh"];  // 快递单号
-					$pm_mg_infoDAO ->piaoju_jbr = $_REQUEST["piaoju_jbr"];    // 经办人
-					$pm_mg_infoDAO ->piaoju_fkfs = $_REQUEST["piaoju_fkfs"];  // 反馈方式 领取 寄送 暂存
-					$pm_mg_infoDAO ->piaoju_fph = $_REQUEST["piaoju_fph"];    // 发票号
-
-					$pm_mg_infoDAO ->cate_id = 1;   // 类型 0资金 1使用
-					$pm_mg_infoDAO ->pm_name = $_REQUEST['zw_xmmc'];   // 类型 0资金 1使用
-					$pm_mg_infoDAO ->pm_pp = HttpUtil::postString("pm_pp");   // 付款单位
-					$pm_mg_infoDAO ->pm_pp_cate = HttpUtil::postString("pm_pp_cate");   // 捐赠者类型 基金会/企业/校友/社会人士
-					$pm_mg_infoDAO ->zijin_laiyuan_qudao = HttpUtil::postString("zijin_laiyuan_qudao");   // 渠道 境内 境外
-					$pm_mg_infoDAO ->beizhu = HttpUtil::postString("other");   // 备注
-					$pm_mg_infoDAO ->is_renling = 1;                            // 是否认领flag 已认领
-
-					$pm_mg_infoDAO ->save();
-					if($rs){
-						alert_go("认领成功！", "/management/shiyong/claimlist");
-					}else {
-						alert_back("认领失败！请联系管理员");
-					}
+					alert_go("认领成功！", "/management/shiyong/claimlist");
 				}else {
 					alert_back("认领失败！请联系管理员");
 				}
