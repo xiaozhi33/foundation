@@ -249,7 +249,7 @@
 				}
 			}
 
-			//$this->syncpzfl();  // 同步财务系统支出数据
+			$this->syncpzfl();  // 同步财务系统支出数据
 
 			$keywords = HttpUtil::getString("pm_name");
 			$is_renling = HttpUtil::getString("is_renling");
@@ -295,6 +295,9 @@
 					$zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
 					$zw_pm_relatedDAO ->findZw_xmbh($value['xmbh']);
 					$zw_pm_relatedDAO = $zw_pm_relatedDAO->get();
+
+					var_dump($zw_pm_relatedDAO);
+					var_dump($value);exit();
 
 					if(!empty($zw_pm_relatedDAO[0]['pm_name'])){
 						$islog = $this->getisuselog($value['pzrq'],$zw_pm_relatedDAO[0]['pm_name'],$value['jje']);
