@@ -227,6 +227,8 @@
 			$zwpzflDAO = new CW_API();
 			$zwpzfl_list = $zwpzflDAO ->getzwpzfl();
 
+			var_dump($zwpzfl_list);exit();
+
 			// 遍历循环插入zw_mg_pzfl_log表中
 			foreach($zwpzfl_list as $k => $v){
 				$pzfl = $this->ispzfl($v['pzrq'],$v['xmbh'],$v['jje']);  // 判断是否重复添加
