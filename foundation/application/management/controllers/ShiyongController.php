@@ -249,7 +249,7 @@
 				}
 			}
 
-			$this->syncpzfl();  // 同步财务系统支出数据
+			//$this->syncpzfl();  // 同步财务系统支出数据
 
 			$keywords = HttpUtil::getString("pm_name");
 			$is_renling = HttpUtil::getString("is_renling");
@@ -263,7 +263,7 @@
 			}else {
 				$this->renling_weirenling_list->findIs_renling("0");
 			}
-			$like_sql .= "  ORDER BY `zijin_daozhang_datetime` DESC";
+			$like_sql .= "  ORDER BY `shiyong_zhichu_datetime` DESC";
 			$this->renling_weirenling_list->findCate_id("1");
 			$this->renling_weirenling_list->selectLimit = $like_sql;
 			$this->renling_weirenling_list = $this->renling_weirenling_list->get();
