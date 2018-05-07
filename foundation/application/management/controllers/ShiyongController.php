@@ -370,7 +370,7 @@
 				$pm_mg_infoDAO ->lastmodify = time();
 
 				$pm_mg_infoDAO ->save();
-				alert_go("认领成功！", "/management/shiyong/claimlist");
+				alert_go("认领成功！", "/management/shiyong");
 
 			}catch(Exception $e){
 				throw $e;
