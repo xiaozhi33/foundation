@@ -33,7 +33,7 @@
                         <div class="row">
                             <div class="form-group col-sm-4">
                                 <label for="input05">项目名称：</label>
-                                <input type="text" class="form-control" name="pm_name" value="<?php if($_REQUEST['pm_name'] == ''){echo $_REQUEST['pm_name'];}?>" />
+                                <input type="text" class="form-control" name="pm_name" value="<?php if($_REQUEST['pm_name'] != ''){echo $_REQUEST['pm_name'];}?>" />
                             </div>
                         </div>
 
