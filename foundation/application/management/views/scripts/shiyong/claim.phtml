@@ -50,7 +50,7 @@
                                         <?php if($this->pmlist != ""){
                                             foreach ($this->pmlist as $k => $v){
                                                 ?>
-                                                <option <?php if($v['id'] == $_REQUEST['pm_id'])echo "checked=checked";?> value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                                <option <?php if($v['pname'] == $this->pm_mg_info[0]['pm_name'])echo "checked=checked";?> value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
                                             <?php }}?>
                                     </select>
                                     <input id="pname_info" type="hidden" name="pname" value=""/>
