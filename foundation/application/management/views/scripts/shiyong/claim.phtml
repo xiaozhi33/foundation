@@ -37,9 +37,9 @@
                         </thead>
                          <tbody>
                             <input type="hidden" name="pm_id" value="<?echo $_REQUEST['pm_id'];?>"/>
-                            <input type="hidden" name="lsh" value="<?echo $this->zw_mg_pzfl_log[0]['lsh'];?>"/>
-                            <input type="hidden" name="lrrq	" value="<?echo $this->zw_mg_pzfl_log[0]['lrrq'];?>"/>
-                            <input type="hidden" name="lrr" value="<?echo $this->zw_mg_pzfl_log[0]['lrr'];?>"/>
+                            <!--<input type="hidden" name="lsh" value="<?/*echo $this->zw_mg_pzfl_log[0]['lsh'];*/?>"/>
+                            <input type="hidden" name="lrrq	" value="<?/*echo $this->zw_mg_pzfl_log[0]['lrrq'];*/?>"/>
+                            <input type="hidden" name="lrr" value="<?/*echo $this->zw_mg_pzfl_log[0]['lrr'];*/?>"/>-->
 
                             <!-- 项目相关 start-->
                             <tr>
@@ -50,18 +50,18 @@
                                         <?php if($this->pmlist != ""){
                                             foreach ($this->pmlist as $k => $v){
                                                 ?>
-                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                                <option <?php if($v['id'] == $_REQUEST['pm_id'])echo "checked=checked";?> value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
                                             <?php }}?>
                                     </select>
                                     <input id="pname_info" type="hidden" name="pname" value=""/>
                                 </td>
                             </tr>
 
-                            <tr>
+                            <!--<tr>
                                 <td>财务系统对应项目：</td>
                                 <td id="zw_xm"><input size="38" type="text" id="zw_xmmc" name="zw_xmmc" value="" readonly/></td>
                                 <input type="hidden" name="zw_xmbh" id="zw_xmbh" value=""/>
-                            </tr>
+                            </tr>-->
                             <!-- 项目相关 end-->
                             <!-- 部门相关信息 start-->
 
