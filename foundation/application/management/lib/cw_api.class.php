@@ -61,6 +61,20 @@
             return $zwpzfl;
         }
 
+        public function getxminfo($bmbh, $xmbh){
+            $select_SQL = "SELECT * FROM zwxmzd WHERE bmbh=".$bmbh." and xmbh=".$xmbh;
+            $this->connect();
+            $query = $this->query($select_SQL);
+
+            while($row=mssql_fetch_array($query))
+            {
+                $xminfo[] = $row;
+            }
+
+            $this->free();
+            return $xminfo;
+        }
+
         /**
          * 添加财务认领
          * @param $lsh      流水号

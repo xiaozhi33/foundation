@@ -230,6 +230,7 @@
 			// 遍历循环插入zw_mg_pzfl_log表中
 			foreach($zwpzfl_list as $k => $v){
 				$pzfl = $this->ispzfl($v['pzrq'],$v['xmbh'],$v['jje']);  // 判断是否重复添加
+				$xminfo = $zwpzflDAO ->getxminfo($v['bmbh'],$v['xmbh']);  // 获取项目的详细信息  部门编号+项目编号
 
 				if(empty($pzfl)){
 					$zw_mg_pzfl_logDAO = $this->orm->createDAO("zw_mg_pzfl_log");
@@ -243,6 +244,7 @@
 					$zw_mg_pzfl_logDAO ->kmbh = $v['kmbh'];
 					$zw_mg_pzfl_logDAO ->bmbh = $v['bmbh'];
 					$zw_mg_pzfl_logDAO ->xmbh = $v['xmbh'];
+					$zw_mg_pzfl_logDAO ->xmmc = $xminfo[0]['xmmc'];
 					$zw_mg_pzfl_logDAO ->save();
 				}else {
 					continue;
