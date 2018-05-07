@@ -432,7 +432,7 @@
 		}
 
 		public function getisuselog($pzrq,$xmmc,$jje){
-			if(!empty($jje) && !empty($pzrq) && !empty($xmmc)){
+			if(!empty($jje) && !empty($pzrq) && !empty($xmmc1)){
 				$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
 				$pm_mg_infoDAO ->findShiyong_zhichu_jiner($jje);
 				$pm_mg_infoDAO ->findPm_name($xmmc);
