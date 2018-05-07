@@ -65,15 +65,15 @@
                             <!-- 项目相关 end-->
                             <!-- 部门相关信息 start-->
 
-                            <tr>
+                            <!--<tr>
                                 <td>认领到部门：</td>
                                 <td>
                                     <select class="chosen-select-1 chosen-transparent form-control" name="pm_bmbh" id="department">
-                                        <?php if($this->department_list != ""){
+                                        <?php /*if($this->department_list != ""){
                                             foreach ($this->department_list as $k => $v){
-                                                ?>
-                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
-                                            <?php }}?>
+                                                */?>
+                                                <option value="<?php /*echo $v['id'];*/?>"><?php /*echo $v['pname'];*/?></option>
+                                            <?php /*}}*/?>
                                     </select>
                                     <input id="department_id" type="hidden" name="department_id" value=""/>
                                 </td>
@@ -83,7 +83,7 @@
                                 <td>财务系统对应部门：</td>
                                 <td id="zw_bm"><input size="38" type="text" id="zw_bmmc" name="zw_bmmc" readonly/></td>
                                 <input type="hidden" name="zw_bmbh" id="zw_bmbh"/>
-                            </tr>
+                            </tr>-->
 
                             <!-- 部门相关信息  end-->
 
@@ -172,14 +172,14 @@
                 });
 
                 // 切换发票状态
-                $(".radioItem").change(function(){
+                /*$(".radioItem").change(function(){
                     var $selectedvalue = $("input[name='piaoju']:checked").val();
                     if ($selectedvalue == 0) {
                         $(".addfapiao").hide();
                     } else if($selectedvalue == 1 || $selectedvalue == 2) {
                         $(".addfapiao").show();
                     }
-                });
+                });*/
             });
 
             function GetZWxm(pm_id){
@@ -198,13 +198,13 @@
 
                             //关联部门
                             //$("#department").val(data.department);
-                            $("#department option[value='"+data.department+"']").attr("selected","selected");
+                           /* $("#department option[value='"+data.department+"']").attr("selected","selected");
                             $("#department").chosen();
 
                             $("#department").trigger("liszt:updated");
                             $("#department").trigger("chosen:updated");
 
-                            GetZWbm(data.department);
+                            GetZWbm(data.department);*/
 
                         }else {
                             $("#zw_xmbh").attr("value","");
@@ -218,7 +218,7 @@
                 });
             }
 
-            function GetZWbm(pm_pid){
+            /*function GetZWbm(pm_pid){
                 $.ajax({
                     type:'post',
                     url: '/management/zijin/ajaxgetzwbm?pm_pid='+pm_pid,
@@ -241,5 +241,5 @@
                     },
                     error:function(){}
                 });
-            }
+            }*/
         </script>
