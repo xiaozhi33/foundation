@@ -296,12 +296,11 @@
 					$zw_pm_relatedDAO ->findZw_xmbh($value['xmbh']);
 					$zw_pm_relatedDAO = $zw_pm_relatedDAO->get();
 
-					var_dump($zw_pm_relatedDAO);
-					var_dump($value);exit();
-
 					if(!empty($zw_pm_relatedDAO[0]['pm_name'])){
 						$islog = $this->getisuselog($value['pzrq'],$zw_pm_relatedDAO[0]['pm_name'],$value['jje']);
 						if($islog){   // 判断是否已经存在同步记录
+
+							var_dump($islog);exit();
 							$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
 							$pm_mg_infoDAO ->cate_id = 1;
 							$pm_mg_infoDAO ->pm_name = $zw_pm_relatedDAO[0]['pm_name'];
@@ -309,7 +308,6 @@
 							$pm_mg_infoDAO ->shiyong_zhichu_jiner = $value['jje'];
 							$pm_mg_infoDAO ->beizhu = $value['zy'];
 							$pm_mg_infoDAO ->is_renling = 0;
-
 							$pm_mg_infoDAO ->save();
 
 							$zw_mg_pzfl_log1DAO = $this->orm->createDAO("zw_mg_pzfl_log");
