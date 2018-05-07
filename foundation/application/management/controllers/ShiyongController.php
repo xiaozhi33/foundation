@@ -369,14 +369,12 @@
 				$pm_mg_infoDAO ->claim_time = time();                                     // 认领时间
 				$pm_mg_infoDAO ->lastmodify = time();
 
-				$rs = $pm_mg_infoDAO ->save();
-				if($rs){
-					alert_go("认领成功！", "/management/shiyong/claimlist");
-				}else {
-					alert_back("认领失败！请联系管理员");
-				}
+				$pm_mg_infoDAO ->save();
+				alert_go("认领成功！", "/management/shiyong/claimlist");
+
 			}catch(Exception $e){
 				throw $e;
+				alert_back("认领失败！请联系管理员");
 			}
 		}
 
