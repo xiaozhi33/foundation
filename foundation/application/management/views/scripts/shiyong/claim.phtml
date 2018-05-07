@@ -156,4 +156,90 @@
 
         <script language="javascript">
             $(".menu li:eq(8)").addClass("open");
+
+            $(document).ready(function(){
+
+                $(".addfapiao").hide();
+
+                // 切换项目ajax对应财务项目信息
+                $("#pname").change(function(){
+                    GetZWxm($(this).children('option:selected').val());
+                });
+
+                // 切换部门ajax对应财务部门信息
+                $("#department").change(function(){
+                    GetZWbm($(this).children('option:selected').val());
+                });
+
+                // 切换发票状态
+                $(".radioItem").change(function(){
+                    var $selectedvalue = $("input[name='piaoju']:checked").val();
+                    if ($selectedvalue == 0) {
+                        $(".addfapiao").hide();
+                    } else if($selectedvalue == 1 || $selectedvalue == 2) {
+                        $(".addfapiao").show();
+                    }
+                });
+            });
+
+            function GetZWxm(pm_id){
+                $.ajax({
+                    type:'post',
+                    url: '/management/zijin/ajaxgetzwxm?pm_id='+pm_id,
+                    data:{},
+                    cache:false,
+                    dataType:'json',
+                    success:function(data){
+                        if( data != null)
+                        {
+                            //console.log(data);
+                            $("#zw_xmbh").val(data.zw_xmbh);
+                            $("#zw_xmmc").val(data.zw_xmmc);
+
+                            //关联部门
+                            //$("#department").val(data.department);
+                            $("#department option[value='"+data.department+"']").attr("selected","selected");
+                            $("#department").chosen();
+
+                            $("#department").trigger("liszt:updated");
+                            $("#department").trigger("chosen:updated");
+
+                            GetZWbm(data.department);
+
+                        }else {
+                            $("#zw_xmbh").attr("value","");
+                            $("#zw_xmbh").val("");
+                            $("#zw_xmmc").attr("value","");
+                            $("#zw_xmmc").val("");
+                            alert("对不起，没有对应财务系统项目或父类项目，请添加对照关系后认领");
+                        }
+                    },
+                    error:function(){}
+                });
+            }
+
+            function GetZWbm(pm_pid){
+                $.ajax({
+                    type:'post',
+                    url: '/management/zijin/ajaxgetzwbm?pm_pid='+pm_pid,
+                    data:{},
+                    cache:false,
+                    dataType:'json',
+                    success:function(data){
+                        if( data != null)
+                        {
+                            //console.log(data);
+                            $("#zw_bmbh").val(data.zw_bmbh);
+                            $("#zw_bmmc").val(data.zw_bmmc);
+                        }else {
+                            $("#zw_bmbh").attr("value","");
+                            $("#zw_bmbh").val("");
+                            $("#zw_bmmc").attr("value","");
+                            $("#zw_bmmc").val("");
+                            alert("对不起，没有对应财务系统部门目，请添加对照关系后认领");
+                        }
+                    },
+                    error:function(){}
+                });
+            }
         </script>
