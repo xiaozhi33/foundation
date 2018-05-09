@@ -295,6 +295,26 @@
 			echo $this->view->render("index/footer.phtml");
 		}
 
+
+		/**
+		 * 删除认领log记录
+		 */
+		public function delClaimAction()
+		{
+			$lsh = $_REQUEST['lsh'];
+			$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+			$pm_mg_infoDAO ->findId($lsh);
+			$pm_mg_infoDAO ->is_renling = 2; // 逻辑删除认领数据
+			$pm_mg_infoDAO ->save();
+
+			echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+			echo('<script language="JavaScript">');
+			echo("alert('删除成功');");
+			echo("location.href='/management/shiyong/claimlist';");
+			echo('</script>');
+			exit;
+		}
+
         /**
          */
         public function syncpzfl(){
