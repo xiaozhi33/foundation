@@ -666,7 +666,7 @@
                      c.pm_fzr_mc,
                      pm_mg_info.pm_pp");
                 $zhichuinfo->selectLimit .= " and pm_mg_info.pm_name='".$pm_mg_chouziDAO[0]['pname']."' ";
-                $zhichuinfo->selectLimit .= " and c.id!='' ";
+                $zhichuinfo->selectLimit .= " and c.id!='' and is_renling=1 ";
 
                 $zhichuinfo->selectLimit .= " order by bpath";
                 $zhichuinfo = $zhichuinfo->get($this->dbhelper);
