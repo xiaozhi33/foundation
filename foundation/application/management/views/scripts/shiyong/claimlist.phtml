@@ -144,9 +144,9 @@
                 }
             }
 
-            function delete_click(lsh){
+            function delete_click(id){
                 if(confirm("确定要删除该笔款项吗？删除将不能找回！")) {
-                    location.href = "/management/shiyong/del-claim?id="+id;
+                    location.href = "/management/shiyong/del-claim?lsh="+id;
                 }
             }
 
