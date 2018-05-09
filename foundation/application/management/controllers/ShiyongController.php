@@ -477,6 +477,7 @@
                 'editrsshiyong',
                 'claimlist',
                 'savebindingclaim',
+				'del-claim',
                 //'binding-claim',
             );
             if (in_array($action, $except_actions)) {
