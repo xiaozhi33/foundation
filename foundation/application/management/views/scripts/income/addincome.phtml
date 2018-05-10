@@ -7,13 +7,13 @@
 <div class="pageheader">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
-        <span>添加文档信息</span></h2>
+        <span>添加收益信息</span></h2>
 
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
             <li>项目信息管理</li>
-            <li class="active">添加文档信息</li>
+            <li class="active">添加收益信息</li>
         </ol>
     </div>
 
@@ -29,32 +29,32 @@
                 <form class="form-horizontal" action="to-add" method="post" encType="multipart/form-data">
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">文档标题：</label>
+                        <label class="col-sm-2 control-label">项目名称：</label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="text" name="name"/>
+                            <select class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                <option value="">请选择项目名称</option>
+                                <?php if($this->pmlist != ""){
+                                    foreach ($this->pmlist as $k => $v){
+                                        ?>
+                                        <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                    <?php }}?>
+                            </select>
                         </div>
                         <span class="col-sm-1" > * </span>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input01">上传文档：</label>
+                        <label class="col-sm-2 control-label" for="input01">收益时间：</label>
                         <div class="col-sm-3">
-                            <input name="files" type="file" value="" />
+                            <input name="income_datetime" type="text" id="dateinput" value="" />
                         </div>
                         <span class="col-sm-1" > * </span>
                     </div>
 
                     <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">文档类型：</label>
+                            <label class="col-sm-2 control-label" for="input01">收益金额：</label>
                             <div class="col-sm-3">
-                                <select class="chosen-select-1 chosen-transparent form-control" name="type">
-                                    <option value="">请选择文档类型</option>
-                                    <?php if($this->type_arrays != ""){
-                                        foreach ($this->type_arrays as $k => $v){
-                                            ?>
-                                            <option value="<?php echo $k;?>"><?php echo $v;?></option>
-                                        <?php }}?>
-                                </select>
+                                <input name="income_jje" type="text" id="" value="" />
                             </div>
                             <span class="col-sm-1" > * </span>
                     </div>
@@ -80,6 +80,25 @@
 		</div>
 
         <script src="/include/management/assets/js/jquery.js"></script>
+
+        <script language="javascript">
+            $(document).ready(function() {
+                $('#dateinput').datepicker({
+                    dateFormat: 'yy-mm-dd',  //日期格式，自己设置
+                    buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置
+                    buttonImageOnly: true,  //Show an image trigger without any button.
+                    //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效
+                    yearRange: '2008:2020',//年份范围
+                    clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置
+                    closeText:'关闭',
+                    prevText:'前一月',
+                    nextText:'后一月',
+                    currentText:' ',
+                    monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                });
+            });
+        </script>
+
         <script language="javascript">
             $(".menu li:eq(33)").addClass("open");
         </script>
