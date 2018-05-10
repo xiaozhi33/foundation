@@ -78,6 +78,7 @@
                 $pm_incomeDAO->income_datetime = strtotime($income_datetime);
                 $pm_incomeDAO->income_jje = $income_jje;
                 $pm_incomeDAO->beizhu = $beizhu;
+                $pm_incomeDAO->lastmodify = time();
 
                 $pm_info = $this->orm->createDAO("pm_mg_chouzi")->findPname($pname)->get();
                 if(!empty($pm_info)){
@@ -88,7 +89,7 @@
                 $pm_incomeDAO->pid = $pid;
 
                 $logName = SessionUtil::getAdmininfo();
-                addlog("修改收益信息-" . $pname, $logName['admin_name'], $_SERVER['REMOTE_ADDR'], date("Y-m-d H:i:s", time()), json_encode($pm_incomeDAO));
+                addlog("添加收益信息-" . $pname, $logName['admin_name'], $_SERVER['REMOTE_ADDR'], date("Y-m-d H:i:s", time()), json_encode($pm_incomeDAO));
 
                 $pm_incomeDAO ->admin_id = $logName['admin_id'];
                 $pm_incomeDAO ->admin_name = $logName['admin_name'];
