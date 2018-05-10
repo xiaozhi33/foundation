@@ -30,7 +30,7 @@
             $this->view->assign("pname", $pname);
 
             // 按照星级倒序，之后按照创建id倒序
-            $incomeinfo ->selectLimit .= " order income_datetime desc";
+            $incomeinfo ->selectLimit .= " order by income_datetime desc";
 
             //$incomeinfo ->debugSql =true;
             $incomeinfo = $incomeinfo->get();
