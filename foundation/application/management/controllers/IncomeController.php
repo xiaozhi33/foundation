@@ -497,8 +497,8 @@
             $this->view->assign("rate_config",$this->rate_config);
 
             //获取筹资项目list
-            $incomeDAO = $this->orm->createDAO("pm_mg_income")->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
-            $this->view->assign("income_lists",$incomeDAO);
+            $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
+            $this->view->assign("chouzi_lists",$chouziDAO);
         }
 
         //权限
