@@ -43,10 +43,11 @@
                     <div class="tile-body">
                         <form action="#" method="get" name="search_form" >
                             <div class="form-group">
+
                                 <div class="row">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label" for="input01">项目名称：</label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-5">
                                             <select class="chosen-select-1 chosen-transparent form-control" id="pname">
                                                 <option value="">请选择项目名称</option>
                                                 <?php if($this->pmlist != ""){
@@ -58,43 +59,36 @@
                                             <input id="pname_info" type="hidden" name="pname" value=""/>
                                         </div>
                                     </div>
-
-                                    <div class="form-group col-sm-3">
-                                        <label class="col-sm-2 control-label" for="input01">项目名称：</label>
-                                        <div class="col-sm-4">
-                                            <input class="form-control" type="text" name="pname" />
-                                        </div>
-                                        <span class="col-sm-1" > * </span>
-                                    </div>
                                 </div>
 
 
                                 <div class="row">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label" for="input01">开始时间 ：</label>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <input class="form-control" type="text"  id="dateinput"  name="starttime"  size="14"/>
                                         </div>
                                         <label class="col-sm-2 control-label" for="input01">结束时间 ：</label>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <input class="form-control" type="text"  id="dateinput2"  name="endtime"  size="14"/></div>
                                     </div>
                                 </div>
 
 
                                 <div class="row">
-                                    <div class="form-group col-sm-4">
+                                    <div class="form-group col-sm-3">
                                         <label for="input02"></label>
                                         <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
-                                    </div>
-
-                                    <div class="form-group col-sm-4">
-                                        <label for="input02"> </label>
-                                        <input class="btn btn-primary btn-block" type="button" value="添加收益" onclick="window.location.href='/management/income/add'">
                                     </div>
                                 </div>
 
 
+                                <div class="row">
+                                    <div class="form-group col-sm-3">
+                                        <label for="input02"> </label>
+                                        <input class="btn btn-primary btn-block" type="button" value="添加收益" onclick="window.location.href='/management/income/add'">
+                                    </div>
+                                </div>
 
                             </div>
                         </form>
