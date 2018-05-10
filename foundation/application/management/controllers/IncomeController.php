@@ -179,6 +179,8 @@
                 } else {
                     $this->alert_back("编辑失败！");
                 }
+            }else{
+                $this->alert_back("编辑失败！");
             }
         }
 
