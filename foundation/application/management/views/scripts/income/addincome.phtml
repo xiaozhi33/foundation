@@ -46,7 +46,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input01">收益时间：</label>
                         <div class="col-sm-3">
-                            <input name="income_datetime" type="text" id="dateinput" value="" size="24"/>
+                            <input name="income_datetime" type="text" id="datepicker1" value="" size="50"/>
                         </div>
                         <span class="col-sm-1" > * </span>
                     </div>
@@ -54,7 +54,7 @@
                     <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">收益金额：</label>
                             <div class="col-sm-3">
-                                <input name="income_jje" type="text" value="" size="24" />
+                                <input name="income_jje" type="text" value="" size="50" />
                             </div>
                             <span class="col-sm-1" > 元 * </span>
                     </div>
@@ -80,24 +80,6 @@
 		</div>
 
         <script src="/include/management/assets/js/jquery.js"></script>
-
-        <script language="javascript">
-            $(document).ready(function() {
-                $('#dateinput').datepicker({
-                    dateFormat: 'yy-mm-dd',  //日期格式，自己设置
-                    buttonImage: 'calendar.gif',  //按钮的图片路径，自己设置
-                    buttonImageOnly: true,  //Show an image trigger without any button.
-                    //showOn: 'both',//触发条件，both表示点击文本域和图片按钮都生效
-                    yearRange: '2008:2020',//年份范围
-                    clearText:'清除',//下面的就不用详细写注释了吧，呵呵，都是些文本设置
-                    closeText:'关闭',
-                    prevText:'前一月',
-                    nextText:'后一月',
-                    currentText:' ',
-                    monthNames:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-                });
-            });
-        </script>
 
         <script language="javascript">
             $(".menu li:eq(33)").addClass("open");
