@@ -31,14 +31,15 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">项目名称：</label>
                             <div class="col-sm-4">
-                                <select class="chosen-select-1 chosen-transparent form-control" name='pname' readonly id="pname" value="<?php echo $this->income[0]['pname']?>">
+                                <!--<select class="chosen-select-1 chosen-transparent form-control" name='pname' readonly id="pname" value="<?php /*echo $this->income[0]['pname']*/?>">
                                     <option value="">请选择项目名称</option>
-                                    <?php if($this->pmlist != ""){
+                                    <?php /*if($this->pmlist != ""){
                                         foreach ($this->pmlist as $k => $v){
-                                            ?>
-                                            <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
-                                        <?php }}?>
-                                </select>
+                                            */?>
+                                            <option value="<?php /*echo $v['pname'];*/?>"><?php /*echo $v['pname'];*/?></option>
+                                        <?php /*}}*/?>
+                                </select>-->
+                                <input class="form-control" type="text" name="pname" readonly value="<?php echo $this->income[0]['pname'];?>"/>
                             </div>
                             <span class="col-sm-1" > * </span>
                         </div>
