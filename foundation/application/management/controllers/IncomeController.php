@@ -14,7 +14,7 @@
 
         public function indexAction()
         {
-            $incomeinfo = new pm_mg_incomeDAO();
+            $incomeinfo = $this->orm->createDAO("pm_mg_income");
             $pname = HttpUtil::getString("pname");
 
             if ($pname != "") {
