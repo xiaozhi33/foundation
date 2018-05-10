@@ -18,16 +18,18 @@
             $pname = HttpUtil::getString("pname");
 
             if ($pname != "") {
-                $incomeinfo->pname = $pname;
+                $incomeinfo->findPname($pname);
             }
 
-            if(HttpUtil::postString("starttime")!="" && HttpUtil::postString("endtime") != ""){
-                $starttime = strtotime(HttpUtil::postString("starttime"));
-                $endtime = strtotime(HttpUtil::postString("endtime"));
+            if(HttpUtil::getString("starttime")!="" && HttpUtil::getString("endtime") != ""){
+                $starttime = strtotime(HttpUtil::getString("starttime"));
+                $endtime = strtotime(HttpUtil::getString("endtime"));
                 $incomeinfo->selectLimit = " and 	income_datetime >= '$starttime' and income_datetime <= '$endtime'";
             }
 
             $this->view->assign("pname", $pname);
+            $this->view->assign("starttime", HttpUtil::getString("starttime"));
+            $this->view->assign("endtime", HttpUtil::getString("endtime"));
 
             $incomeinfo ->selectLimit .= " order by income_datetime desc";
             //$incomeinfo ->debugSql =true;
