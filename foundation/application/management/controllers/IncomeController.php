@@ -33,7 +33,7 @@
             $incomeinfo ->selectLimit .= " order by star desc, id desc";
 
             //$incomeinfo ->debugSql =true;
-            $incomeinfo = $incomeinfo->get($this->dbhelper);
+            $incomeinfo = $incomeinfo->get();
             $total = count($incomeinfo);
             $pageDAO = new pageDAO();
             $pageDAO = $pageDAO->pageHelper($incomeinfo, null, "/management/income/index", null, 'get', 25, 8);
