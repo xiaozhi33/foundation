@@ -488,10 +488,10 @@
             $this->jjh_mg_pp_list = $temp_array;
 
             //项目名称列表
-            $pm_income = new pm_mg_incomeDAO();
-            $pm_income ->selectLimit .= " order by id desc";
-            $pm_income = $pm_income ->get($this->dbhelper);
-            $this->view->assign("pmlist",$pm_income);
+            $pm_chouzi = $this->orm->createDAO("pm_mg_chouzhi");
+            $pm_chouzi ->selectLimit .= " order by id desc";
+            $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
+            $this->view->assign("pmlist",$pm_chouzi);
 
             // 项目进度
             $this->view->assign("rate_config",$this->rate_config);
