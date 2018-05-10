@@ -66,23 +66,24 @@
                 $beizhu = HttpUtil::postString("beizhu");  //
 
                 if ($pname == "" || $income_datetime == "" || $income_jje == "") {
-                    alert_back("您输入的信息不完整，请查正后继续添加");
+                    $this->alert_back("您输入的信息不完整，请查正后继续添加");
                 }
 
                 if(!is_numeric($income_jje) || $income_jje <= 0){
-                    alert_back("您输入的收益金额不正确！请重新输入！");
+                    $this->alert_back("您输入的收益金额不正确！请重新输入！");
                 }
 
                 $pm_incomeDAO = $this->orm->createDAO("pm_mg_income");
                 $pm_incomeDAO->pname = $pname;
-                $pm_incomeDAO->income_datetime = $income_datetime;
+                $pm_incomeDAO->income_datetime = strtotime($income_datetime);
                 $pm_incomeDAO->income_jje = $income_jje;
+                $pm_incomeDAO->beizhu = $beizhu;
 
                 $pm_info = $this->orm->createDAO("pm_mg_chouzi")->findPname($pname)->get();
                 if(!empty($pm_info)){
                     $pid = $pm_info[0]['id'];
                 }else {
-                    alert_back("项目不存在，或系统异常请联系系统开发人员！");
+                    $this->alert_back("项目不存在，或系统异常请联系系统开发人员！");
                 }
                 $pm_incomeDAO->pid = $pid;
 
@@ -94,9 +95,9 @@
 
                 $_pid = $pm_incomeDAO->save();   // $_pid 项目系统pm_id
                 if($_pid) {
-                    alert_go("添加成功！", "/management/income");
+                    $this->alert_go("添加成功！", "/management/income");
                 }else {
-                    alert_back("添加失败！");
+                    $this->alert_back("添加失败！");
                 }
 
             }catch (Exception $e){
