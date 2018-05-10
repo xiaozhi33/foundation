@@ -61,189 +61,42 @@
         {
             try{
                 $pname = HttpUtil::postString("pname");      //项目名称
-                //check项目是否已经建立
-                $is_pname = $this->checkPname($pname);
-                if($is_pname === true){
-                    alert_back("该项目已经被添加，请查正后重新添加！");
-                }
+                $income_datetime = HttpUtil::postString("income_datetime");   //
+                $income_jje = HttpUtil::postString("income_jje");  //
+                $beizhu = HttpUtil::postString("beizhu");  //
 
-                $bianhao = "jjh" . date("Yhdhis");  //项目编号 自动编号 编号内容为年月日时分秒
-
-                $department = HttpUtil::postString("department");   //相关部门
-                $pm_cate = HttpUtil::postString("pm_cate");  //项目分类
-                $tuidongqi = HttpUtil::postString("tuidongqi");     //项目推动期
-                $fuhuaqi = HttpUtil::postString("fuhuaqi");  //项目孵化期
-                $liuben = HttpUtil::postString("liuben");  //项目孵化期
-                $qianyuedate = HttpUtil::postString("qianyuedate"); //项目签约日期
-                $fankui = HttpUtil::postString("fankui");    //项目反馈日期
-                $qishi = HttpUtil::postString("qishi");         //项目起始日期
-                $xianqi = HttpUtil::postString("xianqi");         //项目限期
-                $jiezhi = HttpUtil::postString("jiezhi");         //项目截止日期
-                $jiner = HttpUtil::postString("jiner");         //协议捐赠金额
-                $yishi = HttpUtil::postString("yishi");         //项目仪式
-                $beizhu = HttpUtil::postString("beizhu");         //备注
-
-                $pm_fzr = implode(",",$_REQUEST['pm_fzr']);               //项目负责人
-                //$pm_fzr_email = HttpUtil::postString("pm_fzr_email");
-                //$pm_fzr_tel = HttpUtil::postString("pm_fzr_tel");
-                $pm_llr = implode(",",$_REQUEST['pm_llr']);               //联络人
-                //$pm_llr_email = HttpUtil::postString("pm_llr_email");
-                //$pm_llr_tel = HttpUtil::postString("pm_llr_tel");
-
-                $execute_fzr = implode(",",$_REQUEST['execute_fzr']);
-                $execute_llr = implode(",",$_REQUEST['execute_llr']);
-
-                $pm_ckfzr = implode(",",$_REQUEST['pm_ckfzr']);           //筹款负责人
-                //$pm_ckfzr_email = HttpUtil::postString("pm_ckfzr_email");
-                //$pm_ckfzr_tel = HttpUtil::postString("pm_ckfzr_tel");
-                $pm_jzf = implode(",",$_REQUEST['pm_jzf']);               //捐赠方
-                //$pm_jzf_email = HttpUtil::postString("pm_jzf_email");
-                //$pm_jzf_tel = HttpUtil::postString("pm_jzf_tel");
-                $pm_jzfllr = implode(",",$_REQUEST['pm_jzfllr']);         //捐赠方联络人
-                //$pm_jzfllr_email = HttpUtil::postString("pm_jzfllr_email");
-                //$pm_jzfllr_tel = HttpUtil::postString("pm_jzfllr_tel");
-                $pm_sjjzf = implode(",",$_REQUEST['pm_sjjzf']);           //实际捐赠方
-                //$pm_sjjzf_email = HttpUtil::postString("pm_sjjzf_email");
-                //$pm_sjjzf_tel = HttpUtil::postString("pm_sjjzf_tel");
-                $pm_sjjzfllr = implode(",",$_REQUEST['pm_sjjzfllr']);     //捐赠方联络人
-                //$pm_sjjzfllr_email = HttpUtil::postString("pm_sjjzfllr_email");
-                //$pm_sjjzfllr_tel = HttpUtil::postString("pm_sjjzfllr_tel");
-
-                // $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
-
-                if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
+                if ($pname == "" || $income_datetime == "" || $income_jje == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
                 }
 
+                if(!is_numeric($income_jje) || $income_jje <= 0){
+                    alert_back("您输入的收益金额不正确！请重新输入！");
+                }
+
                 $pm_incomeDAO = $this->orm->createDAO("pm_mg_income");
-                $pm_incomeDAO->beizhu = $beizhu;
-                $pm_incomeDAO->cate = $pm_cate;
-                $pm_incomeDAO->department = $department;
-                $pm_incomeDAO->pid = $bianhao;
-                $pm_incomeDAO->pm_fankui_datetime = $fankui;
-                $pm_incomeDAO->pm_fuhuaqi = $fuhuaqi;
-                $pm_incomeDAO->pm_qishi_datetime = $qishi;
-                $pm_incomeDAO->pm_jiezhi_datetime = $jiezhi;
-                $pm_incomeDAO->pm_liuben = $liuben;
-                $pm_incomeDAO->pm_qianyue_datetime = $qianyuedate;
-                $pm_incomeDAO->pm_qixian = $xianqi;
-                $pm_incomeDAO->pm_tuidongqi = $tuidongqi;
-                $pm_incomeDAO->pm_xieyi_juanzeng_jiner = $jiner;
-                $pm_incomeDAO->pm_yishi = $yishi;
-                // $pm_incomeDAO->pm_fzr_mc = $pm_fzr_mc;
                 $pm_incomeDAO->pname = $pname;
+                $pm_incomeDAO->income_datetime = $income_datetime;
+                $pm_incomeDAO->income_jje = $income_jje;
 
-                $pm_incomeDAO->pm_fzr = $pm_fzr;
-                $pm_incomeDAO->pm_fzr_email = $pm_fzr_email;
-                $pm_incomeDAO->pm_fzr_tel = $pm_fzr_tel;
-
-                $pm_incomeDAO->pm_llr = $pm_llr;
-                $pm_incomeDAO->pm_llr_email = $pm_llr_email;
-                $pm_incomeDAO->pm_llr_tel = $pm_llr_tel;
-
-                $pm_incomeDAO->pm_ckfzr = $pm_ckfzr;
-                $pm_incomeDAO->pm_ckfzr_email = $pm_ckfzr_email;
-                $pm_incomeDAO->pm_ckfzr_tel = $pm_ckfzr_tel;
-
-                $pm_incomeDAO->pm_jzf = $pm_jzf;
-                $pm_incomeDAO->pm_jzf_email = $pm_jzf_email;
-                $pm_incomeDAO->pm_jzf_tel = $pm_jzf_tel;
-
-                $pm_incomeDAO->pm_jzfllr = $pm_jzfllr;
-                $pm_incomeDAO->pm_jzfllr_email = $pm_jzfllr_email;;
-                $pm_incomeDAO->pm_jzfllr_tel = $pm_jzfllr_tel;
-
-                $pm_incomeDAO->pm_sjjzf = $pm_sjjzf;
-                $pm_incomeDAO->pm_sjjzf_email = $pm_sjjzf_email;
-                $pm_incomeDAO->pm_sjjzf_tel = $pm_sjjzf_tel;
-
-                $pm_incomeDAO->pm_sjjzfllr = $pm_sjjzfllr;
-                $pm_incomeDAO->pm_sjjzfllr_email = $pm_sjjzfllr_email;
-                $pm_incomeDAO->pm_sjjzfllr_tel = $pm_sjjzfllr_tel;
-
-                $pm_incomeDAO->execute_fzr = $execute_fzr;
-                $pm_incomeDAO->execute_llr = $execute_llr;
-
-                // pm_id为所属父项目id 如果不为空，则新建子项目
-                $pid = HttpUtil::postString("pm_id"); // $pid 父项目id
-                if(!empty($pid)){
-                    $parent_pm_info = $this->orm->createDAO("pm_mg_income")->findId($pid)->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
-                    $parent_pm_id = $parent_pm_info[0]['id'];  //直属关系项目id
-                    $parent_pm_id_path = $parent_pm_info[0]['parent_pm_id_path'];   //id_path
-
-                    $pm_incomeDAO->parent_pm_id = $parent_pm_id;              //直属关系项目id
-                    if(!empty($parent_pm_id_path)){
-                        $pm_incomeDAO->parent_pm_id_path = 0;
-                    }else {
-                        $pm_incomeDAO->parent_pm_id_path = $parent_pm_id.",".$_REQUEST['id'];    //id_path
-                    }
+                $pm_info = $this->orm->createDAO("pm_mg_chouzi")->findPname($pname)->get();
+                if(!empty($pm_info)){
+                    $pid = $pm_info[0]['id'];
                 }else {
-                    $pm_incomeDAO->parent_pm_id = 0;
-                    $pm_incomeDAO->parent_pm_id_path = 0;
+                    alert_back("项目不存在，或系统异常请联系系统开发人员！");
                 }
+                $pm_incomeDAO->pid = $pid;
 
-                if ($_FILES['xieyidianzi']['name'] != "") {
-                    if ($_FILES['xieyidianzi']['error'] != 4) {
-                        if (!is_dir(__UPLOADPICPATH__ . "jjh_download/")) {
-                            mkdir(__UPLOADPICPATH__ . "jjh_download/");
-                        }
-                        $uploadpic = new uploadPic($_FILES['xieyidianzi']['name'], $_FILES['xieyidianzi']['error'], $_FILES['xieyidianzi']['size'], $_FILES['xieyidianzi']['tmp_name'], $_FILES['xieyidianzi']['type'], 2);
-                        $uploadpic->FILE_PATH = __UPLOADPICPATH__ . "jjh_download/";
-                        $result = $uploadpic->uploadPic();
-                        if ($result['error'] != 0) {
-                            alert_back($result['msg']);
-                        } else {
-                            $pm_incomeDAO->pm_xieyii_dianziban = __GETPICPATH__ . "jjh_download/" . $result['picname'];
-                        }
-                    }
-                }
+                $logName = SessionUtil::getAdmininfo();
+                addlog("修改收益信息-" . $pname, $logName['admin_name'], $_SERVER['REMOTE_ADDR'], date("Y-m-d H:i:s", time()), json_encode($pm_incomeDAO));
 
-                // 同步财务系统项目信息
-                $pmDAO = new CW_API();
-                $rs1 = $pmDAO ->get_max_xmnmID();
-                $rs_1 = $pmDAO ->get_max_xmnm_copyID();
-                $xmnm = (int)$rs1[0]['xmnm'] + 1;
-                $xmnm_copy = (int)$rs_1[0]['xmnm'] + 1;
-                if($xmnm_copy > $xmnm) $xmnm = $xmnm_copy;  // 如果临时表的最大值大，取临时表
-
-                $rs2 = $pmDAO ->get_max_xmbhID();
-                $xmbh = (int)$rs2[0]['xmbh'] + 1;
-
-                if(empty($pid) || (int)$pid == 0){   // 只有父类项目同步到财务系统
-                    // 获取对应部门信息
-                    $zw_department_related = $this->orm->createDAO("zw_department_related");
-                    $zw_department_related ->findPm_pid($department);
-                    $zw_department_related = $zw_department_related ->get();
-
-                    if(empty($zw_department_related[0]['zw_bmbh'])){
-                        alert_back("没有找到对应的财务部门信息，请联系管理员！或添加对应关系！");
-                    }
-
-                    $zwxmzdDAO = new CW_API();
-                    $rs = $zwxmzdDAO ->sync_pm('000'.$xmnm, $xmbh, $pname, $zw_department_related[0]['zw_bmbh']);
-                }
+                $pm_incomeDAO ->admin_id = $logName['admin_id'];
+                $pm_incomeDAO ->admin_name = $logName['admin_name'];
 
                 $_pid = $pm_incomeDAO->save();   // $_pid 项目系统pm_id
                 if($_pid) {
-                    // 同步财务后写入对照表
-                    $zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
-                    $zw_pm_relatedDAO ->pm_id = $_pid;
-                    $zw_pm_relatedDAO ->pm_name = $pname;
-                    $zw_pm_relatedDAO ->zw_xmbh = $xmbh;
-                    $zw_pm_relatedDAO ->zw_xmmc = $pname;
-                    $zw_pm_relatedDAO ->zw_bmbh = $zw_department_related[0]['zw_bmbh'];
-                    $zw_pm_relatedDAO ->save();
-
-                    // 更新项目进度
-                    $is_lixiang = HttpUtil::postString("is_lixiang");
-                    if($is_lixiang == '1'){
-                        $this->changerate($_pid,'add',1);
-                    }else {
-                        $this->changerate($_pid,'del',1);
-                    }
-                    alert_go("添加成功", "/management/income");
+                    alert_go("添加成功！", "/management/income");
                 }else {
-                    alert_back("同步财务系统项目表失败，请联系管理员！");
+                    alert_back("添加失败！");
                 }
 
             }catch (Exception $e){
@@ -256,11 +109,6 @@
             if ($_REQUEST['id'] != "") {
                 $pm_incomeDAO = new pm_mg_incomeDAO($_REQUEST['id']);
                 $pm_incomeDAO = $pm_incomeDAO->get($this->dbhelper);
-
-                $pm_mg_rateDAO = $this->orm->createDAO('pm_mg_rate');
-                $pm_mg_rateDAO ->findPm_id($_REQUEST['id']);
-                $pm_mg_rateDAO = $pm_mg_rateDAO ->get();
-                $this->view->assign("rate_list_new", $pm_mg_rateDAO);
 
                 $this->view->assign("income", $pm_incomeDAO);
                 echo $this->view->render("index/header.phtml");
