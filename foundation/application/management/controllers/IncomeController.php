@@ -488,7 +488,7 @@
             $this->jjh_mg_pp_list = $temp_array;
 
             //项目名称列表
-            $pm_chouzi = $this->orm->createDAO("pm_mg_chouzhi");
+            $pm_chouzi = $this->orm->createDAO("pm_mg_chouzi");
             $pm_chouzi ->selectLimit .= " order by id desc";
             $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
             $this->view->assign("pmlist",$pm_chouzi);
