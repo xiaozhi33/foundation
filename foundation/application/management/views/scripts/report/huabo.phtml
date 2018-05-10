@@ -46,10 +46,25 @@
                         <div class="form-group">
 
                             <div class="row">
+
                                 <div class="form-group col-sm-6">
-                                    <label for="pname" class="col-sm-2 control-label">划拨年份：</label>
+                                    <label for="pname" class="col-sm-4 control-label">划拨部门：</label>
+                                    <select class="chosen-select-1 chosen-transparent form-control" data-live-search="false" name="huabo_department" id="huabo_department">
+                                        <option value="">请选择划拨部门</option>
+                                        <?php if($this->department != ""){
+                                            foreach ($this->department as $k => $v){
+                                                ?>
+                                                <option <?php if($_REQUEST['huabo_department'] == $k){ echo "selected='selected'";}?>  value="<?php echo $k;?>"><?php echo $v;?></option>
+                                            <?php }}?>
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-sm-4">
+                                    <label for="pname" class="col-sm-4 control-label">划拨年份：</label>
                                     <input name="yeartime" data-date-format="YYYY" id="datepicker1"  type="text" value="<?php echo $this->yeartime;?>" class="col-sm-3 control-label"/>
                                 </div>
+
                             </div>
 
                             <div class="row">
@@ -66,18 +81,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="form-group col-sm-6">
-                                    <label for="pname" class="col-sm-4 control-label">划拨部门：</label>
-                                    <select class="chosen-select-1 chosen-transparent form-control" data-live-search="false" name="huabo_department" id="huabo_department">
-                                        <option value="">请选择划拨部门</option>
-                                        <?php if($this->department != ""){
-                                            foreach ($this->department as $k => $v){
-                                                ?>
-                                                <option <?php if($_REQUEST['huabo_department'] == $k){ echo "selected='selected'";}?>  value="<?php echo $k;?>"><?php echo $v;?></option>
-                                            <?php }}?>
-
-                                    </select>
-                                </div>
+                                注：如需多选，可按住Ctrl键进行多选操作。
                             </div>
 
                             <div class="row">
