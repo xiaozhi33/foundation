@@ -43,11 +43,13 @@
                     <div class="tile-body">
                         <form action="#" method="get" name="search_form">
                             <div class="form-group">
-
                                 <div class="row">
-                                    <div class="form-group col-sm-3">
-                                        <label for="pname">项目名称：</label>
-                                        <input id="name" class="form-control" type="text" name="name" value="<?php echo $this->name;?>"/>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input01">
+                                            项目名称：</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="text" name="pname" />
+                                        </div>
                                     </div>
 
                                     <div class="form-group col-sm-3">
@@ -57,32 +59,36 @@
                                         </div>
                                         <span class="col-sm-1" > * </span>
                                     </div>
+                                </div>
 
-                                    <div class="form-group col-sm-3">
-                                        <label for="pname">收益日期：</label>
-                                        <input id="name" class="form-control" type="text" name="name" value="<?php echo $this->name;?>"/>
+
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input01">开始时间 ：</label>
+                                        <div class="col-sm-4">
+                                            <input class="form-control" type="text"  id="dateinput"  name="starttime"  size="14"/>
+                                        </div>
+                                        <label class="col-sm-2 control-label" for="input01">结束时间 ：</label>
+                                        <div class="col-sm-4">
+                                            <input class="form-control" type="text"  id="dateinput2"  name="endtime"  size="14"/></div>
                                     </div>
+                                </div>
 
-                                    <div class="form-group col-sm-3">
-                                        <label for="input01" >收益日期：</label>
-                                        <select name="type" class="form-control">
-                                            <option  class="form-group" value="">请选择收益类型</option>
-                                            <?php foreach($this->type_arrays as $k => $v){?>
-                                            <option  class="form-group" value="<?php echo $k;?>"><?php echo $v;?></option>
-                                            <?php }?>
-                                        </select>
-                                    </div>
 
-                                    <div class="form-group col-sm-3">
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
                                         <label for="input02"></label>
                                         <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
                                     </div>
 
-                                    <div class="form-group col-sm-3">
+                                    <div class="form-group col-sm-4">
                                         <label for="input02"> </label>
                                         <input class="btn btn-primary btn-block" type="button" value="添加收益" onclick="window.location.href='/management/income/add'">
                                     </div>
                                 </div>
+
+
+
                             </div>
                         </form>
                     </div>
@@ -106,19 +112,16 @@
 						foreach($this->pageData as $k=>$v){?>
 						 <tr>
 						 	<td>
-                                <?php echo $v['name'];?>
+                                <?php echo $v['pname'];?>
                             </td>
                              <td>
-                                 <?php echo $v['type'];?>
+                                 <?php echo date("Y-m-s H:i:s",$v['income_datetime']);?>
                              </td>
                              <td>
-                                 <?php //echo $v['upload_datetime'];?>
-                                 <a href="/management/income/download?id=<?php echo $v['id'];?>">
-                                     <?php echo $v['temp_name'];?>
-                                 </a>
+                                     <?php echo $v['jje'];?>
                              </td>
                              <td>
-                                 <?php echo $v['uploader'];?>
+                                 <?php echo $v['admin_name'];?>
                              </td>
 
 							<td>
@@ -141,7 +144,7 @@
                         共  <?php echo $this->totalItems;?> 条收益信息         <?php echo $this->page['all'];?></div>
 					
 				 <?php }else{?>
-				 	<div style="margin: 10px;padding: 10px;">暂无收益信息！<a href="/management/income/add">点击添加</a></div>
+                        <div class="row"><div style="margin: 10px;padding: 10px;">暂无收益信息！<a href="/management/income/add">点击添加</a></div></div>
 				 <?php }?>
 				 </div>
 
