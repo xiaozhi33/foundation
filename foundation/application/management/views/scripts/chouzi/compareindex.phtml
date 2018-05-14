@@ -1,0 +1,131 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<link rel="stylesheet" href="/include/management/assets/css/vendor/animate/animate.css">
+<link type="text/css" rel="stylesheet" media="all" href="/include/management/assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/include/management/assets/js/vendor/videobackground/css/jquery.videobackground.css">
+<link rel="stylesheet" href="/include/management/assets/css/vendor/bootstrap-checkbox.css">
+
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote-bs3.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen.min.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen-bootstrap.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/datepicker/css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpicker/css/bootstrap-colorpicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpalette/bootstrap-colorpalette.css">
+<link href="/include/management/assets/css/minimal.css" rel="stylesheet">
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>财务系统对照</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>财务系统对照</li>
+            <li class="active">财务系统对照</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+
+        <div class="col-md-12">
+            <section class="tile color transparent-white">
+                <div class="tile-body">
+                    <form action="#" method="get" name="search_form">
+                        <div class="form-group">
+
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <label for="pname">项目名称：</label>
+                                    <input id="name" class="form-control" type="text" name="name" value="<?php echo $this->name;?>"/>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="input02"></label>
+                                    <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <section class="tile color transparent-white">
+                <div class="tile-body nopadding">
+                    <?php if(!empty($this->pageData)){?>
+                    <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                        <thead>
+                        <tr>
+                            <td width="8%">项目id</td>
+                            <td width="20%">项目名称</td>
+                            <td width="12%">财务项目编号</td>
+                            <td width="20%">财务项目名称</td>
+                            <td width="20%">财务部门编号</td>
+                            <td width="20%">操作</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach($this->pageData as $k=>$v){?>
+                            <tr>
+                                <td>
+                                    <?php echo $v['pm_id'];?>
+                                </td>
+                                <td>
+                                    <?php echo $v['pm_name'];?>
+                                </td>
+                                <td>
+                                    <?php echo $v['zw_xmbh'];?>
+                                </td>
+                                <td>
+                                    <?php echo $v['zw_xmmc'];?>
+                                </td>
+                                <td>
+                                    <?php echo $v['zw_bmbh'];?>
+                                </td>
+                                <td>
+                                    <a href="/management/chouzi/editcompare?id=<?php echo $v['id'];?>">
+                                        <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                                    </a>
+                                    &nbsp;&nbsp;
+                                    <a href="#" onclick="alert('对不起，文档不提供删除功能，请联系管理员');">
+                                        <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php }?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tile-footer">
+                    <div class="row">
+                        <div class="page col-md-12" align="right">
+                            共  <?php echo $this->totalItems;?> 条项目信息         <?php echo $this->page['all'];?></div>
+
+                        <?php }else{?>
+                            <div style="margin: 10px;padding: 10px;">暂无项目信息！<a href="/management">点击添加</a></div>
+                        <?php }?>
+                    </div>
+
+                    <!--<div class="row">
+                            <div class="form-group col-sm-3">
+                                <label for="input02"></label>
+                                <a href="/management/report/peibitoexcel?pname=<?php /*echo $this->pname;*/?>"><button class="btn btn-primary btn-block">导出Excel</button></a>
+                            </div>
+                        </div>-->
+
+                </div>
+            </section>
+        </div>
+    </div>

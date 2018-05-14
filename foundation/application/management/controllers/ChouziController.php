@@ -760,6 +760,36 @@
 
         //==============================================================================
 
+        // 与财务系统对照
+        public function compareAction()
+        {
+            $pname = HttpUtil::getString("pname");
+            $department = HttpUtil::getString("department");
+            $cate = HttpUtil::getString("cate");
+
+            $this->view->assign("pname", $pname);
+            $this->view->assign("cate", $cate);
+            $this->view->assign("department", $department);
+            $relatedDAO = $this->orm->createDAO("zw_pm_related");
+            // 按照星级倒序，之后按照创建id倒序
+            $relatedDAO ->selectLimit .= " order by id desc";
+            $relatedDAO = $relatedDAO->get($this->dbhelper);
+            $total = count($relatedDAO);
+            $pageDAO = new pageDAO();
+            $pageDAO = $pageDAO->pageHelper($relatedDAO, null, "/management/chouzi/compare", null, 'get', 25, 8);
+            $pages = $pageDAO['pageLink']['all'];
+            $pages = str_replace("/index.php", "", $pages);
+            $this->view->assign('chouzilist', $pageDAO['pageData']);
+            $this->view->assign('page', $pages);
+            $this->view->assign('total', $total);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("chouzi/compareindex.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        //==============================================================================
+
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
 			$this ->dbhelper ->connect();
@@ -847,6 +877,7 @@
                 'getdepartment',
                 'getcate',
                 'ajaxaddstar',
+                'compare',
             );
             if (in_array($action, $except_actions)) {
                 return;
