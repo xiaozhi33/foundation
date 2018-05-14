@@ -63,7 +63,7 @@
 
             <section class="tile color transparent-white">
                 <div class="tile-body nopadding">
-                    <?php if(!empty($this->pageData)){?>
+                    <?php if(!empty($this->chouzilist)){?>
                     <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
                         <thead>
                         <tr>
@@ -77,7 +77,7 @@
                         </thead>
                         <tbody>
                         <?php
-                        foreach($this->pageData as $k=>$v){?>
+                        foreach($this->chouzilist as $k=>$v){?>
                             <tr>
                                 <td>
                                     <?php echo $v['pm_id'];?>
@@ -111,7 +111,7 @@
                 <div class="tile-footer">
                     <div class="row">
                         <div class="page col-md-12" align="right">
-                            共  <?php echo $this->totalItems;?> 条项目信息         <?php echo $this->page['all'];?></div>
+                            共  <?php echo $this->total;?> 条项目信息         <?php echo $this->page['all'];?></div>
 
                         <?php }else{?>
                             <div style="margin: 10px;padding: 10px;">暂无项目信息！<a href="/management">点击添加</a></div>
