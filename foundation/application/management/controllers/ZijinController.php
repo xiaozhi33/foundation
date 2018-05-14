@@ -1037,6 +1037,12 @@
             }
             $this->view->assign("jjh_mg_pp_list", $temp_array);
 
+            //项目名称列表
+            $pm_chouzi = new pm_mg_chouziDAO();
+            $pm_chouzi ->selectLimit .= " order by id desc";
+            $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
+            $this->view->assign("pmlist",$pm_chouzi);
+
             //ini_set("display_errors", "On");
             //error_reporting(E_ERROR);
 		}
