@@ -26,20 +26,21 @@
         	<section class="tile color transparent-white">
 			<div class="detailedbox tile-body">
 			<form class="form-horizontal" id="form1" action="editrszijin" method="post" encType="multipart/form-data">
-            <div class="form-group">
-           <label class="col-sm-2 control-label" for="input00">项目名称：</label> 
-           <div class="col-sm-4">
-           <select class="form-control" name="pname">
-				<?php if($this->pmlist != ""){
-					foreach ($this->pmlist as $k => $v){
-				?>
-			<option value="<?php echo $v['pname'];?>" <?php if($v['pname'] == $this->zijin[0]['pm_name']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
-							<?php }}?>
-			</select>          
-           </div>
-           <span class="col-sm-2" >* </span>
-            </div>
 
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input00">项目名称：</label>
+                    <div class="col-sm-4">
+                        <select class="chosen-select-1 chosen-transparent form-control" name="pname">
+                            <?php if($this->pmlist != ""){
+                                foreach ($this->pmlist as $k => $v){
+                                    ?>
+                                    <option value="<?php echo $v['pname'];?>" <?php if($v['pname'] == $this->pm_mg_info[0]['pm_name']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
+                                <?php }}?>
+                        </select>
+                        <input id="pname_info" type="hidden" name="pname" value=""/>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">捐赠到账金额：</label>
