@@ -221,6 +221,30 @@ class Management_ppController extends BaseController {
             $ppinfo ->pp_syf_cate = $_REQUEST['pp_syf_cate'];
             $ppinfo ->pp_yuf_cate = $_REQUEST['pp_yuf_cate'];
 
+            for($i=1; $i<=11; $i++){
+                if($_FILES['pp_card'.$i]['name']!=""){
+                    if($_FILES['pp_card'.$i]['error'] != 4){
+                        if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+                            mkdir(__UPLOADPICPATH__ ."jjh_download/");
+                        }
+                        $rename = date("YmdHis".time()).rand('9999','100000000');
+                        $uploadpic = new uploadPic($_FILES['pp_card'.$i]['name'],$_FILES['pp_card'.$i]['error'],$_FILES['pp_card'.$i]['size'],$_FILES['pp_card'.$i]['tmp_name'],$_FILES['pp_card'.$i]['type'],2,$rename);
+                        $uploadpic->FILE_PATH = __UPLOADPICPATH__."card/" ;
+                        $result = $uploadpic->uploadPic();
+                        if($result['error']!=0){
+                            echo "<script>alert('".$result['msg']."');";
+                            echo "window.location.href='/management/pp/pp';";
+                            echo "</script>";
+                            exit();
+                        }else{
+                            $string = 'pp_card'.$i;
+                            //$string1 = 'meeting_files_name'.$i;
+                            $ppinfo->$string =  __GETPICPATH__."card/".$result['picname'];
+                            //$ppinfo->$string1 = $_FILES['card'.$i]['name'];
+                        }
+                    }
+                }
+            }
 
             $ppinfo ->pp_qq = $_REQUEST['pp_qq'];
             $ppinfo ->ppemail = $_REQUEST['ppemail'];
@@ -229,9 +253,9 @@ class Management_ppController extends BaseController {
 
             $ppinfo->save($this->dbhelper);
             // alert_go("联系人添加成功。","/management/admin/pp?pp_cate=".$_REQUEST['pp_cate']);
-            alert_go("联系人添加成功。","/management/pp/pp");
+            $this->alert_go("联系人添加成功。","/management/pp/pp");
         }else {
-            alert_back("添加失败");
+            $this->alert_back("添加失败");
         }
     }
 
@@ -277,11 +301,36 @@ class Management_ppController extends BaseController {
             $ppinfo ->ppmobile = $_REQUEST['ppmobile'];
             $ppinfo ->ppphone = $_REQUEST['ppphone'];
 
+            for($i=1; $i<=11; $i++){
+                if($_FILES['pp_card'.$i]['name']!=""){
+                    if($_FILES['pp_card'.$i]['error'] != 4){
+                        if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+                            mkdir(__UPLOADPICPATH__ ."jjh_download/");
+                        }
+                        $rename = date("YmdHis".time()).rand('1','100000');
+                        $uploadpic = new uploadPic($_FILES['pp_card'.$i]['name'],$_FILES['pp_card'.$i]['error'],$_FILES['pp_card'.$i]['size'],$_FILES['pp_card'.$i]['tmp_name'],$_FILES['pp_card'.$i]['type'],2,$rename);
+                        $uploadpic->FILE_PATH = __UPLOADPICPATH__."card/" ;
+                        $result = $uploadpic->uploadPic();
+                        if($result['error']!=0){
+                            echo "<script>alert('".$result['msg']."');";
+                            echo "window.location.href='/management/pp/pp';";
+                            echo "</script>";
+                            exit();
+                        }else{
+                            $string = 'pp_card'.$i;
+                            //$string1 = 'meeting_files_name'.$i;
+                            $ppinfo->$string =  __GETPICPATH__."card/".$result['picname'];
+                            //$ppinfo->$string1 = $_FILES['card'.$i]['name'];
+                        }
+                    }
+                }
+            }
+
             $ppinfo ->save($this->dbhelper);
             // alert_go("编辑成功。","/management/admin/pp?pp_cate=".$_REQUEST['pp_cate']);
-            alert_go("编辑成功。","/management/pp/pp");
+            $this->alert_go("编辑成功。","/management/pp/pp");
         }else {
-            alert_back("添加失败");
+            $this->alert_back("添加失败");
         }
     }
 
