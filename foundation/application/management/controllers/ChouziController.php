@@ -763,14 +763,22 @@
         // 与财务系统对照
         public function compareAction()
         {
-            $pname = HttpUtil::getString("pname");
-            $department = HttpUtil::getString("department");
-            $cate = HttpUtil::getString("cate");
+            $pm_name = HttpUtil::getString("pm_name");
+            $zw_xmmc = HttpUtil::getString("zw_xmmc");
 
-            $this->view->assign("pname", $pname);
-            $this->view->assign("cate", $cate);
-            $this->view->assign("department", $department);
+            $this->view->assign("pm_name", $pm_name);
+            $this->view->assign("zw_xmmc", $zw_xmmc);
+
             $relatedDAO = $this->orm->createDAO("zw_pm_related");
+
+            if(!empty($pm_name)){
+                $relatedDAO ->selectLimit .= " AND pm_name like '%".$pm_name."%'";
+            }
+
+            if(!empty($zw_xmmc)){
+                $relatedDAO ->selectLimit .= " AND zw_xmmc like '%".$zw_xmmc."%'";
+            }
+
             // 按照星级倒序，之后按照创建id倒序
             $relatedDAO ->selectLimit .= " order by id desc";
             $relatedDAO = $relatedDAO->get($this->dbhelper);
@@ -786,6 +794,36 @@
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("chouzi/compareindex.phtml");
             echo $this->view->render("index/footer.phtml");
+        }
+
+        public function editcompareAction()
+        {
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("chouzi/eidtcompare.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        public function editrscompareAction()
+        {
+            // pm_id 项目id	   pm_name 项目名称	zw_xmbh 项目编号	zw_xmmc 项目名称	zw_bmbh
+            $id = (int)$_REQUEST['id'];
+            if(!empty($id)){
+                $relatedDAO = $this->orm->createDAO("zw_pm_related");
+                $relatedDAO ->findId($id);
+                $relatedDAO ->pm_id = $_REQUEST['pm_id'];
+                $relatedDAO ->pm_name = $_REQUEST['pm_name'];
+                $relatedDAO ->zw_xmbh = $_REQUEST['zw_xmbh'];
+                $relatedDAO ->zw_xmmc = $_REQUEST['zw_xmmc'];
+                $relatedDAO ->zw_bmbh = $_REQUEST['zw_bmbh'];
+                $relatedDAO ->save();
+
+                $logName = SessionUtil::getAdmininfo();
+                addlog("修改项目对照信息-".$_REQUEST['pm_name'].'-'.$_REQUEST['zw_xmmc'],$logName['admin_name'],$_SERVER['REMOTE_ADDR'],date("Y-m-d H:i:s",time()),json_encode($relatedDAO));
+
+                alert_go("编辑成功！", "/management/chouzi/compare");
+            }else {
+                alert_back("修改项目对照信息失败，请联系管理员！");
+            }
         }
 
         //==============================================================================
@@ -878,6 +916,8 @@
                 'getcate',
                 'ajaxaddstar',
                 'compare',
+                'editcompare',
+                'editrscompare',
             );
             if (in_array($action, $except_actions)) {
                 return;
