@@ -390,8 +390,10 @@ class Management_ppController extends BaseController {
             $pm_ppDAO ->selectField(" c.id, DISTINCT c.pname");
             $pm_ppDAO ->selectLimit .= ' AND pm_mg_info.pm_pp ='.$ppinfo['ppname'];
             $pm_ppDAO ->selectLimit .= ' ORDER BY c.id desc';
+            $pm_ppDAO ->debugSql =true;
             $pm_ppDAO = $pm_ppDAO->get($this->dbhelper);
             $this->view->assign("pm_list",$pm_ppDAO);
+            exit();
 
             //参加学校活动
             $meetingDAO = $this->orm->createDAO('jjh_meeting');
