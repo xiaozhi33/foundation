@@ -443,7 +443,9 @@
                 $rlje = $_REQUEST['je'];   // 认领金额
                 $ispz = 0;                       // 是否制单
                 $rlpznm = "";            // 认领凭证内码
-                $czy = "admin";                                     // 操作员
+
+                $logName = SessionUtil::getAdmininfo();
+                $czy = $logName['admin_name'];       // 操作员 ？ 项目负责人 ？
 
                 $zw_lkrlDAO = new CW_API();
                 $rs = $zw_lkrlDAO ->addlkrl($lsh, $rlxh, $rlrq, $rlr, $rlrbh, $bmbh, $xmbh, $rlje, $ispz, $rlpznm, $czy);
