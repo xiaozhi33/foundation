@@ -385,7 +385,7 @@ class Management_ppController extends BaseController {
             $this->view->assign("ppinfo",$ppinfo);
 
             //项目捐赠方
-            $pm_ppDAO = new pm_mg_infoDAO;
+            $pm_ppDAO = new pm_mg_infoDAO();
             $pm_ppDAO ->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
             $pm_ppDAO ->selectField(" c.id, distinct c.panme");
             $pm_ppDAO ->selectLimit .= ' AND pm_mg_info.pm_pp ='.$ppinfo['ppname'];
