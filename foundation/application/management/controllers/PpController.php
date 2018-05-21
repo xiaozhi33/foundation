@@ -390,7 +390,7 @@ class Management_ppController extends BaseController {
             $pm_ppDAO ->selectField(" c.id, distinct c.panme");
             $pm_ppDAO ->selectLimit .= ' AND pm_mg_info.pm_pp ='.$ppinfo['ppname'];
             $pm_ppDAO ->selectLimit .= ' ORDER BY c.id desc.';
-            $pm_ppDAO = $pm_ppDAO->get();
+            $pm_ppDAO = $pm_ppDAO->get($this->dbhelper);
             $this->view->assign("pm_list",$pm_ppDAO);
 
             //参加学校活动
