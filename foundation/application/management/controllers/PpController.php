@@ -395,7 +395,6 @@ class Management_ppController extends BaseController {
             //$pm_ppDAO ->debugSql =true;
             $pm_ppDAO = $pm_ppDAO->get($this->dbhelper);
             $this->view->assign("pm_list",$pm_ppDAO);
-            exit();
 
             //参加学校活动
             $meetingDAO = $this->orm->createDAO('jjh_meeting');
