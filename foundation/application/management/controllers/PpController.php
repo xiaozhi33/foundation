@@ -387,8 +387,9 @@ class Management_ppController extends BaseController {
             //项目捐赠方
             $pm_ppDAO = new pm_mg_infoDAO();
             $pm_ppDAO ->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
-            $pm_ppDAO ->selectField(" c.id, c.pname");
-            $pm_ppDAO ->selectLimit .= ' AND pm_mg_info.pm_pp ='.$ppinfo['ppname'];
+            //$pm_ppDAO ->selectField(" c.id, c.pname");
+            $pm_ppDAO ->selectLimit .= ' AND pm_mg_info.pm_pp ="'.$ppinfo[0]['ppname'].'"';
+            $pm_ppDAO ->selectLimit .= ' AND pm_mg_info.pm_name !=""';
             $pm_ppDAO ->selectLimit .= ' GROUP BY c.pname';
             $pm_ppDAO ->selectLimit .= ' ORDER BY c.id desc';
             //$pm_ppDAO ->debugSql =true;
