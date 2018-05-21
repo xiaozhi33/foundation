@@ -391,7 +391,7 @@ class Management_ppController extends BaseController {
             $pm_ppDAO ->selectLimit .= ' AND pm_mg_info.pm_pp ='.$ppinfo['ppname'];
             $pm_ppDAO ->selectLimit .= ' GROUP BY c.pname';
             $pm_ppDAO ->selectLimit .= ' ORDER BY c.id desc';
-            $pm_ppDAO ->debugSql =true;
+            //$pm_ppDAO ->debugSql =true;
             $pm_ppDAO = $pm_ppDAO->get($this->dbhelper);
             $this->view->assign("pm_list",$pm_ppDAO);
             exit();
