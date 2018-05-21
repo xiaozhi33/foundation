@@ -236,7 +236,22 @@
                     }
 
                     $zwxmzdDAO = new CW_API();
-                    $rs = $zwxmzdDAO ->sync_pm('000'.$xmnm, $xmbh, $pname, $zw_department_related[0]['zw_bmbh'],$pm_fzr);
+
+                    // 同步负责人名称
+                    $_fzr = '';
+                    if($this->jjh_mg_pp_list != "") {
+                        foreach ($this->jjh_mg_pp_list as $k => $v) {
+                            if (!empty($pm_fzr)){
+                                foreach (explode(',', $pm_fzr) as $key => $value) {
+                                    if ($k == $value) {
+                                        $_fzr .= $v.' ';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    $rs = $zwxmzdDAO ->sync_pm('000'.$xmnm, $xmbh, $pname, $zw_department_related[0]['zw_bmbh'],$_fzr);
+                    $_fzr = '';
                 }
 
                 $_pid = $pm_chouziDAO->save();   // $_pid 项目系统pm_id
