@@ -78,10 +78,11 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="24%">项目名称</td>
-                          <td width="18%">支出日期</td>
-						<td width="20%">支出金额</td>
-						<td width="13%">操作</td>
+						    <td width="20%">项目名称</td>
+                            <td width="18%">备注</td>
+                            <td width="18%">支出日期</td>
+                            <td width="20%">支出金额</td>
+                            <td width="13%">操作</td>
 					  </tr>
 					</thead>
                     <tbody>
@@ -91,6 +92,9 @@
 						 	<td>
                                 <?php echo $v['pm_name'];?>&nbsp;
                             </td>
+                             <td>
+                                 <?php echo $v['beizhu'];?>&nbsp;
+                             </td>
                              <td>
                                  <?php echo $v['shiyong_zhichu_datetime'];?>
                              </td>
