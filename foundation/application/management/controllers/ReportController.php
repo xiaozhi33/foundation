@@ -1530,13 +1530,13 @@
 					$selectSQL .= " left join jjh_mg_cate as c on i.pm_juanzeng_cate = c.id where i.is_renling=1 ";
 					
 					if ($start != "" && $end != ""){
-						$selectSQL .= " and i.zijin_daozhang_datetime between '$start' and '$end' or i.shiyong_zhichu_datetime between '$start' and '$end' ";
+						$selectSQL .= " and ((i.zijin_daozhang_datetime between '$start' and '$end') or ( i.shiyong_zhichu_datetime between '$start' and '$end')) ";
 					}
 
 					if($start != "" && $end != "" && $pname != ""){
 						$selectSQL .= " and i.pm_name = '$pname'";
 					}
-					
+
 					if($start == "" && $end == "" && $pname != ""){
 						$selectSQL .= " and i.pm_name = '$pname'";
 					}
