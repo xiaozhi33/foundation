@@ -74,6 +74,7 @@ body{ margin:0px auto; text-align:center;}
 		</div>
 	</div>
 	<div class="top-2">
+		<?php $shouruheji=0;$shiyongheji=0;$renshuheji=0;?>
 		<?php foreach ($this->reportinfo as $k => $v){?>
 		<div id="nav">
 			<div id="top-2-1"><?php echo $k+1;?></div>
@@ -85,9 +86,9 @@ body{ margin:0px auto; text-align:center;}
 			<div id="top-2-3" name="资助人数"><?php echo $v['renshu']==0?"0":$v['renshu']." "; ?></div>
 		</div>
 			<?php 
-				$shouruheji = $shouruheji + $v['daozhang'];
-				$shiyongheji = $shiyongheji + $v['shiyong'];
-				$renshuheji = $renshuheji + $v['renshu'];
+				$shouruheji +=  $v['daozhang'];
+				$shiyongheji +=  $v['shiyong'];
+				$renshuheji +=  $v['renshu'];
 			?>
 		<?php }?>
 	</div>
