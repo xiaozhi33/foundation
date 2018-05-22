@@ -1542,7 +1542,7 @@
 					}
 					
 					$selectSQL .= ' group by i.pm_name';
-					
+					echo $selectSQL;exit();
 					$rss = $this->dbhelper->fetchAllData($selectSQL);
 										
 					$this->view->assign("reportinfo",$rss);
