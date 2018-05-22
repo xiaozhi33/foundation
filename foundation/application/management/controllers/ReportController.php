@@ -1527,10 +1527,10 @@
 				if($start != "" && $end != "" || $pname != ""){
 					$selectSQL .= "select sum(i.zijin_daozheng_jiner) as daozhang,sum(i.shiyong_zhichu_jiner) as shiyong,i.pm_name,c.catename,sum(i.zijin_daozheng_jiner) as daozhang,sum(i.jiangli_renshu) as renshu  ";
 					$selectSQL .= " from pm_mg_info as i ";
-					$selectSQL .= " left join jjh_mg_cate as c on i.pm_juanzeng_cate = c.id where i.is_renling=1 and ";
+					$selectSQL .= " left join jjh_mg_cate as c on i.pm_juanzeng_cate = c.id where i.is_renling=1 ";
 					
 					if ($start != "" && $end != ""){
-						$selectSQL .= " i.zijin_daozhang_datetime between '$start' and '$end' or i.shiyong_zhichu_datetime between '$start' and '$end' ";
+						$selectSQL .= " and i.zijin_daozhang_datetime between '$start' and '$end' or i.shiyong_zhichu_datetime between '$start' and '$end' ";
 					}
 
 					if($start != "" && $end != "" && $pname != ""){
@@ -1538,7 +1538,7 @@
 					}
 					
 					if($start == "" && $end == "" && $pname != ""){
-						$selectSQL .= " i.pm_name = '$pname'";
+						$selectSQL .= " and i.pm_name = '$pname'";
 					}
 					
 					$selectSQL .= ' group by i.pm_name';
