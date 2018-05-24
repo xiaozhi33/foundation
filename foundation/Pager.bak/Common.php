@@ -33,7 +33,7 @@
  * @author    Richard Heyes <richard@phpguru.org>
  * @copyright 2003-2007 Lorenzo Alberton, Richard Heyes
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id$
+ * @version   CVS: $Id: Common.php,v 1.78 2008/03/26 22:23:49 quipo Exp $
  * @link      http://pear.php.net/package/Pager
  */
 
@@ -287,33 +287,6 @@ class Pager_Common
     var $_spacesAfterSeparator  = 1;
 
     /**
-     * @var string HTML tag to wrap each page link
-     * (use 'li' for pagination in a list)
-     * @access private
-     */
-    var $_linkContainer  = '';
-
-    /**
-     * @var string HTML tag used to combine _linkContainer and _curLinkContainerClassName 
-     * @access private
-     */
-    var $_linkContainerPre  = '';
-
-    /**
-     * @var string CSS class name for linkContainer
-     * @access private
-     */
-    var $_curLinkContainerClassName  = '';
-
-    /**
-     * @var string HTML tag to wrap current page link
-     * (use 'a' to keep it like all other links and set a class with $_curPageLinkClassName)
-     * defaults to 'span' for backwards compatibility
-     * @access private
-     */
-    var $_curTag  = 'span';
-
-    /**
      * @var string CSS class name for current page link
      * @access private
      */
@@ -380,25 +353,25 @@ class Pager_Common
     var $_spacesAfter   = '';
 
     /**
-     * @var string String used as title in <link rel="first"> tag
+     * @var string $_firstLinkTitle
      * @access private
      */
     var $_firstLinkTitle = 'first page';
 
     /**
-     * @var string String used as title in <link rel="next"> tag
+     * @var string $_nextLinkTitle
      * @access private
      */
     var $_nextLinkTitle = 'next page';
 
     /**
-     * @var string String used as title in <link rel="previous"> tag
+     * @var string $_prevLinkTitle
      * @access private
      */
     var $_prevLinkTitle = 'previous page';
 
     /**
-     * @var string String used as title in <link rel="last"> tag
+     * @var string $_lastLinkTitle
      * @access private
      */
     var $_lastLinkTitle = 'last page';
@@ -510,9 +483,6 @@ class Pager_Common
         'separator',
         'spacesBeforeSeparator',
         'spacesAfterSeparator',
-        'linkContainer',
-        'curLinkContainerClassName',
-        'curTag',
         'curPageLinkClassName',
         'curPageSpanPre',
         'curPageSpanPost',
@@ -868,31 +838,27 @@ class Pager_Common
             if (array_key_exists($this->_urlVar, $this->_linkData)) {
                 $onclick = str_replace('%d', $this->_linkData[$this->_urlVar], $this->_onclick);
             }
-            return sprintf('%s<a href="%s"%s%s%s%s title="%s">%s</a>%s',
-                           empty($this->_linkContainer) ? '' : '<'.$this->_linkContainer.'>',
+            return sprintf('<a href="%s"%s%s%s%s title="%s">%s</a>',
                            htmlentities($this->_url . $href, ENT_COMPAT, 'UTF-8'),
                            empty($this->_classString) ? '' : ' '.$this->_classString,
                            empty($this->_attributes)  ? '' : ' '.$this->_attributes,
                            empty($this->_accesskey)   ? '' : ' accesskey="'.$this->_linkData[$this->_urlVar].'"',
                            empty($onclick)            ? '' : ' onclick="'.$onclick.'"',
                            $altText,
-                           $linkText,
-                           empty($this->_linkContainer) ? '' : '</'.$this->_linkContainer.'>'
+                           $linkText
             );
         } elseif ($this->_httpMethod == 'POST') {
             $href = $this->_url;
             if (!empty($_GET)) {
                 $href .= '?' . $this->_http_build_query_wrapper($_GET);
             }
-            return sprintf("%s<a href='javascript:void(0)' onclick='%s'%s%s%s title='%s'>%s</a>%s",
-                           empty($this->_linkContainer) ? '' : '<'.$this->_linkContainer.'>',
+            return sprintf("<a href='javascript:void(0)' onclick='%s'%s%s%s title='%s'>%s</a>",
                            $this->_generateFormOnClick($href, $this->_linkData),
                            empty($this->_classString) ? '' : ' '.$this->_classString,
                            empty($this->_attributes)  ? '' : ' '.$this->_attributes,
                            empty($this->_accesskey)   ? '' : ' accesskey=\''.$this->_linkData[$this->_urlVar].'\'',
                            $altText,
-                           $linkText,
-                           empty($this->_linkContainer) ? '' : '<'.$this->_linkContainer.'>'
+                           $linkText
             );
         }
         return '';
@@ -1003,21 +969,6 @@ class Pager_Common
     }
 
     // }}}
-    // {{{ _isRegexp()
-
-    /**
-     * Returns true if the string is a regexp pattern
-     *
-     * @param string $string the pattern to check
-     *
-     * @return boolean
-     * @access private
-     */
-    function _isRegexp($string) {
-        return preg_match('/^\/.*\/([Uims]+)?$/', $string);
-    }
-
-    // }}}
     // {{{ _getLinksData()
 
     /**
@@ -1037,29 +988,15 @@ class Pager_Common
             }
         }
         foreach ($this->_excludeVars as $exclude) {
-            $use_preg = $this->_isRegexp($exclude);
-            foreach (array_keys($qs) as $qs_item) {
-                if ($use_preg) {
-                    if (preg_match($exclude, $qs_item, $matches)) {
-                        foreach ($matches as $m) {
-                            unset($qs[$m]);
-                        }
-                    }
-                } elseif ($qs_item == $exclude) {
-                    unset($qs[$qs_item]);
-                    break;
-                }
+            if (array_key_exists($exclude, $qs)) {
+                unset($qs[$exclude]);
             }
         }
         if (count($this->_extraVars)) {
             $this->_recursive_urldecode($this->_extraVars);
             $qs = array_merge($qs, $this->_extraVars);
         }
-        if (count($qs)
-            && function_exists('get_magic_quotes_gpc')
-            && -1 == version_compare(PHP_VERSION, '5.2.99')
-            && get_magic_quotes_gpc()
-        ) {
+        if (count($qs) && function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
             $this->_recursive_stripslashes($qs);
         }
         return $qs;
@@ -1137,7 +1074,7 @@ class Pager_Common
             $this->_linkData[$this->_urlVar] = $this->getPreviousPageID();
             $back = $this->_renderLink($this->_altPrev, $this->_prevImg)
                   . $this->_spacesBefore . $this->_spacesAfter;
-        } else if ($this->_prevImgEmpty !== null && $this->_totalPages > 1) {
+        } else if ($this->_prevImgEmpty !== null) {
             $back = $this->_prevImgEmpty
                   . $this->_spacesBefore . $this->_spacesAfter;
         }
@@ -1189,7 +1126,7 @@ class Pager_Common
             $next = $this->_spacesAfter
                   . $this->_renderLink($this->_altNext, $this->_nextImg)
                   . $this->_spacesBefore . $this->_spacesAfter;
-        } else if ($this->_nextImgEmpty !== null && $this->_totalPages > 1) {
+        } else if ($this->_nextImgEmpty !== null) {
             $next = $this->_spacesAfter
                   . $this->_nextImgEmpty
                   . $this->_spacesBefore . $this->_spacesAfter;
@@ -1358,7 +1295,7 @@ class Pager_Common
     function getPerPageSelectBox($start=5, $end=30, $step=5, $showAllData=false, $extraParams=array())
     {
         include_once 'Pager/HtmlWidgets.php';
-        $widget = new Pager_HtmlWidgets($this);
+        $widget =& new Pager_HtmlWidgets($this);
         return $widget->getPerPageSelectBox($start, $end, $step, $showAllData, $extraParams);
     }
 
@@ -1384,7 +1321,7 @@ class Pager_Common
     function getPageSelectBox($params = array(), $extraAttributes = '')
     {
         include_once 'Pager/HtmlWidgets.php';
-        $widget = new Pager_HtmlWidgets($this);
+        $widget =& new Pager_HtmlWidgets($this);
         return $widget->getPageSelectBox($params, $extraAttributes);
     }
 
@@ -1596,26 +1533,22 @@ class Pager_Common
             $this->_httpMethod = strtoupper($this->_httpMethod);
         }
 
-        if (substr($this->_path, -1, 1) == '/') {
-            $this->_fileName = ltrim($this->_fileName, '/');  //strip leading slash
-        }
+        $this->_fileName = ltrim($this->_fileName, '/');  //strip leading slash
+        $this->_path     = rtrim($this->_path, '/');      //strip trailing slash
 
         if ($this->_append) {
             if ($this->_fixFileName) {
                 $this->_fileName = PAGER_CURRENT_FILENAME; //avoid possible user error;
             }
-            $this->_url = $this->_path.(empty($this->_path) ? '' : '/').$this->_fileName;
+            $this->_url = $this->_path.(!empty($this->_path) ? '/' : '').$this->_fileName;
         } else {
             $this->_url = $this->_path;
             if (0 != strncasecmp($this->_fileName, 'javascript', 10)) {
-                $this->_url .= (empty($this->_path) ? '' : '/');
+                $this->_url .= (!empty($this->_path) ? '/' : '');
             }
             if (false === strpos($this->_fileName, '%d')) {
                 trigger_error($this->errorMessage(ERROR_PAGER_INVALID_USAGE), E_USER_WARNING);
             }
-        }
-        if (substr($this->_url, 0, 2) == '//') {
-            $this->_url = substr($this->_url, 1);
         }
         if (false === strpos($this->_altPage, '%d')) {
             //by default, append page number at the end
@@ -1627,17 +1560,9 @@ class Pager_Common
             $this->_classString = 'class="'.$this->_linkClass.'"';
         }
 
-        if (strlen($this->_linkContainer)) {
-            $this->_linkContainerPre .= empty($this->_curLinkContainerClassName) ? $this->_linkContainer : $this->_linkContainer . ' class="'.$this->_curLinkContainerClassName.'"';
-        }
-
-        if (strlen($this->_curTag)) {
-            if (strlen($this->_curPageLinkClassName)) {
-                $this->_curPageSpanPre = '<' . $this->_curTag . ' class="'.$this->_curPageLinkClassName.'">' . $this->_curPageSpanPre;
-            } else {
-                $this->_curPageSpanPre = '<' . $this->_curTag . '>' . $this->_curPageSpanPre;
-            }
-            $this->_curPageSpanPost = $this->_curPageSpanPost . '</' . $this->_curTag . '>';
+        if (strlen($this->_curPageLinkClassName)) {
+            $this->_curPageSpanPre  .= '<span class="'.$this->_curPageLinkClassName.'">';
+            $this->_curPageSpanPost = '</span>' . $this->_curPageSpanPost;
         }
 
         $this->_perPage = max($this->_perPage, 1); //avoid possible user errors

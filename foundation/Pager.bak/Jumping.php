@@ -33,7 +33,7 @@
  * @author    Richard Heyes <richard@phpguru.org>
  * @copyright 2003-2008 Lorenzo Alberton, Richard Heyes
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id$
+ * @version   CVS: $Id: Jumping.php,v 1.20 2008/03/05 13:57:45 quipo Exp $
  * @link      http://pear.php.net/package/Pager
  */
 
@@ -65,25 +65,13 @@ class Pager_Jumping extends Pager_Common
      *
      * @access public
      */
-    function __construct($options = array())
+    function Pager_Jumping($options = array())
     {
         $err = $this->setOptions($options);
         if ($err !== PAGER_OK) {
             return $this->raiseError($this->errorMessage($err), $err);
         }
         $this->build();
-    }
-
-    /**
-     * Constructor for PHP4 compatibility
-     *
-     * @param array $options Associative array of option names and their values
-     *
-     * @see http://cweiske.de/tagebuch/php4-constructors-php7.htm
-     */
-    public function Pager_Jumping($options = array())
-    {
-        self::__construct($options);
     }
 
     // }}}
@@ -259,11 +247,7 @@ class Pager_Jumping extends Pager_Common
                 $links .= $this->_renderLink(str_replace('%d', $i, $this->_altPage), $i);
             } else {
                 $this->range[$i] = true;
-                if (!empty($this->_linkContainer)) {
-                    $links .=  '<'.$this->_linkContainerPre.'>' . $this->_curPageSpanPre . $i . $this->_curPageSpanPost . '</'.$this->_linkContainer.'>';
-                } else {
-                	$links .= $this->_curPageSpanPre . $i . $this->_curPageSpanPost;
-                }
+                $links .= $this->_curPageSpanPre . $i . $this->_curPageSpanPost;
             }
             $links .= $this->_spacesBefore
                    . (($i != $this->_totalPages) ? $this->_separator.$this->_spacesAfter : '');
