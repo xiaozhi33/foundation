@@ -414,6 +414,11 @@ class Management_ppController extends BaseController {
             $feedbackDAO = $feedbackDAO->get();
             $this->view->assign("feedback_list",$feedbackDAO);
 
+            $material_mg_gift_infoDAO = $this->orm->createDAO('material_mg_gift_info');
+            $material_mg_gift_infoDAO ->selectLimit .= ' AND FIND_IN_SET('.$_REQUEST['id'].',customer_name)';
+            $material_mg_gift_infoDAO = $material_mg_gift_infoDAO->get();
+            $this->view->assign("gift_list",$material_mg_gift_infoDAO);
+
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("admin/ppinfo.phtml");
             echo $this->view->render("index/footer.phtml");

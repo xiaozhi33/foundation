@@ -210,6 +210,27 @@
                             <?php }
                         }
                         ?>
+
+                        <?php
+                        if(!empty($this->gift_list)){
+                            foreach($this->gift_list as $key => $value) {
+                                ?>
+                                <h4 class="filled">
+                                    <a href="/management/gift/editusegift?id=<?php echo $value['id'];?>" target="_blank">
+                                        <?php echo $value['gift_datetime']."：赠送礼品。用途：".$value['use'];?>
+                                    </a>
+                                </h4>
+                                <p class="filled">
+                                    <small>
+                                        使用礼品：<?php echo $value['gift_name'];?></br>
+                                        礼品数量：<?php echo $value['gift_count'];?></br>
+                                        赠送日期：<?php echo $value['gift_datetime'];?></br>
+                                        用途：<?php echo $value['use'];?></br>
+                                    </small>
+                                </p>
+                            <?php }
+                        }
+                        ?>
                     </div>
                     <!-- /tile body -->
                 </section>
