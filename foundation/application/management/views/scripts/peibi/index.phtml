@@ -60,8 +60,8 @@
                                         <label for="pname" class="col-sm-4 control-label">是否完成配比奖励：</label>
                                         <select class="chosen-select-1 chosen-transparent form-control col-sm-3 " name="is_show" id="id">
                                             <option value="">请选择</option>
-                                            <option value="1">是</option>
-                                            <option value="0">否</option>
+                                            <option value="1" <?php if($_REQUEST['is_show'] == 1)echo 'selected="selected"';?>>是</option>
+                                            <option value="0" <?php if($_REQUEST['is_show'] == 0)echo 'selected="selected"';?>>否</option>
                                         </select>
                                     </div>
                                 </div>
