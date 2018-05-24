@@ -1,0 +1,63 @@
+<?php echo $this->render('inc/header.htm') ?>
+	<link rel="stylesheet" type="text/css" href="css/start/jquery-ui-1.9.1.custom.min.css" />
+	<!-- Page content -->
+	<div id="page">
+		<!-- Wrapper -->
+		<div class="wrapper">
+			<!-- left column/section -->
+			<?php echo $this->render('inc/_left_nav.htm') ?>
+			<!-- End of left column/section -->
+			
+			<!-- right column/section -->
+			<section class="column width6 right_content">
+				<div class="add-group">
+					<span class="label label-gray"><a>站点信息</a></span>
+					<form action="" method="post" id="sampleform" enctype="multipart/form-data">
+						<fieldset>
+							<p>
+								<label for="site_name">网站名称：</label><br>
+								<input type="text" class="half" name="site_name" value="<?php echo $this->system['site_name']?>"  />
+							</p>
+							<p>
+								<label for="description">网站简介：</label><br>
+								<input type="text" class="half" name="description" value="<?php echo $this->system['description']?>"  />
+							</p>
+							<p>
+								<label for="keywords">网站关键词：(多个关键词以逗号","隔开)</label><br>
+								<input type="text" class="half" name="keywords" value="<?php echo $this->system['keywords']?>"  />
+							</p>
+							<p>
+								<label for="icp_beian">网站ICP备案号：</label><br>
+								<input type="text" class="half" name="icp_beian" value="<?php echo $this->system['icp_beian']?>"  />
+							</p>
+							<p>
+								<label for="statistic_code">网站统计代码：</label><br>
+								<textarea id="statistic_code" class="half" rows="3" name="statistic_code"><?php echo $this->system['statistic_code']?></textarea>
+							</p>
+							<p>
+								<label for="base_url">网站首页：(最后不带 /)</label><br>
+								<input type="text" class="half" name="base_url" value="<?php echo $this->system['base_url']?>"  />
+							</p>
+							<p>
+								<label for="site_announce">网站公告：(支持HTML)</label><br>
+								<textarea id="site_announce" class="half" rows="3" name="site_announce"><?php echo $this->system['site_announce']?></textarea>
+							</p>
+							<p>
+								<label for="ui_style">网站模板：</label><br>
+								<input type="text" class="half" name="ui_style" value="<?php echo $this->system['ui_style']?>"  />
+							</p>
+							<p>
+								<label for="sensitive_words">敏感词列表：(内容中出现敏感词将被替换成 * ，每行填写一个词)</label><br>
+								<textarea id="sensitive_words" class="half" rows="5" name="sensitive_words"><?php echo $this->system['sensitive_words']?></textarea>
+							</p>
+						</fieldset>
+						<p class="box"><input type="submit" value="确定" class="btn btn-green big"></p>
+					</form>
+				</div>
+			</section>
+			<!-- End of right column/section -->
+		</div>
+		<!-- End of Wrapper -->
+	</div>
+	<!-- End of Page content -->
+<?php echo $this->render('inc/footer.htm') ?>

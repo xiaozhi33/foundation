@@ -6,15 +6,17 @@
 			SessionUtil::checkmanagement();
 
             // 系统信息 - 磁盘占用空间数
-            $free_df = disk_free_space("/");
-            $total_df = disk_total_space("/");
-            $free_df = $this->byte_format($free_df);
-            $total_df = $this->byte_format($total_df);
+            $free = disk_free_space("/");
+            $total = disk_total_space("/");
+            $free_bf = $this->byte_format($free);
+            $total_bf = $this->byte_format($total);
 
-            $this->view->assign("free_df",disk_free_space("/"));
-            $this->view->assign("free",$free_df);
-            $this->view->assign("total_df",disk_total_space("/"));
-            $this->view->assign("total",$total_df);
+            $this->view->assign("free_bf",$free_bf);
+            $this->view->assign("free",$free);
+            $this->view->assign("use",($this->byte_format($total,2,false) - $this->byte_format($free,2,false)));
+            $this->view->assign("total_bf",$total_bf);
+            $this->view->assign("total",$total);
+            $this->view->assign("total_nosign",$this->byte_format($total,2,false));
 
             // 项目进度
             $name = HttpUtil::postString("pname");
@@ -53,6 +55,10 @@
             $pm_mg_todolistDAO ->selectLimit .= " and date_sub(curdate(), INTERVAL 30 DAY) <= date(`end_time`)";
             $pm_mg_todolistDAO = $pm_mg_todolistDAO ->get();
             $this->view->assign('tixing', $pm_mg_todolistDAO);
+
+            // 通讯录
+            $my_adminDAO = $this->orm->createDAO('my_admin')->get();
+            $this->view->assign("addressbook",$my_adminDAO);
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             $year_month_array = array(0,0,0,0,0,0,0,0,0,0,0,0);  //12个月初始化
@@ -159,7 +165,7 @@
 		}
 		
 		public function loginviewAction(){
-            if(!empty($this->admininfo['admin_info']['id'])){
+            if(!empty(SessionUtil::getAdmininfo())){
                 header("location:".__BASEURL__."/management/index");
             }
 			$returnURL = HttpUtil::getString('returnURL');
@@ -185,12 +191,21 @@
 				//alert_go('您输入的密码有误！','/management/index/loginview');
                 echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
                 echo('<script language="JavaScript">');
-                echo("alert('您输入的密码有误');");
+                echo("alert('您的账户名或密码有误');");
                 echo("location.href='/management/index/loginview';");
                 echo('</script>');
                 exit;
 			}else{
 				SessionUtil::initSession($passwordpost, true);
+
+                // 记录登录logo
+                $loginDAO = $this->orm->createDAO('my_login_log');
+                $admininfo_array = SessionUtil::getAdmininfo();
+                $loginDAO ->logUid = $admininfo_array['admin_info']['id'];
+                $loginDAO ->logName = $admininfo_array['admin_info']['admin_name'];
+                $loginDAO ->logIp = $this->GetIP();
+                $loginDAO ->logTime = date('Y-m-d H:i:s',time());
+                $loginDAO ->save();
 
 				if ($_REQUEST['returnURL']!=''){
                 	$returnURL = HttpUtil::valueString($_REQUEST['returnURL']);

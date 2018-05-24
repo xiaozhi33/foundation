@@ -326,6 +326,11 @@ class Management_organizationController extends BaseController
             'has-is',
             'addrsdirector',
             'editrsdirector',
+            'addorganizationmain',
+            'editorganization',
+            'direcotr',
+            'delorganization',
+            'deldiretor'
         );
         if (in_array($action, $except_actions)) {
             return;

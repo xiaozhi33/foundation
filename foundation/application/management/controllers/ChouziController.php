@@ -365,8 +365,18 @@
                 //$pm_sjjzfllr_email = HttpUtil::postString("pm_sjjzfllr_email");
                 //$pm_sjjzfllr_tel = HttpUtil::postString("pm_sjjzfllr_tel");
 
+                $percent = HttpUtil::postString("percent");  //项目编号
+
                 if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
+                }
+
+                if (empty($percent)){
+                    alert_back('请设置资金使用限额');
+                }
+
+                if($percent > 100){
+                    alert_back('资金使用限额，不能大于余额的100%');
                 }
 
                 $pm_chouziDAO = $this->orm->createDAO('pm_mg_chouzi')->findId($_REQUEST['id']);
@@ -417,6 +427,8 @@
 
                 $pm_chouziDAO->execute_fzr = $execute_fzr;
                 $pm_chouziDAO->execute_llr = $execute_llr;
+
+                $pm_chouziDAO->percent = $percent;
 
                 $pid = HttpUtil::postString("pm_id");
                 if(!empty($pid)){
@@ -927,6 +939,821 @@
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        //立项审核列表
+        public function applicationProjectAction()
+        {
+            $p_name = HttpUtil::getString("p_name");
+            $department = HttpUtil::getString("department");
+            $status = HttpUtil::getString("status");
+
+            $this->view->assign("p_name", $p_name);
+            $this->view->assign("status", $status);
+            $this->view->assign("department", $department);
+
+            $_support_project_listDAO = $this->orm->createDAO('_support_project');
+            if(!empty($p_name)){
+                $_support_project_listDAO ->selectLimit .= " AND p_name like '%".$p_name."%'";
+            }
+            if(!empty($department)){
+                $_support_project_listDAO ->findDepartment_id($department);
+            }
+            if(!empty($status)){
+                $_support_project_listDAO ->findStatus($status);
+            }
+            //$_support_project_listDAO ->selectLimit .= ' AND status!=8';
+            $_support_project_listDAO ->order(' lastmodify DESC ');
+            $_support_project_listDAO = $_support_project_listDAO->get();
+
+            $pageDAO = new pageDAO();
+            $pageDAO = $pageDAO->pageHelper($_support_project_listDAO, null, "/management/chouzi/application-project", null, 'get', 25, 8);
+            $pages = $pageDAO['pageLink']['all'];
+            $pages = str_replace("/index.php", "", $pages);
+            $this->view->assign('project_list', $pageDAO['pageData']);
+            $this->view->assign('page', $pages);
+            $this->view->assign('total', count($_support_project_listDAO));
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("chouzi/support_list.phtml");
+            //echo $this->view->render("index/footer.phtml");
+        }
+
+        // 立项申请审核初始化
+        public function supportInfoAction(){
+            $id = (int)$_REQUEST['id'];
+            if(!empty($id)) {
+                $_support_project = $this->orm->createDAO("_support_project");
+                $_support_project ->findId($id);
+                $_support_project= $_support_project ->get();
+
+                $_support_project_log = $this->orm->createDAO("_support_project_log");
+                $_support_project_log ->findMain_id($id)->order(" lastmodify DESC")->findActive("tjdzsq");
+                $_support_project_log = $_support_project_log ->get();
+
+                $_support_project_log_list = $this->orm->createDAO("_support_project_log");
+                $_support_project_log_list ->findMain_id($id)->order(" lastmodify DESC");
+                $_support_project_log_list = $_support_project_log_list ->get();
+
+                $dsh_pdf = $this->orm->createDAO("_support_project_log")->findMain_id($id)->order(" lastmodify DESC limit 0,1")->findActive("tjpdf")->get();
+                $this->view->assign('dsh_pdf', $dsh_pdf);
+
+                $this->view->assign('support_info', $_support_project);
+                $this->view->assign('support_project_log', $_support_project_log);
+                $this->view->assign('support_project_log_list', $_support_project_log_list);
+                $this->view->assign('total', count($_support_project_log));
+            }
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("chouzi/support_info.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        // 立项申请审核
+        public function savepinfoAction(){
+            $id = (int)$_REQUEST['id'];
+            $auditing = $_REQUEST['auditing'];
+            $desc = htmlspecialchars($_REQUEST['desc']);
+            $desc = strip_tags($desc);
+
+            if(empty($auditing)){
+                $this->alert_back('请选择是否通过审核！');
+            }
+            if(empty($id)){
+                $this->alert_back('操作失败！请联系管理员！');
+            }
+
+            $projectDAO = $this->orm->createDAO("_support_project")->findId($id)->get();
+
+            // 开启事务
+            $this->orm->beginTran();
+
+            $_support_projectDAO = $this->orm->createDAO("_support_project");
+            $_support_projectDAO ->findId($id);
+
+            $_support_project_logDAO = $this->orm->createDAO("_support_project_log");
+            //$_support_project_logDAO ->findMain_id($id);
+
+            try{
+                if($auditing == 1){
+                    // 审核通过
+                    $_support_projectDAO ->status = 3;
+                    $_support_projectDAO ->save();
+
+                    $_support_project_logDAO ->main_id = $id;
+                    $_support_project_logDAO ->desc = '审核通过';
+                    $_support_project_logDAO ->lastmodify = time();
+                    $_support_project_logDAO ->username = $this->admininfo['admin_name'];
+                    $_support_project_logDAO ->active = 'shtg';
+                    $_support_project_logDAO ->save();
+
+                    $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($projectDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "立项审核通知";
+                        $body = "您好：您的【".$projectDAO[0]['p_name']."】立项申请电子版上传已经审核通过，请再次上传签字盖章pdf版本。";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
+                    $this->alert_go('审核成功！', '/management/chouzi/support-info?id='.$id);
+                    exit();
+                }elseif($auditing == 2) {
+                    // 审核失败
+                    $_support_projectDAO ->status = 2;
+
+                    if($_FILES['img']['name'] == ""){
+                        echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                        echo('<script language="JavaScript">');
+                        echo("alert('您输入的信息不完整，请查正后继续添加！！！！！');");
+                        echo('history.back();');
+                        echo('</script>');
+                        exit;
+                    }
+
+                    if($_FILES['img']['name']!=""){
+                        if($_FILES['img']['error'] != 4){
+                            if(!is_dir(__UPLOADPICPATH__ ."jjh_project/".$projectDAO[0]['department_id']."/")){
+                                mkdir(__UPLOADPICPATH__ ."jjh_project/".$projectDAO[0]['department_id']."/");
+                            }
+                            $uploadpic = new uploadPic($_FILES['img']['name'],$_FILES['img']['error'],$_FILES['img']['size'],$_FILES['img']['tmp_name'],$_FILES['img']['type'],2);
+                            $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_project/".$projectDAO[0]['department_id']."/" ;
+                            $result = $uploadpic->uploadPic();
+                            if($result['error'] != 0){
+                                echo "<script>alert('".$result['msg']."');";
+                                echo "window.location.href='/support/chouzi/application-entry';";
+                                echo "</script>";
+                                exit();
+                            }else{
+                                $_support_project_logDAO->img =  __GETPICPATH__."jjh_project/".$projectDAO[0]['department_id']."/".$result['picname'];
+                                //$_support_projectDAO->meeting_files_name = $_FILES['meeting_files']['name'];
+                            }
+                        }
+                    }
+
+                    $_support_project_logDAO ->main_id = $id;
+                    $_support_project_logDAO ->desc = $desc;
+                    $_support_project_logDAO ->lastmodify = time();
+                    $_support_project_logDAO ->username = $this->admininfo['admin_name'];
+                    $_support_project_logDAO ->active = 'shsb';
+
+                    $_support_projectDAO ->save();
+                    $_support_project_logDAO ->save();
+
+                    $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($projectDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "立项审核通知";
+                        $body = "您好：您的【".$projectDAO[0]['p_name']."】未通过审核，请修改后重新上传立项电子版文档。";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
+                    $this->alert_go('提交成功！', '/management/chouzi/support-info?id='.$id);
+                    exit();
+                }
+
+            }catch(Exception $e){
+                $this->orm->rollback();
+                echo $e->getMessage();exit();
+            }
+        }
+
+        public function savepinfo4Action(){
+            $id = (int)$_REQUEST['id'];
+            $auditing = $_REQUEST['auditing'];
+            $desc = htmlspecialchars($_REQUEST['desc']);
+            $desc = strip_tags($desc);
+
+            if(empty($auditing)){
+                $this->alert_back('请选择是否通过审核！');
+            }
+            if(empty($id)){
+                $this->alert_back('操作失败！请联系管理员！');
+            }
+
+            $projectDAO = $this->orm->createDAO("_support_project")->findId($id)->get();
+
+            // 开启事务
+            $this->orm->beginTran();
+
+            $_support_projectDAO = $this->orm->createDAO("_support_project");
+            $_support_projectDAO ->findId($id);
+
+            $_support_project_logDAO = $this->orm->createDAO("_support_project_log");
+            //$_support_project_logDAO ->findMain_id($id);
+
+            try{
+                if($auditing == 1){
+                    // 审核通过
+                    $_support_projectDAO ->status = 7;   // pdf审核通过
+                    $_support_projectDAO ->save();
+
+                    $_support_project_logDAO ->main_id = $id;
+                    $_support_project_logDAO ->desc = '审核通过';
+                    $_support_project_logDAO ->lastmodify = time();
+                    $_support_project_logDAO ->username = $this->admininfo['admin_name'];
+                    $_support_project_logDAO ->active = 'pdfshtg';
+                    $_support_project_logDAO ->save();
+
+                    $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($projectDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "立项审核通知";
+                        $body = "您好：您的【".$projectDAO[0]['p_name']."】pdf电子版已通过审核，请等待领导签字审核。";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
+                    $this->alert_go('审核成功！', '/management/chouzi/support-info?id='.$id);
+                    exit();
+                }elseif($auditing == 2) {
+                    // 审核失败
+                    $_support_projectDAO ->status = 5;   // pdf审核未通过
+
+                    if($_FILES['img']['name'] == ""){
+                        echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                        echo('<script language="JavaScript">');
+                        echo("alert('您输入的信息不完整，请查正后继续添加！！！！！');");
+                        echo('history.back();');
+                        echo('</script>');
+                        exit;
+                    }
+
+                    if($_FILES['img']['name']!=""){
+                        if($_FILES['img']['error'] != 4){
+                            if(!is_dir(__UPLOADPICPATH__ ."jjh_project/".$projectDAO[0]['department_id']."/")){
+                                mkdir(__UPLOADPICPATH__ ."jjh_project/".$projectDAO[0]['department_id']."/");
+                            }
+                            $uploadpic = new uploadPic($_FILES['img']['name'],$_FILES['img']['error'],$_FILES['img']['size'],$_FILES['img']['tmp_name'],$_FILES['img']['type'],2);
+                            $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_project/".$projectDAO[0]['department_id']."/" ;
+                            $result = $uploadpic->uploadPic();
+                            if($result['error'] != 0){
+                                echo "<script>alert('".$result['msg']."');";
+                                echo "window.location.href='/support/chouzi/application-entry';";
+                                echo "</script>";
+                                exit();
+                            }else{
+                                $_support_project_logDAO->img =  __GETPICPATH__."jjh_project/".$projectDAO[0]['department_id']."/".$result['picname'];
+                                //$_support_projectDAO->meeting_files_name = $_FILES['meeting_files']['name'];
+                            }
+                        }
+                    }
+
+                    $_support_project_logDAO ->main_id = $id;
+                    $_support_project_logDAO ->desc = $desc;
+                    $_support_project_logDAO ->lastmodify = time();
+                    $_support_project_logDAO ->username = $this->admininfo['admin_name'];
+                    $_support_project_logDAO ->active = 'pdfshsb';
+
+                    $_support_projectDAO ->save();
+                    $_support_project_logDAO ->save();
+
+                    $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($projectDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "立项审核通知";
+                        $body = "您好：您的【".$projectDAO[0]['p_name']."】pdf电子版文档未通过审核，请重新上传立项pdf电子版文档。";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
+                    $this->alert_go('提交成功！', '/management/chouzi/support-info?id='.$id);
+                    exit();
+                }
+
+            }catch(Exception $e){
+                $this->orm->rollback();
+                echo $e->getMessage();exit();
+            }
+        }
+
+        public function savepinfo7Action()
+        {
+            $id = (int)$_REQUEST['id'];
+            if(empty($id)){
+                $this->alert_back('操作失败！请联系管理员！');
+            }
+
+            // 开启事务
+            $this->orm->beginTran();
+            $projectDAO = $this->orm->createDAO("_support_project")->findId($id)->get();
+            if((int)$projectDAO[0]['status'] != 7){
+                $this->alert_back('操作失败！请联系管理员！');
+            }
+
+            $_support_projectDAO = $this->orm->createDAO("_support_project")->findId($id);
+            $_support_project_logDAO = $this->orm->createDAO("_support_project_log");
+
+            //check项目是否已经建立
+            $is_pname = $this->checkPname($projectDAO[0]['p_name']);
+            if($is_pname === true){
+                alert_back("该项目已经被添加，请查正后重新添加！");
+            }
+
+            try{
+                // 审核通过
+                $_support_projectDAO ->status = 8;   // 立项成功
+                $_support_projectDAO ->save();
+
+                $_support_project_logDAO ->main_id = $id;
+                $_support_project_logDAO ->desc = '立项成功';
+                $_support_project_logDAO ->lastmodify = time();
+                $_support_project_logDAO ->username = $this->admininfo['admin_name'];
+                $_support_project_logDAO ->active = 'lxcg';
+                $_support_project_logDAO ->save();
+
+                // 同步到项目列表中 /////////////////////////////////////////////////////////////////////////////
+                $pm_mg_chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
+                $pm_mg_chouziDAO ->pname = $projectDAO[0]['p_name'];
+                $pm_mg_chouziDAO ->department = $projectDAO[0]['department_id'];
+                $pm_mg_chouziDAO ->pid = "jjh" . date("Yhdhis");  //项目编号 自动编号 编号内容为年月日时分秒
+
+                $pm_mg_chouziDAO->parent_pm_id = 0;   // 父类项目
+                $pm_mg_chouziDAO->parent_pm_id_path = 0;
+
+                // 同步财务系统项目信息
+                ////////////////////////////////////////////////////////////////////////////////////////
+                /*$pmDAO = new CW_API();
+                $rs1 = $pmDAO ->get_max_xmnmID();
+                $rs_1 = $pmDAO ->get_max_xmnm_copyID();
+                $xmnm = (int)$rs1[0]['xmnm'] + 1;
+                $xmnm_copy = (int)$rs_1[0]['xmnm'] + 1;
+                if($xmnm_copy > $xmnm) $xmnm = $xmnm_copy;  // 如果临时表的最大值大，取临时表
+
+                $rs2 = $pmDAO ->get_max_xmbhID();
+                $xmbh = (int)$rs2[0]['xmbh'] + 1;*/
+                ////////////////////////////////////////////////////////////////////////////////////////
+                // 只有父类项目同步到财务系统
+                // 获取对应部门信息
+                /*$zw_department_related = $this->orm->createDAO("zw_department_related");
+                $zw_department_related ->findPm_pid($projectDAO[0]['department_id']);
+                $zw_department_related = $zw_department_related ->get();
+
+                if(empty($zw_department_related[0]['zw_bmbh'])){
+                    alert("没有找到对应的财务部门信息，请联系管理员！或添加对应关系！");
+                }*/
+
+                // 同步财务系统项目信息
+                ////////////////////////////////////////////////////////////////////////////////////////
+                /*$zwxmzdDAO = new CW_API();
+                $rs = $zwxmzdDAO ->sync_pm('000'.$xmnm, $xmbh, $pname, $zw_department_related[0]['zw_bmbh']);*/
+                ////////////////////////////////////////////////////////////////////////////////////////
+
+
+                $_pid = $pm_mg_chouziDAO->save();   // $_pid 项目系统pm_id
+                $this->changerate($_pid,'add',1);  // 更新项目进度
+
+                /*if($_pid) {
+                    // 同步财务后写入对照表
+                    $zw_pm_relatedDAO = $this->orm->createDAO("zw_pm_related");
+                    $zw_pm_relatedDAO ->pm_id = $_pid;
+                    $zw_pm_relatedDAO ->pm_name = $pname;
+                    $zw_pm_relatedDAO ->zw_xmbh = $xmbh;
+                    $zw_pm_relatedDAO ->zw_xmmc = $pname;
+                    $zw_pm_relatedDAO ->save();
+
+                    // 更新项目进度
+                    $is_lixiang = HttpUtil::postString("is_lixiang");
+                    if($is_lixiang == '1'){
+                        $this->changerate($_pid,'add',1);
+                    }else {
+                        $this->changerate($_pid,'del',1);
+                    }
+                    alert_go("立项申请已成功！", "/management/chouzi/application-project");
+                }else {
+                    alert_back("同步财务系统项目表失败，请联系管理员！");
+                }*/
+
+                //////////////////////////////////////////////////////////////////////////////////////////////////
+                $this->orm->commit();
+
+                $sinfo = $this->getSupportinfo($projectDAO[0]['uid']);
+                if(!empty($sinfo[0]['email'])){
+                    // 邮件通知
+                    $subject = "立项审核通知";
+                    $body = "您好：您的【".$projectDAO[0]['p_name']."】立项申请已成功！";
+                    $address = $sinfo[0]['email'];
+                    $user = "";
+                    $this->SendEmail($subject, $body, $address, $user);
+                }
+
+                $this->alert_go('立项申请已成功！', '/management/chouzi/support-info?id='.$id);
+                exit();
+            }catch(Exception $e){
+                $this->orm->rollback();
+                echo $e->getMessage();exit();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 资金使用审核列表
+        public function expenditureAction()
+        {
+            $p_name = HttpUtil::getString("p_name");
+            $department = HttpUtil::getString("department");
+            $status = HttpUtil::getString("status");
+
+            $this->view->assign("p_name", $p_name);
+            $this->view->assign("status", $status);
+            $this->view->assign("department", $department);
+
+            $_support_expenditure_listDAO = $this->orm->createDAO('_support_expenditure');
+            if(!empty($p_name)){
+                $_support_expenditure_listDAO ->selectLimit .= " AND p_name like '%".$p_name."%'";
+            }
+            if(!empty($department)){
+                $_support_expenditure_listDAO ->findDepartment_id($department);
+            }
+            if(!empty($status)){
+                $_support_expenditure_listDAO ->findStatus($status);
+            }
+            //$_support_project_listDAO ->selectLimit .= ' AND status!=8';
+            $_support_expenditure_listDAO ->order(' lastmodify DESC ');
+            $_support_expenditure_listDAO = $_support_expenditure_listDAO->get();
+
+            $pageDAO = new pageDAO();
+            $pageDAO = $pageDAO->pageHelper($_support_expenditure_listDAO, null, "/management/chouzi/expenditure", null, 'get', 25, 8);
+            $pages = $pageDAO['pageLink']['all'];
+            $pages = str_replace("/index.php", "", $pages);
+            $this->view->assign('expenditure_list', $pageDAO['pageData']);
+            $this->view->assign('page', $pages);
+            $this->view->assign('total', count($_support_expenditure_listDAO));
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("chouzi/expenditure_list.phtml");
+            //echo $this->view->render("index/footer.phtml");
+        }
+
+        // 资金使用申请审核初始化
+        public function expenditureInfoAction(){
+            $id = (int)$_REQUEST['id'];
+            if(!empty($id)) {
+                $_support_expenditure = $this->orm->createDAO("_support_expenditure");
+                $_support_expenditure ->findId($id);
+                $_support_expenditure= $_support_expenditure ->get();
+
+                $_support_expenditure_log = $this->orm->createDAO("_support_expenditure_log");
+                $_support_expenditure_log ->findMain_id($id)->order(" lastmodify DESC")->findActive("tjsysq");
+                $_support_expenditure_log = $_support_expenditure_log ->get();
+
+                $_support_expenditure_log_list = $this->orm->createDAO("_support_expenditure_log");
+                $_support_expenditure_log_list ->findMain_id($id)->order(" lastmodify DESC");
+                $_support_expenditure_log_list = $_support_expenditure_log_list ->get();
+
+                $dsh_pdf = $this->orm->createDAO("_support_project_log")->findMain_id($id)->order(" lastmodify DESC limit 0,1")->findActive("tjpdf")->get();
+                $this->view->assign('dsh_pdf', $dsh_pdf);
+
+                $this->view->assign('expenditure_info', $_support_expenditure);
+                $this->view->assign('support_expenditure_log', $_support_expenditure_log);
+                $this->view->assign('support_expenditure_log_list', $_support_expenditure_log_list);
+                $this->view->assign('total', count($_support_expenditure_log));
+            }
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("chouzi/expenditure_info.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        // 资金使用申请审核
+        public function saveexpenditureinfoAction(){
+            $id = (int)$_REQUEST['id'];
+            $auditing = $_REQUEST['auditing'];
+            $desc = htmlspecialchars($_REQUEST['desc']);
+            $desc = strip_tags($desc);
+
+            if(empty($auditing)){
+                $this->alert_back('请选择是否通过审核！');
+            }
+            if(empty($id)){
+                $this->alert_back('操作失败！请联系管理员！');
+            }
+
+            $expenditureDAO = $this->orm->createDAO("_support_expenditure")->findId($id)->get();
+
+            // 开启事务
+            $this->orm->beginTran();
+
+            $_support_expenditureDAO = $this->orm->createDAO("_support_expenditure");
+            $_support_expenditureDAO ->findId($id);
+
+            $_support_expenditure_logDAO = $this->orm->createDAO("_support_expenditure_log");
+            //$_support_project_logDAO ->findMain_id($id);
+
+            try{
+                if($auditing == 1){
+                    // 审核通过
+                    $_support_expenditureDAO ->status = 3;
+                    $_support_expenditureDAO ->save();
+
+                    $_support_expenditure_logDAO ->main_id = $id;
+                    $_support_expenditure_logDAO ->desc = '审核通过';
+                    $_support_expenditure_logDAO ->lastmodify = time();
+                    $_support_expenditure_logDAO ->username = $this->admininfo['admin_name'];
+                    $_support_expenditure_logDAO ->active = 'shtg';
+                    $_support_expenditure_logDAO ->save();
+
+                    $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($expenditureDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "资金使用申请通知";
+                        $body = "您好：您的【".$expenditureDAO[0]['p_name']."】资金使用申请电子版申请已成功，请继续上传签字盖章后的pdf版本！";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
+                    $this->alert_go('审核成功！', '/management/chouzi/expenditure-info?id='.$id);
+                    exit();
+                }elseif($auditing == 2) {
+                    // 审核失败
+                    $_support_expenditureDAO ->status = 2;
+
+                    if($_FILES['img']['name'] == ""){
+                        echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                        echo('<script language="JavaScript">');
+                        echo("alert('您输入的信息不完整，请查正后继续添加！！！！！');");
+                        echo('history.back();');
+                        echo('</script>');
+                        exit;
+                    }
+
+                    if($_FILES['img']['name']!=""){
+                        if($_FILES['img']['error'] != 4){
+                            if(!is_dir(__UPLOADPICPATH__ ."jjh_project/".$projectDAO[0]['department_id']."/")){
+                                mkdir(__UPLOADPICPATH__ ."jjh_project/".$projectDAO[0]['department_id']."/");
+                            }
+                            $uploadpic = new uploadPic($_FILES['img']['name'],$_FILES['img']['error'],$_FILES['img']['size'],$_FILES['img']['tmp_name'],$_FILES['img']['type'],2);
+                            $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_project/".$projectDAO[0]['department_id']."/" ;
+                            $result = $uploadpic->uploadPic();
+                            if($result['error'] != 0){
+                                echo "<script>alert('".$result['msg']."');";
+                                echo "window.location.href='/support/chouzi/expenditure';";
+                                echo "</script>";
+                                exit();
+                            }else{
+                                $_support_expenditure_logDAO->img =  __GETPICPATH__."jjh_project/".$projectDAO[0]['department_id']."/".$result['picname'];
+                                //$_support_projectDAO->meeting_files_name = $_FILES['meeting_files']['name'];
+                            }
+                        }
+                    }
+
+                    $_support_expenditure_logDAO ->main_id = $id;
+                    $_support_expenditure_logDAO ->desc = $desc;
+                    $_support_expenditure_logDAO ->lastmodify = time();
+                    $_support_expenditure_logDAO ->username = $this->admininfo['admin_name'];
+                    $_support_expenditure_logDAO ->active = 'shsb';
+
+                    $_support_expenditureDAO ->save();
+                    $_support_expenditure_logDAO ->save();
+
+                    $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($expenditureDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "资金使用申请通知";
+                        $body = "您好：您的【".$expenditureDAO[0]['p_name']."】资金使用申请电子版申请未通过，请修改后重新上传！";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
+                    $this->alert_go('提交成功！', '/management/chouzi/expenditure-info?id='.$id);
+                    exit();
+                }
+
+            }catch(Exception $e){
+                $this->orm->rollback();
+                echo $e->getMessage();exit();
+            }
+        }
+
+        public function savepinfofourAction(){
+            $id = (int)$_REQUEST['id'];
+            $auditing = $_REQUEST['auditing'];
+            $desc = htmlspecialchars($_REQUEST['desc']);
+            $desc = strip_tags($desc);
+
+            if(empty($auditing)){
+                $this->alert_back('请选择是否通过审核！');
+            }
+            if(empty($id)){
+                $this->alert_back('操作失败！请联系管理员！');
+            }
+
+            $expenditureDAO = $this->orm->createDAO("_support_expenditure")->findId($id)->get();
+
+            // 开启事务
+            $this->orm->beginTran();
+
+            $_support_expenditureDAO = $this->orm->createDAO("_support_expenditure");
+            $_support_expenditureDAO ->findId($id);
+
+            $_support_expenditure_logDAO = $this->orm->createDAO("_support_expenditure_log");
+            //$_support_project_logDAO ->findMain_id($id);
+
+            try{
+                if($auditing == 1){
+                    // 审核通过
+                    $_support_expenditureDAO ->status = 7;   // pdf审核通过
+                    $_support_expenditureDAO ->save();
+
+                    $_support_expenditure_logDAO ->main_id = $id;
+                    $_support_expenditure_logDAO ->desc = '审核通过';
+                    $_support_expenditure_logDAO ->lastmodify = time();
+                    $_support_expenditure_logDAO ->username = $this->admininfo['admin_name'];
+                    $_support_expenditure_logDAO ->active = 'pdfshtg';
+                    $_support_expenditure_logDAO ->save();
+
+                    $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($expenditureDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "资金使用申请通知";
+                        $body = "您好：您的【".$expenditureDAO[0]['p_name']."】资金使用申请pdf版申请已通过，请等待领导审核确认！";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
+                    $this->alert_go('审核成功！', '/management/chouzi/expenditure-info?id='.$id);
+                    exit();
+                }elseif($auditing == 2) {
+                    // 审核失败
+                    $_support_expenditureDAO ->status = 5;   // pdf审核未通过
+
+                    if($_FILES['img']['name'] == ""){
+                        echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                        echo('<script language="JavaScript">');
+                        echo("alert('您输入的信息不完整，请查正后继续添加！！！！！');");
+                        echo('history.back();');
+                        echo('</script>');
+                        exit;
+                    }
+
+                    if($_FILES['img']['name']!=""){
+                        if($_FILES['img']['error'] != 4){
+                            if(!is_dir(__UPLOADPICPATH__ ."jjh_project/".$expenditureDAO[0]['department_id']."/")){
+                                mkdir(__UPLOADPICPATH__ ."jjh_project/".$expenditureDAO[0]['department_id']."/");
+                            }
+                            $uploadpic = new uploadPic($_FILES['img']['name'],$_FILES['img']['error'],$_FILES['img']['size'],$_FILES['img']['tmp_name'],$_FILES['img']['type'],2);
+                            $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_project/".$expenditureDAO[0]['department_id']."/" ;
+                            $result = $uploadpic->uploadPic();
+                            if($result['error'] != 0){
+                                echo "<script>alert('".$result['msg']."');";
+                                echo "window.location.href='/support/chouzi/expenditure';";
+                                echo "</script>";
+                                exit();
+                            }else{
+                                $_support_expenditure_logDAO->img =  __GETPICPATH__."jjh_project/".$expenditureDAO[0]['department_id']."/".$result['picname'];
+                                //$_support_projectDAO->meeting_files_name = $_FILES['meeting_files']['name'];
+                            }
+                        }
+                    }
+
+                    $_support_expenditure_logDAO ->main_id = $id;
+                    $_support_expenditure_logDAO ->desc = $desc;
+                    $_support_expenditure_logDAO ->lastmodify = time();
+                    $_support_expenditure_logDAO ->username = $this->admininfo['admin_name'];
+                    $_support_expenditure_logDAO ->active = 'pdfshsb';
+
+                    $_support_expenditureDAO ->save();
+                    $_support_expenditure_logDAO ->save();
+
+                    $this->orm->commit();
+
+                    $sinfo = $this->getSupportinfo($expenditureDAO[0]['uid']);
+                    if(!empty($sinfo[0]['email'])){
+                        // 邮件通知
+                        $subject = "资金使用申请通知";
+                        $body = "您好：您的【".$expenditureDAO[0]['p_name']."】资金使用申请pdf版申请未通过，请重新上传pdf版！";
+                        $address = $sinfo[0]['email'];
+                        $user = "";
+                        $this->SendEmail($subject, $body, $address, $user);
+                    }
+
+                    $this->alert_go('提交成功！', '/management/chouzi/expenditure-info?id='.$id);
+                    exit();
+                }
+
+            }catch(Exception $e){
+                $this->orm->rollback();
+                echo $e->getMessage();exit();
+            }
+        }
+
+        public function savepinfosevenAction()
+        {
+            $id = (int)$_REQUEST['id'];
+            if(empty($id)){
+                $this->alert_back('操作失败！请联系管理员！');
+            }
+
+            // 开启事务
+            $this->orm->beginTran();
+            $expenditureDAO = $this->orm->createDAO("_support_expenditure")->findId($id)->get();
+            if((int)$expenditureDAO[0]['status'] != 7){
+                $this->alert_back('操作失败！请联系管理员！');
+            }
+
+            $_support_expenditureDAO = $this->orm->createDAO("_support_expenditure")->findId($id);
+            $_support_expenditure_logDAO = $this->orm->createDAO("_support_expenditure_log");
+
+            try{
+                // 审核通过
+                $_support_expenditureDAO ->status = 8;   // 资金使用申请成功
+                $_support_expenditureDAO ->save();
+
+                $_support_expenditure_logDAO ->main_id = $id;
+                $_support_expenditure_logDAO ->desc = '资金使用申请成功';
+                $_support_expenditure_logDAO ->lastmodify = time();
+                $_support_expenditure_logDAO ->username = $this->admininfo['admin_name'];
+                $_support_expenditure_logDAO ->active = 'lxcg';
+                $_support_expenditure_logDAO ->save();
+
+                // 同步到项目列表中 /////////////////////////////////////////////////////////////////////////////
+                $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+                $pm_mg_infoDAO ->pm_name = $expenditureDAO[0]['p_name'];
+                $pm_mg_infoDAO ->lastmodify = time();
+                $pm_mg_infoDAO->cate_id = 1;   //
+                $pm_mg_infoDAO->is_renling = 1;   //
+                $pm_mg_infoDAO->shiyong_zhichu_datetime = date("Y-m-d H:i:s", time());
+                $pm_mg_infoDAO->shiyong_zhichu_jiner = $expenditureDAO[0]['jiner'];
+
+                $_pid = $pm_mg_infoDAO->save();   // $_pid 项目系统pm_id
+                // $this->changerate($_pid,'add',1);  // 更新项目进度
+
+                //////////////////////////////////////////////////////////////////////////////////////////////////
+                $this->orm->commit();
+
+                $sinfo = $this->getSupportinfo($expenditureDAO[0]['uid']);
+                if(!empty($sinfo[0]['email'])){
+                    // 邮件通知
+                    $subject = "资金使用申请通知";
+                    $body = "您好：您的【".$expenditureDAO[0]['p_name']."】资金使用申请已成功！";
+                    $address = $sinfo[0]['email'];
+                    $user = "";
+                    $this->SendEmail($subject, $body, $address, $user);
+                }
+
+                $this->alert_go('资金使用申请已成功！', '/management/chouzi/expenditure-info?id='.$id);
+                exit();
+            }catch(Exception $e){
+                $this->orm->rollback();
+                echo $e->getMessage();exit();
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // 项目使用申请 金额限制
+        public function changeLimitAction(){
+            $id = (int)$_REQUEST['id'];
+            if (empty($id)){
+                $this->alert_back('操作失败！');
+            }
+            $percent = (int)$_REQUEST['percent'];
+            if (empty($percent)){
+                $this->alert_back('请设置资金使用限额');
+            }
+
+            if($percent > 100){
+                $this->alert_back('资金使用限额，不能大于余额的100%');
+            }
+
+            $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->findId($id);
+            $chouziDAO ->findId($id);
+            $chouziDAO ->percent = $percent;
+            $chouziDAO ->save();
+            $this->alert_go('设置成功！', '/management/index');
+        }
+
+        public function getSupportinfo($uid){
+            if(!empty(uid)) {
+                $_support_college_user = $this->orm->createDAO("_support_college_user")->findId($uid)->get();;
+                return $_support_college_user;
+            }else {
+                return false;
+            }
+        }
+
         //权限
         public function acl()
         {
@@ -946,6 +1773,18 @@
                 'compare',
                 'editcompare',
                 'editrscompare',
+                'application-project',
+                'support-info',
+                'savepinfo',
+                'savepinfo4',
+                'savepinfo7',
+                'expenditure',
+                'expenditure-info',
+                'saveexpenditureinfo',
+                'savepinfofour',
+                'savepinfoseven',
+                'change-limit',
+
             );
             if (in_array($action, $except_actions)) {
                 return;

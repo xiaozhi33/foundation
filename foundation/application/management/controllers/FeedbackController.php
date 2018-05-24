@@ -43,6 +43,8 @@
                 alert_back_old('您输入的信息不完整，请查正后继续添加！！！！！');
             }
 
+
+
             if($_FILES['files']['name']!=""){
                 if($_FILES['files']['error'] != 4){
                     if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
@@ -74,8 +76,8 @@
                 $pm_mg_feedbackDAO ->jindu = $jindu; // 进度
                 $pm_mg_feedbackDAO ->feedbacker = $feedbacker;  // 回馈人
                 $pm_mg_feedbackDAO ->jbr = $jbr;   // 经办人
-                $pm_mg_feedbackDAO ->bz = $bz;   // 经办人
-                $pm_mg_feedbackDAO ->save();
+                $pm_mg_feedbackDAO ->bz = $bz;   // 备注
+                $rss = $pm_mg_feedbackDAO ->save();
             }catch (Exception $e){
                 alert_back_old('保存失败！！！！！');
             }

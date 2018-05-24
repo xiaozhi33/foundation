@@ -1,0 +1,865 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<link rel="stylesheet" href="/include/management/assets/css/vendor/animate/animate.css">
+<link type="text/css" rel="stylesheet" media="all" href="/include/management/assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/include/management/assets/js/vendor/videobackground/css/jquery.videobackground.css">
+<link rel="stylesheet" href="/include/management/assets/css/vendor/bootstrap-checkbox.css">
+
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote-bs3.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen.min.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen-bootstrap.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/datepicker/css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpicker/css/bootstrap-colorpicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpalette/bootstrap-colorpalette.css">
+<link href="/include/management/assets/css/minimal.css" rel="stylesheet">
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>筹资列表</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目筹资管理</li>
+            <li class="active">筹资列表</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+
+			<div class="col-md-12">
+			<section class="tile color transparent-white">
+			<div class="tile-body">
+			<form action="#" method="get" name="search_form">
+				<div class="form-group">
+
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label for="pname" class=" control-label">项目名称：</label>
+                            <select class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                <option value="">请选择项目名称</option>
+                                <?php if($this->pmlist != ""){
+                                    foreach ($this->pmlist as $k => $v){
+                                        ?>
+                                        <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                    <?php }}?>
+                            </select>
+                            <input id="pname_info" type="hidden" name="pname" value=""/>
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <label for="input02">项目进度选择：</label>
+                            <select class="chosen-select-1 chosen-transparent form-control" name="rate[]">
+                                <option value="" >请选择类型</option>
+                                <?php if($this->rate_config != ""){
+                                    foreach ($this->rate_config as $k => $v){?>
+                                        <option value="<?php echo $k?>" <?php if($_GET['rate'][0]==$k){echo 'selected="selected"';}?>><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="form-group col-sm-2">
+                            <label for="input02">项目类型：</label>
+                            <select class="form-control" name="cate">
+                                <option value="" >请选择类型</option>
+                                <?php if($this->pcatelist != ""){
+                                    foreach ($this->pcatelist as $k => $v){?>
+                                        <option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <label for="input02"> </label>
+                            <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                        </div>
+                    </div>
+				</div>
+			</form>
+			</div>
+			</section>
+			<section class="tile color transparent-white">
+				<div class="tile-body nopadding">
+				<?php if($this->chouzilist != ""){?>
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					 <thead>
+					  <tr>
+						<td width="24%">项目名称</td>
+                        <td width="18%">项目类型</td>
+                        <!--<td width="18%">项目签约日期</td>-->
+                        <td width="14%">项目进度</td>
+						<!--<td width="12%">部门名称</td>
+						<td width="13%">协议捐赠金额</td>-->
+                          <?php if (in_array($this->admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
+						        <td width="13%">操作</td>
+                          <?php }?>
+					  </tr>
+					</thead>
+                    <tbody>
+					  <?php 
+						foreach($this->chouzilist as $k=>$v){?>
+						 <tr>
+						 	<td><a href="/support/chouzi/pminfo?id=<?php echo $v['id'];?>" target="_blank"><?php echo $v['pname'];?></a>&nbsp;</td>
+                             <td><?php  foreach ($this->pcatelist as $kk => $vv){
+                                     if($vv['id'] == $v['cate']){ echo $vv['catename'];}
+                                 }?>&nbsp;</td>
+                             <td>
+                                 <?php if($v['pm_rate'] == ""){ ?>
+                                     ---
+                                 <?php }if(preg_match("/1/", $v['pm_rate'])){ ?>
+                                     已立项&nbsp;
+                                 <?php }if(preg_match("/2/", $v['pm_rate'])){?>
+                                     已签约&nbsp;
+                                 <?php }if(preg_match("/3/", $v['pm_rate'])){?>
+                                     已到帐&nbsp;
+                                 <?php }if(preg_match("/4/", $v['pm_rate'])){ ?>
+                                     已执行&nbsp;
+                                 <?php }if(preg_match("/5/", $v['pm_rate'])){?>
+                                     已回馈&nbsp;
+                                 <?php }if(preg_match("/6/", $v['pm_rate'])){?>
+                                     已完结&nbsp;
+                                 <?php }if(preg_match("/7/", $v['pm_rate'])){?>
+                                     待催款&nbsp;
+                                 <?php }if(preg_match("/8/", $v['pm_rate'])){?>
+                                     正常执行&nbsp;
+                                 <?php }if(preg_match("/9/", $v['pm_rate'])){?>
+                                     待结项&nbsp;
+                                 <?php }?>
+                             </td>
+                             <?php if (in_array($this->admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
+                                <td>
+                                    <a href="/support/chouzi/pminfo?id=<?php echo $v['id'];?>">查看项目详情</a>
+                                </td>
+                             <?php }?>
+						 </tr>
+					   <?php }?>
+                     </tbody>
+					</table>
+					</div>
+					<div class="tile-footer">
+					<div class="row">
+					<div class="page col-md-12" align="right">
+						共  <?php echo $this->total;?> 条筹资信息          <?php echo $this->page;?></div>
+					
+				 <?php }else{?>
+
+				 <?php }?>
+				 </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-3">
+                                <label for="input02"></label>
+                                <a href="/support/report/newchouzitoexcel?pname=<?php echo $this->pname;?>&cate=<?php echo $this->cate;?>&department_id=<?php echo $this->department;?>"><button class="btn btn-primary btn-block">导出Excel</button></a>
+                            </div>
+                        </div>
+
+				 </div>
+				 </section>
+		  </div>
+		</div>
+
+
+        <div class="theme1-popover" style="display: none;">
+            <div class="theme1-poptit">
+                <a href="javascript:void(0);" title="关闭" class="close" id="popover1-close" name="">×</a>
+            </div>
+            <div class="theme1-popbod dform">
+                <form class="theme1-signin form-horizontal" id="add_star" name="add_star" method="post" enctype="multipart/form-data">
+                    <div class="starbox">
+                        <span class="s_name">请标星：</span>
+                        <ul class="star_ul fl">
+                            <li><a class="one-star" title="1" href="#"></a></li>
+                            <li><a class="two-star" title="2" href="#"></a></li>
+                            <li><a class="three-star" title="3" href="#"></a></li>
+                            <li><a class="four-star" title="4" href="#"></a></li>
+                            <li><a class="five-star" title="5" href="#"></a></li>
+                        </ul>
+                        <span class="s_result fl"><a title="0" href="#">取消星级</a></span>
+                    </div>
+                    <input id="input_star" type="hidden" name="star" value="0"/>
+                    <input id="input_pm_id" type="hidden" name="pm_id" value=""/>
+                </form>
+            </div>
+        </div>
+
+        <style type="text/css">
+            /*{margin:0;padding:0;list-style-type:none;}
+            a,img{border:0;}
+            body{font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}*/
+            /* starbox */
+            .starbox{width:480px;margin:10px auto;height:30px;}
+            .fl{float:left;display:inline;}
+            .s_name{float:left;display:block;width:60px;text-align:right;}
+            .star_ul{background:url(/include/management/assets/images/star.png) no-repeat 0 -150px;width:132px;z-index:10;position:relative;height:25px;}
+            .star_ul li{float:left;margin-right:1px;width:25px;height:25px;}
+            .star_ul li a{display:block;height:25px;position:absolute;left:0;top:0;text-indent:-999em;}
+            .star_ul li .active-star{background:url(/include/management/assets/images/star.png) no-repeat;}
+            .star_ul li .one-star{width:25px;background-position:0 -120px;z-index:50;}
+            .star_ul li .two-star{width:51px;background-position:0 -90px;z-index:40;}
+            .star_ul li .three-star{width:79px;background-position:0 -60px;z-index:30;}
+            .star_ul li .four-star{width:105px;background-position:0 -30px;z-index:20;}
+            .star_ul li .five-star{width:129px;margin-right:0;background-position:0 0;z-index:10;}
+
+            .starbox1{margin:10px auto;height:30px;}
+            .fl1{float:left;display:inline;}
+            .star_ul1{background:url(/include/management/assets/images/star.png) no-repeat 0 -150px;width:132px;z-index:10;position:relative;height:25px;}
+            .star_ul1 li{float:left;margin-right:1px;width:25px;height:25px;}
+            .star_ul1 li a{display:block;height:25px;position:absolute;left:0;top:0;text-indent:-999em;}
+            .star_ul1 li .active-star{background:url(/include/management/assets/images/star.png) no-repeat;}
+            .star_ul1 li .one-star1{width:25px;background-position:0 -120px;z-index:50;}
+            .star_ul1 li .two-star1{width:51px;background-position:0 -90px;z-index:40;}
+            .star_ul1 li .three-star1{width:79px;background-position:0 -60px;z-index:30;}
+            .star_ul1 li .four-star1{width:105px;background-position:0 -30px;z-index:20;}
+            .star_ul1 li .five-star1{width:129px;margin-right:0;background-position:0 0;z-index:10;}
+
+            .s_result{padding:6px 0 0 5px;}
+        </style>
+
+
+        <script language="javascript">
+            $(".menu li:eq(18)").addClass("open");
+
+            jQuery(document).ready(function($) {
+                // 消息提示框
+                $('.theme-poptit .close').click(function(){
+                    $('.theme-popover-mask').fadeOut(100);
+                    $('.theme-popover').slideUp(200);
+                    if($('#popover-close').attr("name") != '') {
+                        location.href = $('#popover-close').attr("name");
+                    }
+                });
+
+                // 添加人员信息
+                $('#addstar').click(function(){
+                    $('.theme1-popover').show();
+                });
+                $('.theme1-poptit .close').click(function(){
+                    $('.theme1-popover-mask').fadeOut(100);
+                    $('.theme1-popover').slideUp(200);
+                });
+            });
+
+            // 初始化加载星级
+            function addstar(obj){
+                $('.theme1-popover').show();
+                $('#input_pm_id').val($(obj).attr('pm_id'));
+                //$('#input_star').val($(obj).attr('star'));
+
+                $('.star_ul a').removeClass('active-star');
+
+                if($(obj).attr('star') == 1){
+                    $('.one-star').addClass('active-star');
+                }else if($(obj).attr('star') == 2){
+                    $('.two-star').addClass('active-star');
+                }else if($(obj).attr('star') == 3){
+                    $('.three-star').addClass('active-star');
+                }else if($(obj).attr('star') == 4){
+                    $('.four-star').addClass('active-star');
+                }else if($(obj).attr('star') == 5){
+                    $('.five-star').addClass('active-star');
+                }
+            }
+
+            // 标星
+            $(function(){
+                $('.star_ul a').hover(function(){
+                    $(this).addClass('active-star');
+                },function(){
+                    $(this).removeClass('active-star');
+                    //$('.s_result').css('color','#333').html('请打分');
+                });
+
+                $('.star_ul a').click(function(){
+                    $('#input_star').val($(this).attr('title'));
+                    $('.theme1-popover').fadeOut(100);
+                    ajaxaddstar();
+                });
+
+                //取消标星
+                $('.s_result a').click(function(){
+                    $('#input_star').val($(this).attr('title'));
+                    $('.theme1-popover').fadeOut(100);
+                    ajaxaddstar();
+                });
+            })
+
+
+            function ajaxaddstar(){
+                var formParam = $("#add_star").serialize();//序列化表格内容为字符串
+
+                $.ajax({
+                    type:'post',
+                    url: '/management/chouzi/ajaxaddstar',
+                    data:formParam,
+                    cache:false,
+                    dataType:'json',
+                    success:function(data){
+                        if(data['status'] == 'error'){
+                            alert(data['message']);
+                        }else if(data['status'] == 'success'){
+                            // 加载新数据
+                            alert(data['message']);
+                            parent.location.reload();
+                        }
+                    },
+                    complete:function(data){
+
+                    },
+                    error:function(data){
+                        //console.log(data);
+                        alert('添加失败！');
+                    }
+                });
+            }
+
+        </script>
+
+
+    </div><!-- tab-pane -->
+</div><!-- tab-content -->
+</div>
+</div>
+<!-- Make page fluid-->
+
+</div>
+<!-- Wrap all page content end -->
+<section class="videocontent" id="video"></section>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/include/management/assets/js/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/include/management/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+
+<?php if($this->controller == "index") {?>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="/include/management/assets/js/vendor/easypiechart/jquery.easypiechart.min.js"></script>
+    <!--<script src="/include/management/assets/js/vendor/flot/jquery.flot.orderBars.js"></script>-->
+
+    <script type="text/javascript" src="/include/management/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.time.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.selection.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.animator.min.js"></script>
+
+    <script src="/include/management/assets/js/vendor/rickshaw/raphael-min.js"></script>
+    <script src="/include/management/assets/js/vendor/rickshaw/d3.v2.js"></script>
+    <script src="/include/management/assets/js/vendor/rickshaw/rickshaw.min.js"></script>
+
+    <script src="/include/management/assets/js/vendor/morris/morris.min.js"></script>
+    <script src="/include/management/assets/js/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
+    <script src="/include/management/assets/js/vendor/summernote/summernote.min.js"></script>
+    <script src="/include/management/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+<?php }?>
+
+<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+<script src="/include/management/assets/js/vendor/summernote/summernote.min.js"></script>
+
+<script src="/include/management/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+
+<script src="/include/management/assets/js/vendor/momentjs/moment-with-langs.min.js"></script>
+<script src="/include/management/assets/js/vendor/datepicker/bootstrap-datetimepicker.min.js"></script>
+
+<script src="/include/management/assets/js/minimal.min.js"></script>
+
+
+
+<script>
+    $(function(){
+        //initialize datepicker
+        $('#datepicker').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker").on("dp.show",function (e) {
+            var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker1').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker1").on("dp.show",function (e) {
+            var newtop1 = $(".bootstrap-datetimepicker-widget").position(relative).top - 45;
+            alert(newtop1);
+            $('.bootstrap-datetimepicker-widget').css('top', newtop1 + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker2').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker2").on("dp.show",function (e) {
+            var newtop2 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop2 + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker3').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker3").on("dp.show",function (e) {
+            var newtop3 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop3 + 'px');
+        });
+
+        // Initialize flot chart
+        var d1 =[ [1, 715],
+            [2, 985],
+            [3, 1525],
+            [4, 1254],
+            [5, 1861],
+            [6, 2621],
+            [7, 1987],
+            [8, 2136],
+            [9, 2364],
+            [10, 2851],
+            [11, 1546],
+            [12, 2541]
+        ];
+        var d2 =[ [1, 463],
+            [2, 578],
+            [3, 327],
+            [4, 984],
+            [5, 1268],
+            [6, 1684],
+            [7, 1425],
+            [8, 1233],
+            [9, 1354],
+            [10, 1200],
+            [11, 1260],
+            [12, 1320]
+        ];
+        var months = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+
+        <?php if($this->module == "management" && $this->controller == "index" && $this->action == "index"){?>
+        // flot chart generate
+        var plot = $.plotAnimator($("#statistics-chart"),
+            [
+                {
+                    label: 'Sales',
+                    data: d1,
+                    lines: {lineWidth:3},
+                    shadowSize:0,
+                    color: '#ffffff'
+                },
+                { label: "Visits",
+                    data: d2,
+                    animator: {steps: 99, duration: 500, start:200, direction: "right"},
+                    lines: {
+                        fill: .15,
+                        lineWidth: 0
+                    },
+                    color:['#ffffff']
+                },{
+                label: 'Sales',
+                data: d1,
+                points: { show: true, fill: true, radius:6,fillColor:"rgba(0,0,0,.5)",lineWidth:2 },
+                color: '#fff',
+                shadowSize:0
+            },
+                { label: "Visits",
+                    data: d2,
+                    points: { show: true, fill: true, radius:6,fillColor:"rgba(255,255,255,.2)",lineWidth:2 },
+                    color: '#fff',
+                    shadowSize:0
+                }
+            ],{
+
+                xaxis: {
+
+                    tickLength: 0,
+                    tickDecimals: 0,
+                    min:1,
+                    ticks: [[1,"一月"], [2, "二月"], [3, "三月"], [4, "四月"], [5, "五月"], [6, "六月"], [7, "七月"], [8, "八月"], [9, "九月"], [10, "十月"], [11, "十一月"], [12, "十二月  "]],
+
+                    font :{
+                        lineHeight: 24,
+                        weight: "300",
+                        color: "#ffffff",
+                        size: 14
+                    }
+                },
+
+                yaxis: {
+                    ticks: 4,
+                    tickDecimals: 0,
+                    tickColor: "rgba(255,255,255,.3)",
+
+                    font :{
+                        lineHeight: 13,
+                        weight: "300",
+                        color: "#ffffff"
+                    }
+                },
+
+                grid: {
+                    borderWidth: {
+                        top: 0,
+                        right: 0,
+                        bottom: 1,
+                        left: 1
+                    },
+                    borderColor: 'rgba(255,255,255,.3)',
+                    margin:0,
+                    minBorderMargin:0,
+                    labelMargin:20,
+                    hoverable: true,
+                    clickable: true,
+                    mouseActiveRadius:6
+                },
+
+                legend: { show: false}
+            });
+
+
+        $(window).resize(function() {
+            // redraw the graph in the correctly sized div
+            plot.resize();
+            plot.setupGrid();
+            plot.draw();
+        });
+
+        $('#mmenu').on(
+            "opened.mm",
+            function()
+            {
+                // redraw the graph in the correctly sized div
+                plot.resize();
+                plot.setupGrid();
+                plot.draw();
+            }
+        );
+
+        $('#mmenu').on(
+            "closed.mm",
+            function()
+            {
+                // redraw the graph in the correctly sized div
+                plot.resize();
+                plot.setupGrid();
+                plot.draw();
+            }
+        );
+
+        // tooltips showing
+        $("#statistics-chart").bind("plothover", function (event, pos, item) {
+            if (item) {
+                var x = item.datapoint[0],
+                    y = item.datapoint[1];
+
+                $("#tooltip").html('<h1 style="color: #418bca">' + months[x - 1] + '</h1>' + '<strong>' + y + '</strong>' + ' ' + item.series.label)
+                    .css({top: item.pageY-30, left: item.pageX+5})
+                    .fadeIn(200);
+            } else {
+                $("#tooltip").hide();
+            }
+        });
+
+        //tooltips options
+        $("<div id='tooltip'></div>").css({
+            position: "absolute",
+            //display: "none",
+            padding: "10px 20px",
+            "background-color": "#ffffff",
+            "z-index":"99999"
+        }).appendTo("body");
+
+        //generate actual pie charts
+        $('.pie-chart').easyPieChart();
+
+
+        //server load rickshaw chart
+        var graph;
+
+        var seriesData = [ [], []];
+        var random = new Rickshaw.Fixtures.RandomData(50);
+
+        for (var i = 0; i < 50; i++) {
+            random.addData(seriesData);
+        }
+
+        graph = new Rickshaw.Graph( {
+            element: document.querySelector("#serverload-chart"),
+            height: 150,
+            renderer: 'area',
+            series: [
+                {
+                    data: seriesData[0],
+                    color: '#6e6e6e',
+                    name:'File Server'
+                },{
+                    data: seriesData[1],
+                    color: '#fff',
+                    name:'Mail Server'
+                }
+            ]
+        } );
+
+        var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+            graph: graph,
+        });
+
+        setInterval( function() {
+            random.removeData(seriesData);
+            random.addData(seriesData);
+            graph.update();
+
+        },1000);
+
+        // Morris donut chart
+        Morris.Donut({
+            element: 'browser-usage',
+            data: [
+                {label: "Chrome", value: 25},
+                {label: "Safari", value: 5},
+                {label: "Firefox", value: 15},
+                {label: "Opera", value: 5},
+                {label: "Internet Explorer", value: 40},
+                {label: "Other", value: 10}
+            ],
+            colors: ['#00a3d8', '#2fbbe8', '#72cae7', '#d9544f', '#ffc100', '#1693A5']
+        });
+
+        $('#browser-usage').find("path[stroke='#ffffff']").attr('stroke', 'rgba(0,0,0,0)');
+
+        //sparkline charts
+        $('#projectbar1').sparkline('html', {type: 'bar', barColor: '#22beef', barWidth: 4, height: 20});
+        $('#projectbar2').sparkline('html', {type: 'bar', barColor: '#cd97eb', barWidth: 4, height: 20});
+        $('#projectbar3').sparkline('html', {type: 'bar', barColor: '#a2d200', barWidth: 4, height: 20});
+        $('#projectbar4').sparkline('html', {type: 'bar', barColor: '#ffc100', barWidth: 4, height: 20});
+        $('#projectbar5').sparkline('html', {type: 'bar', barColor: '#ff4a43', barWidth: 4, height: 20});
+        $('#projectbar6').sparkline('html', {type: 'bar', barColor: '#a2d200', barWidth: 4, height: 20});
+
+        // sortable table
+        $('.table.table-sortable th.sortable').click(function() {
+            var o = $(this).hasClass('sort-asc') ? 'sort-desc' : 'sort-asc';
+            $('th.sortable').removeClass('sort-asc').removeClass('sort-desc');
+            $(this).addClass(o);
+        });
+
+        //todo's
+        $('#todolist li label').click(function() {
+            $(this).toggleClass('done');
+        });
+
+        // Initialize tabDrop
+        $('.tabdrop').tabdrop({text: '<i class="fa fa-th-list"></i>'});
+
+        //load wysiwyg editor
+        $('#quick-message-content').summernote({
+            toolbar: [
+                //['style', ['style']], // no style button
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                //['insert', ['picture', 'link']], // no insert buttons
+                //['table', ['table']], // no table button
+                //['help', ['help']] //no help button
+            ],
+            height: 143   //set editable area's height
+        });
+
+        //multiselect input
+        $(".chosen-select").chosen({disable_search_threshold: 10});
+
+        <?php }?>
+    })
+
+</script>
+
+<!-- //遮罩层效果 -->
+<style>
+    .theme-popover-mask {
+        z-index: 9998;
+        position:fixed;
+        top:0;  left:0;  width:100%;
+        height:100%;  background:#000;  opacity:0.4;
+        filter:alpha(opacity=40);  display:none;
+    }
+    .theme-popover {
+        z-index:9999;  position:fixed;
+        top:20%;  left:35%;
+        width:45%;
+        max-height:220px;
+        /*margin:-180px 0 0 -330px;*/
+        border-radius:5px;  border:solid 2px #666;
+        display:none;
+        box-shadow: 0 0 10px #666;
+        background-color: #f7f7f7;
+        border-bottom: 1px solid #ebebeb;
+        border-radius: 5px 5px 0 0;
+        font-size: 14px;
+    }
+    .theme-signin{
+        margin-top: 40px;
+    }
+    #popover-close{
+        float: right;
+        margin-right: 12px;
+        margin-top: 12px;
+    }
+    #popover-msg{
+        margin-top: 12px;
+        align-content: center;
+        text-align: center;
+    }
+    #popover-img{
+        margin: 0 auto;
+        text-align: center;
+    }
+    #popover-img img{
+        display: inline;
+        max-width:30%;
+        height:auto;
+
+    }
+
+    /* 添加人员信息弹出框*/
+    .theme1-popover-mask {
+        z-index: 9998;
+        position:fixed;
+        top:0;  left:0;  width:100%;
+        height:100%;  background:#000;  opacity:0.4;
+        filter:alpha(opacity=40);  display:none;
+    }
+    .theme1-popover {
+        z-index:9999;  position:fixed;
+        top:21%;
+        left:35%;
+        width:45%;
+        /*max-height:220px;
+        margin:-180px 0 0 -330px;*/
+        border:solid 2px #999;
+        display:none;
+        box-shadow: 0 0 10px #666;
+        background-color: #f7f7f7;
+        border-radius: 5px;
+        font-size: 14px;
+        padding:5px 15px;
+    }
+    .theme1-signin{
+        margin-top: 40px;
+    }
+    #popover1-close{
+        float: right;
+        margin-right: 12px;
+        margin-top: 12px;
+    }
+    #popover1-msg{
+        margin-top: 12px;
+        align-content: center;
+        text-align: center;
+    }
+    #popover1-img{
+        margin: 0 auto;
+        text-align: center;
+    }
+    #popover1-img img{
+        display: inline;
+        max-width:30%;
+        height:auto;
+
+    }
+</style>
+
+<div class="theme-popover">
+    <div class="theme-poptit">
+        <a href="javascript:void(0);" title="关闭" class="close" id="popover-close" name="">×</a>
+    </div>
+    <div class="theme-popbod dform">
+        <form class="theme-signin" name="loginform" action="" method="post">
+            <ol>
+                <li id="popover-img"><img src="/include/management/images/warning.png" width="100" height="100" alt=""></li>
+                <li id="popover-msg"><?php echo $mess = "系统消息提示";?></li>
+            </ol>
+        </form>
+    </div>
+</div>
+<div class="theme-popover-mask"></div>
+
+
+<!-- //遮罩层效果 -->
+
+<style>
+    .margin-bottom-20{
+        margin-bottom: 0px;
+        padding: 2px 12px;
+        font-size: 12px;
+    }
+</style>
+
+<script language="javascript">
+    //搜索功能采用get方式 关键词下拉提示，
+    $(".chosen-select-1").chosen({
+        search_contains: true,
+        no_results_text : "未找到此选项!",
+        //width:"70%",
+        height:"60%",
+        disable_search_threshold: 10
+    });
+
+    $(".chosen-select-2").chosen({
+        search_contains: true,
+        disable_search_threshold: 10
+    });
+
+    $("[name='search_form']").submit(function(){
+        if($(".chosen-single span").html() != "请选择项目名称"){
+            $("#pname_info").val($(".chosen-single span").html());
+        }
+        return true;
+    });
+</script>

@@ -33,6 +33,7 @@ class Management_giftController extends BaseController
         $giftDAO = $this->orm->createDAO('material_mg_gift_main');
         $name = HttpUtil::postString("name");
         $store = HttpUtil::postString("store");
+        $place = HttpUtil::postString("place");
 
         if($name == ''|| $store == ''){
             //alert_back("您输入的信息不完整，请查正后继续添加！！！！！");
@@ -55,14 +56,15 @@ class Management_giftController extends BaseController
                 exit;
             }
         }else {
-            if ($hasName) {
-                echo json_encode(array('msg' => "该礼品信息已添加，请核对后重新添加！！！！！！", 'return_url' => '/management/gift/'));
+            /*if ($hasName) {
+                echo json_encode(array('msg' => "该礼品信息已添加，请核对后重新添加！", 'return_url' => '/management/gift/'));
                 exit;
-            }
+            }*/
         }
 
         $giftDAO ->name = $name;
         $giftDAO ->store = $store;
+        $giftDAO ->place = $place;
 
         if(!empty($id))  //修改流程
         {

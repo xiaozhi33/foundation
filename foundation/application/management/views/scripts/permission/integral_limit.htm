@@ -1,0 +1,35 @@
+<?php echo $this->render('inc/header.htm') ?>
+	<link rel="stylesheet" type="text/css" href="css/start/jquery-ui-1.9.1.custom.min.css" />
+	<!-- Page content -->
+	<div id="page">
+		<!-- Wrapper -->
+		<div class="wrapper">
+			<!-- left column/section -->
+			<?php echo $this->render('inc/_left_nav.htm') ?>
+			<!-- End of left column/section -->
+			
+			<!-- right column/section -->
+			<section class="column width6 right_content">
+				<div class="add-group">
+					<span class="label label-gray"><a>积分限制</a></span>
+					<form action="" method="post" id="sampleform" enctype="multipart/form-data">
+						<fieldset>
+							<p>
+								<label for="integral_limit" class="required">积分每日限制数值:</label><br>
+								<input type="text" name="integral_limit" value="<?php echo $this->system[0]['wd_integral_limit']?>"  /> （0为不限制）
+							</p>
+							<p>
+								<label for="reputation_limit" class="required">声望每日限制数值:</label><br>
+								<input type="text" name="reputation_limit" value="<?php echo $this->system[0]['wd_reputation_limit']?>"  /> （0为不限制）
+							</p>
+						</fieldset>
+						<p class="box"><input type="submit" value="确定" class="btn btn-green big"></p>
+					</form>
+				</div>
+			</section>
+			<!-- End of right column/section -->
+		</div>
+		<!-- End of Wrapper -->
+	</div>
+	<!-- End of Page content -->
+<?php echo $this->render('inc/footer.htm') ?>

@@ -4,7 +4,7 @@
             <!-- cards -->
             <div class="row cards">
               
-              <div class="card-container col-lg-3 col-sm-6 col-sm-12">
+              <!--<div class="card-container col-lg-3 col-sm-6 col-sm-12">
                 <div class="card card-redbrown hover">
                   <div class="front"> 
 
@@ -15,22 +15,9 @@
 
                       <div class="media-body">
                         <small>未认领项目</small>
-                        <h2 class="media-heading animate-number" data-value="<?php echo count($this->renling_weirenling_list);?>" data-animation-duration="1500"><?php echo count($this->renling_weirenling_list);?></h2>
+                        <h2 class="media-heading animate-number" data-value="<?php /*echo count($this->renling_weirenling_list);*/?>" data-animation-duration="1500"><?php /*echo count($this->renling_weirenling_list);*/?></h2>
                       </div>
-                    </div> 
-
-                   <!-- <div class="progress-list">
-                      <div class="details">
-                        <div class="title">本月完成计划  %</div>
-                      </div>
-                      <div class="status pull-right bg-transparent-black-1">
-                        <span class="animate-number" data-value="83" data-animation-duration="1500">0</span>%
-                      </div>
-                      <div class="clearfix"></div>
-                      <div class="progress progress-little progress-transparent-black">
-                        <div class="progress-bar animate-progress-bar" data-percentage="83%"></div>
-                      </div>
-                    </div>-->
+                    </div>
 
                   </div>
                   <div class="back">
@@ -40,7 +27,33 @@
                     </a>  
                   </div>
                 </div>
-              </div>
+              </div>-->
+
+                <div class="card-container col-lg-3 col-sm-6 col-sm-12">
+                    <div class="card card-redbrown hover">
+                        <div class="front">
+
+                            <div class="media">
+                          <span class="pull-left">
+                            <i class="fa fa-users media-object"></i>
+                          </span>
+
+                                <div class="media-body">
+                                    <small>基金会通讯录</small>
+                                    <h2 class="media-heading animate-number" data-value="<?php echo count($this->addressbook);?>" data-animation-duration="1500"><?php echo count($this->addressbook);?></h2><span style="float: left;"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="back">
+                            <a href="/management/admin/addressbook">
+                                <i class="fa fa-bar-chart-o fa-4x"></i>
+                                <span style="font-size: 15px;">点击查看详情</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
 
 
               <div class="card-container col-lg-3 col-sm-6 col-sm-12">
@@ -53,7 +66,7 @@
                       </span>
 
                       <div class="media-body">
-                        <small>捐赠项目总数</small>
+                        <small>项目捐赠总笔数</small>
                         <h2 class="media-heading animate-number" data-value="<?php echo $this->pm_count;?>" data-animation-duration="1500"><?php echo $this->pm_count;?></h2>
                       </div>
                     </div> 
@@ -73,9 +86,9 @@
 
                   </div>
                   <div class="back">
-                    <a href="#">
+                    <a href="/management/zijin">
                       <i class="fa fa-bar-chart-o fa-4x"></i>
-                      <span>点击查看详情</span>
+                      <span style="font-size: 15px;">点击查看详情</span>
                     </a>
                   </div>
                 </div>
@@ -113,9 +126,9 @@
 
                   </div>
                   <div class="back">
-                    <a href="#">
+                    <a href="/management/zijin">
                       <i class="fa fa-bar-chart-o fa-4x"></i>
-                      <span>点击查看详情</span>
+                      <span style="font-size: 15px;">点击查看详情</span>
                     </a>
                   </div>
                 </div>
@@ -152,9 +165,9 @@
 
                   </div>
                   <div class="back">
-                    <a href="#">
+                    <a href="/management/meeting">
                       <i class="fa fa-bar-chart-o fa-4x"></i>
-                      <span>点击查看详情</span>
+                      <span style="font-size: 15px;">点击查看详情</span>
                     </a>
                   </div>
                 </div>
@@ -356,7 +369,7 @@
                                       <?php foreach($this->chouzilist as $key => $value){ $nn = 0;?>
                                       <tr>
                                           <td><?php echo $value['id'];?></td>
-                                          <td><?php echo $value['pname'];?></td>
+                                          <td><a href="/management/chouzi/pminfo?id=<?php echo $value['id'];?>" target="_blank"><?php echo $value['pname'];?></a></td>
                                           <td class="priority">
                                               <?php if($value['pm_rate'] == ""){?>
                                               ---
@@ -582,23 +595,25 @@
                   </div>
                   <!-- /tile header -->
 
-
-
                   <!-- tile widget -->
                   <div class="tile-widget">
                     <div class="progress-list with-heading">
-                      <div class="details">
-                        <div class="title"><h2><i class="fa fa-hdd-o"></i> <span class="animate-number" data-value="<?php echo $this->free;?>" data-animation-duration="1600">0</span> GB</h2></div>
-                      </div>
+                      <!--<div class="details">
+                        <div class="title">
+                            <h2><i class="fa fa-hdd-o"></i>
+                                <span class="animate-number" data-value="<?php /*echo $this->use;*/?>" data-animation-duration="<?php /*echo $this->total_nosign;*/?>">0</span> GB
+                            </h2>
+                        </div>
+                      </div>-->
                       <div class="status pull-right bg-transparent-black-1">
-                        <span class="animate-number" data-value="<?php echo round($this->free/$this->total*100, 2);?>" data-animation-duration="1500">0</span>%
+                        <span class="animate-number" data-value="<?php echo round($this->use/$this->total_nosign * 100, 2);?>" data-animation-duration="<?php echo $this->total_nosign;?>">0</span>%
                       </div>
                       <div class="clearfix"></div>
                       <div class="progress progress-little progress-transparent-black" style="margin-bottom: 5px">
-                        <div class="progress-bar animate-progress-bar" data-percentage="<?php echo round($this->free/$this->total*100, 2);?>%"></div>
+                        <div class="progress-bar animate-progress-bar" data-percentage="<?php echo round($this->use/$this->total_nosign * 100, 2);?>%"></div>
                       </div>
                     </div>  
-                    <p class="description"><strong><?php echo $this->total;?> GB</strong> 已用 <strong class="white-text"><?php echo $this->free;?></strong> 在服务器中</p>
+                    <p class="description">系统共 <strong><?php echo $this->total_bf;?></strong> 已用 <strong class="white-text"><?php echo $this->total_bf-$this->free_bf;?></strong> GB 在服务器中</p>
                   </div>
                   <!-- /tile widget -->
                   <!-- tile body -->
@@ -609,9 +624,6 @@
 
                 </section>
                 <!-- /tile -->
-
-
-
 
                 <!-- tile -->
                 <!--<section class="tile color transparent-black">-->

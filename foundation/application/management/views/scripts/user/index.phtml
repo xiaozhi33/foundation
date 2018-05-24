@@ -1,0 +1,346 @@
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>个人中心</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>个人中心</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+<style>
+    .user-handpic img{
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        margin-left: 20px;
+    }
+    .user-handbtn a{
+        height: 40px;
+        width: 90px;
+        background-color:#1088ce;
+        display: block;
+        text-align: center;
+        line-height: 40px;
+        color:#ffffff;
+        font-size: 16px;
+        border-radius: 3px;
+        margin: 8px 0 10px 0;
+    }
+    .user-handbtn a:-webkit-any-link:visited{
+        color:#ffffff;
+    }
+
+    .user-handbtn1 a{
+        height: 40px;
+        width: 160px;
+        background-color:#1088ce;
+        display: block;
+        text-align: center;
+        line-height: 40px;
+        color:#ffffff;
+        font-size: 16px;
+        border-radius: 3px;
+        margin: 8px 0 10px 18px;
+    }
+    .user-handbtn1 a:-webkit-any-link:visited{
+        color:#ffffff;
+    }
+</style>
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+        <div class="col-md-12">
+            <section class="tile color transparent-white">
+                <div class="detailedbox tile-body">
+                    <!--<div><h3>基本信息</h3></div>-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-3 user-handpic"  style="margin-right: 20px;">
+                                <a href="/management/user/editheadimg"><img src="<?php echo $this->admininfo['headimg'];?>" alt/></a>
+                            </div>
+
+                            <div class="col-md-8 user-handbtn" style="margin-top: 10px;">
+                                <div><strong style="font-size: 18px;"><?php echo $this->admininfo['admin_name'];?></strong> - <?php echo $this->group_list[$this->admininfo['gid']]?></div>
+                                <a href="/management/user/editheadimg">上传头像</a>
+                                支持JPG，PNG等格式的图片，且小于2M
+                            </div>
+                        </div>
+                        <div class="col-md-6 user-handbtn1" >
+                            <div><h4><a href="/management/user/edituserinfo">&nbsp;&nbsp;&nbsp;修改个人信息 >></a></h4></div>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;上次登陆时间：<?php echo $this->login_log['logTime'];?></div>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;上次登陆IP：<?php echo $this->login_log['logIp'];?></div>
+                        </div>
+                        <!--<div>用户名：</div><div><?php echo $this->admininfo['admin_name'];?></div>
+                        <div>邮  箱：</div><div><?php echo $this->admininfo['email'];?></div>
+                        <div>电  话：</div><div><?php echo $this->admininfo['mobile'];?></div>
+                        <div>微  信：</div><div><?php echo $this->admininfo['wechat'];?></div>
+                        <button>保存</button>-->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-6">
+            <!-- tile -->
+            <section class="tile color transparent-white">
+
+                <!-- tile header -->
+                <div class="tile-header">
+                    <div class="row">
+                        <div class="col-md-9"><h1>我发起的任务<strong>T-List</strong></h1></div>
+                        <div class="col-md-3"><h5><a href="/management/task" target="_blank">查看全部消息>></a></h5></div>
+                    </div>
+                    <div class="controls">
+                        <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <!-- /tile header -->
+
+                <!-- tile body -->
+                <div class="tile-body no-vpadding">
+                    <div>
+                    <!--<div class="table-responsive">-->
+                        <table class="table table-custom table-sortable nomargin">
+                            <thead>
+                            <tr>
+                                <th width="60%" class="">任务名称</th>
+                                <!--<th width="20%" class="">任务类型</th>-->
+                                <th width="20%" class="">任务进度</th>
+                                <th width="20%" class="">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <?php if(!empty($this->task_from)){?>
+                                    <?php foreach($this->task_from as $k => $v){?>
+                                    <tr>
+                                        <td><?php echo $v['title'];?></td>
+                                        <!--<td><?php /*echo $this->task_init_array['priority'][$v['priority']];*/?></td>-->
+                                        <td><?php echo $this->task_init_array['schedule'][$v['schedule']];?></td>
+                                        <td><a href="/management/task/taskinfo?id=<?php echo $v['id'];?>">
+                                                <button type="button" class="btn btn-greensea margin-bottom-20">查看/编辑</button>
+                                            </a>
+                                            <!--<a href="/management/task/edittaskmain?id=<?php /*echo $v['id'];*/?>">
+                                                <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button>
+                                            </a>-->
+                                        </td>
+                                    </tr>
+                                <?php }}?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /tile body -->
+
+                <!-- tile footer -->
+                <div class="tile-footer text-center">
+                    <ul class="pagination pagination-sm nomargin pagination-custom">
+                        <?php
+                        $this->page = str_replace("<a","<li><a",$this->page);
+                        $this->page = str_replace("/a>","/a></li>",$this->page);
+                        $this->page = str_replace('<span class="current">',"<li class='active'><a href='#'>",$this->page);
+                        $this->page = str_replace('</span>',"</a></li>",$this->page);
+                        echo $this->page;
+                        ?>
+                    </ul>
+                </div>
+                <!-- /tile footer -->
+
+
+                <!-- tile header -->
+                <div class="tile-header">
+                    <div class="row">
+                        <div class="col-md-9"><h1>需执行的任务<strong>T-List</strong></h1></div>
+                    </div>
+                </div>
+                <!-- /tile header -->
+
+                <!-- tile body -->
+                <div class="tile-body no-vpadding">
+                    <div>
+                        <!--<div class="table-responsive">-->
+                        <table class="table table-custom table-sortable nomargin">
+                            <thead>
+                            <tr>
+                                <th width="60%" class="">任务名称</th>
+                                <th width="20%" class="">任务类型</th>
+                                <th width="20%" class="">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php if(!empty($this->task_to)){?>
+                                <?php foreach($this->task_to as $k => $v){?>
+                                    <tr>
+                                        <td><?php echo $v['title'];?></td>
+                                        <!--<td><?php /*echo $this->task_init_array['priority'][$v['priority']];*/?></td>-->
+                                        <td><?php echo $this->task_init_array['schedule'][$v['schedule']];?></td>
+                                        <td>
+                                            <a href="/management/task/taskinfo?id=<?php echo $v['id'];?>">
+                                                <button type="button" class="btn btn-greensea margin-bottom-20">查看/编辑</button>
+                                            </a>
+                                            <!--<a href="/management/task/edittaskmain?id=<?php /*echo $v['id'];*/?>">
+                                                <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button>
+                                            </a>-->
+                                        </td>
+                                    </tr>
+                                <?php }}?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /tile body -->
+
+                <!-- tile footer -->
+                <div class="tile-footer text-center">
+                    <ul class="pagination pagination-sm nomargin pagination-custom">
+                        <?php
+                        $this->page = str_replace("<a","<li><a",$this->page);
+                        $this->page = str_replace("/a>","/a></li>",$this->page);
+                        $this->page = str_replace('<span class="current">',"<li class='active'><a href='#'>",$this->page);
+                        $this->page = str_replace('</span>',"</a></li>",$this->page);
+                        echo $this->page;
+                        ?>
+                    </ul>
+                </div>
+                <!-- /tile footer -->
+
+                <!-- tile header -->
+                <div class="tile-header">
+                    <div class="row">
+                        <div class="col-md-9"><h1>我协助的任务<strong>T-List</strong></h1></div>
+                    </div>
+                </div>
+                <!-- /tile header -->
+
+                <!-- tile body -->
+                <div class="tile-body no-vpadding">
+                    <div>
+                        <!--<div class="table-responsive">-->
+                        <table class="table table-custom table-sortable nomargin">
+                            <thead>
+                            <tr>
+                                <th width="60%" class="">任务名称</th>
+                                <th width="20%" class="">任务类型</th>
+                                <th width="20%" class="">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php if(!empty($this->task_helper)){?>
+                                <?php foreach($this->task_helper as $k => $v){?>
+                                    <tr>
+                                        <td><?php echo $v['title'];?></td>
+                                        <!--<td><?php /*echo $this->task_init_array['priority'][$v['priority']];*/?></td>-->
+                                        <td><?php echo $this->task_init_array['schedule'][$v['schedule']];?></td>
+                                        <td><a href="/management/task/taskinfo?id=<?php echo $v['id'];?>">
+                                                <button type="button" class="btn btn-greensea margin-bottom-20">查看/编辑</button>
+                                            </a>
+                                            <!--<a href="/management/task/edittaskmain?id=<?php /*echo $v['id'];*/?>">
+                                                <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button>
+                                            </a>-->
+                                        </td>
+                                    </tr>
+                                <?php }}?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /tile body -->
+
+                <!-- tile footer -->
+                <div class="tile-footer text-center">
+                    <ul class="pagination pagination-sm nomargin pagination-custom">
+                        <?php
+                        $this->page = str_replace("<a","<li><a",$this->page);
+                        $this->page = str_replace("/a>","/a></li>",$this->page);
+                        $this->page = str_replace('<span class="current">',"<li class='active'><a href='#'>",$this->page);
+                        $this->page = str_replace('</span>',"</a></li>",$this->page);
+                        echo $this->page;
+                        ?>
+                    </ul>
+                </div>
+                <!-- /tile footer -->
+
+            </section>
+            <!-- /tile -->
+        </div>
+
+        <!-- =========================================================================================================================================== -->
+
+        <div  class="col-md-6">
+            <!-- tile -->
+            <section class="tile color transparent-white">
+                <!-- tile header -->
+                <div class="tile-header">
+                    <div class="row">
+                        <div class="col-md-9"><h1>消息提示<strong>M-box</strong></h1></div>
+                        <!--<div class="col-md-3"><h5>查看全部消息>></h5></div>-->
+                    </div>
+                    <!--<div class="search">
+                        <input type="text" placeholder="Search...">
+                    </div>-->
+                    <div class="controls">
+                        <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <!-- /tile header -->
+
+                <!-- tile body -->
+                <!--<div class="tile-body no-vpadding">
+                    <div>
+                        <table class="table table-custom table-sortable nomargin">
+                            <thead>
+                            <tr>
+                                <th width="10%" class="">是否已读</th>
+                                <th width="20%" class="">消息时间</th>
+                                <th width="70%" class="">消息预览</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>●</td>
+                                <td><div>2017-11-03</div><div>10:30:20</div></td>
+                                <td>今天有一个项目需要跟进</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><div>2017-11-03</div><div>10:30:20</div></td>
+                                <td>今天有一个项目需要跟进</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>-->
+                <!-- /tile body -->
+
+                <!-- tile footer -->
+                <div class="tile-footer text-center">
+                    <ul class="pagination pagination-sm nomargin pagination-custom">
+                        <?php
+                        $this->page = str_replace("<a","<li><a",$this->page);
+                        $this->page = str_replace("/a>","/a></li>",$this->page);
+                        $this->page = str_replace('<span class="current">',"<li class='active'><a href='#'>",$this->page);
+                        $this->page = str_replace('</span>',"</a></li>",$this->page);
+                        echo $this->page;
+                        ?>
+                    </ul>
+                </div>
+                <!-- /tile footer -->
+
+            </section>
+            <!-- /tile -->
+        </div>
+
+    </div>
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <!--<script language="javascript">
+            $(".menu li:eq(29)").addClass("open");
+        </script>-->

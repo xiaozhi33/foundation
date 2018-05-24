@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+	<h2><i class="fa fa-tachometer"></i> Dashboard
+		<span>邮件设置</span></h2>
+
+	<div class="breadcrumbs">
+		<ol class="breadcrumb">
+			<li>您的位置</li>
+			<li class="active">邮件设置</li>
+		</ol>
+	</div>
+
+</div>
+<!-- /page header -->
+
+<div id="main" class="main">
+	<div id="rightstyle02" class="row col-md-10">
+		<!-- right column/section -->
+		<section class="tile color transparent-white">
+			<div class="add-group" style="margin-left: 30px;margin-top:20px; margin-bottom: 20px;">
+
+				<form action="" method="post" id="sampleform" enctype="multipart/form-data">
+					<fieldset>
+						<p>
+							<label for="test_email">接收测试邮箱地址</label><br>
+							<input type="text" class="half" id="test_email_text" value=""  /> <input class="btn btn-green big" id="test_email_btn" type="button" value="发送测试邮件" onclick="test_email_setting();">
+						</p>
+						<p>
+							<label for="smtp_server">SMTP 服务器：(例如: smtp.163.com)</label><br>
+							<input type="text" class="half" name="smtp_server" value="<?php echo $this->system['smtp_server']?>"  />
+						</p>
+						<p>
+							<label for="smtp_ssl">使用安全链接(SSL)连接服务器：(请根据服务商要求选择)</label><br>
+							<input type="radio" <?php if($this->system['smtp_ssl']=='Y') echo 'checked' ?> value="Y" name="smtp_ssl">是<input type="radio" <?php if($this->system['smtp_ssl']=='N') echo 'checked' ?> value="N" name="smtp_ssl">否 
+						</p>
+						<p>
+							<label for="smtp_port">SMTP 端口：(留空时默认服务器端口为 25，使用 SSL 协议默认端口为 465，详细参数请询问邮箱服务商)</label><br>
+							<input type="text" class="half" name="smtp_port" value="<?php echo $this->system['smtp_port']?>"  />
+						</p>
+						<p>
+							<label for="smtp_username">邮箱用户名：</label><br>
+							<input type="text" class="half" name="smtp_username" value="<?php echo $this->system['smtp_username']?>"  />
+						</p>
+						<p>
+							<label for="smtp_password">邮箱密码：</label><br>
+							<input type="text" class="half" name="smtp_password" value="<?php echo $this->system['smtp_password']?>"  />
+						</p>
+						<p>
+							<label for="from_email">系统邮件来源邮箱地址：(通常和邮箱用户名是一样的)</label><br>
+							<input type="text" class="half" name="from_email" value="<?php echo $this->system['from_email']?>"  />
+						</p>
+					</fieldset>
+					<p class="box"><input type="submit" value="保存设置" class="btn btn-green big"></p>
+				</form>
+			</div>
+		</section>
+		<!-- End of right column/section -->
+	</div>
+	<!-- End of Wrapper -->
+</div>
+<form method="post" name="test_email" id="test_email_form" action="/management/permission/test-email-setting" style="display:none">
+<input type="hidden" name="test_email" id="test_email" value="">
+</form>
+<!-- End of Page content -->
+
+<link rel="stylesheet" type="text/css" href="css/start/jquery-ui-1.9.1.custom.min.css" />
+<script>
+	function test_email_setting(){
+		email = $('#test_email_text').val();
+		if(email){
+			$('#test_email_btn').val('发送中...');
+			$('#test_email').val(email);
+			$('#test_email_form').submit();
+		}
+	}
+</script>

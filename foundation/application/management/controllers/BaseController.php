@@ -50,6 +50,30 @@
             '业务资料' => '业务资料',
         );
 
+        public $project_status = array(
+            //'0' => '未提交',
+            '1' => '电子版待审核',
+            '2' => '电子版审核未通过',
+            '3' => '电子版审核通过',
+            '4' => '签字盖章pdf文件待审核',
+            '5' => '签字盖章pdf文件审核未通过',
+            '6' => '签字盖章pdf文件审核通过',
+            '7' => '等待领导审核并签字',
+            '8' => '立项成功',
+        );
+
+        public $expenditure_status = array(
+            //'0' => '未提交',
+            '1' => '电子版待审核',
+            '2' => '电子版审核未通过',
+            '3' => '电子版审核通过',
+            '4' => '签字盖章pdf文件待审核',
+            '5' => '签字盖章pdf文件审核未通过',
+            '6' => '签字盖章pdf文件审核通过',
+            '7' => '等待领导审核并签字',
+            '8' => '资金使用申请成功',
+        );
+
 		public function init()
 	    {
 	    	$request_mod = $this->getRequest()->getParams();
@@ -65,7 +89,11 @@
             $this->shiyong_weirenling_list = $shiyong_weirenling_list = $this->orm->createDAO("pm_mg_info")->findCate_id("1")->findIs_renling("0")->get();
 
             $admininfo = SessionUtil::getAdmininfo();
-            $this->admininfo = $admininfo['admin_info'];
+            //$this->admininfo = $admininfo['admin_info'];
+            $my_adminDAO = $this->orm->createDAO('my_admin');
+            $my_adminDAO ->findId($admininfo['admin_info']['id']);
+            $my_adminDAO = $my_adminDAO->get();
+            $this->admininfo = $my_adminDAO[0];
 
             //捐赠项目金额
             $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findCate_id(0)->select(" sum(zijin_daozheng_jiner) as allsum")->get();
@@ -115,6 +143,11 @@
                 $_admin_list[$v['id']] = $v['admin_name'];
             }
 
+            $admin_groupDAO  = $this->orm->createDAO("admingroup")->get();
+            foreach($admin_groupDAO as $k => $v){
+                $_g_list[$v['gid']] = $v['gname'];
+            }
+
             $this->view->assign(array(
 				"module" => $request_mod['module'],
 				"controller" => $request_mod['controller'],
@@ -124,9 +157,12 @@
                 "pm_count" => count($this->pm_count),
                 "allsum" => (int)$pm_mg_infoDAO[0]['allsum'],
                 "meeting_count" => count($meetingDAO),
-                'admininfo' => $admininfo,
+                'admininfo' =>  $this->admininfo,
                 'task_init_array' => $this->task_init_array,
                 'admin_list_info' => $_admin_list,
+                'group_list' => $_g_list,
+                'project_status' => $this->project_status,
+                'expenditure_status' => $this->expenditure_status,
 			));
 
             //config
@@ -139,6 +175,56 @@
             }
             $this->view->assign("jjh_mg_pp_catelist",$jjh_mg_pp_catelist);
             $this->view->assign("pp_config",$this->pp_config);
+
+
+            // 立项申请审核
+            $_support_project_list = $this->orm->createDAO('_support_project');
+            $_support_project_list ->selectLimit .= ' AND status!=8';
+            $_support_project_list ->order(' lastmodify DESC ');
+            $_support_project_list = $_support_project_list->get();
+
+            $this->view->assign("support_project_list",$_support_project_list);
+            // 项目支出申请审核
+            $_support_expenditure_list = $this->orm->createDAO('_support_expenditure');
+            $_support_expenditure_list ->selectLimit .= ' AND status!=8';
+            $_support_expenditure_list ->order(' lastmodify DESC ');
+            $_support_expenditure_list = $_support_expenditure_list->get();
+
+            $this->view->assign("support_expenditure_list",$_support_expenditure_list);
+
+            // 操作类型
+            $active_array = array(
+                'tjdzsq' => '提交电子版申请',
+                'shtg' => '电子版申请审核通过',
+                'shsb' => '电子版申请审核失败',
+                'tjpdf' => '签字盖章pdf文件待审核',
+                'pdfshtg' => '签字盖章pdf文件审核通过',
+                'pdfshsb' => '签字盖章pdf文件审核失败',
+                'lxcg'  => '立项成功',
+            );
+            $this->view->assign("active_array",$active_array);
+
+            // 操作类型
+            $active_expenditure_array = array(
+                'tjsysq' => '提交资金使用申请',
+                'shtg' => '电子版申请审核通过',
+                'shsb' => '电子版申请审核失败',
+                'tjpdf' => '签字盖章pdf文件待审核',
+                'pdfshtg' => '签字盖章pdf文件审核通过',
+                'pdfshsb' => '签字盖章pdf文件审核失败',
+                'sqcg'  => '资金使用申请成功',
+            );
+            $this->view->assign("active_expenditure_array",$active_expenditure_array);
+
+			//网站配置
+			$this->systemSetting = $this->getSystemSetting();
+
+            // 待办任务列表list
+            $task_list_infoDAO = $this->orm->createDAO('jjh_mg_task');
+            $task_list_infoDAO ->selectLimit .= ' AND (FIND_IN_SET('.$this->admininfo['id'].',sponsor) OR FIND_IN_SET('.$this->admininfo['id'].',executor) OR FIND_IN_SET('.$this->admininfo['id'].',helper))';
+            $task_list_infoDAO ->selectLimit .= ' AND schedule!=100 ';
+            $task_list_infoDAO = $task_list_infoDAO->order(' schedule ASC, priority DESC, id DESC ')->get();
+            $this->view->assign("task_list_info",$task_list_infoDAO);
 
             $this->acl();
             $this->_init();
@@ -203,7 +289,7 @@
             exit;
         }
 
-        public function byte_format($size,$dec=2)
+        public function byte_format($size,$dec=2,$is_ex='true')
         {
             $a = array("B", "KB", "MB", "GB", "TB", "PB","EB","ZB","YB");
             $pos = 0;
@@ -212,7 +298,11 @@
                 $size /= 1024;
                 $pos++;
             }
-            return round($size,$dec)." ".$a[$pos];
+            if($is_ex){
+                return round($size,$dec)." ".$a[$pos];
+            }else {
+                return round($size,$dec);
+            }
         }
 	    
 	    public function _init(){

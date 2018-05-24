@@ -1,0 +1,437 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+
+<link href="/include/support/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/include/support/css/prettify.css" rel="stylesheet">
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>项目资金使用申请</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li class="active">项目资金使用申请</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <section class="tile color transparent-white">
+
+                <div id="rootwizard" class="tabbable tabs-left">
+                    <div id="crumbs">
+                    <ul>
+                        <li><a href="#tab1" data-toggle="tab">第1步</a></li>
+                        <li><a href="#tab2" data-toggle="tab">第2步</a></li>
+                        <li><a href="#tab3" data-toggle="tab">第3步</a></li>
+                        <li><a href="#tab4" data-toggle="tab">第4步</a></li>
+                        <li><a href="#tab5" data-toggle="tab">第5步</a></li>
+                    </ul>
+                    </div>
+                    <div class="tab-content" style="margin: 20px;">
+                        <div class="tab-pane" id="tab1">
+                            <p>下载电子版资金使用模板并认真填写资金使用信息，确认无误后，提交电子版资金使用文档( 以word的形式 )。</p>
+                            <div>
+                                <form class="form-horizontal" id="form1" action="savestepone" method="post" encType="multipart/form-data">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input01">所属项目名称：</label>
+                                        <div class="col-sm-4">
+                                            <select class="chosen-select-1 chosen-transparent form-control" id="pm_id" name="pm_id">
+                                                <option value="">请选择项目名称</option>
+                                                <?php if($this->expenditurelist != ""){
+                                                    foreach ($this->expenditurelist as $k => $v){
+                                                        ?>
+                                                        <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                                    <?php }}?>
+                                            </select>
+                                            <input id="pname_info" type="hidden" name="pname" value=""/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input01">电子版资金使用文档：</label>
+                                        <div class="col-sm-4">
+                                            <input name="img" type="file" value="" />
+                                        </div>
+                                        <!--<div><a  id="dzb" href="<?php echo $this->expenditure_info_log[0]['img'];?>" target="_blank">已上传电子版立项文档，点击查看</a></div>
+                                        <span class="col-sm-2" > * </span>-->
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input01">申请使用金额：</label>
+                                        <div class="col-sm-2">
+                                            <input name="jiner" type="text" value="" /> 元
+                                        </div>
+                                        <span> * </span>
+                                        <span id="yuer"> </span>
+                                        <span id="zcsx"> </span>
+                                    </div>
+
+                                    <div class="form-group transparent-editor">
+                                        <label class="col-sm-2 control-label" for="input14">申请说明：</label>
+                                        <div class="col-sm-4">
+                                            <textarea parsley-validation-minlength="1" name="instruction" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->expenditure_info[0]['instruction'];?></textarea>
+                                        </div>
+                                        <span class="col-sm-1" >  </span>
+                                    </div>
+
+                                    <input type="hidden" name="id" value="<?php echo $this->expenditure_info[0]['id'];?>"/>
+
+                                    <?php if($this->expenditure_info[0]['status'] == 0 || $this->expenditure_info[0]['status'] == 2){?>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-5 col-sm-7">
+                                            <input class="btn btn-primary" type="submit" value="提交审核，进入下一步" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                        </div>
+                                    </div>
+                                    <?php }?>
+
+                                </form>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane" id="tab2">
+                            <p>等待项目负责人审核，若通过则通知可以进行第三步，如不符合要求，则需修改并重新上传资金使用文档电子版。</p>
+
+                            <p>
+                                <button class="btn btn-large btn-primary" type="button"> 资金使用申请已提交，请等待审核结果。</button>
+                            </p>
+
+                            <p>温馨提示：审核结果通过会以邮件或短信的方式提醒您。</p>
+
+                        </div>
+
+                        <div class="tab-pane" id="tab3">
+                            <p>电子版本通过后，打印并签字盖章，扫描成pdf格式，再次上传并等待审核。</p>
+                            <div>
+                                <form class="form-horizontal" id="form1" action="savestepthree" method="post" encType="multipart/form-data">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                                        <div class="col-sm-2">
+                                            <?php echo $this->expenditure_info[0]['p_name'];?>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input01">签字盖章pdf文档：</label>
+                                        <div class="col-sm-4">
+                                            <input name="img" type="file" value="" />
+                                        </div>
+                                        <!--<div><a  id="dzb" href="<?php echo $this->expenditure_info_log[0]['img'];?>" target="_blank">已上传电子版立项文档，点击查看</a></div>
+                                        <span class="col-sm-2" > * </span>-->
+                                    </div>
+
+                                    <div class="form-group transparent-editor">
+                                        <label class="col-sm-2 control-label" for="input14">申请说明：</label>
+                                        <div class="col-sm-4">
+                                            <textarea parsley-validation-minlength="1" placeholder="请填写申请说明" name="instruction" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php /*echo $this->expenditure_info[0]['instruction'];*/?></textarea>
+                                        </div>
+                                        <span class="col-sm-1" >  </span>
+                                    </div>
+
+                                    <input type="hidden" name="id" value="<?php echo $this->expenditure_info[0]['id'];?>"/>
+
+                                    <?php if($this->expenditure_info[0]['status'] == 3 || $this->expenditure_info[0]['status'] == 5){?>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-5 col-sm-7">
+                                                <input class="btn btn-primary" type="submit" value="提交审核，进入下一步" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                            </div>
+                                        </div>
+                                    <?php }?>
+
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tab4">
+                            <p>等待领导确认和项目管理人员审核，如有问题返回第三步，如无问题立项申请成功。</p>
+                        </div>
+
+                        <div class="tab-pane" id="tab5">
+                            <p>资金使用申请成功后，寄送资金使用文档到基金会，申领完成。</p>
+                        </div>
+
+                        <!--<ul class="pager wizard">
+                            <li class="previous first" style="display:none;"><a href="#"> 第一步</a></li>
+                            <li class="previous"><a href="#"> 上一步</a></li>
+                            <li class="next last" style="display:none;"><a href="#"> 最后一步 </a></li>
+                            <li class="next"><a href="#">下一步</a></li>
+                        </ul>-->
+                    </div>
+                </div>
+
+            </section>
+
+            <?php
+            if($this->expenditure_info[0]['status'] != 0){
+                if($this->expenditure_info[0]['status'] == 2){
+                ?>
+
+                <section class="tile color transparent-white" style="padding: 10px;">
+                    <div style="margin: 10px;"><h5> 进度状态：<strong style="color: red;"><?php $number = (int)$this->expenditure_info[0]['status']; echo $this->project_status[$number];?></strong> -- 请重新填写并上传立项电子版文档</h5></div>
+                    <div style="margin: 10px;"><h5> 审核失败理由：<?php echo $this->shsb[0]['desc'];?></h5></div>
+                    <div style="margin: 10px;"><h5> 审核失败图示：<img src="<?php echo $this->shsb[0]['img'];?>" /></h5></div>
+                    <div style="margin: 10px;"><h5> 审核时间：<?php echo date("Y-m-d H:i:s", $this->shsb[0]['lastmodify']);?></h5></div>
+                </section>
+
+                <?php }elseif($this->expenditure_info[0]['status'] == 5){ ?>
+
+                <section class="tile color transparent-white" style="padding: 10px;">
+                    <div style="margin: 10px;"><h5> 进度状态：<strong style="color: red;"><?php $number = (int)$this->expenditure_info[0]['status']; echo $this->project_status[$number];?></strong> -- 请重新填写并上传签字盖章pdf文件</h5></div>
+                    <div style="margin: 10px;"><h5> 审核失败理由：<?php echo $this->pdfshsb[0]['desc'];?></h5></div>
+                    <div style="margin: 10px;"><h5> 审核失败图示：<img src="<?php echo $this->pdfshsb[0]['img'];?>" /></h5></div>
+                    <div style="margin: 10px;"><h5> 审核时间：<?php echo date("Y-m-d H:i:s", $this->pdfshsb[0]['lastmodify']);?></h5></div>
+                    </section>
+
+                <?php }else{ ?>
+                    <section class="tile color transparent-white" style="padding: 10px;">
+                        <div style="margin: 10px;"><h5> 进度状态：<strong style="color: red;"><?php $number = (int)$this->expenditure_info[0]['status']; echo $this->expenditure_status[$number];?></strong></div>
+                    </section>
+                <?php }?>
+            <?php }?>
+        </div>
+    </div>
+
+</div><!-- tab-pane -->
+</div><!-- tab-content -->
+</div>
+</div>
+<!-- Make page fluid-->
+
+</div>
+<!-- Wrap all page content end -->
+<section class="videocontent" id="video"></section>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/include/management/assets/js/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/include/management/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+
+<?php if($this->controller == "index") {?>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="/include/management/assets/js/vendor/easypiechart/jquery.easypiechart.min.js"></script>
+    <!--<script src="/include/management/assets/js/vendor/flot/jquery.flot.orderBars.js"></script>-->
+
+    <script type="text/javascript" src="/include/management/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.time.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.selection.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.animator.min.js"></script>
+
+    <script src="/include/management/assets/js/vendor/rickshaw/raphael-min.js"></script>
+    <script src="/include/management/assets/js/vendor/rickshaw/d3.v2.js"></script>
+    <script src="/include/management/assets/js/vendor/rickshaw/rickshaw.min.js"></script>
+
+    <script src="/include/management/assets/js/vendor/morris/morris.min.js"></script>
+    <script src="/include/management/assets/js/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
+    <script src="/include/management/assets/js/vendor/summernote/summernote.min.js"></script>
+    <script src="/include/management/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+<?php }?>
+
+<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+<script src="/include/management/assets/js/vendor/summernote/summernote.min.js"></script>
+
+<script src="/include/management/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+
+<script src="/include/management/assets/js/vendor/momentjs/moment-with-langs.min.js"></script>
+<script src="/include/management/assets/js/vendor/datepicker/bootstrap-datetimepicker.min.js"></script>
+
+<script src="/include/management/assets/js/minimal.min.js"></script>
+
+
+<script>
+    // Initialize card flip
+    $('.card.hover').hover(function(){
+        $(this).addClass('flip');
+    },function(){
+        $(this).removeClass('flip');
+    });
+</script>
+
+<script language="javascript">
+    //搜索功能采用get方式 关键词下拉提示，
+    $(".chosen-select-1").chosen({
+        search_contains: true,
+        no_results_text : "未找到此选项!",
+        //width:"70%",
+        height:"60%",
+        disable_search_threshold: 10
+    });
+
+    $(".chosen-select-2").chosen({
+        search_contains: true,
+        disable_search_threshold: 10
+    });
+</script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/include/support/bootstrap/js/bootstrap.min.js"></script>
+
+<script src="/include/support/js/jquery.bootstrap.wizard.js"></script>
+<script src="/include/support/js/prettify.js"></script>
+
+<script language="javascript">
+
+    $(".chosen-select-1").change(function(){
+        var ss = $(this).children('option:selected').val();
+        if(ss != ""){
+            $.ajax({
+                type:'post',
+                url: '/support/chouzi/ajaxpinfo',
+                data:{"pid":ss},
+                cache:false,
+                dataType:'json',
+                success:function(data){
+                    if("undefined" != typeof data['rs']['yuer']){
+                        if(data['rs']['yuer'] != '' && data['rs']['percent'] != '' && data['rs']['shiyong'] != ''){
+                            $('#yuer').html(" 该项目剩余资金为 "+data['rs']['yuer']+" 元");
+                            $('#zcsx').html(" 本次支出不能超过剩余资金的 "+data['rs']['percent']+"%"+" "+"即："+data['rs']['yuer']+" * "+data['rs']['percent']+"% = "+ data['rs']['shiyong']+"元");
+                        }
+                    }
+                    //console.log(data);return false;
+                },
+                complete:function(data){
+
+                }
+            });
+        }
+    });
+
+    $('#rootwizard').bootstrapWizard({
+        tabClass: 'nav nav-pills',
+        onTabClick: function(tab, navigation, index) {
+            //alert('on tab click disabled');
+            return false;
+        },
+        onPrevious: function(tab, navigation, index){
+
+        },
+        onNext: function(tab, navigation, index){
+            var form = $("#form"+index);
+            form.submit();
+            return false;
+            //console.log(form.html());
+        },
+    });
+    $('#rootwizard').bootstrapWizard('show',
+        <?php
+            if($_REQUEST['step'] !=''){
+                echo (int)$_REQUEST['step']-1;
+            }else{
+                if($this->expenditure_info[0]['status'] != 0) {
+                    if ($this->expenditure_info[0]['status'] == 1 || $this->expenditure_info[0]['status'] == 2) {
+                        echo 0;
+                    } elseif ($this->expenditure_info[0]['status'] == 6 || $this->expenditure_info[0]['status'] == 7) {
+                        echo 3;
+                    }elseif($this->expenditure_info[0]['status'] == 5) {
+                        echo 2;
+                    }elseif($this->expenditure_info[0]['status'] > 7) {
+                        echo 4;
+                    }else {
+                        echo (int)$this->expenditure_info[0]['status']-1;
+                    }
+                }else {
+                    echo 0;
+                }
+            }
+        ?>);
+</script>
+
+<style>
+
+    #crumbs {
+        text-align: left;
+        margin-left: 20px;
+    }
+
+    #crumbs ul {
+        list-style: none;
+        display: inline-table;
+    }
+    #crumbs ul li {
+        display: inline;
+    }
+
+    #crumbs ul li a {
+        display: block;
+        float: left;
+        height: 50px;
+        background: #3498db;
+        text-align: center;
+        padding: 10px 50px 0px 60px;
+        position: relative;
+        margin: 30px 15px 0px 0px;
+
+        font-size: 20px;
+        text-decoration: none;
+        color: #fff;
+    }
+    #crumbs ul li a:after {
+        content: "";
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+        border-left: 42px solid #3498db;
+        position: absolute; right: -40px; top: 0;
+        z-index: 1;
+    }
+
+    #crumbs ul li a:before {
+        content: "";
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+        border-left: 42px solid #d4f2ff;
+        position: absolute; left: 0; top: 0;
+    }
+
+    #crumbs ul li:first-child a {
+        border-top-left-radius: 10px; border-bottom-left-radius: 10px;
+    }
+    #crumbs ul li:first-child a:before {
+        display: none;
+    }
+
+    #crumbs ul li:last-child a {
+        padding-right: 80px;
+        border-top-right-radius: 10px; border-bottom-right-radius: 10px;
+    }
+    #crumbs ul li:last-child a:after {
+        display: none;
+    }
+
+    /*#crumbs ul li a:hover {
+        background: #fa5ba5;
+    }
+    #crumbs ul li a:hover:after {
+        border-left-color: #fa5ba5;
+    }*/
+
+    #crumbs ul li.active a{
+        background: #fa5ba5;
+    }
+
+    #crumbs ul li.active a:after {
+        border-left-color: #fa5ba5;
+    }
+</style>
+

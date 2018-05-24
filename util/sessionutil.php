@@ -126,5 +126,37 @@ class SessionUtil{
         }
     }
 
+	public static function initSupportSession($result)
+	{
+		SessionUtil::sessionSet(array(
+			'userType'		=> 'support',
+			'environment'		=> 'support',
+			'mycmsvip'		=> array(
+				'admin_id'		=> $result[0]['id'],
+				'admin_name'	=> $result[0]['username'],
+				'admin_info'	=> $result[0]
+			)
+		));
+	}
+
+	public static function checkSupport($linkFor=null)
+	{
+		self::sessionStart();
+		if($_SESSION['environment'] != 'support'){
+			alert_go_old('非法操作！','/support/index/loginview');
+		}
+		if(empty($_SESSION['mycmsvip'])){
+			if(isset($linkFor)) header('location: '.$linkFor);
+			else {
+				$returnURL = base64_encode($_SERVER['REQUEST_URI']);
+				if ($_SERVER['QUERY_STRING']!=''){
+					$returnURL = base64_encode($_SERVER['REQUEST_URI'].'?'.$_SERVER['QUERY_STRING']);
+				}
+				header('location: '.__BASEURL__.'/support/index/loginview?returnURL='.$returnURL);
+				exit();
+			}
+		}
+	}
+
 }
 ?>

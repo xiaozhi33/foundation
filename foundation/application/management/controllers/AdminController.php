@@ -99,11 +99,13 @@
             try{
                 if($_REQUEST['name'] != "" ){
                     // 同步财务系统部门信息
-                    $deparmentlDAO = new CW_API();
+					////////////////////////////////////////////////////////////////////////////////
+                    /*$deparmentlDAO = new CW_API();
                     $rs1 = $deparmentlDAO ->get_max_departmentID();
                     $bmbh = (int)$rs1[0]['bmbh'] + 1;
                     $zwbmzdlDAO = new CW_API();
-                    $rs = $zwbmzdlDAO ->sync_department($bmbh, $_REQUEST['name']);
+                    $rs = $zwbmzdlDAO ->sync_department($bmbh, $_REQUEST['name']);*/
+					//////////////////////////////////////////////////////////////////////////////////
 					$rs = true;
                     if($rs){
                         $departmentinfo = new jjh_mg_departmentDAO();
@@ -762,6 +764,16 @@
                 alert_back("操作失败");
             }
         }
+
+		// 通讯录
+		public function addressbookAction()
+		{
+			$admin_list = $this->orm->createDAO("my_admin")->get();
+			$this->view->assign("admin_list",$admin_list);
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("admin/addressbook.phtml");
+			echo $this->view->render("index/footer.phtml");
+		}
 		
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
@@ -810,6 +822,7 @@
                 'isnot_pp',
                 'ajaxaddpp',
                 'to-addadmingroup',
+				'addressbook',
             );
             if (in_array($action, $except_actions)) {
                 return;

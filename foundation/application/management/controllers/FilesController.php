@@ -1,5 +1,6 @@
 <?php
 	require_once("BaseController.php");
+    //  require_once("/phpword");
 	class Management_filesController extends BaseController
     {
 		public function indexAction(){
@@ -38,7 +39,7 @@
             $upload_datetime = date("Y-m-d H:i:s", time());
             $description = HttpUtil::postString("description");
             $admininfo = SessionUtil::getAdmininfo();
-            $uploader = $this->admininfo['admin_info']['admin_name'];
+            $uploader = $this->admininfo['admin_name'];
 
             $filesDAO = $this->orm->createDAO('jjh_mg_files');
             if($_FILES['files']['name']!=""){
@@ -50,6 +51,10 @@
                     $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
                     $result = $uploadpic->uploadPic();
                     if($result['error']!=0){
+
+                        // 成功后保存文件内容到 my_search_info 表中
+                        // $this->readfiles($_FILES);
+
                         echo "<script>alert('".$result['msg']."');";
                         echo "window.location.href='/management/files';";
                         echo "</script>";
@@ -154,6 +159,30 @@
                     exit();
                 }
             }
+        }
+
+        /**
+         * @param $files 读取文件content
+         * @param $type
+         * @throws Exception
+         */
+        public function readfiles($files)
+        {
+            try{
+
+            }catch(Exception $e){
+                throw $e;
+            }
+        }
+
+        /**
+         * @param $pdfname 读取PDF页数
+         * @return int
+         */
+        public function count_pages($pdfname) {
+            $pdftext = file_get_contents($pdfname);
+            $num = preg_match_all("/\/Page\W/", $pdftext, $dummy);
+            return $num;
         }
 
          public function _init(){

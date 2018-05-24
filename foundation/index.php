@@ -19,21 +19,19 @@ date_default_timezone_set('PRC');
 		}
 	}
 
-    //$pwd = "tjdxjjh";
-    //echo substr(md5(serialize( $pwd)), 0, 32);exit();
-
 	require_once("configs.php");
 
     $controller = Zend_Controller_Front::getInstance();
 	$controller->setControllerDirectory(array(
-		'default'  =>  'application/default/controllers',
-		'admin'    =>  'application/admin/controllers',      //网站后台管理
+		//'default'  =>  'application/default/controllers',
+		//'admin'    =>  'application/admin/controllers',      //网站后台管理
 		'management'	=>	'application/management/controllers',	//项目管理系统
-        'oldmanagement'	=>	'application/oldmanagement/controllers',	//老系统
+        //'oldmanagement'	=>	'application/oldmanagement/controllers',	//老系统
         'mobile'	=>	'application/mobile/controllers',	//m站
         'api'	=>	'application/api/controllers',	//公共接口
         'app'	=>	'application/app/controllers',	//app
-        'test'	=>	'application/test/controllers'	//演示环境
+		'support' => 'application/support/controllers', // 支撑系统 查询和申请系统
+        //'test'	=>	'application/test/controllers'	//演示环境
 	));
 
     $controller	->throwExceptions(true);  

@@ -32,7 +32,7 @@
 				<div class="row">
 					<div class="form-group col-sm-3">
 						<label for="input05">任务名称：</label>
-						<input type="text" class="form-control" name="task_number" />
+						<input type="text" class="form-control" name="title" value="<?php echo $_REQUEST['title'];?>"/>
 					</div>
 					<div class="form-group">
                         <div class="form-group col-sm-2">
@@ -55,10 +55,11 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="24%">任务名称</td>
-						<td width="24%">任务执行人</td>
-						<td width="20%">任务类型</td>
-                        <td width="20%">任务进度</td>
+						<td width="54%">任务名称</td>
+						<!--<td width="24%">任务执行人</td>-->
+						<td width="10%">优先级</td>
+						<td width="10%">任务类型</td>
+                        <td width="10%">任务进度</td>
 						<td width="13%">操作</td>
 					  </tr>
 					</thead>
@@ -68,17 +69,24 @@
 						 <tr>
                              <?php //var_dump($this->admininfo);?>
 						 	<td><?php echo $v['title'];?>&nbsp;</td>
-							<td><?php echo $this->admin_list_info[$v['executor']];?>&nbsp;</td>
+							<!--<td><?php /*echo $this->admin_list_info[$v['executor']];*/?>&nbsp;</td>-->
 							<!--<td><?php /*echo $this->task_init_array['status'][$v['status']];*/?>&nbsp;</td>-->
+							<td><?php echo $this->task_init_array['priority'][$v['priority']];?>&nbsp;</td>
                             <td><?php echo $this->task_init_array['type'][$v['type']];?>&nbsp;</td>
                             <td><?php echo $this->task_init_array['schedule'][$v['schedule']];?>&nbsp;</td>
 
 
 
-							<td><a href="/management/task/edittaskmain?id=<?php echo $v['id'];?>">
-                            <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
-                             <a href="/management/task/deltaskmain?id=<?php echo $v['id'];?>">
-                             <button type="button" class="btn btn-danger margin-bottom-20" onclick= "if(confirm( '是否确定删除！ 删除将无法找回有关该任务的信息。')==false) return false; ">删除</button></a>
+							<td>
+								<a href="/management/task/taskinfo?id=<?php echo $v['id'];?>">
+									<button type="button" class="btn btn-greensea margin-bottom-20">查看/编辑</button>
+								</a>
+								<!--<a href="/management/task/edittaskmain?id=<?php /*echo $v['id'];*/?>">
+                            		<button type="button" class="btn btn-greensea margin-bottom-20">编辑</button>
+								</a>
+                             	<a href="/management/task/deltaskmain?id=<?php echo $v['id'];?>">
+                             	<button type="button" class="btn btn-danger margin-bottom-20" onclick= "if(confirm( '是否确定删除！ 删除将无法找回有关该任务的信息。')==false) return false; ">删除</button></a>
+                             	-->
                             </td>
 						 </tr>
 					   <?php }?>

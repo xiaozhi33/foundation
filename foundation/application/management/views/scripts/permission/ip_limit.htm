@@ -1,0 +1,36 @@
+<?php echo $this->render('inc/header.htm') ?>
+	<link rel="stylesheet" type="text/css" href="css/start/jquery-ui-1.9.1.custom.min.css" />
+	<!-- Page content -->
+	<div id="page">
+		<!-- Wrapper -->
+		<div class="wrapper">
+			<!-- left column/section -->
+			<?php echo $this->render('inc/_left_nav.htm') ?>
+			<!-- End of left column/section -->
+			
+			<!-- right column/section -->
+			<section class="column width6 right_content">
+				<div class="add-group">
+					<span class="label label-gray"><a>IP 限制</a></span>
+					<form action="" method="post" id="sampleform" enctype="multipart/form-data">
+						<fieldset>
+							<p>
+								<label for="ip_limit" class="required"> IP 白名单列表:</label><br>
+								<textarea id="ip_limit" class="tarea" cols="50" name="ip_limit" rows="6" style="height: 100px;"><?php echo str_replace("|", "\r", implode('|', unserialize($this->system[0]['wd_ip_limit']))) ?></textarea>
+								<br>
+								<b>每行一个</b><br>
+								第一种格式：具体的IP，如127.0.0.1<br>
+								第二种格式：IP段，如192.168.1.*<br>
+								中间不要空行								
+							</p>
+						</fieldset>
+						<p class="box"><input type="submit" value="确定" class="btn btn-green big"></p>
+					</form>
+				</div>
+			</section>
+			<!-- End of right column/section -->
+		</div>
+		<!-- End of Wrapper -->
+	</div>
+	<!-- End of Page content -->
+<?php echo $this->render('inc/footer.htm') ?>

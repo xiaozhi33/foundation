@@ -1,0 +1,964 @@
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>编辑头像</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>个人中心</li>
+            <li class="active">编辑头像</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+<style>
+        article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block;}
+        audio,canvas,video{display:inline-block;}audio:not([controls]){display:none;height:0;}[hidden]{display:none;}
+        html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+        body{margin:0;}
+        a:focus{outline:thin dotted;}
+        a:active,a:hover{outline:0;}
+        h1{font-size:2em;margin:0.67em 0;}
+        abbr[title]{border-bottom:1px dotted;}
+        b,strong{font-weight:bold;}
+        dfn{font-style:italic;}
+        hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0;}
+        mark{background:#ff0;color:#000;}
+        code,kbd,pre,samp{font-family:monospace,serif;font-size:1em;}
+        pre{white-space:pre-wrap;}q{quotes:"\201C" "\201D" "\2018" "\2019";}
+        small{font-size:80%;}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline;}
+        sup{top:-0.5em;}sub{bottom:-0.25em;}img{border:0;}svg:not(:root){overflow:hidden;}
+        figure{margin:0;}
+        fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:0.35em 0.625em 0.75em;}
+        legend{border:0;padding:0;}
+        button,input,select,textarea{font-family:inherit;font-size:100%;margin:0;}
+        button,input{line-height:normal;}button,select{text-transform:none;}
+        button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer;}
+        button[disabled],html input[disabled]{cursor:default;}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0;}
+        input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}
+        input[type="search"]::-webkit-search-cancel-button,input[type="search"]
+        ::-webkit-search-decoration{-webkit-appearance:none;}
+        button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}
+        textarea{overflow:auto;vertical-align:top;}table{border-collapse:collapse;border-spacing:0;}
+
+        @charset "utf-8";
+        .container{width:400px;margin:40px auto 0 0;position:relative;font-family:微软雅黑;font-size:12px;}
+        .container p{line-height:12px;line-height:0px;height:0px;margin:10px;color:#bbb}
+        .action{
+            width:400px;
+            height:45px;
+            margin:10px 0;  }
+        .cropped{position:absolute;right:-230px;top:0;width:200px;border:1px #ddd solid;height:460px;padding:4px;box-shadow:0px 0px 12px #ddd;text-align:center;}.imageBox{position:relative;height:400px;width:400px;border:1px solid #aaa;background:#fff;overflow:hidden;background-repeat:no-repeat;cursor:move;box-shadow:4px 4px 12px #B0B0B0;}
+        .imageBox .thumbBox{position:absolute;top:50%;left:50%;width:200px;height:200px;margin-top:-100px;margin-left:-100px;box-sizing:border-box;border:1px solid rgb(102,102,102);box-shadow:0 0 0 1000px rgba(0,0,0,0.5);background:none repeat scroll 0% 0% transparent;}
+        .imageBox .spinner{position:absolute;top:0;left:0;bottom:0;right:0;text-align:center;line-height:400px;background:rgba(0,0,0,0.7);}
+
+        .Btnsty_peyton{
+            width: 60px;
+            display: inline-block;
+            margin-bottom: 10px;
+            height: 45px;
+            line-height: 45px;
+            font-size: 18px;
+            color: #FFFFFF;
+            margin: 0px 2px;
+            background-color: #1e88e5;
+            border-radius: 3px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0px 0px 5px #B0B0B0;
+            border: 0px #fff solid;}
+
+        .new-contentarea{
+            width:90px;
+            overflow:hidden;
+            margin:0 6px 0 0;
+            position:relative;
+            float:left;}
+        .action .btn{
+            float: right;
+            height: 45px;
+            width: 90px;
+            font-size: 16px;
+            text-align: center;
+            display: inline-block;
+            margin: 0 2px;
+            background-color: #1e88e5;
+            border-radius: 3px;
+            color: #fff;
+        }
+        .new-contentarea label{width:100%;height:100%;display:block;}
+
+        .new-contentarea input[type=file]{
+            width: 90px;
+            height: 45px;
+            background: #333;
+            margin: 0 auto;
+            position: absolute;
+            right: 50%;
+            margin-right: -45px;
+            top: 0;
+            right: 0px\9;
+            margin-right: 0px\9;
+            width: 10px\9;
+            opacity: 0;
+            filter: alpha(opacity=0);
+            z-index: 2;}
+
+        a.upload-img{
+            width:90px;
+            display:inline-block;
+            margin-bottom:10px;
+            height:45px;
+            line-height:45px;
+            font-size:18px;
+            color:#FFFFFF;
+            background-color:#1e88e5;
+            border-radius:3px;
+            text-decoration:none;
+            cursor:pointer;
+            border:0px #fff solid;
+            box-shadow:0px 0px 5px #B0B0B0;}
+        a.upload-img:hover{background-color:#ec7e70;}.tc{text-align:center;}
+</style>
+
+<form id="form" action="saveheadimg" method="post" enctype="multipart/form-data" />
+<div class="sucainiu-container">
+    <div class="container">
+        <div class="imageBox">
+            <div class="thumbBox"></div>
+            <div class="spinner" style="display: none">Loading...</div>
+        </div>
+        <div class="action">
+            <div class="new-contentarea tc">
+                <a href="javascript:void(0)" class="upload-img">
+                    <label for="upload-file">上传图像</label>
+                </a>
+                <input type="file" class="" name="upload-file" id="upload-file" />
+            </div>
+            <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+"  >
+            <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-" >
+            <input type="button" id="btnCrop"  class="Btnsty_peyton" value="裁切">
+            <button type="submit" class="btn" id="btnUp">确认修改</button>
+        </div>
+        <div class="cropped"></div>
+    </div>
+</div>
+</form>
+
+</div><!-- tab-pane -->
+</div><!-- tab-content -->
+</div>
+</div>
+<!-- Make page fluid-->
+
+</div>
+<!-- Wrap all page content end -->
+<section class="videocontent" id="video"></section>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/include/management/assets/js/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/include/management/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+
+<?php if($this->controller == "index") {?>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="/include/management/assets/js/vendor/easypiechart/jquery.easypiechart.min.js"></script>
+    <!--<script src="/include/management/assets/js/vendor/flot/jquery.flot.orderBars.js"></script>-->
+
+    <script type="text/javascript" src="/include/management/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.time.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.selection.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.animator.min.js"></script>
+
+    <script src="/include/management/assets/js/vendor/rickshaw/raphael-min.js"></script>
+    <script src="/include/management/assets/js/vendor/rickshaw/d3.v2.js"></script>
+    <script src="/include/management/assets/js/vendor/rickshaw/rickshaw.min.js"></script>
+
+    <script src="/include/management/assets/js/vendor/morris/morris.min.js"></script>
+    <script src="/include/management/assets/js/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
+    <script src="/include/management/assets/js/vendor/summernote/summernote.min.js"></script>
+    <script src="/include/management/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+<?php }?>
+
+<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+<script src="/include/management/assets/js/vendor/summernote/summernote.min.js"></script>
+
+<script src="/include/management/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+
+<script src="/include/management/assets/js/vendor/momentjs/moment-with-langs.min.js"></script>
+<script src="/include/management/assets/js/vendor/datepicker/bootstrap-datetimepicker.min.js"></script>
+
+<script src="/include/management/assets/js/minimal.min.js"></script>
+
+
+
+<script>
+    $(function(){
+        //initialize datepicker
+        $('#datepicker').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker").on("dp.show",function (e) {
+            var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker1').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker1").on("dp.show",function (e) {
+            var newtop1 = $(".bootstrap-datetimepicker-widget").position(relative).top - 45;
+            alert(newtop1);
+            $('.bootstrap-datetimepicker-widget').css('top', newtop1 + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker2').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker2").on("dp.show",function (e) {
+            var newtop2 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop2 + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker3').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker3").on("dp.show",function (e) {
+            var newtop3 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop3 + 'px');
+        });
+
+        // Initialize flot chart
+        var d1 =[ [1, 715],
+            [2, 985],
+            [3, 1525],
+            [4, 1254],
+            [5, 1861],
+            [6, 2621],
+            [7, 1987],
+            [8, 2136],
+            [9, 2364],
+            [10, 2851],
+            [11, 1546],
+            [12, 2541]
+        ];
+        var d2 =[ [1, 463],
+            [2, 578],
+            [3, 327],
+            [4, 984],
+            [5, 1268],
+            [6, 1684],
+            [7, 1425],
+            [8, 1233],
+            [9, 1354],
+            [10, 1200],
+            [11, 1260],
+            [12, 1320]
+        ];
+        var months = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+
+        <?php if($this->module == "management" && $this->controller == "index" && $this->action == "index"){?>
+        // flot chart generate
+        var plot = $.plotAnimator($("#statistics-chart"),
+            [
+                {
+                    label: 'Sales',
+                    data: d1,
+                    lines: {lineWidth:3},
+                    shadowSize:0,
+                    color: '#ffffff'
+                },
+                { label: "Visits",
+                    data: d2,
+                    animator: {steps: 99, duration: 500, start:200, direction: "right"},
+                    lines: {
+                        fill: .15,
+                        lineWidth: 0
+                    },
+                    color:['#ffffff']
+                },{
+                label: 'Sales',
+                data: d1,
+                points: { show: true, fill: true, radius:6,fillColor:"rgba(0,0,0,.5)",lineWidth:2 },
+                color: '#fff',
+                shadowSize:0
+            },
+                { label: "Visits",
+                    data: d2,
+                    points: { show: true, fill: true, radius:6,fillColor:"rgba(255,255,255,.2)",lineWidth:2 },
+                    color: '#fff',
+                    shadowSize:0
+                }
+            ],{
+
+                xaxis: {
+
+                    tickLength: 0,
+                    tickDecimals: 0,
+                    min:1,
+                    ticks: [[1,"一月"], [2, "二月"], [3, "三月"], [4, "四月"], [5, "五月"], [6, "六月"], [7, "七月"], [8, "八月"], [9, "九月"], [10, "十月"], [11, "十一月"], [12, "十二月  "]],
+
+                    font :{
+                        lineHeight: 24,
+                        weight: "300",
+                        color: "#ffffff",
+                        size: 14
+                    }
+                },
+
+                yaxis: {
+                    ticks: 4,
+                    tickDecimals: 0,
+                    tickColor: "rgba(255,255,255,.3)",
+
+                    font :{
+                        lineHeight: 13,
+                        weight: "300",
+                        color: "#ffffff"
+                    }
+                },
+
+                grid: {
+                    borderWidth: {
+                        top: 0,
+                        right: 0,
+                        bottom: 1,
+                        left: 1
+                    },
+                    borderColor: 'rgba(255,255,255,.3)',
+                    margin:0,
+                    minBorderMargin:0,
+                    labelMargin:20,
+                    hoverable: true,
+                    clickable: true,
+                    mouseActiveRadius:6
+                },
+
+                legend: { show: false}
+            });
+
+
+        $(window).resize(function() {
+            // redraw the graph in the correctly sized div
+            plot.resize();
+            plot.setupGrid();
+            plot.draw();
+        });
+
+        $('#mmenu').on(
+            "opened.mm",
+            function()
+            {
+                // redraw the graph in the correctly sized div
+                plot.resize();
+                plot.setupGrid();
+                plot.draw();
+            }
+        );
+
+        $('#mmenu').on(
+            "closed.mm",
+            function()
+            {
+                // redraw the graph in the correctly sized div
+                plot.resize();
+                plot.setupGrid();
+                plot.draw();
+            }
+        );
+
+        // tooltips showing
+        $("#statistics-chart").bind("plothover", function (event, pos, item) {
+            if (item) {
+                var x = item.datapoint[0],
+                    y = item.datapoint[1];
+
+                $("#tooltip").html('<h1 style="color: #418bca">' + months[x - 1] + '</h1>' + '<strong>' + y + '</strong>' + ' ' + item.series.label)
+                    .css({top: item.pageY-30, left: item.pageX+5})
+                    .fadeIn(200);
+            } else {
+                $("#tooltip").hide();
+            }
+        });
+
+        //tooltips options
+        $("<div id='tooltip'></div>").css({
+            position: "absolute",
+            //display: "none",
+            padding: "10px 20px",
+            "background-color": "#ffffff",
+            "z-index":"99999"
+        }).appendTo("body");
+
+        //generate actual pie charts
+        $('.pie-chart').easyPieChart();
+
+
+        //server load rickshaw chart
+        var graph;
+
+        var seriesData = [ [], []];
+        var random = new Rickshaw.Fixtures.RandomData(50);
+
+        for (var i = 0; i < 50; i++) {
+            random.addData(seriesData);
+        }
+
+        graph = new Rickshaw.Graph( {
+            element: document.querySelector("#serverload-chart"),
+            height: 150,
+            renderer: 'area',
+            series: [
+                {
+                    data: seriesData[0],
+                    color: '#6e6e6e',
+                    name:'File Server'
+                },{
+                    data: seriesData[1],
+                    color: '#fff',
+                    name:'Mail Server'
+                }
+            ]
+        } );
+
+        var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+            graph: graph,
+        });
+
+        setInterval( function() {
+            random.removeData(seriesData);
+            random.addData(seriesData);
+            graph.update();
+
+        },1000);
+
+        // Morris donut chart
+        Morris.Donut({
+            element: 'browser-usage',
+            data: [
+                {label: "Chrome", value: 25},
+                {label: "Safari", value: 5},
+                {label: "Firefox", value: 15},
+                {label: "Opera", value: 5},
+                {label: "Internet Explorer", value: 40},
+                {label: "Other", value: 10}
+            ],
+            colors: ['#00a3d8', '#2fbbe8', '#72cae7', '#d9544f', '#ffc100', '#1693A5']
+        });
+
+        $('#browser-usage').find("path[stroke='#ffffff']").attr('stroke', 'rgba(0,0,0,0)');
+
+        //sparkline charts
+        $('#projectbar1').sparkline('html', {type: 'bar', barColor: '#22beef', barWidth: 4, height: 20});
+        $('#projectbar2').sparkline('html', {type: 'bar', barColor: '#cd97eb', barWidth: 4, height: 20});
+        $('#projectbar3').sparkline('html', {type: 'bar', barColor: '#a2d200', barWidth: 4, height: 20});
+        $('#projectbar4').sparkline('html', {type: 'bar', barColor: '#ffc100', barWidth: 4, height: 20});
+        $('#projectbar5').sparkline('html', {type: 'bar', barColor: '#ff4a43', barWidth: 4, height: 20});
+        $('#projectbar6').sparkline('html', {type: 'bar', barColor: '#a2d200', barWidth: 4, height: 20});
+
+        // sortable table
+        $('.table.table-sortable th.sortable').click(function() {
+            var o = $(this).hasClass('sort-asc') ? 'sort-desc' : 'sort-asc';
+            $('th.sortable').removeClass('sort-asc').removeClass('sort-desc');
+            $(this).addClass(o);
+        });
+
+        //todo's
+        $('#todolist li label').click(function() {
+            $(this).toggleClass('done');
+        });
+
+        // Initialize tabDrop
+        $('.tabdrop').tabdrop({text: '<i class="fa fa-th-list"></i>'});
+
+        //load wysiwyg editor
+        $('#quick-message-content').summernote({
+            toolbar: [
+                //['style', ['style']], // no style button
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                //['insert', ['picture', 'link']], // no insert buttons
+                //['table', ['table']], // no table button
+                //['help', ['help']] //no help button
+            ],
+            height: 143   //set editable area's height
+        });
+
+        //multiselect input
+        $(".chosen-select").chosen({disable_search_threshold: 10});
+
+        <?php }?>
+    })
+
+</script>
+
+<!-- //遮罩层效果 -->
+<style>
+    .theme-popover-mask {
+        z-index: 9998;
+        position:fixed;
+        top:0;  left:0;  width:100%;
+        height:100%;  background:#000;  opacity:0.4;
+        filter:alpha(opacity=40);  display:none;
+    }
+    .theme-popover {
+        z-index:9999;  position:fixed;
+        top:20%;  left:35%;
+        width:45%;
+        max-height:220px;
+        /*margin:-180px 0 0 -330px;*/
+        border-radius:5px;  border:solid 2px #666;
+        display:none;
+        box-shadow: 0 0 10px #666;
+        background-color: #f7f7f7;
+        border-bottom: 1px solid #ebebeb;
+        border-radius: 5px 5px 0 0;
+        font-size: 14px;
+    }
+    .theme-signin{
+        margin-top: 40px;
+    }
+    #popover-close{
+        float: right;
+        margin-right: 12px;
+        margin-top: 12px;
+    }
+    #popover-msg{
+        margin-top: 12px;
+        align-content: center;
+        text-align: center;
+    }
+    #popover-img{
+        margin: 0 auto;
+        text-align: center;
+    }
+    #popover-img img{
+        display: inline;
+        max-width:30%;
+        height:auto;
+
+    }
+
+    /* 添加人员信息弹出框*/
+    .theme1-popover-mask {
+        z-index: 9998;
+        position:fixed;
+        top:0;  left:0;  width:100%;
+        height:100%;  background:#000;  opacity:0.4;
+        filter:alpha(opacity=40);  display:none;
+    }
+    .theme1-popover {
+        z-index:9999;  position:fixed;
+        top:21%;
+        left:35%;
+        width:45%;
+        /*max-height:220px;
+        margin:-180px 0 0 -330px;*/
+        border:solid 2px #999;
+        display:none;
+        box-shadow: 0 0 10px #666;
+        background-color: #f7f7f7;
+        border-radius: 5px;
+        font-size: 14px;
+        padding:5px 15px;
+    }
+    .theme1-signin{
+        margin-top: 40px;
+    }
+    #popover1-close{
+        float: right;
+        margin-right: 12px;
+        margin-top: 12px;
+    }
+    #popover1-msg{
+        margin-top: 12px;
+        align-content: center;
+        text-align: center;
+    }
+    #popover1-img{
+        margin: 0 auto;
+        text-align: center;
+    }
+    #popover1-img img{
+        display: inline;
+        max-width:30%;
+        height:auto;
+
+    }
+</style>
+
+<div class="theme-popover">
+    <div class="theme-poptit">
+        <a href="javascript:void(0);" title="关闭" class="close" id="popover-close" name="">×</a>
+    </div>
+    <div class="theme-popbod dform">
+        <form class="theme-signin" name="loginform" action="" method="post">
+            <ol>
+                <li id="popover-img"><img src="/include/management/images/warning.png" width="100" height="100" alt=""></li>
+                <li id="popover-msg"><?php echo $mess = "系统消息提示";?></li>
+            </ol>
+        </form>
+    </div>
+</div>
+<div class="theme-popover-mask"></div>
+
+
+<div class="theme1-popover" >
+    <div class="theme1-poptit">
+        <a href="javascript:void(0);" title="关闭" class="close" id="popover1-close" name="">×</a>
+    </div>
+    <div class="theme1-popbod dform">
+        <form class="theme1-signin form-horizontal" id="addpp_form" name="addpp_form" method="post" encType="multipart/form-data">
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input01">姓名/名称：</label>
+                <div class="col-sm-7"><input class="form-control" type="text" name="ppname" /></div>
+                <span class="col-sm-2" > * </span>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input01">联系人类型：</label>
+                <div class="col-sm-7">
+                    <select class="form-control" name="pp_cate" id="pp_cate">
+                        <?php foreach($this->pp_config['pp_cate'] as $k => $v){?>
+                            <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                        <?php }?>
+                    </select>
+                </div>
+                <span class="col-sm-2" > </span>
+                <!--<span class="col-sm-2" > * <a href="/management/pp/addppcate" target="_blank">点击添加类型</a></span>-->
+            </div>
+
+            <!--<div class="form-group jzf">
+                            <label class="col-sm-4 control-label" for="input01">捐赠方类型：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="pp_jzf_cate">
+                                    <option value="">请选择捐赠方类型</option>
+                                    <?php /*foreach($this->pp_config['pp_jzf_cate'] as $k => $v){*/?>
+                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
+                                    <?php /*}*/?>
+                                </select>
+                            </div>
+                        </div>-->
+            <!--<div class="form-group jzf">
+                            <label class="col-sm-4 control-label" for="input01">捐赠方属性一：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="pp_jzf_attr1">
+                                    <option value="">请选择捐赠方属性一</option>
+                                    <?php /*foreach($this->pp_config['pp_jzf_attr1'] as $k => $v){*/?>
+                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
+                                    <?php /*}*/?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group jzf">
+                            <label class="col-sm-4 control-label" for="input01">捐赠方属性二：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="pp_jzf_attr2">
+                                    <option value="">请选择捐赠方属性二</option>
+                                    <?php /*foreach($this->pp_config['pp_jzf_attr2'] as $k => $v){*/?>
+                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
+                                    <?php /*}*/?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group syf" style="display: none;">
+                            <label class="col-sm-4 control-label" for="input01">使用方类型：</label>
+                            <div class="col-sm-8>
+                                <select class="form-control" name="pp_syf_cate">
+                                    <option value="">请选择使用方类型</option>
+                                    <?php /*foreach($this->pp_config['pp_syf_cate'] as $k => $v){*/?>
+                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
+                                    <?php /*}*/?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group yuf" style="display: none;">
+                            <label class="col-sm-4 control-label" for="input01">业务方类型：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="pp_yuf_cate">
+                                    <option value="">请选择业务方类型</option>
+                                    <?php /*foreach($this->pp_config['pp_yuf_cate'] as $k => $v){*/?>
+                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
+                                    <?php /*}*/?>
+                                </select>
+                            </div>
+                        </div>-->
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input01">Email：</label>
+                <div class="col-sm-7"><input class="form-control" type="text" name="ppemail" /></div>
+                <span class="col-sm-2" > </span>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input01">移动电话：</label>
+                <div class="col-sm-7"><input class="form-control" type="text" name="ppmobile" /></div>
+                <span class="col-sm-2" > </span>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input01">办公电话：</label>
+                <div class="col-sm-7"><input class="form-control" type="text" name="ppphone"  size="40"/></div>
+                <!--<span class="col-sm-2" > * 可添加多个，以“,”号隔开</span>-->
+                <span class="col-sm-2" > </span>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input01">联系地址：</label>
+                <div class="col-sm-7"><input class="form-control" type="text" name="pp_address" size="40"/></div>
+                <span class="col-sm-2" > </span>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input01">备注：</label>
+                <div class="col-sm-9">
+                    <textarea parsley-validation-minlength="1" name="pp_beizhu" parsley-rangelength="[10,100]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group form-footer">
+                <div class="col-sm-offset-5 col-sm-7">
+                    <input class="btn btn-primary" type="button" onclick="javascript:add_pp();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input class="btn btn-default" type="reset" value="重 置" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="theme1-popover-mask"></div>
+
+
+
+<script>
+    function noTips(){
+
+        if($(".chosen-single span").html() != "请选择项目名称"){
+            $("#pname_info").val($(".chosen-single span").html());
+        }
+
+        var formParam = $("#form1").serialize();//序列化表格内容为字符串
+        $.ajax({
+            type:'post',
+            url: $("#form1").attr("action"),
+            data:formParam,
+            cache:false,
+            dataType:'json',
+            success:function(data){
+                $('.theme-popover-mask').fadeIn(100);
+                $('.theme-popover').slideDown(200);
+                $('#popover-msg').html(data['msg']);
+                if(data['return_url'] != ''){
+                    $('#popover-close').attr("name", data['return_url']);
+                }
+                if(data['error'] != true){
+                    $('#popover-img img').attr("src", "/include/management/images/yes.png");
+                }
+            },
+            complete:function(data){
+
+            },
+            error:function(data){
+                //console.log(data);
+                $('.theme-popover-mask').fadeIn(100);
+                $('.theme-popover').slideDown(200);
+                $('#popover-msg').html(data['msg']);
+            }
+        });
+    }
+
+    jQuery(document).ready(function($) {
+        // 消息提示框
+        $('.theme-poptit .close').click(function(){
+            $('.theme-popover-mask').fadeOut(100);
+            $('.theme-popover').slideUp(200);
+            if($('#popover-close').attr("name") != '') {
+                location.href = $('#popover-close').attr("name");
+            }
+        });
+
+        // 添加人员信息
+        $('.addpp').click(function(){
+            $('.theme1-popover').show();
+        });
+        $('.theme1-poptit .close').click(function(){
+            $('.theme1-popover-mask').fadeOut(100);
+            $('.theme1-popover').slideUp(200);
+        });
+    });
+
+    function add_pp(){
+        var formParam = $("#addpp_form").serialize();//序列化表格内容为字符串
+        $.ajax({
+            type:'post',
+            url: '/management/admin/ajaxaddpp',
+            data:formParam,
+            cache:false,
+            dataType:'json',
+            success:function(data){
+                if(data['status'] == 'error'){
+                    alert(data['message']);
+                }else if(data['status'] == 'success'){
+                    // 加载新数据
+                    $(".chosen-select-1 option[value='"+data['pid']+"']").attr("selected","selected");
+                    <?php if(($this->controller == 'zijin' && $this->action == 'addzijin') || ($this->controller == 'zijin' && $this->action == 'editzijin')){?>
+                    $(".chosen-select-1").append("<option value="+data['ppname']+">"+data['ppname']+"</option>");
+                    <?php }else {?>
+                    $(".chosen-select-1").append("<option value="+data['pid']+">"+data['ppname']+"</option>");
+                    <?php }?>
+                    $(".chosen-select-1").trigger("chosen:updated");
+
+                    alert(data['message']);
+                    $('.theme1-popover-mask').fadeOut(100);
+                    $('.theme1-popover').slideUp(100);
+                }
+            },
+            complete:function(data){
+
+            },
+            error:function(data){
+                //console.log(data);
+                alert('添加失败！');
+            }
+        });
+    }
+
+
+
+
+</script>
+<!-- //遮罩层效果 -->
+
+<style>
+    .margin-bottom-20{
+        margin-bottom: 0px;
+        padding: 2px 12px;
+        font-size: 12px;
+    }
+</style>
+
+<script language="javascript">
+    //搜索功能采用get方式 关键词下拉提示，
+    $(".chosen-select-1").chosen({
+        search_contains: true,
+        no_results_text : "未找到此选项!",
+        //width:"70%",
+        height:"60%",
+        disable_search_threshold: 10
+    });
+
+    $(".chosen-select-2").chosen({
+        search_contains: true,
+        disable_search_threshold: 10
+    });
+
+    $("[name='search_form']").submit(function(){
+        if($(".chosen-single span").html() != "请选择项目名称"){
+            $("#pname_info").val($(".chosen-single span").html());
+        }
+        return true;
+    });
+</script>
+
+<script>
+    "use strict";(function(factory){if(typeof define==='function'&&define.amd){define(['jquery'],factory);}else{factory(jQuery);}}(function($){var cropbox=function(options,el){var el=el||$(options.imageBox),obj={state:{},ratio:1,options:options,imageBox:el,thumbBox:el.find(options.thumbBox),spinner:el.find(options.spinner),image:new Image(),getDataURL:function()
+    {var width=this.thumbBox.width(),height=this.thumbBox.height(),canvas=document.createElement("canvas"),dim=el.css('background-position').split(' '),size=el.css('background-size').split(' '),dx=parseInt(dim[0])- el.width()/2 + width/2,
+        dy=parseInt(dim[1])- el.height()/2 + height/2,
+        dw=parseInt(size[0]),dh=parseInt(size[1]),sh=parseInt(this.image.height),sw=parseInt(this.image.width);canvas.width=width;canvas.height=height;var context=canvas.getContext("2d");context.drawImage(this.image,0,0,sw,sh,dx,dy,dw,dh);var imageData=canvas.toDataURL('image/png');return imageData;},getBlob:function()
+    {var imageData=this.getDataURL();var b64=imageData.replace('data:image/png;base64,','');var binary=atob(b64);var array=[];for(var i=0;i<binary.length;i++){array.push(binary.charCodeAt(i));}
+        return new Blob([new Uint8Array(array)],{type:'image/png'});},zoomIn:function()
+    {this.ratio*=1.1;setBackground();},zoomOut:function()
+    {this.ratio*=0.9;setBackground();}},setBackground=function()
+    {var w=parseInt(obj.image.width)*obj.ratio;var h=parseInt(obj.image.height)*obj.ratio;var pw=(el.width()- w)/ 2;
+        var ph=(el.height()- h)/ 2;
+        el.css({'background-image':'url('+ obj.image.src+')','background-size':w+'px '+ h+'px','background-position':pw+'px '+ ph+'px','background-repeat':'no-repeat'});},imgMouseDown=function(e)
+    {e.stopImmediatePropagation();obj.state.dragable=true;obj.state.mouseX=e.clientX;obj.state.mouseY=e.clientY;},imgMouseMove=function(e)
+    {e.stopImmediatePropagation();if(obj.state.dragable)
+    {var x=e.clientX- obj.state.mouseX;var y=e.clientY- obj.state.mouseY;var bg=el.css('background-position').split(' ');var bgX=x+ parseInt(bg[0]);var bgY=y+ parseInt(bg[1]);el.css('background-position',bgX+'px '+ bgY+'px');obj.state.mouseX=e.clientX;obj.state.mouseY=e.clientY;}},imgMouseUp=function(e)
+    {e.stopImmediatePropagation();obj.state.dragable=false;},zoomImage=function(e)
+    {e.originalEvent.wheelDelta>0||e.originalEvent.detail<0?obj.ratio*=1.1:obj.ratio*=0.9;setBackground();}
+        obj.spinner.show();obj.image.onload=function(){obj.spinner.hide();setBackground();el.bind('mousedown',imgMouseDown);el.bind('mousemove',imgMouseMove);$(window).bind('mouseup',imgMouseUp);el.bind('mousewheel DOMMouseScroll',zoomImage);};obj.image.src=options.imgSrc;el.on('remove',function(){$(window).unbind('mouseup',imgMouseUp)});return obj;};jQuery.fn.cropbox=function(options){return new cropbox(options,this);};}));
+</script>
+<script type="text/javascript">
+    $(window).load(function() {
+        var faceurl = <?php if($this->my_admin['headimg'] != ''){echo '\''.$this->my_admin['headimg'].'\'';}else{echo '\'\'';}?>;
+        var options = {
+            thumbBox: '.thumbBox',
+            spinner: '.spinner',
+            imgSrc: faceurl ? faceurl: '/include/management/assets/images/profile-photo.jpg',
+        }
+        var cropper = $('.imageBox').cropbox(options);
+        $('#upload-file').on('change', function(){
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                options.imgSrc = e.target.result;
+                cropper = $('.imageBox').cropbox(options);
+            }
+            reader.readAsDataURL(this.files[0]);
+            this.files = [];
+        })
+        $('#btnCrop').on('click', function(){
+            var img = cropper.getDataURL();
+            $('.cropped').html('');
+            $('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:64px;margin-top:4px;border-radius:64px;box-shadow:0px 0px 12px #7E7E7E;"><p>64px*64px</p>');
+            $('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:128px;margin-top:4px;border-radius:128px;box-shadow:0px 0px 12px #7E7E7E;"><p>128px*128px</p>');
+            $('.cropped').append('<img src="'+img+'" align="absmiddle" style="width:180px;margin-top:4px;border-radius:180px;box-shadow:0px 0px 12px #7E7E7E;"><p>180px*180px</p>');
+            $('.cropped').append('<input type="hidden" value="'+img+'" name="headpic">');
+        })
+        $('#btnZoomIn').on('click', function(){
+            cropper.zoomIn();
+        })
+        $('#btnZoomOut').on('click', function(){
+            cropper.zoomOut();
+        })
+    });
+</script>
+
+

@@ -1,0 +1,69 @@
+<?php echo $this->render('inc/header.htm') ?>
+	<link rel="stylesheet" type="text/css" href="css/start/jquery-ui-1.9.1.custom.min.css" />
+	<!-- Page content -->
+	<div id="page">
+		<!-- Wrapper -->
+		<div class="wrapper">
+			<!-- left column/section -->
+			<?php echo $this->render('inc/_left_nav.htm') ?>
+			<!-- End of left column/section -->
+			
+			<!-- right column/section -->
+			<section class="column width6 right_content">
+				<div class="add-group">
+					<span class="label label-gray"><a>注册与访问</a></span>
+					<form action="" method="post" id="sampleform" enctype="multipart/form-data">
+						<fieldset>
+							<p>
+								<label for="username_length_min">用户名最少字符数：</label><br>
+								<input type="text" class="half" name="description" value="<?php echo $this->system['username_length_min']?>"  />
+							</p>
+							<p>
+								<label for="username_length_max">用户名最多字符数：</label><br>
+								<input type="text" class="half" name="description" value="<?php echo $this->system['username_length_max']?>"  />
+							</p>
+							<p style="color:#999;">注：一个汉字等于 2 个字符</p>
+							<p>
+								<label for="member_type">会员类型：(每行填写一个，如:糖尿病前期，1型糖尿病等)</label><br>
+								<textarea id="member_type" class="half" rows="5" name="member_type"><?php echo $this->system['member_type']?></textarea>
+							</p>
+							<p>
+								<label for="register_agreement">用户注册协议：</label><br>
+								<textarea id="register_agreement" class="half" rows="5" name="register_agreement"><?php echo $this->system['register_agreement']?></textarea>
+							</p>
+							<p>
+								<label for="censoruser">用户注册名不允许出现以下关键字：(每行填写一个关键字，如:admin，管理员等)</label><br>
+								<textarea id="censoruser" class="half" rows="3" name="censoruser"><?php echo $this->system['censoruser']?></textarea>
+							</p>
+							<p>
+								<label for="def_focus_uids">用户注册后默认关注的用户 ID：(多个用户ID请用逗号","隔开)</label><br>
+								<input type="text" class="half" name="def_focus_uids" value="<?php echo $this->system['def_focus_uids']?>"  />
+							</p>
+							<p>
+								<label for="welcome_message_pm">新用户注册系统发送的欢迎内容（站内信）：</label><br>
+								<textarea id="welcome_message_pm" class="half" rows="5" name="welcome_message_pm"><?php echo $this->system['welcome_message_pm']?></textarea>
+							</p>
+							<p>
+								<label for="welcome_message_email">新用户注册系统发送的欢迎内容（邮件）：</label><br>
+								<textarea id="welcome_message_email" class="half" rows="5" name="welcome_message_email"><?php echo $this->system['welcome_message_email']?></textarea>
+							</p>
+							<p style="color:#999;">
+							新用户注册欢迎内容，以下变量可作为内容替换:
+							<br>
+							{username} : 用户名
+							<br>
+							{time} : 发送时间
+							<br>
+							{sitename} : 网站名称
+							</p>
+						</fieldset>
+						<p class="box"><input type="submit" value="确定" class="btn btn-green big"></p>
+					</form>
+				</div>
+			</section>
+			<!-- End of right column/section -->
+		</div>
+		<!-- End of Wrapper -->
+	</div>
+	<!-- End of Page content -->
+<?php echo $this->render('inc/footer.htm') ?>

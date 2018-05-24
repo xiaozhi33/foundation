@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>天津大学北洋教育发展基金会 - 项目管理系统后台</title>
+    <title>高校教育发展基金会 - 项目管理系统后台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta charset="UTF-8" />
 	
@@ -55,7 +55,7 @@
           <!-- Branding -->
           <div class="navbar-header col-md-2">
             <a class="navbar-brand" href="/management">
-              天津大学北洋教育发展基金会
+              高校教育发展基金会
             </a>
             <div class="sidebar-collapse">
               <a href="#">
@@ -84,85 +84,105 @@
             <!-- Quick Actions -->
             <ul class="nav navbar-nav quick-actions">
               
-              <!--
+
               <li class="dropdown divided">
                 
                 <a class="dropdown-toggle button" data-toggle="dropdown" href="#">
                   <i class="fa fa-tasks"></i>
-                  <span class="label label-transparent-black">2</span>
+                  <span class="label label-transparent-black"><?php echo count($this->task_list_info);?></span>
                 </a>
 
                 <ul class="dropdown-menu wide arrow nopadding bordered">
-                  <li><h1>You have <strong>2</strong> new tasks</h1></li>
+                  <li><h1>您有 <strong> <?php echo count($this->task_list_info);?> </strong>个任务待完成</h1></li>
+
+                  <?php if(!empty($this->task_list_info[0])){?>
                   <li>
-                    <a href="#">
+                    <a href="/management/task/taskinfo?id=<?php echo $this->task_list_info[0]['id'];?>">
                       <div class="task-info">
-                        <div class="desc">Layout</div>
-                        <div class="percent">80%</div>
+                        <div class="desc"><?php echo mb_substr($this->task_list_info[0]['title'], 0, 15);?></div>
+                        <div class="percent"><?php echo $this->task_list_info[0]['schedule'];?>%</div>
                       </div>
                       <div class="progress progress-striped progress-thin">
-                        <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                          <span class="sr-only">40% Complete (success)</span>
+                        <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $this->task_list_info[0]['schedule'];?>%">
+                          <span class="sr-only"><?php echo $this->task_list_info[0]['schedule'];?>% Complete (success)</span>
                         </div>
                       </div>
                     </a>
                   </li>
+                  <?php }?>
+
+                  <?php if(!empty($this->task_list_info[1])){?>
                   <li>
-                    <a href="#">
+                      <a href="/management/task/taskinfo?id=<?php echo $this->task_list_info[1]['id'];?>">
                       <div class="task-info">
-                        <div class="desc">Schemes</div>
-                        <div class="percent">15%</div>
+                          <div class="desc"><?php echo mb_substr($this->task_list_info[1]['title'], 0, 15);?></div>
+                          <div class="percent"><?php echo $this->task_list_info[1]['schedule'];?>%</div>
                       </div>
                       <div class="progress progress-striped active progress-thin">
-                        <div class="progress-bar progress-bar-cyan" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 15%">
-                          <span class="sr-only">45% Complete</span>
+                        <div class="progress-bar progress-bar-cyan" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $this->task_list_info[1]['schedule'];?>%">
+                          <span class="sr-only"><?php echo $this->task_list_info[1]['schedule'];?>% Complete</span>
                         </div>
                       </div>
                     </a>
                   </li>
+                  <?php }?>
+
+
+
+                  <?php if(!empty($this->task_list_info[2])){?>
                   <li>
-                    <a href="#">
+                      <a href="/management/task/taskinfo?id=<?php echo $this->task_list_info[2]['id'];?>">
                       <div class="task-info">
-                        <div class="desc">Forms</div>
-                        <div class="percent">5%</div>
+                          <div class="desc"><?php echo mb_substr($this->task_list_info[2]['title'], 0, 15);?></div>
+                          <div class="percent"><?php echo $this->task_list_info[2]['schedule'];?>%</div>
                       </div>
                       <div class="progress progress-striped progress-thin">
-                        <div class="progress-bar progress-bar-orange" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 5%">
-                          <span class="sr-only">5% Complete (warning)</span>
+                        <div class="progress-bar progress-bar-orange" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $this->task_list_info[2]['schedule'];?>%">
+                          <span class="sr-only"><?php echo $this->task_list_info[2]['schedule'];?>% Complete (warning)</span>
                         </div>
                       </div>
                     </a>
                   </li>
+                  <?php }?>
+
+
+                  <?php if(!empty($this->task_list_info[3])){?>
                   <li>
-                    <a href="#">
-                      <div class="task-info">
-                        <div class="desc">JavaScript</div>
-                        <div class="percent">30%</div>
-                      </div>
-                      <div class="progress progress-striped progress-thin">
-                        <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
-                          <span class="sr-only">30% Complete (danger)</span>
-                        </div>
-                      </div>
+                      <a href="/management/task/taskinfo?id=<?php echo $this->task_list_info[3]['id'];?>">
+                          <div class="task-info">
+                              <div class="desc"><?php echo mb_substr($this->task_list_info[3]['title'], 0, 15);?></div>
+                              <div class="percent"><?php echo $this->task_list_info[3]['schedule'];?>%</div>
+                          </div>
+                          <div class="progress progress-striped progress-thin">
+                            <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $this->task_list_info[3]['schedule'];?>%">
+                              <span class="sr-only"><?php echo $this->task_list_info[3]['schedule'];?>% Complete (danger)</span>
+                            </div>
+                          </div>
                     </a>
                   </li>
+                  <?php }?>
+
+
+                  <?php if(!empty($this->task_list_info[4])){?>
                   <li>
-                    <a href="#">
-                      <div class="task-info">
-                        <div class="desc">Dropdowns</div>
-                        <div class="percent">60%</div>
-                      </div>
-                      <div class="progress progress-striped progress-thin">
-                        <div class="progress-bar progress-bar-amethyst" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                          <span class="sr-only">60% Complete</span>
-                        </div>
-                      </div>
+                      <a href="/management/task/taskinfo?id=<?php echo $this->task_list_info[4]['id'];?>">
+                          <div class="task-info">
+                              <div class="desc"><?php echo mb_substr($this->task_list_info[4]['title'], 0, 15);?></div>
+                              <div class="percent"><?php echo $this->task_list_info[4]['schedule'];?>%</div>
+                          </div>
+                          <div class="progress progress-striped progress-thin">
+                            <div class="progress-bar progress-bar-amethyst" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $this->task_list_info[4]['schedule'];?>%">
+                              <span class="sr-only"><?php echo $this->task_list_info[4]['schedule'];?>% Complete</span>
+                            </div>
+                          </div>
                     </a>
                   </li>
-                  <li><a href="#">Check all tasks <i class="fa fa-angle-right"></i></a></li>
+                  <?php }?>
+
+                  <li><a href="/management/task">查看全部任务Check all tasks <i class="fa fa-angle-right"></i></a></li>
                 </ul>
 
-              </li>-->
+              </li>
 
               <!-- 消息通知 -->
               <!--<li class="dropdown divided">
@@ -243,9 +263,9 @@
                   <li class="topborder"><a href="#">Check all messages <i class="fa fa-angle-right"></i></a></li>
                 </ul>
 
-              </li>-->
+              </li>
 
-              <!--<li class="dropdown divided">
+              <li class="dropdown divided">
                 
                 <a class="dropdown-toggle button" data-toggle="dropdown" href="#">
                   <i class="fa fa-bell"></i>
@@ -302,7 +322,7 @@
 
               <li class="dropdown divided user" id="current-user">
                 <div class="profile-photo">
-                  <img src="/include/management/assets/images/profile-photo.jpg" alt />
+                  <img src="<?php if($this->admininfo['headimg']!=''){echo $this->admininfo['headimg'];}else{?>/include/management/assets/images/profile-photo.jpg<?php }?>"  alt />
                 </div>
                 <a class="dropdown-toggle options" data-toggle="dropdown" href="#">
                  <?php $admininfo = SessionUtil::getAdmininfo();print_r($admininfo['admin_name']);?> <i class="fa fa-caret-down"></i>
@@ -311,7 +331,6 @@
                 <ul class="dropdown-menu arrow settings">
 
                   <!--<li>
-                    
                     <h3>风格style:</h3>
                     <ul id="color-schemes">
                       <li><a href="#" class="bg-0"></a></li>
@@ -335,8 +354,11 @@
                         </div>
                       </div>
                     </div>
-
                   </li>-->
+
+                    <li>
+                        <a href="/management/user/index"><i class="fa fa-user"></i> 个人中心</a>
+                    </li>
 
                   <li class="divider"></li>
 
@@ -346,15 +368,12 @@
 
                   <!--
 				  <li>
-                    <a href="#"><i class="fa fa-user"></i> 个人中心</a>
-                  </li>
-				  <li>
                     <a href="#"><i class="fa fa-calendar"></i> 日历Calendar</a>
                   </li>-->
 
-                  <li>
+                  <!--<li>
                     <a href="#"><i class="fa fa-envelope"></i> 消息Indexs <span class="badge badge-red" id="user-inbox">3</span></a>
-                  </li>
+                  </li>-->
 
                   <li class="divider"></li>
 
@@ -518,6 +537,12 @@
                                   </a>
                                 </li>-->
                                 <li>
+                                    <a href="/management/chouzi/application-project">
+                                        <i class="fa fa-caret-right"></i> 立项申请审核
+                                        <span class="badge badge-red"><?php if(count($this->support_project_list) > 0){echo count($this->support_project_list);}?></span>
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="/management/chouzi/addchouzi">
                                         <i class="fa fa-caret-right"></i> 筹资立项
                                     </a>
@@ -546,6 +571,13 @@
                                     <a href="/management/zijin/addzijin">
                                         <i class="fa fa-caret-right"></i> 来款认领 - 添加来款
                                         <span class="badge badge-red"><?php //echo count($this->renling_weirenling_list);?></span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/management/chouzi/expenditure">
+                                        <i class="fa fa-caret-right"></i> 项目支出申请审核
+                                        <span class="badge badge-red"><?php if(count($this->support_expenditure_list) > 0){echo count($this->support_expenditure_list);}?></span>
                                     </a>
                                 </li>
 
@@ -811,49 +843,6 @@
                         </ul>
                     </li>
 
-                <?php //if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4))){?>
-				<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <i class="fa fa-desktop"></i> 业务相关管理 <b class="fa fa-plus dropdown-plus"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-
-                        <li>
-                            <a href="/management/admin/department">
-                                <i class="fa fa-caret-right"></i> 部门管理 - 部门信息列表
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/management/admin/adddepartment">
-                                <i class="fa fa-caret-right"></i> 部门管理 - 添加部门信息
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="/management/admin/cate">
-                                <i class="fa fa-caret-right"></i> 项目分类管理 - 项目分类列表
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/management/admin/addcate">
-                                <i class="fa fa-caret-right"></i> 项目分类管理 - 添加项目分类
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="/management/pp/ppcate">
-                                <i class="fa fa-caret-right"></i> 人员管理 - 类型信息列表
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/management/pp/addppcate">
-                                <i class="fa fa-caret-right"></i> 人员管理 - 添加类型信息
-                            </a>
-                        </li>
-
-                    </ul>
-                  </li>
-                <?php //}?>
                     <!--<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-desktop"></i> 项目负责人管理 <b class="fa fa-plus dropdown-plus"></b>
@@ -908,6 +897,58 @@
                       </li>
                     </ul>
                   </li>
+
+
+                    <?php //if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4))){?>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-desktop"></i> 业务相关及系统设置 <b class="fa fa-plus dropdown-plus"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+
+                            <li>
+                                <a href="/management/permission/email">
+                                    <i class="fa fa-caret-right"></i> 系统邮件SMTP设置
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/management/admin/department">
+                                    <i class="fa fa-caret-right"></i> 部门管理 - 部门信息列表
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/management/admin/adddepartment">
+                                    <i class="fa fa-caret-right"></i> 部门管理 - 添加部门信息
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/management/admin/cate">
+                                    <i class="fa fa-caret-right"></i> 项目分类管理 - 项目分类列表
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/management/admin/addcate">
+                                    <i class="fa fa-caret-right"></i> 项目分类管理 - 添加项目分类
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/management/pp/ppcate">
+                                    <i class="fa fa-caret-right"></i> 人员管理 - 类型信息列表
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/management/pp/addppcate">
+                                    <i class="fa fa-caret-right"></i> 人员管理 - 添加类型信息
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <?php //}?>
+
 				  
 				  <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">

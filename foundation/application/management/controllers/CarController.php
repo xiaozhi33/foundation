@@ -234,7 +234,8 @@ class Management_carController extends BaseController
                 echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
                 echo('<script language="JavaScript">');
                 echo("alert('该车辆在".$use_starttime."-".$use_endtime."期间已有使用记录，请查正后继续添加！');");
-                echo('history.back();');
+                echo("location.href='/management/car/usecar';");
+                //echo('history.back();');
                 echo('</script>');
                 exit;
             }
@@ -345,9 +346,15 @@ class Management_carController extends BaseController
     }
 
     public function hasUserCarAction($star_time,$end_time,$car_number){
+
+        $star_time = strtotime($star_time);
+        $end_time = strtotime($end_time);
+
         $carDAO = $this->orm->createDAO('material_mg_cars');
-        $carDAO ->selectLimit .= " AND (use_starttime < '".$star_time."' OR use_endtime >'".$end_time."')";
-        $carDAO ->selectLimit .= " AND car_number=".$car_number;
+        //$carDAO ->selectLimit .= " AND (use_starttime < '".$star_time."' OR use_endtime >'".$end_time."')";
+        $carDAO ->selectLimit .= " AND (('".$star_time."' > use_starttime AND '".$star_time."' < use_endtime) OR ('".$star_time."' < use_starttime AND '".$end_time."' > use_endtime) OR('".$end_time."' > use_starttime AND '".$end_time."' < use_endtime))";
+        $carDAO ->selectLimit .= " AND car_id=".$car_number;
+
         return $carDAO ->get();
     }
     public function _init(){

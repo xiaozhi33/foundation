@@ -1,0 +1,55 @@
+﻿<?php echo $this->render('inc/header.htm') ?>
+	<!-- Page content -->
+	<div id="page">
+		<!-- Wrapper -->
+		<div class="wrapper">
+			<!-- left column/section -->
+			<?php echo $this->render('inc/_left_nav.htm') ?>
+			<!-- End of left column/section -->
+			
+			<!-- right column/section -->
+			<section class="column width6 right_content">
+				<form action="" method="post" id="sampleform">
+				<div class="background-permission">
+					<?php foreach($this->controllers as $k=>$v) { ?>
+					<div class="content-box corners">
+						<header style="cursor: s-resize;">
+							<h3><img alt="" src="img/information.png"><input type="text" name="c_desc[]" value="<?php echo $this->config['controllers'][$k]['name'] ?>" /><input type="hidden" name="c_name[]" value="<?php echo $k ?>" /> (<?php echo $k ?>)</h3>
+						</header>
+						<section>
+							<table class="no-style full">
+								<tbody>
+									<?php foreach($v['methods'] as $m) { ?>
+									<tr>
+										<td><b><?php echo $m ?></b></td>
+										<td class="ta-right"><input type="text" name="m_desc[]" value="<?php echo $this->config['methods'][$k][$k . '/' . $m]['name'] ?>" /><input type="hidden" name="m_name[]" value="<?php echo $k . '/' . $m ?>" /></td>
+										<td class="ta-right">
+											<select name="allow[]">
+												<option value="all"<?php if($this->config['methods'][$k][$k . '/' . $m]['allow'] == 'all') echo ' selected="selected" ' ?>>不限</option>
+												<option value="none"<?php if($this->config['methods'][$k][$k . '/' . $m]['allow'] == 'none') echo ' selected="selected" ' ?>>受限</option>
+											</select>
+										</td>
+									</tr>
+									<?php } ?>
+								</tbody>
+							</table>
+						</section>
+					</div>
+					<?php } ?>
+				</div>
+				<p class="box"><input type="submit" value="确定" class="btn btn-green big"> or <input type="reset" value="重置" class="btn"></p>
+				</form>
+			</section>
+			<!-- End of right column/section -->
+		</div>
+		<!-- End of Wrapper -->
+	</div>
+	<script type="text/javascript">
+		//$('#sampleform').submit(function(){
+		//	$('[name=c_desc]').each(function(){
+		//		
+		//	});
+		//});
+	</script>
+	<!-- End of Page content -->
+<?php echo $this->render('inc/footer.htm') ?>

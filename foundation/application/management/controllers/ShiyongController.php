@@ -183,7 +183,7 @@
 				$pm_mg_infoDAO ->pm_juanzeng_cate = HttpUtil::postString("pm_cate");
 
 				$pm_mg_infoDAO ->lastmodify = time();
-				
+
 				if($_FILES['pm_files']['name']!=""){
 					if($_FILES['pm_files']['error'] != 4){
 						if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
@@ -444,7 +444,7 @@
 				return false;
 			}
 		}
-		
+
 		public function _init(){
 			$this ->dbhelper = new DBHelper();
 			$this ->dbhelper ->connect();

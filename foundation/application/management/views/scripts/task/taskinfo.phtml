@@ -1,0 +1,432 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>任务详情</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>事物/任务管理</li>
+            <li class="active">任务详情</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+        <div class="col-md-8">
+            <section class="tile color transparent-white">
+
+                <!-- tile header -->
+                <div class="tile-header">
+                    <div class="row">
+                        <div class="col-md-9"><h3>任务进度详情<strong> T-Info</strong></h3></div>
+                        <!--<div class="col-md-3"><h5><a href="/management/task" target="_blank">查看全部消息>></a></h5></div>-->
+                    </div>
+                    <div class="controls">
+                        <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <!-- /tile header -->
+
+
+                <div class="detailedbox tile-body">
+                    <form class="form-horizontal" id="form1" action="to-add" method="post" encType="multipart/form-data">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">任务名称：</label>
+                            <div class="col-sm-6 input_inline">
+                                <?php echo $this->task_info[0]['title'];?>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">优先级：</label>
+                            <div class="col-sm-3 input_inline">
+                                <?php if($this->task_init_array['priority'] != ""){
+                                    foreach ($this->task_init_array['priority'] as $k => $v){?>
+                                        <?php if($this->task_info[0]["priority"] == $k) echo $v;?>
+                                    <?php }}?>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">进度完成度：</label>
+                            <div class="col-sm-3 input_inline">
+                                <?php echo $this->task_info[0]['schedule'];?> %
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">任务执行日期：</label>
+                            <div class="col-sm-3 input_inline">
+                                <?php echo $this->task_info[0]['star_time'];?> ~ <?php echo $this->task_info[0]['end_time'];?>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">任务指派给：</label>
+
+                            <div class="col-sm-6 input_inline">
+                                <?php
+                                        if(!empty($this->task_info[0]['executor'])){
+                                            foreach($this->admin_list_info as $key => $value){
+                                                if($key == $this->task_info[0]['executor']){
+                                                    echo $value;
+                                                }
+                                            }
+                                        }
+                                ?>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">协助者：</label>
+
+                            <div class="col-sm-6 input_inline">
+                                <?php if($this->admin_list_info != ""){
+                                    foreach ($this->admin_list_info as $k => $v){?>
+                                        <?php
+                                        if(!empty($this->task_info[0]['helper'])){
+                                            foreach(explode(',',$this->task_info[0]['helper']) as $key => $value){
+                                                if($k == $value){
+                                                    echo $v.'&nbsp;&nbsp;';
+                                                }
+                                            }
+                                        }?>
+                                    <?php }}?>
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">任务描述：</label>
+                            <div class="col-sm-8 input_inline">
+                                <?php /*echo $this->task_info[0]['description'];*/?>
+                            </div>
+                        </div>-->
+
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+    <style>
+        .user-handpic img{
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 30px 0px 20px 80px
+        }
+        .user-handbtn a{
+            height: 40px;
+            width: 90px;
+            background-color:#1088ce;
+            display: block;
+            text-align: center;
+            line-height: 40px;
+            color:#ffffff;
+            font-size: 16px;
+            border-radius: 3px;
+            margin: 8px 0 10px 0;
+        }
+        .user-handbtn a:-webkit-any-link:visited{
+            color:#ffffff;
+        }
+
+        .user-handbtn1 a{
+            height: 40px;
+            width: 160px;
+            background-color:#1088ce;
+            display: block;
+            text-align: center;
+            line-height: 40px;
+            color:#ffffff;
+            font-size: 16px;
+            border-radius: 3px;
+            margin: 8px 0 10px 18px;
+        }
+        .user-handbtn1 a:-webkit-any-link:visited{
+            color:#ffffff;
+        }
+        .taskinfo-box{
+            border-bottom: 1px #ddd solid;
+        }
+        .taskinfo-user{
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+            margin: 30px 0 20px;
+        }
+        .taskinfo-info{
+            height: 60px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            display:-webkit-box;
+            -webkit-box-orient:vertical;
+            -webkit-line-clamp:3;
+        }
+        .taskinfo-time{
+            text-align: right;
+            margin: 0 10px 10px 0;
+        }
+        .askinfo-show{
+            position: absolute;
+            right: 40px;
+            bottom: 35px;
+            color: #428bca;
+        }
+        .askinfo-show i{
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 7px solid #428bca;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .askinfo-show:hover{
+            color:#428bca;
+        }
+        .askinfo-hidden{
+            display: none;
+            position: absolute;
+            right: 40px;
+            bottom: 35px;
+            color: #428bca;
+        }
+        .askinfo-hidden i{
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 7px solid #428bca;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .askinfo-hidden:hover{
+            color:#428bca;
+        }
+        .input_inline{
+            padding-top: 7px;
+        }
+    </style>
+
+    <?php if(!empty($this->task_log_array)){?>
+    <div class="row">
+        <div class="col-md-8">
+            <section class="tile color transparent-white">
+
+                <!-- tile header -->
+                <div class="tile-header">
+                    <div class="row">
+                        <div class="col-md-9"><h3>任务变更记录<strong> Logs</strong></h3></div>
+                        <!--<div class="col-md-3"><h5><a href="/management/task" target="_blank">查看全部消息>></a></h5></div>-->
+                    </div>
+                    <div class="controls">
+                        <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <!-- /tile header -->
+
+                <?php
+                foreach($this->task_log_array as $key => $value){?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-2 user-handpic">
+                            <img src="<?php echo $value['user_info'][0]['headimg'];?>" alt/>
+                        </div>
+
+                        <div class="col-md-8 taskinfo-box">
+                            <div class="taskinfo-user"><?php echo $value['user_info'][0]['admin_name'];?></div>
+                            <div class="taskinfo-info"><?php echo $value['new_info'][0]['description'];?></div>
+                            <div class="taskinfo-time"><?php echo date('Y-m-d H:i:s', $value['lastmodify']);?></div>
+
+                            <?php if(strlen($value['new_info'][0]['description']) > 400){?>
+                                <a class="askinfo-show">展开<i></i></a>
+                                <a class="askinfo-hidden">收起<i></i></a>
+                            <?php }?>
+                        </div>
+                    </div>
+                </div>
+                <?php }?>
+
+            </section>
+        </div>
+    </div>
+    <?php }?>
+
+    <div id="rightstyle02" class="row">
+        <div class="col-md-8">
+            <section class="tile color transparent-white">
+
+
+                <!-- tile header -->
+                <div class="tile-header">
+                    <div class="row">
+                        <div class="col-md-9"><h3>任务进度变更<strong> T-Changing</strong></h3></div>
+                        <!--<div class="col-md-3"><h5><a href="/management/task" target="_blank">查看全部消息>></a></h5></div>-->
+                    </div>
+                    <div class="controls">
+                        <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <!-- /tile header -->
+
+
+                <div class="detailedbox tile-body">
+                    <form class="form-horizontal"  id="form1" action="addtasklog" method="post" encType="multipart/form-data">
+
+                        <!--<div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">任务名称：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="title" value="<?php echo $this->task_info[0]['title']?>" />
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">任务类型：</label>
+                            <div class="col-sm-3">
+                                <select class="chosen-select chosen-transparent form-control" name="type">
+                                    <?php /*if($this->task_init_array['type'] != ""){
+                                        foreach ($this->task_init_array['type'] as $k => $v){*/?>
+                                            <option value="<?php /*echo $k*/?>" <?php /*if($this->task_info[0]["type"] == $k) echo "selected='selected'";*/?>><?php /*echo $v*/?></option>
+                                        <?php /*}}*/?>
+                                </select>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>-->
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input02">任务指派给：</label>
+                            <div class="col-sm-3">
+                                <select class="chosen-select chosen-transparent form-control" name="executor">
+                                    <option value="" >请选择...</option>
+                                    <?php if($this->admin_list != ""){
+                                        foreach ($this->admin_list as $k => $v){?>
+                                            <option value="<?php echo $v['id']?>" <?php if($this->task_info[0]["executor"] == $v['id']) echo "selected='selected'";?>><?php echo $v['admin_name']?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+
+                        <!--<div class="form-group">
+                            <label class="col-sm-2 control-label" for="input06">开始时间：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" data-date-format="YYYY-MM-DD" value="<?php /*echo $this->task_info[0]['star_time']*/?>" type="text"  id="datepicker"  name="star_time" size="14"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input06">预计结束时间：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" data-date-format="YYYY-MM-DD" value="<?php /*echo $this->task_info[0]['end_time']*/?>"  type="text"  id="datepicker1"  name="end_time" size="14"/>
+                            </div>
+                        </div>-->
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">协助者：</label>
+                            <div class="col-sm-8">
+                                <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="helper[]" id="helper">
+                                    <!--<option value="" >请选择...</option>-->
+                                    <?php if($this->admin_list != ""){
+                                        foreach ($this->admin_list as $k => $v){?>
+                                            <option value="<?php echo $v['id']?>" <?php
+                                            if(!empty($this->task_info[0]['helper'])){
+                                                foreach(explode(',',$this->task_info[0]['helper']) as $key => $value){
+                                                    if($v['id'] == $value){
+                                                        echo "selected='selected'";
+                                                    }
+                                                }
+                                            }?>><?php echo $v['admin_name']?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input02">优先级：</label>
+                            <div class="col-sm-3">
+                                <select class="chosen-select chosen-transparent form-control" name="priority">
+                                    <?php if($this->task_init_array['priority'] != ""){
+                                        foreach ($this->task_init_array['priority'] as $k => $v){?>
+                                            <option value="<?php echo $k?>" <?php if($this->task_info[0]["priority"] == $k) echo "selected='selected'";?>><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input02">进度完成度：</label>
+                            <div class="col-sm-3">
+                                <select class="chosen-select chosen-transparent form-control" name="schedule">
+                                    <!--<option value="" >请选择...</option>-->
+                                    <?php if($this->task_init_array['schedule'] != ""){
+                                        foreach ($this->task_init_array['schedule'] as $k => $v){?>
+                                            <option value="<?php echo $k?>" <?php if($this->task_info[0]["schedule"] == $k) echo "selected='selected'";?>><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">描述：</label>
+                            <div class="col-sm-8">
+                                <textarea parsley-validation-minlength="1" name="description" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea>
+                            </div>
+                        </div>
+
+                        <input class="btn btn-default" name="id" type="hidden" value="<?php echo $this->task_info[0]['id'];?>" />
+
+                        <div class="form-group form-footer">
+                            <div class="col-sm-offset-5 col-sm-7">
+                                <input class="btn btn-primary" type="submit" value="提 交 变 更" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <!--<input class="btn btn-default" type="reset" value="重 置" />-->
+                            </div>
+                        </div>
+
+                        <input name="status" type="hidden" value="1"/> <!-- 默认为新建任务 -->
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="/include/management/assets/js/jquery.js"></script>
+    <script>
+        $(function(){
+            $(".askinfo-show").click(function() {
+                    $(this).parent().find(".taskinfo-info").css("height","auto");
+                    $(this).parent().find(".taskinfo-info").css("display","block");
+                    $(this).hide();
+                    $(this).parent().find(".askinfo-hidden").show();
+                }
+            );
+            $(".askinfo-hidden").click(function() {
+                    $(this).parent().find(".taskinfo-info").css("height","60px");
+                    $(this).parent().find(".taskinfo-info").css("display","-webkit-box");
+                    $(this).hide();
+                    $(this).parent().find(".askinfo-show").show();
+                }
+            );
+        });
+    </script>

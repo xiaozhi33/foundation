@@ -1,0 +1,470 @@
+<!-- content main container -->
+<div class="main">
+
+    <!-- cards -->
+    <div class="row cards">
+
+        <div class="card-container col-lg-3 col-sm-6 col-sm-12">
+                <div class="card card-redbrown hover">
+                  <div class="front">
+
+                    <div class="media">
+                      <span class="pull-left">
+                        <i class="fa fa-star media-object"></i>
+                      </span>
+
+                      <div class="media-body">
+                        <small>项目申请待完成</small>
+                        <h2 class="media-heading animate-number" data-value="<?php echo count($this->project_list);?>" data-animation-duration="1500"><?php echo count($this->project_list);?></h2>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="back">
+                    <a href="#">
+                      <i class="fa fa-bar-chart-o fa-4x"></i>
+                      <span>点击查看详情</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+                <div class="card-container col-lg-3 col-sm-6 col-sm-12">
+                    <div class="card card-blue hover">
+                        <div class="front">
+
+                            <div class="media">
+                              <span class="pull-left">
+                                <i class="fa fa-shopping-cart media-object"></i>
+                              </span>
+
+                                <div class="media-body">
+                                    <small>项目总数</small>
+                                    <h2 class="media-heading animate-number" data-value="<?php echo $this->pm_count;?>" data-animation-duration="1500"><?php echo $this->pm_count;?></h2>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="back">
+                            <a href="/management/zijin">
+                                <i class="fa fa-bar-chart-o fa-4x"></i>
+                                <span style="font-size: 15px;">点击查看详情</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="card-container col-lg-3 col-sm-6 col-sm-12">
+                    <div class="card card-greensea hover">
+                        <div class="front">
+
+                            <div class="media">
+                              <span class="pull-left">
+                                <i class="fa fa-usd media-object"></i>
+                              </span>
+
+                                <div class="media-body">
+                                    <small>剩余项目金额</small>
+                                    <h2 class="media-heading animate-number" data-value="<?php echo $this->allsum;?>" data-animation-duration="1500">allsum</h2>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="back">
+                            <a href="/management/zijin">
+                                <i class="fa fa-bar-chart-o fa-4x"></i>
+                                <span style="font-size: 15px;">点击查看详情</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card-container col-lg-3 col-sm-6 col-xs-12">
+                    <div class="card card-slategray hover">
+                        <div class="front">
+
+                            <div class="media">
+                              <span class="pull-left">
+                                <i class="fa fa-eye media-object"></i>
+                              </span>
+
+                                <div class="media-body">
+                                    <small>会议活动</small>
+                                    <h2 class="media-heading animate-number" data-value="<?php echo $this->meeting_count;?>" data-animation-duration="1500"><?php echo $this->meeting_count;?></h2>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="back">
+                            <a href="/management/meeting">
+                                <i class="fa fa-bar-chart-o fa-4x"></i>
+                                <span style="font-size: 15px;">点击查看详情</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+     </div>
+    <!-- /cards -->
+
+    <!-- row -->
+    <div class="row">
+        <!-- col 8 -->
+        <div class="col-lg-8 col-md-12">
+        <!-- tile -->
+            <section class="tile color transparent-white">
+            <!-- tile header -->
+            <div class="tile-header">
+                <h1>待完成的立项申请<strong><?php echo count($this->project_list);?> 个</strong> </h1>
+                <!--<div class="search">
+                    <input type="text" placeholder="Search...">
+                </div>-->
+                <div class="controls">
+                    <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                    <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <!-- /tile header -->
+
+            <!-- tile body -->
+            <div class="tile-body no-vpadding">
+                <div class="table-responsive">
+                    <table class="table table-custom table-sortable nomargin">
+                        <thead>
+                        <tr>
+                            <th width="40%" class="">项目名称</th>
+                            <th width="20%" class="">项目立项进度</th>
+                            <th width="10%" class="">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($this->project_list as $key => $value){ $nn = 0;?>
+                            <tr>
+                                <td><a href="/support/chouzi/application-entry?id=<?php echo $value['id'];?>" target="_blank"><?php echo $value['p_name'];?></a></td>
+                                <td class="priority"><?php echo $this->project_status[$value['status']]  ;?></td>
+                                <td class="progress-cell">
+                                    <a href="/support/chouzi/application-entry?id=<?php echo $value['id'];?>" target="_blank">继续完成立项&gt;&gt;</a>
+                                </td>
+                            </tr>
+                        <?php }?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /tile body -->
+
+            <!-- tile footer -->
+            <div class="tile-footer text-center">
+                <ul class="pagination pagination-sm nomargin pagination-custom">
+                    <?php
+                    $this->page = str_replace("<a","<li><a",$this->page);
+                    $this->page = str_replace("/a>","/a></li>",$this->page);
+                    $this->page = str_replace('<span class="current">',"<li class='active'><a href='#'>",$this->page);
+                    $this->page = str_replace('</span>',"</a></li>",$this->page);
+                    echo $this->page;
+                    ?>
+                </ul>
+            </div>
+            <!-- /tile footer -->
+
+        </section>
+        <!-- /tile -->
+
+        <!-- tile -->
+            <section class="tile color transparent-white">
+            <!-- tile header -->
+            <div class="tile-header">
+                <h1>待完成的使用申请<strong><?php echo count($this->expenditure_list);?> 个</strong> </h1>
+                <!--<div class="search">
+                    <input type="text" placeholder="Search...">
+                </div>-->
+                <div class="controls">
+                    <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                    <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <!-- /tile header -->
+
+            <!-- tile body -->
+            <div class="tile-body no-vpadding">
+                <div class="table-responsive">
+                    <table class="table table-custom table-sortable nomargin">
+                        <thead>
+                        <tr>
+                            <th width="40%" class="">项目名称</th>
+                            <th width="20%" class="">申请进度</th>
+                            <th width="20%" class="">申请使用金额</th>
+                            <th width="10%" class="">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($this->expenditure_list as $key => $value){ $nn = 0;?>
+                            <tr>
+                                <td><a href="/support/chouzi/expenditure?id=<?php echo $value['id'];?>" target="_blank"><?php echo $value['p_name'];?></a></td>
+                                <td class="priority"><?php echo $this->expenditure_status[$value['status']]  ;?></td>
+                                <td class="priority"><?php echo $value['jiner'];?> 元</td>
+                                <td class="progress-cell">
+                                    <a href="/support/chouzi/expenditure?id=<?php echo $value['id'];?>" target="_blank">继续完成使用申请&gt;&gt;</a>
+                                </td>
+                            </tr>
+                        <?php }?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /tile body -->
+
+            <!-- tile footer -->
+            <div class="tile-footer text-center">
+                <ul class="pagination pagination-sm nomargin pagination-custom">
+                    <?php
+                    $this->page = str_replace("<a","<li><a",$this->page);
+                    $this->page = str_replace("/a>","/a></li>",$this->page);
+                    $this->page = str_replace('<span class="current">',"<li class='active'><a href='#'>",$this->page);
+                    $this->page = str_replace('</span>',"</a></li>",$this->page);
+                    echo $this->page;
+                    ?>
+                </ul>
+            </div>
+            <!-- /tile footer -->
+
+        </section>
+        <!-- /tile -->
+
+        <!-- tile -->
+            <section class="tile color transparent-white">
+            <!-- tile header -->
+            <div class="tile-header">
+                <h3><strong>需要完成资金使用情况反馈的项目 5 个</strong> </h3>
+                <!--<div class="search">
+                    <input type="text" placeholder="Search...">
+                </div>-->
+                <div class="controls">
+                    <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                    <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <!-- /tile header -->
+
+            <!-- tile body -->
+            <div class="tile-body no-vpadding">
+                <div class="table-responsive">
+                    <table class="table table-custom table-sortable nomargin">
+                        <thead>
+                        <tr>
+                            <th width="40%" class="">项目名称</th>
+                            <th width="20%" class="">申请进度</th>
+                            <th width="20%" class="">最新状态</th>
+                            <th width="10%" class="">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($this->project_list as $key => $value){ $nn = 0;?>
+                            <tr>
+                                <td><?php echo $value['id'];?></td>
+                                <td><a href="/management/chouzi/pminfo?id=<?php echo $value['id'];?>" target="_blank"><?php echo $value['pname'];?></a></td>
+                                <td class="priority">
+                                    <?php if($value['pm_rate'] == ""){?>
+                                        ---
+                                    <?php }if(preg_match("/1/", $value['pm_rate'])){ $nn += 10;?>
+                                        洽谈中&nbsp;
+                                    <?php }if(preg_match("/2/", $value['pm_rate'])){ $nn += 40;?>
+                                        已签订&nbsp;
+                                    <?php }if(preg_match("/3/", $value['pm_rate'])){ $nn += 60;?>
+                                        已到帐&nbsp;
+                                    <?php }?>
+                                </td>
+                                </td>
+                                <td class="progress-cell">
+                                    <div class="progress-info">
+                                        <div class="percent"><span class="animate-number" data-value="<?php echo $nn?>" data-animation-duration="1500">0</span>%</div>
+                                    </div>
+                                    <div class="progress progress-little">
+                                        <div class="progress-bar progress-bar-transparent-white animate-progress-bar" data-percentage="<?php echo $nn?>%"></div>
+                                    </div>
+                                </td>
+                                <td class="progress-cell">
+                                    <a href="/management/chouzi/pminfo?id=<?php echo $value['id'];?>" target="_blank">查看基本信息&gt;&gt;</a>
+                                </td>
+                            </tr>
+                        <?php }?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /tile body -->
+
+            <!-- tile footer -->
+            <div class="tile-footer text-center">
+                <ul class="pagination pagination-sm nomargin pagination-custom">
+                    <?php
+                    $this->page = str_replace("<a","<li><a",$this->page);
+                    $this->page = str_replace("/a>","/a></li>",$this->page);
+                    $this->page = str_replace('<span class="current">',"<li class='active'><a href='#'>",$this->page);
+                    $this->page = str_replace('</span>',"</a></li>",$this->page);
+                    echo $this->page;
+                    ?>
+                </ul>
+            </div>
+            <!-- /tile footer -->
+
+        </section>
+        <!-- /tile -->
+
+
+        </div>
+        <!-- /col 8 -->
+
+
+        <!-- col 4 -->
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+
+            <!-- tile -->
+            <section class="tile color transparent-white">
+                <!-- tile header -->
+                <div class="tile-header">
+                    <h3><strong>筹资立项流程说明</strong> </h3>
+                    <!--<div class="search">
+                        <input type="text" placeholder="Search...">
+                    </div>-->
+                    <div class="controls">
+                        <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <!-- /tile header -->
+
+                <!-- tile body -->
+                <div class="tile-body no-vpadding">
+                    <div class="table-responsive"  style="margin:15px;">
+                        <table class="table table-custom table-sortable nomargin">
+                            <thead>
+                            <tr>
+                               <td></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <p>第一步，下载电子版立项模板并认真填写立项信息，确认无误后，提交电子版立项文档( 以word的形式 )。</p>
+                            <p>第二步，等待项目负责人审核，若通过则通知可以进行第三步，如不符合要求，则需修改并重新上传立项文档电子版。</p>
+                            <p>第三步，电子版本通过后，打印并签字盖章，扫描成pdf格式，再次上传并等待审核。</p>
+                            <p>第四步，等待领导确认和项目管理人员审核，如有问题返回第三步，如无问题立项申请成功。</p>
+                            <p>第五步，立项申请成功后，寄送立项文档到基金会，立项完成。</p>
+                            </tbody>
+                        </table>
+                        <p>
+                            <button class="btn btn-large btn-primary" type="button" onclick="window.open('/support/chouzi/application-entry');">筹资立项申请 >></button>
+                        </p>
+                    </div>
+                </div>
+                <!-- /tile body -->
+            </section>
+            <!-- /tile -->
+
+            <!-- tile -->
+            <section class="tile color transparent-white">
+                <!-- tile header -->
+                <div class="tile-header">
+                        <h3><strong>申请项目资金使用流程说明</strong> </h3>
+                    <!--<div class="search">
+                        <input type="text" placeholder="Search...">
+                    </div>-->
+                    <div class="controls">
+                        <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <!-- /tile header -->
+
+                <!-- tile body -->
+                <div class="tile-body no-vpadding">
+                    <div class="table-responsive"  style="margin:15px;">
+                        <table class="table table-custom table-sortable nomargin">
+                            <thead>
+                            <tr>
+                                <td></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <p>查看项目余额。并查看是否可以申请使用，项目使用申请不得超过项目余额的30%，根据具体项目可以单独设定。</p>
+                            <p>第二次申请的项目使用,需提前提交反馈情况，否则不能申请。</p>
+                            <p>第一步，下载电子版资金使用模板并认真填写使用信息，确认无误后，提交电子版资金使用文档( 以word的形式 )。 </p>
+                            <p>第二步，等待项目负责人审核，若通过则通知可以进行第三步，如不符合要求，则需修改并重新上传资金使用文档电子版。</p>
+                            <p>第三步，电子版本通过后，打印并签字盖章，扫描成pdf格式，再次上传并等待审核。 </p>
+                            <p>第四步，等待领导确认和项目管理人员审核，如有问题返回第三步，如无问题资金使用申请成功。</p>
+                            <p>第五步，资金使用申请成功后，（预约时间）寄送资金使用文档到基金会，申领完成。</p>
+                            <p>申领使用之后，需填写使用情况反馈书，如未填写，该项目下一次将不能申请资金使用。</p>
+                            </tbody>
+                        </table>
+                        <p>
+                            <button class="btn btn-large btn-primary" type="button" onclick="window.open('/support/chouzi/expenditure');">申请项目资金使用 >></button>
+                        </p>
+                    </div>
+                </div>
+                <!-- /tile body -->
+            </section>
+            <!-- /tile -->
+
+
+
+
+
+            </section>
+
+            <!-- tile -->
+            <!--<section class="tile transparent">
+
+                <div class="tile-header color redbrown rounded-top-corners text-center">
+                    <button class="btn pull-left btn-black-transparent" type="button"><i class="fa fa-caret-square-o-down"></i></button>
+                    <h2>代办事宜 <strong>Todo List</strong></h2>
+                    <div class="controls">
+                        <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+
+                <div class="tile-body color transparent-black rounded-bottom-corners">
+                    <ul class="nolisttypes" id="todolist">
+                        <?php /*foreach($this->todolist as $k => $v){*/?>
+                            <li>
+                                <div class="checkbox check-transparent">
+                                    <input type="checkbox" value="<?php /*echo $v['id'];*/?>" onclick="savetodoliststatus(<?php /*echo $v['id'];*/?>,<?php /*echo $v['status'];*/?>)" <?php /*if($v['status'] == 1){echo "checked='checked'";}*/?> id="todo-0<?php /*echo $v['id'];*/?>">
+                                    <label for="todo-0<?php /*echo $v['id'];*/?>"><?php /*echo $v['title'];*/?></label>
+                                </div>
+                            </li>
+                        <?php /*}*/?>
+                    </ul>
+                </div>
+
+            </section>-->
+            <!-- /tile -->
+
+        </div>
+        <!-- /col 4 -->
+
+    </div>
+    <!-- /row -->
+
+    <!-- row -->
+    <div class="row">
+
+    </div>
+    <!-- /row -->
+</div>
+<!-- /content container -->
+</div>
+<!-- Page content end -->
+
+<div id="mmenu" class="right-panel">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs nav-justified">
+        <li class="active"><a href="#mmenu-users" data-toggle="tab"><i class="fa fa-users"></i></a></li>
+        <li class=""><a href="#mmenu-history" data-toggle="tab"><i class="fa fa-clock-o"></i></a></li>
+        <li class=""><a href="#mmenu-friends" data-toggle="tab"><i class="fa fa-heart"></i></a></li>
+        <li class=""><a href="#mmenu-settings" data-toggle="tab"><i class="fa fa-gear"></i></a></li>
+    </ul>
+
+
+    <script src="/include/management/assets/js/jquery.js"></script>
