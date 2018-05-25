@@ -6,7 +6,7 @@
 			$pname = HttpUtil::getString("pname");
 			$department = HttpUtil::getString("department");
             $pm_pp = HttpUtil::getString("pm_pp");
-			$zijininfo = new pm_mg_infoDAO();
+			$zijininfo = $this->orm->createDAO("pm_mg_info");
 			
 			if($pname != ""){
 				$zijininfo ->pm_name = $pname;
