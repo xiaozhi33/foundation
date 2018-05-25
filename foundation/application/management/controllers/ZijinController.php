@@ -14,7 +14,7 @@
             }
 
             if($pm_pp != ""){
-                $zijininfo ->selectLimit = " AND pm_pp like '%".$pm_pp."%'";
+                $zijininfo ->selectLimit .= " AND pm_pp like '%".$pm_pp."%'";
                 $this->view->assign('pm_pp',$pm_pp);
             }
 
@@ -23,8 +23,8 @@
                 $this->view->assign('department',$department);
 			}
 
-			$zijininfo ->selectLimit = " and cate_id=0 order by lastmodify DESC,id desc";
-            //$zijininfo ->selectLimit = " and is_renling=1"; // 显示已认领的项目
+			$zijininfo ->selectLimit .= " and cate_id=0 order by lastmodify DESC,id desc";
+            $zijininfo ->selectLimit .= " and is_renling=1"; // 显示已认领的项目
 			//$chouziinfo ->debugSql =true;
 			$zijininfo = $zijininfo->get($this->dbhelper);
 			$total = count($zijininfo);
