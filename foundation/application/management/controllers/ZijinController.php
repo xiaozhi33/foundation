@@ -23,10 +23,11 @@
                 $this->view->assign('department',$department);
 			}
 
-			$zijininfo ->selectLimit .= " and cate_id=0 order by lastmodify DESC,id desc";
             $zijininfo ->selectLimit .= " and is_renling=1"; // 显示已认领的项目
+			$zijininfo ->selectLimit .= " and cate_id=0 order by lastmodify DESC,id desc";
+
 			//$chouziinfo ->debugSql =true;
-			$zijininfo = $zijininfo->get($this->dbhelper);
+			$zijininfo = $zijininfo->get();
 			$total = count($zijininfo);
 			$pageDAO = new pageDAO();
 			$pageDAO = $pageDAO ->pageHelper($zijininfo,null,"/management/zijin/index",null,'get',20,8);
