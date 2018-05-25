@@ -9,7 +9,7 @@
 			$zijininfo = $this->orm->createDAO("pm_mg_info");
 			
 			if($pname != ""){
-				$zijininfo  ->selectLimit .= " AND pm_name=".$pname;
+				$zijininfo  ->selectLimit .= " AND pm_name='".$pname."'";
                 $this->view->assign('pname',$pname);
             }
 
