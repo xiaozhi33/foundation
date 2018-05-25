@@ -5,12 +5,17 @@
 		public function indexAction(){
 			$pname = HttpUtil::postString("pname");
 			$department = HttpUtil::postString("department");
+            $pm_pp = HttpUtil::postString("pm_pp");
 			$zijininfo = new pm_mg_infoDAO();
 			
 			if($pname != ""){
 				$zijininfo ->pm_name = $pname;
 			}
-			
+
+            if($pm_pp != ""){
+                $zijininfo ->selectLimit = " AND pm_pp like '%".$pm_pp."%'";
+            }
+
 			if($department != ""){
 				$zijininfo ->department = $department;
 			}
