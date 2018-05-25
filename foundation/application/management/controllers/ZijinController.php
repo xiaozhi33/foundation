@@ -3,21 +3,24 @@
 	class Management_zijinController extends BaseController {
 		private $dbhelper;
 		public function indexAction(){
-			$pname = HttpUtil::postString("pname");
-			$department = HttpUtil::postString("department");
-            $pm_pp = HttpUtil::postString("pm_pp");
+			$pname = HttpUtil::getString("pname");
+			$department = HttpUtil::getString("department");
+            $pm_pp = HttpUtil::getString("pm_pp");
 			$zijininfo = new pm_mg_infoDAO();
 			
 			if($pname != ""){
 				$zijininfo ->pm_name = $pname;
-			}
+                $this->view->assign('pname',$pname);
+            }
 
             if($pm_pp != ""){
                 $zijininfo ->selectLimit = " AND pm_pp like '%".$pm_pp."%'";
+                $this->view->assign('pm_pp',$pm_pp);
             }
 
 			if($department != ""){
 				$zijininfo ->department = $department;
+                $this->view->assign('department',$department);
 			}
 
 			$zijininfo ->selectLimit = " and cate_id=0 order by lastmodify DESC,id desc";
