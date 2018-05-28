@@ -1,0 +1,102 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>添加配比信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目信息管理</li>
+            <li class="active">添加配比信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+        <div class="col-md-12">
+            <section class="tile color transparent-white">
+                <div class="detailedbox tile-body">
+                    <form class="form-horizontal" action="rszc" id="form1" method="post" encType="multipart/form-data">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                            <div class="col-sm-4">
+                                <select class="chosen-select-1 chosen-transparent form-control" name="pm_name">
+                                    <?php if($this->pmlist != ""){
+                                        foreach ($this->pmlist as $k => $v){
+                                            ?>
+                                            <option value="">请选择所属项目</option>
+                                            <option value="<?php echo $v['pname'];?>" <?php if($v['pname'] == $this->zcinfo['pm_name']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
+                                        <?php }}?>
+                                </select>
+                                <input id="pname_info" type="hidden" name="pm_name" value=""/>
+                            </div>
+                            <span class="col-sm-2" > * </span>
+                        </div>
+
+                        <div class="form-group tongguo">
+                            <label class="col-sm-2 control-label" >支出金额：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text"  name="je" value="<?php echo $this->zcinfo['je']?>"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group tongguo">
+                            <label class="col-sm-2 control-label">支出时间：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" data-date-format="YYYY-MM-DD" type="text"  id="datepicker" value="<?php echo $this->zcinfo['peibi_datetime']?>"  name="peibi_datetime" size="14" />
+                            </div>
+                        </div>
+
+                        <div class="form-group tongguo">
+                            <label class="col-sm-2 control-label">卡号：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text"  name="card" value="<?php echo $this->zcinfo['card']?>"/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group tongguo">
+                            <label for="pname" class="col-sm-2 control-label">经费负责人：</label>
+                            <div class="col-sm-4">
+                                <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="jffzr[]" id="jffzr">
+                                    <option value="">请选择经费负责人</option>
+                                    <?php if($this->jjh_mg_pp_list != ""){
+                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                            <option value="<?php echo $k?>" <?php
+                                            if(!empty($this->zcinfo['jffzr'])){
+                                                foreach(explode(',',$this->zcinfo['jffzr']) as $key => $value){
+                                                    if($k == $value){
+                                                        echo "selected='selected'";
+                                                    }
+                                                }
+                                            }?>><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-2 addpp" >添加人员信息</span>
+                        </div>
+
+                        <input type="hidden" name="id" value="<?php echo $this->zcinfo['id']?>" />
+
+                        <div class="form-group form-footer">
+                            <div class="col-sm-offset-5 col-sm-7">
+                                <input class="btn btn-primary" type="button" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input class="btn btn-default" type="reset" value="重 置" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+

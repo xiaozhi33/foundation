@@ -749,6 +749,222 @@
             }
         }
 
+        public function repminfoAction(){
+            (int)$pid = HttpUtil::getString("id");
+            if(!empty($pid)){
+                $pm_mg_chouziDAO = $this->orm->createDAO('pm_mg_chouzi');
+                $pm_mg_chouziDAO ->findId($pid);
+                $pm_mg_chouziDAO = $pm_mg_chouziDAO ->get();
+
+                //生产二维码
+                if(!file_exists(__UPLOADPICPATH__ . '/pmqrcode/')) {
+                    mkdir(__UPLOADPICPATH__ . '/pmqrcode/' ,0777);
+                }
+                if(!file_exists(__BASEURL__ ."/include/upload_file/pmqrcode/".$pid.".png")){
+                    require_once 'phpqrcode/qrlib.php';
+                    QRcode::png(__BASEURL__ ."/management/chouzi/pminfo?id=".$pid , __UPLOADPICPATH__ . '/pmqrcode/' . $pid .".png", 'H', 5, 2);
+                }
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                // 收支统计信息
+                $zhichuinfo = new pm_mg_infoDAO();
+                $zhichuinfo->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
+                $zhichuinfo->selectField("
+                    IF(
+                        parent_pm_id = '',
+                        concat(parent_pm_id, '-', c.id),
+                        concat('0-', parent_pm_id, '-', c.id)
+                    )AS bpath,
+                     c.id as main_id,
+                     c.parent_pm_id,
+                     c.parent_pm_id_path,
+                     pm_mg_info.pm_name,
+                     pm_mg_info.shiyong_zhichu_datetime,
+                     pm_mg_info.shiyong_zhichu_jiner,
+                     pm_mg_info.zijin_daozhang_datetime,
+                     pm_mg_info.zijin_daozheng_jiner,
+                     pm_mg_info.pm_juanzeng_cate,
+                     pm_mg_info.jiangli_fanwei,
+                     pm_mg_info.jiangli_renshu,
+                     c.department,
+                     c.pm_fzr_mc,
+                     pm_mg_info.pm_pp");
+                $zhichuinfo->selectLimit .= " and pm_mg_info.pm_name='".$pm_mg_chouziDAO[0]['pname']."' ";
+                $zhichuinfo->selectLimit .= " and c.id!='' and is_renling=1 ";
+
+                $zhichuinfo->selectLimit .= " order by bpath";
+                $zhichuinfo = $zhichuinfo->get($this->dbhelper);
+
+                $zhichu = '';
+                $shouru = '';
+                $xiangmushuliang = array(); // 项目数量 只统计父类id
+                foreach ($zhichuinfo as $key => $v) {
+                    $zhichuinfo[$key]['parent_pm_name'] = $this->pm[$v[parent_pm_id]];
+                    $zhichuinfo[$key]['leixing'] = $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']);
+                    $zhichuinfo[$key]['deparment'] = $this->getdepartmentAction($this->departmentlist,$v['department']);
+                    $zhichu += $v['shiyong_zhichu_jiner'];
+                    $shouru += $v['zijin_daozheng_jiner'];
+                }
+
+                $this->view->assign("zhichu", round($zhichu,2));
+                $this->view->assign("shouru", round($shouru,2));
+                $this->view->assign("yuer", round(($shouru - $zhichu),2));
+                $this->view->assign("zhichuinfo", $zhichuinfo);
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                // 签约信息
+                $signDAO = $this->orm->createDAO("pm_mg_sign");
+                $signDAO ->withPm_mg_chouzi(array("pm_id" => "id"));
+                $like_sql = "";
+                if($pm_mg_chouziDAO[0]['pname'] != "")
+                {
+                    $like_sql .= " AND pm_mg_chouzi.pname like '%".$pm_mg_chouziDAO[0]['pname']."%'";
+                }
+                $like_sql .= " order by id desc";
+                $signDAO->select(" pm_mg_sign.*,pm_mg_chouzi.pname");
+                $signDAO->selectLimit = $like_sql;
+                $signDAO = $signDAO ->get();
+                $this->view->assign("signDAO", $signDAO);
+                //////////////////////////////////////////////////////////////////////////////////////////////
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                // 项目收入
+                $sr = $this->orm->createDAO("pm_mg_info");
+                $sr->select(" DATE_FORMAT(zijin_daozhang_datetime,'%Y-%m-%d') AS stime ,pm_mg_info.*");
+                $sr->selectLimit .= " and pm_mg_info.pm_name='".$pm_mg_chouziDAO[0]['pname']."' ";
+                $sr->selectLimit .= " and cate_id=0 and is_renling=1 ";
+                $sr->selectLimit .= " ORDER BY stime ASC ";
+                $sr = $sr->get();
+
+                $sr1 = $this->orm->createDAO("pm_mg_info");
+                $sr1 ->select("sum(zijin_daozheng_jiner) as aaa");
+                $sr1 ->selectLimit .= " and pm_mg_info.pm_name='".$pm_mg_chouziDAO[0]['pname']."' ";
+                $sr1 ->selectLimit .= " and cate_id=0 and is_renling=1 ";
+                $sr1 = $sr1->get();
+
+                $this->view->assign("sr", $sr);
+                $this->view->assign("srhj", sprintf("%.2f", $sr1[0]['aaa']));
+                /////////////////////////////////////////////////////////////////////////
+                if(!empty($sr)){
+                    $jzf = array();
+                    $sjjzf = '';
+                    foreach($sr as $key => $value){
+                        if(!in_array($value['pm_pp'], $jzf)){
+                            $jzf[] = $value['pm_pp'];
+                        }
+                    }
+                }
+                $sjjzf = implode('，',$jzf);
+                $this->view->assign("sjjzf", $sjjzf);
+
+                //////////////////////////////////////////////////////////////////////////////////////////////
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                // 项目增值
+                $zz = $this->orm->createDAO("pm_mg_income");
+                $zz->selectLimit .= " and pid='".$pm_mg_chouziDAO[0]['id']."' ";
+                $zz->selectLimit .= " ORDER BY income_datetime asc ";
+                $zz = $zz->get();
+
+                $zz1 = $this->orm->createDAO("pm_mg_income");
+                $zz1 ->select("sum(income_jje) as aaa");
+                $zz1->selectLimit .= " and pid='".$pm_mg_chouziDAO[0]['id']."' ";
+                $zz1 = $zz1->get();
+
+                $this->view->assign("zz", $zz);
+                $this->view->assign("zzhj", sprintf("%.2f", $zz1[0]['aaa']));
+                //////////////////////////////////////////////////////////////////////////////////////////////
+
+                ////////////////////////
+                $_srhj = sprintf("%.2f", $sr1[0]['aaa']) + sprintf("%.2f", $zz1[0]['aaa']);
+                $this->view->assign("srhjh", $_srhj);
+                ///////////////////
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                // 项目支出
+                $zc = $this->orm->createDAO("pm_mg_info");
+                $zc->selectLimit .= " and pm_mg_info.pm_name='".$pm_mg_chouziDAO[0]['pname']."' ";
+                $zc->selectLimit .= " and cate_id=1 and is_renling=1 ";
+                $zc->selectLimit .= " ORDER BY shiyong_zhichu_datetime asc ";
+                $zc = $zc->get();
+
+                $zc1 = $this->orm->createDAO("pm_mg_info");
+                $zc1 ->select("sum(shiyong_zhichu_jiner) as aaa, sum(jiangli_renshu) as bbb");
+                $zc1 ->selectLimit .= " and pm_mg_info.pm_name='".$pm_mg_chouziDAO[0]['pname']."' ";
+                $zc1 ->selectLimit .= " and cate_id=1 and is_renling=1 ";
+                $zc1 = $zc1->get();
+
+                $this->view->assign("zc", $zc);
+                $this->view->assign("zchj", sprintf("%.2f", $zc1[0]['aaa']));
+                $this->view->assign("rshj", $zc1[0]['bbb']);
+                //////////////////////////////////////////////////////////////////////////////////////////////
+
+                $xmye = sprintf("%.2f", $sr1[0]['aaa']) + sprintf("%.2f", $zz1[0]['aaa']) - sprintf("%.2f", $zc1[0]['aaa']);
+                $this->view->assign("xmye", $xmye);
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                // 项目
+                /*$sr = $this->orm->createDAO("pm_mg_info");
+                $sr->selectLimit .= " and pm_mg_info.pm_name='".$pm_mg_chouziDAO[0]['pname']."' ";
+                $sr->selectLimit .= " and cate_id=0 and is_renling=1 ";
+                $sr->selectLimit .= " ORDER BY zijin_daozhang_datetime DESC ";
+                $sr = $sr->get();
+                $this->view->assign("sr", $sr);*/
+                //////////////////////////////////////////////////////////////////////////////////////////////
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                // 回馈信息
+                $feedbackDAO = $this->orm->createDAO('pm_mg_feedback')->order('id DESC');
+                $feedbackDAO->findPm_name($pm_mg_chouziDAO[0]['pname']);
+                $feedbackDAO = $feedbackDAO ->get();
+                $this->view->assign("feedbackDAO", $feedbackDAO);
+                //////////////////////////////////////////////////////////////////////////////////////////////
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                // 配比信息
+                $peibikDAO = $this->orm->createDAO('pm_mg_peibi');
+                $peibikDAO->order('peibi_datetime ASC');
+                $peibikDAO->findPm_name($pm_mg_chouziDAO[0]['pname']);
+                $peibikDAO = $peibikDAO ->get();
+
+                $pbhj = 0;
+                if(!empty($peibikDAO)){
+                    foreach($peibikDAO as $k => $v){
+                        $pbhj += $v['je'];
+                    }
+                    $this->view->assign("pbhj", $pbhj);
+                }
+                $this->view->assign("peibikDAO", $peibikDAO);
+
+                // 配比支出
+                $peibizcDAO = $this->orm->createDAO('pm_mg_peibi_zc');
+                $peibizcDAO->order('peibi_datetime ASC');
+                $peibizcDAO->findPm_name($pm_mg_chouziDAO[0]['pname']);
+                $peibizcDAO = $peibizcDAO->get();
+
+                $pbzchj = 0;
+                if(!empty($peibizcDAO)){
+                    foreach($peibizcDAO as $k => $v){
+                        $pbzchj += $v['je'];
+                    }
+                    $this->view->assign("pbzchj", $pbzchj);
+                }
+                $this->view->assign("peibizcDAO", $peibizcDAO);
+                //////////////////////////////////////////////////////////////////////////////////////////////
+
+                $this->view->assign("chouzi", $pm_mg_chouziDAO);
+                echo $this->view->render("index/header.phtml");
+                echo $this->view->render("chouzi/repminfo.phtml");
+            }else {
+                echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+                echo('<script language="JavaScript">');
+                echo("alert('该项目不存在！');");
+                echo('history.back();');
+                echo('</script>');
+                exit;
+            }
+        }
+
         //获取部门名称
         public function getdepartmentAction($departmentlist,$id){
             if($departmentlist != ""){
@@ -946,6 +1162,7 @@
                 'compare',
                 'editcompare',
                 'editrscompare',
+                'repminfo'
             );
             if (in_array($action, $except_actions)) {
                 return;

@@ -277,6 +277,84 @@
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /////////////配比支出//////////////////////////////////////////////////////////////////////
+
+        public function zcindexAction(){
+            $pname = $_REQUEST['pname'];
+            $starttime = $_REQUEST['starttime'];
+            $endtime = $_REQUEST['endtime'];
+            $card = $_REQUEST['card'];
+            $pm_mg_peibi_zcDAO = $this->orm->createDAO("pm_mg_peibi_zc");
+            if(!empty($pname)){
+                $pm_mg_peibi_zcDAO->findPm_name($pname);
+            }
+            if(!empty($card)){
+                $pm_mg_peibi_zcDAO->findCard($card);
+            }
+            if(!empty($starttime)){
+                $pm_mg_peibi_zcDAO->selectLimit .= " and peibi_datetime >= '$starttime'";
+            }
+            if(!empty($endtime)){
+                $pm_mg_peibi_zcDAO->selectLimit .= " and peibi_datetime <= '$endtime'";
+            }
+            $pm_mg_peibi_zcDAO->getPager(array('path'=>'/management/peibi/index'))->assignTo($this->view);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("peibi/zcindex.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        public function editzcAction()
+        {
+            if(!empty($_REQUEST['id'])) {
+                $pm_mg_peibi_zcDAO = $this->orm->createDAO("pm_mg_peibi_zc")->findId($_REQUEST['id'])->get();
+                $this->view->assign("zcinfo", $pm_mg_peibi_zcDAO[0]);
+            }
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("peibi/editzc.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        public function rszcAction(){
+            if(empty($_REQUEST['pm_name']) || empty($_REQUEST['je']) || empty($_REQUEST['peibi_datetime']) || empty($_REQUEST['card'])){
+                alert_back('信息不完整，保存失败！！！！！');
+            }
+            $pm_mg_peibi_zcDAO = $this->orm->createDAO("pm_mg_peibi_zc");
+            if(!empty((int)$_REQUEST['id'])) {
+                $pm_mg_peibi_zcDAO->findId($_REQUEST['id']);
+            }
+            $pm_mg_peibi_zcDAO ->pm_name = $_REQUEST['pm_name'];
+            $pm_mg_peibi_zcDAO ->je = $_REQUEST['je'];
+            $pm_mg_peibi_zcDAO ->peibi_datetime = $_REQUEST['peibi_datetime'];
+            $pm_mg_peibi_zcDAO ->card = $_REQUEST['card'];
+
+            $jffzr = $_REQUEST["jffzr"];
+            $jffzr = implode(',',$jffzr);
+            $pm_mg_peibi_zcDAO ->jffzr = $jffzr;
+
+            try{
+                $pm_mg_peibi_zcDAO ->save();
+            }catch (Exception $e){
+                alert_back('保存失败！！！！！');
+            }
+            alert_go('保存成功', "/management/peibi/zcindex");
+        }
+
+        public function delzcAction(){
+            $pm_mg_peibi_zcDAO = $this->orm->createDAO("pm_mg_peibi_zc");
+            try{
+                if(!empty((int)$_REQUEST['id'])) {
+                    $pm_mg_peibi_zcDAO->findId($_REQUEST['id']);
+                }
+
+                $pm_mg_peibi_zcDAO ->del();
+            }catch (Exception $e){
+                $this->alert_back('删除失败！！！！！');
+            }
+            $this->alert_go('删除成功', "/management/peibi/zcindex");
+        }
+
         //权限
         public function acl()
         {
@@ -284,6 +362,10 @@
             $except_actions = array(
                 'to-add',
                 'getpeibilist',
+                'zcindex',
+                'editzc',
+                'rszc',
+                'delzc'
             );
             if (in_array($action, $except_actions)) {
                 return;
