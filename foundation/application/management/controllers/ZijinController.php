@@ -24,7 +24,7 @@
 			}
 
             $zijininfo ->selectLimit .= " and is_renling=1"; // 显示已认领的项目
-			$zijininfo ->selectLimit .= " and cate_id=0 order by lastmodify DESC,id desc";
+			$zijininfo ->selectLimit .= " and cate_id=0 order by zijin_daozhang_datetime DESC,lastmodify DESC,id desc";
 
 			//$chouziinfo ->debugSql =true;
 			$zijininfo = $zijininfo->get();
