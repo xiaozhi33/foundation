@@ -34,6 +34,15 @@
             $incomeinfo ->selectLimit .= " order by income_datetime desc";
             //$incomeinfo ->debugSql =true;
             $incomeinfo = $incomeinfo->get();
+
+            if(!empty($incomeinfo)){
+                $jjehj = '';
+                foreach($incomeinfo as $key => $value){
+                    $jjehj += $value['income_jje'];
+                }
+                $this->view->assign("jjehj", $jjehj);
+            }
+
             $total = count($incomeinfo);
             $pageDAO = new pageDAO();
             $pageDAO = $pageDAO->pageHelper($incomeinfo, null, "/management/income/index", null, 'get', 25, 8);
