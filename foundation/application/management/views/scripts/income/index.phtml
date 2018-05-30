@@ -113,11 +113,11 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="24%">收益名称</td>
-						<td width="12%">收益日期</td>
-                        <td width="20%">收益金额</td>
-                        <td width="20%">操作人</td>
-                        <td width="20%">操作</td>
+						<td width="30%">收益名称</td>
+						<td width="23%">收益日期</td>
+                        <td width="23%">收益金额（元）</td>
+                        <td width="12%">操作人</td>
+                        <td width="12%">操作</td>
 					  </tr>
 					</thead>
                     <tbody>
@@ -131,7 +131,7 @@
                                  <?php echo date("Y-m-d",$v['income_datetime']);?>
                              </td>
                              <td>
-                                     <?php echo $v['income_jje'];?>
+                                     <?php echo number_format($v['income_jje'],2);?>
                              </td>
                              <td>
                                  <?php echo $v['admin_name'];?>
