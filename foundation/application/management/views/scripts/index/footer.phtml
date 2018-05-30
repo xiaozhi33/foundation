@@ -56,7 +56,22 @@
     <script src="/include/management/assets/js/minimal.min.js"></script>
 
 
-    
+    <link href="/include/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+    <!--<script type="text/javascript" src="/include/umeditor/third-party/jquery.min.js"></script>-->
+    <script type="text/javascript" charset="utf-8" src="/include/umeditor/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/include/umeditor/umeditor.min.js"></script>
+    <script type="text/javascript" src="/include/umeditor/lang/zh-cn/zh-cn.js"></script>
+
+    <script type="text/javascript">
+        //实例化编辑器
+        var um = UM.getEditor('beizhu',{
+            toolbars: [
+                ['source', 'undo', 'redo'],
+                ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
+            ]
+        });
+    </script>
+
     <script>
     $(function(){
     	//initialize datepicker

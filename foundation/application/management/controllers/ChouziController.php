@@ -97,7 +97,15 @@
                 $jiezhi = HttpUtil::postString("jiezhi");         //项目截止日期
                 $jiner = HttpUtil::postString("jiner");         //协议捐赠金额
                 $yishi = HttpUtil::postString("yishi");         //项目仪式
-                $beizhu = HttpUtil::postString("beizhu");         //备注
+
+                if(!empty($qishi)){
+                    $qishi = $qishi."-01-01 00:00:00";
+                }
+                if(!empty($jiezhi)){
+                    $jiezhi = $jiezhi."-12-31 00:00:00";
+                }
+                $beizhu =  htmlspecialchars($_POST['beizhu']);     //备注
+                //$beizhu = HttpUtil::postString("beizhu");         //备注
 
                 $pm_fzr = implode(",",$_REQUEST['pm_fzr']);               //项目负责人
                 //$pm_fzr_email = HttpUtil::postString("pm_fzr_email");
@@ -331,13 +339,22 @@
                 $fuhuaqi = HttpUtil::postString("fuhuaqi");  //项目孵化期
                 $liuben = HttpUtil::postString("liuben");  //项目孵化期
                 //$qianyuedate = HttpUtil::postString("qianyuedate"); //项目签约日期
-                $fankui = HttpUtil::postString("fankui");    //项目反馈日期
+                $fankui = HttpUtil::postString("fankui");       //项目反馈日期
                 $qishi = HttpUtil::postString("qishi");         //项目起始日期
-                $xianqi = HttpUtil::postString("xianqi");         //项目限期
-                $jiezhi = HttpUtil::postString("jiezhi");         //项目截止日期
+                $xianqi = HttpUtil::postString("xianqi");       //项目限期
+                $jiezhi = HttpUtil::postString("jiezhi");       //项目截止日期
                 $jiner = HttpUtil::postString("jiner");         //协议捐赠金额
                 $yishi = HttpUtil::postString("yishi");         //项目仪式
-                $beizhu = HttpUtil::postString("beizhu");         //备注
+
+                if(!empty($qishi)){
+                    $qishi = $qishi."-01-01 00:00:00";
+                }
+                if(!empty($jiezhi)){
+                    $jiezhi = $jiezhi."-12-31 00:00:00";
+                }
+
+                $beizhu =  htmlspecialchars($_POST['beizhu']);     //备注
+                //$beizhu = HttpUtil::postString("beizhu");         //备注
                 // $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
 
                 $execute_fzr = implode(",",$_REQUEST['execute_fzr']);
@@ -854,7 +871,13 @@
                         }
                     }
                 }
-                $sjjzf = implode('，',$jzf);
+
+                if(count($jzf) > 5){
+                    $sjjzf = '多人';
+                }else {
+                    $sjjzf = implode('，',$jzf);
+                }
+
                 $this->view->assign("sjjzf", $sjjzf);
 
                 //////////////////////////////////////////////////////////////////////////////////////////////

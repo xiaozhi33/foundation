@@ -112,14 +112,14 @@
                         <p>起始年份：<?php echo substr($this->chouzi[0]['pm_qishi_datetime'],0,4);?></p>
                         <p>
                             捐赠方： <?php
-                            if($this->chouzi[0]['pm_jzf'] != ""){
+                            /*if($this->chouzi[0]['pm_jzf'] != ""){
                                 $_pm_fzr = explode(',',$this->chouzi[0]['pm_jzf']);
                                 foreach($_pm_fzr as $key => $value){
                                     echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
                                 }
-                            }else {
+                            }else {*/
                                 echo $this->sjjzf;
-                            }
+                            /*}*/
                             ?>
                         </p>
                         <p>
@@ -140,7 +140,7 @@
                         </p>
                         <p>协议年限及金额：</p>
                         <div class="pm-yt">
-                        <p>用途：</p>
+                        <p>用途：<?php echo htmlspecialchars_decode($this->chouzi[0]['beizhu']);?></p>
                         <p>配比情况：<?php if(empty($this->peibikDAO)){echo '无';}?></p>
                         <p>增值情况：<?php if(empty($this->zzhj)){echo '无';}else{echo number_format($this->zzhj, 2).'元';}?></p>
                         </div>
@@ -381,6 +381,7 @@
         <div class="back-box">
             <ul>
                 <li><a href="#" id="q123">在线打印</a></li>
+                <li><a href="/management/chouzi/editchouzi?id=<?php echo $this->chouzi[0]['id'];?>" target="_blank">项目编辑</a></li>
                 <li><a href="#02">基本信息</a></li>
                 <!--<li><a href="#03">签约信息</a></li>-->
                 <li><a href="#04">收支信息</a></li>
