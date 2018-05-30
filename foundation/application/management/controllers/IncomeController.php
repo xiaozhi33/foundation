@@ -16,9 +16,18 @@
         {
             $incomeinfo = $this->orm->createDAO("pm_mg_income");
             $pname = HttpUtil::getString("pname");
+            $department = HttpUtil::getString('department');
+
+            $incomeinfo ->withPm_mg_chouzi(array("pname" => "pname"));
+            $incomeinfo ->select(" pm_mg_income.*, pm_mg_chouzi.department ");
+
 
             if ($pname != "") {
                 $incomeinfo->findPname($pname);
+            }
+
+            if(!empty($department)){
+                $incomeinfo->selectLimit .= " AND pm_mg_chouzi.department=".$department;
             }
 
             if(HttpUtil::getString("starttime")!="" && HttpUtil::getString("endtime") != ""){

@@ -45,9 +45,9 @@
                             <div class="form-group">
 
                                 <div class="row">
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-sm-3">
                                         <label class="col-sm-12 control-label" for="input01">项目名称：</label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-12">
                                             <select class="chosen-select-1 chosen-transparent form-control" id="pname">
                                                 <option value="">请选择项目名称</option>
                                                 <?php if($this->pmlist != ""){
@@ -56,7 +56,21 @@
                                                         <option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pname'] == $v['pname'])echo 'selected="selected"';?>><?php echo $v['pname'];?></option>
                                                     <?php }}?>
                                             </select>
-                                            <input id="pname_info" type="hidden" name="pname" value=""/>
+                                            <!--<input id="pname_info" type="hidden" name="pname" value=""/>-->
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-sm-3">
+                                        <label class="col-sm-12 control-label" for="input01">部门名称：</label>
+                                        <div class="col-sm-12">
+                                            <select class="chosen-select-1 chosen-transparent form-control" id="pname" name="department">
+                                                <option value="" >请选择所属部门</option>
+                                                <?php if($this->departmentlist != ""){
+                                                    foreach ($this->departmentlist as $k => $v){?>
+                                                        <option value="<?php echo $v['id']?>" <?php if($_REQUEST['department']==$v['id']){echo 'selected="selected"';}?>><?php echo $v['pname']?></option>
+                                                    <?php }}?>
+                                            </select>
+                                            <!--<input id="department" type="hidden" name="department" value=""/>-->
                                         </div>
                                     </div>
                                 </div>
@@ -97,11 +111,6 @@
                                     </div>
 
                                 </div>
-
-                                <div class="row">
-
-                                </div>
-
                             </div>
                         </form>
                     </div>
@@ -113,11 +122,12 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="30%">收益名称</td>
-						<td width="23%">收益日期</td>
-                        <td width="23%">收益金额（元）</td>
-                        <td width="12%">操作人</td>
-                        <td width="12%">操作</td>
+						<td width="30%">项目名称</td>
+                        <td width="20%">部门名称</td>
+						<td width="15%">收益日期</td>
+                        <td width="15%">收益金额（元）</td>
+                        <td width="10%">操作人</td>
+                        <td width="10%">操作</td>
 					  </tr>
 					</thead>
                     <tbody>
@@ -127,6 +137,17 @@
 						 	<td>
                                 <?php echo $v['pname'];?>
                             </td>
+
+                             <td>
+                                 <?php
+                                 if($this->departmentlist != ""){
+                                    foreach ($this->departmentlist as $key => $value){
+                                        if($v['department']==$value['id']){ echo $value['pname'];}
+                                    }
+                                 }
+                                 ?>
+                             </td>
+
                              <td>
                                  <?php echo date("Y-m-d",$v['income_datetime']);?>
                              </td>
