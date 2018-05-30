@@ -62,7 +62,7 @@
 
                 // Add some data
                 $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('A1', '编号')
+                    ->setCellValue('A1', '')
                     ->setCellValue('B1', '项目名称')
                     ->setCellValue('C1', '收益时间')
                     ->setCellValue('D1', '收益金额')
@@ -72,13 +72,13 @@
                 $hj = 0;
                 foreach($incomeinfo as $v){
                     $objPHPExcel->setActiveSheetIndex(0)
-                        ->setCellValue('A'.$i, $v['id'])
+                        ->setCellValue('A'.$i, '')
                         ->setCellValue('B'.$i, $v['pname'])
                         ->setCellValue('C'.$i, date("Y-m-d",$v['income_datetime']))
                         ->setCellValue('D'.$i, number_format($v['income_jje'],2))
                         ->setCellValue('E'.$i, $v['beizhu']);
 
-                    $hj += number_format($v['income_jje'],2);
+                    $hj += $v['income_jje'];
                     $i++;
                 }
 
@@ -86,7 +86,7 @@
                 $heji = "合计";
 
                 $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('J'.$hejiqq,$heji.$hj.'元');
+                    ->setCellValue('J'.$hejiqq,$heji.number_format($hj,2).'元');
 
                 $i = "";
 
