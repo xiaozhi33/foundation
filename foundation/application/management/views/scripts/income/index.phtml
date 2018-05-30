@@ -81,7 +81,7 @@
 
                                     <div class="form-group col-sm-2">
                                         <label for="input02"></label>
-                                        <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                                        <input class="btn btn-primary btn-block" onclick="post_submit1()" type="button"  value="搜索"/>
                                     </div>
 
 
@@ -172,6 +172,12 @@
 
             function post_submit(){
                 var inputNumber=$("<input type='hidden' name='excel' value='true'/>");
+                $('#search_form1').append(inputNumber);
+                $('#search_form1').submit();
+            }
+
+            function post_submit1(){
+                var inputNumber=$("<input type='hidden' name='excel' value='false'/>");
                 $('#search_form1').append(inputNumber);
                 $('#search_form1').submit();
             }
