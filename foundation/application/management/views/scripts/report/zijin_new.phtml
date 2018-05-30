@@ -42,7 +42,7 @@
                             <?php if($this->pmlist != ""){
                                 foreach ($this->pmlist as $k => $v){
                                     ?>
-                                    <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                    <option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pname'] == $v['pname'])echo 'selected="selected"';?>><?php echo $v['pname'];?></option>
                                 <?php }}?>
                         </select>
                         <input id="pname_info" type="hidden" name="pname" value=""/>
