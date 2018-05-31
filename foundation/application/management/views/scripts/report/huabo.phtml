@@ -108,6 +108,7 @@
                             <td width="14%">卡号</td>
                             <td width="10%">经费负责人</td>
                             <td width="10%">配比审批人</td>
+                            <td width="10%">操作</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -155,19 +156,19 @@
                                     }?>
                                 </td>
 
-                                <!--<td>
-                                    <a href="/management/peibi/edit?id=<?php /*echo $v['id'];*/?>">
-                                        <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                                <td>
+                                    <a href="/management/peibi/edit?id=<?php echo $v['id'];?>">
+                                        <button class="btn btn-greensea margin-bottom-20" type="button">编  辑</button>
                                     </a>
-                                    &nbsp;&nbsp;
-                                    <a href="#" onclick="alert('对不起，配比清单不提供删除功能，请联系管理员');">
-                                        <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
-                                    </a>
+                                    <!-- &nbsp;&nbsp;
+                                     <a href="#" onclick="alert('对不起，配比清单不提供删除功能，请联系管理员');">
+                                         <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
+                                     </a>-->
 
-                                    <a href="/management/peibi/del?id=<?php /*echo $v['id']*/?>">
-                                        <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
-                                    </a>
-                                </td>-->
+                                    <!--<a href="/management/peibi/del?id=<?php /*echo $v['id']*/?>" >
+                                        <button class="btn btn-danger margin-bottom-20" type="button" onclick="window.confirm('确定要删除这个配比信息吗?')">删除</button>
+                                    </a>-->
+                                </td>
                             </tr>
                         <?php }?>
                         </tbody>
