@@ -1,0 +1,208 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>添加配比支出信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目信息管理</li>
+            <li class="active">添加配比支出信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+<style>
+    body #content .tile.color table.table-bordered > thead > tr td, body #content .tile.color table.table-bordered > thead > tr th, body #content .tile.color table.table-bordered > tbody > tr td, body #content .tile.color table.table-bordered > tbody > tr th, body #content .tile.color table.table-bordered > tfoot > tr td, body #content .tile.color table.table-bordered > tfoot > tr th, body #content .tile.transparent-black table.table-bordered > thead > tr td, body #content .tile.transparent-black table.table-bordered > thead > tr th, body #content .tile.transparent-black table.table-bordered > tbody > tr td, body #content .tile.transparent-black table.table-bordered > tbody > tr th, body #content .tile.transparent-black table.table-bordered > tfoot > tr td, body #content .tile.transparent-black table.table-bordered > tfoot > tr th, body #content .tile-header.color table.table-bordered > thead > tr td, body #content .tile-header.color table.table-bordered > thead > tr th, body #content .tile-header.color table.table-bordered > tbody > tr td, body #content .tile-header.color table.table-bordered > tbody > tr th, body #content .tile-header.color table.table-bordered > tfoot > tr td, body #content .tile-header.color table.table-bordered > tfoot > tr th, body #content .tile-header.transparent-black table.table-bordered > thead > tr td, body #content .tile-header.transparent-black table.table-bordered > thead > tr th, body #content .tile-header.transparent-black table.table-bordered > tbody > tr td, body #content .tile-header.transparent-black table.table-bordered > tbody > tr th, body #content .tile-header.transparent-black table.table-bordered > tfoot > tr td, body #content .tile-header.transparent-black table.table-bordered > tfoot > tr th, body #content .tile-widget.color table.table-bordered > thead > tr td, body #content .tile-widget.color table.table-bordered > thead > tr th, body #content .tile-widget.color table.table-bordered > tbody > tr td, body #content .tile-widget.color table.table-bordered > tbody > tr th, body #content .tile-widget.color table.table-bordered > tfoot > tr td, body #content .tile-widget.color table.table-bordered > tfoot > tr th, body #content .tile-widget.transparent-black table.table-bordered > thead > tr td, body #content .tile-widget.transparent-black table.table-bordered > thead > tr th, body #content .tile-widget.transparent-black table.table-bordered > tbody > tr td, body #content .tile-widget.transparent-black table.table-bordered > tbody > tr th, body #content .tile-widget.transparent-black table.table-bordered > tfoot > tr td, body #content .tile-widget.transparent-black table.table-bordered > tfoot > tr th, body #content .tile-body.color table.table-bordered > thead > tr td, body #content .tile-body.color table.table-bordered > thead > tr th, body #content .tile-body.color table.table-bordered > tbody > tr td, body #content .tile-body.color table.table-bordered > tbody > tr th, body #content .tile-body.color table.table-bordered > tfoot > tr td, body #content .tile-body.color table.table-bordered > tfoot > tr th, body #content .tile-body.transparent-black table.table-bordered > thead > tr td, body #content .tile-body.transparent-black table.table-bordered > thead > tr th, body #content .tile-body.transparent-black table.table-bordered > tbody > tr td, body #content .tile-body.transparent-black table.table-bordered > tbody > tr th, body #content .tile-body.transparent-black table.table-bordered > tfoot > tr td, body #content .tile-body.transparent-black table.table-bordered > tfoot > tr th, body #content .tile-footer.color table.table-bordered > thead > tr td, body #content .tile-footer.color table.table-bordered > thead > tr th, body #content .tile-footer.color table.table-bordered > tbody > tr td, body #content .tile-footer.color table.table-bordered > tbody > tr th, body #content .tile-footer.color table.table-bordered > tfoot > tr td, body #content .tile-footer.color table.table-bordered > tfoot > tr th, body #content .tile-footer.transparent-black table.table-bordered > thead > tr td, body #content .tile-footer.transparent-black table.table-bordered > thead > tr th, body #content .tile-footer.transparent-black table.table-bordered > tbody > tr td, body #content .tile-footer.transparent-black table.table-bordered > tbody > tr th, body #content .tile-footer.transparent-black table.table-bordered > tfoot > tr td, body #content .tile-footer.transparent-black table.table-bordered > tfoot > tr th, body #content .tile-left-side.color table.table-bordered > thead > tr td, body #content .tile-left-side.color table.table-bordered > thead > tr th, body #content .tile-left-side.color table.table-bordered > tbody > tr td, body #content .tile-left-side.color table.table-bordered > tbody > tr th, body #content .tile-left-side.color table.table-bordered > tfoot > tr td, body #content .tile-left-side.color table.table-bordered > tfoot > tr th, body #content .tile-left-side.transparent-black table.table-bordered > thead > tr td, body #content .tile-left-side.transparent-black table.table-bordered > thead > tr th, body #content .tile-left-side.transparent-black table.table-bordered > tbody > tr td, body #content .tile-left-side.transparent-black table.table-bordered > tbody > tr th, body #content .tile-left-side.transparent-black table.table-bordered > tfoot > tr td, body #content .tile-left-side.transparent-black table.table-bordered > tfoot > tr th, body #content .tile-right-side.color table.table-bordered > thead > tr td, body #content .tile-right-side.color table.table-bordered > thead > tr th, body #content .tile-right-side.color table.table-bordered > tbody > tr td, body #content .tile-right-side.color table.table-bordered > tbody > tr th, body #content .tile-right-side.color table.table-bordered > tfoot > tr td, body #content .tile-right-side.color table.table-bordered > tfoot > tr th, body #content .tile-right-side.transparent-black table.table-bordered > thead > tr td, body #content .tile-right-side.transparent-black table.table-bordered > thead > tr th, body #content .tile-right-side.transparent-black table.table-bordered > tbody > tr td, body #content .tile-right-side.transparent-black table.table-bordered > tbody > tr th, body #content .tile-right-side.transparent-black table.table-bordered > tfoot > tr td, body #content .tile-right-side.transparent-black table.table-bordered > tfoot > tr th{
+        border-bottom:1px solid #ddd;
+        border-right:1px solid #ddd;
+    }
+</style>
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+        <div class="col-md-12">
+
+            <section class="tile color transparent-white">
+
+                <div class="tile-body nopadding" style="padding: 20px;">
+                    <div style="font-size: 16px;padding-left: 10px;"><strong>项目名称：<?php echo $this->peibiinfo['pm_name'];?></strong></div>
+                </div>
+
+                <div class="tile-body nopadding">
+                    <form class="form-horizontal" action="zcaddrs" id="form1" method="post" encType="multipart/form-data">
+
+                    <input type="hidden" name="pm_name" value="<?php echo $this->peibiinfo['pm_name'];?>"/>
+                    <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center;padding: 30px;">
+                        <thead>
+                            <tr>
+                                <td width="20%">支出金额（元）</td>
+                                <td width="20%">支出时间</td>
+                                <td width="20%">卡号</td>
+                                <td width="35%">经费负责人</td>
+                                <td width="5%">操作</td>
+                            </tr>
+                        </thead>
+
+                        <tbody id="addtbody">
+                            <tr id="addhtml">
+                                <td>
+                                    <input class="form-control noNull" notNull="支出金额" type="text" name="je" />
+                                </td>
+                                <td>
+                                    <input class="form-control noNull" notNull="支出时间" data-date-format="YYYY-MM-DD" type="text" id="datepicker"  name="peibi_datetime"/>
+                                </td>
+                                <td>
+                                    <input class="form-control noNull" notNull="卡号" type="text" name="card"/>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="col-sm-12"  style="margin-top: 11px;">
+                                            <select class="chosen-select-1 chosen-transparent form-control"  multiple data-live-search="false" name="jffzr[]" id="jffzr">
+                                                <option value="">请选择经费负责人</option>
+                                                <?php if($this->jjh_mg_pp_list != ""){
+                                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                                        <option value="<?php echo $k?>" <?php
+                                                        if(!empty($this->zcinfo['jffzr'])){
+                                                            foreach(explode(',',$this->zcinfo['jffzr']) as $key => $value){
+                                                                if($k == $value){
+                                                                    echo "selected='selected'";
+                                                                }
+                                                            }
+                                                        }?>><?php echo $v?></option>
+                                                    <?php }}?>
+                                            </select>
+                                        </div>
+                                        <!--<span class="col-sm-2 addpp" >添加人员信息</span>-->
+                                    </div>
+                                </td>
+
+                                <td></td>
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    </form>
+
+
+                    <div style="border:2px dashed #ccc;border-radius: 5px;clear: both;margin: 0px 30px 20px 30px;">
+                        <a href="#" onclick="addone()"><p style="text-align:center;font-size: 14px;"><span>+&nbsp; 添加</span></p></a>
+                    </div>
+
+                    <div class="form-group form-footer">
+                        <div class="col-sm-offset-5 col-sm-7">
+                            <input class="btn btn-primary" type="submit" onclick="return bubmi();"  value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input class="btn btn-default" type="reset" value="重 置" />
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    <script type="application/javascript">
+
+        var htmltext = $("#addhtml").html();
+        var shanchu = ' <td> <input class="btn btn-primary" type="button" onclick="$(this).parent().parent().remove();" value="删 除" /> </td>';
+        htmltext = htmltext.replace('<td></td>',shanchu);
+
+        var child_count = 1;
+        function addone(){
+
+            htmltext1 = htmltext.replace('name="jffzr[]"' ,'name="jffzr'+ child_count + '[]"');
+            htmltext1 = htmltext1.replace('name="je"' ,'name="je'+ child_count + '"');
+            htmltext1 = htmltext1.replace('name="peibi_datetime"' ,'name="peibi_datetime'+ child_count +'"');
+            htmltext1 = htmltext1.replace('id="datepicker"' ,'id="datepicker'+ child_count + '"');
+            htmltext1 = htmltext1.replace('name="card"' ,'name="card'+ child_count + '"');
+            htmltext1 = htmltext1.replace('id="jffzr"' ,'id="jffzr'+ child_count + '"');
+            htmltext1 = htmltext1 + "<input name='xnumber[]' type='hidden' value='" + child_count + "'/>";
+
+            $("#addtbody").append("<tr>"+htmltext1 +"</tr>");
+
+            htmltext1 = '';
+            for (i=child_count;i<child_count+1;i++){
+                $("#jffzr"+ i).chosen("destroy");
+                $("#jffzr"+ i).trigger("chosen:updated");
+            }
+
+            $('#datepicker').datetimepicker({
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                }
+            });
+
+            $("#datepicker").on("dp.show",function (e) {
+                var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;
+                $('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
+            });
+
+            $('#datepicker'+ child_count).datetimepicker({
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                }
+            });
+
+            $("#datepicker"+ child_count).on("dp.show",function (e) {
+                var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;
+                $('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
+            });
+
+            child_count = child_count+1;
+            //alert(child_count);
+
+        }
+
+        function bubmi(){
+            var error_info = false;
+            $(".noNull").each(function(){
+                var name = $(this).attr("name");
+                if($(this).val()==""){
+                    $(this).focus();
+                    alert($(this).attr('notNull')+"不能为空");
+                    error_info = false;
+                    return false;
+                }
+                if($(this).attr('notNull') == "支出金额" && isNaN($(this).val())) {
+                    $(this).focus();
+                    alert("支出金额必须为数字");
+                    error_info = false;
+                    return false;
+                }
+                /*}else if($(this).attr("type")=="radio"){
+                    if ($("input[name='"+name+"']:checked").size() < 1){
+                        alert($(this).attr('notNull')+"不能为空!");
+                        error_info = false;
+                        return false;
+                    }
+                }else if($(this).attr("type")=="checkbox"){
+                    if ($('input[name="'+name+'"]:checked').size() < 1){
+                        alert($(this).attr('notNull')+"不能为空!");
+                        error_info = false;
+                        return false;
+                    }
+                }*/
+                error_info = true;
+            });
+            if(error_info){
+                $("#form1").submit();
+            }
+        }
+    </script>
+

@@ -76,14 +76,42 @@
                                     <div class="form-group col-sm-3">
                                         <label for="input02"></label>
                                         <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
-                                        <label for="input03"></label>
-                                        <a href="/management/peibi/editzc" target="_blank"><input class="btn btn-primary btn-block" type="botton" value="添加配比支出"/></a>
+                                        <!--<label for="input03"></label>
+                                        <a href="/management/peibi/editzc" target="_blank"><input class="btn btn-primary btn-block" type="botton" value="添加配比支出"/></a>-->
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </section>
+
+                <section class="tile color transparent-white">
+                    <div class="tile-body">
+                        <form action="/management/peibi/addzc" method="post">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        <label for="pname" class="col-sm-4 control-label">项目名称：</label>
+                                        <select class="chosen-select-1 chosen-transparent form-control" name="pname" id="id">
+                                            <option value="">请选择项目</option>
+                                            <?php if($this->chouzi_lists != ""){
+                                                foreach ($this->chouzi_lists as $k => $v){
+                                                    ?>
+                                                    <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                                <?php }}?>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-sm-3">
+                                        <label for="input03"> </label>
+                                        <input class="btn btn-primary btn-block" type="submit" value="添加配比支出"/>
+                                    </div>
+                                </div>
+                        </div>
+                    </form>
+                </div>
+                </section>
+
 
 			<section class="tile color transparent-white">
 				<div class="tile-body nopadding">
@@ -93,7 +121,7 @@
 					  <tr>
 						  <td width="24%">项目名称</td>
 						  <td width="12%">支出时间</td>
-                          <td width="20%">支出金额</td>
+                          <td width="20%">支出金额（元）</td>
                           <td width="20%">卡号</td>
                           <td width="20%">操作</td>
 					  </tr>
@@ -109,7 +137,7 @@
                                  <?php echo $v['peibi_datetime'];?>
                              </td>
                              <td>
-                                 <?php echo $v['je'];?>
+                                 <?php echo number_format($v['je'],2);?>
                              </td>
                              <td>
                                  <?php echo $v['card'];?>
@@ -131,7 +159,7 @@
 					<div class="tile-footer">
 					<div class="row">
 					<div class="page col-md-12" align="right">
-                        共  <?php echo $this->totalItems;?> 条配比支出信息         <?php echo $this->page['all'];?></div>
+                        共  <?php echo $this->totalItems;?> 条配比支出信息，合计支出：<?php echo number_format($this->hjje,2);?>         <?php echo $this->page['all'];?></div>
 					
 				 <?php }else{?>
 				 	<!--<div style="margin: 10px;padding: 10px;">暂无配比信息！<a href="/management/peibi/add">点击添加</a></div>-->
