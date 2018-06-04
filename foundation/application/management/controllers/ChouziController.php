@@ -975,6 +975,24 @@
                 $this->view->assign("peibizcDAO", $peibizcDAO);
                 //////////////////////////////////////////////////////////////////////////////////////////////
 
+                // 配比回项目
+                $peibik1DAO = $this->orm->createDAO('pm_mg_peibi');
+                $peibik1DAO->order('peibi_datetime ASC');
+                $peibik1DAO->findPm_name($pm_mg_chouziDAO[0]['pname']);
+                $peibik1DAO->findis_income(1);
+                $peibik1DAO = $peibik1DAO ->get();
+
+                $pbhj1 = 0;
+                if(!empty($peibik1DAO)){
+                    foreach($peibik1DAO as $k => $v){
+                        $pbhj1 += $v['je'];
+                    }
+                    $this->view->assign("pbhj1", $pbhj1);
+                }
+                $this->view->assign("peibik1DAO", $peibik1DAO);
+
+                //////////////////////////////////////////////////////////////////////////////////////////////
+
                 $this->view->assign("chouzi", $pm_mg_chouziDAO);
                 echo $this->view->render("index/header.phtml");
                 echo $this->view->render("chouzi/repminfo.phtml");
