@@ -110,7 +110,7 @@
                             <label class="col-sm-2 control-label">是否回奖助励学金项目：</label>
                             <div class="col-sm-4">
                                 <input type="radio"  name="is_income" value="1" <?php if($this->peibiDAO[0]['is_income'] == "1"){echo "checked='checked'";}?>/> 是
-                                <input type="radio"  name="is_income" value="" <?php if($this->peibiDAO[0]['is_income'] == ""){echo "checked='checked'";}?>/> 否
+                                <input type="radio"  name="is_income" value="" <?php if($this->peibiDAO[0]['is_income'] == "" || $this->peibiDAO[0]['is_income'] == 0){echo "checked='checked'";}?>/> 否
                             </div>
                         </div>
 
