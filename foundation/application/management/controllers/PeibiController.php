@@ -130,11 +130,6 @@
                 alert_back('配比金额不能超过总金额('.$lk_info_jr.')的30%，');
             }*/
 
-            // 同步配比是否奖励信息
-            $lkDAO = $this->orm->createDAO("pm_mg_info")->findId($lk_main_id);
-            $lkDAO ->is_show_peibi = $is_show_peibi;
-            $lkDAO ->save();
-
             try{
                 if(!empty($id)){
                     $peibiDAO ->findId($id);
@@ -153,6 +148,12 @@
                 $peibiDAO ->lk_main_id = $lk_main_id;   // 来款id
                 $peibiDAO ->is_income = $is_income;   // 来款id
                 $peibiDAO ->save();
+
+                // 同步配比是否奖励信息
+                $lkDAO = $this->orm->createDAO("pm_mg_info")->findId($lk_main_id);
+                $lkDAO ->is_show_peibi = $is_show_peibi;
+                $lkDAO ->save();
+
             }catch (Exception $e){
                 //throw $e;
                 alert_back('保存失败！！！！！');
