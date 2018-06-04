@@ -116,7 +116,7 @@
                         foreach($this->pageData as $k=>$v){?>
                             <tr>
                                 <td>
-                                    <?php echo $v['pm_name'];?>
+                                    <a href="/management/chouzi/index?pname=<?php echo $v['pm_name'];?>" target="_blank" ><?php echo $v['pm_name'];?></a>
                                 </td>
                                 <td>
                                     <?php echo $this->department[$v['huabo_department']];?>
