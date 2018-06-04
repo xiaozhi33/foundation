@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+    <link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
 <link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
 <script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
@@ -90,7 +90,7 @@
 						foreach($this->claimlist as $k=>$v){?>
 						 <tr>
 						 	<td>
-                                <?php echo $v['pm_name'];?>&nbsp;
+                                <a href="/management/chouzi/index?pname=<?php echo $v['pm_name'];?>" target="_blank" ><?php echo $v['pm_name'];?></a>&nbsp;
                             </td>
                              <td>
                                  <?php echo $v['beizhu'];?>&nbsp;
