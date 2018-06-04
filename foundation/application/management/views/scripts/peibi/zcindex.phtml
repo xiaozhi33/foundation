@@ -147,8 +147,8 @@
                                 <a href="/management/peibi/editzc?id=<?php echo $v['id'];?>">
                                     <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
                                 </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="/management/peibi/delzc?id=<?php echo $v['id'];?>">
-                                    <button class="btn btn-greensea margin-bottom-20" type="button">删除</button>
+                                <a href="javascript:if(confirm('确实要删除该内容吗?'))location='/management/peibi/delzc?id=<?php echo $v["id"];?>'">
+                                    <button class="btn btn-greensea margin-bottom-20"  type="button">删除</button>
                                 </a>
                             </td>
 						 </tr>

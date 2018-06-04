@@ -428,9 +428,10 @@
             try{
                 if(!empty((int)$_REQUEST['id'])) {
                     $pm_mg_peibi_zcDAO->findId($_REQUEST['id']);
+                    $pm_mg_peibi_zcDAO ->delete();
+                }else {
+                    $this->alert_back('删除失败！！！！！');
                 }
-
-                $pm_mg_peibi_zcDAO ->del();
             }catch (Exception $e){
                 $this->alert_back('删除失败！！！！！');
             }
