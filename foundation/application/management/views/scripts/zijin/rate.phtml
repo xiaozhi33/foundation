@@ -60,11 +60,11 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="7%">项目名称</td>
-                        <td width="10%">签约时间</td>
-                        <td width="10%">签约协议</td>
-                          <td width="10%">协议金额</td>
-						<td width="13%">操作</td>
+						<td width="25%">项目名称</td>
+                        <td width="20%">签约时间</td>
+                        <td width="25%">签约协议</td>
+                        <td width="20%">协议金额（元）</td>
+						<td width="10%">操作</td>
 					  </tr>
 					</thead>
                     <tbody>
@@ -82,7 +82,7 @@
                                          echo "协议文件";
                                      }?>
                                  </a></td>
-                             <td><?php if(!empty($v['xyje'])){echo $v['xyje'];}else{echo "--";}?></td>
+                             <td><?php if(!empty($v['xyje'])){echo number_format($v['xyje'],2);}else{echo "--";}?></td>
                              <td>
                              <!-- <a href="/management/zijin/rateinfo/?pm_id=<?php /*echo $v['id'];*/?>">
                                  <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
