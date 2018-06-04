@@ -235,10 +235,14 @@
                                 <tbody>
 
                                 <tr>
-                                    <td width="25%"><strong>支出时间</strong></td>
+                                    <td><strong>支出时间</strong></td>
+                                    <td><strong>支出金额（元）</strong></td>
+                                    <td><strong>资助人数</strong></td>
+
+                                    <!--<td width="25%"><strong>支出时间</strong></td>
                                     <td width="22%"><strong>支出金额（元）</strong></td>
                                     <td width="13%"><strong>资助人数</strong></td>
-                                    <td width="35%"><strong>备注</strong></td>
+                                    <td width="35%"><strong>备注</strong></td>-->
                                 </tr>
 
                                 <?php foreach($this->zc as $key => $value){?>
@@ -246,7 +250,7 @@
                                         <td><?php echo date("Y-m-d",strtotime($value['shiyong_zhichu_datetime']));?></td>
                                         <td><?php echo number_format($value['shiyong_zhichu_jiner'], 2);?></td>
                                         <td><?php echo $value['jiangli_renshu'];?></td>
-                                        <td><?php echo $value['beizhu'];?></td>
+                                        <!--<td><?php /*echo $value['beizhu'];*/?></td>-->
                                     </tr>
                                 <?php }?>
 
@@ -255,7 +259,7 @@
                                     <td><strong>总计</strong></td>
                                     <td> <?php echo number_format($this->zchj, 2);?></td>
                                     <td> <?php echo $this->rshj;?></td>
-                                    <td> </td>
+                                    <!--<td> </td>-->
                                 </tr>
 
 
