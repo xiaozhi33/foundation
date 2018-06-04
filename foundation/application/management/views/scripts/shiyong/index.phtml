@@ -88,7 +88,7 @@
 					  <?php 
 						foreach($this->shiyonglist as $k=>$v){?>
 						 <tr>
-						 	<td><?php echo $v['pm_name'];?>&nbsp;</td>
+						 	<td><a href="/chouzi/index?pname=<?php echo $v['pm_name'];?>" target="_blank" ><?php echo $v['pm_name'];?></a>&nbsp;</td>
                              <td><?php if($v["shiyong_type"]==1){echo "基金会列支";}elseif($v["shiyong_type"]==2){echo "转财务处";}?>&nbsp;</td>
 
 							<!--<td><?php /*echo $v['jiangli_fanwei'];*/?>&nbsp;</td>-->
