@@ -271,6 +271,52 @@
                     </div>
                 </section>
 
+                <?php if(!empty($this->aaDAO)){?>
+                <section class="tile color-green" id="04">
+                    <div class="tile-body nopadding">
+                        <div class="table-responsive">
+                            <div class="pm-tabletext">项目调账：<?php echo number_format($this->tzhj, 2);?></div>
+                            <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                                <tbody>
+
+                                <tr>
+                                    <td width="15%"><strong>调账时间</strong></td>
+                                    <td width="20%"><strong>调账金额（元）</strong></td>
+                                    <td width="55%"><strong>调出原因</strong></td>
+                                    <td width="10%"><strong>调账类型</strong></td>
+                                </tr>
+
+                                <?php foreach($this->aaDAO as $key => $value){?>
+                                    <tr>
+                                        <td><?php echo date("Y-m-d",$value['datetimes']);?></td>
+                                        <td><?php if($value['out_pm_name'] == $this->chouzi[0]['pname']){
+                                                echo "-".number_format($value['je'], 2);
+                                            }else {echo number_format($value['je'], 2);}?></td>
+                                        <td><?php echo $value['beizhu'];?></td>
+                                        <td><?php if($value['out_pm_name'] == $this->chouzi[0]['pname']){
+                                                echo "调出";
+                                            }else {
+                                                echo "调入";
+                                            }?></td>
+                                    </tr>
+                                <?php }?>
+
+
+                                <tr>
+                                    <td><strong>总计</strong></td>
+                                    <td> <?php echo number_format($this->tzhj, 2);?></td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <?php }?>
+
                 <section class="tile color-green" id="04">
                     <div class="tile-body nopadding">
                         <div class="table-responsive">

@@ -920,9 +920,30 @@
                 $this->view->assign("zc", $zc);
                 $this->view->assign("zchj", sprintf("%.2f", $zc1[0]['aaa']));
                 $this->view->assign("rshj", $zc1[0]['bbb']);
-                //////////////////////////////////////////////////////////////////////////////////////////////
 
-                $xmye = sprintf("%.2f", $sr1[0]['aaa']) + sprintf("%.2f", $zz1[0]['aaa']) - sprintf("%.2f", $zc1[0]['aaa']);
+                //////////////////////////////////////////////////////////////////////////////////////////////
+                // 项目调账
+                $aaDAO = $this->orm->createDAO("pm_mg_amount_adjustment");
+                $aaDAO ->selectLimit .= " AND ( in_pm_name= '".$pm_mg_chouziDAO[0]['pname']."' or out_pm_name = '".$pm_mg_chouziDAO[0]['pname']."')";
+                $aaDAO ->selectLimit .= " ORDER BY datetimes DESC";
+                $aaDAO = $aaDAO ->get();
+
+                if(!empty($aaDAO)){
+                    $tzhj = 0;
+                    foreach($aaDAO as $key => $value){
+                        if($pm_mg_chouziDAO[0]['pname'] == $value['out_pm_name']){
+                            $tzhj = ($tzhj - $value['je']);
+                        }else {
+                            $tzhj = ($tzhj + $value['je']);
+                        }
+                    }
+                    $this->view->assign("tzhj", $tzhj);
+                }
+                $this->view->assign("aaDAO", $aaDAO);
+
+                //////////////////////////////////////////////////////////////////////////////////////////////
+                // 项目余额 = 捐赠收入 + 收益 - 捐赠支出 + 调账
+                $xmye = sprintf("%.2f", $sr1[0]['aaa']) + sprintf("%.2f", $zz1[0]['aaa']) - sprintf("%.2f", $zc1[0]['aaa']) + $tzhj;
                 $this->view->assign("xmye", $xmye);
 
                 /////////////////////////////////////////////////////////////////////////////////////////////////
