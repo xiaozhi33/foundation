@@ -104,7 +104,7 @@
                             <td width="26%">来款项目</td>
                             <td width="10%">划拨部门</td>
                             <td width="10%">配比下发时间</td>
-                            <td width="10%">配比金额</td>
+                            <td width="10%">配比金额（元）</td>
                             <td width="14%">卡号</td>
                             <td width="10%">经费负责人</td>
                             <td width="10%">配比审批人</td>
@@ -126,7 +126,7 @@
                                     <?php echo $v['peibi_datetime'];?>
                                 </td>
                                 <td>
-                                    <?php echo $v['je'];?>
+                                    <?php echo number_format($v['je'],2);?>
                                 </td>
 
                                 <td>
