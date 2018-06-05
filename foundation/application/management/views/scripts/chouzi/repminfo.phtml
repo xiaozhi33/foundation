@@ -142,18 +142,19 @@
                         <div class="pm-yt">
                         <p>用途：<?php echo htmlspecialchars_decode($this->chouzi[0]['beizhu']);?></p>
                         <p>配比情况：<?php if(empty($this->peibikDAO)){echo '无';}else{
-                                echo "<br/>";
-                                echo "收入：".number_format($this->pbhj,2)."元<br/>";
+                                //echo "<br/>";
+                                //echo "收入：";
+                                echo number_format($this->pbhj,2)."元<br/>";
                                 foreach($this->peibikDAO as $key => $value){
                                     echo $value['peibi_datetime']."&nbsp;&nbsp;".number_format($value['je'],2)."元"."&nbsp;&nbsp;卡号：".$value['card']."<br/>";
                                 }
-                                echo "支出：".number_format($this->pbzchj,2)."元<br/>";
-                                if(!empty($this->pbzchj)){
+                                //echo "支出：".number_format($this->pbzchj,2)."元<br/>";
+                                /*if(!empty($this->pbzchj)){
                                     foreach ($this->peibizcDAO as $key => $value){
                                         echo $value['peibi_datetime']."&nbsp;&nbsp;".number_format($value['je'],2)."元"."&nbsp;&nbsp;卡号：".$value['card']."<br/>";
                                     }
                                 }
-                                echo "余额：".number_format(($this->pbhj - $this->pbzchj), 2)."元<br/>";
+                                echo "余额：".number_format(($this->pbhj - $this->pbzchj), 2)."元<br/>";*/
                             }?></p>
                         <p>增值情况：<?php if(empty($this->zzhj)){echo '无';}else{echo number_format($this->zzhj, 2).'元';}?></p>
                         </div>
