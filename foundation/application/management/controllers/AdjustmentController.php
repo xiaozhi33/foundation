@@ -20,11 +20,11 @@ class Management_adjustmentController extends BaseController
         }
 
         if(!empty($starttime)){
-            $aaDAO ->selectLimt .= " AND datetimes >= '".$starttime."'";
+            $aaDAO ->selectLimit .= " AND datetimes >= ".strtotime($starttime);
         }
 
         if(!empty($endtime)){
-            $aaDAO ->selectLimt .= " AND datetimes <= '".$endtime."'";
+            $aaDAO ->selectLimit .= " AND datetimes <= ".strtotime($endtime);
         }
 
         $aaDAO = $aaDAO->order('id DESC');
@@ -67,7 +67,7 @@ class Management_adjustmentController extends BaseController
         $aaDAO ->in_pm_name = $in_pm_name;
         $aaDAO ->out_pm_id = $out_pm_id;
         $aaDAO ->out_pm_name = $out_pm_name;
-        $aaDAO ->datetimes = $datetimes;
+        $aaDAO ->datetimes = strtotime($datetimes);
         $aaDAO ->je = $je;
         $aaDAO ->beizhu = $beizhu;
 

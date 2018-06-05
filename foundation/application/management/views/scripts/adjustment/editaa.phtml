@@ -30,7 +30,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input06">调账时间：</label>
                             <div class="col-sm-4">
-                                <input class="form-control" data-date-format="YYYY-MM-DD" type="text" value="<?php echo $this->aa_info[0]['datetimes'];?>"  id="datepicker"  name="datetimes" size="14"/>
+                                <input class="form-control" data-date-format="YYYY-MM-DD" type="text" value="<?php echo date("Y-m-d",$this->aa_info[0]['datetimes']);?>"  id="datepicker"  name="datetimes" size="14"/>
                             </div>
                         </div>
 

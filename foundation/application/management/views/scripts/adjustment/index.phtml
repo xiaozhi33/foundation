@@ -105,7 +105,7 @@
 					  <?php
 						foreach($this->pageData as $k=>$v){?>
 						 <tr>
-						 	 <td><?php echo $v['datetimes'];?></td>
+						 	 <td><?php echo date("Y-m-d",$v['datetimes']);?></td>
 							 <td><?php echo number_format($v['je'],2);?></td>
 							 <td><a href="/management/chouzi/index?pname=<?php echo $v['out_pm_name'];?>" target="_blank" ><?php echo $v['out_pm_name'];?></a></td>
 							 <td><a href="/management/chouzi/index?pname=<?php echo $v['in_pm_name'];?>" target="_blank" ><?php echo $v['in_pm_name'];?></a></td>
