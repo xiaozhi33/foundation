@@ -290,7 +290,7 @@
                                     <tr>
                                         <td><?php echo date("Y-m-d",$value['datetimes']);?></td>
                                         <td><?php if($value['out_pm_name'] == $this->chouzi[0]['pname']){
-                                                echo "-".number_format($value['je'], 2);
+                                                echo number_format($value['je'], 2);
                                             }else {echo number_format($value['je'], 2);}?></td>
                                         <td><?php echo $value['beizhu'];?></td>
                                         <td><?php if($value['out_pm_name'] == $this->chouzi[0]['pname']){
