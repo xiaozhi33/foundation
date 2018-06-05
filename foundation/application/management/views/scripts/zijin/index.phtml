@@ -82,7 +82,7 @@
                           <?php 
                             foreach($this->zijinlist as $k=>$v){?>
                              <tr>
-                                <td><?php echo $v['pm_name'];?>&nbsp;</td>
+                                <td><a href="/management/chouzi/index?pname=<?php echo $v['pm_name'];?>" target="_blank" ><?php echo $v['pm_name'];?></a>&nbsp;</td>
                                 <td><?php echo $v['pm_pp'];?>&nbsp;</td>
                                <!-- <td><?php /*echo $v['pm_juanzeng_jibie'];*/?>&nbsp;</td>-->
                                 <td><?php echo substr($v['zijin_daozhang_datetime'],0,10);?>&nbsp;</td>

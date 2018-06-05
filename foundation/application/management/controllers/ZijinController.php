@@ -1013,7 +1013,15 @@
         }
 
 
-		public function _init(){
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////添加退款
+        public function refundAction(){
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("zijin/refund.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        public function _init(){
 			$this ->dbhelper = new DBHelper();
 			$this ->dbhelper ->connect();
 			SessionUtil::sessionStart();
@@ -1073,6 +1081,7 @@
                 'download',
                 'binding-claim',
                 'index',
+                'refund',
             );
             if (in_array($action, $except_actions)) {
                 return;
