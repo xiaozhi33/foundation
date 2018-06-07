@@ -495,6 +495,52 @@
             height:auto;
 
         }
+        /* 添加标签信息弹出框*/
+        .theme2-popover-mask {
+            z-index: 9998;
+            position:fixed;
+            top:0;  left:0;  width:100%;
+            height:100%;  background:#000;  opacity:0.4;
+            filter:alpha(opacity=40);  display:none;
+        }
+        .theme2-popover {
+            z-index:9999;  position:fixed;
+            top:21%;
+            left:35%;
+            width:30%;
+            /*max-height:220px;
+            margin:-180px 0 0 -330px;*/
+            border:solid 2px #999;
+            display:none;
+            box-shadow: 0 0 10px #666;
+            background-color: #f7f7f7;
+            border-radius: 5px;
+            font-size: 14px;
+            padding:5px 15px;
+        }
+        .theme2-signin{
+            margin-top: 40px;
+        }
+        #popover2-close{
+            float: right;
+            margin-right: 12px;
+            margin-top: 12px;
+        }
+        #popover2-msg{
+            margin-top: 12px;
+            align-content: center;
+            text-align: center;
+        }
+        #popover2-img{
+            margin: 0 auto;
+            text-align: center;
+        }
+        #popover2-img img{
+            display: inline;
+            max-width:30%;
+            height:auto;
+
+        }
     </style>
 
     <div class="theme-popover">
@@ -640,8 +686,40 @@
             <div class="theme1-popover-mask"></div>
 
 
+            <div class="theme2-popover">
+                <div class="theme2-poptit">
+                    <a href="javascript:void(0);" title="关闭" class="close" id="popover-close" name="">×</a>
+                </div>
+                <div class="theme2-popbod dform">
+                    <form class="theme-signin" name="" action="#" id="addtag_form" method="post">
 
-    <script>
+                        <div class="form-group" style="margin:-9px 14px 27px;">
+                            <h4>添加标签信息</h4>
+                        </div>
+
+                        <section class="tile color transparent-white">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="input01">标签名称：</label>
+                            <div class="col-sm-8" style="margin-left:-60px; margin-top: -5px; ">
+                                <input class="form-control" type="text" name="name" />
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group form-footer" style="padding-top:50px;padding-bottom:40px;">
+                            <div class="col-sm-offset-4 col-sm-7">
+                                <input class="btn btn-primary" type="button" onclick="javascript:addtag();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input class="btn btn-default" type="reset" value="重 置" />
+                            </div>
+                        </div>
+                        </section>
+                    </form>
+                </div>
+            </div>
+            <div class="theme2-popover-mask"></div>
+
+
+            <script>
         function noTips(){
 
             if($(".chosen-single span").html() != "请选择项目名称"){
@@ -696,6 +774,15 @@
                 $('.theme1-popover-mask').fadeOut(100);
                 $('.theme1-popover').slideUp(200);
             });
+
+            // 添加标签信息
+            $('.addtag').click(function(){
+                $('.theme2-popover').show();
+            });
+            $('.theme2-poptit .close').click(function(){
+                $('.theme2-popover-mask').fadeOut(100);
+                $('.theme2-popover').slideUp(200);
+            });
         });
 
         function add_pp(){
@@ -722,6 +809,38 @@
                         alert(data['message']);
                         $('.theme1-popover-mask').fadeOut(100);
                         $('.theme1-popover').slideUp(100);
+                    }
+                },
+                complete:function(data){
+
+                },
+                error:function(data){
+                    //console.log(data);
+                    alert('添加失败！');
+                }
+            });
+        }
+
+        function addtag(){
+            var formParam = $("#addtag_form").serialize();//序列化表格内容为字符串
+            $.ajax({
+                type:'post',
+                url: '/management/pp/ajaxaddtag',
+                data:formParam,
+                cache:false,
+                dataType:'json',
+                success:function(data){
+                    if(data['status'] == 'error'){
+                        alert(data['message']);
+                    }else if(data['status'] == 'success'){
+                        // 加载新数据
+                        $(".chosen-select-2 option[value='"+data['tid']+"']").attr("selected","selected");
+                        $(".chosen-select-2").append("<option value="+data['tid']+">"+data['name']+"</option>");
+                        $(".chosen-select-2").trigger("chosen:updated");
+
+                        alert(data['message']);
+                        $('.theme2-popover-mask').fadeOut(100);
+                        $('.theme2-popover').slideUp(100);
                     }
                 },
                 complete:function(data){

@@ -140,6 +140,10 @@
             $this->view->assign("jjh_mg_pp_catelist",$jjh_mg_pp_catelist);
             $this->view->assign("pp_config",$this->pp_config);
 
+            // 标签
+            $pm_mg_tagDAO = $this->orm->createDAO("pm_mg_tag")->get();
+            $this->view->assign("taglist",$pm_mg_tagDAO);
+
             $this->acl();
             $this->_init();
 	    }
