@@ -2051,7 +2051,7 @@
                 'compare',
                 'editcompare',
                 'editrscompare',
-                'repminfo'
+                'repminfo',
                 'application-project',
                 'support-info',
                 'savepinfo',
@@ -2062,8 +2062,7 @@
                 'saveexpenditureinfo',
                 'savepinfofour',
                 'savepinfoseven',
-                'change-limit',
-
+                'change-limit'
             );
             if (in_array($action, $except_actions)) {
                 return;
