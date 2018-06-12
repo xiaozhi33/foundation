@@ -125,29 +125,44 @@
         a.upload-img:hover{background-color:#ec7e70;}.tc{text-align:center;}
 </style>
 
-<form id="form" action="saveheadimg" method="post" enctype="multipart/form-data" />
-<div class="sucainiu-container">
-    <div class="container">
-        <div class="imageBox">
-            <div class="thumbBox"></div>
-            <div class="spinner" style="display: none">Loading...</div>
-        </div>
-        <div class="action">
-            <div class="new-contentarea tc">
-                <a href="javascript:void(0)" class="upload-img">
-                    <label for="upload-file">上传图像</label>
-                </a>
-                <input type="file" class="" name="upload-file" id="upload-file" />
+
+<div class="col-md-6">
+    <section class="tile color transparent-white">
+
+    <form id="form" action="saveheadimg" method="post" enctype="multipart/form-data" />
+        <div class="sucainiu-container">
+            <div class="container">
+                <div class="imageBox">
+                    <div class="thumbBox"></div>
+                    <div class="spinner" style="display: none">Loading...</div>
+                </div>
+                <div class="action">
+                    <div class="new-contentarea tc">
+                        <a href="javascript:void(0)" class="upload-img">
+                            <label for="upload-file">上传图像</label>
+                        </a>
+                        <input type="file" class="" name="upload-file" id="upload-file" />
+                    </div>
+                    <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+"  >
+                    <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-" >
+                    <input type="button" id="btnCrop"  class="Btnsty_peyton" value="裁切">
+                    <button type="submit" class="btn" id="btnUp">确认修改</button>
+                </div>
+                <div class="cropped"></div>
             </div>
-            <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+"  >
-            <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-" >
-            <input type="button" id="btnCrop"  class="Btnsty_peyton" value="裁切">
-            <button type="submit" class="btn" id="btnUp">确认修改</button>
         </div>
-        <div class="cropped"></div>
-    </div>
+
+        <div style="padding: 20px;">
+            <div>   修改头像步骤：</div>
+            <div>       1，点击上传图像按钮，选择头像所用图片。</div>
+            <div>           2，使用鼠标或者+ / - 调整头像选取位置和大小，确认之后点击剪裁。</div>
+            <div>           3，生成大中小三个尺寸头像之后，最后点击确认修改按钮，完成头像编辑。</div>
+        </div>
+
+    </form>
+    </section>
 </div>
-</form>
+
 
 </div><!-- tab-pane -->
 </div><!-- tab-content -->
