@@ -251,6 +251,11 @@ class Management_ppController extends BaseController {
             $ppinfo ->ppmobile = $_REQUEST['ppmobile'];
             $ppinfo ->ppphone = $_REQUEST['ppphone'];
 
+            // 标签
+            if(!empty($_REQUEST['tags'])) {
+                $ppinfo ->tags = implode(",", $_REQUEST['tags']);
+            }
+
             $ppinfo->save($this->dbhelper);
             // alert_go("联系人添加成功。","/management/admin/pp?pp_cate=".$_REQUEST['pp_cate']);
             $this->alert_go("联系人添加成功。","/management/pp/pp");
@@ -324,6 +329,11 @@ class Management_ppController extends BaseController {
                         }
                     }
                 }
+            }
+
+            // 标签
+            if(!empty($_REQUEST['tags'])) {
+                $ppinfo ->tags = implode(",", $_REQUEST['tags']);
             }
 
             $ppinfo ->save($this->dbhelper);
@@ -414,6 +424,11 @@ class Management_ppController extends BaseController {
             $feedbackDAO = $feedbackDAO->get();
             $this->view->assign("feedback_list",$feedbackDAO);
 
+            $material_mg_gift_infoDAO = $this->orm->createDAO('material_mg_gift_info');
+            $material_mg_gift_infoDAO ->selectLimit .= ' AND FIND_IN_SET('.$_REQUEST['id'].',customer_name)';
+            $material_mg_gift_infoDAO = $material_mg_gift_infoDAO->get();
+            $this->view->assign("gift_list",$material_mg_gift_infoDAO);
+
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("admin/ppinfo.phtml");
             echo $this->view->render("index/footer.phtml");
@@ -434,6 +449,26 @@ class Management_ppController extends BaseController {
         }
     }
 
+    public function ajaxaddtagAction(){
+        $tag = $this->orm->createDAO('pm_mg_tag')->findName($_REQUEST['name'])->get();
+        if(!empty($tag)){
+            echo json_encode(array('status'=>'error','message'=>'标签已经添加，请查正后再添加！'));
+            exit();
+        }
+
+        $taginfo = $this->orm->createDAO('pm_mg_tag');
+        $taginfo ->name = $_REQUEST['name'];
+        $taginfo ->type = 'pp';
+
+        if(empty($_REQUEST['name'])){
+            echo json_encode(array('status'=>'error','message'=>'标签不能为空'));
+            exit();
+        }
+        $tid = $taginfo ->save();
+        echo json_encode(array('status'=>'success','message'=>'添加成功','pid'=>$tid,'name'=>$taginfo['name']));
+        exit();
+    }
+
     //权限
     public function acl()
     {
@@ -445,6 +480,7 @@ class Management_ppController extends BaseController {
             'addrspp',
             'editrspp',
             'ppinfo',
+            'ajaxaddtag',
         );
         if (in_array($action, $except_actions)) {
             return;

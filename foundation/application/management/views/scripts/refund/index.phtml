@@ -1,0 +1,177 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+    <!-- page header -->
+    <div class="pageheader">
+
+        <h2><i class="fa fa-tachometer"></i> Dashboard
+            <span>退款列表</span></h2>
+
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li>您的位置</li>
+                <li>项目管理</li>
+                <li class="active">退款列表</li>
+            </ol>
+        </div>
+
+    </div>
+    <!-- /page header -->
+
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+
+			<div class="col-md-12">
+			<section class="tile color transparent-white">
+			<div class="tile-body">
+			<form action="#" method="get">
+				<div class="form-group">
+
+					<div class="row">
+						<div class="form-group col-sm-3">
+							<label for="input01">项目名称：</label>
+							<select class="chosen-select-1 chosen-transparent form-control" id="pm_name" name="pm_name">
+								<option value="">请选择项目名称</option>
+								<?php if($this->pmlist != ""){
+									foreach ($this->pmlist as $k => $v){
+										?>
+										<option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pm_name'] == $v['pname']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
+									<?php }}?>
+							</select>
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class="form-group col-sm-6">
+							<label for="input03">退款时间：</label>
+							<div class="row">
+								<div class="col-sm-4">
+									<input name="starttime" data-date-format="YYYY-MM-DD" value="<?php echo $_REQUEST['starttime'];?>"   type="text" class="form-control" id="datepicker">
+								</div>
+								<div class="col-sm-1" style="text-align:center;padding: 0px;margin: 0px;width:10px;">—</div>
+								<div class="col-sm-4">
+									<input name="endtime" data-date-format="YYYY-MM-DD" value="<?php echo $_REQUEST['endtime'];?>" type="text" class="form-control" id="datepicker1">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-3">
+								<label for="input01"> </label>
+								<input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+			</form>
+			</div>
+			</section>
+
+				<section class="tile color transparent-white">
+					<div class="tile-body">
+					<form action="/management/refund/add" method="get" target="_blank">
+
+					<div class="form-group">
+
+						<div class="row">
+							<div class="form-group col-sm-3">
+								<label for="input01">项目名称：</label>
+								<select class="chosen-select-1 chosen-transparent form-control" id="pm_name" name="pm_name">
+									<option value="">请选择项目名称</option>
+									<?php if($this->pmlist != ""){
+										foreach ($this->pmlist as $k => $v){
+											?>
+											<option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pm_name'] == $v['pname']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
+										<?php }}?>
+								</select>
+							</div>
+
+							<div class="form-group col-sm-3">
+								<div class="col-sm-12">
+									<label for="input01"> </label>
+									<input class="btn btn-primary btn-block" type="submit" value="添加退款"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					</form>
+					</div>
+				</section>
+
+			<section class="tile color transparent-white">
+				<div class="tile-body nopadding">
+				<?php if($this->pageData != ""){?>
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					 <thead>
+					  <tr>
+						<td width="15%">项目名称</td>
+						<td width="10%">退款时间</td>
+						<td width="10%">退款金额（元）</td>
+						<td width="20%">所属来款</td>
+						<td width="20%">退款原因</td>
+						<td width="10%">经办人</td>
+						<td width="10%">操作</td>
+					  </tr>
+					</thead>
+                    <tbody>
+					  <?php
+						foreach($this->pageData as $k=>$v){?>
+						 <tr>
+							 <td><a href="/management/chouzi/index?pname=<?php echo $v['pm_name'];?>" target="_blank" ><?php echo $v['pm_name'];?></a></td>
+						 	 <td><?php echo date("Y-m-d",$v['datetimes']);?></td>
+							 <td><?php echo number_format($v['je'],2);?></td>
+							 <td>
+								 <?php echo date("Y-m-d",strtotime($v['zijin_daozhang_datetime']))."&nbsp;&nbsp;".$v['pm_pp']."&nbsp;&nbsp;"."来款：".number_format($v['zijin_daozheng_jiner'],2)."元";?>
+							 </td>
+
+							 <td><?php echo $v['r_beizhu'];?></td>
+							 <td>
+								 <?php
+								 if(!empty($v['jbr'])){
+									 $emp = '';
+									 $emp = explode(',',$v['jbr']);
+									 foreach($emp as $kk => $vv){
+										 echo $this->jjh_mg_pp_list[$vv].'&nbsp;&nbsp;';
+									 }
+								 };?><?php //echo $v['jbr'];?></td>
+
+							<td>
+                                <a href="/management/refund/edit?id=<?php echo $v['r_id'];?>">
+                            		<button type="button" class="btn btn-greensea margin-bottom-20">编辑</button>
+								</a>
+                             	<a href="/management/refund/del?id=<?php echo $v['r_id'];?>">
+                             		<button type="button" class="btn btn-danger margin-bottom-20" onclick="return window.confirm('确定要删除这条退款信息吗?');">删除</button>
+								</a>
+                            </td>
+
+						 </tr>
+					   <?php }?>
+                     </tbody>
+					</table>
+					</div>
+					<div class="tile-footer">
+					<div class="row">
+					<div class="page col-md-12" align="right">
+						共  <?php echo $this->totalItems;?> 条退款信息          <?php echo $this->page['all'];?></div>
+				 <?php }else{?>
+				 	<div>暂无退款信息！<a href="/management/adjustment/add">点击添加</a></div>
+				 <?php }?>
+				 </div>
+				 </div>
+				 </section>
+		  </div>
+		</div>
+
+
+        <script src="/include/management/assets/js/jquery.js"></script>
+        <script language="javascript">
+            $(".menu li:eq(37)").addClass("open");
+        </script>

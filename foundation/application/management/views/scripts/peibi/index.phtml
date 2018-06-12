@@ -45,7 +45,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="form-group col-sm-4">
-                                        <label for="pname" class="col-sm-4 control-label">来款项目：</label>
+                                        <label for="pname" class="col-sm-5 control-label">来款项目：</label>
                                         <select class="chosen-select-1 chosen-transparent form-control" name="pname" id="id">
                                             <option value="">请选择来款项目</option>
                                             <?php if($this->chouzi_lists != ""){
@@ -57,11 +57,11 @@
                                     </div>
 
                                     <div class="form-group col-sm-4">
-                                        <label for="pname" class="col-sm-4 control-label">是否完成配比奖励：</label>
+                                        <label for="pname" class="col-sm-5 control-label">是否完成配比奖励：</label>
                                         <select class="chosen-select-1 chosen-transparent form-control col-sm-3 " name="is_show" id="id">
                                             <option value="">请选择</option>
-                                            <option value="1">是</option>
-                                            <option value="0">否</option>
+                                            <option value="1" <?php if($_REQUEST['is_show'] == 1)echo 'selected="selected"';?>>是</option>
+                                            <option value="0" <?php if($_REQUEST['is_show'] == 0 && $_REQUEST['is_show'] != '')echo 'selected="selected"';?>>否</option>
                                         </select>
                                     </div>
                                 </div>
@@ -81,9 +81,18 @@
                                 </div>-->
 
                                 <div class="row">
-                                    <div class="form-group col-sm-6">
-                                        <label for="pname" class="col-sm-4 control-label">来款时间( 年份 )：</label>
-                                        <input name="yeartime" data-date-format="YYYY" id="datepicker1"  type="text" value="<?php echo $this->yeartime;?>" class="col-sm-5 control-label"/>
+                                    <div class="form-group col-sm-4">
+                                        <label for="pname" class="col-sm-5 control-label">来款时间( 年份 )：</label>
+                                        <input class="form-control col-sm-3" name="yeartime" data-date-format="YYYY" id="datepicker1"  type="text" value="<?php echo $this->yeartime;?>" class="col-sm-5 control-label"/>
+                                    </div>
+
+                                    <div class="form-group col-sm-4">
+                                        <label class="col-sm5 control-label">是否回奖助励学金项目：</label>
+                                        <select class="chosen-select-1 chosen-transparent form-control col-sm-3 " name="is_income" id="id">
+                                            <option value="">请选择</option>
+                                            <option value="1" <?php if($_REQUEST['is_income'] == 1)echo 'selected="selected"';?>>是</option>
+                                            <option value="0" <?php if($_REQUEST['is_income'] == 0 && $_REQUEST['is_income'] != '')echo 'selected="selected"';?>>否</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -109,7 +118,7 @@
 						<td width="24%">来款项目</td>
 						<td width="12%">来款时间</td>
                         <td width="20%">来款方</td>
-                        <td width="20%">来款金额</td>
+                        <td width="20%">来款金额（元）</td>
                           <td width="20%">操作</td>
 					  </tr>
 					</thead>
@@ -127,11 +136,11 @@
                                  <?php echo $v['pm_pp'];?>
                              </td>
                              <td>
-                                 <?php echo $v['zijin_daozheng_jiner'];?>
+                                 <?php echo number_format($v['zijin_daozheng_jiner'],2);?>
                              </td>
 
 							<td>
-                                <a href="/management/peibi/peibiindex?lk_main_id=<?php echo $v['id'];?>">
+                                <a href="/management/peibi/peibiindex?lk_main_id=<?php echo $v['id'];?>" target="_blank">
                                     <button class="btn btn-greensea margin-bottom-20" type="button">查看配比信息</button>
                                 </a>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a href="/management/peibi/add?id=<?php echo $v['id'];?>">

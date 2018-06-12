@@ -1,0 +1,120 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>修改退款信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目管理</li>
+            <li class="active">修改退款信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+        <div class="col-md-12">
+            <section class="tile color transparent-white">
+                <div class="detailedbox tile-body">
+                    <form class="form-horizontal" id="form1" action="to-add" method="post" encType="multipart/form-data">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                            <div class="col-sm-4">
+                                <input name="pm_name" class="form-control" readonly="readonly" value="<?php echo $this->refund_info[0]['pm_name']?>" type="text" />
+                            </div>
+                            <!--<span class="col-sm-2" > * </span>-->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">退款金额：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="je" value="<?php echo $this->refund_info[0]['je'];?>" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"  />
+                            </div>
+                            <span class="col-sm-1" > 元 * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">选择来款：</label>
+                            <div class="col-sm-4">
+                                <select class="chosen-select-1 chosen-transparent form-control" id="pm_info_id" name="pm_info_id">
+                                    <option value="">请选择来款</option>
+                                    <?php if($this->pm_mg_infoDAO != ""){
+                                        foreach ($this->pm_mg_infoDAO as $k => $v){
+                                            ?>
+                                            <option value="<?php echo $v['id'];?>" <?php if($this->refund_info[0]['pm_info_id'] == $v['id']){echo "selected='selected'";}?>>
+                                                <?php echo date("Y-m-d",strtotime($v['zijin_daozhang_datetime']))."&nbsp;&nbsp;".$v['pm_pp']."&nbsp;&nbsp;"."来款：".number_format($v['zijin_daozheng_jiner'],2)."元";?>
+                                            </option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-2" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input06">退款时间：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" data-date-format="YYYY-MM-DD" type="text" value="<?php echo date("Y-m-d",$this->refund_info[0]['datetimes']);?>"  id="datepicker"  name="datetimes" size="14"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group transparent-editor">
+                            <label class="col-sm-2 control-label" for="input14">退款原因：</label>
+                            <div class="col-sm-9">
+                                <textarea parsley-validation-minlength="1" name="beizhu" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->refund_info[0]['beizhu'];?></textarea>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group transparent-editor">
+                            <label class="col-sm-2 control-label" for="input14">经办人：</label>
+                            <div class="col-sm-6">
+                                <!--data-placeholder="请选择相关人员..."-->
+                                <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="jbr[]" id="jbr">
+                                    <<?php if($this->jjh_mg_pp_list != ""){
+                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                            <option value="<?php echo $k?>" <?php
+                                            if(!empty($this->refund_info[0]['jbr'])){
+                                                foreach(explode(',',$this->refund_info[0]['jbr']) as $key => $value){
+                                                    if($k == $value){
+                                                        echo "selected='selected'";
+                                                    }
+                                                }
+                                            }?>><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-2 addpp" >添加人员信息</span>
+                        </div>
+
+                        <input class="btn btn-default" name="id" type="hidden" value="<?php echo $this->refund_info[0]['id'];?>" />
+
+                        <div class="form-group form-footer">
+                            <div class="col-sm-offset-5 col-sm-7">
+                                <input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input class="btn btn-default" type="reset" value="重 置" />
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="/include/management/assets/js/jquery.js"></script>
+
+    <script language="javascript">
+        // $(".menu li:eq(37)").addClass("open");
+    </script>
+

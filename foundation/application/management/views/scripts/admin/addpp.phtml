@@ -21,8 +21,8 @@
             <label class="col-sm-2 control-label" for="input01">人员姓名/组织机构名称：</label>
             <div class="col-sm-4"><input class="form-control" type="text" name="ppname" /></div>
             <span class="col-sm-2" > * </span>
-            </div>	
-            
+            </div>
+
 			<!--<div class="form-group">
             	<label class="col-sm-2 control-label" for="input01">相关项目名称：</label>
             	<div class="col-sm-4">
@@ -39,7 +39,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="input01">联系人类型：</label>
                         <div class="col-sm-4">
-                            <select class="form-control" name="pp_cate" id="pp_cate">
+                            <select class="form-control" name="pp_cate" id="pp_cate" style="height: 41px">
                                 <?php foreach($this->pp_config['pp_cate'] as $k => $v){?>
                                     <option value="<?php echo $k;?>"><?php echo $v;?></option>
                                 <?php }?>
@@ -51,7 +51,7 @@
                     <div class="form-group jzf">
                         <label class="col-sm-2 control-label" for="input01">捐赠方类型：</label>
                         <div class="col-sm-4">
-                            <select class="form-control" name="pp_jzf_cate">
+                            <select class="form-control" name="pp_jzf_cate" style="height: 41px">
                                 <option value="">请选择捐赠方类型</option>
                                 <?php foreach($this->pp_config['pp_jzf_cate'] as $k => $v){?>
                                     <option value="<?php echo $k;?>"><?php echo $v;?></option>
@@ -59,10 +59,11 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group jzf">
                         <label class="col-sm-2 control-label" for="input01">捐赠方属性一：</label>
                         <div class="col-sm-4">
-                            <select class="form-control" name="pp_jzf_attr1">
+                            <select class="form-control" name="pp_jzf_attr1" style="height: 41px">
                                 <option value="">请选择捐赠方属性一</option>
                                 <?php foreach($this->pp_config['pp_jzf_attr1'] as $k => $v){?>
                                     <option value="<?php echo $k;?>"><?php echo $v;?></option>
@@ -73,7 +74,7 @@
                     <div class="form-group jzf">
                         <label class="col-sm-2 control-label" for="input01">捐赠方属性二：</label>
                         <div class="col-sm-4">
-                            <select class="form-control" name="pp_jzf_attr2">
+                            <select class="form-control" name="pp_jzf_attr2" style="height: 41px" >
                                 <option value="">请选择捐赠方属性二</option>
                                 <?php foreach($this->pp_config['pp_jzf_attr2'] as $k => $v){?>
                                     <option value="<?php echo $k;?>"><?php echo $v;?></option>
@@ -85,7 +86,7 @@
                 <div class="form-group syf" style="display: none;">
                     <label class="col-sm-2 control-label" for="input01">使用方类型：</label>
                     <div class="col-sm-4">
-                        <select class="form-control" name="pp_syf_cate">
+                        <select class="form-control" name="pp_syf_cate" style="height: 41px">
                             <option value="">请选择使用方类型</option>
                             <?php foreach($this->pp_config['pp_syf_cate'] as $k => $v){?>
                                 <option value="<?php echo $k;?>"><?php echo $v;?></option>
@@ -97,7 +98,7 @@
                 <div class="form-group yuf" style="display: none;">
                     <label class="col-sm-2 control-label" for="input01">业务方类型：</label>
                     <div class="col-sm-4">
-                        <select class="form-control" name="pp_yuf_cate">
+                        <select class="form-control" name="pp_yuf_cate" style="height: 41px">
                             <option value="">请选择业务方类型</option>
                             <?php foreach($this->pp_config['pp_yuf_cate'] as $k => $v){?>
                                 <option value="<?php echo $k;?>"><?php echo $v;?></option>
@@ -106,10 +107,22 @@
                     </div>
                 </div>
 
+                <div class="form-group transparent-editor">
+                    <label class="col-sm-2 control-label" for="input14">标签：</label>
+                    <div class="col-sm-4">
+                        <select class="chosen-select-2 chosen-transparent form-control" multiple data-live-search="false" name="tags[]" id="tags">
+                            <?php if($this->taglist != ""){
+                                foreach ($this->taglist as $k => $v){?>
+                                    <option value="<?php echo $v['id']?>"><?php echo $v['name']?></option>
+                                <?php }}?>
+                        </select>
+                    </div>
+                    <span class="col-sm-2 addtag" >点击添加新标签</span>
+                </div>
+
             <div class="form-group">
             <label class="col-sm-2 control-label" for="input01">Email：</label>
             <div class="col-sm-4"><input class="form-control" type="text" name="ppemail" /></div>
-            <span class="col-sm-2" > * </span>
             </div>
                 	
             <!--<div class="form-group">
@@ -127,80 +140,69 @@
            <div class="form-group">
             <label class="col-sm-2 control-label" for="input01">移动电话：</label>
             <div class="col-sm-4"><input class="form-control" type="text" name="ppmobile" /></div>
-            <span class="col-sm-2" > * </span>
+               <span class="col-sm-2" >  可添加多个，以“,”号隔开</span>
             </div>	
 			
             <div class="form-group">
             <label class="col-sm-2 control-label" for="input01">办公电话：</label>
             <div class="col-sm-4"><input class="form-control" type="text" name="ppphone"  size="40"/></div>
-            <span class="col-sm-2" > * 可添加多个，以“,”号隔开</span>
+            <span class="col-sm-2" >  可添加多个，以“,”号隔开</span>
             </div>	
            
            	<div class="form-group">
             <label class="col-sm-2 control-label" for="input01">联系地址：</label>
             <div class="col-sm-4"><input class="form-control" type="text" name="pp_address" size="40"/></div>
-            <span class="col-sm-2" > * </span>
             </div>
 
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片一：（正面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card1" size="40"/></div>
-                    <span class="col-sm-2" > * </span>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card1" size="40"  style="height: 41px"/></div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片一：（反面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card2" size="40"/></div>
-                    <span class="col-sm-2" > * </span>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card2" size="40" style="height: 41px"/></div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片二：（正面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card3" size="40"/></div>
-                    <span class="col-sm-2" > * </span>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card3" size="40" style="height: 41px"/></div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片二：（反面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card4" size="40"/></div>
-                    <span class="col-sm-2" > * </span>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card4" size="40" style="height: 41px"/></div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片三：（正面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card5" size="40"/></div>
-                    <span class="col-sm-2" > * </span>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card5" size="40" style="height: 41px"/></div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片三：（反面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card6" size="40"/></div>
-                    <span class="col-sm-2" > * </span>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card6" size="40" style="height: 41px"/></div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片四：（正面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card7" size="40"/></div>
-                    <span class="col-sm-2" > * </span>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card7" size="40" style="height: 41px"/></div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片四：（反面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card8" size="40"/></div>
-                    <span class="col-sm-2" > * </span>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card8" size="40" style="height: 41px"/></div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片五：（正面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card9" size="40"/></div>
-                    <span class="col-sm-2" > * </span>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card9" size="40" style="height: 41px"/></div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片五：（反面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card10" size="40"/></div>
-                    <span class="col-sm-2" > * </span>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card10" size="40" style="height: 41px"/></div>
                 </div>
 
 

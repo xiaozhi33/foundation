@@ -16,9 +16,18 @@
         {
             $incomeinfo = $this->orm->createDAO("pm_mg_income");
             $pname = HttpUtil::getString("pname");
+            $department = HttpUtil::getString('department');
+
+            $incomeinfo ->withPm_mg_chouzi(array("pname" => "pname"));
+            $incomeinfo ->select(" pm_mg_income.*, pm_mg_chouzi.department ");
+
 
             if ($pname != "") {
                 $incomeinfo->findPname($pname);
+            }
+
+            if(!empty($department)){
+                $incomeinfo->selectLimit .= " AND pm_mg_chouzi.department=".$department;
             }
 
             if(HttpUtil::getString("starttime")!="" && HttpUtil::getString("endtime") != ""){
@@ -34,6 +43,80 @@
             $incomeinfo ->selectLimit .= " order by income_datetime desc";
             //$incomeinfo ->debugSql =true;
             $incomeinfo = $incomeinfo->get();
+
+            if(!empty($incomeinfo)){
+                $jjehj = '';
+                foreach($incomeinfo as $key => $value){
+                    $jjehj += $value['income_jje'];
+                }
+                $this->view->assign("jjehj", $jjehj);
+            }
+
+            // 如果是导出excel
+            if($_REQUEST['excel'] == 'true'){
+                //导出excel
+                require_once 'phpexcel/Classes/PHPExcel.php';
+                // Create new PHPExcel object
+                $objPHPExcel = new PHPExcel();
+
+                // Set properties
+                $objPHPExcel->getProperties()->setCreator("JJH")
+                    ->setLastModifiedBy("JJH")
+                    ->setTitle("Office 2007 XLSX  Document")
+                    ->setSubject("Office 2007 XLSX  Document")
+                    ->setDescription("document for Office 2007 XLSX, generated using PHP classes.")
+                    ->setKeywords("office 2007 openxml php")
+                    ->setCategory("rescues");
+
+
+                // Add some data
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('A1', '')
+                    ->setCellValue('B1', '项目名称')
+                    ->setCellValue('C1', '收益时间')
+                    ->setCellValue('D1', '收益金额')
+                    ->setCellValue('E1', '备注');
+
+                $i = 2;
+                $hj = 0;
+                foreach($incomeinfo as $v){
+                    $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('A'.$i, '')
+                        ->setCellValue('B'.$i, $v['pname'])
+                        ->setCellValue('C'.$i, date("Y-m-d",$v['income_datetime']))
+                        ->setCellValue('D'.$i, number_format($v['income_jje'],2))
+                        ->setCellValue('E'.$i, $v['beizhu']);
+
+                    $hj += $v['income_jje'];
+                    $i++;
+                }
+
+                $hejiqq = count($incomeinfo) + 2;
+                $heji = "合计";
+
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('J'.$hejiqq,$heji.number_format($hj,2).'元');
+
+                $i = "";
+
+                // Rename sheet
+                $objPHPExcel->getActiveSheet()->setTitle('统计');
+
+
+                // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+                $objPHPExcel->setActiveSheetIndex(0);
+
+
+                // Redirect output to a client’s web browser (Excel5)
+                header('Content-Type: application/vnd.ms-excel');
+                header('Content-Disposition: attachment;filename="项目收益统计报表.xls"');
+                header('Cache-Control: max-age=0');
+
+                $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+                $objWriter->save('php://output');
+                exit;
+            }
+
             $total = count($incomeinfo);
             $pageDAO = new pageDAO();
             $pageDAO = $pageDAO->pageHelper($incomeinfo, null, "/management/income/index", null, 'get', 25, 8);

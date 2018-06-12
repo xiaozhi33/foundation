@@ -5,6 +5,7 @@
 		public function indexAction(){
             $pname = $_REQUEST['pname'];
             $is_show = $_REQUEST['is_show'];
+            $is_income = $_REQUEST['is_income'];
             $pm_mg_info = $this->orm->createDAO("pm_mg_info");
             $pm_mg_info ->select("
                 `pm_mg_info`.id,
@@ -29,6 +30,11 @@
 
             if($is_show != ""){
                 $pm_mg_info ->selectLimit .= " and `pm_mg_info`.is_show_peibi = '$is_show'";
+            }
+
+            if($is_income != ""){
+                $pm_mg_info ->withPm_mg_peibi(array("id"=>"lk_main_id"));
+                $pm_mg_info ->selectLimit .= " and `pm_mg_peibi`.is_income = '$is_income'";
             }
 
             if($_REQUEST['yeartime'] != ''){
@@ -97,6 +103,7 @@
             $peibi_spr = $_REQUEST["peibi_spr"];
             $huabo_department = HttpUtil::postString("huabo_department");
             $lk_main_id = HttpUtil::postString("lk_main_id");
+            $is_income = HttpUtil::postString("is_income");
 
             $jffzr = implode(',',$jffzr);
             $peibi_spr = implode(',',$peibi_spr);
@@ -123,11 +130,6 @@
                 alert_back('配比金额不能超过总金额('.$lk_info_jr.')的30%，');
             }*/
 
-            // 同步配比是否奖励信息
-            $lkDAO = $this->orm->createDAO("pm_mg_info")->findId($lk_main_id);
-            $lkDAO ->is_show_peibi = $is_show_peibi;
-            $lkDAO ->save();
-
             try{
                 if(!empty($id)){
                     $peibiDAO ->findId($id);
@@ -144,8 +146,16 @@
                 $peibiDAO ->jffzr = $jffzr;   // 经费负责人
                 $peibiDAO ->peibi_spr = $peibi_spr;   // 配比审批人
                 $peibiDAO ->lk_main_id = $lk_main_id;   // 来款id
+                $peibiDAO ->is_income = $is_income;   // 来款id
                 $peibiDAO ->save();
+
+                // 同步配比是否奖励信息
+                $lkDAO = $this->orm->createDAO("pm_mg_info")->findId($lk_main_id);
+                $lkDAO ->is_show_peibi = $is_show_peibi;
+                $lkDAO ->save();
+
             }catch (Exception $e){
+                //throw $e;
                 alert_back('保存失败！！！！！');
             }
             alert_go('保存成功', "/management/peibi/peibiindex?lk_main_id=".$lk_main_id);
@@ -277,6 +287,158 @@
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        /////////////配比支出//////////////////////////////////////////////////////////////////////
+
+        public function zcindexAction(){
+            $pname = $_REQUEST['pname'];
+            $starttime = $_REQUEST['starttime'];
+            $endtime = $_REQUEST['endtime'];
+            $card = $_REQUEST['card'];
+            $pm_mg_peibi_zcDAO = $this->orm->createDAO("pm_mg_peibi_zc");
+            if(!empty($pname)){
+                $pm_mg_peibi_zcDAO->findPm_name($pname);
+            }
+            if(!empty($card)){
+                $pm_mg_peibi_zcDAO->findCard($card);
+            }
+            if(!empty($starttime)){
+                $pm_mg_peibi_zcDAO->selectLimit .= " and peibi_datetime >= '$starttime'";
+            }
+            if(!empty($endtime)){
+                $pm_mg_peibi_zcDAO->selectLimit .= " and peibi_datetime <= '$endtime'";
+            }
+
+            $hj = $pm_mg_peibi_zcDAO ->get();
+            if(!empty($hj)){
+                $hjje = 0;
+                foreach($hj as $key => $value){
+                    $hjje += $value['je'];
+                }
+                $this->view->assign("hjje", $hjje);
+            }
+            $pm_mg_peibi_zcDAO->getPager(array('path'=>'/management/peibi/zcindex'))->assignTo($this->view);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("peibi/zcindex.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+
+        /////////////////按项目批量录入配比支出信息//////////////////////////////////////
+
+        public function addzcAction(){
+            $pname = $_REQUEST['pname'];
+            if(!empty($pname)){
+                // 查询该项目是否有配比信息，如果有可以添加配比支出
+                $peibiDAO = $this->orm->createDAO("pm_mg_peibi")->findPm_name($pname)->get();
+                if(empty($peibiDAO)) {
+                    $this->alert_back("该项目目前没有可以支出的配比款项！");
+                }
+                // 看配比余额是否大于0，如果不大于0，提示余额不足 todolist
+
+                $this->view->assign("peibiinfo", $peibiDAO[0]);
+                echo $this->view->render("index/header.phtml");
+                echo $this->view->render("peibi/addzc.phtml");
+                echo $this->view->render("index/footer.phtml");
+            }else {
+                $this->alert_back("请选择批量添加配比项目");
+            }
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////
+        public function zcaddrsAction(){
+            try{
+                $pm_mg_peibi_zcDAO = $this->orm->createDAO("pm_mg_peibi_zc");
+                $pm_mg_peibi_zcDAO ->beginTran();
+                if(empty($_REQUEST['pm_name'])){
+                    alert_back('信息不完整，保存失败！！！！！');
+                }
+
+                $pm_mg_peibi_zcDAO ->pm_name = $_REQUEST['pm_name'];
+                $pm_mg_peibi_zcDAO ->je = $_REQUEST['je'];
+                $pm_mg_peibi_zcDAO ->peibi_datetime = $_REQUEST['peibi_datetime'];
+                $pm_mg_peibi_zcDAO ->card = $_REQUEST['card'];
+
+                $jffzr = $_REQUEST["jffzr"];
+                $jffzr = implode(',',$jffzr);
+                $pm_mg_peibi_zcDAO ->jffzr = $jffzr;
+                $pm_mg_peibi_zcDAO ->save();
+
+                foreach ($_POST['xnumber'] as $key => $value) {
+                    $pm_mg_peibi_zcDAO ->pm_name = $_REQUEST['pm_name'];
+                    $pm_mg_peibi_zcDAO ->je = $_REQUEST['je'.$value];
+                    $pm_mg_peibi_zcDAO ->peibi_datetime = $_REQUEST['peibi_datetime'.$value];
+                    $pm_mg_peibi_zcDAO ->card = $_REQUEST['card'.$value];
+
+                    $jffzr = $_REQUEST["jffzr".$value];
+                    $jffzr = implode(',',$jffzr);
+                    $pm_mg_peibi_zcDAO ->jffzr = $jffzr;
+                    $pm_mg_peibi_zcDAO ->save();
+                }
+
+                $pm_mg_peibi_zcDAO ->commit();
+            }catch (Exception $e){
+                $pm_mg_peibi_zcDAO ->rollback();
+                $this->alert_back('保存失败！！！！！');
+            }
+            $this->alert_go('保存成功', "/management/peibi/zcindex");
+
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////
+
+        public function editzcAction()
+        {
+            if(!empty($_REQUEST['id'])) {
+                $pm_mg_peibi_zcDAO = $this->orm->createDAO("pm_mg_peibi_zc")->findId($_REQUEST['id'])->get();
+                $this->view->assign("zcinfo", $pm_mg_peibi_zcDAO[0]);
+            }
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("peibi/editzc.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        public function rszcAction(){
+            if(empty($_REQUEST['pm_name']) || empty($_REQUEST['je']) || empty($_REQUEST['peibi_datetime']) || empty($_REQUEST['card'])){
+                alert_back('信息不完整，保存失败！！！！！');
+            }
+            $pm_mg_peibi_zcDAO = $this->orm->createDAO("pm_mg_peibi_zc");
+            if(!empty((int)$_REQUEST['id'])) {
+                $pm_mg_peibi_zcDAO->findId($_REQUEST['id']);
+            }
+            $pm_mg_peibi_zcDAO ->pm_name = $_REQUEST['pm_name'];
+            $pm_mg_peibi_zcDAO ->je = $_REQUEST['je'];
+            $pm_mg_peibi_zcDAO ->peibi_datetime = $_REQUEST['peibi_datetime'];
+            $pm_mg_peibi_zcDAO ->card = $_REQUEST['card'];
+
+            $jffzr = $_REQUEST["jffzr"];
+            $jffzr = implode(',',$jffzr);
+            $pm_mg_peibi_zcDAO ->jffzr = $jffzr;
+
+            try{
+                $pm_mg_peibi_zcDAO ->save();
+            }catch (Exception $e){
+                alert_back('保存失败！！！！！');
+            }
+            alert_go('保存成功', "/management/peibi/zcindex");
+        }
+
+        public function delzcAction(){
+            $pm_mg_peibi_zcDAO = $this->orm->createDAO("pm_mg_peibi_zc");
+            try{
+                if(!empty((int)$_REQUEST['id'])) {
+                    $pm_mg_peibi_zcDAO->findId($_REQUEST['id']);
+                    $pm_mg_peibi_zcDAO ->delete();
+                }else {
+                    $this->alert_back('删除失败！！！！！');
+                }
+            }catch (Exception $e){
+                $this->alert_back('删除失败！！！！！');
+            }
+            $this->alert_go('删除成功', "/management/peibi/zcindex");
+        }
+
         //权限
         public function acl()
         {
@@ -284,6 +446,12 @@
             $except_actions = array(
                 'to-add',
                 'getpeibilist',
+                'zcindex',
+                'addzc',
+                'zcaddrs',
+                'editzc',
+                'rszc',
+                'delzc'
             );
             if (in_array($action, $except_actions)) {
                 return;

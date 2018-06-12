@@ -26,9 +26,9 @@
         	<div class="col-md-12">
                 <section class="tile color transparent-white">
                 	<div class="tile-body">
-                    	<form class="form-horizontal" action="#" method="post" name="search_form">
+                    	<form class="form-horizontal" action="#" method="get" name="search_form">
                         	<div class="form-group">
-                            	<div class="row"> 
+                                <div class="row">
                                     <div class="form-group col-sm-8">
                                         <div class="col-sm-6" style="margin: -6px 20px 0px 20px;">
                                             <label class="control-label" for="input01">项目名称：</label>
@@ -37,10 +37,18 @@
                                                 <?php if($this->pmlist != ""){
                                                     foreach ($this->pmlist as $k => $v){
                                                         ?>
-                                                        <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                                        <option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pname'] == $v['pname'])echo 'selected="selected"';?>><?php echo $v['pname'];?></option>
                                                     <?php }}?>
                                             </select>
                                             <input id="pname_info" type="hidden" name="pname" value=""/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-8">
+                                        <div class="col-sm-6" style="margin: -6px 20px 0px 20px;">
+                                            <label class="control-label" for="input01">项目捐赠方：</label>
+                                            <input  class="form-control" type="text" name="pm_pp" value="<?php echo $_REQUEST['pm_pp'];?>"/>
                                         </div>
                                         <div class="col-sm-2">
                                             <label for="input02"> </label>
@@ -63,7 +71,7 @@
                         <thead>
 					  		<tr>
                             <td width="24%">项目名称</td>
-                            <td width="24%">项目捐赠者</td>
+                            <td width="24%">项目捐赠方</td>
                             <!--<td width="12%">捐赠级别</td>-->
                             <td width="14%">捐赠到账日期</td>
                             <td width="13%">捐赠到账金额</td>
@@ -74,7 +82,7 @@
                           <?php 
                             foreach($this->zijinlist as $k=>$v){?>
                              <tr>
-                                <td><?php echo $v['pm_name'];?>&nbsp;</td>
+                                <td><a href="/management/chouzi/index?pname=<?php echo $v['pm_name'];?>" target="_blank" ><?php echo $v['pm_name'];?></a>&nbsp;</td>
                                 <td><?php echo $v['pm_pp'];?>&nbsp;</td>
                                <!-- <td><?php /*echo $v['pm_juanzeng_jibie'];*/?>&nbsp;</td>-->
                                 <td><?php echo substr($v['zijin_daozhang_datetime'],0,10);?>&nbsp;</td>
@@ -101,7 +109,7 @@
                             共  <?php echo $this->total;?> 条资金信息          <?php echo $this->page;?></div>
                         
                      <?php }else{?>
-                        <div>暂无资金信息！<a href="/management/zijin/addzijin">点击添加</a></div>
+                        <div style="padding: 20px;" class="row">暂无资金信息！<a href="/management/zijin/addzijin">点击添加</a></div>
                      <?php }?>
               		 </div>
 				 	 </div>

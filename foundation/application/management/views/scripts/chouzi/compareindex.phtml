@@ -85,10 +85,10 @@
                         foreach($this->chouzilist as $k=>$v){?>
                             <tr>
                                 <td>
-                                    <?php echo $v['pm_id'];?>
+                                    <a href="/management/chouzi/repminfo?id=<?php echo $v['pm_id'];?>" target="_blank"><?php echo $v['pm_id'];?></a>
                                 </td>
                                 <td>
-                                    <?php echo $v['pm_name'];?>
+                                    <a href="/management/chouzi/repminfo?id=<?php echo $v['pm_id'];?>" target="_blank"><?php echo $v['pm_name'];?></a>
                                 </td>
                                 <td>
                                     <?php echo $v['zw_xmbh'];?>

@@ -104,10 +104,11 @@
                             <td width="26%">来款项目</td>
                             <td width="10%">划拨部门</td>
                             <td width="10%">配比下发时间</td>
-                            <td width="10%">配比金额</td>
+                            <td width="10%">配比金额（元）</td>
                             <td width="14%">卡号</td>
                             <td width="10%">经费负责人</td>
                             <td width="10%">配比审批人</td>
+                            <td width="10%">操作</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -115,7 +116,7 @@
                         foreach($this->pageData as $k=>$v){?>
                             <tr>
                                 <td>
-                                    <?php echo $v['pm_name'];?>
+                                    <a href="/management/chouzi/index?pname=<?php echo $v['pm_name'];?>" target="_blank" ><?php echo $v['pm_name'];?></a>
                                 </td>
                                 <td>
                                     <?php echo $this->department[$v['huabo_department']];?>
@@ -125,7 +126,7 @@
                                     <?php echo $v['peibi_datetime'];?>
                                 </td>
                                 <td>
-                                    <?php echo $v['je'];?>
+                                    <?php echo number_format($v['je'],2);?>
                                 </td>
 
                                 <td>
@@ -155,19 +156,19 @@
                                     }?>
                                 </td>
 
-                                <!--<td>
-                                    <a href="/management/peibi/edit?id=<?php /*echo $v['id'];*/?>">
-                                        <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                                <td>
+                                    <a href="/management/peibi/edit?id=<?php echo $v['id'];?>">
+                                        <button class="btn btn-greensea margin-bottom-20" type="button">编  辑</button>
                                     </a>
-                                    &nbsp;&nbsp;
-                                    <a href="#" onclick="alert('对不起，配比清单不提供删除功能，请联系管理员');">
-                                        <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
-                                    </a>
+                                    <!-- &nbsp;&nbsp;
+                                     <a href="#" onclick="alert('对不起，配比清单不提供删除功能，请联系管理员');">
+                                         <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
+                                     </a>-->
 
-                                    <a href="/management/peibi/del?id=<?php /*echo $v['id']*/?>">
-                                        <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
-                                    </a>
-                                </td>-->
+                                    <!--<a href="/management/peibi/del?id=<?php /*echo $v['id']*/?>" >
+                                        <button class="btn btn-danger margin-bottom-20" type="button" onclick="window.confirm('确定要删除这个配比信息吗?')">删除</button>
+                                    </a>-->
+                                </td>
                             </tr>
                         <?php }?>
                         </tbody>
@@ -188,7 +189,7 @@
                             <label for="input02"></label>
                             <a href="/management/report/peibitoexcel?<?php
                             $_url = explode('?',$_SERVER['REQUEST_URI']);
-                            echo $_url[1];?>"><button class="btn btn-primary btn-block">导出Excel</button></a>
+                            echo $_url[1];?>"><button class="btn btn-primary btn-block">系统全部配比信息导出Excel</button></a>
                         </div>
                     </div>
 

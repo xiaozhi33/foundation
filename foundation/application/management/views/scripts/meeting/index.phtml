@@ -7,13 +7,13 @@
     <div class="pageheader">
 
         <h2><i class="fa fa-tachometer"></i> Dashboard
-            <span>会议列表</span></h2>
+            <span>会议活动列表</span></h2>
 
         <div class="breadcrumbs">
             <ol class="breadcrumb">
                 <li>您的位置</li>
-                <li>会议管理</li>
-                <li class="active">会议列表</li>
+                <li>会议活动管理</li>
+                <li class="active">会议活动列表</li>
             </ol>
         </div>
 
@@ -31,11 +31,11 @@
 				<div class="form-group">
 				<div class="row">
 					<div class="form-group col-sm-3">
-						<label for="input05">会议名称：</label>
+						<label for="input05">会议活动名称：</label>
 						<input type="text" class="form-control" name="meeting_name" />
 					</div>
 					<div class="form-group col-sm-3">
-						<label for="input01">会议类型：</label>
+						<label for="input01">会议活动类型：</label>
 						<select class="form-control" name="department">
 							<option value="" >请选择类型</option>
 								<?php if($this->meetingCateList != ""){
@@ -69,9 +69,9 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="18%">会议名称</td>
-						<td width="10%">会议类型</td>
-						<td width="24%">参会人员</td><td width="18%">会议内容摘要</td>
+						<td width="18%">会议活动名称</td>
+						<td width="10%">会议活动类型</td>
+						<td width="24%">参会人员</td><td width="18%">会议活动内容摘要</td>
 						<td width="13%">操作</td>
 					  </tr>
 					</thead>
@@ -111,10 +111,10 @@
 					<div class="tile-footer">
 					<div class="row">
 					<div class="page col-md-12" align="right">
-						共  <?php echo $this->totalItems;?> 条会议信息          <?php echo $this->page['all'];?></div>
+						共  <?php echo $this->totalItems;?> 条会议活动信息          <?php echo $this->page['all'];?></div>
 					
 				 <?php }else{?>
-				 	<div>暂无网站资讯！<a href="/management/meeting/add">点击添加</a></div>
+				 	<div>暂无会议活动信息！<a href="/management/meeting/add">点击添加</a></div>
 				 <?php }?>
 				 </div>
 				 </div>
@@ -125,5 +125,5 @@
 
         <script src="/include/management/assets/js/jquery.js"></script>
         <script language="javascript">
-            $(".menu li:eq(37)").addClass("open");
+            //$(".menu li:eq(37)").addClass("open");
         </script>

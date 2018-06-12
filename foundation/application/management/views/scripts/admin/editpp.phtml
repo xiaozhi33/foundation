@@ -22,11 +22,11 @@
 			<form class="form-horizontal" action="editrspp" id="form1" method="post" encType="multipart/form-data">
             
 			<div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">人员姓名/组织机构名称：</label>
-            <div class="col-sm-4">
-            <input class="form-control" type="text" name="ppname" value="<?php echo $this->ppinfo[0]['ppname']?>"/>
-            </div>
-            <span class="col-sm-2" > * </span>
+                <label class="col-sm-2 control-label" for="input01">人员姓名/组织机构名称：</label>
+                <div class="col-sm-4">
+                <input class="form-control" type="text" name="ppname" value="<?php echo $this->ppinfo[0]['ppname']?>"/>
+                </div>
+                <span class="col-sm-2" > * </span>
             </div>	
 
 			<!--<div class="form-group">
@@ -46,18 +46,19 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">联系人类型：</label>
                     <div class="col-sm-4">
-                        <select class="form-control" name="pp_cate" id="pp_cate">
+                        <select class="form-control" name="pp_cate" id="pp_cate" style="height: 41px">
                             <?php foreach($this->pp_config['pp_cate'] as $k => $v){?>
                                 <option value="<?php echo $k;?>" <?php if ($this->ppinfo[0]['pp_cate'] == $k){echo "selected='selected'";}?>><?php echo $v;?></option>
                             <?php }?>
                         </select>
                     </div>
                 </div>
+
                 <!-- 捐赠方信息-->
                 <div class="form-group jzf">
                     <label class="col-sm-2 control-label" for="input01">捐赠方类型：</label>
                     <div class="col-sm-4">
-                        <select class="form-control" name="pp_jzf_cate">
+                        <select class="form-control" name="pp_jzf_cate" style="height: 41px">
                             <option value="">请选择捐赠方类型</option>
                             <?php foreach($this->pp_config['pp_jzf_cate'] as $k => $v){?>
                                 <option value="<?php echo $k;?>" <?php if ($this->ppinfo[0]['pp_jzf_cate'] == $k){echo "selected='selected'";}?>><?php echo $v;?></option>
@@ -68,7 +69,7 @@
                 <div class="form-group jzf">
                     <label class="col-sm-2 control-label" for="input01">捐赠方属性一：</label>
                     <div class="col-sm-4">
-                        <select class="form-control" name="pp_jzf_attr1">
+                        <select class="form-control" name="pp_jzf_attr1" style="height: 41px">
                             <option value="">请选择捐赠方属性一</option>
                             <?php foreach($this->pp_config['pp_jzf_attr1'] as $k => $v){?>
                                 <option value="<?php echo $k;?>"  <?php if ($this->ppinfo[0]['pp_jzf_attr1'] == $k){echo "selected='selected'";}?>><?php echo $v;?></option>
@@ -79,7 +80,7 @@
                 <div class="form-group jzf">
                     <label class="col-sm-2 control-label" for="input01">捐赠方属性二：</label>
                     <div class="col-sm-4">
-                        <select class="form-control" name="pp_jzf_attr2">
+                        <select class="form-control" name="pp_jzf_attr2" style="height: 41px">
                             <option value="">请选择捐赠方属性二</option>
                             <?php foreach($this->pp_config['pp_jzf_attr2'] as $k => $v){?>
                                 <option value="<?php echo $k;?>"  <?php if ($this->ppinfo[0]['pp_jzf_attr2'] == $k){echo "selected='selected'";}?>><?php echo $v;?></option>
@@ -93,7 +94,7 @@
                 <div class="form-group syf" style="display: none;">
                     <label class="col-sm-2 control-label" for="input01">使用方类型：</label>
                     <div class="col-sm-4">
-                        <select class="form-control" name="pp_syf_cate">
+                        <select class="form-control" name="pp_syf_cate" style="height: 41px">
                             <option value="">请选择使用方类型</option>
                             <?php foreach($this->pp_config['pp_syf_cate'] as $k => $v){?>
                                 <option value="<?php echo $k;?>"  <?php if ($this->ppinfo[0]['pp_syf_cate'] == $k){echo "selected='selected'";}?>><?php echo $v;?></option>
@@ -107,7 +108,7 @@
                 <div class="form-group yuf" style="display: none;">
                     <label class="col-sm-2 control-label" for="input01">业务方类型：</label>
                     <div class="col-sm-4">
-                        <select class="form-control" name="pp_yuf_cate">
+                        <select class="form-control" name="pp_yuf_cate" style="height: 41px">
                             <option value="">请选择业务方类型</option>
                             <?php foreach($this->pp_config['pp_yuf_cate'] as $k => $v){?>
                                 <option value="<?php echo $k;?>"  <?php if ($this->ppinfo[0]['pp_yuf_cate'] == $k){echo "selected='selected'";}?>><?php echo $v;?></option>
@@ -117,10 +118,25 @@
                 </div>
                 <!-- 业务方信息-->
 
+
+                <div class="form-group transparent-editor">
+                    <label class="col-sm-2 control-label" for="input14">标签：</label>
+                    <div class="col-sm-4">
+                        <select class="chosen-select-2 chosen-transparent form-control" multiple data-live-search="false" name="tags[]" id="tags">
+                            <?php if($this->taglist != ""){
+                                foreach ($this->taglist as $k => $v){?>
+                                    <option value="<?php echo $v['id']?>" <?php if (in_array($v['id'], explode(",",$this->ppinfo[0]['tags'])) ){echo "selected='selected'";}?>><?php echo $v['name']?></option>
+                                <?php }}?>
+                        </select>
+                    </div>
+                    <span class="col-sm-2 addtag" >点击添加新标签</span>
+                </div>
+
+
 			<div class="form-group">
             <label class="col-sm-2 control-label" for="input01">Email：</label>
             <div class="col-sm-4"><input class="form-control" type="text" name="ppemail" value="<?php echo $this->ppinfo[0]['ppemail']?>"/></div>
-            <span class="col-sm-2" > * </span>
+            <!--<span class="col-sm-2" > * </span>-->
             </div>	
 
 			<!--<div class="form-group">
@@ -138,7 +154,7 @@
 			<div class="form-group">
             <label class="col-sm-2 control-label" for="input01">移动电话：</label>
             <div class="col-sm-4"><input class="form-control" type="text" name="ppmobile" value="<?php echo $this->ppinfo[0]['ppmobile']?>"/></div>
-            <span class="col-sm-2" > * </span>
+                <span class="col-sm-2" >  可添加多个，以“,”号隔开</span>
             </div>	
 
 
@@ -146,19 +162,19 @@
             <label class="col-sm-2 control-label" for="input01">办公电话：</label>
             <div class="col-sm-4">
                 <input class="form-control" type="text" name="ppphone"  value="<?php echo $this->ppinfo[0]['ppphone']?>" /></div>
-            <span class="col-sm-2" >* 可添加多个，以“,”号隔开 </span>
+                <span class="col-sm-2" > 可添加多个，以“,”号隔开 </span>
             </div>	
 
 			<div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">联系地址：</label>
-            <div class="col-sm-4"><input class="form-control" type="text" name="pp_address" value="<?php echo $this->ppinfo[0]['pp_address']?>"/></div>
-            <span class="col-sm-2" > * </span>
+                <label class="col-sm-2 control-label" for="input01">联系地址：</label>
+                <div class="col-sm-4"><input class="form-control" type="text" name="pp_address" value="<?php echo $this->ppinfo[0]['pp_address']?>"/></div>
+            <!--<span class="col-sm-2" > * </span>-->
             </div>
 
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片一：（正面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card1" size="40"/></div>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card1" size="40" style="height: 41px"/></div>
                 </div>
 
                 <?php if($this->ppinfo[0]['pp_card1'] != ''){?>
@@ -170,7 +186,7 @@
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片一：（反面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card2" size="40"/></div>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card2" size="40" style="height: 41px"/></div>
                 </div>
 
                 <?php if($this->ppinfo[0]['pp_card2'] != ''){?>
@@ -183,7 +199,7 @@
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片二：（正面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card3" size="40"/></div>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card3" size="40" style="height: 41px"/></div>
                 </div>
 
                 <?php if($this->ppinfo[0]['pp_card3'] != ''){?>
@@ -195,7 +211,7 @@
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片二：（反面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card4" size="40"/></div>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card4" size="40" style="height: 41px"/></div>
                 </div>
 
                 <?php if($this->ppinfo[0]['pp_card4'] != ''){?>
@@ -207,7 +223,7 @@
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片三：（正面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card5" size="40"/></div>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card5" size="40" style="height: 41px"/></div>
                 </div>
 
                 <?php if($this->ppinfo[0]['pp_card5'] != ''){?>
@@ -219,7 +235,7 @@
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片三：（反面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card6" size="40"/></div>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card6" size="40" style="height: 41px"/></div>
                 </div>
 
                 <?php if($this->ppinfo[0]['pp_card6'] != ''){?>
@@ -231,7 +247,7 @@
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片四：（正面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card7" size="40"/></div>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card7" size="40" style="height: 41px"/></div>
                 </div>
 
                 <?php if($this->ppinfo[0]['pp_card7'] != ''){?>
@@ -243,7 +259,7 @@
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片四：（反面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card8" size="40"/></div>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card8" size="40" style="height: 41px"/></div>
                 </div>
 
                 <?php if($this->ppinfo[0]['pp_card8'] != ''){?>
@@ -255,7 +271,7 @@
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片五：（正面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card9" size="40"/></div>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card9" size="40" style="height: 41px"/></div>
                 </div>
 
                 <?php if($this->ppinfo[0]['pp_card9'] != ''){?>
@@ -267,7 +283,7 @@
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">名片五：（反面）</label>
-                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card10" size="40"/></div>
+                    <div class="col-sm-4"><input class="form-control" type="file" name="pp_card10" size="40" style="height: 41px"/></div>
                 </div>
 
                 <?php if($this->ppinfo[0]['pp_card10'] != ''){?>

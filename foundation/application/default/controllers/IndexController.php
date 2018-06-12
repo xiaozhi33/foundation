@@ -66,13 +66,14 @@
 			
 			//new最新捐赠
 			$zizhuinfo = new pm_mg_infoDAO();
-			$zizhuinfo ->selectLimit = " and is_renling=1 and zijin_daozheng_jiner != '' order by zijin_daozhang_datetime desc limit 0,6";
+			// 捐赠金额大于0的捐赠信息
+			$zizhuinfo ->selectLimit = " and is_renling=1 and zijin_daozheng_jiner > 0 order by zijin_daozhang_datetime desc limit 0,6";
 			$zizhuinfo = $zizhuinfo ->get($this->dbhelper);
 			$this->view->assign("zizhuinfo",$zizhuinfo);
 			
 			//new资助信息
 			$shiyonginfo = new pm_mg_infoDAO();
-			$shiyonginfo ->selectLimit = "and shiyong_zhichu_jiner != '' order by shiyong_zhichu_datetime desc limit 0,6";
+			$shiyonginfo ->selectLimit = "and shiyong_zhichu_jiner >= 0 order by shiyong_zhichu_datetime desc limit 0,6";
 			$shiyonginfo = $shiyonginfo ->get($this->dbhelper);
 			$this->view->assign("shiyonginfo",$shiyonginfo);
 			

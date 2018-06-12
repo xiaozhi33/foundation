@@ -41,22 +41,36 @@
 			<div class="col-md-12">
                 <section class="tile color transparent-white">
                     <div class="tile-body">
-                        <form action="#" method="get" name="search_form" >
+                        <form action="#" method="get" name="search_form" id="search_form1">
                             <div class="form-group">
 
                                 <div class="row">
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-sm-3">
                                         <label class="col-sm-12 control-label" for="input01">项目名称：</label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-12">
                                             <select class="chosen-select-1 chosen-transparent form-control" id="pname">
                                                 <option value="">请选择项目名称</option>
                                                 <?php if($this->pmlist != ""){
                                                     foreach ($this->pmlist as $k => $v){
                                                         ?>
-                                                        <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                                        <option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pname'] == $v['pname'])echo 'selected="selected"';?>><?php echo $v['pname'];?></option>
                                                     <?php }}?>
                                             </select>
                                             <input id="pname_info" type="hidden" name="pname" value=""/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-sm-3">
+                                        <label class="col-sm-12 control-label" for="input01">部门名称：</label>
+                                        <div class="col-sm-12">
+                                            <select class="chosen-select-1 chosen-transparent form-control" id="pname" name="department">
+                                                <option value="" >请选择所属部门</option>
+                                                <?php if($this->departmentlist != ""){
+                                                    foreach ($this->departmentlist as $k => $v){?>
+                                                        <option value="<?php echo $v['id']?>" <?php if($_REQUEST['department']==$v['id']){echo 'selected="selected"';}?>><?php echo $v['pname']?></option>
+                                                    <?php }}?>
+                                            </select>
+                                            <!--<input id="department" type="hidden" name="department" value=""/>-->
                                         </div>
                                     </div>
                                 </div>
@@ -66,30 +80,37 @@
                                     <div class="form-group col-sm-3">
                                         <label class="col-sm-12 control-label" for="input01">开始时间 ：</label>
                                         <div class="col-sm-12">
-                                            <input class="form-control" type="text" id="datepicker1" data-date-format="YYYY-MM-DD"  name="starttime"  size="14" <?php if($this->starttime !=''){echo $this->starttime;}?>/>
+                                            <input class="form-control" type="text" id="datepicker1" data-date-format="YYYY-MM-DD"  name="starttime"  size="14" value="<?php if($this->starttime !=''){echo $this->starttime;}?>" />
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-3">
                                         <label class="col-sm-12 control-label" for="input01">结束时间 ：</label>
                                         <div class="col-sm-12">
-                                            <input class="form-control" type="text"  id="datepicker2" data-date-format="YYYY-MM-DD"  name="endtime"  size="14" <?php if($this->endtime !=''){echo $this->endtime;}?>/>
+                                            <input class="form-control" type="text"  id="datepicker2" data-date-format="YYYY-MM-DD"  name="endtime"  size="14" value="<?php if($this->endtime !=''){echo $this->endtime;}?>"/>
                                         </div>
                                     </div>
                                 </div>
 
-
                                 <div class="row">
-                                    <div class="form-group col-sm-3">
+
+                                    <div class="form-group col-sm-2">
                                         <label for="input02"></label>
-                                        <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                                        <input class="btn btn-primary btn-block" onclick="post_submit1()" type="button"  value="搜索"/>
                                     </div>
 
-                                    <div class="form-group col-sm-3">
+
+                                    <div class="form-group col-sm-2">
                                         <label for="input02"> </label>
                                         <input class="btn btn-primary btn-block" type="button" value="添加收益" onclick="window.location.href='/management/income/add'">
                                     </div>
-                                </div>
 
+                                    <div class="form-group col-sm-2">
+                                        <label for="input02"></label>
+                                        <input class="btn btn-primary btn-greensea" style="width: 100%;-webkit-appearance: button;    cursor: pointer;    display: block;
+    width: 100%;    padding-left: 0;    padding-right: 0;margin-bottom: 0;    font-weight: 400;    text-align: center;    vertical-align: middle;    background-image: none;    border: 1px solid transparent;    white-space: nowrap;    padding: 6px 12px;    font-size: 14px;    line-height: 1.42857143;" onclick="post_submit()" type="button" value="下载excel报表"/>
+                                    </div>
+
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -101,11 +122,12 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="24%">收益名称</td>
-						<td width="12%">收益日期</td>
-                        <td width="20%">收益金额</td>
-                        <td width="20%">操作人</td>
-                        <td width="20%">操作</td>
+						<td width="30%">项目名称</td>
+                        <td width="20%">部门名称</td>
+						<td width="15%">收益日期</td>
+                        <td width="15%">收益金额（元）</td>
+                        <td width="10%">操作人</td>
+                        <td width="10%">操作</td>
 					  </tr>
 					</thead>
                     <tbody>
@@ -115,11 +137,22 @@
 						 	<td>
                                 <?php echo $v['pname'];?>
                             </td>
+
+                             <td>
+                                 <?php
+                                 if($this->departmentlist != ""){
+                                    foreach ($this->departmentlist as $key => $value){
+                                        if($v['department']==$value['id']){ echo $value['pname'];}
+                                    }
+                                 }
+                                 ?>
+                             </td>
+
                              <td>
                                  <?php echo date("Y-m-d",$v['income_datetime']);?>
                              </td>
                              <td>
-                                     <?php echo $v['income_jje'];?>
+                                     <?php echo number_format($v['income_jje'],2);?>
                              </td>
                              <td>
                                  <?php echo $v['admin_name'];?>
@@ -142,7 +175,7 @@
 					<div class="tile-footer">
 					<div class="row">
 					<div class="page col-md-12" align="right">
-                        共  <?php echo $this->total;?> 条收益信息         <?php echo $this->page['all'];?></div>
+                        共  <?php echo $this->total;?> 条收益信息，合计：<?php echo number_format($this->jjehj,2);?> 元 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->page;?></div>
 					
 				 <?php }else{?>
                         <div class="row"><div style="margin: 10px;padding: 10px;">暂无收益信息！<a href="/management/income/add">点击添加</a></div></div>
@@ -156,5 +189,17 @@
 
         <script src="/include/management/assets/js/jquery.js"></script>
         <script language="javascript">
-            //$(".menu li:eq(33)").addClass("open");
+            //$(".menu li:eq(18)").addClass("open");
+
+            function post_submit(){
+                var inputNumber=$("<input type='hidden' name='excel' value='true'/>");
+                $('#search_form1').append(inputNumber);
+                $('#search_form1').submit();
+            }
+
+            function post_submit1(){
+                var inputNumber=$("<input type='hidden' name='excel' value='false'/>");
+                $('#search_form1').append(inputNumber);
+                $('#search_form1').submit();
+            }
         </script>

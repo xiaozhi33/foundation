@@ -1,0 +1,1010 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="/include/management/js/jquery-1.11.1.min.js"></script>
+<script src="/include/management/datepicker/ui.datepicker.js"></script>
+
+<link rel="stylesheet" href="/include/management/assets/css/vendor/animate/animate.css">
+<link type="text/css" rel="stylesheet" media="all" href="/include/management/assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/include/management/assets/js/vendor/videobackground/css/jquery.videobackground.css">
+<link rel="stylesheet" href="/include/management/assets/css/vendor/bootstrap-checkbox.css">
+
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote-bs3.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen.min.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen-bootstrap.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/datepicker/css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpicker/css/bootstrap-colorpicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpalette/bootstrap-colorpalette.css">
+<link href="/include/management/assets/css/minimal.css" rel="stylesheet">
+
+
+<!-- page header -->
+<div class="pageheader" id="01">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>项目详情</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目筹资管理</li>
+            <li class="active">项目详情</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+	<div id="main" class="main">
+        <!--startprint-->
+        <style type="text/css">
+            .word-icon {
+                font-family:"Helvetica", sans-serif;
+                font-size: 24px;
+                font-weight: bold;
+                background-color: #0054a6;
+                color: white;
+                padding: 2px 5px;
+                vertical-align: middle;
+            }
+            .tile1{border: none;}
+            .pm-test{
+                border-top: 2px solid #009999;
+                border-bottom: 2px solid #009999;
+                padding: 20px 0;
+                margin-bottom: 20px;
+                margin-top:0px;
+            }
+            .pm-con{
+                border-bottom: 2px solid #009999;
+                margin-bottom: 20px;
+            }
+            .pm-con p{
+                margin: 0;;
+            }
+            .pm-yt{
+                margin-top: 20px;
+            }
+            .pm-js{
+                border-bottom: 2px solid #009999;
+                margin-bottom: 20px;
+            }
+            .transparent-green .tile-body .table-responsive table tbody tr{
+                border-style: solid;
+                border-color:#009999;
+                border-width: 2px 0;
+            }
+            .transparent-green table tr td{
+                border: none;
+            }
+            body #content .color-green{
+                border: none;
+                margin-top: 0px;
+            }
+            .color-green .table-responsive .pm-tabletext{
+                border-style: solid;
+                border-color:#009999;
+                border-width: 2px 0;
+                color: #666;
+                margin-bottom: 20px;
+                padding: 10px 0;
+                font-size: 17px;
+                text-align: center;
+            }
+           .color-green table.table-bordered{
+                border: 1px solid #009999;
+            }
+            .color-green table.table-bordered > tbody > tr td{
+                border: 1px solid #009999 !important;
+                border-bottom: 0;
+                border-right: 0;
+                padding: 2px;
+            }
+        </style>
+		<div id="rightstyle02" class="row" style="background-color:#fff;margin: 0px; padding-top:40px;width: 1050px;">
+            <div class="col-md-5" style="float:left;width: 360px;">
+			    <section class="tile1 color" id="02">
+                    <div class="pm-test">
+                        <div style="">项目编号：<?php echo $this->chouzi[0]['pid'];?></div>
+                        <div style="margin-bottom: 15px;">项目名称：<?php echo $this->chouzi[0]['pname'];?></div>
+                    </div>
+                    <div class="pm-con">
+                        <p>基本信息</p>
+                        <p>起始年份：<?php echo substr($this->chouzi[0]['pm_qishi_datetime'],0,4);?></p>
+                        <p>
+                            捐赠方： <?php
+                            /*if($this->chouzi[0]['pm_jzf'] != ""){
+                                $_pm_fzr = explode(',',$this->chouzi[0]['pm_jzf']);
+                                foreach($_pm_fzr as $key => $value){
+                                    echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                                }
+                            }else {*/
+                                echo $this->sjjzf;
+                            /*}*/
+                            ?>
+                        </p>
+                        <p>
+                            所属部门：<?php if($this->departmentlist != ""){
+                            foreach ($this->departmentlist as $k => $v){?>
+                                <?php if($this->chouzi[0]['department'] == $v['id']){echo $v['pname'];}?>
+                            <?php }}?>
+                        </p>
+                        <p>
+                            项目负责人： <?php
+                        if($this->chouzi[0]['pm_fzr'] != ""){
+                            $_pm_fzr = explode(',',$this->chouzi[0]['pm_fzr']);
+                            foreach($_pm_fzr as $key => $value){
+                                echo $this->jjh_mg_pp_list_info[$value]['ppname']."&nbsp;&nbsp;";
+                            }
+                        }
+                        ?>
+                        </p>
+                        <p>协议年限及金额：</p>
+                        <div class="pm-yt">
+                        <p>用途：<?php echo htmlspecialchars_decode($this->chouzi[0]['beizhu']);?></p>
+                        <p>配比情况：<?php if(empty($this->peibikDAO)){echo '无';}else{
+                                //echo "<br/>";
+                                //echo "收入：";
+                                echo number_format($this->pbhj,2)."元<br/>";
+                                foreach($this->peibikDAO as $key => $value){
+                                    echo $value['peibi_datetime']."&nbsp;&nbsp;".number_format($value['je'],2)."元"."&nbsp;&nbsp;卡号：".$value['card']."<br/>";
+                                }
+                                //echo "支出：".number_format($this->pbzchj,2)."元<br/>";
+                                /*if(!empty($this->pbzchj)){
+                                    foreach ($this->peibizcDAO as $key => $value){
+                                        echo $value['peibi_datetime']."&nbsp;&nbsp;".number_format($value['je'],2)."元"."&nbsp;&nbsp;卡号：".$value['card']."<br/>";
+                                    }
+                                }
+                                echo "余额：".number_format(($this->pbhj - $this->pbzchj), 2)."元<br/>";*/
+                            }?></p>
+                        <p>增值情况：<?php if(empty($this->zzhj)){echo '无';}else{echo number_format($this->zzhj, 2).'元';}?></p>
+                        </div>
+                    </div>
+                    <div class="pm-js">
+                    <p>项目介绍：</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-md-7" style="float:right;width: 650px;">
+                <section class="tile color-green" id="04">
+                    <div class="tile-body nopadding">
+                        <div class="table-responsive">
+
+                            <div class="pm-tabletext">项目收入：<?php echo number_format($this->srhjh, 2);?></div>
+
+                            <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                                <tbody>
+                                <tr>
+                                    <td><strong>捐赠方</strong></td>
+                                    <td><strong>捐赠金额（元）</strong></td>
+                                    <td><strong>到账时间</strong></td>
+                                </tr>
+
+                                <?php if(!empty($this->sr)){
+                                    foreach($this->sr as $key => $value){?>
+                                        <tr>
+                                            <td><?php echo $value['pm_pp'];?></td>
+                                            <td><?php echo number_format($value['zijin_daozheng_jiner'], 2);?></td>
+                                            <td><?php echo date("Y-m-d",strtotime($value['zijin_daozhang_datetime']));?></td>
+                                        </tr>
+                                    <?php }}?>
+
+                                <tr>
+                                    <td><strong>捐赠合计</strong></td>
+                                    <td> <?php echo number_format($this->srhj,2);?></td>
+                                    <td> </td>
+                                </tr>
+
+                                <?php if(!empty($this->zz)){?>
+                                <!--增值收益 start-->
+                                <tr>
+                                    <td><strong>增值</strong></td>
+                                    <td><strong>增值金额（元）</strong></td>
+                                    <td><strong>增值时间</strong></td>
+                                </tr>
+
+                                <?php if(!empty($this->zz)){
+                                    foreach($this->zz as $key => $value){?>
+                                        <tr>
+                                            <td> </td>
+                                            <td><?php echo number_format(sprintf("%.2f", $value['income_jje']),2);?></td>
+                                            <td><?php echo date("Y",$value['income_datetime']);?></td>
+                                        </tr>
+                                    <?php }}?>
+
+                                <tr>
+                                    <td><strong>增值合计</strong></td>
+                                    <td> <?php echo number_format($this->zzhj, 2);?></td>
+                                    <td> </td>
+                                </tr>
+
+                                </tbody>
+                                <!--增值收益 end-->
+                                <?php }?>
+
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section class="tile color-green" id="04">
+                    <div class="tile-body nopadding">
+                        <div class="table-responsive">
+                            <div class="pm-tabletext">项目支出：<?php echo number_format($this->zchj, 2);?></div>
+                            <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                                <tbody>
+
+                                <tr>
+                                    <td><strong>支出时间</strong></td>
+                                    <td><strong>支出金额（元）</strong></td>
+                                    <td><strong>资助人数</strong></td>
+
+                                    <!--<td width="25%"><strong>支出时间</strong></td>
+                                    <td width="22%"><strong>支出金额（元）</strong></td>
+                                    <td width="13%"><strong>资助人数</strong></td>
+                                    <td width="35%"><strong>备注</strong></td>-->
+                                </tr>
+
+                                <?php foreach($this->zc as $key => $value){?>
+                                    <tr>
+                                        <td><?php echo date("Y-m-d",strtotime($value['shiyong_zhichu_datetime']));?></td>
+                                        <td><?php echo number_format($value['shiyong_zhichu_jiner'], 2);?></td>
+                                        <td><?php echo $value['jiangli_renshu'];?></td>
+                                        <!--<td><?php /*echo $value['beizhu'];*/?></td>-->
+                                    </tr>
+                                <?php }?>
+
+
+                                <tr>
+                                    <td><strong>总计</strong></td>
+                                    <td> <?php echo number_format($this->zchj, 2);?></td>
+                                    <td> <?php echo $this->rshj;?></td>
+                                    <!--<td> </td>-->
+                                </tr>
+
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <?php if(!empty($this->aaDAO)){?>
+                <section class="tile color-green" id="04">
+                    <div class="tile-body nopadding">
+                        <div class="table-responsive">
+                            <div class="pm-tabletext">项目调账：<?php echo number_format($this->tzhj, 2);?></div>
+                            <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                                <tbody>
+
+                                <tr>
+                                    <td width="15%"><strong>调账时间</strong></td>
+                                    <td width="20%"><strong>调账金额（元）</strong></td>
+                                    <td width="55%"><strong>调账原因</strong></td>
+                                    <td width="10%"><strong>调账类型</strong></td>
+                                </tr>
+
+                                <?php foreach($this->aaDAO as $key => $value){?>
+                                    <tr>
+                                        <td><?php echo date("Y-m-d",$value['datetimes']);?></td>
+                                        <td><?php if($value['out_pm_name'] == $this->chouzi[0]['pname']){
+                                                echo number_format($value['je'], 2);
+                                            }else {echo number_format($value['je'], 2);}?></td>
+                                        <td><?php echo $value['beizhu'];?></td>
+                                        <td><?php if($value['out_pm_name'] == $this->chouzi[0]['pname']){
+                                                echo "调出";
+                                            }else {
+                                                echo "调入";
+                                            }?></td>
+                                    </tr>
+                                <?php }?>
+
+
+                                <tr>
+                                    <td><strong>总计</strong></td>
+                                    <td> <?php echo number_format($this->tzhj, 2);?></td>
+                                    <td> </td>
+                                    <td> </td>
+                                </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <?php }?>
+
+                <section class="tile color-green" id="04">
+                    <div class="tile-body nopadding">
+                        <div class="table-responsive">
+                            <div class="pm-tabletext" style="background-color: gold">项目余额 <?php echo number_format($this->xmye, 2);?></div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!--<section class="tile color-green" id="05">
+                    <div class="tile-body nopadding">
+                        <div class="pm-tabletext">项目回馈信息</div>
+                        <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                            <tbody>
+                            <tr>
+                                <td>项目名称</td>
+                                <td>回馈时间</td>
+                                <td>回馈方式</td>
+                                <td>回馈人</td>
+                                <td>经办人</td>
+                            </tr>
+                            <?php
+/*                            foreach($this->feedbackDAO as $k=>$v){*/?>
+                                <tr>
+                                    <td>
+                                        <?php /*echo $v['pm_name'];*/?>
+                                    </td>
+                                    <td>
+                                        <?php /*echo $v['feedback_datetime'];*/?>
+                                    </td>
+                                    <td>
+                                        <?php /*echo $v['feedback_type'];*/?>
+                                    </td>
+                                    <td>
+                                        <?php /*echo $v['feedbacker'];*/?>
+                                    </td>
+                                    <td>
+                                        <?php /*echo $v['jbr'];*/?>
+                                    </td>
+                                </tr>
+                            <?php /*}*/?>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>-->
+
+
+                <?php if(!empty($this->peibik1DAO)){?>
+                <section class="tile color-green" id="06">
+                    <div class="tile-body nopadding">
+                        <div class="table-responsive">
+                        <div class="pm-tabletext">配比收入：<?php echo number_format($this->pbhj1, 2);?></div>
+                        <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                            <tbody>
+                            <tr>
+                                <td>转入卡号</td>
+                                <td>配比金额</td>
+                                <td>到账时间</td>
+                            </tr>
+                            <?php
+                            foreach($this->peibik1DAO as $k=>$v){?>
+                                <tr>
+                                    <td>
+                                        <?php echo $v['card'];?>
+                                    </td>
+                                    <td>
+                                        <?php echo number_format($v['je'],2);?>
+                                    </td>
+                                    <td>
+                                        <?php echo $v['peibi_datetime'];?>
+                                    </td>
+                                </tr>
+                            <?php }?>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <?php }?>
+
+                <?php if(!empty($this->peibizcDAO)){?>
+                    <section class="tile color-green" id="06">
+                        <div class="tile-body nopadding">
+                            <div class="table-responsive">
+                                <div class="pm-tabletext">配比支出：<?php echo number_format($this->pbzchj, 2);?></div>
+                                <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                                    <tbody>
+                                    <tr>
+                                        <td>支出时间</td>
+                                        <td>支出金额</td>
+                                        <td>支出卡号</td>
+                                    </tr>
+                                    <?php
+                                    foreach($this->peibizcDAO as $k=>$v){?>
+                                        <tr>
+                                            <td>
+                                                <?php echo $v['peibi_datetime'];?>
+                                            </td>
+                                            <td>
+                                                <?php echo number_format($v['je'],2);?>
+                                            </td>
+                                            <td>
+                                                <?php echo $v['card'];?>
+                                            </td>
+                                        </tr>
+                                    <?php }?>
+                                    </tbody>
+                                </table>
+                            </div>
+                    </section>
+                <?php }?>
+
+                <?php if(!empty($this->pbhj1)){?>
+                <section class="tile color-green" id="04">
+                    <div class="tile-body nopadding">
+                        <div class="table-responsive">
+                            <div class="pm-tabletext" style="background-color: gold">配比余额 <?php echo number_format(($this->pbhj1 - $this->pbzchj), 2);?></div>
+                        </div>
+                    </div>
+                </section>
+                <?php }?>
+
+		    </div>
+        </div>
+
+
+        <!--endprint-->
+
+
+        <div class="back-box">
+            <ul>
+                <li><a href="#" id="q123">在线打印</a></li>
+                <li><a href="/management/chouzi/editchouzi?id=<?php echo $this->chouzi[0]['id'];?>" target="_blank">项目编辑</a></li>
+                <li><a href="#02">基本信息</a></li>
+                <!--<li><a href="#03">签约信息</a></li>-->
+                <li><a href="#04">收支信息</a></li>
+                <!--<li><a href="#05">回馈信息</a></li>-->
+                <li><a href="#06">配比信息</a></li>
+                <li><a href="#01">返回顶部</a></li>
+            </ul>
+        </div>
+
+
+            <script language="JavaScript" type="text/javascript">
+                function doPrint() {
+                    bdhtml= window.document.body.innerHTML; //获取当前页的html代码
+                    sprnstr="<!--startprint-->";
+                    eprnstr="<!--endprint-->";
+                    prnhtml=bdhtml.substr(bdhtml.indexOf(sprnstr)+17);  //从开始代码向后取html
+                    prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));  //从结束代码向前取html
+                    window.document.body.innerHTML=prnhtml;
+                    window.print();
+                    window.document.body.innerHTML=bdhtml;    //还原页面
+                }
+            </script>
+            <style type="text/css">
+                @media print {
+                    .Noprint {
+                        display: none;
+                    }
+                }
+            </style>
+        </head>
+
+        <!--<body>
+        <div id="bankwrap">
+            这种方式 适用于 IE浏览器
+            <object classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" id="wb" width="0" height="0">
+            </object>
+            <div>
+                <p class="Noprint">
+                    <span id="q123" style="cursor:pointer; color:#0000FF" >打印指定区域页面</span>
+                </p>
+            </div>
+        </div>-->
+
+
+        <script src="/include/management/js/FileSaver.js"></script>
+        <script src="/include/management/js/jquery.wordexport.js"></script>
+
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $("a.jquery-word-export").click(function (event) {
+                    $("#rightstyle02").wordExport();
+                });
+
+
+                $("#q123").click(function () {
+                    //$("#rightstyle02").wordExport();
+                    doPrint();
+                });
+            });
+        </script>
+
+
+    </div><!-- tab-pane -->
+</div><!-- tab-content -->
+</div>
+</div>
+<!-- Make page fluid-->
+
+</div>
+<!-- Wrap all page content end -->
+<section class="videocontent" id="video"></section>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/include/management/assets/js/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/include/management/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+<script src="/include/management/assets/js/vendor/summernote/summernote.min.js"></script>
+
+<script src="/include/management/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+
+<script src="/include/management/assets/js/vendor/momentjs/moment-with-langs.min.js"></script>
+<script src="/include/management/assets/js/vendor/datepicker/bootstrap-datetimepicker.min.js"></script>
+
+<script src="/include/management/assets/js/minimal.min.js"></script>
+
+<script>
+    $(function(){
+        //initialize datepicker
+        $('#datepicker').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker").on("dp.show",function (e) {
+            var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker1').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker1").on("dp.show",function (e) {
+            var newtop1 = $(".bootstrap-datetimepicker-widget").position(relative).top - 45;
+            alert(newtop1);
+            $('.bootstrap-datetimepicker-widget').css('top', newtop1 + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker2').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker2").on("dp.show",function (e) {
+            var newtop2 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop2 + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker3').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker3").on("dp.show",function (e) {
+            var newtop3 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop3 + 'px');
+        });
+
+        // Initialize flot chart
+        var d1 =[ [1, 715],
+            [2, 985],
+            [3, 1525],
+            [4, 1254],
+            [5, 1861],
+            [6, 2621],
+            [7, 1987],
+            [8, 2136],
+            [9, 2364],
+            [10, 2851],
+            [11, 1546],
+            [12, 2541]
+        ];
+        var d2 =[ [1, 463],
+            [2, 578],
+            [3, 327],
+            [4, 984],
+            [5, 1268],
+            [6, 1684],
+            [7, 1425],
+            [8, 1233],
+            [9, 1354],
+            [10, 1200],
+            [11, 1260],
+            [12, 1320]
+        ];
+        var months = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+
+        <?php if($this->module == "management" && $this->controller == "index" && $this->action == "index"){?>
+        // flot chart generate
+        var plot = $.plotAnimator($("#statistics-chart"),
+            [
+                {
+                    label: 'Sales',
+                    data: d1,
+                    lines: {lineWidth:3},
+                    shadowSize:0,
+                    color: '#ffffff'
+                },
+                { label: "Visits",
+                    data: d2,
+                    animator: {steps: 99, duration: 500, start:200, direction: "right"},
+                    lines: {
+                        fill: .15,
+                        lineWidth: 0
+                    },
+                    color:['#ffffff']
+                },{
+                label: 'Sales',
+                data: d1,
+                points: { show: true, fill: true, radius:6,fillColor:"rgba(0,0,0,.5)",lineWidth:2 },
+                color: '#fff',
+                shadowSize:0
+            },
+                { label: "Visits",
+                    data: d2,
+                    points: { show: true, fill: true, radius:6,fillColor:"rgba(255,255,255,.2)",lineWidth:2 },
+                    color: '#fff',
+                    shadowSize:0
+                }
+            ],{
+
+                xaxis: {
+
+                    tickLength: 0,
+                    tickDecimals: 0,
+                    min:1,
+                    ticks: [[1,"一月"], [2, "二月"], [3, "三月"], [4, "四月"], [5, "五月"], [6, "六月"], [7, "七月"], [8, "八月"], [9, "九月"], [10, "十月"], [11, "十一月"], [12, "十二月  "]],
+
+                    font :{
+                        lineHeight: 24,
+                        weight: "300",
+                        color: "#ffffff",
+                        size: 14
+                    }
+                },
+
+                yaxis: {
+                    ticks: 4,
+                    tickDecimals: 0,
+                    tickColor: "rgba(255,255,255,.3)",
+
+                    font :{
+                        lineHeight: 13,
+                        weight: "300",
+                        color: "#ffffff"
+                    }
+                },
+
+                grid: {
+                    borderWidth: {
+                        top: 0,
+                        right: 0,
+                        bottom: 1,
+                        left: 1
+                    },
+                    borderColor: 'rgba(255,255,255,.3)',
+                    margin:0,
+                    minBorderMargin:0,
+                    labelMargin:20,
+                    hoverable: true,
+                    clickable: true,
+                    mouseActiveRadius:6
+                },
+
+                legend: { show: false}
+            });
+
+
+        $(window).resize(function() {
+            // redraw the graph in the correctly sized div
+            plot.resize();
+            plot.setupGrid();
+            plot.draw();
+        });
+
+        $('#mmenu').on(
+            "opened.mm",
+            function()
+            {
+                // redraw the graph in the correctly sized div
+                plot.resize();
+                plot.setupGrid();
+                plot.draw();
+            }
+        );
+
+        $('#mmenu').on(
+            "closed.mm",
+            function()
+            {
+                // redraw the graph in the correctly sized div
+                plot.resize();
+                plot.setupGrid();
+                plot.draw();
+            }
+        );
+
+        // tooltips showing
+        $("#statistics-chart").bind("plothover", function (event, pos, item) {
+            if (item) {
+                var x = item.datapoint[0],
+                    y = item.datapoint[1];
+
+                $("#tooltip").html('<h1 style="color: #418bca">' + months[x - 1] + '</h1>' + '<strong>' + y + '</strong>' + ' ' + item.series.label)
+                    .css({top: item.pageY-30, left: item.pageX+5})
+                    .fadeIn(200);
+            } else {
+                $("#tooltip").hide();
+            }
+        });
+
+        //tooltips options
+        $("<div id='tooltip'></div>").css({
+            position: "absolute",
+            //display: "none",
+            padding: "10px 20px",
+            "background-color": "#ffffff",
+            "z-index":"99999"
+        }).appendTo("body");
+
+        //generate actual pie charts
+        $('.pie-chart').easyPieChart();
+
+
+        //server load rickshaw chart
+        var graph;
+
+        var seriesData = [ [], []];
+        var random = new Rickshaw.Fixtures.RandomData(50);
+
+        for (var i = 0; i < 50; i++) {
+            random.addData(seriesData);
+        }
+
+        graph = new Rickshaw.Graph( {
+            element: document.querySelector("#serverload-chart"),
+            height: 150,
+            renderer: 'area',
+            series: [
+                {
+                    data: seriesData[0],
+                    color: '#6e6e6e',
+                    name:'File Server'
+                },{
+                    data: seriesData[1],
+                    color: '#fff',
+                    name:'Mail Server'
+                }
+            ]
+        } );
+
+        var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+            graph: graph,
+        });
+
+        setInterval( function() {
+            random.removeData(seriesData);
+            random.addData(seriesData);
+            graph.update();
+
+        },1000);
+
+        // Morris donut chart
+        Morris.Donut({
+            element: 'browser-usage',
+            data: [
+                {label: "Chrome", value: 25},
+                {label: "Safari", value: 5},
+                {label: "Firefox", value: 15},
+                {label: "Opera", value: 5},
+                {label: "Internet Explorer", value: 40},
+                {label: "Other", value: 10}
+            ],
+            colors: ['#00a3d8', '#2fbbe8', '#72cae7', '#d9544f', '#ffc100', '#1693A5']
+        });
+
+        $('#browser-usage').find("path[stroke='#ffffff']").attr('stroke', 'rgba(0,0,0,0)');
+
+        //sparkline charts
+        $('#projectbar1').sparkline('html', {type: 'bar', barColor: '#22beef', barWidth: 4, height: 20});
+        $('#projectbar2').sparkline('html', {type: 'bar', barColor: '#cd97eb', barWidth: 4, height: 20});
+        $('#projectbar3').sparkline('html', {type: 'bar', barColor: '#a2d200', barWidth: 4, height: 20});
+        $('#projectbar4').sparkline('html', {type: 'bar', barColor: '#ffc100', barWidth: 4, height: 20});
+        $('#projectbar5').sparkline('html', {type: 'bar', barColor: '#ff4a43', barWidth: 4, height: 20});
+        $('#projectbar6').sparkline('html', {type: 'bar', barColor: '#a2d200', barWidth: 4, height: 20});
+
+        // sortable table
+        $('.table.table-sortable th.sortable').click(function() {
+            var o = $(this).hasClass('sort-asc') ? 'sort-desc' : 'sort-asc';
+            $('th.sortable').removeClass('sort-asc').removeClass('sort-desc');
+            $(this).addClass(o);
+        });
+
+        //todo's
+        $('#todolist li label').click(function() {
+            $(this).toggleClass('done');
+        });
+
+        // Initialize tabDrop
+        $('.tabdrop').tabdrop({text: '<i class="fa fa-th-list"></i>'});
+
+        //load wysiwyg editor
+        $('#quick-message-content').summernote({
+            toolbar: [
+                //['style', ['style']], // no style button
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                //['insert', ['picture', 'link']], // no insert buttons
+                //['table', ['table']], // no table button
+                //['help', ['help']] //no help button
+            ],
+            height: 143   //set editable area's height
+        });
+
+        //multiselect input
+        $(".chosen-select").chosen({disable_search_threshold: 10});
+
+        <?php }?>
+    })
+
+</script>
+
+<!-- //遮罩层效果 -->
+<style>
+    .theme-popover-mask {
+        z-index: 9998;
+        position:fixed;
+        top:0;  left:0;  width:100%;
+        height:100%;  background:#000;  opacity:0.4;
+        filter:alpha(opacity=40);  display:none;
+    }
+    .theme-popover {
+        z-index:9999;  position:fixed;
+        top:20%;  left:35%;
+        width:45%;
+        max-height:220px;
+        /*margin:-180px 0 0 -330px;*/
+        border-radius:5px;  border:solid 2px #666;
+        display:none;
+        box-shadow: 0 0 10px #666;
+        background-color: #f7f7f7;
+        border-bottom: 1px solid #ebebeb;
+        border-radius: 5px 5px 0 0;
+        font-size: 14px;
+    }
+    .theme-signin{
+        margin-top: 40px;
+    }
+    #popover-close{
+        float: right;
+        margin-right: 12px;
+        margin-top: 12px;
+    }
+    #popover-msg{
+        margin-top: 12px;
+        align-content: center;
+        text-align: center;
+    }
+    #popover-img{
+        margin: 0 auto;
+        text-align: center;
+    }
+    #popover-img img{
+        display: inline;
+        max-width:30%;
+        height:auto;
+
+    }
+</style>
+
+<div class="theme-popover">
+    <div class="theme-poptit">
+        <a href="javascript:void(0);" title="关闭" class="close" id="popover-close" name="">×</a>
+    </div>
+    <div class="theme-popbod dform">
+        <form class="theme-signin" name="loginform" action="" method="post">
+            <ol>
+                <li id="popover-img"><img src="/include/management/images/warning.png" width="100" height="100" alt=""></li>
+                <li id="popover-msg"><?php echo $mess = "系统消息提示";?></li>
+            </ol>
+        </form>
+    </div>
+</div>
+<div class="theme-popover-mask"></div>
+
+
+<script>
+    function noTips(){
+
+        if($(".chosen-single span").html() != "请选择项目名称"){
+            $("#pname_info").val($(".chosen-single span").html());
+        }
+
+        var formParam = $("#form1").serialize();//序列化表格内容为字符串
+        $.ajax({
+            type:'post',
+            url: $("#form1").attr("action"),
+            data:formParam,
+            cache:false,
+            dataType:'json',
+            success:function(data){
+                $('.theme-popover-mask').fadeIn(100);
+                $('.theme-popover').slideDown(200);
+                $('#popover-msg').html(data['msg']);
+                if(data['return_url'] != ''){
+                    $('#popover-close').attr("name", data['return_url']);
+                }
+                if(data['error'] != true){
+                    $('#popover-img img').attr("src", "/include/management/images/yes.png");
+                }
+            },
+            complete:function(data){
+
+            },
+            error:function(data){
+                //console.log(data);
+                $('.theme-popover-mask').fadeIn(100);
+                $('.theme-popover').slideDown(200);
+                $('#popover-msg').html(data['msg']);
+            }
+        });
+    }
+
+    jQuery(document).ready(function($) {
+        $('.theme-poptit .close').click(function(){
+            $('.theme-popover-mask').fadeOut(100);
+            $('.theme-popover').slideUp(200);
+            if($('#popover-close').attr("name") != '') {
+                location.href = $('#popover-close').attr("name");
+            }
+        });
+    });
+</script>
+<!-- //遮罩层效果 -->
+
+<style>
+    .margin-bottom-20{
+        margin-bottom: 0px;
+        padding: 2px 12px;
+        font-size: 12px;
+    }
+</style>
+
+<script language="javascript">
+    //搜索功能采用get方式 关键词下拉提示，
+    $(".chosen-select-1").chosen({
+        search_contains: true,
+        disable_search_threshold: 10
+    });
+
+    $("[name='search_form']").submit(function(){
+        if($(".chosen-single span").html() != "请选择项目名称"){
+            $("#pname_info").val($(".chosen-single span").html());
+        }
+        return true;
+    });
+</script>

@@ -1,0 +1,106 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>修改调账信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目管理</li>
+            <li class="active">修改调账信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+        <div class="col-md-12">
+            <section class="tile color transparent-white">
+                <div class="detailedbox tile-body">
+                    <form class="form-horizontal" id="form1" action="to-addaa" method="post" encType="multipart/form-data">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input06">调账时间：</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" data-date-format="YYYY-MM-DD" type="text" value="<?php echo date("Y-m-d",$this->aa_info[0]['datetimes']);?>"  id="datepicker"  name="datetimes" size="14"/>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">调账金额：</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" name="je" value="<?php echo $this->aa_info[0]['je'];?>"  onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" />
+                            </div>
+                            <span class="col-sm-1" > 元 * </span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">调出项目：</label>
+                            <div class="col-sm-4">
+                                <select class="chosen-select-1 chosen-transparent form-control" id="out_pm_name" name="out_pm_name">
+                                    <option value="">请选择项目名称</option>
+                                    <?php if($this->pmlist != ""){
+                                        foreach ($this->pmlist as $k => $v){
+                                            ?>
+                                            <option value="<?php echo $v['pname'];?>" <?php if($v['pname'] == $this->aa_info[0]['out_pm_name']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-2" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">调入项目：</label>
+                            <div class="col-sm-4">
+                                <select class="chosen-select-1 chosen-transparent form-control" id="in_pm_name" name="in_pm_name">
+                                    <option value="">请选择项目名称</option>
+                                    <?php if($this->pmlist != ""){
+                                        foreach ($this->pmlist as $k => $v){
+                                            ?>
+                                            <option value="<?php echo $v['pname'];?>" <?php if($v['pname'] == $this->aa_info[0]['in_pm_name']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-2" > * </span>
+                        </div>
+
+
+                        <div class="form-group transparent-editor">
+                            <label class="col-sm-2 control-label" for="input14">调账原因：</label>
+                            <div class="col-sm-9">
+                                <textarea parsley-validation-minlength="1" name="beizhu" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php echo $this->aa_info[0]['beizhu'];?></textarea>
+                            </div>
+                            <span class="col-sm-1" > * </span>
+                        </div>
+
+                        <div class="form-group form-footer">
+                            <div class="col-sm-offset-5 col-sm-7">
+                                <input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <!--<input class="btn btn-default" type="reset" value="重 置" />-->
+                            </div>
+                        </div>
+
+                        <input class="btn btn-default" name="id" type="hidden" value="<?php echo $this->aa_info[0]['id'];?>" />
+
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="/include/management/assets/js/jquery.js"></script>
+
+    <script language="javascript">
+        // $(".menu li:eq(37)").addClass("open");
+    </script>
+

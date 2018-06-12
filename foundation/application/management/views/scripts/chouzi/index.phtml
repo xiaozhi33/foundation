@@ -52,7 +52,7 @@
                                 <?php if($this->pmlist != ""){
                                     foreach ($this->pmlist as $k => $v){
                                         ?>
-                                        <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                        <option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pname'] == $v['pname']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
                                     <?php }}?>
                             </select>
                             <input id="pname_info" type="hidden" name="pname" value=""/>
@@ -71,16 +71,16 @@
 
                     </div>
 
-                    <div class="row">
-                       <!-- <div class="form-group col-sm-3">
+                    <!--<div class="row">
+                       <div class="form-group col-sm-3">
                                 <label for="input03">项目起始日期：</label>
-                                <input name="starttime" data-date-format="YYYY-MM-DD HH:mm:ss"  type="text" class="form-control" id="datepicker">
+                                <input name="starttime" data-date-format="YYYY-MM-DD" value="<?php /*echo $_REQUEST['starttime'];*/?>" type="text" class="form-control" id="datepicker">
                         </div>
                         <div class="form-group col-sm-3">
                                 <label for="input04">项目截止日期：</label>
-                                <input type="text" name="endtime" data-date-format="YYYY-MM-DD HH:mm:ss" class="form-control" id="datepicker1">
-                        </div>-->
-                    </div>
+                                <input type="text" name="endtime" data-date-format="YYYY-MM-DD" value="<?php /*echo $_REQUEST['endtime'];*/?>" class="form-control" id="datepicker1">
+                        </div>
+                    </div>-->
 
                     <div class="row">
                         <div class="form-group col-sm-2">
@@ -89,7 +89,7 @@
                                 <option value="" >请选择类型</option>
                                 <?php if($this->departmentlist != ""){
                                     foreach ($this->departmentlist as $k => $v){?>
-                                        <option value="<?php echo $v['id']?>" ><?php echo $v['pname']?></option>
+                                        <option value="<?php echo $v['id']?>" <?php if($_REQUEST['department']==$v['id']){echo "selected='selected'";}?>><?php echo $v['pname']?></option>
                                     <?php }}?>
                             </select>
                         </div>
@@ -100,7 +100,7 @@
                                 <option value="" >请选择类型</option>
                                 <?php if($this->pcatelist != ""){
                                     foreach ($this->pcatelist as $k => $v){?>
-                                        <option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
+                                        <option value="<?php echo $v['id']?>" <?php if($_REQUEST['cate']==$v['id']){echo "selected='selected'";}?>><?php echo $v['catename']?></option>
                                     <?php }}?>
                             </select>
                         </div>
@@ -120,14 +120,14 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="24%">项目名称</td>
-                        <td width="18%">项目类型</td>
-                        <td width="14%">项目进度</td>
-                        <td width="14%">星级</td>
+						<td width="30%">项目名称</td>
+                        <td width="22%">项目类型</td>
+                        <td width="24%">项目进度</td>
+                        <td width="10%">星级</td>
 						<!--<td width="12%">部门名称</td><td width="18%">项目签约日期</td>
 						<td width="13%">协议捐赠金额</td>-->
                           <?php if (in_array($this->admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
-						        <td width="13%">操作</td>
+						        <td width="14%">操作</td>
                           <?php }?>
 					  </tr>
 					</thead>
@@ -135,11 +135,11 @@
 					  <?php 
 						foreach($this->chouzilist as $k=>$v){?>
 						 <tr>
-						 	<td><a href="/management/chouzi/pminfo?id=<?php echo $v['id'];?>" target="_blank">
+						 	<td style="padding: 2px;"><a href="/management/chouzi/repminfo?id=<?php echo $v['id'];?>" target="_blank">
                                 <?php if($v['star'] != 0){echo '<font color="red">';}?>    <?php echo $v['pname'];?>
                                 <?php if($v['star'] != 0){echo '</font>';}?>
                                 </a>&nbsp;</td>
-                             <td><?php  foreach ($this->pcatelist as $kk => $vv){
+                             <td style="padding: 2px;"><?php  foreach ($this->pcatelist as $kk => $vv){
                                      if($vv['id'] == $v['cate']){ echo $vv['catename'];}
                                  }?>&nbsp;</td>
 							<!--<td><?php  foreach ($this->departmentlist as $kk => $vv){
@@ -150,7 +150,7 @@
 							<td><?php /*echo substr($v['pm_qianyue_datetime'],0,10);*/?>&nbsp;</td>
 							<td><?php echo $v['pm_xieyi_juanzeng_jiner'];?>&nbsp;元</td>-->
 
-                             <td>
+                             <td style="padding: 2px;">
                                  <?php if($v['pm_rate'] == ""){ ?>
                                      ---
                                  <?php }if(preg_match("/1/", $v['pm_rate'])){ ?>
@@ -174,7 +174,7 @@
                                  <?php }?>
                              </td>
 
-                             <td>
+                             <td style="padding: 2px;">
                                  <div class="starbox1">
                                      <ul class="star_ul1 fl1">
                                          <li><a class="one-star1 <?php if($v['star'] == 1)echo 'active-star';?>" title="1" href="#"></a></li>
@@ -187,7 +187,7 @@
                              </td>
 
                              <?php if (in_array($this->admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
-                                <td>
+                                <td style="padding: 2px;">
                                     <a href="/management/chouzi/editchouzi?id=<?php echo $v['id'];?>">
                                         <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
                                     </a>

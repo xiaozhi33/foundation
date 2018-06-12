@@ -7,13 +7,13 @@
 <div class="pageheader">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
-        <span>会议详细信息</span></h2>
+        <span>会议活动详细信息</span></h2>
 
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
-            <li>会议管理</li>
-            <li class="active">会议详细信息</li>
+            <li>会议活动管理</li>
+            <li class="active">会议活动详细信息</li>
         </ol>
     </div>
 
@@ -28,14 +28,14 @@
                 <div class="detailedbox tile-body">
                     <form class="form-horizontal" id="form1" action="to-add" method="post" encType="multipart/form-data">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">会议名称：</label>
+                            <label class="col-sm-2 control-label" for="input01">会议活动名称：</label>
                             <div class="col-sm-3">
                                 <?php echo $this->meeting_info[0]['meeting_name'];?>
                             </div>
                             <span class="col-sm-1" > * </span>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input02">会议类型：</label>
+                            <label class="col-sm-2 control-label" for="input02">会议活动类型：</label>
                             <div class="col-sm-3">
                             <?php if($this->meetingCateList != ""){
                                 foreach ($this->meetingCateList as $k => $v){?>
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">会议文档一：</label>
+                            <label class="col-sm-2 control-label" for="input01">会议活动文档一：</label>
                             <div class="col-sm-4">
                                 <a href="/management/meeting/download?id=<?php echo $this->meeting_info[0]['id'];?>">
                                     <?php echo $this->meeting_info[0]['meeting_files_name'];?>
@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">会议文档二：</label>
+                            <label class="col-sm-2 control-label" for="input01">会议活动文档二：</label>
                             <div class="col-sm-4">
                                 <a href="/management/meeting/download?id=<?php echo $this->meeting_info[0]['id'];?>&fid=1">
                                     <?php echo $this->meeting_info[0]['meeting_files_name1'];?>
@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">会议文档三：</label>
+                            <label class="col-sm-2 control-label" for="input01">会议活动文档三：</label>
                             <div class="col-sm-4">
                                 <a href="/management/meeting/download?id=<?php echo $this->meeting_info[0]['id'];?>&fid=2">
                                     <?php echo $this->meeting_info[0]['meeting_files_name2'];?>
@@ -72,7 +72,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">会议文档四：</label>
+                            <label class="col-sm-2 control-label" for="input01">会议活动文档四：</label>
                             <div class="col-sm-4">
                                 <a href="/management/meeting/download?id=<?php echo $this->meeting_info[0]['id'];?>&fid=3">
                                     <?php echo $this->meeting_info[0]['meeting_files_name3'];?>
@@ -81,7 +81,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">会议文档五：</label>
+                            <label class="col-sm-2 control-label" for="input01">会议活动文档五：</label>
                             <div class="col-sm-4">
                                 <a href="/management/meeting/download?id=<?php echo $this->meeting_info[0]['id'];?>&fid=4">
                                     <?php echo $this->meeting_info[0]['meeting_files_name4'];?>
@@ -90,7 +90,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">会议文档六：</label>
+                            <label class="col-sm-2 control-label" for="input01">会议活动文档六：</label>
                             <div class="col-sm-4">
                                 <a href="/management/meeting/download?id=<?php echo $this->meeting_info[0]['id'];?>&fid=5">
                                     <?php echo $this->meeting_info[0]['meeting_files_name5'];?>
@@ -99,14 +99,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input06">会议时间：</label>
+                            <label class="col-sm-2 control-label" for="input06">会议活动时间：</label>
                             <div class="col-sm-4">
                                 <?php echo $this->meeting_info[0]['meeting_start_time'];?>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">会议地点：</label>
+                            <label class="col-sm-2 control-label" for="input01">会议活动地点：</label>
 
                             <div class="col-sm-9">
                                 <?php echo $this->meeting_info[0]['meeting_address'];?>
@@ -134,7 +134,7 @@
 
 
                         <div class="form-group transparent-editor">
-                            <label class="col-sm-2 control-label" for="input14">会议内容摘要：</label>
+                            <label class="col-sm-2 control-label" for="input14">会议活动内容摘要：</label>
                             <div class="col-sm-9">
                                 <?php echo $this->meeting_info[0]['meeting_content'];?>
                             </div>

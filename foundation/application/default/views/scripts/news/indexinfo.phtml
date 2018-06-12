@@ -17,7 +17,7 @@
               		if($_GET['c_name'] == "zijin"){
               			?>
               		<form action="/news/indexinfo" method="get">
-	              		捐赠人：<input name="pname" type="text" /> 
+	              		捐赠人：<input name="pname" type="text" value="<?php echo $_REQUEST['pname']?>"/>
 	              		<input name="c_name" type="hidden" value="zijin"/>
 	              		<input name="" type="submit" value="查询"/>
 	              	</form>

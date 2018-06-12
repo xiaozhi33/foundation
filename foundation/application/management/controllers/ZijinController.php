@@ -3,22 +3,31 @@
 	class Management_zijinController extends BaseController {
 		private $dbhelper;
 		public function indexAction(){
-			$pname = HttpUtil::postString("pname");
-			$department = HttpUtil::postString("department");
-			$zijininfo = new pm_mg_infoDAO();
+			$pname = HttpUtil::getString("pname");
+			$department = HttpUtil::getString("department");
+            $pm_pp = HttpUtil::getString("pm_pp");
+			$zijininfo = $this->orm->createDAO("pm_mg_info");
 			
 			if($pname != ""){
-				$zijininfo ->pm_name = $pname;
-			}
-			
+				$zijininfo  ->selectLimit .= " AND pm_name='".$pname."'";
+                $this->view->assign('pname',$pname);
+            }
+
+            if($pm_pp != ""){
+                $zijininfo ->selectLimit .= " AND pm_pp like '%".$pm_pp."%'";
+                $this->view->assign('pm_pp',$pm_pp);
+            }
+
 			if($department != ""){
 				$zijininfo ->department = $department;
+                $this->view->assign('department',$department);
 			}
 
-			$zijininfo ->selectLimit = " and cate_id=0 order by lastmodify DESC,id desc";
-            //$zijininfo ->selectLimit = " and is_renling=1"; // 显示已认领的项目
+            $zijininfo ->selectLimit .= " and is_renling=1"; // 显示已认领的项目
+			$zijininfo ->selectLimit .= " and cate_id=0 order by zijin_daozhang_datetime DESC,lastmodify DESC,id desc";
+
 			//$chouziinfo ->debugSql =true;
-			$zijininfo = $zijininfo->get($this->dbhelper);
+			$zijininfo = $zijininfo->get();
 			$total = count($zijininfo);
 			$pageDAO = new pageDAO();
 			$pageDAO = $pageDAO ->pageHelper($zijininfo,null,"/management/zijin/index",null,'get',20,8);
@@ -1005,7 +1014,15 @@
         }
 
 
-		public function _init(){
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////添加退款
+        public function refundAction(){
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("zijin/refund.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        public function _init(){
 			$this ->dbhelper = new DBHelper();
 			$this ->dbhelper ->connect();
 			SessionUtil::sessionStart();
@@ -1065,6 +1082,7 @@
                 'download',
                 'binding-claim',
                 'index',
+                'refund',
             );
             if (in_array($action, $except_actions)) {
                 return;

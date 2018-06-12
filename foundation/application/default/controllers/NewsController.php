@@ -64,9 +64,9 @@
 					$indexinfo ->selectLimit .= " and pm_pp like '%".HttpUtil::getString("pname")."%'";
 				}
 				
-				$indexinfo ->selectLimit .= " and is_renling=1 and zijin_daozheng_jiner != '' order by zijin_daozhang_datetime desc";
+				$indexinfo ->selectLimit .= " and is_renling=1 and zijin_daozheng_jiner >= 0 order by zijin_daozhang_datetime desc";
 			}elseif(HttpUtil::getString("c_name")=="shiyong"){
-				$indexinfo ->selectLimit = " and is_renling=1 and shiyong_zhichu_jiner != '' order by shiyong_zhichu_datetime desc";
+				$indexinfo ->selectLimit = " and is_renling=1 and shiyong_zhichu_jiner >= 0 order by shiyong_zhichu_datetime desc";
 			}
 			//$indexinfo ->debugSql = true;
 			$indexinfo = $indexinfo ->get($this->dbhelper);
