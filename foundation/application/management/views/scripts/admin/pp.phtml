@@ -15,31 +15,64 @@
 </div>
 <!-- /page header -->
 
-
+<style>
+    .form-horizontal .form-group{
+        margin: 0px;
+    }
+</style>
 <div id="main" class="main">
 	<div id="rightstyle02" class="row">
 		<div class="col-md-12">
 			<section class="tile color transparent-white">
 			<div class="tile-body">
 				<form class="form-horizontal" method="get" action="#"  name="search_form">
-                    <div class="form-group">
-                    	<div class="col-sm-12">
-                            <!--<label class="col-sm-1 control-label" for="pname">项目名称：</label>
-                            <div class="col-sm-3">
-                                <select class="chosen-select-1 chosen-transparent form-control" id="pname">
-                                    <option value="1">请选择项目名称</option>
-                                    <?php /*if($this->pmlist != ""){
-                                        foreach ($this->pmlist as $k => $v){
-                                            */?>
-                                            <option value="<?php /*echo $v['pname'];*/?>" <?php /*if($this->pname == $v['pname'])echo 'selected="selected"';*/?>><?php /*echo $v['pname'];*/?></option>
-                                        <?php /*}}*/?>
-                                </select>
-                                <input type="hidden" name="pp_cate" value="<?php /*echo $_REQUEST['pp_cate']*/?>"/>
-                                <input id="pname_info" type="hidden" name="pname" value=""/>
-                            </div>-->
-
+                    <!--<div class="form-group">
+                    	<div class=" row col-sm-12">
                             <label class="col-sm-1 control-label" for="pname">人员类型：</label>
                             <div class="col-sm-2">
+                                <select class="chosen-select-1 chosen-transparent form-control" name="pp_cate">
+                                    <option value="">请选择人员类型</option>
+                                    <?php /*if($this->pp_config['pp_cate'] != ""){
+                                        foreach ($this->pp_config['pp_cate'] as $k => $v){
+                                            */?>
+                                    <option value="<?php /*echo $k;*/?>" <?php /*if($_REQUEST['pp_cate'] == $v)echo 'selected="selected"';*/?>><?php /*echo $v;*/?></option>
+                                    <?php /*}}*/?>
+                                </select>
+                            </div>
+
+                            <label class="col-sm-1 control-label" for="input01"><?php /*//echo $_REQUEST['pp_cate']*/?>人员名称：</label>
+                            <div class="col-sm-3">
+                               <input type="text" name="ppname" value="<?php /*echo $_REQUEST['ppname'];*/?>"/>
+                            </div>
+
+                            <label class="col-sm-1 control-label" for="input01">地区：</label>
+                            <div class="col-sm-3">
+                                <input type="text" name="pp_address" value="<?php /*echo $_REQUEST['pp_address'];*/?>"/>
+                            </div>
+
+                            <div class="col-sm-1"><input class="btn btn-primary" type="submit" value="搜索"></div>
+
+                            <?php /*if($_REQUEST['pp_cate'] == '捐赠方'){*/?>
+                                <div class="col-sm-3">
+                                    <input class="btn btn-primary btn-block" type="button" value="同步项目信息中捐赠方" onclick=" javascript:if(confirm('确定要同步捐赠方数据吗？\r\r此操作将过滤捐赠方名称和项目名称相同并已存在的捐赠人信息。\r如果同一捐赠人对应不同项目，则添加多条项目捐赠人信息到人员管理表中。')){window.location.href='/management/admin/syncjzf';}">
+                                </div>
+                            <?php /*}*/?>
+
+
+                        </div>
+                    </div>-->
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="form-group col-sm-3">
+
+                                <label for="input01">人员名称：</label>
+                                <input type="text" class=" form-control" value="<?php echo $_REQUEST['ppname']?>" name="ppname"/>
+
+                            </div>
+
+                            <div class="form-group col-sm-3">
+                                <label for="input01">人员类型：</label>
                                 <select class="chosen-select-1 chosen-transparent form-control" name="pp_cate">
                                     <option value="">请选择人员类型</option>
                                     <?php if($this->pp_config['pp_cate'] != ""){
@@ -50,28 +83,55 @@
                                 </select>
                             </div>
 
-                            <label class="col-sm-1 control-label" for="input01"><?php //echo $_REQUEST['pp_cate']?>人员名称：</label>
-                            <div class="col-sm-3">
-                               <input type="text" name="ppname" value="<?php echo $_REQUEST['ppname'];?>"/>
+                            <div class="form-group col-sm-3">
+                                <label for="input01">所在地区：</label>
+                                <input type="text" class=" form-control" value="<?php echo $_REQUEST['pp_address']?>" name="pp_address"/>
                             </div>
 
-                            <label class="col-sm-1 control-label" for="input01">地区：</label>
-                            <div class="col-sm-3">
-                                <input type="text" name="pp_address" value="<?php echo $_REQUEST['pp_address'];?>"/>
+                        </div>
+
+                        <div class="row" style="padding-top:10px; ">
+                            <div class="form-group col-sm-3">
+                                <label for="input05">标签：</label>
+                                <select class="chosen-select-2 chosen-transparent form-control" multiple data-live-search="false" name="tags[]" id="tags">
+                                    <?php if($this->taglist != ""){
+                                        foreach ($this->taglist as $k => $v){?>
+                                            <option value="<?php echo $v['id']?>"><?php echo $v['name']?></option>
+                                        <?php }}?>
+                                </select>
                             </div>
 
-                            <div class="col-sm-1"><input class="btn btn-primary" type="submit" value="搜索"></div>
+                            <div class="form-group col-sm-3">
+                                <label for="input01">电话：</label>
+                                <input type="text" class=" form-control" value="<?php echo $_REQUEST['ppmobile']?>" name="ppmobile"/>
+                            </div>
 
-                            <?php if($_REQUEST['pp_cate'] == '捐赠方'){?>
-                                <div class="col-sm-3">
-                                    <input class="btn btn-primary btn-block" type="button" value="同步项目信息中捐赠方" onclick=" javascript:if(confirm('确定要同步捐赠方数据吗？\r\r此操作将过滤捐赠方名称和项目名称相同并已存在的捐赠人信息。\r如果同一捐赠人对应不同项目，则添加多条项目捐赠人信息到人员管理表中。')){window.location.href='/management/admin/syncjzf';}">
-                                </div>
-                            <?php }?>
+                            <div class="form-group col-sm-3">
+                                <label for="input01">备注：</label>
+                                <input type="text" class=" form-control" value="<?php echo $_REQUEST['pp_beizhu']?>" name="pp_beizhu"/>
+                            </div>
 
 
                         </div>
+
+
+                        <div class="row" style="padding-bottom: 20px;">
+                            <div class="form-group">
+                                <div class="col-sm-1">
+                                    <label for="input01"> </label>
+                                    <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <label for="input01"> </label>
+                                    <a href="/management/pp/addpp" target="_blank"><input class="btn btn-primary btn-block" type="button" value="添加人员信息"/></a>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
-					</form>
+				</form>
 			</div>
 			</section>
             <section class="tile color transparent-white">	
@@ -80,8 +140,9 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					  <thead>
 					  <tr>
-						<td width="7%">姓名/名称</td>
-                        <td width="7%">类型</td>
+						<td width="14%">姓名/名称</td>
+                        <td width="10%">类型</td>
+                        <td width="20%">标签</td>
 						<!--<td width="9%">相关项目</td>-->
 						<td width="9%">移动电话</td>
 						<td width="10%">操作</td>
@@ -100,9 +161,30 @@
 
                             <td><?php echo $v['pp_cate'];?></td>
 
-							<!--<td><a href="/management/chouzi/index?pname=<?php /*echo $v['pp_pm_id'];*/?>" target="_blank">
-                                <?php /*echo $v['pp_pm_id'];*/?>
-                            </td>-->
+							<td>
+                                <?php
+                                    if(!empty($this->taglist)){
+                                        if(!empty($v['tags'])){
+                                            $tags_array = explode(',', $v['tags']);
+                                        }
+                                        foreach($this->taglist as $key => $value){
+                                            if(in_array($value['id'],$tags_array )){
+                                ?>
+
+                                    <a href="/management/pp/pp?tags[]=<?php echo $value['id'];?>" target="_blank">
+                                        <span style="border:1px solid darkslategray;border-radius:10px;border-color: #4d5056;">
+                                            &nbsp;<?php echo $value['name'];?>&nbsp;
+                                        </span>
+                                    </a>&nbsp;
+
+                                <?php
+                                            }
+                                        }
+                                        $tags_array = '';
+                                    }
+                                ?>
+
+                            </td>
 
                              <td><?php echo $v['ppmobile'];?></td>
                              <!--<td><?php echo $v['ppemail'];?></td>-->
@@ -146,9 +228,15 @@
                        </tbody>
 					</table>
 				</div>
+
+                <div style="border:2px dashed #ccc;border-radius: 5px;padding:0px;margin: 10px 5px 10px 5px;" class="row">
+                    <a href="/management/pp/addpp" target="_blank"><p style="text-align:center;font-size: 14px;"><span>+&nbsp; 添加</span></p></a>
+                </div>
+
+
 				<div class="tile-footer transparent-white">
 				<div class="row">
-					<div class="page col-md-12" align="right">
+					<div class="page col-md-12" align="right" style="padding: 0px 10px 10px;">
 						共  <?php echo $this->total;?> 条          <?php echo $this->page;?></div>
 					
 				 <?php }else{?>

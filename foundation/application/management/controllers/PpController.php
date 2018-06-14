@@ -362,7 +362,36 @@ class Management_ppController extends BaseController {
             $ppinfo->selectLimit .= " and pp_cate like '%".$_REQUEST['pp_cate']."%'";
         }
 
+        if($_REQUEST['tags'] != ""){
+            //$tags_str = implode(',', $_REQUEST['tags']);
+            if(count( $_REQUEST['tags']) == 1){
+                $ppinfo->selectLimit .= " and find_in_set('".$_REQUEST['tags'][0]."', tags)";
+            }else{
+                $ppinfo->selectLimit .= " and (";
+                foreach( $_REQUEST['tags'] as $kk => $vv){
+                    if($kk == 0){
+                        $ppinfo->selectLimit .= "  find_in_set('".$vv."', tags)";
+                    }else {
+                        $ppinfo->selectLimit .= " and find_in_set('".$vv."', tags)";
+                    }
+
+                }
+                $ppinfo->selectLimit .= ")";
+            }
+        }
+
+        if($_REQUEST['ppmobile'] != ""){
+            $ppinfo->selectLimit .= " and ppmobile like '%".$_REQUEST['ppmobile']."%'";
+    }
+
+        if($_REQUEST['pname'] != ""){
+            $ppinfo->selectLimit .= " and pp_beizhu like '%".$_REQUEST['pp_beizhu']."%'";
+        }
+
         $ppinfo->selectLimit .= " order by pid DESC";
+        //$ppinfo->debugSql =true;
+        //echo $ppinfo->selectLimit;exit();
+
         $ppinfo = $ppinfo->get($this->dbhelper);
 
         $total = count($ppinfo);
