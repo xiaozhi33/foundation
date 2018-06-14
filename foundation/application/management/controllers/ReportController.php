@@ -189,7 +189,7 @@
 
                     if($cate != ""){
                         //$zijininfo ->pm_juanzeng_cate = $cate;
-						$zijininfo ->cate = $cate;
+						$zijininfo ->selectLimit .= " and c.cate=".$cate;
                     }
                     if($department != ""){
                         $zijininfo ->selectLimit .= " and c.department=".$department;
