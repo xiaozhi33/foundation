@@ -331,7 +331,7 @@
 					$zw_pm_relatedDAO = $zw_pm_relatedDAO->get();
 
 					if(!empty($zw_pm_relatedDAO[0]['pm_name'])){
-						$islog = $this->getisuselog($value['pzrq'],$zw_pm_relatedDAO[0]['pm_name'],$value['jje'],$zw_pm_relatedDAO['pm_id']);
+						$islog = $this->getisuselog($value['pzrq'],$zw_pm_relatedDAO[0]['pm_name'],$value['jje']);
 						if($islog){   // 判断是否已经存在同步记录
 							$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
 							$pm_mg_infoDAO ->cate_id = 1;
@@ -428,12 +428,11 @@
 			return $zw_mg_pzfl_logDAO->get();
 		}
 
-		public function getisuselog($pzrq,$xmmc,$jje,$pm_id){
+		public function getisuselog($pzrq,$xmmc,$jje){
 			if(!empty($jje) && !empty($pzrq) && !empty($xmmc)){
 				$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
 				$pm_mg_infoDAO ->findShiyong_zhichu_jiner($jje);
-				//$pm_mg_infoDAO ->findPm_name($xmmc);
-				$pm_mg_infoDAO ->findId($pm_id);
+				$pm_mg_infoDAO ->findPm_name($xmmc);
 				$pm_mg_infoDAO ->findShiyong_zhichu_datetime(date("Y-m-d H:i:s",strtotime($pzrq)));
 				$pm_mg_infoDAO = $pm_mg_infoDAO->get();
 				if(empty($pm_mg_infoDAO)){

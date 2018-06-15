@@ -907,7 +907,7 @@
                 // 项目支出
                 $zc = $this->orm->createDAO("pm_mg_info");
                 $zc->selectLimit .= " and pm_mg_info.pm_name='".$pm_mg_chouziDAO[0]['pname']."' ";
-                $zc->selectLimit .= " and cate_id=1 and is_renling=1 ";
+                $zc->selectLimit .= " and cate_id=1 and is_renling=1 and shiyong_zhichu_jiner!=0";
                 $zc->selectLimit .= " ORDER BY shiyong_zhichu_datetime asc ";
                 $zc = $zc->get();
 
