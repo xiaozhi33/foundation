@@ -417,7 +417,7 @@
 
 			// 查看该笔支出是否还有效
 			$pzflDAO = new CW_API();
-			$rs = $pzflDAO ->getlpzfl(date('Ymd',strtotime($pm_mg_infoDAO[0]['shiyong_zhichu_datetime'])), $pm_mg_infoDAO[0]['shiyong_zhichu_jiner'], $pm_mg_infoDAO[0]['beizhu']);
+			$rs = $pzflDAO ->getlpzfl(date('Ymd',strtotime($pm_mg_infoDAO[0]['shiyong_zhichu_datetime'])), number_format($pm_mg_infoDAO[0]['shiyong_zhichu_jiner'], 4), $pm_mg_infoDAO[0]['beizhu']);
 
 			echo date('Ymd',strtotime($pm_mg_infoDAO[0]['shiyong_zhichu_datetime'])).$pm_mg_infoDAO[0]['shiyong_zhichu_jiner']. $pm_mg_infoDAO[0]['beizhu'];
 			var_dump($rs);exit();
