@@ -416,8 +416,8 @@
 			$this->view->assign('pm_mg_info', $pm_mg_infoDAO);
 
 			// 查看该笔支出是否还有效
-			$pzflDAO = new  CW_API();
-			$rs = $pzflDAO ->getlpzfl(date('Ymd',$pm_mg_infoDAO['shiyong_zhichu_datetime']), $pm_mg_infoDAO['shiyong_zhichu_jiner'], $pm_mg_infoDAO['beizhu']);
+			$pzflDAO = new CW_API();
+			$rs = $pzflDAO ->getlpzfl(date('Ymd',$pm_mg_infoDAO[0]['shiyong_zhichu_datetime']), $pm_mg_infoDAO[0]['shiyong_zhichu_jiner'], $pm_mg_infoDAO[0]['beizhu']);
 
 			if(empty($rs)){
 				$this->alert_back("该笔支出出现异常，请核对财务系统后再试！");
