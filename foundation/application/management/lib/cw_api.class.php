@@ -41,6 +41,24 @@
         }
 
         /**
+         * 获取来款管理最新数据
+         */
+
+        public function getlpzfl($pzrq, $jje, $zy){
+            $select_SQL = "SELECT * FROM zwpzfl WHERE pzrq=".$pzrq." and jje=".$jje." and zy=".$zy;
+            $this->connect();
+            $query = $this->query($select_SQL);
+
+            while($row=mssql_fetch_array($query))
+            {
+                $xminfo[] = $row;
+            }
+
+            $this->free();
+            return $xminfo;
+        }
+
+        /**
          * 获取项目列表
          */
         public function getxmlist(){
