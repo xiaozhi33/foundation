@@ -45,7 +45,7 @@
          */
 
         public function getlpzfl($pzrq, $jje, $zy){
-            echo $select_SQL = "SELECT * FROM zwpzfl WHERE pzrq='".$pzrq."' and jje='".$jje."' and zy='".$zy."'";
+            $select_SQL = "SELECT * FROM zwpzfl WHERE pzrq='".$pzrq."' and jje='".$jje."' and zy='".$zy."'";
             $this->connect();
             $query = $this->query($select_SQL);
 
