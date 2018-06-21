@@ -415,6 +415,16 @@
 			$pm_mg_infoDAO = $pm_mg_infoDAO ->get();
 			$this->view->assign('pm_mg_info', $pm_mg_infoDAO);
 
+			// 查看该笔支出是否还有效
+			$pzflDAO = new CW_API();
+			$rs = $pzflDAO ->getlpzfl(date('Ymd',strtotime($pm_mg_infoDAO[0]['shiyong_zhichu_datetime'])), $pm_mg_infoDAO[0]['shiyong_zhichu_jiner'], $pm_mg_infoDAO[0]['beizhu']);
+
+			//echo date('Ymd',strtotime($pm_mg_infoDAO[0]['shiyong_zhichu_datetime'])).$pm_mg_infoDAO[0]['shiyong_zhichu_jiner']. $pm_mg_infoDAO[0]['beizhu'];
+			//var_dump($rs);exit();
+
+			if(empty($rs)){
+				$this->alert_back("该笔支出出现异常，请核对财务系统后再试！");
+			}
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render("shiyong/claim.phtml");
 			echo $this->view->render("index/footer.phtml");

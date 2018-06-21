@@ -169,6 +169,7 @@
                      c.id as main_id,
                      c.parent_pm_id,
                      c.parent_pm_id_path,
+                     c.cate,
                      pm_mg_info.pm_name,
                      c.department,
                      pm_mg_info.pm_pp,
@@ -187,7 +188,8 @@
                      pm_mg_info.renling_name ");
 
                     if($cate != ""){
-                        $zijininfo ->pm_juanzeng_cate = $cate;
+                        //$zijininfo ->pm_juanzeng_cate = $cate;
+						$zijininfo ->selectLimit .= " and c.cate=".$cate;
                     }
                     if($department != ""){
                         $zijininfo ->selectLimit .= " and c.department=".$department;
@@ -275,7 +277,7 @@
                             ->setCellValue('A'.$ii, $v['bpath'])
                             ->setCellValue('B'.$ii, $this->pm[$v[parent_pm_id]])
                             ->setCellValue('C'.$ii, $v['pm_name'])
-                            ->setCellValue('D'.$ii, $this->getcateAction($this->pcatelist,$v['pm_juanzeng_cate']))
+                            ->setCellValue('D'.$ii, $this->getcateAction($this->pcatelist,$v['cate']))
                             ->setCellValue('E'.$ii, $this->department[$v[department]])
                             ->setCellValue('F'.$ii, $v['pm_pp'])
                             ->setCellValue('G'.$ii, $v['zijin_daozheng_jiner'])
