@@ -1022,6 +1022,20 @@
 
                 //////////////////////////////////////////////////////////////////////////////////////////////
 
+                // 项目意见反馈
+                $_support_feedbackDAO = $this->orm->createDAO("_support_feedback")->findPm_id($pm_mg_chouziDAO[0]['id'])->get();
+                $userlist = $this ->orm->createDAO("_support_college_user")->get();
+
+                $_user_list = array();
+                if(!empty($userlist)){
+                    foreach($userlist as $key => $value){
+                        $_user_list[$value['id']] = $value['username'];
+                    }
+                }
+
+                $this->view->assign("userlist", $_user_list);
+                $this->view->assign("support_feedbackDAO", $_support_feedbackDAO);
+
                 $this->view->assign("chouzi", $pm_mg_chouziDAO);
                 echo $this->view->render("index/header.phtml");
                 echo $this->view->render("chouzi/repminfo.phtml");
@@ -1032,6 +1046,22 @@
                 echo('history.back();');
                 echo('</script>');
                 exit;
+            }
+        }
+
+        public function tosavefeedbackAction()
+        {
+            if(empty($_REQUEST['contents']) || empty($_REQUEST['id'])){
+                $this->alert_back('内容不能为空！');
+            }else {
+                $content =  htmlspecialchars($_POST['contents']);
+                $_support_feedbackDAO = $this->orm->createDAO('_support_feedback');
+                $_support_feedbackDAO ->content = $content;
+                $_support_feedbackDAO ->pm_id = $_REQUEST['id'];
+                $_support_feedbackDAO ->user_id = $this->admininfo['admin_info']['id'];
+                $_support_feedbackDAO ->datetimes = time();
+                $_support_feedbackDAO ->save();
+                $this->alert_go('提交成功！','/support/chouzi/repminfo?id='.$_REQUEST['id']);
             }
         }
 
@@ -1049,7 +1079,8 @@
                 'savestepone',
                 'savestepthree',
                 'ajaxpinfo',
-                'repminfo'
+                'repminfo',
+                'tosavefeedback'
             );
             if (in_array($action, $except_actions)) {
                 return;

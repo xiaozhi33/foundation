@@ -448,11 +448,9 @@
         <div class="back-box">
             <ul>
                 <li><a href="#" id="q123">在线打印</a></li>
-                <li><a href="#" id="txyj">填写意见</a></li>
-                <li><a href="#02">基本信息</a></li>
-                <!--<li><a href="#03">签约信息</a></li>-->
+                <li><a href="#rightstyle02" id="txyj">意见反馈</a></li>
+                <li><a href="#">基本信息</a></li>
                 <li><a href="#04">收支信息</a></li>
-                <!--<li><a href="#05">回馈信息</a></li>-->
                 <li><a href="#06">配比信息</a></li>
                 <li><a href="#01">返回顶部</a></li>
             </ul>
@@ -512,6 +510,201 @@
 
 
     </div><!-- tab-pane -->
+
+
+<style>
+    .user-handpic img{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin: 30px 0px 20px 80px
+    }
+    .user-handbtn a{
+        height: 40px;
+        width: 90px;
+        background-color:#1088ce;
+        display: block;
+        text-align: center;
+        line-height: 40px;
+        color:#ffffff;
+        font-size: 16px;
+        border-radius: 3px;
+        margin: 8px 0 10px 0;
+    }
+    .user-handbtn a:-webkit-any-link:visited{
+        color:#ffffff;
+    }
+
+    .user-handbtn1 a{
+        height: 40px;
+        width: 160px;
+        background-color:#1088ce;
+        display: block;
+        text-align: center;
+        line-height: 40px;
+        color:#ffffff;
+        font-size: 16px;
+        border-radius: 3px;
+        margin: 8px 0 10px 18px;
+    }
+    .user-handbtn1 a:-webkit-any-link:visited{
+        color:#ffffff;
+    }
+    .taskinfo-box{
+        border-bottom: 1px #ddd solid;
+    }
+    .taskinfo-user{
+        font-size: 16px;
+        color: #333;
+        font-weight: bold;
+        margin: 30px 0 20px;
+    }
+    .taskinfo-info{
+        height: 100px;
+        margin-bottom: 30px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        display:-webkit-box;
+        -webkit-box-orient:vertical;
+        -webkit-line-clamp:3;
+    }
+    .taskinfo-time{
+        text-align: right;
+        margin: 0 10px 10px 0;
+    }
+    .askinfo-show{
+        position: absolute;
+        right: 40px;
+        bottom: 35px;
+        color: #428bca;
+    }
+    .askinfo-show i{
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 7px solid #428bca;
+        display: inline-block;
+        margin-left: 10px;
+    }
+    .askinfo-show:hover{
+        color:#428bca;
+    }
+    .askinfo-hidden{
+        display: none;
+        position: absolute;
+        right: 40px;
+        bottom: 35px;
+        color: #428bca;
+    }
+    .askinfo-hidden i{
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 7px solid #428bca;
+        display: inline-block;
+        margin-left: 10px;
+    }
+    .askinfo-hidden:hover{
+        color:#428bca;
+    }
+    .input_inline{
+        padding-top: 7px;
+    }
+</style>
+
+<?php if(!empty($this->support_feedbackDAO)){?>
+    <div class="row" style="width: 1082px">
+        <div class="col-md-12">
+            <section class="tile color transparent-white">
+
+                <!-- tile header -->
+                <div class="tile-header">
+                    <div class="row">
+                        <div class="col-md-9"><h3>意见反馈列表<strong> Logs</strong></h3></div>
+                    </div>
+                    <div class="controls">
+                        <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <!-- /tile header -->
+
+                <?php
+                foreach($this->support_feedbackDAO as $key => $value){?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2 user-handpic">
+                                <img src="<?php if(empty($value['headimg']))echo '/include/management/assets/images/profile-photo.jpg';?>" alt/>
+                            </div>
+
+                            <div class="col-md-9 taskinfo-box">
+                                <div class="taskinfo-user"><?php echo $this->userlist[$value['user_id']];?></div>
+                                <div class="taskinfo-info"><?php echo htmlspecialchars_decode($value['content']);?></div>
+                                <div class="taskinfo-time"><?php echo date('Y-m-d H:i:s', $value['datetimes']);?></div>
+
+                                <?php if(strlen($value['content']) > 400){?>
+                                    <a class="askinfo-show">展开<i></i></a>
+                                    <a class="askinfo-hidden">收起<i></i></a>
+                                <?php }?>
+                            </div>
+                        </div>
+                    </div>
+                <?php }?>
+
+            </section>
+        </div>
+    </div>
+<?php }?>
+
+<div id="rightstyle02" class="row" style="width: 1081px;">
+    <div class="col-md-12">
+        <section class="tile color transparent-white">
+
+
+            <!-- tile header -->
+            <div class="tile-header">
+                <div class="row">
+                    <div class="col-md-9"><h3>意见反馈<strong> Feedback</strong></h3></div>
+                    <!--<div class="col-md-3"><h5><a href="/management/task" target="_blank">查看全部消息>></a></h5></div>-->
+                </div>
+                <div class="controls">
+                    <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                    <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <!-- /tile header -->
+
+
+            <div class="detailedbox tile-body">
+                <form class="form-horizontal"  id="form1" action="tosavefeedback" method="post" encType="multipart/form-data">
+
+                    <div class="form-group">
+
+                        <label class="col-sm-2 control-label" for="input01">意见反馈内容：</label>
+                        <div class="col-sm-8">
+                            <script type="text/plain" id="contents" name="contents" style="width:122%;height:240px;"></script>
+                        </div>
+                    </div>
+
+                    <input class="btn btn-default" name="id" type="hidden" value="<?php echo $this->chouzi[0]['id'];?>" />
+
+                    <div class="form-group form-footer">
+                        <div class="col-sm-offset-6 col-sm-7">
+                            <input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input class="btn btn-default" type="reset" value="重 置" />
+                        </div>
+                    </div>
+
+                    <input name="status" type="hidden" value="1"/> <!-- 默认为新建任务 -->
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+
 </div><!-- tab-content -->
 </div>
 </div>
@@ -1009,4 +1202,38 @@
     });
 
     $(".menu li:eq(0)").addClass("open");
+</script>
+
+<link href="/include/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="/include/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/include/umeditor/umeditor.min.js"></script>
+<script type="text/javascript" src="/include/umeditor/lang/zh-cn/zh-cn.js"></script>
+
+<script type="text/javascript">
+    //实例化编辑器
+    var um = UM.getEditor('contents',{
+        toolbars: [
+            ['source', 'undo', 'redo'],
+            ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
+        ]
+    });
+</script>
+
+<script>
+    $(function(){
+        $(".askinfo-show").click(function() {
+                $(this).parent().find(".taskinfo-info").css("height","auto");
+                $(this).parent().find(".taskinfo-info").css("display","block");
+                $(this).hide();
+                $(this).parent().find(".askinfo-hidden").show();
+            }
+        );
+        $(".askinfo-hidden").click(function() {
+                $(this).parent().find(".taskinfo-info").css("height","100px");
+                $(this).parent().find(".taskinfo-info").css("display","-webkit-box");
+                $(this).hide();
+                $(this).parent().find(".askinfo-show").show();
+            }
+        );
+    });
 </script>

@@ -2025,7 +2025,7 @@
 
         public function getSupportinfo($uid){
             if(!empty(uid)) {
-                $_support_college_user = $this->orm->createDAO("_support_college_user")->findId($uid)->get();;
+                $_support_college_user = $this->orm->createDAO("_support_college_user")->findId($uid)->get();
                 return $_support_college_user;
             }else {
                 return false;
