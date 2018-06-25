@@ -1,0 +1,102 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>公益项目收支明细表</title>
+<style type="text/css">
+body{ margin:0px auto; text-align:center;}
+#nav{width:1040px;margin:0 auto;float:none;}
+.top-1{width:1040px; height:150px;text-align:center;}
+
+#top-1-1{ height:150px;width:30px;border:1px solid #000000;float:left;}
+#top-1-1-1{padding-top:30px;border:0px;}
+#top-1-2{height:150px; width:340px;border-right:1px solid #000000;border-top:1px solid #000000;border-bottom:1px solid #000000; float:left;}
+#top-1-2-1{padding-top:60px;border:0px;}
+#top-1-3{height:150px; width:100px; border-top:1px solid #000000;border-bottom:1px solid #000000;border-right:1px solid #000000;float:left;}
+#top-1-3-1{padding-top:40px;border:0px;}
+#top-1-4{height:150px; width:624px; border-top:1px solid #000000; border-bottom:1px solid #000000;border-right:1px solid #000000; float:left;}
+#top-1-4-top{ height:35px; width:624px; border-bottom:1px solid #000000; }
+#top-1-4-bottom1{ height:112px; width:121px; border-right:1px solid #000000;float:left;}
+#top-1-4-bottom11{padding-top:40px;border:0px;}
+#top-1-4-bottom2{ height:112px; width:330px; border-right:1px solid #000000; float:left;}
+#top-1-4-bottom22{padding-top:5px;border:0px;}
+#top-1-4-bottom2-t{ height:30px; width:330px; border-bottom:1px solid #000000;float:left;}
+#top-1-4-bottom2-b{ height:82px;width:55px;border-right:1px solid #000000;float:left;}
+#top-1-4-bottom2-b1{ height:82px;width:49px;float:left;}
+#top-1-4-bottom2-b2{padding-top:15px;border:0px;}
+#top-1-4-bottom3{ height:112px; width:170px;float:right;}
+#top-1-4-bottom33{padding-top:40px;border:0px;}
+.top-2{height:50px;text-align:center;}
+#top-2-1{height:30px; width:30px;border-left:1px solid #000000;border-right:1px solid #000000;border-bottom:1px solid #000000;float:left;line-height:30px;}
+#top-2-2{height:30px; width:340px;border-right:1px solid #000000;border-bottom:1px solid #000000;float:left; line-height:30px;}
+#top-2-3{height:30px; width:100px;border-bottom:1px solid #000000;border-right:1px solid #000000;float:left;line-height:30px;}
+#top-2-4{height:30px; width:121px;border-bottom:1px solid #000000;border-right:1px solid #000000;float:left;line-height:30px;}
+#top-2-5{height:30px; width:55px;border-bottom:1px solid #000000;border-right:1px solid #000000;float:left;line-height:30px;}
+#top-2-5-1{height:30px; width:50px;border-bottom:1px solid #000000;border-right:1px solid #000000;float:left;line-height:30px;text-align:right; width:56px\9; *width:56px !important _width:56px;}
+#top-2-6{height:30px; width:171px;border-bottom:1px solid #000000;border-right:1px solid #000000;float:left;line-height:30px; text-align:right; width:173px\9; *width:173px; !important _width:173px;}
+#top_title_1{ text-align:center;width:1040px;margin:0 auto;}
+#Layer1 {
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:754px;
+	height:223px;
+	z-index:1;
+}
+</style>
+</head>
+<body>
+<div id="top_title_1"><h3>公益项目收支明细表 （以基金会<?php echo $this->start;?> ~ <?php echo $this->end;?>期间收入为准统计的支出明细）</h3></div>
+<div id="nav">
+	<div class="top-1">
+		<div id="top-1-1">
+			<div id="top-1-1-1">项目编号</div>
+
+		</div>
+		
+		<div id="top-1-2">
+			<div id="top-1-2-1">项目</div>
+		</div>
+		
+		<div id="top-1-2">
+			<div id="top-1-2-1">项目分类</div>
+		</div>
+		
+		<div id="top-1-3">
+			<div id="top-1-3-1"><br />收&nbsp;&nbsp;入</div>
+		</div>
+
+		<div id="top-1-3">
+			<div id="top-1-3-1"><br />使用金额</div>
+		</div>
+		
+		<div id="top-1-3">
+			<div id="top-1-2-1">资助人数</div>
+		</div>
+	</div>
+	<div class="top-2">
+		<?php $shouruheji=0;$shiyongheji=0;$renshuheji=0;?>
+		<?php foreach ($this->reportinfo as $k => $v){?>
+		<div id="nav">
+			<div id="top-2-1"><?php echo $k+1;?></div>
+			<div id="top-2-2" name="项目"><?php echo $v['pm_name'];?></div>
+			<div id="top-2-2" name="项目分类"><?php echo $v['catename']==""?"无":$v['catename'];?></div>
+			<div id="top-2-3"name="收入"><?php echo number_format($v['daozhang'],2,".",",");?></div>
+			
+			<div id="top-2-3" name="使用金额"><?php echo number_format($v['shiyong'],2,".",",");?></div>
+			<div id="top-2-3" name="资助人数"><?php echo $v['renshu']==0?"0":$v['renshu']." "; ?></div>
+		</div>
+			<?php 
+				$shouruheji +=  $v['daozhang'];
+				$shiyongheji +=  $v['shiyong'];
+				$renshuheji +=  $v['renshu'];
+			?>
+		<?php }?>
+	</div>
+	<div style="float:right;margin:10px;">合计：收入金额：<?php echo $shouruheji;?> 元   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 用于受助人金额：<?php echo $shiyongheji;//echo $shiyongzong;//?> 元
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  资助人数：<?php echo $renshuheji;?> 
+	</div>
+</div>
+
+</body>
+</html>
+

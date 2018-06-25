@@ -84,7 +84,7 @@
             //$this->WhiteIP();  //设置白名单
 
             //获取认领信息
-            $this->pm_count = $this->orm->createDAO("pm_mg_info")->get();
+            //$this->pm_count = $this->orm->createDAO("pm_mg_info")->get();
             $this->renling_weirenling_list = $renling_weirenling_list = $this->orm->createDAO("pm_mg_info")->findCate_id("0")->findIs_renling("0")->get();
             $this->shiyong_weirenling_list = $shiyong_weirenling_list = $this->orm->createDAO("pm_mg_info")->findCate_id("1")->findIs_renling("0")->get();
 
@@ -94,8 +94,13 @@
             $my_adminDAO = $my_adminDAO->get();
             $this->admininfo = $my_adminDAO[0];
 
+            $this->pm_count = $this->orm->createDAO("pm_mg_chouzi")->findDepartment($this->admininfo['department_id'])->get();
+
             //捐赠项目金额
-            $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findCate_id(0)->select(" sum(zijin_daozheng_jiner) as allsum")->get();
+            $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findCate_id(0)->select(" sum(zijin_daozheng_jiner) as allsum");
+            $pm_mg_infoDAO ->selectLimit .= ' AND pm_mg_info.pm_name IN (select pname from pm_mg_chouzi where department='.$this->admininfo['department_id'].')';
+            $pm_mg_infoDAO ->findIs_renling(1);
+            $pm_mg_infoDAO = $pm_mg_infoDAO ->get();
 
             //会议活动
             $meetingDAO = $this->orm->createDAO("jjh_meeting")->get();
@@ -154,7 +159,7 @@
                 'renling_weirenling_list' => $renling_weirenling_list,
                 'shiyong_weirenling_list' => $shiyong_weirenling_list,
                 "pm_count" => count($this->pm_count),
-                "allsum" => (int)$pm_mg_infoDAO[0]['allsum'],
+                "allsum" => number_format($pm_mg_infoDAO[0]['allsum'], 2),
                 "meeting_count" => count($meetingDAO),
                 'admininfo' =>  $this->admininfo,
                 'task_init_array' => $this->task_init_array,

@@ -79,6 +79,74 @@
                     search_contains: true,
                     disable_search_threshold: 10
                 });
+
+                //initialize datepicker
+                $('#datepicker').datetimepicker({
+                    icons: {
+                        time: "fa fa-clock-o",
+                        date: "fa fa-calendar",
+                        up: "fa fa-arrow-up",
+                        down: "fa fa-arrow-down"
+                    }
+                });
+
+                // Initialize card flip
+                $('.card.hover').hover(function(){
+                    $(this).addClass('flip');
+                },function(){
+                    $(this).removeClass('flip');
+                });
+
+                $("#datepicker").on("dp.show",function (e) {
+                    var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;
+                    $('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
+                });
+
+                //initialize datepicker
+                $('#datepicker1').datetimepicker({
+                    icons: {
+                        time: "fa fa-clock-o",
+                        date: "fa fa-calendar",
+                        up: "fa fa-arrow-up",
+                        down: "fa fa-arrow-down"
+                    }
+                });
+
+                $("#datepicker1").on("dp.show",function (e) {
+                    var newtop1 = $(".bootstrap-datetimepicker-widget").position(relative).top - 45;
+                    alert(newtop1);
+                    $('.bootstrap-datetimepicker-widget').css('top', newtop1 + 'px');
+                });
+
+                //initialize datepicker
+                $('#datepicker2').datetimepicker({
+                    icons: {
+                        time: "fa fa-clock-o",
+                        date: "fa fa-calendar",
+                        up: "fa fa-arrow-up",
+                        down: "fa fa-arrow-down"
+                    }
+                });
+
+                $("#datepicker2").on("dp.show",function (e) {
+                    var newtop2 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+                    $('.bootstrap-datetimepicker-widget').css('top', newtop2 + 'px');
+                });
+
+                //initialize datepicker
+                $('#datepicker3').datetimepicker({
+                    icons: {
+                        time: "fa fa-clock-o",
+                        date: "fa fa-calendar",
+                        up: "fa fa-arrow-up",
+                        down: "fa fa-arrow-down"
+                    }
+                });
+
+                $("#datepicker3").on("dp.show",function (e) {
+                    var newtop3 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+                    $('.bootstrap-datetimepicker-widget').css('top', newtop3 + 'px');
+                });
             </script>
 
     

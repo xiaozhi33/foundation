@@ -39,14 +39,14 @@
                               </span>
 
                                 <div class="media-body">
-                                    <small>项目总数</small>
+                                    <small>捐赠项目总数</small>
                                     <h2 class="media-heading animate-number" data-value="<?php echo $this->pm_count;?>" data-animation-duration="1500"><?php echo $this->pm_count;?></h2>
                                 </div>
                             </div>
 
                         </div>
                         <div class="back">
-                            <a href="/management/zijin">
+                            <a href="/support/chouzi">
                                 <i class="fa fa-bar-chart-o fa-4x"></i>
                                 <span style="font-size: 15px;">点击查看详情</span>
                             </a>
@@ -66,14 +66,14 @@
                               </span>
 
                                 <div class="media-body">
-                                    <small>剩余项目金额</small>
+                                    <small>捐赠项目总金额</small>
                                     <h2 class="media-heading animate-number" data-value="<?php echo $this->allsum;?>" data-animation-duration="1500">allsum</h2>
                                 </div>
                             </div>
 
                         </div>
                         <div class="back">
-                            <a href="/management/zijin">
+                            <a href="/support/chouzi">
                                 <i class="fa fa-bar-chart-o fa-4x"></i>
                                 <span style="font-size: 15px;">点击查看详情</span>
                             </a>
@@ -92,14 +92,14 @@
                               </span>
 
                                 <div class="media-body">
-                                    <small>会议活动</small>
+                                    <small>123123123</small>
                                     <h2 class="media-heading animate-number" data-value="<?php echo $this->meeting_count;?>" data-animation-duration="1500"><?php echo $this->meeting_count;?></h2>
                                 </div>
                             </div>
 
                         </div>
                         <div class="back">
-                            <a href="/management/meeting">
+                            <a href="/support/">
                                 <i class="fa fa-bar-chart-o fa-4x"></i>
                                 <span style="font-size: 15px;">点击查看详情</span>
                             </a>
@@ -112,8 +112,103 @@
 
     <!-- row -->
     <div class="row">
+
         <!-- col 8 -->
         <div class="col-lg-8 col-md-12">
+
+            <div>
+                <select id="tongji_type" class="form-control" >
+                    <option class="form-control"  value ="1" <?php if($this->tongji_type ==1 ){echo 'selected="selected"';}?>>年度筹资金额统计</option>
+                    <option class="form-control"  value ="2" <?php if($this->tongji_type ==2 ){echo 'selected="selected"';}?>>年度使用金额统计</option>
+                </select>
+            </div>
+            <script type="text/javascript" src="/include/management/js/echarts.min.js"></script>
+            <section class="tile color transparent-white">
+                <div id="zhouzi_main" style="width: 100%;height:400px ;"></div>
+                <?php if($this->tongji_type == 1 || $this->tongji_type == ''){
+                    $type = '筹资';
+                }else{
+                    $type = '使用';
+                }?>
+                <script type="text/javascript">
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init(document.getElementById('zhouzi_main'));
+
+                    // 指定图表的配置项和数据
+                    var option = {
+                        title: {
+                            text: '（万元）'
+                        },
+                        tooltip : {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data:[<?php foreach($this->rs_year as $key => $value){
+                                if($key == count($value) - 1){
+                                    echo "'".$key."年度".$type."金额'";
+                                }else {
+                                    echo "'".$key."年度".$type."金额'".",";
+                                }
+                            }?>'过往三年平均筹资金额']
+                        },
+                        toolbox: {
+                            feature: {
+                                saveAsImage: {}
+                            }
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis : [
+                            {
+                                type : 'category',
+                                boundaryGap : false,
+                                data : ['1月', '2月', '3月', '4月', '5月', '6月','7月', '8月', '9月', '10月', '11月', '12月']
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value'
+                            }
+                        ],
+                        series : [
+                            <?php
+                            foreach($this->rs_year as $key => $value){
+                                echo "{
+                                              name:'".$key."年度".$type."金额',
+                                              type:'line',
+                                              areaStyle: {normal: {}},
+                                              data:[".$value['json']."]
+                                          },";
+
+                            }
+                            ?>
+                            {
+                                name:'<?php echo "过往三年平均".$type."金额";?>',
+                                type:'line',
+                                areaStyle: {normal: {}},
+                                data:[
+                                    <?php foreach($this->rs_avg as $key => $value){
+                                    if($key == count($this->rs_avg)){
+                                        echo $value;
+                                    }else{
+                                        echo $value.",";
+                                    }
+                                }
+                                    ?>]
+                            }
+                        ]
+                    };
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                </script>
+            </section>
+
+
         <!-- tile -->
             <section class="tile color transparent-white">
             <!-- tile header -->
@@ -265,7 +360,7 @@
                         <?php foreach($this->project_list as $key => $value){ $nn = 0;?>
                             <tr>
                                 <td><?php echo $value['id'];?></td>
-                                <td><a href="/management/chouzi/pminfo?id=<?php echo $value['id'];?>" target="_blank"><?php echo $value['pname'];?></a></td>
+                                <td><a href="/support/chouzi/pminfo?id=<?php echo $value['id'];?>" target="_blank"><?php echo $value['pname'];?></a></td>
                                 <td class="priority">
                                     <?php if($value['pm_rate'] == ""){?>
                                         ---
@@ -287,7 +382,7 @@
                                     </div>
                                 </td>
                                 <td class="progress-cell">
-                                    <a href="/management/chouzi/pminfo?id=<?php echo $value['id'];?>" target="_blank">查看基本信息&gt;&gt;</a>
+                                    <a href="/support/chouzi/pminfo?id=<?php echo $value['id'];?>" target="_blank">查看基本信息&gt;&gt;</a>
                                 </td>
                             </tr>
                         <?php }?>
@@ -468,3 +563,13 @@
 
 
     <script src="/include/management/assets/js/jquery.js"></script>
+    <script language="javascript">
+        $(".menu li:eq(0)").addClass("open");
+    </script>
+
+    <script type="text/javascript">
+        $("#tongji_type").change(function(){
+            var tj_type = $(this).val();
+            self.location='/support/index'+'?tongji_type='+tj_type;
+        });
+    </script>

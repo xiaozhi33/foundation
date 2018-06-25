@@ -115,7 +115,7 @@
 					  <?php 
 						foreach($this->chouzilist as $k=>$v){?>
 						 <tr>
-						 	<td><a href="/support/chouzi/pminfo?id=<?php echo $v['id'];?>" target="_blank"><?php echo $v['pname'];?></a>&nbsp;</td>
+						 	<td><a href="/support/chouzi/repminfo?id=<?php echo $v['id'];?>" target="_blank"><?php echo $v['pname'];?></a>&nbsp;</td>
                              <td><?php  foreach ($this->pcatelist as $kk => $vv){
                                      if($vv['id'] == $v['cate']){ echo $vv['catename'];}
                                  }?>&nbsp;</td>
@@ -144,7 +144,7 @@
                              </td>
                              <?php if (in_array($this->admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
                                 <td>
-                                    <a href="/support/chouzi/pminfo?id=<?php echo $v['id'];?>">查看项目详情</a>
+                                    <a href="/support/chouzi/repminfo?id=<?php echo $v['id'];?>">查看项目详情</a>
                                 </td>
                              <?php }?>
 						 </tr>
@@ -862,4 +862,6 @@
         }
         return true;
     });
+
+    $(".menu li:eq(0)").addClass("open");
 </script>
