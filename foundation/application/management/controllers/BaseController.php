@@ -148,6 +148,14 @@
                 $_g_list[$v['gid']] = $v['gname'];
             }
 
+            $departmentDAO = $this->orm->createDAO("jjh_mg_department")->get();
+            $_departmentDAO = array();
+            if(!empty($departmentDAO)){
+                foreach ($departmentDAO as $key => $value) {
+                    $_departmentDAO[$value['id']] = $value['pname'];
+                }
+            }
+
             $this->view->assign(array(
 				"module" => $request_mod['module'],
 				"controller" => $request_mod['controller'],
@@ -163,6 +171,7 @@
                 'group_list' => $_g_list,
                 'project_status' => $this->project_status,
                 'expenditure_status' => $this->expenditure_status,
+                'department_list' => $_departmentDAO,
 			));
 
             //config

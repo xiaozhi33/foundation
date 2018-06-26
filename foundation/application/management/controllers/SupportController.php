@@ -8,7 +8,7 @@ class Management_supportController extends BaseController {
             $userDAO->selectLimit .= " and username like '%".$_REQUEST['username']."%'";
         }
         if($_REQUEST['department_id'] != ""){
-            $userDAO->selectLimit .= " and department_id =".$_REQUEST['pp_address'];
+            $userDAO->selectLimit .= " and department_id =".$_REQUEST['department_id'];
         }
         if($_REQUEST['mobile'] != ""){
             $userDAO->selectLimit .= " and mobile like '%".$_REQUEST['mobile']."%'";
