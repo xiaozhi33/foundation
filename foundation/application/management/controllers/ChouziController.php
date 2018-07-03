@@ -7,7 +7,7 @@
 
         public function indexAction()
         {
-            $pname = HttpUtil::getString("pname");
+            $pname = $_REQUEST['pname'];
             $department = HttpUtil::getString("department");
             $cate = HttpUtil::getString("cate");
 
