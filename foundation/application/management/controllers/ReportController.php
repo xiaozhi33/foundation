@@ -145,7 +145,7 @@
                 //ini_set("display_errors", "On");
                 //error_reporting(E_ERROR);
                 // $type = HttpUtil::postString("type");
-                $pname = HttpUtil::postString("pname");
+				$pname = $_REQUEST['pname'];
                 $cate = HttpUtil::postString("cate");
                 $department = HttpUtil::postString("department");
                 $pm_pp = HttpUtil::postString("pm_pp");
@@ -503,7 +503,7 @@
 		public function shiyongnewtoexcelAction(){
 			try{
 				$shiyong_type = HttpUtil::postString("shiyong_type");
-				$pname = HttpUtil::postString("pname");
+				$pname = $_REQUEST['pname'];
 				$cate = HttpUtil::postString("cate");
 				$department = HttpUtil::postString("department");
 				$shiyong_zhichu_datetime =  HttpUtil::postString("start");
@@ -1072,7 +1072,7 @@
 		public function pmshouzhinewtoexcelAction(){
 			$cate = HttpUtil::postString("cate");
 			$department = HttpUtil::postString("department");
-            $pname = HttpUtil::postString("pname");
+			$pname = $_REQUEST['pname'];
 			$start =  HttpUtil::postString("start");
 			$end =  HttpUtil::postString("end");
 
