@@ -233,7 +233,7 @@
                     $this->alert_back("您输入的信息不完整，请查正后继续添加");
                 }
 
-                if (!is_numeric($income_jje) || $income_jje <= 0) {
+                if (!is_numeric($income_jje) || $income_jje < 0) {
                     $this->alert_back("您输入的收益金额不正确！请重新输入！");
                 }
 
