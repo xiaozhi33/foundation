@@ -211,7 +211,7 @@
 						$zijininfo ->selectLimit .= " and pm_is_school = ".$pm_is_school;
 					}
 
-                    $zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by bpath";
+                    $zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by pm_mg_info.zijin_daozhang_datetime ASC, bpath";
                     //$zijininfo ->debugSql =true;
                     $zijininfo = $zijininfo->get($this->dbhelper);
 
@@ -548,7 +548,7 @@
 						$zhichuinfo ->selectLimit .= " and shiyong_zhichu_datetime between '$shiyong_zhichu_datetime' and '$shiyong_zhichu_datetime1'";
 					}
 
-					$zhichuinfo ->selectLimit .= " and cate_id=1 and is_renling=1 order by bpath";
+					$zhichuinfo ->selectLimit .= " and cate_id=1 and is_renling=1 order by pm_mg_info.shiyong_zhichu_datetime ASC, bpath";
 					//$zhichuinfo ->debugSql =true;
 					$zhichuinfo = $zhichuinfo->get($this->dbhelper);
 
