@@ -120,14 +120,20 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="30%">项目名称</td>
-                        <td width="22%">项目类型</td>
-                        <td width="24%">项目进度</td>
-                        <td width="10%">星级</td>
+						<td width="20%">项目名称</td>
+
+                          <td width="10%">所属部门</td>
+                          <td width="8%">负责人</td>
+                          <td width="15%">总捐赠收入/总协议金额/余额（元）</td>
+                          <td width="8%">执行年限</td>
+
+                        <td width="14%">项目类型</td>
+                        <td width="15%">项目进度</td>
+                       <!-- <td width="10%">星级</td>-->
 						<!--<td width="12%">部门名称</td><td width="18%">项目签约日期</td>
 						<td width="13%">协议捐赠金额</td>-->
                           <?php if (in_array($this->admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
-						        <td width="14%">操作</td>
+						        <td width="20%">操作</td>
                           <?php }?>
 					  </tr>
 					</thead>
@@ -139,12 +145,37 @@
                                 <?php if($v['star'] != 0){echo '<font color="red">';}?>    <?php echo $v['pname'];?>
                                 <?php if($v['star'] != 0){echo '</font>';}?>
                                 </a>&nbsp;</td>
+
+                             <td>
+                                 <?php  foreach ($this->departmentlist as $kk => $vv){
+                                     if($vv['id'] == $v['department']){ echo $vv['pname'];}
+                                 }?>&nbsp;
+                             </td>
+
+                             <td>
+                                 <?php  foreach ($this->jjh_mg_pp_list as $kk => $vv){
+                                     if($kk == $v['pm_fzr']){ echo "<a href='/management/pp/ppinfo?id=".$kk."' target='_blank'>".$vv."</a>";}
+                                 }?>
+
+                                 <?php
+                                    if(empty($v['pm_fzr'])){
+                                     echo "---";
+                                 }?>&nbsp;
+                             </td>
+
+                             <td>
+                                 <?php echo sprintf("%.2f",$v[srhj]);?> / <?php echo sprintf("%.2f",$v[pm_xieyi_juanzeng_jiner]);?> / <?php echo sprintf("%.2f",$v[xmye]);?>
+                             </td>
+
+                             <td>
+                                <?php if($v['pm_jiezhi_datetime']!='0000-00-00 00:00:00'){echo substr($v['pm_jiezhi_datetime'],0, 10);}else{echo "---";}?>
+                             </td>
+
+
                              <td style="padding: 2px;"><?php  foreach ($this->pcatelist as $kk => $vv){
                                      if($vv['id'] == $v['cate']){ echo $vv['catename'];}
                                  }?>&nbsp;</td>
-							<!--<td><?php  foreach ($this->departmentlist as $kk => $vv){
-								if($vv['id'] == $v['department']){ echo $vv['pname'];}
-								}?>&nbsp;</td>
+
                              <!--
 								
 							<td><?php /*echo substr($v['pm_qianyue_datetime'],0,10);*/?>&nbsp;</td>
@@ -174,27 +205,27 @@
                                  <?php }?>
                              </td>
 
-                             <td style="padding: 2px;">
+                            <!--<td style="padding: 2px;">
                                  <div class="starbox1">
                                      <ul class="star_ul1 fl1">
-                                         <li><a class="one-star1 <?php if($v['star'] == 1)echo 'active-star';?>" title="1" href="#"></a></li>
-                                         <li><a class="two-star1 <?php if($v['star'] == 2)echo 'active-star';?>" title="2" href="#"></a></li>
-                                         <li><a class="three-star1 <?php if($v['star'] == 3)echo 'active-star';?>" title="3" href="#"></a></li>
-                                         <li><a class="four-star1 <?php if($v['star'] == 4)echo 'active-star';?>" title="4" href="#"></a></li>
-                                         <li><a class="five-star1 <?php if($v['star'] == 5)echo 'active-star';?>" title="5" href="#"></a></li>
+                                         <li><a class="one-star1 <?php /*if($v['star'] == 1)echo 'active-star';*/?>" title="1" href="#"></a></li>
+                                         <li><a class="two-star1 <?php /*if($v['star'] == 2)echo 'active-star';*/?>" title="2" href="#"></a></li>
+                                         <li><a class="three-star1 <?php /*if($v['star'] == 3)echo 'active-star';*/?>" title="3" href="#"></a></li>
+                                         <li><a class="four-star1 <?php /*if($v['star'] == 4)echo 'active-star';*/?>" title="4" href="#"></a></li>
+                                         <li><a class="five-star1 <?php /*if($v['star'] == 5)echo 'active-star';*/?>" title="5" href="#"></a></li>
                                      </ul>
                                  </div>
-                             </td>
+                             </td>-->
 
                              <?php if (in_array($this->admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
                                 <td style="padding: 2px;">
                                     <a href="/management/chouzi/editchouzi?id=<?php echo $v['id'];?>">
                                         <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
                                     </a>
-                                    &nbsp;&nbsp;
-                                    <a href="javascript:void(0);" onclick="addstar(this)" pm_id="<?php echo $v['id'];?>" star="<?php echo $v['star'];?>">
+                                    <!--&nbsp;&nbsp;
+                                    <a href="javascript:void(0);" onclick="addstar(this)" pm_id="<?php /*echo $v['id'];*/?>" star="<?php /*echo $v['star'];*/?>">
                                         <button class="btn btn-greensea margin-bottom-20" type="button">标星</button>
-                                    </a>
+                                    </a>-->
                                     &nbsp;&nbsp;
                                     <a href="/management/zijin/rateinfo/?pm_id=<?php echo $v['id'];?>">
                                         <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
@@ -233,7 +264,7 @@
 		</div>
 
 
-        <div class="theme1-popover" style="display: none;">
+        <!--<div class="theme1-popover" style="display: none;">
             <div class="theme1-poptit">
                 <a href="javascript:void(0);" title="关闭" class="close" id="popover1-close" name="">×</a>
             </div>
@@ -254,7 +285,7 @@
                     <input id="input_pm_id" type="hidden" name="pm_id" value=""/>
                 </form>
             </div>
-        </div>
+        </div>-->
 
         <style type="text/css">
             /*{margin:0;padding:0;list-style-type:none;}

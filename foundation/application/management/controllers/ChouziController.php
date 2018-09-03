@@ -53,6 +53,116 @@
             $pageDAO = $pageDAO->pageHelper($chouziinfo, null, "/management/chouzi/index", null, 'get', 25, 8);
             $pages = $pageDAO['pageLink']['all'];
             $pages = str_replace("/index.php", "", $pages);
+
+
+            if(!empty($pageDAO['pageData'])){
+                foreach($pageDAO['pageData'] as $kkk => $vvv){
+                    // 获取 - 总捐赠收入/总协议金额/余额
+                    /////////////////////////////////////////////////////////////////////////////////////////////////
+                    // 项目收入
+                    $sr = $this->orm->createDAO("pm_mg_info");
+                    $sr->select(" DATE_FORMAT(zijin_daozhang_datetime,'%Y-%m-%d') AS stime ,pm_mg_info.*");
+                    $sr->selectLimit .= " and pm_mg_info.pm_name='".$vvv['pname']."' ";
+                    $sr->selectLimit .= " and cate_id=0 and is_renling=1 ";
+                    $sr->selectLimit .= " ORDER BY stime ASC ";
+                    $sr = $sr->get();
+
+                    $sr1 = $this->orm->createDAO("pm_mg_info");
+                    $sr1 ->select("sum(zijin_daozheng_jiner) as aaa");
+                    $sr1 ->selectLimit .= " and pm_mg_info.pm_name='".$vvv['pname']."' ";
+                    $sr1 ->selectLimit .= " and cate_id=0 and is_renling=1 ";
+                    $sr1 = $sr1->get();
+
+
+                    $pageDAO['pageData'][$kkk]['sr'] = $sr;
+                    $pageDAO['pageData'][$kkk]['srhj'] = sprintf("%.2f", $sr1[0]['aaa']);
+                    /////////////////////////////////////////////////////////////////////////
+                    /*if(!empty($sr)){
+                        $jzf = array();
+                        $sjjzf = '';
+                        foreach($sr as $key => $value){
+                            if(!in_array($value['pm_pp'], $jzf)){
+                                $jzf[] = $value['pm_pp'];
+                            }
+                        }
+                    }
+
+                    if(count($jzf) > 5){
+                        $sjjzf = '多人';
+                    }else {
+                        $sjjzf = implode('，',$jzf);
+                    }
+
+                    $this->view->assign("sjjzf", $sjjzf);*/
+                    //////////////////////////////////////////////////////////////////////////////////////////////
+
+                    /////////////////////////////////////////////////////////////////////////////////////////////////
+                    // 项目增值
+                    $zz = $this->orm->createDAO("pm_mg_income");
+                    $zz->selectLimit .= " and pid='".$vvv['id']."' ";
+                    $zz->selectLimit .= " ORDER BY income_datetime asc ";
+                    $zz = $zz->get();
+
+                    $zz1 = $this->orm->createDAO("pm_mg_income");
+                    $zz1 ->select("sum(income_jje) as aaa");
+                    $zz1->selectLimit .= " and pid='".$vvv['id']."' ";
+                    $zz1 = $zz1->get();
+
+                    $pageDAO['pageData'][$kkk]['zz'] = $zz;
+                    $pageDAO['pageData'][$kkk]['zzhj'] = sprintf("%.2f", $zz1[0]['aaa']);
+                    //////////////////////////////////////////////////////////////////////////////////////////////
+
+                    ////////////////////////
+                    $_srhj = sprintf("%.2f", $sr1[0]['aaa']) + sprintf("%.2f", $zz1[0]['aaa']);
+                    $pageDAO['pageData'][$kkk]['srhjh'] = $_srhj;
+                    ///////////////////
+
+                    /////////////////////////////////////////////////////////////////////////////////////////////////
+                    // 项目支出
+                    $zc = $this->orm->createDAO("pm_mg_info");
+                    $zc->selectLimit .= " and pm_mg_info.pm_name='".$vvv['pname']."' ";
+                    $zc->selectLimit .= " and cate_id=1 and is_renling=1 and shiyong_zhichu_jiner!=0";
+                    $zc->selectLimit .= " ORDER BY shiyong_zhichu_datetime asc ";
+                    $zc = $zc->get();
+
+                    $zc1 = $this->orm->createDAO("pm_mg_info");
+                    $zc1 ->select("sum(shiyong_zhichu_jiner) as aaa, sum(jiangli_renshu) as bbb");
+                    $zc1 ->selectLimit .= " and pm_mg_info.pm_name='".$vvv['pname']."' ";
+                    $zc1 ->selectLimit .= " and cate_id=1 and is_renling=1 ";
+                    $zc1 = $zc1->get();
+
+                    $pageDAO['pageData'][$kkk]['zc'] = $zc;
+                    $pageDAO['pageData'][$kkk]['zchj'] = sprintf("%.2f", $zc1[0]['aaa']);
+                    $pageDAO['pageData'][$kkk]['rshj'] = $zc1[0]['bbb'];
+                    //////////////////////////////////////////////////////////////////////////////////////////////
+                    // 项目调账
+                    $aaDAO = $this->orm->createDAO("pm_mg_amount_adjustment");
+                    $aaDAO ->selectLimit .= " AND ( in_pm_name= '".$vvv['pname']."' or out_pm_name = '".$vvv['pname']."')";
+                    $aaDAO ->selectLimit .= " ORDER BY datetimes DESC";
+                    $aaDAO = $aaDAO ->get();
+
+                    if(!empty($aaDAO)){
+                        $tzhj = 0;
+                        foreach($aaDAO as $key => $value){
+                            if($pageDAO['pageData'][0]['pname'] == $value['out_pm_name']){
+                                $tzhj = ($tzhj - $value['je']);
+                            }else {
+                                $tzhj = ($tzhj + $value['je']);
+                            }
+                        }
+                    }
+
+                    //////////////////////////////////////////////////////////////////////////////////////////////
+                    // 项目余额 = 捐赠收入 + 收益 - 捐赠支出 + 调账
+                    $xmye = sprintf("%.2f", $sr1[0]['aaa']) + sprintf("%.2f", $zz1[0]['aaa']) - sprintf("%.2f", $zc1[0]['aaa']) + $tzhj;
+                    if(number_format($xmye, 2) == 0){
+                        $xmye = 0;
+                    }
+                    $pageDAO['pageData'][$kkk]['xmye'] = $xmye;
+                }
+            }
+
+
             $this->view->assign('chouzilist', $pageDAO['pageData']);
             $this->view->assign('page', $pages);
             $this->view->assign('total', $total);
