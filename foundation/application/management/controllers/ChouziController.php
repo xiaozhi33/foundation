@@ -43,6 +43,9 @@
                 $chouziinfo->selectLimit = " and pm_qishi_datetime<'$starttime' and pm_jiezhi_datetime>'$endtime'";
             }*/
 
+            // 过滤逻辑删除的项目
+            $chouziinfo ->selectLimit .= ' AND is_del=0';
+
             // 按照星级倒序，之后按照创建id倒序
             $chouziinfo ->selectLimit .= " order by star desc, id desc";
 
@@ -1285,6 +1288,7 @@
 
             //项目名称列表
             $pm_chouzi = new pm_mg_chouziDAO();
+            $pm_chouzi ->selectLimit .= " AND is_del=0";
             $pm_chouzi ->selectLimit .= " order by id desc";
             $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
             $this->view->assign("pmlist",$pm_chouzi);
