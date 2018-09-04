@@ -1,4 +1,38 @@
-<?= $this->partial("common/header.phtml");?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><?php echo $this->newsinfo[0]['my_infor_title'];?></title>
+    <meta name="description" content="天津大学北洋教育发展基金会" />
+    <meta name="keywords" content="天津大学，天津大学北洋教育发展基金会，基金会" />
+    <link href="<?php echo __DEFAULTINCLUDEPATH__;?>css/style.css" rel="stylesheet"  type="text/css"/>
+    <script src="<?php echo __DEFAULTINCLUDEPATH__;?>js/silder.js" type="text/javascript" language="javascript"></script>
+    <script src="<?php echo __DEFAULTINCLUDEPATH__;?>js/tab.js" type="text/javascript"></script>
+</head>
+<body>
+<?php
+$front = Zend_Controller_Front::getInstance();
+$controller_name = $front->getRequest()->getControllerName();
+//var_dump($controller_name);
+?>
+<div class="jjh_container">
+    <div class="jjh_header">
+        <div class="jjh_topadv"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/topadv.jpg" /></div>
+        <div class="jjh_nav">
+            <ul>
+                <li><a <?php if($controller_name == "index"){?>id="linkon"<?php }?> href="/">首页</a></li>
+                <li><a <?php if($controller_name == "about" && $_GET['true'] != 1){?>id="linkon"<?php }?> href="/about">基金会概况</a></li>
+                <li><a <?php if($controller_name == "news"){?>id="linkon"<?php }?> href="/news/index?cid=xinwen">新闻中心</a></li>
+                <li><a <?php if($controller_name == "jjhpm"){?>id="linkon"<?php }?> href="/jjhpm">筹资项目</a></li>
+                <li><a <?php if($controller_name == "pmuse"){?>id="linkon"<?php }?> href="/pmuse">捐赠使用</a></li>
+                <li><a <?php if($controller_name == "about"  && $_GET['true'] == 1){?>id="linkon"<?php }?> href="/about?true=1">信息披露</a></li>
+                <li><a <?php if($controller_name == "heart"){?>id="linkon"<?php }?> href="/heart">捐赠故事</a></li>
+                <li><a <?php if($controller_name == "donate"){?>id="linkon"<?php }?> href="/donate">在线捐赠</a></li>
+                <li><a <?php if($controller_name == "contact"){?>id="linkon"<?php }?> href="/contact">联系我们</a></li>
+                <li style="background:none;"><a <?php if($controller_name == "en"){?>id="linkon"<?php }?> href="/en">English</a></li>
+            </ul>
+        </div>
+    </div>
 
 <div class="jjh_content_sub">
          <div class="jjh_content_sub_left">
