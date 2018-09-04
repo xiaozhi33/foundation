@@ -206,6 +206,9 @@
                         $zijininfo ->selectLimit .= " and pm_mg_info.pm_pp!=1 ";
                     }
 
+					// 过滤逻辑删除的项目
+					$zijininfo ->selectLimit .= " and c.is_del=0";
+
 					$pm_is_school = HttpUtil::postString("pm_is_school");
 					if($pm_is_school != ""){
 						$zijininfo ->selectLimit .= " and pm_is_school = ".$pm_is_school;
@@ -383,6 +386,9 @@
                         $zijininfo ->selectLimit .= " and pm_mg_info.pm_pp!=1 ";
                     }
 
+					// 过滤逻辑删除的项目
+					$zijininfo ->selectLimit .= " and c.is_del=0";
+
 					$pm_is_school = HttpUtil::postString("pm_is_school");
 					if($pm_is_school != ""){
 						$zijininfo ->selectLimit .= " and pm_is_school = ".$pm_is_school;
@@ -548,6 +554,9 @@
 						$zhichuinfo ->selectLimit .= " and shiyong_zhichu_datetime between '$shiyong_zhichu_datetime' and '$shiyong_zhichu_datetime1'";
 					}
 
+					// 过滤逻辑删除的项目
+					$zhichuinfo ->selectLimit .= " and c.is_del=0";
+
 					$zhichuinfo ->selectLimit .= " and cate_id=1 and is_renling=1 order by pm_mg_info.shiyong_zhichu_datetime ASC, bpath";
 					//$zhichuinfo ->debugSql =true;
 					$zhichuinfo = $zhichuinfo->get($this->dbhelper);
@@ -708,6 +717,9 @@
                     if($shiyong_zhichu_datetime != "" && $shiyong_zhichu_datetime1 != ""){
                         $zhichuinfo ->selectLimit .= " and shiyong_zhichu_datetime between '$shiyong_zhichu_datetime' and '$shiyong_zhichu_datetime1'";
                     }
+
+					// 过滤逻辑删除的项目
+					$zhichuinfo ->selectLimit .= " and c.is_del=0";
 
                     $zhichuinfo ->selectLimit .= " and cate_id=1 and is_renling=1 order by bpath";
                     //$zhichuinfo ->debugSql =true;
@@ -1417,6 +1429,9 @@
 					$zhichuinfo->selectLimit .= " and pm_mg_info.pm_name='" . $pname . "' ";
 				}
 				$zhichuinfo->selectLimit .= " and c.id!='' ";
+
+				// 过滤逻辑删除的项目
+				$zhichuinfo->selectLimit .= " and c.is_del=0";
 
 				$zhichuinfo->selectLimit .= " and pm_mg_info.is_renling=1 order by bpath ASC,zijin_daozhang_datetime ASC,shiyong_zhichu_datetime ASC";
 				//$zhichuinfo ->debugSql =true;
@@ -2205,6 +2220,7 @@
 
 			//项目名称列表
 			$pm_chouzi = new pm_mg_chouziDAO();
+			$pm_chouzi ->selectLimit .= " AND is_del=0";
             $pm_chouzi ->selectLimit .= " order by id desc";
 			$pm_chouzi = $pm_chouzi ->get($this->dbhelper);
 			$this->view->assign("pmlist",$pm_chouzi);
