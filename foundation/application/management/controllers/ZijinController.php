@@ -817,7 +817,7 @@
         /**
          * new签约信息
          */
-        public function newsigninfoAction(){
+        public function newsigninfo_bakAction(){
 
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("zijin/newsigninfo.phtml");
@@ -827,7 +827,7 @@
         /**
          * 添加协议
          */
-        public function newsavesignAction()
+        public function newsavesign_bakAction()
         {
             (int)$pm_id = HttpUtil::postString("pm_id");
             $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
@@ -908,6 +908,60 @@
             echo "window.location.href='/management/zijin/rate'; ";
             echo "</script>";
             exit();
+        }
+
+        /**
+         * 项目签约列表
+         */
+        public function newsigninfoAction()
+        {
+            $name = HttpUtil::getString("pname");
+
+            $signDAO = $this->orm->createDAO("pm_mg_sign");
+            $signDAO ->withPm_mg_chouzi(array("pm_id" => "id"));
+            $like_sql = "";
+            if($name != "")
+            {
+                $like_sql .= " AND pm_mg_chouzi.pname like '%".$name."%'";
+            }
+            $like_sql .= " order by id desc";
+            $signDAO->select(" pm_mg_sign.*,pm_mg_chouzi.pname");
+            $signDAO->selectLimit = $like_sql;
+            $signDAO = $signDAO ->get();
+
+            $total = count($signDAO);
+            $pageDAO = new pageDAO();
+            $pageDAO = $pageDAO->pageHelper($signDAO, null, "/management/zijin/rate", null, 'get', 25, 8);
+            $pages = $pageDAO['pageLink']['all'];
+            $pages = str_replace("/index.php", "", $pages);
+            $this->view->assign('signlist', $pageDAO['pageData']);
+            $this->view->assign('page', $pages);
+            $this->view->assign('total', $total);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("zijin/newsigninfo.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        /**
+         * 添加项目签约
+         */
+        public function newaddsignAction(){
+            $pname = $_REQUEST['pname'];
+            if(!empty($pname)){
+                // 查询该项目是否存在
+                $pminfoDAO = $this->orm->createDAO("pm_mg_chouzi")->findPname($pname)->get();
+                if(empty($peibiDAO)) {
+                    $this->alert_back("该项目不存在！");
+                }
+
+                $this->view->assign("pminfo", $pminfoDAO[0]);
+                echo $this->view->render("index/header.phtml");
+                echo $this->view->render("zijin/newaddsign.phtml");
+                echo $this->view->render("index/footer.phtml");
+            }else {
+                $this->alert_back("请选择批量添加配比项目");
+            }
         }
 
 
