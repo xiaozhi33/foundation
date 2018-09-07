@@ -7,13 +7,13 @@
 <div class="pageheader">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
-        <span>项目信息编辑</span></h2>
+        <span>项目进度</span></h2>
 
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
-            <li>项目信息编辑</li>
-            <li class="active">添加签约信息</li>
+            <li>项目进度管理</li>
+            <li class="active">项目进度</li>
         </ol>
     </div>
 
@@ -25,134 +25,104 @@
     <div id="rightstyle02" class="row">
         <div class="col-md-12">
             <section class="tile color transparent-white">
-                <div class="detailedbox tile-body">
-                    <form class="form-horizontal" action="newsavesign" method="post" encType="multipart/form-data">
+                <div class="tile-body">
+                    <form action="#" method="get" name="search_form">
                         <div class="form-group">
-                            <?php if(empty($this->signinfo['pname'])){?>
-                                <label class="col-sm-2 control-label" for="input01">项目名称：</label>
-                                <div class="col-sm-4">
-                                    <select class="chosen-select-1 chosen-transparent form-control" name="pm_id">
-                                        <option value="">请选择项目名称</option>
+
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="pname" class="col-sm-4 control-label">项目名称：</label>
+                                    <select class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                        <option value="1">请选择项目名称</option>
                                         <?php if($this->pmlist != ""){
                                             foreach ($this->pmlist as $k => $v){
                                                 ?>
-                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                                <option <?php if($_GET['pname'] == $v['pname']){echo 'selected=selected';}?> value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
                                             <?php }}?>
                                     </select>
-                                </div>
-                            <?php }else {?>
-                            <label class="col-sm-2 control-label" for="input01">项目名称：</label>
-                            <div class="col-sm-4">
-                                <input readonly name="pname" value="<?php echo $this->signinfo['pname'];?>" type="text"/>
-                                <input readonly name="pm_id" value="<?php echo $this->signinfo['pm_id'];?>" type="hidden"/>
-                            </div>
-                            <?php }?>
-                            <span class="col-sm-2" > * </span>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">签约时间：</label>
-                            <div class="col-sm-4">
-                                <input class="form-control" type="text" value="<?php echo $this->signinfo['sign_time'];?>"  data-date-format="YYYY-MM-DD" id="datepicker1"  name="sign_time"  size="14"/>
-                            </div>
-                            <span class="col-sm-2" > * </span>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">协议到账时间：</label>
-                            <div class="col-sm-4">
-                                <input class="form-control" type="text" value="<?php echo $this->signinfo['xydz_time'];?>"  data-date-format="YYYY-MM-DD" id="datepicker2"  name="xydz_time"  size="14"/>
-                            </div>
-                            <span class="col-sm-2" > * </span>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">协议金额：</label>
-                            <div class="col-sm-4">
-                                <input type="text" size="14" name="xyje" class="form-control" value="<?php echo $this->signinfo['xyje'];?>"  />
-                            </div>
-                            <span class="col-sm-2" > * </span>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">上传协议或补充协议：</label>
-                            <div class="col-sm-4">
-                                <input name="sign_files" type="file" value="" />
-                            </div>
-                            <span class="col-sm-2" >  * </span>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01"></label>
-                            <div class="col-sm-4">
-                                <?php echo $this->signinfo['sign_files_name'];?>
-                            </div>
-                            <span class="col-sm-2" >  * </span>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input01">是否已办捐赠仪式：</label>
-                            <div class="col-sm-4">
-                                <input type="radio" name="jzys" class="jzys" value="1" <?php if($this->signinfo['jzys'] == 1){?>checked<?php }?>/> 是
-                                <input type="radio" name="jzys" class="jzys" value="0" <?php if($this->signinfo['jzys'] == 0){?>checked<?php }?>/> 否
-                            </div>
-                            <span class="col-sm-2" > * </span>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input14">是否签约：</label>
-                            <div class="col-sm-3">
-                                <div class="checkbox check-transparent" style="padding-left:0px;">
-                                    <input type="checkbox" id="opt03" name="is_sign" value="2">
-                                    <label for="opt03">已签约</label>
+                                    <input id="pname_info" type="hidden" name="pname" value=""/>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group qianyue">
-                            <label class="col-sm-2 control-label" for="input01">签约仪式时间：</label>
-                            <div class="col-sm-4">
-                                <input type="text" size="14" name="jzys_time" id="datepicker" data-date-format="YYYY-MM-DD" class="form-control" value="<?php echo $this->signinfo['jzys_time'];?>">
-                            </div>
-                            <span class="col-sm-2" > * </span>
-                        </div>
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <!-- <label for="input02"> </label>-->
+                                    <input class="btn btn-primary btn-block" type="submit" value="搜   索"/>
+                                </div>
 
-                        <div class="form-group qianyue">
-                            <label class="col-sm-2 control-label" for="input01">签约仪式地点：</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="adress" class="form-control"  value="<?php echo $this->signinfo['adress'];?>"/>
-                            </div>
-                            <span class="col-sm-2" > * </span>
-                        </div>
-                        <input type="hidden" name="id" value="<?php echo $this->signinfo['id'];?>" />
-
-                        <div class="form-group form-footer">
-                            <div class="col-sm-offset-5 col-sm-7">
-                                <input class="btn btn-primary"  type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
-                                <input class="btn btn-default" type="reset" value="重 置" />
-                            </div>
-                        </div>
                     </form>
+                                <div class="form-group col-sm-3">
+                                    <!-- <label for="input02"> </label>-->
+                                    <input class="btn btn-primary btn-block" type="submit" value="批量添加签约信息"/>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+            </section>
+            <section class="tile color transparent-white">
+                <div class="tile-body nopadding">
+                    <?php if($this->signlist != ""){?>
+                    <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                        <thead>
+                        <tr>
+                            <td width="25%">项目名称</td>
+                            <td width="20%">签约时间</td>
+                            <td width="25%">签约协议</td>
+                            <td width="20%">协议金额（元）</td>
+                            <td width="10%">操作</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach($this->signlist as $k=>$v){?>
+                            <tr>
+                                <td>
+                                    <a href="/management/chouzi/index?pname=<?php echo $v['pname'];?>" target="_blank" ><?php echo $v['pname'];?></a>&nbsp;
+                                </td>
+                                <td><?php echo date("Y-m-d",strtotime($v['sign_time']));?></td>
+                                <td>
+                                    <!--<a href="<?php /*echo $v['sign_files'];*/?>">-->
+                                    <a href="/management/zijin/download?id=<?php echo $v['id'];?>">
+                                        >>点击下载 <?php if(!empty($v['sign_files_name'])){
+                                            echo $v['sign_files_name'];
+                                        }elseif(!empty($v['sign_files'])){
+                                            echo "协议文件";
+                                        }?>
+                                    </a></td>
+                                <td><?php if(!empty($v['xyje'])){echo number_format($v['xyje'],2);}else{echo "--";}?></td>
+                                <td>
+                                    <!-- <a href="/management/zijin/rateinfo/?pm_id=<?php /*echo $v['id'];*/?>">
+                                 <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
+                             </a>-->
+                                    <a href="/management/zijin/editsign?id=<?php echo $v['id'];?>">
+                                        <button class="btn btn-greensea margin-bottom-20" type="button">编辑签订</button>
+                                    </a>
+                                    &nbsp;&nbsp;
+                                    <!--<a href="#" onclick="alert('对不起，项目清单不提供删除功能，请联系管理员');">
+                                        <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
+                                    </a>-->
+                                </td>
+                            </tr>
+                        <?php }?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tile-footer">
+                    <div class="row">
+                        <div class="page col-md-12" align="right">
+                            共  <?php echo $this->total;?> 条筹资信息          <?php echo $this->page;?></div>
+
+                        <?php }else{?>
+                            <div>暂无网站资讯！<a href="/management/chouzi/addchouzi">点击添加</a></div>
+                        <?php }?>
+                    </div>
                 </div>
             </section>
         </div>
     </div>
 
-    <script language="javascript">
-        $(".menu li:eq(8)").addClass("open");
 
-        $(document).ready(function(){
-            <?php if($this->signinfo['jzys'] == 0){?> $(".qianyue").hide();<?php }?>
-            // 切换发票状态
-            $(".jzys").change(function(){
-                var $selectedvalue = $("input[name='jzys']:checked").val();
-                if ($selectedvalue == 0) {
-                    $(".qianyue").hide();
-                } else if($selectedvalue == 1) {
-                    $(".qianyue").show();
-                }
-            });
-        });
+    <script language="javascript">
+        $(".menu li:eq(18)").addClass("open");
     </script>

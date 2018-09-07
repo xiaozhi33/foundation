@@ -233,7 +233,7 @@
                     $this->alert_back("您输入的信息不完整，请查正后继续添加");
                 }
 
-                if (!is_numeric($income_jje) || $income_jje <= 0) {
+                if (!is_numeric($income_jje) || $income_jje < 0) {
                     $this->alert_back("您输入的收益金额不正确！请重新输入！");
                 }
 
@@ -258,12 +258,8 @@
                 $pm_incomeDAO->admin_id = $logName['admin_id'];
                 $pm_incomeDAO->admin_name = $logName['admin_name'];
 
-                $_pid = $pm_incomeDAO->save();   // $_pid 项目系统pm_id
-                if ($_pid) {
-                    $this->alert_go("编辑成功！", "/management/income");
-                } else {
-                    $this->alert_back("编辑失败！");
-                }
+                $pm_incomeDAO->save();   // $_pid 项目系统pm_id
+                $this->alert_go("编辑成功！", "/management/income");
             }else{
                 $this->alert_back("编辑失败！");
             }
