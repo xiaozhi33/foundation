@@ -95,12 +95,14 @@
             $this->admininfo = $my_adminDAO[0];
 
             $this->pm_count = $this->orm->createDAO("pm_mg_chouzi")->findDepartment($this->admininfo['department_id'])->get();
-
-            //捐赠项目金额
-            $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findCate_id(0)->select(" sum(zijin_daozheng_jiner) as allsum");
-            $pm_mg_infoDAO ->selectLimit .= ' AND pm_mg_info.pm_name IN (select pname from pm_mg_chouzi where department='.$this->admininfo['department_id'].')';
-            $pm_mg_infoDAO ->findIs_renling(1);
-            $pm_mg_infoDAO = $pm_mg_infoDAO ->get();
+            
+            if(!empty($admininfo['admin_info']['id'])){
+                //捐赠项目金额
+                $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findCate_id(0)->select(" sum(zijin_daozheng_jiner) as allsum");
+                $pm_mg_infoDAO ->selectLimit .= ' AND pm_mg_info.pm_name IN (select pname from pm_mg_chouzi where department='.$this->admininfo['department_id'].')';
+                $pm_mg_infoDAO ->findIs_renling(1);
+                $pm_mg_infoDAO = $pm_mg_infoDAO ->get();
+            }
 
             //会议活动
             $meetingDAO = $this->orm->createDAO("jjh_meeting")->get();

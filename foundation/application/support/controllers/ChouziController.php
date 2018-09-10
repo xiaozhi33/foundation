@@ -1023,7 +1023,9 @@
                 //////////////////////////////////////////////////////////////////////////////////////////////
 
                 // 项目意见反馈
-                $_support_feedbackDAO = $this->orm->createDAO("_support_feedback")->findPm_id($pm_mg_chouziDAO[0]['id'])->get();
+                $_support_feedbackDAO = $this->orm->createDAO("_support_feedback")->findPm_id($pm_mg_chouziDAO[0]['id']);
+                $_support_feedbackDAO ->selectLimit .= " ORDER BY datetimes desc ";
+                $_support_feedbackDAO = $_support_feedbackDAO->get();
                 $userlist = $this ->orm->createDAO("_support_college_user")->get();
 
                 $_user_list = array();
