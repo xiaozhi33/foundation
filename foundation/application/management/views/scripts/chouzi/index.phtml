@@ -181,7 +181,8 @@
 
 
                              <td>
-                                 最后来款：<?php echo substr($v['last_zijin'][0],0,10)." ". sprintf("%.2f",$v['last_zijin'][1]).'元';?>
+                                 <?php if(!empty($v['last_zijin'][0])){?>
+                                 最后来款：<?php echo substr($v['last_zijin'][0],0,10)." ". sprintf("%.2f",$v['last_zijin'][1]).'元';}?>
                                  <?php if(!empty($v['last_shiyong'][0])){?><br/>
                                  最后支出：<?php echo substr($v['last_shiyong'][0],0,10)." ". sprintf("%.2f",$v['last_shiyong'][1]).'元';}?>
                              </td>
