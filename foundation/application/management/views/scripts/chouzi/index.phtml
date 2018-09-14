@@ -120,15 +120,18 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="20%">项目名称</td>
+						<td width="15%">项目名称</td>
 
-                          <td width="10%">所属部门</td>
+                          <td width="6%">所属部门</td>
                           <td width="8%">负责人</td>
                           <td width="15%">总捐赠收入/总协议金额/余额（元）</td>
-                          <td width="8%">执行年限</td>
+                          <!--<td width="8%">执行年限</td>-->
 
                         <td width="14%">项目类型</td>
-                        <td width="15%">项目进度</td>
+
+                          <td width="20%">最后一次收入/支出时间和金额</td>
+
+                        <td width="12%">项目进度</td>
                        <!-- <td width="10%">星级</td>-->
 						<!--<td width="12%">部门名称</td><td width="18%">项目签约日期</td>
 						<td width="13%">协议捐赠金额</td>-->
@@ -167,15 +170,22 @@
                                  <?php echo sprintf("%.2f",$v[srhj]);?> / <?php echo sprintf("%.2f",$v[pm_xieyi_juanzeng_jiner]);?> / <?php echo sprintf("%.2f",$v[xmye]);?>
                              </td>
 
-                             <td>
-                                <?php if($v['pm_jiezhi_datetime']!='0000-00-00 00:00:00'){echo substr($v['pm_jiezhi_datetime'],0, 10);}else{echo "---";}?>
-                             </td>
+                             <!--<td>
+                                <?php /*if($v['pm_jiezhi_datetime']!='0000-00-00 00:00:00'){echo substr($v['pm_jiezhi_datetime'],0, 10);}else{echo "---";}*/?>
+                             </td>-->
 
 
                              <td style="padding: 2px;"><?php  foreach ($this->pcatelist as $kk => $vv){
                                      if($vv['id'] == $v['cate']){ echo $vv['catename'];}
                                  }?>&nbsp;</td>
 
+
+                             <td>
+                                 <?php if(!empty($v['last_zijin'][0])){?>
+                                 最后来款：<?php echo substr($v['last_zijin'][0],0,10)." ". sprintf("%.2f",$v['last_zijin'][1]).'元';}?>
+                                 <?php if(!empty($v['last_shiyong'][0])){?><br/>
+                                 最后支出：<?php echo substr($v['last_shiyong'][0],0,10)." ". sprintf("%.2f",$v['last_shiyong'][1]).'元';}?>
+                             </td>
                              <!--
 								
 							<td><?php /*echo substr($v['pm_qianyue_datetime'],0,10);*/?>&nbsp;</td>
