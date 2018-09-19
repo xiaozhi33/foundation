@@ -166,6 +166,7 @@
                     // 项目余额 = 捐赠收入 + 收益 - 捐赠支出 + 调账
                     $xmye = 0;
                     $xmye = sprintf("%.2f", $sr1[0]['aaa']) + sprintf("%.2f", $zz1[0]['aaa']) - sprintf("%.2f", $zc1[0]['aaa']) + $tzhj;
+                    $tzhj = 0;
                     if(number_format($xmye, 2) == 0){
                         $xmye = 0;
                     }
