@@ -151,6 +151,7 @@
                     $aaDAO ->selectLimit .= " ORDER BY datetimes DESC";
                     $aaDAO = $aaDAO ->get();
 
+                    $tzhj = 0;
                     if(!empty($aaDAO)){
                         $tzhj = 0;
                         foreach($aaDAO as $key => $value){
