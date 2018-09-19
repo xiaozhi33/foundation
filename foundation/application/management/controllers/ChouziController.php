@@ -155,8 +155,8 @@
                     if(!empty($aaDAO)){
                         $tzhj = 0;
                         foreach($aaDAO as $key => $value){
-                            if($pageDAO['pageData'][0]['pname'] == $value['out_pm_name']){
-                                $tzhj = ($tzhj + $value['je']);
+                            if($vvv['pname'] == $value['out_pm_name']){
+                                $tzhj = ($tzhj - $value['je']);
                             }else {
                                 $tzhj = ($tzhj + $value['je']);
                             }
