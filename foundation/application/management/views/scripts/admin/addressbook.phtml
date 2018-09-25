@@ -141,14 +141,14 @@
                     <?php
                     foreach($this->admin_list as $key => $value){?>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-10">
                                 <div class="col-md-2 user-handpic">
                                     <img src="<?php echo $value['headimg'];?>" alt/>
                                 </div>
 
                                 <div class="col-md-10 taskinfo-box">
                                     <div class="taskinfo-user"><?php echo $value['admin_name'];?></div>
-                                    <div class="taskinfo-info">【办公电话】<?php echo $value['phone'];?></div>
+                                    <div class="taskinfo-info" style="margin-top:20px;">【办公电话】<?php echo $value['phone'];?></div>
                                     <div class="taskinfo-info">【移动电话】<?php echo $value['mobile'];?></div>
                                     <div class="taskinfo-info">【电子邮箱】<?php echo $value['email'];?></div>
                                     <div class="taskinfo-info">【个人微信】<?php echo $value['wechat'];?></div>
