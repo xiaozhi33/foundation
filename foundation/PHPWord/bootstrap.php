@@ -15,7 +15,8 @@
  * @license     http://www.gnu.org/licenses/lgpl.txt LGPL version 3
  */
 
-$vendorDirPath = "E:\\xampp\\php\\vendor";  //realpath(__DIR__ . '/vendor');
+//$vendorDirPath = "E:\\xampp\\php\\vendor";
+realpath(__DIR__ . '/vendor');
 if (file_exists($vendorDirPath . '/autoload.php')) {
     require $vendorDirPath . '/autoload.php';
 } else {

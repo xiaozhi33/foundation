@@ -175,19 +175,22 @@
 
                     /////////////////////////////////////////////////////////////////////////////////////////////
                     // 项目最后收支时间和金额
+                    $pm_mg_infoDAO = '';
                     $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
                     $pm_mg_infoDAO ->select("zijin_daozhang_datetime, zijin_daozheng_jiner");
                     $pm_mg_infoDAO ->selectLimit.= " AND pm_name='".$vvv['pname']."'";
-                    $pm_mg_infoDAO ->selectLimit.= " AND cate_id=0 AND is_renling=1";
+                    $pm_mg_infoDAO ->selectLimit.= " AND cate_id=0 AND is_renling=1 and zijin_daozheng_jiner!=0";
                     $pm_mg_infoDAO ->selectLimit.= " ORDER BY zijin_daozhang_datetime DESC LIMIT 0,1";
                     $pm_mg_infoDAO = $pm_mg_infoDAO->get();
 
+                    $pm_mg_info_DAO = '';
                     $pm_mg_info_DAO = $this->orm->createDAO("pm_mg_info");
                     $pm_mg_info_DAO ->select("shiyong_zhichu_datetime, shiyong_zhichu_jiner");
                     $pm_mg_info_DAO ->selectLimit.= " AND pm_name='".$vvv['pname']."'";
-                    $pm_mg_info_DAO ->selectLimit.= " AND cate_id=1 AND is_renling=1";
+                    $pm_mg_info_DAO ->selectLimit.= " AND cate_id=1 AND is_renling=1 and shiyong_zhichu_jiner!=0";
                     $pm_mg_info_DAO ->selectLimit.= " ORDER BY shiyong_zhichu_datetime DESC LIMIT 0,1";
                     $pm_mg_info_DAO = $pm_mg_info_DAO->get();
+                    //var_dump($pm_mg_info_DAO);exit();
 
                     $pageDAO['pageData'][$kkk]['last_zijin'] = array($pm_mg_infoDAO[0]['zijin_daozhang_datetime'],$pm_mg_infoDAO[0]['zijin_daozheng_jiner']);
                     $pageDAO['pageData'][$kkk]['last_shiyong'] = array($pm_mg_info_DAO[0]['shiyong_zhichu_datetime'],$pm_mg_info_DAO[0]['shiyong_zhichu_jiner']);
