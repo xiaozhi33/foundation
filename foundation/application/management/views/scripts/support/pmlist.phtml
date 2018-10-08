@@ -105,8 +105,10 @@
 						共  <?php echo count($this->pmlist)//echo $this->total;?> 条          <?php echo $this->page;?></div>
 					
 				 <?php }else{?>
-				 	<!--<div style="padding:20px;">暂无信息！<a href="/management/support/add" target="_blank">点击添加</a></div>-->
-				 <?php }?>
+                     <div style="border:2px dashed #ccc;border-radius: 5px;padding:0px;margin: 10px 5px 10px 5px;" class="row">
+                        <a href="/management/support/savepmlist?id=<?php echo $_REQUEST["id"];?>" target="_blank"><p style="text-align:center;font-size: 14px;"><span>+&nbsp; 添加项目归属</span></p></a>
+                     </div>
+                <?php }?>
 		  </div>
 		</div> 
 			</section>

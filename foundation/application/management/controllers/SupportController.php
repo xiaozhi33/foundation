@@ -240,11 +240,16 @@ class Management_supportController extends BaseController {
             $array_pm_list[] = $_REQUEST['pid'];
         }
 
-        //var_dump($array_pm_list);exit();
+        $array_pm_list = array_filter($array_pm_list);
+        /*var_dump($support_id);
+        var_dump(implode(',',$array_pm_list));exit();*/
 
         $_pmlistDAO = $this->orm->createDAO("_support_pm_list");
-        $_pmlistDAO ->findSupport_id($support_id);
-
+        if(!empty($pmlistDAO)){
+            $_pmlistDAO ->findSupport_id($support_id);
+        }else {
+            $_pmlistDAO ->support_id = $support_id;
+        }
         $_pmlistDAO ->pm_id_list = implode(',',$array_pm_list);
         $_pmlistDAO ->lastmodify = time();
         $_pmlistDAO->save();
