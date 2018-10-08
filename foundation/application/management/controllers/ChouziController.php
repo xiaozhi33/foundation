@@ -63,6 +63,7 @@
                     // 获取 - 总捐赠收入/总协议金额/余额
                     /////////////////////////////////////////////////////////////////////////////////////////////////
                     // 项目收入
+                    $sr = '';
                     $sr = $this->orm->createDAO("pm_mg_info");
                     $sr->select(" DATE_FORMAT(zijin_daozhang_datetime,'%Y-%m-%d') AS stime ,pm_mg_info.*");
                     $sr->selectLimit .= " and pm_mg_info.pm_name='".$vvv['pname']."' ";
@@ -70,6 +71,7 @@
                     $sr->selectLimit .= " ORDER BY stime ASC ";
                     $sr = $sr->get();
 
+                    $sr1 = '';
                     $sr1 = $this->orm->createDAO("pm_mg_info");
                     $sr1 ->select("sum(zijin_daozheng_jiner) as aaa");
                     $sr1 ->selectLimit .= " and pm_mg_info.pm_name='".$vvv['pname']."' ";
@@ -101,11 +103,13 @@
 
                     /////////////////////////////////////////////////////////////////////////////////////////////////
                     // 项目增值
+                    $zz = '';
                     $zz = $this->orm->createDAO("pm_mg_income");
                     $zz->selectLimit .= " and pid='".$vvv['id']."' ";
                     $zz->selectLimit .= " ORDER BY income_datetime asc ";
                     $zz = $zz->get();
 
+                    $zz1 = '';
                     $zz1 = $this->orm->createDAO("pm_mg_income");
                     $zz1 ->select("sum(income_jje) as aaa");
                     $zz1->selectLimit .= " and pid='".$vvv['id']."' ";
@@ -122,12 +126,14 @@
 
                     /////////////////////////////////////////////////////////////////////////////////////////////////
                     // 项目支出
+                    $zc = '';
                     $zc = $this->orm->createDAO("pm_mg_info");
                     $zc->selectLimit .= " and pm_mg_info.pm_name='".$vvv['pname']."' ";
                     $zc->selectLimit .= " and cate_id=1 and is_renling=1 and shiyong_zhichu_jiner!=0";
                     $zc->selectLimit .= " ORDER BY shiyong_zhichu_datetime asc ";
                     $zc = $zc->get();
 
+                    $zc1 = '';
                     $zc1 = $this->orm->createDAO("pm_mg_info");
                     $zc1 ->select("sum(shiyong_zhichu_jiner) as aaa, sum(jiangli_renshu) as bbb");
                     $zc1 ->selectLimit .= " and pm_mg_info.pm_name='".$vvv['pname']."' ";
@@ -139,15 +145,17 @@
                     $pageDAO['pageData'][$kkk]['rshj'] = $zc1[0]['bbb'];
                     //////////////////////////////////////////////////////////////////////////////////////////////
                     // 项目调账
+                    $aaDAO = '';
                     $aaDAO = $this->orm->createDAO("pm_mg_amount_adjustment");
                     $aaDAO ->selectLimit .= " AND ( in_pm_name= '".$vvv['pname']."' or out_pm_name = '".$vvv['pname']."')";
                     $aaDAO ->selectLimit .= " ORDER BY datetimes DESC";
                     $aaDAO = $aaDAO ->get();
 
+                    $tzhj = 0;
                     if(!empty($aaDAO)){
                         $tzhj = 0;
                         foreach($aaDAO as $key => $value){
-                            if($pageDAO['pageData'][0]['pname'] == $value['out_pm_name']){
+                            if($vvv['pname'] == $value['out_pm_name']){
                                 $tzhj = ($tzhj - $value['je']);
                             }else {
                                 $tzhj = ($tzhj + $value['je']);
@@ -157,7 +165,9 @@
 
                     //////////////////////////////////////////////////////////////////////////////////////////////
                     // 项目余额 = 捐赠收入 + 收益 - 捐赠支出 + 调账
+                    $xmye = 0;
                     $xmye = sprintf("%.2f", $sr1[0]['aaa']) + sprintf("%.2f", $zz1[0]['aaa']) - sprintf("%.2f", $zc1[0]['aaa']) + $tzhj;
+                    $tzhj = 0;
                     if(number_format($xmye, 2) == 0){
                         $xmye = 0;
                     }
@@ -165,19 +175,22 @@
 
                     /////////////////////////////////////////////////////////////////////////////////////////////
                     // 项目最后收支时间和金额
+                    $pm_mg_infoDAO = '';
                     $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
                     $pm_mg_infoDAO ->select("zijin_daozhang_datetime, zijin_daozheng_jiner");
                     $pm_mg_infoDAO ->selectLimit.= " AND pm_name='".$vvv['pname']."'";
-                    $pm_mg_infoDAO ->selectLimit.= " AND cate_id=0 AND is_renling=1";
+                    $pm_mg_infoDAO ->selectLimit.= " AND cate_id=0 AND is_renling=1 and zijin_daozheng_jiner!=0";
                     $pm_mg_infoDAO ->selectLimit.= " ORDER BY zijin_daozhang_datetime DESC LIMIT 0,1";
                     $pm_mg_infoDAO = $pm_mg_infoDAO->get();
 
+                    $pm_mg_info_DAO = '';
                     $pm_mg_info_DAO = $this->orm->createDAO("pm_mg_info");
                     $pm_mg_info_DAO ->select("shiyong_zhichu_datetime, shiyong_zhichu_jiner");
                     $pm_mg_info_DAO ->selectLimit.= " AND pm_name='".$vvv['pname']."'";
-                    $pm_mg_info_DAO ->selectLimit.= " AND cate_id=1 AND is_renling=1";
+                    $pm_mg_info_DAO ->selectLimit.= " AND cate_id=1 AND is_renling=1 and shiyong_zhichu_jiner!=0";
                     $pm_mg_info_DAO ->selectLimit.= " ORDER BY shiyong_zhichu_datetime DESC LIMIT 0,1";
                     $pm_mg_info_DAO = $pm_mg_info_DAO->get();
+                    //var_dump($pm_mg_info_DAO);exit();
 
                     $pageDAO['pageData'][$kkk]['last_zijin'] = array($pm_mg_infoDAO[0]['zijin_daozhang_datetime'],$pm_mg_infoDAO[0]['zijin_daozheng_jiner']);
                     $pageDAO['pageData'][$kkk]['last_shiyong'] = array($pm_mg_info_DAO[0]['shiyong_zhichu_datetime'],$pm_mg_info_DAO[0]['shiyong_zhichu_jiner']);

@@ -115,24 +115,46 @@
 			</div>
 			</section>
 			<section class="tile color transparent-white">
-				<div class="tile-body nopadding">
+				<tr class="tile-body nopadding">
 				<?php if($this->chouzilist != ""){?>
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="15%">项目名称</td>
+						  <td width="20%">项目名称</td>
 
                           <td width="6%">所属部门</td>
-                          <td width="8%">负责人</td>
-                          <td width="15%">总捐赠收入/总协议金额/余额（元）</td>
+                          <td width="14%">项目类型</td>
+                          <!--<td width="8%">负责人</td>-->
+                          <td width="15%">总捐赠收入<!--/总协议金额-->/余额（元）</td>
                           <!--<td width="8%">执行年限</td>-->
 
-                        <td width="14%">项目类型</td>
+                          <td width="15%">
+                              <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                                  <tr>
+                                      最近一笔收入
+                                  </tr>
+                                  <tr>
+                                      <td width="50%">金额（元）</td>
+                                      <td width="50%" style="border-right: 1px solid #ddd;">时间</td>
+                                  </tr>
+                              </table>
+                          </td>
 
-                          <td width="20%">最后一次收入/支出时间和金额</td>
+                          <td width="15%">
+                              <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                                  <tr>
+                                      最近一笔支出
+                                  </tr>
+                                  <tr>
+                                      <td width="50%">金额（元）</td>
+                                      <td width="50%" style="border-right: 1px solid #ddd;">时间</td>
+                                  </tr>
+                              </table>
+                          </td>
 
-                        <td width="12%">项目进度</td>
-                       <!-- <td width="10%">星级</td>-->
+
+                        <!--<td width="12%">项目进度</td>-->
+                        <!-- <td width="10%">星级</td>-->
 						<!--<td width="12%">部门名称</td><td width="18%">项目签约日期</td>
 						<td width="13%">协议捐赠金额</td>-->
                           <?php if (in_array($this->admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
@@ -155,19 +177,23 @@
                                  }?>&nbsp;
                              </td>
 
-                             <td>
-                                 <?php  foreach ($this->jjh_mg_pp_list as $kk => $vv){
+                             <td style="padding: 2px;"><?php  foreach ($this->pcatelist as $kk => $vv){
+                                     if($vv['id'] == $v['cate']){ echo $vv['catename'];}
+                                 }?>&nbsp;</td>
+
+                             <!--<td>
+                                 <?php /* foreach ($this->jjh_mg_pp_list as $kk => $vv){
                                      if($kk == $v['pm_fzr']){ echo "<a href='/management/pp/ppinfo?id=".$kk."' target='_blank'>".$vv."</a>";}
-                                 }?>
+                                 }*/?>
 
                                  <?php
-                                    if(empty($v['pm_fzr'])){
+/*                                    if(empty($v['pm_fzr'])){
                                      echo "---";
-                                 }?>&nbsp;
-                             </td>
+                                 }*/?>&nbsp;
+                             </td>-->
 
                              <td>
-                                 <?php echo sprintf("%.2f",$v[srhj]);?> / <?php echo sprintf("%.2f",$v[pm_xieyi_juanzeng_jiner]);?> / <?php echo sprintf("%.2f",$v[xmye]);?>
+                                 <?php echo sprintf("%.2f",$v[srhj]);?> / <?php //echo sprintf("%.2f",$v[pm_xieyi_juanzeng_jiner]);?><!-- / --><?php echo sprintf("%.2f",$v[xmye]);?>
                              </td>
 
                              <!--<td>
@@ -175,45 +201,61 @@
                              </td>-->
 
 
-                             <td style="padding: 2px;"><?php  foreach ($this->pcatelist as $kk => $vv){
-                                     if($vv['id'] == $v['cate']){ echo $vv['catename'];}
-                                 }?>&nbsp;</td>
-
+                             <!--<td>
+                                 <?php /*if(!empty($v['last_zijin'][0])){*/?>
+                                 最后来款：<?php /*echo substr($v['last_zijin'][0],0,10)." ". sprintf("%.2f",$v['last_zijin'][1]).'元';}*/?>
+                                 <?php /*if(!empty($v['last_shiyong'][0])){*/?><br/>
+                                 最后支出：<?php /*echo substr($v['last_shiyong'][0],0,10)." ". sprintf("%.2f",$v['last_shiyong'][1]).'元';}*/?>
+                             </td>-->
 
                              <td>
-                                 <?php if(!empty($v['last_zijin'][0])){?>
-                                 最后来款：<?php echo substr($v['last_zijin'][0],0,10)." ". sprintf("%.2f",$v['last_zijin'][1]).'元';}?>
-                                 <?php if(!empty($v['last_shiyong'][0])){?><br/>
-                                 最后支出：<?php echo substr($v['last_shiyong'][0],0,10)." ". sprintf("%.2f",$v['last_shiyong'][1]).'元';}?>
+                                <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                                    <tr>
+                                        <td width="50%"><?php echo sprintf("%.2f",$v['last_zijin'][1]);?></td>
+                                        <td width="50%" style="border-right: 1px solid #ddd;"><?php echo substr($v['last_zijin'][0],0,10);?></td>
+                                    </tr>
+                                </table>
                              </td>
+
+                            <td>
+                                <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                                    <?php if(!empty($v['last_shiyong'][0])){?>
+                                        <tr>
+                                            <td width="50%"><?php echo sprintf("%.2f",$v['last_shiyong'][1]);?></td>
+                                            <td width="50%" style="border-right: 1px solid #ddd;"><?php echo substr($v['last_shiyong'][0],0,10);?></td>
+                                        </tr>
+                                    <?php }?>
+                                </table>
+                            </td>
+
                              <!--
 								
 							<td><?php /*echo substr($v['pm_qianyue_datetime'],0,10);*/?>&nbsp;</td>
 							<td><?php echo $v['pm_xieyi_juanzeng_jiner'];?>&nbsp;元</td>-->
 
-                             <td style="padding: 2px;">
-                                 <?php if($v['pm_rate'] == ""){ ?>
+                             <!--<td style="padding: 2px;">
+                                 <?php /*if($v['pm_rate'] == ""){ */?>
                                      ---
-                                 <?php }if(preg_match("/1/", $v['pm_rate'])){ ?>
+                                 <?php /*}if(preg_match("/1/", $v['pm_rate'])){ */?>
                                      已立项&nbsp;
-                                 <?php }if(preg_match("/2/", $v['pm_rate'])){?>
+                                 <?php /*}if(preg_match("/2/", $v['pm_rate'])){*/?>
                                      已签约&nbsp;
-                                 <?php }if(preg_match("/3/", $v['pm_rate'])){?>
+                                 <?php /*}if(preg_match("/3/", $v['pm_rate'])){*/?>
                                      已到帐&nbsp;
-                                 <?php }if(preg_match("/4/", $v['pm_rate'])){ ?>
+                                 <?php /*}if(preg_match("/4/", $v['pm_rate'])){ */?>
                                      已执行&nbsp;
-                                 <?php }if(preg_match("/5/", $v['pm_rate'])){?>
+                                 <?php /*}if(preg_match("/5/", $v['pm_rate'])){*/?>
                                      已回馈&nbsp;
-                                 <?php }if(preg_match("/6/", $v['pm_rate'])){?>
+                                 <?php /*}if(preg_match("/6/", $v['pm_rate'])){*/?>
                                      已完结&nbsp;
-                                 <?php }if(preg_match("/7/", $v['pm_rate'])){?>
+                                 <?php /*}if(preg_match("/7/", $v['pm_rate'])){*/?>
                                      待催款&nbsp;
-                                 <?php }if(preg_match("/8/", $v['pm_rate'])){?>
+                                 <?php /*}if(preg_match("/8/", $v['pm_rate'])){*/?>
                                      正常执行&nbsp;
-                                 <?php }if(preg_match("/9/", $v['pm_rate'])){?>
+                                 <?php /*}if(preg_match("/9/", $v['pm_rate'])){*/?>
                                      待结项&nbsp;
-                                 <?php }?>
-                             </td>
+                                 <?php /*}*/?>
+                             </td>-->
 
                             <!--<td style="padding: 2px;">
                                  <div class="starbox1">
@@ -332,7 +374,7 @@
 
 
         <script language="javascript">
-            $(".menu li:eq(18)").addClass("open");
+            //$(".menu li:eq(18)").addClass("open");
 
             jQuery(document).ready(function($) {
                 // 消息提示框
@@ -961,4 +1003,6 @@
         }
         return true;
     });
+
+    $("#xmxxcxytj").addClass("open");
 </script>

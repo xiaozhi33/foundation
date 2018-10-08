@@ -405,7 +405,7 @@
                 
                 <ul class="menu">
 
-                    <li class="dropdown">
+                    <li class="dropdown" id="rygl">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-user"></i> 人员管理 <b class="fa fa-plus dropdown-plus"></b>
                         </a>
@@ -418,6 +418,9 @@
                          </ul>
                     </li>
 
+
+
+                    <li class="dropdown" id="zzbzgl">
                     <!--<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-level-up"></i>  增值保值管理 <b class="fa fa-plus dropdown-plus"></b>
@@ -514,7 +517,7 @@
 
                     <?php if (in_array($admininfo['admin_info']['admin_type'],array(0,1,4))){?>
 
-                        <li class="dropdown">
+                        <li class="dropdown" id="xmxxbj">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-tumblr-square"></i> 项目信息编辑 <b class="fa fa-plus dropdown-plus"></b>
                             </a>
@@ -631,7 +634,7 @@
                     <?php }?>
 
 
-                    <li class="dropdown">
+                    <li class="dropdown" id="xmxxcxytj">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bar-chart-o"></i> 项目信息查询与统计 <b class="fa fa-plus dropdown-plus"></b>
                         </a>
@@ -729,7 +732,7 @@
                         </ul>
                     </li>-->
 
-                    <li class="dropdown">
+                    <li class="dropdown" id="jggl">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-th"></i> 机构管理 <b class="fa fa-plus dropdown-plus"></b>
                         </a>
@@ -768,7 +771,7 @@
                     </li>
 
 
-                    <li class="dropdown">
+                    <li class="dropdown" id="wdgl">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-building-o"></i> 文档管理 <b class="fa fa-plus dropdown-plus"></b>
                         </a>
@@ -781,7 +784,7 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown">
+                    <li class="dropdown" id="swrwgl">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-tasks"></i> 事务/任务管理 <b class="fa fa-plus dropdown-plus"></b>
                         </a>
@@ -794,7 +797,7 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown">
+                    <li class="dropdown" id="hyhdgl">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-th-large"></i> 会议活动管理 <b class="fa fa-plus dropdown-plus"></b>
                         </a>
@@ -814,7 +817,7 @@
                     </li>
 
 
-                    <li class="dropdown">
+                    <li class="dropdown" id="wpgl">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-list-alt"></i> 物品管理 <b class="fa fa-plus dropdown-plus"></b>
                         </a>
@@ -832,7 +835,7 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown">
+                    <li class="dropdown" id="clgl">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-list"></i> 车辆管理 <b class="fa fa-plus dropdown-plus"></b>
                         </a>
@@ -868,6 +871,23 @@
                             </li>
                         </ul>
                     </li>-->
+                <?php //if (in_array($admininfo['admin_info']['admin_type'],array(0,1,2,3,4))){?>
+				<li class="dropdown" id="ywxggl">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-desktop"></i> 业务相关管理 <b class="fa fa-plus dropdown-plus"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a href="/management/admin/department">
+                                <i class="fa fa-caret-right"></i> 部门管理 - 部门信息列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/management/admin/adddepartment">
+                                <i class="fa fa-caret-right"></i> 部门管理 - 添加部门信息
+                            </a>
+                        </li>
 
 				<?php if (in_array($admininfo['admin_info']['admin_type'],array(0))){?>
 				<li class="dropdown">
@@ -964,8 +984,44 @@
                     </li>
                     <?php //}?>
 
-				  
-				  <li class="dropdown">
+				<?php if (in_array($admininfo['admin_info']['admin_type'],array(0))){?>
+				<li class="dropdown" id="glzcygl">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-user-md"></i> 管理组成员管理 <b class="fa fa-plus dropdown-plus"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a href="/management/admin">
+                          <i class="fa fa-caret-right"></i> 管理员列表
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/management/admin/add">
+                          <i class="fa fa-caret-right"></i> 添加管理员
+                        </a>
+                      </li>
+
+
+                        <li>
+                            <a href="/management/admin/admingroup">
+                                <i class="fa fa-caret-right"></i> 管理员角色列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/management/admin/addadmingroup">
+                                <i class="fa fa-caret-right"></i> 添加管理员角色
+                            </a>
+                        </li>
+
+					  <li>
+                        <a href="/management/admin/editpwd">
+                          <i class="fa fa-caret-right"></i> 编辑管理员密码
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+
+				  <li class="dropdown" id="rzgl">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <i class="fa fa-pencil"></i> 日志管理 <b class="fa fa-plus dropdown-plus"></b>
                     </a>

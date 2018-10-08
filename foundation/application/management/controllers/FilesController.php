@@ -1,13 +1,39 @@
 <?php
 	require_once("BaseController.php");
+    //include_once '/phpword/samples/Sample_Header.php';
+
+    // Template processor instance creation
+    //echo date('H:i:s') , ' Creating new TemplateProcessor instance...' , EOL;
+    //$templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('resources/1.docx');
+
+    // Will clone everything between ${tag} and ${/tag}, the number of times. By default, 1.
+    //$templateProcessor->cloneBlock('CLONEME', 3);
+
+    // Everything between ${tag} and ${/tag}, will be deleted/erased.
+    //$templateProcessor->deleteBlock('DELETEME');
+
+
+    // setting to DB 导入对应数据
+    /*$templateProcessor ->setValue("niandu" , "2018");
+    $templateProcessor ->setValue("xdx" , "11111111111.231");
+    $templateProcessor ->setValue("xdx-heji" , "22222222.212");*/
+
+    //echo date('H:i:s'), ' Saving the result document...', EOL;
+    //$templateProcessor->saveAs('results/1.docx');
+
+    //echo getEndingNotes(array('Word2007' => 'docx'));
+    /*if (!CLI) {
+        include_once 'Sample_Footer.php';
+    }*/
+
     //  require_once("/phpword");
 	class Management_filesController extends BaseController
     {
 		public function indexAction(){
             $filesDAO = $this->orm->createDAO('jjh_mg_files')->order('id DESC');
-            if(!empty($_REQUEST['name'])){
-                //$filesDAO->findName($_REQUEST['name']);
-                $filesDAO->selectLimit .= " AND name like '%".$_REQUEST['name']."%'";
+            if(!empty($_REQUEST['keywords'])){
+                $keywords = $_REQUEST['keywords'];
+                $filesDAO->selectLimit .= " AND (name like '%".$keywords."%' OR description like '%".$keywords."%')";
                 $this->view->assign("name", $_REQUEST['name']);
             }
             if(!empty($_REQUEST['type'])){

@@ -58,31 +58,45 @@
                             </tr>
 
                             <tr>
-                                <td>财务系统对应项目：</td>
-                                <td id="zw_xm"><input size="38" type="text" id="zw_xmmc" name="zw_xmmc" value="" readonly/></td>
-                                <input type="hidden" name="zw_xmbh" id="zw_xmbh" value=""/>
+                                <td>财务系统对应项目信息：</td>
+
+                                <td>
+                                    项目编号：<input size="38" type="text" id="zw_xmbh" name="zw_xmbh" value="" readonly/>
+                                    项目名称：<input size="38" type="text" id="zw_xmmc" name="zw_xmmc" value="" readonly/>
+                                </td>
+
+                                <!--<input type="text" name="zw_xmbh" id="zw_xmbh" value=""/>-->
                             </tr>
+
                             <!-- 项目相关 end-->
                             <!-- 部门相关信息 start-->
 
-                            <tr>
+                            <!--<tr>
                                 <td>认领到部门：</td>
                                 <td>
                                     <select class="chosen-select-1 chosen-transparent form-control" name="pm_bmbh" id="department">
-                                        <?php if($this->department_list != ""){
+                                        <?php /*if($this->department_list != ""){
                                             foreach ($this->department_list as $k => $v){
-                                                ?>
-                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
-                                            <?php }}?>
+                                                */?>
+                                                <option value="<?php /*echo $v['id'];*/?>"><?php /*echo $v['pname'];*/?></option>
+                                            <?php /*}}*/?>
                                     </select>
                                     <input id="department_id" type="hidden" name="department_id" value=""/>
                                 </td>
+                            </tr>-->
+
+                            <tr>
+                                <td>项目系统所在部门：</td>
+                                <td id="zw_bm"><input size="38" type="text" id="department_name" name="department_name" readonly/></td>
                             </tr>
 
                             <tr>
-                                <td>财务系统对应部门：</td>
-                                <td id="zw_bm"><input size="38" type="text" id="zw_bmmc" name="zw_bmmc" readonly/></td>
-                                <input type="hidden" name="zw_bmbh" id="zw_bmbh"/>
+                                <td>财务系统对应部门信息：</td>
+                                <td id="zw_bm">
+                                    财务部门编号：<input type="text" name="zw_bmbh" id="zw_bmbh" readonly/>
+                                    财务部门名称：<input size="38" type="text" id="zw_bmmc" name="zw_bmmc" readonly/>
+                                </td>
+                                <!--<input type="hidden" name="zw_bmbh" id="zw_bmbh"/>-->
                             </tr>
 
                             <!-- 部门相关信息  end-->
@@ -195,7 +209,7 @@
 
 
         <script language="javascript">
-            $(".menu li:eq(8)").addClass("open");
+            $("#xmxxbj").addClass("open");
 
             $(document).ready(function(){
 
@@ -208,7 +222,7 @@
 
                 // 切换部门ajax对应财务部门信息
                 $("#department").change(function(){
-                    GetZWbm($(this).children('option:selected').val());
+                    // GetZWbm($(this).children('option:selected').val());
                 });
 
                 // 切换发票状态
@@ -235,16 +249,19 @@
                             //console.log(data);
                             $("#zw_xmbh").val(data.zw_xmbh);
                             $("#zw_xmmc").val(data.zw_xmmc);
+                            $("#zw_bmbh").val(data.zw_bmbh);
+                            $("#zw_bmmc").val(data.zw_bmmc);
+                            $("#department_name").val(data.pname);
 
                             //关联部门
                             //$("#department").val(data.department);
-                            $("#department option[value='"+data.department+"']").attr("selected","selected");
+                            /*$("#department option[value='"+data.department+"']").attr("selected","selected");
                             $("#department").chosen();
 
                             $("#department").trigger("liszt:updated");
-                            $("#department").trigger("chosen:updated");
+                            $("#department").trigger("chosen:updated");*/
 
-                            GetZWbm(data.department);
+                            // GetZWbm(data.department);
 
                         }else {
                             $("#zw_xmbh").attr("value","");

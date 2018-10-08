@@ -46,8 +46,8 @@
 
                                 <div class="row">
                                     <div class="form-group col-sm-3">
-                                        <label for="pname">文档名称：</label>
-                                        <input id="name" class="form-control" type="text" name="name" value="<?php echo $this->name;?>"/>
+                                        <label for="pname">关键词：</label>
+                                        <input id="name" class="form-control" type="text" name="keywords" value="<?php echo $_REQUEST["keywords"];?>"/>
                                     </div>
 
                                     <div class="form-group col-sm-3">
@@ -145,5 +145,5 @@
 		</div>
 
         <script language="javascript">
-            $(".menu li:eq(33)").addClass("open");
+            $("#wdgl").addClass("open");
         </script>

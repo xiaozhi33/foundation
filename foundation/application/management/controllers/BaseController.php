@@ -470,6 +470,19 @@
             }
         }
 
+        /**
+         * 获取部门信息
+         */
+        public function getdepartmentbyid($pid){
+            if(!empty($pid)){
+                $departmentinfo = $this->orm->createDAO("jjh_mg_department")->findId($pid);
+                $departmentinfo = $departmentinfo->get();
+                return $departmentinfo[0];
+            }else {
+                return false;
+            }
+        }
+
 
 
 		/**

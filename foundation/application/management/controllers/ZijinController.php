@@ -572,6 +572,12 @@
             $pm_mg_chouziDAO = $pm_mg_chouziDAO->get();
 
             $zw_pm_relatedDAO[0]['department'] = $pm_mg_chouziDAO[0]['department'];
+            $zw_pm_relatedDAO[0]['department_info'] = $this->getdepartmentbyid($pm_mg_chouziDAO[0]['department']);
+            $zw_pm_relatedDAO[0]['pname'] = $zw_pm_relatedDAO[0]['department_info']['pname'];
+
+            $zw_department_related = $this->orm->createDAO("zw_department_related")->findZw_bmbh($zw_pm_relatedDAO[0]['zw_bmbh'])->get();
+            $zw_pm_relatedDAO[0]['zw_bmmc'] = $zw_department_related[0]['zw_bmmc'];
+            // pm_name 项目名称	zw_xmbh 项目编号 zw_xmmc 项目名称 zw_bmbh
 
             if($zw_pm_relatedDAO != ""){
                 echo json_encode($zw_pm_relatedDAO[0]);
