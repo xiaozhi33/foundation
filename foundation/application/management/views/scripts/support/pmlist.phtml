@@ -1,0 +1,119 @@
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>编辑项目归属</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>学院管理</li>
+            <li class="active">编辑项目归属</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+	<div id="rightstyle02" class="row">
+		<div class="col-md-12">
+			<!--<section class="tile color transparent-white">
+			<div class="tile-body">
+                <form action="#" method="get">
+                    <div class="form-group">
+
+                        <div class="row">
+                            <div class="form-group col-sm-3">
+
+                                <label for="input01">项目名称：</label>
+                                <input type="text" class=" form-control" value="<?php /*echo $_REQUEST['pname']*/?>" name="pname"/>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-sm-1">
+                                    <label for="input01"> </label>
+                                    <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
+			</div>
+			</section>-->
+            <section class="tile color transparent-white">	
+                <div class="tile-body nopadding">				
+				<?php if(count($this->pmlist) > 0){?>
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					  <thead>
+                          <tr>
+                            <td width="6%">项目序号</td>
+                            <td width="40%">项目名称</td>
+                            <td width="15%">所属部门</td>
+                            <td width="15%">项目类型</td>
+                            <td width="10%">操作</td>
+                          </tr>
+						</thead>
+                      <tbody>
+					  <?php 
+						foreach($this->pmlist as $k=>$v){?>
+						 <tr>
+						 	 <td><?php echo $v['id'];?></td>
+                             <td><a href="/management/chouzi/repminfo?id=<?php echo $v['id'];?>" target="_blank"><?php echo $v['pname'];?></a></td>
+                             <td><?php echo $this->department_list[$v['department']];?></td>
+                             <td><?php echo $this->cate_list[$v['cate']];?></td>
+                             <td>
+                                     <!--<a href="/management/support/edit?id=<?php /*echo $v['id'];*/?>" target="_blank">
+                                         <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                                     </a>
+                                     &nbsp;&nbsp;
+                                    <a href="/management/support/pmlist?id=<?php /*echo $v['id'];*/?>" target="_blank">
+                                        <button class="btn btn-greensea margin-bottom-20" type="button">归属项目</button>
+                                    </a>
+                                    &nbsp;&nbsp;-->
+
+
+                                    <a href="/management/chouzi/repminfo?id=<?php echo $v['id'];?>" target="_blank">
+                                        <button class="btn btn-greensea margin-bottom-20" type="button">查看项目详情</button>
+                                    </a>
+                                    &nbsp;&nbsp;
+                                    <a href="/management/support/delpm?id=<?php echo $_REQUEST['id'];?>&pid=<?php echo $v['id'];?>" onclick="return window.confirm('确定要删除这条项目归属吗?');">
+                                        <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
+                                    </a>
+                                </td>
+                            </tr>
+					   <?php }?>
+                       </tbody>
+					</table>
+				</div>
+
+                <div style="border:2px dashed #ccc;border-radius: 5px;padding:0px;margin: 10px 5px 10px 5px;" class="row">
+                    <a href="/management/support/savepmlist?id=<?php echo $_REQUEST["id"];?>" target="_blank"><p style="text-align:center;font-size: 14px;"><span>+&nbsp; 添加项目归属</span></p></a>
+                </div>
+
+
+				<div class="tile-footer transparent-white">
+				<div class="row">
+					<div class="page col-md-12" align="right">
+						共  <?php echo count($this->pmlist)//echo $this->total;?> 条          <?php echo $this->page;?></div>
+					
+				 <?php }else{?>
+				 	<!--<div style="padding:20px;">暂无信息！<a href="/management/support/add" target="_blank">点击添加</a></div>-->
+				 <?php }?>
+		  </div>
+		</div> 
+			</section>
+        </div>
+    </div>
+
+    <script src="/include/management/assets/js/jquery.js"></script>
+    <script language="javascript">
+        $("#glzcygl").addClass("open");
+    </script>

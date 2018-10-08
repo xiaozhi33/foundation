@@ -156,6 +156,14 @@
                 }
             }
 
+            $cateDAO = $this->orm->createDAO("jjh_mg_cate")->get();
+            $_cateDAO = array();
+            if(!empty($cateDAO)){
+                foreach ($cateDAO as $key => $value) {
+                    $_cateDAO[$value['id']] = $value['catename'];
+                }
+            }
+
             $this->view->assign(array(
 				"module" => $request_mod['module'],
 				"controller" => $request_mod['controller'],
@@ -172,6 +180,7 @@
                 'project_status' => $this->project_status,
                 'expenditure_status' => $this->expenditure_status,
                 'department_list' => $_departmentDAO,
+                'cate_list' => $_cateDAO,
 			));
 
             //config
@@ -478,6 +487,16 @@
                 $departmentinfo = $this->orm->createDAO("jjh_mg_department")->findId($pid);
                 $departmentinfo = $departmentinfo->get();
                 return $departmentinfo[0];
+            }else {
+                return false;
+            }
+        }
+
+        public function getpmbyid($pid){
+            if(!empty($pid)){
+                $chouzi = $this->orm->createDAO("pm_mg_chouzi")->findId($pid);
+                $chouzi = $chouzi->get();
+                return $chouzi[0];
             }else {
                 return false;
             }

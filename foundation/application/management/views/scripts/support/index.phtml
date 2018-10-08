@@ -99,7 +99,7 @@
                             <td width="10%">E-mail</td>
                             <td width="10%">微信</td>
                             <td width="10%">联系地址</td>
-                            <td width="10%">操作</td>
+                            <td width="16%">操作</td>
                           </tr>
 						</thead>
                       <tbody>
@@ -113,8 +113,12 @@
                              <td><?php echo $v['wechat'];?></td>
                              <td><?php echo $v['address'];?></td>
                              <td>
-                                    <a href="/management/support/edit?id=<?php echo $v['id'];?>" target="_blank">
-                                        <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                                     <a href="/management/support/edit?id=<?php echo $v['id'];?>" target="_blank">
+                                         <button class="btn btn-greensea margin-bottom-20" type="button">编辑</button>
+                                     </a>
+                                     &nbsp;&nbsp;
+                                    <a href="/management/support/pmlist?id=<?php echo $v['id'];?>" target="_blank">
+                                        <button class="btn btn-greensea margin-bottom-20" type="button">归属项目</button>
                                     </a>
                                     &nbsp;&nbsp;
                                      <a href="/management/support/editpwd?id=<?php echo $v['id'];?>" target="_blank">
@@ -152,5 +156,5 @@
 
     <script src="/include/management/assets/js/jquery.js"></script>
     <script language="javascript">
-        //$(".menu li:eq(0)").addClass("open");
+        $("#glzcygl").addClass("open");
     </script>

@@ -158,6 +158,130 @@ class Management_supportController extends BaseController {
         $this->view->assign("chouzi_lists",$chouziDAO);
     }
 
+    /**
+     * @throws Exception
+     * 所属管理员，项目列表
+     */
+    public function pmlistAction(){
+        try{
+            $support_id = (int)$_REQUEST["id"];
+            if(empty($support_id)){
+                $this->alert_back("管理员不存在！");
+            }
+            $pmlistDAO = $this->orm->createDAO("_support_pm_list");
+            $pmlistDAO ->findSupport_id($support_id);
+            $pmlistDAO = $pmlistDAO->get();
+
+
+            $pmlist = array();
+            if(!empty($pmlistDAO[0]['pm_id_list'])){
+                $array_pm_list = explode(",",$pmlistDAO[0]['pm_id_list']);
+                foreach($array_pm_list as $key => $value){
+                    if(!empty($value)){
+                        $pmlist[] = $this->getpmbyid($value);
+                    }
+                }
+            }
+
+            $this->view->assign(array(
+                'pmlist' => $pmlist
+            ));
+
+            //$pmlistDAO ->getPager(array('path'=>'/support/pmlist/index'))->assignTo($this->view);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("support/pmlist.phtml");
+            echo $this->view->render("index/footer.phtml");
+            exit();
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    public function savepmlistAction(){
+        try{
+            $support_id = (int)$_REQUEST["id"];
+            if(empty($support_id)){
+                $this->alert_back("管理员不存在！");
+            }
+            $this->view->assign(array(
+                'support_id' => $support_id
+            ));
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("support/addpm.phtml");
+            echo $this->view->render("index/footer.phtml");
+            exit();
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
+    public function addpmAction(){
+        $support_id = (int)$_REQUEST["id"];
+        if(empty($support_id)){
+            $this->alert_back("管理员不存在！");
+        }
+        $this->view->assign(array(
+            'support_id' => $support_id
+        ));
+
+        if(empty($_REQUEST['pid'])){
+            $this->alert_back("项目不存在！");
+        }
+
+        $pmlistDAO = $this->orm->createDAO("_support_pm_list");
+        $pmlistDAO ->findSupport_id($support_id);
+        $pmlistDAO = $pmlistDAO->get();
+
+        $array_pm_list = explode(",",$pmlistDAO[0]['pm_id_list']);
+
+        if(!in_array($_REQUEST['pid'], $array_pm_list)){
+            $array_pm_list[] = $_REQUEST['pid'];
+        }
+
+        //var_dump($array_pm_list);exit();
+
+        $_pmlistDAO = $this->orm->createDAO("_support_pm_list");
+        $_pmlistDAO ->findSupport_id($support_id);
+
+        $_pmlistDAO ->pm_id_list = implode(',',$array_pm_list);
+        $_pmlistDAO ->lastmodify = time();
+        $_pmlistDAO->save();
+        $this->alert_go("保存成功！", '/management/support/pmlist?id='.$support_id);
+    }
+
+    public function delpmAction(){
+        $support_id = (int)$_REQUEST["id"];
+        if(empty($support_id)){
+            $this->alert_back("管理员不存在！");
+        }
+        $pid = (int)$_REQUEST["pid"];
+        if(empty($support_id)){
+            $this->alert_back("项目不存在！");
+        }
+        $_pmlistDAO = $this->orm->createDAO("_support_pm_list");
+        $_pmlistDAO ->findSupport_id($support_id);
+
+
+        $pmlistDAO = $this->orm->createDAO("_support_pm_list");
+        $pmlistDAO ->findSupport_id($support_id);
+        $pmlistDAO = $pmlistDAO->get();
+
+        $array_pm_list = explode(",",$pmlistDAO[0]['pm_id_list']);
+
+        $arr = array_merge(array_diff($array_pm_list, array($pid)));
+        //var_dump($arr);exit();
+        //var_dump($array_pm_list);exit();
+
+        $_pmlistDAO = $this->orm->createDAO("_support_pm_list");
+        $_pmlistDAO ->findSupport_id($support_id);
+
+        $_pmlistDAO ->pm_id_list = implode(',',$arr);
+        $_pmlistDAO ->lastmodify = time();
+        $_pmlistDAO->save();
+        $this->alert_go("删除成功！", '/management/support/pmlist?id='.$support_id);
+    }
 
     //权限
     public function acl()
@@ -168,7 +292,11 @@ class Management_supportController extends BaseController {
             'add',
             'edit',
             'toadd',
-            'del'
+            'del',
+            'pmlist',
+            'savepmlist',
+            'addpm',
+            'delpm'
         );
         if (in_array($action, $except_actions)) {
             return;
