@@ -215,6 +215,20 @@
         }
 
         /**
+         * @param $chars
+         * @param string $encoding
+         * @return string
+         * 匹配中英文或数字
+         */
+        function match_chinese($chars,$encoding='utf8')
+        {
+            $pattern =($encoding=='utf8')?'/[\x{4e00}-\x{9fa5}a-zA-Z0-9]/u':'/[\x80-\xFF]/';
+            preg_match_all($pattern,$chars,$result);
+            $temp =join('',$result[0]);
+            return $temp;
+        }
+
+        /**
          * 筹资立项 - 同步财务系统中间库，写入对照关系表
          * @throws Exception
          */
@@ -226,6 +240,12 @@
                 $is_pname = $this->checkPname($pname);
                 if($is_pname === true){
                     alert_back("该项目已经被添加，请查正后重新添加！");
+                }
+
+                // 项目名称必须为中文或中文字符
+                $_pname = $this->match_chinese($pname);
+                if((string)$pname !== (string)$_pname){
+                    alert_back("项目名称必须为中英文或数字！");
                 }
 
                 $bianhao = "jjh" . date("Yhdhis");  //项目编号 自动编号 编号内容为年月日时分秒
