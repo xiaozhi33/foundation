@@ -41,6 +41,12 @@
                 }
             }
 
+            // 附加归属项目
+            $_support_pm_listDAO = $this->orm->createDAO("_support_pm_list")->findSupport_id($this->admininfo["admin_id"])->get();
+            if(!empty($_support_pm_listDAO[0]['pm_id_list'])){
+                $chouziinfo ->selectLimit .= " OR ( id IN(".$_support_pm_listDAO[0]['pm_id_list']."))";
+            }
+
             // 按照星级倒序，之后按照创建id倒序
             $chouziinfo ->selectLimit .= " order by star desc, id desc";
 
@@ -233,10 +239,15 @@
             $this->jjh_mg_pp_list = $temp_array;
 
             //项目名称列表
-            $pm_chouzi = new pm_mg_chouziDAO();
-            $pm_chouzi ->selectLimit .= " order by id desc";
+            $pm_chouzi = $this->orm->createDAO("pm_mg_chouzi");
             $pm_chouzi ->department = $this->admininfo['admin_info']['department_id'];
-            $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
+            $_support_pm_listDAO = $this->orm->createDAO("_support_pm_list")->findSupport_id($this->admininfo["admin_id"])->get();
+            if(!empty($_support_pm_listDAO[0]['pm_id_list'])){
+                $pm_chouzi ->selectLimit .= " OR ( pm_mg_chouzi.id IN(".$_support_pm_listDAO[0]['pm_id_list']."))";
+            }
+            $pm_chouzi ->selectLimit .= " order by id desc";
+
+            $pm_chouzi = $pm_chouzi ->get();
             $this->view->assign("pmlist",$pm_chouzi);
 
             // 获取可以申请使用的项目列表，并显示余额和项目信息

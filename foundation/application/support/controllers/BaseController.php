@@ -94,7 +94,12 @@
             $my_adminDAO = $my_adminDAO->get();
             $this->admininfo = $my_adminDAO[0];
 
-            $this->pm_count = $this->orm->createDAO("pm_mg_chouzi")->findDepartment($this->admininfo['department_id'])->get();
+            $_chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->findDepartment($this->admininfo['department_id']);
+            $_support_pm_listDAO = $this->orm->createDAO("_support_pm_list")->findSupport_id($admininfo["admin_id"]['id'])->get();
+            if(!empty($_support_pm_listDAO[0]['pm_id_list'])){
+                $_chouziDAO ->selectLimit .= " OR ( id IN(".$_support_pm_listDAO[0]['pm_id_list']."))";
+            }
+            $this->pm_count = $_chouziDAO->get();
             
             if(!empty($admininfo['admin_info']['id'])){
                 //捐赠项目金额
