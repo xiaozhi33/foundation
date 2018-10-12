@@ -7,13 +7,13 @@
 <div class="pageheader">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
-        <span>项目进度</span></h2>
+        <span>项目签约</span></h2>
 
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
-            <li>项目进度管理</li>
-            <li class="active">项目进度</li>
+            <li>项目签约管理</li>
+            <li class="active">项目签约</li>
         </ol>
     </div>
 
@@ -86,16 +86,13 @@
                                  </a></td>
                              <td><?php if(!empty($v['xyje'])){echo number_format($v['xyje'],2);}else{echo "--";}?></td>
                              <td>
-                             <!-- <a href="/management/zijin/rateinfo/?pm_id=<?php /*echo $v['id'];*/?>">
-                                 <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
-                             </a>-->
                                 <a href="/management/zijin/editsign?id=<?php echo $v['id'];?>">
                                     <button class="btn btn-greensea margin-bottom-20" type="button">编辑签订</button>
                                 </a>
                                 &nbsp;&nbsp;
-                                <!--<a href="#" onclick="alert('对不起，项目清单不提供删除功能，请联系管理员');">
+                                <a href="#" onclick="alert('对不起，项目签约不提供删除功能，请联系管理员');">
                                     <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
-                                </a>-->
+                                </a>
                             </td>
 						 </tr>
 					   <?php }?>
@@ -105,10 +102,10 @@
 					<div class="tile-footer">
 					<div class="row">
 					<div class="page col-md-12" align="right">
-						共  <?php echo $this->total;?> 条筹资信息          <?php echo $this->page;?></div>
+						共  <?php echo $this->total;?> 条签约信息          <?php echo $this->page;?></div>
 					
 				 <?php }else{?>
-				 	<div>暂无网站资讯！<a href="/management/chouzi/addchouzi">点击添加</a></div>
+				 	<div>暂无签约信息！<a href="/management/zijin/newsigninfo">点击添加</a></div>
 				 <?php }?>
 				 </div>
 				 </div>
