@@ -796,14 +796,24 @@
          * 添加协议
          */
         public function addsignAction(){
-            (int)$id = HttpUtil::getString("id");
+            /*(int)$id = HttpUtil::getString("id");
+            if(empty($id)){
+                $this->alert_back("请选择需要添加协议的项目！");
+            }*/
+
+            $pname = HttpUtil::getString("pname");
+            if(empty($pname)){
+                $this->alert_back("请选择需要添加协议的项目！");
+            }
+
             $chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
-            $chouziDAO ->findId($id);
+            //$chouziDAO ->findId($id);
+            $chouziDAO ->findPname($pname);
             $chouziDAO = $chouziDAO ->get();
             $this->view->assign("chouzilist", $chouziDAO);
 
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("zijin/newsigninfo.phtml");
+            echo $this->view->render("zijin/newsigninfo_bak.phtml");
             echo $this->view->render("index/footer.phtml");
         }
 
@@ -817,7 +827,7 @@
             $this->view->assign("signinfo", $pm_signDAO[0]);
 
             echo $this->view->render("index/header.phtml");
-            echo $this->view->render("zijin/newsigninfo.phtml");
+            echo $this->view->render("zijin/newsigninfo_bak.phtml");
             echo $this->view->render("index/footer.phtml");
         }
 
@@ -834,7 +844,7 @@
         /**
          * 添加协议
          */
-        public function newsavesign_bakAction()
+        public function newsavesignAction()
         {
             (int)$pm_id = HttpUtil::postString("pm_id");
             $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
@@ -912,7 +922,7 @@
             }
 
             echo "<script>alert('编辑成功！');";
-            echo "window.location.href='/management/zijin/rate'; ";
+            echo "window.location.href='/management/zijin/newsigninfo'; ";
             echo "</script>";
             exit();
         }
@@ -1060,13 +1070,13 @@
                         readfile($file);    // 打开文件，并输出
                     }else{
                         echo "<script>alert('文件不存在！');";
-                        echo "window.location.href='/management/zijin/rate'; ";
+                        echo "window.location.href='/management/zijin/newsigninfo'; ";
                         echo "</script>";
                         exit();
                     }
                 }else{
                     echo "<script>alert('下载文件出错！');";
-                    echo "window.location.href='/management/zijin/rate'; ";
+                    echo "window.location.href='/management/zijin/newsigninfo'; ";
                     echo "</script>";
                     exit();
                 }
