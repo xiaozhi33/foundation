@@ -888,4 +888,96 @@
                     }
                     return true;
                 });
+
+
+                //initialize datepicker
+                $('.datepicker').datetimepicker({
+                    icons: {
+                        time: "fa fa-clock-o",
+                        date: "fa fa-calendar",
+                        up: "fa fa-arrow-up",
+                        down: "fa fa-arrow-down"
+                    }
+                });
+
+                $('.addsign').click(function(){
+                    $('.theme-sign-popover').show();
+                });
+                $('.theme-sign-poptit .close').click(function(){
+                    $('.theme-sign-popover-mask').fadeOut(100);
+                    $('.theme-sign-popover').slideUp(200);
+                    parent.location.reload(); // 刷新父页面
+                });
+
+                function addxynf(){
+                    var date_info = '<div class="form-group xynf"> <label class="col-sm-3 control-label" for="input01"> </label> <div class="col-sm-6"> <div class="col-sm-5" style="padding-left: 0px;"> <input class="col-sm-12 datepicker" style="line-height: 18px;" data-date-format="YYYY-MM-DD" type="text" name="xynf[]" /> </div> <div class="col-sm-1" style="padding-left: 0px;">~</div><div class="col-sm-5" style="padding-left: 0px;padding-right: 0px;"> <input class="col-sm-12 datepicker" data-date-format="YYYY-MM-DD" style="line-height: 18px;" type="text" name="xynf[]" /> </div> </div> <div class="col-sm-2" style="padding-left: 0px;">  <div class="col-sm-1 delxynf" onclick="delxynf();">-</div> </div> </div>';
+
+                    $(".xynf:last").after(date_info);
+                    //initialize datepicker
+                    $('.datepicker').datetimepicker({
+                        icons: {
+                            time: "fa fa-clock-o",
+                            date: "fa fa-calendar",
+                            up: "fa fa-arrow-up",
+                            down: "fa fa-arrow-down"
+                        }
+                    });
+                }
+
+                function delxynf(){
+                    $("body").on("click", ".delxynf", function() {
+                        $(this).parent().parent().remove();
+                    });
+                }
+
+                function addzxxynf(){
+                    var date_info = '<div class="form-group zxxynf"> <label class="col-sm-3 control-label" for="input01"> </label> <div class="col-sm-6"> <div class="col-sm-5" style="padding-left: 0px;"> <input class="col-sm-12 datepicker" data-date-format="YYYY-MM-DD" style="line-height: 18px;" type="text" name="zxxynf[]" /> </div> <div class="col-sm-1" style="padding-left: 0px;">~</div><div class="col-sm-5" style="padding-left: 0px;padding-right: 0px;"> <input class="col-sm-12 datepicker" data-date-format="YYYY-MM-DD" style="line-height: 18px;" type="text" name="zxxynf[]" /> </div> </div> <div class="col-sm-2" style="padding-left: 0px;">  <div class="col-sm-1 delzxxynf"  onclick="delzxxynf()">-</div> </div> </div>';
+
+                    $(".zxxynf:last").after(date_info);
+                    $('.datepicker').datetimepicker({
+                        icons: {
+                            time: "fa fa-clock-o",
+                            date: "fa fa-calendar",
+                            up: "fa fa-arrow-up",
+                            down: "fa fa-arrow-down"
+                        }
+                    });
+                }
+
+                function delzxxynf(){
+                    $("body").on("click", ".delzxxynf", function() {
+                        $(this).parent().parent().remove();
+                    });
+                }
+
+                function addsign(){
+                    //var formParam = $("#addsign_form").serialize();//序列化表格内容为字符串
+                    var form = new FormData(document.getElementById("addsign_form"));
+
+                    $.ajax({
+                        type:'post',
+                        url: '/management/zijin/ajaxaddsign',
+                        data: form,
+                        cache:false,
+                        processData: false,
+                        contentType: false,
+                        dataType:'json',
+                        success:function(data){
+                            if(data['status'] == 'error'){
+                                alert(data['message']);
+                            }else if(data['status'] == 'success'){
+                                alert(data['message']);
+                                parent.location.reload(); // 刷新父页面
+                            }
+                        },
+                        complete:function(data){
+
+                        },
+                        error:function(data){
+                            console.log(data);
+                            alert('添加失败！');
+                        }
+                    });
+                }
             </script>
+

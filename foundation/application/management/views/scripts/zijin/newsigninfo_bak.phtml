@@ -50,6 +50,44 @@
                             <span class="col-sm-2" > * </span>
                         </div>
 
+                        <div class="form-group xynf">
+                            <label class="col-sm-2 control-label" for="input01">协议年份：</label>
+                            <div class="col-sm-4">
+                                <div class="col-sm-5" style="padding-left: 0px;">
+                                    <input data-date-format="YYYY-MM-DD" class="col-sm-12 datepicker" style="line-height: 18px;" type="text" name="xynf[]" />
+                                </div>
+                                <div class="col-sm-1" style="padding-left: 0px;">
+                                    ~
+                                </div>
+                                <div class="col-sm-5" style="padding-left: 0px;padding-right: 0px;">
+                                    <input data-date-format="YYYY-MM-DD" class="col-sm-12 datepicker" style="line-height: 18px;" type="text" name="xynf[]" />
+                                </div>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <span class="col-sm-1" onclick="addxynf()">+</span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group zxxynf">
+                            <label class="col-sm-2 control-label" for="input01">执行协议年份：</label>
+                            <div class="col-sm-4">
+                                <div class="col-sm-5" style="padding-left: 0px;">
+                                    <input data-date-format="YYYY-MM-DD" class="col-sm-12 datepicker" style="line-height: 18px;" type="text" name="zxxynf[]" />
+                                </div>
+                                <div class="col-sm-1" style="padding-left: 0px;">
+                                    ~
+                                </div>
+                                <div class="col-sm-5" style="padding-left: 0px;padding-right: 0px;">
+                                    <input data-date-format="YYYY-MM-DD" class="col-sm-12 datepicker" style="line-height: 18px;" type="text" name="zxxynf[]" />
+                                </div>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <span class="col-sm-1" onclick="addzxxynf()">+</span>
+                            </div>
+                            <!--<span class="col-sm-2" > * </span>-->
+                        </div>
+
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">签约时间：</label>
                             <div class="col-sm-4">
@@ -71,7 +109,7 @@
                             <div class="col-sm-4">
                                 <input type="text" size="14" name="xyje" class="form-control" value="<?php echo $this->signinfo['xyje'];?>"  />
                             </div>
-                            <span class="col-sm-2" > * </span>
+                            <span class="col-sm-2" > 元 * </span>
                         </div>
 
 

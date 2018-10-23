@@ -1,0 +1,400 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>添加项目签约信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目信息管理</li>
+            <li class="active">添加签约信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+<style>
+    body #content .tile.color table.table-bordered > thead > tr td, body #content .tile.color table.table-bordered > thead > tr th, body #content .tile.color table.table-bordered > tbody > tr td, body #content .tile.color table.table-bordered > tbody > tr th, body #content .tile.color table.table-bordered > tfoot > tr td, body #content .tile.color table.table-bordered > tfoot > tr th, body #content .tile.transparent-black table.table-bordered > thead > tr td, body #content .tile.transparent-black table.table-bordered > thead > tr th, body #content .tile.transparent-black table.table-bordered > tbody > tr td, body #content .tile.transparent-black table.table-bordered > tbody > tr th, body #content .tile.transparent-black table.table-bordered > tfoot > tr td, body #content .tile.transparent-black table.table-bordered > tfoot > tr th, body #content .tile-header.color table.table-bordered > thead > tr td, body #content .tile-header.color table.table-bordered > thead > tr th, body #content .tile-header.color table.table-bordered > tbody > tr td, body #content .tile-header.color table.table-bordered > tbody > tr th, body #content .tile-header.color table.table-bordered > tfoot > tr td, body #content .tile-header.color table.table-bordered > tfoot > tr th, body #content .tile-header.transparent-black table.table-bordered > thead > tr td, body #content .tile-header.transparent-black table.table-bordered > thead > tr th, body #content .tile-header.transparent-black table.table-bordered > tbody > tr td, body #content .tile-header.transparent-black table.table-bordered > tbody > tr th, body #content .tile-header.transparent-black table.table-bordered > tfoot > tr td, body #content .tile-header.transparent-black table.table-bordered > tfoot > tr th, body #content .tile-widget.color table.table-bordered > thead > tr td, body #content .tile-widget.color table.table-bordered > thead > tr th, body #content .tile-widget.color table.table-bordered > tbody > tr td, body #content .tile-widget.color table.table-bordered > tbody > tr th, body #content .tile-widget.color table.table-bordered > tfoot > tr td, body #content .tile-widget.color table.table-bordered > tfoot > tr th, body #content .tile-widget.transparent-black table.table-bordered > thead > tr td, body #content .tile-widget.transparent-black table.table-bordered > thead > tr th, body #content .tile-widget.transparent-black table.table-bordered > tbody > tr td, body #content .tile-widget.transparent-black table.table-bordered > tbody > tr th, body #content .tile-widget.transparent-black table.table-bordered > tfoot > tr td, body #content .tile-widget.transparent-black table.table-bordered > tfoot > tr th, body #content .tile-body.color table.table-bordered > thead > tr td, body #content .tile-body.color table.table-bordered > thead > tr th, body #content .tile-body.color table.table-bordered > tbody > tr td, body #content .tile-body.color table.table-bordered > tbody > tr th, body #content .tile-body.color table.table-bordered > tfoot > tr td, body #content .tile-body.color table.table-bordered > tfoot > tr th, body #content .tile-body.transparent-black table.table-bordered > thead > tr td, body #content .tile-body.transparent-black table.table-bordered > thead > tr th, body #content .tile-body.transparent-black table.table-bordered > tbody > tr td, body #content .tile-body.transparent-black table.table-bordered > tbody > tr th, body #content .tile-body.transparent-black table.table-bordered > tfoot > tr td, body #content .tile-body.transparent-black table.table-bordered > tfoot > tr th, body #content .tile-footer.color table.table-bordered > thead > tr td, body #content .tile-footer.color table.table-bordered > thead > tr th, body #content .tile-footer.color table.table-bordered > tbody > tr td, body #content .tile-footer.color table.table-bordered > tbody > tr th, body #content .tile-footer.color table.table-bordered > tfoot > tr td, body #content .tile-footer.color table.table-bordered > tfoot > tr th, body #content .tile-footer.transparent-black table.table-bordered > thead > tr td, body #content .tile-footer.transparent-black table.table-bordered > thead > tr th, body #content .tile-footer.transparent-black table.table-bordered > tbody > tr td, body #content .tile-footer.transparent-black table.table-bordered > tbody > tr th, body #content .tile-footer.transparent-black table.table-bordered > tfoot > tr td, body #content .tile-footer.transparent-black table.table-bordered > tfoot > tr th, body #content .tile-left-side.color table.table-bordered > thead > tr td, body #content .tile-left-side.color table.table-bordered > thead > tr th, body #content .tile-left-side.color table.table-bordered > tbody > tr td, body #content .tile-left-side.color table.table-bordered > tbody > tr th, body #content .tile-left-side.color table.table-bordered > tfoot > tr td, body #content .tile-left-side.color table.table-bordered > tfoot > tr th, body #content .tile-left-side.transparent-black table.table-bordered > thead > tr td, body #content .tile-left-side.transparent-black table.table-bordered > thead > tr th, body #content .tile-left-side.transparent-black table.table-bordered > tbody > tr td, body #content .tile-left-side.transparent-black table.table-bordered > tbody > tr th, body #content .tile-left-side.transparent-black table.table-bordered > tfoot > tr td, body #content .tile-left-side.transparent-black table.table-bordered > tfoot > tr th, body #content .tile-right-side.color table.table-bordered > thead > tr td, body #content .tile-right-side.color table.table-bordered > thead > tr th, body #content .tile-right-side.color table.table-bordered > tbody > tr td, body #content .tile-right-side.color table.table-bordered > tbody > tr th, body #content .tile-right-side.color table.table-bordered > tfoot > tr td, body #content .tile-right-side.color table.table-bordered > tfoot > tr th, body #content .tile-right-side.transparent-black table.table-bordered > thead > tr td, body #content .tile-right-side.transparent-black table.table-bordered > thead > tr th, body #content .tile-right-side.transparent-black table.table-bordered > tbody > tr td, body #content .tile-right-side.transparent-black table.table-bordered > tbody > tr th, body #content .tile-right-side.transparent-black table.table-bordered > tfoot > tr td, body #content .tile-right-side.transparent-black table.table-bordered > tfoot > tr th{
+        border-bottom:1px solid #ddd;
+        border-right:1px solid #ddd;
+    }
+
+
+    .theme-sign-popover-mask {
+        z-index: 9998;
+        position:fixed;
+        top:0;  left:0;  width:100%;
+        height: 100%;   background:#000;  opacity:0.4;
+        filter:alpha(opacity=40);  display:none;
+    }
+    .theme-sign-popover {
+        z-index:9999;  position:fixed;
+        top:10%;
+        left:30%;
+        width:50%;
+
+        height: 640px;
+        overflow:scroll;
+
+        /*max-height:220px;
+        margin:-180px 0 0 -330px;*/
+        border:solid 2px #999;
+        display:none;
+        box-shadow: 0 0 10px #666;
+        background-color: #f7f7f7;
+        border-radius: 5px;
+        font-size: 14px;
+        padding:5px 15px;
+    }
+    .theme-sign-signin{
+        margin-top: 40px;
+    }
+    #popover1-close{
+        float: right;
+        margin-right: 12px;
+        margin-top: 12px;
+    }
+    #popover1-msg{
+        margin-top: 12px;
+        align-content: center;
+        text-align: center;
+    }
+    #popover1-img{
+        margin: 0 auto;
+        text-align: center;
+    }
+    #popover1-img img{
+        display: inline;
+        max-width:30%;
+        height:auto;
+
+    }
+
+</style>
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+        <div class="col-md-12">
+
+            <section class="tile color transparent-white">
+
+                <div class="tile-body nopadding" style="padding: 20px;">
+                    <div style="font-size: 16px;padding-left: 10px;"><strong>项目名称：<?php echo $this->pminfo['pname'];?></strong></div>
+                </div>
+
+                <div class="tile-body nopadding">
+                    <form class="form-horizontal" action="zcaddrs" id="form1" method="post" encType="multipart/form-data">
+
+                    <input type="hidden" name="pname" value="<?php echo $this->pminfo['pname'];?>"/>
+                    <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center;padding: 30px;">
+                        <thead>
+                            <tr>
+                                <td width="12%">协议起始年份~终止年份</td>
+                                <td width="12%">执行协议起始年份~终止年份</td>
+                                <td width="8%">签约时间</td>
+                                <td width="8%">协议年度捐赠金额（元）</td>
+                                <td width="8%">协议总捐赠金额（元）</td>
+                                <!--<td width="7%">是否留本</td>-->
+                                <td width="12%">协议捐赠人</td>
+                                <td width="8%">捐赠用途</td>
+                                <td width="10%">协议文件</td>
+                                <!--<td width="10%">是否已办捐赠仪式</td>-->
+                                <td width="7%">是否签约</td>
+                                <td width="16%">备注</td>
+                                <td width="5%">操作</td>
+                            </tr>
+                        </thead>
+
+                        <tbody id="addtbody">
+                        <?php
+                            if(!empty($this->allsign)){
+                                foreach($this->allsign as $key => $value){?>
+                                    <tr id="addhtml">
+                                        <td>
+                                            <?php
+                                                $arr_xynf = json_decode($value['xynf']);
+                                                foreach($arr_xynf as $k => $v){
+                                                    if ($k % 2 == 0){
+                                                        echo $v. '~';
+                                                    }else{
+                                                        echo $v. '<br/>';
+                                                    }
+                                                }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            $arr_zxxynf = json_decode($value['zxxynf']);
+                                            foreach($arr_zxxynf as $k => $v){
+                                                if ($k % 2 == 0){
+                                                    echo $v. '~';
+                                                }else{
+                                                    echo $v. '<br/>';
+                                                }
+                                            }
+                                            ?>
+                                            <?php //echo date("Y-m-d",strtotime($value['sign_time']));?>
+                                        </td>
+                                        <td>
+                                            <?php if(!empty($value['sign_time'])){echo $value['sign_time'];}else{echo "--";}?>
+                                        </td>
+                                        <td>
+                                            <strong>
+                                                <?php if(!empty($value['ndjzje'])){echo number_format($value['ndjzje'],2);}else{echo "--";}?>
+                                            </strong>
+                                        </td>
+                                        <td>
+                                            <strong>
+                                            <?php if(!empty($value['xyje'])){echo number_format($value['xyje'],2);}else{echo "--";}?>
+                                            </strong>
+                                        </td>
+                                        <!--<td>
+                                            <?php /*if($value['sfqy'] == 1){echo "<p style='border:1px solid darkslategray;border-radius:10px;border-color:#8e9095;color: #00B050'>是</p>";}else{echo "<p style='border:1px solid darkslategray;border-radius:10px;border-color: #8e9095;color: #d5161a'>否</p>";}*/?>
+                                        </td>-->
+                                        <td>
+                                            <?php
+                                            if($value['xyjzf'] != ""){
+                                                $_pm_fzr = explode(',',$value['xyjzf']);
+                                                foreach($_pm_fzr as $key => $value){
+                                                    echo $this->jjh_mg_pp_list[$value]."&nbsp;&nbsp;";
+                                                }
+                                            }
+                                            $_pm_fzr = '';
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php echo mb_substr($value['jzyt'], 0,20)."...[全文]";?>
+                                        </td>
+
+
+                                        <td>
+                                            <a href="/management/zijin/download?id=<?php echo $value['id'];?>" target="_blank">
+                                                >>点击下载 <?php if(!empty($value['sign_files_name'])){
+                                                    echo $value['sign_files_name'];
+                                                }elseif(!empty($value['sign_files'])){
+                                                    echo "协议文件";
+                                                }?>
+                                            </a>
+                                        </td>
+
+                                        <td>
+                                            <?php if($value['sflb'] == 1){echo "<p style='border:1px solid darkslategray;border-radius:10px;border-color: #8e9095;color: #00B050'>是</p>";}else{echo "<p style='border:1px solid darkslategray;border-radius:10px;border-color: #8e9095;color: #d5161a'>否</p>";}?>
+                                        </td>
+
+                                        <td>
+                                            <?php echo mb_substr($value['bz'], 0,20)."...[全文]";?>
+                                        </td>
+
+                                        <td>
+                                            <a href="javascript:if(confirm('确实要删除该条签约信息吗?')){location='/management/zijin/delnewsign?id=<?php echo $value['id']?>'}">删除</a>
+                                        </td>
+                                    </tr>
+                        <?php }}?>
+                        </tbody>
+
+
+                        <!--<tbody id="addtbody">
+                            <tr id="addhtml">
+                                <td>
+                                    <input class="form-control noNull" notNull="支出金额" type="text" name="je" />
+                                </td>
+                                <td>
+                                    <input class="form-control noNull" notNull="支出时间" data-date-format="YYYY-MM-DD" type="text" id="datepicker"  name="peibi_datetime"/>
+                                </td>
+                                <td>
+                                    <input class="form-control noNull" notNull="卡号" type="text" name="card"/>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="col-sm-12"  style="margin-top: 11px;">
+                                            <select class="chosen-select-1 chosen-transparent form-control"  multiple data-live-search="false" name="jffzr[]" id="jffzr">
+                                                <option value="">请选择经费负责人</option>
+                                                <?php /*if($this->jjh_mg_pp_list != ""){
+                                                    foreach ($this->jjh_mg_pp_list as $k => $v){*/?>
+                                                        <option value="<?php /*echo $k*/?>" <?php
+/*                                                        if(!empty($this->zcinfo['jffzr'])){
+                                                            foreach(explode(',',$this->zcinfo['jffzr']) as $key => $value){
+                                                                if($k == $value){
+                                                                    echo "selected='selected'";
+                                                                }
+                                                            }
+                                                        }*/?>><?php /*echo $v*/?></option>
+                                                    <?php /*}}*/?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td></td>
+
+                            </tr>
+                        </tbody>-->
+
+                    </table>
+                    </form>
+
+                    <div style="border:2px dashed #ccc;border-radius: 5px;clear: both;margin: 0px 30px 20px 30px;">
+                        <a href="#" class="addsign"><p style="text-align:center;font-size: 14px;"><span>+&nbsp; 再添加一条</span></p></a>
+                    </div>
+
+                    <!--<div style="border:2px dashed #ccc;border-radius: 5px;clear: both;margin: 0px 30px 20px 30px;">
+                        <a href="#" onclick="addone()"><p style="text-align:center;font-size: 14px;"><span>+&nbsp; 再添加一条</span></p></a>
+                    </div>
+
+                    <div class="form-group form-footer">
+                        <div class="col-sm-offset-5 col-sm-7">
+                            <input class="btn btn-primary" type="submit" onclick="return bubmi();"  value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input class="btn btn-default" type="reset" value="重 置" />
+                        </div>
+                    </div>-->
+
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    <div class="theme-sign-popover" >
+        <div class="theme-sign-poptit">
+            <a href="javascript:void(0);" title="关闭" class="close" id="popover1-close" name="">×</a>
+        </div>
+        <div class="theme-sign-popbod dform">
+            <form class="theme-sign-signin form-horizontal" id="addsign_form" name="addsign_form" method="post" enctype="multipart/form-data">
+                <div class="form-group xynf">
+                    <label class="col-sm-3 control-label" for="input01">协议年份：</label>
+                    <div class="col-sm-6">
+                        <div class="col-sm-5" style="padding-left: 0px;">
+                            <input data-date-format="YYYY-MM-DD" class="col-sm-12 datepicker" style="line-height: 18px;" type="text" name="xynf[]" />
+                        </div>
+                        <div class="col-sm-1" style="padding-left: 0px;">
+                            ~
+                        </div>
+                        <div class="col-sm-5" style="padding-left: 0px;padding-right: 0px;">
+                            <input data-date-format="YYYY-MM-DD" class="col-sm-12 datepicker" style="line-height: 18px;" type="text" name="xynf[]" />
+                        </div>
+                    </div>
+                    <div class="col-sm-2" style="padding-left: 0px;">
+                        <span class="col-sm-1" onclick="addxynf()">+</span>
+                    </div>
+                </div>
+
+
+                <div class="form-group zxxynf">
+                    <label class="col-sm-3 control-label" for="input01">执行协议年份：</label>
+                    <div class="col-sm-6">
+                        <div class="col-sm-5" style="padding-left: 0px;">
+                            <input data-date-format="YYYY-MM-DD" class="col-sm-12 datepicker" style="line-height: 18px;" type="text" name="zxxynf[]" />
+                        </div>
+                        <div class="col-sm-1" style="padding-left: 0px;">
+                            ~
+                        </div>
+                        <div class="col-sm-5" style="padding-left: 0px;padding-right: 0px;">
+                            <input data-date-format="YYYY-MM-DD" class="col-sm-12 datepicker" style="line-height: 18px;" type="text" name="zxxynf[]" />
+                        </div>
+                    </div>
+                    <div class="col-sm-2" style="padding-left: 0px;">
+                        <span class="col-sm-1" onclick="addzxxynf()">+</span>
+                    </div>
+                    <!--<span class="col-sm-2" > * </span>-->
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">年度捐赠金额：</label>
+                    <div class="col-sm-5"><input class="form-control" type="text" name="ndjzje" /></div>
+                    <span class="col-sm-1" style="padding-left: 0px;" >元  *</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">协议总捐赠金额：</label>
+                    <div class="col-sm-5"><input class="form-control" type="text" name="xyje" /></div>
+                    <span class="col-sm-1" style="padding-left: 0px;" >元  *</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">签约时间：</label>
+                    <div class="col-sm-5">
+                        <input class="form-control" type="text" value="<?php echo $this->signinfo['sign_time'];?>"  data-date-format="YYYY-MM-DD" id="datepicker1"  name="sign_time"  size="14"/>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
+
+                <div class="form-group transparent-editor">
+                    <label class="col-sm-3 control-label" for="input14">协议捐赠方：</label>
+                    <div class="col-sm-5">
+                        <!--data-placeholder="请选择相关人员..."-->
+                        <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="xyjzf[]" id="xyjzf">
+                            <?php if($this->jjh_mg_pp_list != ""){
+                                foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                    <option value="<?php echo $k?>"><?php echo $v?></option>
+                                <?php }}?>
+                        </select>
+                    </div>
+                    <span class="col-sm-2 addpp" >添加人员信息</span>
+                </div>
+
+                <!--<div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">是否留本基金：</label>
+                    <div class="col-sm-7">
+                        是&nbsp;&nbsp;<input type="radio" name="sflb" value="1"/>
+                        否&nbsp;&nbsp;<input type="radio" name="sflb" value="0" checked="checked"/>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>-->
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">上传电子版协议：</label>
+                    <div class="col-sm-7">
+                        <input name="sign_files" type="file" value="" />
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">是否签约：</label>
+                    <div class="col-sm-7">
+                        是&nbsp;&nbsp;<input type="radio" name="sfqy" value="1"/>
+                        否&nbsp;&nbsp;<input type="radio" name="sfqy" value="0" checked="checked"/>
+                    </div>
+                    <span class="col-sm-2" > </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">捐赠用途：</label>
+                    <div class="col-sm-9">
+                        <textarea parsley-validation-minlength="1" name="jzyt" parsley-rangelength="[10,100]" parsley-trigger="keyup" rows="2" id="input05" class="form-control parsley-validated"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">备注：</label>
+                    <div class="col-sm-9">
+                        <textarea parsley-validation-minlength="1" name="bz" parsley-rangelength="[10,100]" parsley-trigger="keyup" rows="2" id="input05" class="form-control parsley-validated"></textarea>
+                    </div>
+                </div>
+
+                <input type="hidden" name="pm_id" value="<?php echo $this->pminfo['id'];?>" />
+
+                <div class="form-group form-footer">
+                    <div class="col-sm-offset-5 col-sm-7">
+                        <input class="btn btn-primary" type="button" onclick="javascript:addsign();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input class="btn btn-default" type="reset" value="重 置" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="theme-sign-popover-mask"></div>
+
+
+    <script type="application/javascript">
+
+    </script>
+
+
