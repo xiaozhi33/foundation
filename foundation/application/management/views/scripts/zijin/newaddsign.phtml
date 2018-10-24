@@ -103,7 +103,7 @@
                                 <!--<td width="7%">是否留本</td>-->
                                 <td width="12%">协议捐赠人</td>
                                 <td width="8%">捐赠用途</td>
-                                <td width="10%">协议文件</td>
+                                <td width="10%">签约协议</td>
                                 <!--<td width="10%">是否已办捐赠仪式</td>-->
                                 <td width="7%">是否签约</td>
                                 <td width="16%">备注</td>
@@ -161,8 +161,8 @@
                                             <?php
                                             if($value['xyjzf'] != ""){
                                                 $_pm_fzr = explode(',',$value['xyjzf']);
-                                                foreach($_pm_fzr as $key => $value){
-                                                    echo $this->jjh_mg_pp_list[$value]."&nbsp;&nbsp;";
+                                                foreach($_pm_fzr as $keys => $values){
+                                                    echo $this->jjh_mg_pp_list[$values]."&nbsp;&nbsp;";
                                                 }
                                             }
                                             $_pm_fzr = '';
