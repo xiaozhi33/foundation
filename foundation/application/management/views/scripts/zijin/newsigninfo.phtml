@@ -74,10 +74,13 @@
                     <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
                         <thead>
                         <tr>
-                            <td width="25%">项目名称</td>
-                            <td width="20%">签约时间</td>
-                            <td width="25%">签约协议</td>
-                            <td width="20%">协议金额（元）</td>
+                            <td width="10%">项目名称</td>
+                            <td width="15%">协议起始年份~终止年份</td>
+                            <td width="15%">执行协议起始年份~终止年份</td>
+                            <td width="10%">签约协议</td>
+                            <td width="10%">协议年度捐赠金额（元）</td>
+                            <td width="10%">协议总捐赠金额（元）</td>
+                            <td width="10%">签约时间</td>
                             <td width="10%">操作</td>
                         </tr>
                         </thead>
@@ -88,7 +91,32 @@
                                 <td>
                                     <a href="/management/chouzi/index?pname=<?php echo $v['pname'];?>" target="_blank" ><?php echo $v['pname'];?></a>&nbsp;
                                 </td>
-                                <td><?php echo date("Y-m-d",strtotime($v['sign_time']));?></td>
+
+                                <td>
+                                    <?php
+                                    $arr_xynf = json_decode($v['xynf']);
+                                    foreach($arr_xynf as $kk => $vv){
+                                        if ($kk % 2 == 0){
+                                            echo $vv. '~';
+                                        }else{
+                                            echo $vv. '<br/>';
+                                        }
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    $arr_zxxynf = json_decode($v['zxxynf']);
+                                    foreach($arr_zxxynf as $kk => $vv){
+                                        if ($kk % 2 == 0){
+                                            echo $vv. '~';
+                                        }else{
+                                            echo $vv. '<br/>';
+                                        }
+                                    }
+                                    ?>
+                                </td>
+
                                 <td>
                                     <!--<a href="<?php /*echo $v['sign_files'];*/?>">-->
                                     <a href="/management/zijin/download?id=<?php echo $v['id'];?>">
@@ -98,7 +126,14 @@
                                             echo "协议文件";
                                         }?>
                                     </a></td>
-                                <td><?php if(!empty($v['xyje'])){echo number_format($v['xyje'],2);}else{echo "--";}?></td>
+
+                                <td><strong><?php if(!empty($v['ndjzje'])){echo number_format($v['ndjzje'],2);}else{echo "--";}?></strong></td>
+
+                                <td><strong><?php if(!empty($v['xyje'])){echo number_format($v['xyje'],2);}else{echo "--";}?></strong></td>
+
+
+                                <td><?php echo date("Y-m-d",strtotime($v['sign_time']));?></td>
+
                                 <td>
                                     <a href="/management/zijin/editsign?id=<?php echo $v['id'];?>">
                                         <button class="btn btn-greensea margin-bottom-20" type="button">编辑签订</button>
@@ -108,6 +143,7 @@
                                         <button class="btn btn-danger margin-bottom-20" type="button">删除</button>
                                     </a>
                                 </td>
+
                             </tr>
                         <?php }?>
                         </tbody>

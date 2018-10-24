@@ -943,7 +943,7 @@
             {
                 $like_sql .= " AND pm_mg_chouzi.pname like '%".$name."%'";
             }
-            $like_sql .= " order by id desc";
+            $like_sql .= " order by lastmodify desc";
             $signDAO->select(" pm_mg_sign.*,pm_mg_chouzi.pname");
             $signDAO->selectLimit = $like_sql;
             $signDAO = $signDAO ->get();
