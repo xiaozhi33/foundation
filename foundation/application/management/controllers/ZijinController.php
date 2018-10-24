@@ -816,6 +816,9 @@
             echo $this->view->render("index/footer.phtml");
         }
 
+        /**
+         * @name 编辑签约协议
+         */
         public function editsignAction(){
             (int)$id = HttpUtil::getString("id");
             $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
@@ -1183,32 +1186,55 @@
             $pm_signDAO ->jzys_time = HttpUtil::postString("jzys_time");
             $pm_signDAO ->xydz_time = HttpUtil::postString("xydz_time");
 
-            if($_REQUEST['id']){
-                $pm_signDAO ->findId($_REQUEST['id']);
+            if($_REQUEST['sid']){
+                $pm_signDAO ->findId($_REQUEST['sid']);
             }
 
-            if($_FILES['sign_files']['name']!=""){
-                if($_FILES['sign_files']['error'] != 4){
-                    if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
-                        mkdir(__UPLOADPICPATH__ ."jjh_download/");
+            if(empty($_REQUEST['sid'])){
+                if($_FILES['sign_files']['name']!=""){
+                    if($_FILES['sign_files']['error'] != 4){
+                        if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+                            mkdir(__UPLOADPICPATH__ ."jjh_download/");
+                        }
+                        //echo $_FILES['sign_files']['type'];exit();
+                        $uploadpic = new uploadPic($_FILES['sign_files']['name'],$_FILES['sign_files']['error'],$_FILES['sign_files']['size'],$_FILES['sign_files']['tmp_name'],$_FILES['sign_files']['type'],2);
+                        $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+                        $result = $uploadpic->uploadPic();
+                        if($result['error']!=0){
+                            echo "<script>alert('".$result['msg']."');";
+                            echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
+                            echo "</script>";
+                            exit();
+                        }else{
+                            $pm_signDAO->sign_files =  __GETPICPATH__."jjh_download/".$result['picname'];
+                            $pm_signDAO->sign_files_name = $_FILES['sign_files']['name'];
+                        }
                     }
-                    //echo $_FILES['sign_files']['type'];exit();
-                    $uploadpic = new uploadPic($_FILES['sign_files']['name'],$_FILES['sign_files']['error'],$_FILES['sign_files']['size'],$_FILES['sign_files']['tmp_name'],$_FILES['sign_files']['type'],2);
-                    $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
-                    $result = $uploadpic->uploadPic();
-                    if($result['error']!=0){
-                        echo "<script>alert('".$result['msg']."');";
-                        echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
-                        echo "</script>";
-                        exit();
-                    }else{
-                        $pm_signDAO->sign_files =  __GETPICPATH__."jjh_download/".$result['picname'];
-                        $pm_signDAO->sign_files_name = $_FILES['sign_files']['name'];
+                }else {
+                    echo json_encode(array("status"=>"error","message" => "请上传项目协议！！"));
+                    exit();
+                }
+            }else{
+                if($_FILES['sign_files']['name']!=""){
+                    if($_FILES['sign_files']['error'] != 4){
+                        if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+                            mkdir(__UPLOADPICPATH__ ."jjh_download/");
+                        }
+                        //echo $_FILES['sign_files']['type'];exit();
+                        $uploadpic = new uploadPic($_FILES['sign_files']['name'],$_FILES['sign_files']['error'],$_FILES['sign_files']['size'],$_FILES['sign_files']['tmp_name'],$_FILES['sign_files']['type'],2);
+                        $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+                        $result = $uploadpic->uploadPic();
+                        if($result['error']!=0){
+                            echo "<script>alert('".$result['msg']."');";
+                            echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
+                            echo "</script>";
+                            exit();
+                        }else{
+                            $pm_signDAO->sign_files =  __GETPICPATH__."jjh_download/".$result['picname'];
+                            $pm_signDAO->sign_files_name = $_FILES['sign_files']['name'];
+                        }
                     }
                 }
-            }else {
-                echo json_encode(array("status"=>"error","message" => "请上传项目协议！！"));
-                exit();
             }
 
             if(empty(HttpUtil::postString("xyje"))){
@@ -1236,7 +1262,7 @@
 
             $pm_signDAO ->jzys = HttpUtil::postString("jzys");
             $pm_signDAO ->adress = HttpUtil::postString("adress");
-
+            $pm_signDAO ->lastmodify = time();
 
             $pid = $pm_signDAO ->save();
 
