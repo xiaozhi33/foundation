@@ -977,7 +977,9 @@
                 $this->view->assign("pminfo", $pminfoDAO[0]);
 
                 // 获取所有签约列表
-                $_all_sign = $this->orm->createDAO("pm_mg_sign")->findPm_id($pminfoDAO[0]['id'])->get();
+                $_all_sign = $this->orm->createDAO("pm_mg_sign")->findPm_id($pminfoDAO[0]['id']);
+                $_all_sign ->selectLimit .= " order by sign_time DESC";
+                $_all_sign = $_all_sign->get();
                 $this->view->assign("allsign", $_all_sign);
 
                 echo $this->view->render("index/header.phtml");
