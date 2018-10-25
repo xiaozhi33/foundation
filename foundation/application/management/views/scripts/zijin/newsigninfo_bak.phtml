@@ -71,6 +71,7 @@
 
 
                         <?php
+                            if(count($xynf) > 2){
                             for($i=2;$i<(count($xynf)/2)+2;$i=$i+2){
                         ?>
                                 <div class="form-group xynf">
@@ -90,7 +91,7 @@
                                         <span class="col-sm-1 delxynf" onclick="delxynf()">-</span>
                                     </div>
                                 </div>
-                        <?php }?>
+                        <?php }}?>
 
 
                         <?php $zxxynf = json_decode($this->signinfo['zxxynf']);?>
