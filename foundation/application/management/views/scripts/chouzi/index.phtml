@@ -70,13 +70,13 @@
                         </div>
 
                         <div class="form-group col-sm-3">
-                            <label for="input02">项目负责人：</label>
+                            <label for="input02">项目负责人：<?php //var_dump($_REQUEST['pm_fzr'])?></label>
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_fzr[]" id="pm_fzr">
                                 <?php if($this->jjh_mg_pp_list != ""){
                                     foreach ($this->jjh_mg_pp_list as $k => $v){?>
                                         <option value="<?php echo $k?>" <?php
-                                        if(!empty($this->chouzi[0]['pm_fzr'])){
-                                            foreach(explode(',',$_REQUEST['pm_fzr']) as $key => $value){
+                                        if(!empty($_REQUEST['pm_fzr'])){
+                                            foreach($_REQUEST['pm_fzr'] as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
