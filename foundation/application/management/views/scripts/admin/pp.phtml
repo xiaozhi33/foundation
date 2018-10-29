@@ -96,7 +96,12 @@
                                 <select class="chosen-select-2 chosen-transparent form-control" multiple data-live-search="false" name="tags[]" id="tags">
                                     <?php if($this->taglist != ""){
                                         foreach ($this->taglist as $k => $v){?>
-                                            <option value="<?php echo $v['id']?>"><?php echo $v['name']?></option>
+                                            <option value="<?php echo $v['id']?>"
+                                                <?php
+                                                    if(in_array($v['id'],$_REQUEST['tags'])){echo 'selected="selected"';}
+                                                ?>
+                                            >
+                                                <?php echo $v['name']; ?></option>
                                         <?php }}?>
                                 </select>
                             </div>
