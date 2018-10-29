@@ -429,7 +429,6 @@ class Management_ppController extends BaseController {
             $pm_ppDAO ->selectField(" c.id, pm_mg_info.pm_name");
             $pm_ppDAO ->selectLimit .= ' AND pm_mg_info.pm_pp ="'.$ppinfo[0]['ppname'].'"';
             $pm_ppDAO ->selectLimit .= ' AND pm_mg_info.pm_name !=""';
-            $pm_ppDAO ->selectLimit .= ' OR pm_mg_info.pm_jzf ='.$ppinfo[0]['pid'].'"';
             $pm_ppDAO ->selectLimit .= ' GROUP BY c.pname';
             $pm_ppDAO ->selectLimit .= ' ORDER BY c.id desc';
             //$pm_ppDAO ->debugSql =true;
