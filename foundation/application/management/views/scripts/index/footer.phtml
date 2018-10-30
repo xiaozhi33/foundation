@@ -895,4 +895,54 @@
             }
             return true;
         });
+
+
+        //initialize datepicker
+        $('.datepicker').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $('.addsign').click(function(){
+            $('.theme-sign-popover').show();
+        });
+        $('.theme-sign-poptit .close').click(function(){
+            $('.theme-sign-popover-mask').fadeOut(100);
+            $('.theme-sign-popover').slideUp(200);
+            parent.location.reload(); // 刷新父页面
+        });
+
+        function addsign(){
+            //var formParam = $("#addsign_form").serialize();//序列化表格内容为字符串
+            var form = new FormData(document.getElementById("addsign_form"));
+
+            $.ajax({
+                type:'post',
+                url: '/management/zijin/ajaxaddsign',
+                data: form,
+                cache:false,
+                processData: false,
+                contentType: false,
+                dataType:'json',
+                success:function(data){
+                    if(data['status'] == 'error'){
+                        alert(data['message']);
+                    }else if(data['status'] == 'success'){
+                        alert(data['message']);
+                        parent.location.reload(); // 刷新父页面
+                    }
+                },
+                complete:function(data){
+
+                },
+                error:function(data){
+                    console.log(data);
+                    alert('添加失败！');
+                }
+            });
+        }
     </script>

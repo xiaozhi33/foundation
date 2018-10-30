@@ -817,6 +817,9 @@
             echo $this->view->render("index/footer.phtml");
         }
 
+        /**
+         * @name 编辑签约协议
+         */
         public function editsignAction(){
             (int)$id = HttpUtil::getString("id");
             $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
@@ -941,14 +944,14 @@
             {
                 $like_sql .= " AND pm_mg_chouzi.pname like '%".$name."%'";
             }
-            $like_sql .= " order by id desc";
+            $like_sql .= " order by lastmodify desc";
             $signDAO->select(" pm_mg_sign.*,pm_mg_chouzi.pname");
             $signDAO->selectLimit = $like_sql;
             $signDAO = $signDAO ->get();
 
             $total = count($signDAO);
             $pageDAO = new pageDAO();
-            $pageDAO = $pageDAO->pageHelper($signDAO, null, "/management/zijin/rate", null, 'get', 25, 8);
+            $pageDAO = $pageDAO->pageHelper($signDAO, null, "/management/zijin/newsigninfo", null, 'get', 25, 8);
             $pages = $pageDAO['pageLink']['all'];
             $pages = str_replace("/index.php", "", $pages);
             $this->view->assign('signlist', $pageDAO['pageData']);
@@ -968,16 +971,23 @@
             if(!empty($pname)){
                 // 查询该项目是否存在
                 $pminfoDAO = $this->orm->createDAO("pm_mg_chouzi")->findPname($pname)->get();
-                if(empty($peibiDAO)) {
+                if(empty($pminfoDAO)) {
                     $this->alert_back("该项目不存在！");
                 }
 
                 $this->view->assign("pminfo", $pminfoDAO[0]);
+
+                // 获取所有签约列表
+                $_all_sign = $this->orm->createDAO("pm_mg_sign")->findPm_id($pminfoDAO[0]['id']);
+                $_all_sign ->selectLimit .= " order by sign_time DESC";
+                $_all_sign = $_all_sign->get();
+                $this->view->assign("allsign", $_all_sign);
+
                 echo $this->view->render("index/header.phtml");
                 echo $this->view->render("zijin/newaddsign.phtml");
                 echo $this->view->render("index/footer.phtml");
             }else {
-                $this->alert_back("请选择批量添加配比项目");
+                $this->alert_back("请选择添加签约所属项目");
             }
         }
 
@@ -1131,6 +1141,170 @@
             //error_reporting(E_ERROR);
 		}
 
+        /**
+         * @throws Exception
+         * @name Ajax添加签约协议
+         */
+        public function ajaxaddsignAction(){
+            (int)$pm_id = HttpUtil::postString("pm_id");
+            $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
+            if(empty($pm_id)){
+                echo json_encode(array("status"=>"error","message" => "非法请求，请查正后再试！"));
+                exit();
+            }
+
+            $arr_xynf = $_REQUEST['xynf'];
+            foreach($arr_xynf as $value){
+                if(empty($value)){
+                    echo json_encode(array("status"=>"error","message" => "协议年份不能为空！"));
+                    exit();
+                }
+            }
+
+            $arr_zxxynf = $_REQUEST['zxxynf'];
+            foreach($arr_zxxynf as $value){
+                if(empty($value)){
+                    echo json_encode(array("status"=>"error","message" => "执行协议年份不能为空！"));
+                    exit();
+                }
+            }
+
+            $pm_signDAO ->xynf = json_encode($arr_xynf);
+            $pm_signDAO ->zxxynf = json_encode($arr_zxxynf);
+
+            /*if(HttpUtil::postString("jzys") == 1){
+                if($_FILES['sign_files']['name']=="" || HttpUtil::postString("sign_time")=="" ){
+                    echo "<script>alert('签约时间和电子协议不能为空！');";
+                    echo "javascript:history.go(-1); ";
+                    echo "</script>";
+                    exit();
+                }
+            }*/
+
+            /*			if(!empty($id)){
+                            $pm_signDAO ->findId($pm_id);
+                        }*/
+            $pm_signDAO ->pm_id = $pm_id;
+            $pm_signDAO ->sign_time = HttpUtil::postString("sign_time");
+            $pm_signDAO ->jzys_time = HttpUtil::postString("jzys_time");
+            $pm_signDAO ->xydz_time = HttpUtil::postString("xydz_time");
+
+            if($_REQUEST['sid']){
+                $pm_signDAO ->findId($_REQUEST['sid']);
+            }
+
+            if(empty($_REQUEST['sid'])){
+                if($_FILES['sign_files']['name']!=""){
+                    if($_FILES['sign_files']['error'] != 4){
+                        if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+                            mkdir(__UPLOADPICPATH__ ."jjh_download/");
+                        }
+                        //echo $_FILES['sign_files']['type'];exit();
+                        $uploadpic = new uploadPic($_FILES['sign_files']['name'],$_FILES['sign_files']['error'],$_FILES['sign_files']['size'],$_FILES['sign_files']['tmp_name'],$_FILES['sign_files']['type'],2);
+                        $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+                        $result = $uploadpic->uploadPic();
+                        if($result['error']!=0){
+                            echo "<script>alert('".$result['msg']."');";
+                            echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
+                            echo "</script>";
+                            exit();
+                        }else{
+                            $pm_signDAO->sign_files =  __GETPICPATH__."jjh_download/".$result['picname'];
+                            $pm_signDAO->sign_files_name = $_FILES['sign_files']['name'];
+                        }
+                    }
+                }else {
+                    echo json_encode(array("status"=>"error","message" => "请上传项目协议！！"));
+                    exit();
+                }
+            }else{
+                if($_FILES['sign_files']['name']!=""){
+                    if($_FILES['sign_files']['error'] != 4){
+                        if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+                            mkdir(__UPLOADPICPATH__ ."jjh_download/");
+                        }
+                        //echo $_FILES['sign_files']['type'];exit();
+                        $uploadpic = new uploadPic($_FILES['sign_files']['name'],$_FILES['sign_files']['error'],$_FILES['sign_files']['size'],$_FILES['sign_files']['tmp_name'],$_FILES['sign_files']['type'],2);
+                        $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+                        $result = $uploadpic->uploadPic();
+                        if($result['error']!=0){
+                            echo "<script>alert('".$result['msg']."');";
+                            echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
+                            echo "</script>";
+                            exit();
+                        }else{
+                            $pm_signDAO->sign_files =  __GETPICPATH__."jjh_download/".$result['picname'];
+                            $pm_signDAO->sign_files_name = $_FILES['sign_files']['name'];
+                        }
+                    }
+                }
+            }
+
+            if(empty(HttpUtil::postString("xyje"))){
+                echo json_encode(array("status"=>"error","message" => "请填写项目协议金额！！"));
+                exit();
+            }
+            if(empty(HttpUtil::postString("jzyt"))){
+                echo json_encode(array("status"=>"error","message" => "请填写捐赠用途！！"));
+                exit();
+            }
+            if(empty(HttpUtil::postString("bz"))){
+                echo json_encode(array("status"=>"error","message" => "请填写备注！！"));
+                exit();
+            }
+
+            $pm_signDAO ->xyje = HttpUtil::postString("xyje");
+            $pm_signDAO ->jzyt = HttpUtil::postString("jzyt");
+            $pm_signDAO ->sfqy = HttpUtil::postString("sfqy");
+            $pm_signDAO ->sflb = HttpUtil::postString("sflb");
+            $pm_signDAO ->bz = HttpUtil::postString("bz");
+
+            $pm_signDAO ->ndjzje = HttpUtil::postString("ndjzje");            // 年度捐赠金额
+            $pm_signDAO ->xyjzf = implode(",",$_REQUEST["xyjzf"]); // 协议捐赠方
+
+
+            $pm_signDAO ->jzys = HttpUtil::postString("jzys");
+            $pm_signDAO ->adress = HttpUtil::postString("adress");
+            $pm_signDAO ->lastmodify = time();
+
+            $pid = $pm_signDAO ->save();
+
+            if($_REQUEST['id']) {
+                $is_sign = HttpUtil::postString("is_sign");
+                if ($is_sign == '2') {
+                    $this->changerate($_REQUEST['id'], 'add', 2);
+                } else {
+                    $this->changerate($_REQUEST['id'], 'del', 2);
+                }
+            }
+
+            if($pid){
+                $is_sign = HttpUtil::postString("is_sign");
+                if ($is_sign == '2') {
+                    $this->changerate($pid, 'add', 2);
+                } else {
+                    $this->changerate($pid, 'del', 2);
+                }
+            }
+
+            echo json_encode(array("status"=>"success","message" => "编辑成功！！"));
+            exit();
+        }
+
+        /**
+         * @name 删除签约
+         */
+        public function delnewsignAction()
+        {
+            (int)$id = $_REQUEST['id'];
+            $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
+            if(empty($id)){
+                $this->alert_back("删除失败！");
+            }
+            $pm_signDAO ->findId($id)->delete();
+            $this->alert_back("删除成功！");
+        }
+
         //权限
         public function acl()
         {
@@ -1153,6 +1327,9 @@
                 'binding-claim',
                 'index',
                 'refund',
+                'newaddsign',
+                'ajaxaddsign',
+                'delnewsign',
             );
             if (in_array($action, $except_actions)) {
                 return;

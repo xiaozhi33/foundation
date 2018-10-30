@@ -37,6 +37,13 @@
                 }
             }
 
+            if(!empty($_REQUEST['pm_fzr']) && $_REQUEST['pm_fzr'][0] != ''){
+                foreach($_REQUEST['pm_fzr'] as $key => $value){
+                    $chouziinfo ->selectLimit .= ' AND find_in_set('.$value.',pm_fzr)';
+                }
+            }
+
+
             /*if (HttpUtil::postString("starttime") != "" && HttpUtil::postString("endtime") != "") {
                 $starttime = HttpUtil::postString("starttime");
                 $endtime = HttpUtil::postString("endtime");

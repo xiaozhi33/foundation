@@ -213,7 +213,7 @@ padding-bottom:6px;
 .jjh_report li a:hover{ text-decoration:underline;}
 .jjh_report li span{ float:right; font-size:11px; color:#333;}
 .jjh_news_detail_tit{ width:670px; padding:10px 0px; text-align:center; float:none;}
-.jjh_news_detail_con{ width:670px; padding:10px 30px; text-align:left; float:none; color:#333; font-size:12px; line-height:22px;}
+.jjh_news_detail_con{ width:630px; padding:10px 30px; text-align:left; float:none; color:#333; font-size:12px; line-height:22px;}
 .jjh_news_detail_con img{ width:670px; border:0px;}
 
 /*jjh_pagebar*/
