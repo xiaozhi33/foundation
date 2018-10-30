@@ -167,7 +167,9 @@
                                             ?>
                                         </td>
                                         <td>
-                                            <?php echo mb_substr($value['jzyt'], 0,20)."...[全文]";?>
+                                            <div data-toggle="tooltip" data-placement="top" title="<?php echo $value['jzyt'];?>">
+                                                <?php echo mb_substr($value['jzyt'], 0,20)."...[全文]";?>
+                                            </div>
                                         </td>
 
 
@@ -190,7 +192,9 @@
                                         </td>
 
                                         <td>
-                                            <?php echo mb_substr($value['bz'], 0,20)."...[全文]";?>
+                                            <div data-toggle="tooltip" data-placement="top" title="<?php echo $value['jzyt'];?>">
+                                                <?php echo mb_substr($value['bz'], 0,20)."...[全文]";?>
+                                            </div>
                                         </td>
 
                                         <td>
@@ -444,6 +448,12 @@
                 $(this).parent().parent().remove();
             });
         }
+
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     </script>
+
+
 
 
