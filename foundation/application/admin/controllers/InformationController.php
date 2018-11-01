@@ -102,7 +102,11 @@
 			$my_informationDAO ->my_infor_ctitle = HttpUtil::postString("ctitle");
 			$my_informationDAO ->my_infor_cateid = HttpUtil::postString("cate");
 			$my_informationDAO ->my_infor_sumary = $_REQUEST['miaoshu'];
-			$my_informationDAO ->my_infor_datetime = date("Y-m-d h:i:s",time());
+			if(empty(HttpUtil::postString("my_infor_datetime"))){
+				$my_informationDAO ->my_infor_datetime = date("Y-m-d h:i:s",time());
+			}else{
+				$my_informationDAO ->my_infor_datetime = HttpUtil::postString("my_infor_datetime");
+			}
 			$my_informationDAO ->my_infor_isdisplay = HttpUtil::postInsString("display");
 			$my_informationDAO ->my_infor_state = 1;
 			$my_informationDAO ->save($this->dbhelper);
