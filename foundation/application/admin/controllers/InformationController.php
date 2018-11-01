@@ -143,6 +143,13 @@
 					$my_informationDAO->my_infor_title = HttpUtil::postString("title");
 					$my_informationDAO->my_infor_ctitle = HttpUtil::postString("ctitle");
 					$my_informationDAO->my_infor_cateid = HttpUtil::postString("cate");
+
+					if(empty(HttpUtil::postString("my_infor_datetime"))){
+						$my_informationDAO ->my_infor_datetime = date("Y-m-d h:i:s",time());
+					}else{
+						$my_informationDAO ->my_infor_datetime = HttpUtil::postString("my_infor_datetime");
+					}
+
 					$my_informationDAO->my_infor_sumary = $_REQUEST["miaoshu"];
 					$my_informationDAO->my_infor_isdisplay = HttpUtil::postString("display");
 					if($_FILES['pic']['name']!=""){
