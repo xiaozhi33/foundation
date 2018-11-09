@@ -565,6 +565,9 @@
             }
         }
 
+		/**
+		 * @name 同步info表中所有实际捐赠方信息，并同步到pp表中。
+		 */
         public function syncjzfAction(){
             // 读取项目info中所有实际捐赠方信息
             $pmDAO = $this->orm->createDAO("pm_mg_info");
@@ -578,7 +581,7 @@
                                 pm_is_school AS pp_jzf_attr1,
                                 zijin_laiyuan_qudao AS pp_jzf_attr2,
                                 pm_name");
-            $pmDAO ->selectLimit .= " AND pm_pp != '' AND pm_pp != '11' AND pm_pp != '123123' AND pm_pp != '33' AND pm_pp != '77' AND pm_pp != '85' AND pm_name != ''GROUP BY pm_pp ";
+            $pmDAO ->selectLimit .= " AND pm_pp != '' AND pm_pp != '11' AND pm_pp != '123123' AND pm_pp != '33' AND pm_pp != '77' AND pm_pp != '85' AND pm_name != '' GROUP BY pm_pp ";
             //$pmDAO ->selectLimit .= " AND pm_pp != '' AND pm_pp != '11' AND pm_pp != '123123' AND pm_pp != '33' AND pm_pp != '77' AND pm_pp != '85' AND pm_name != '' ";
             $pmDAO = $pmDAO->get();
 
@@ -586,7 +589,8 @@
                 foreach($pmDAO as $key => $value){
                     /**
                      * 此操作将过滤捐赠方名称和项目名称相同并已存在的捐赠人信息。
-                     * 如果同一捐赠人对应不同项目，则添加多条项目捐赠人信息到人员管理表中。
+                     * --如果同一捐赠人对应不同项目，则添加多条项目捐赠人信息到人员管理表中。--
+					 * 暂时修改成同名不重复添加。
                      */
                     if($this->isnot_pp($value['pm_pp'], $value['pm_name'])){
                         $ppDAO =  $this->orm->createDAO("jjh_mg_pp");
@@ -620,7 +624,8 @@
 
         public function isnot_pp($ppname, $pname){
             $ppDAO =  $this->orm->createDAO("jjh_mg_pp");
-            $ppDAO ->findPp_pm_id($pname);
+			//暂时不同步不同项目的捐赠人。
+            //$ppDAO ->findPp_pm_id($pname);
             $rs = $ppDAO ->findPpname($ppname)->get();
             if(empty($rs)){
                 return true;
