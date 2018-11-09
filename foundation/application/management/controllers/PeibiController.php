@@ -247,10 +247,12 @@
             $this->view->assign("lk_list",$lk_list);
             $this->view->assign("l_lk_list",$_lk_list);
 
-            //项目名称列表
-            $pm_chouzi = new pm_mg_chouziDAO();
-            $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
-            $this->view->assign("pmlist",$pm_chouzi);
+             //项目名称列表
+             $pm_chouzi = new pm_mg_chouziDAO();
+             $pm_chouzi ->selectLimit .= " AND is_del=0";
+             $pm_chouzi ->selectLimit .= " order by id desc";
+             $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
+             $this->view->assign("pmlist",$pm_chouzi);
 
              //所属部门
              $departmentlist = new jjh_mg_departmentDAO();
@@ -267,8 +269,11 @@
              $this->view->assign("jjh_mg_pp_list", $temp_array);
 
             //获取筹资项目list
-            $chouziDAO = $this->orm->createDAO("pm_mg_chouzi")->select("id, pname, parent_pm_id, parent_pm_id_path")->get();
-            $this->view->assign("chouzi_lists",$chouziDAO);
+            $pm_chouzi = new pm_mg_chouziDAO();
+            $pm_chouzi ->selectLimit .= " AND is_del=0";
+            $pm_chouzi ->selectLimit .= " order by id desc";
+            $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
+            $this->view->assign("chouzi_lists",$pm_chouzi);
         }
 
         public function peibiinfoAction(){
