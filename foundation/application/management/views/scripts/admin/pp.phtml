@@ -60,7 +60,8 @@
                                 <input type="text" name="pp_address" value="<?php echo $this->pp_address;?>"/>
                             </div>
 
-                            <div class="col-sm-1"><input class="btn btn-primary" type="submit" value="搜索"></div>
+                            <div class="col-sm-2"><input class="btn btn-primary" onclick="window.location.href='/management/admin/syncjzf'" type="button" value="同步实际捐赠方"></div>
+                            <div class="col-sm-2"><input class="btn btn-primary" type="submit" value="搜索"></div>
 
                             <?php if($_REQUEST['pp_cate'] == '捐赠方'){?>
                                 <div class="col-sm-3">
