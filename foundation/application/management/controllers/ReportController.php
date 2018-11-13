@@ -2089,11 +2089,6 @@
 				$zhichuinfo->withPm_mg_chouzi(array("pm_name" => "pname"));
 				//$zhichuinfo->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
 				$zhichuinfo->selectField("
-                    IF(
-                        parent_pm_id = '',
-                        concat(parent_pm_id, '-', pm_mg_chouzi.id),
-                        concat('0-', parent_pm_id, '-', pm_mg_chouzi.id)
-                    )AS bpath,
                      pm_mg_chouzi.id as main_id,
                      pm_mg_chouzi.parent_pm_id,
                      pm_mg_chouzi.parent_pm_id_path,
