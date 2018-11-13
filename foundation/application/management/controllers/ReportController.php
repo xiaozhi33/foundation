@@ -2044,7 +2044,7 @@
 				foreach($pm_mg_chouzi as $kk => $v){
 					$p_pname = $this->findparentname($v['parent_pm_id']);
 					$resultArray = array();
-					$resultArray = $this->getchouziinfo($v['id']);
+					$resultArray = $this->getchouziinfoAction($v['id']);
 					if(!empty($resultArray)){
 						$zijintj->setActiveSheetIndex(0)
 							->setCellValue('A'.$ii, $p_pname)
@@ -2077,7 +2077,7 @@
 			}
 		}
 
-		public function getchouziinfo($pid)
+		public function getchouziinfoAction($pid)
 		{
 			if(!empty($pid)){
 				$pm_mg_chouziDAO = $this->orm->createDAO('pm_mg_chouzi');
