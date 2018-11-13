@@ -10,13 +10,16 @@
             $pname = $_REQUEST['pname'];
             $department = HttpUtil::getString("department");
             $cate = HttpUtil::getString("cate");
+            $srsj = $_REQUEST['srsj'];
 
             $this->view->assign("pname", $pname);
             $this->view->assign("cate", $cate);
             $this->view->assign("department", $department);
+            $this->view->assign("srsj", $srsj);
             $chouziinfo = new pm_mg_chouziDAO();
 
             $chouziinfo ->joinTable (" left join pm_mg_rate as r on r.pm_id = id");
+            $chouziinfo ->joinTable (" left join pm_mg_info as p on p.pm_name = pname");
             $chouziinfo ->selectField(" *");
 
             if ($pname != "") {
@@ -50,11 +53,19 @@
                 $chouziinfo->selectLimit = " and pm_qishi_datetime<'$starttime' and pm_jiezhi_datetime>'$endtime'";
             }*/
 
+            if(!empty($srsj)){
+                $chouziinfo->selectLimit = " AND p.zijin_daozhang_datetime>'$srsj' ";
+            }
+
             // 过滤逻辑删除的项目
             $chouziinfo ->selectLimit .= ' AND is_del=0';
 
             // 按照星级倒序，之后按照创建id倒序
-            $chouziinfo ->selectLimit .= " order by star desc, id desc";
+            $chouziinfo ->selectLimit .= " order by star desc,";
+            if(!empty($srsj)){
+                $chouziinfo ->selectLimit .= " p.zijin_daozhang_datetime asc,";
+            }
+            $chouziinfo ->selectLimit .= " id desc";
 
             //$chouziinfo ->debugSql =true;
             $chouziinfo = $chouziinfo->get($this->dbhelper);

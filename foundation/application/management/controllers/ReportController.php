@@ -1987,6 +1987,7 @@
 			$pname = $_REQUEST["pname"];
 			$search_cate = $_REQUEST["cate"];
 			$search_department_id = $_REQUEST["department_id"];
+			$srsj = $_REQUEST["srsj"];
 			$pm_mg_chouzi = $this->orm->createDAO("pm_mg_chouzi");
 			if($pname != ""){
 				$pm_mg_chouzi ->findPname($pname);
@@ -2002,13 +2003,22 @@
 			$pm_mg_chouzi ->withJjh_mg_department(array("department" => "id"));
 			$pm_mg_chouzi ->withPm_mg_rate(array('id' => "pm_id"));
 			$pm_mg_chouzi ->withJjh_mg_pp(array('pm_fzr' => "pid"));
+			$pm_mg_chouzi ->withPm_mg_info(array('pm_name' => "pname"));
 			$pm_mg_chouzi ->select(" pm_mg_chouzi.*, jjh_mg_cate.catename, jjh_mg_department.pname as department_name, pm_mg_rate.pm_rate, jjh_mg_pp.ppname");
 
 			// 过滤逻辑删除的项目
 			$pm_mg_chouzi ->selectLimit .= ' AND is_del=0';
 
+			if(!empty($srsj)){
+				$pm_mg_chouzi ->selectLimit .= " AND pm_mg_info.zijin_daozhang_datetime>'$srsj'";
+			}
+
 			// 按照星级倒序，之后按照创建id倒序
-			$pm_mg_chouzi ->selectLimit .= " order by star desc, id desc";
+			$pm_mg_chouzi ->selectLimit .= " order by star desc,";
+			if(!empty($srsj)){
+				$pm_mg_chouzi ->selectLimit .= " pm_mg_info.zijin_daozhang_datetime asc,";
+			}
+			$pm_mg_chouzi ->selectLimit .= " id desc";
 			$pm_mg_chouzi = $pm_mg_chouzi->get();
 
 			if (count($pm_mg_chouzi) == 0){
