@@ -18,9 +18,9 @@
             $this->view->assign("srsj", $srsj);
             $chouziinfo = new pm_mg_chouziDAO();
 
-            $chouziinfo ->joinTable (" left join pm_mg_rate as r on r.pm_id = id");
-            $chouziinfo ->joinTable (" left join pm_mg_info as p on p.pm_name = pname");
-            $chouziinfo ->selectField(" *");
+            $chouziinfo ->joinTable (" left join pm_mg_rate as r on r.pm_id = pm_mg_chouzi.id");
+            $chouziinfo ->joinTable (" left join pm_mg_info as p on p.pm_name = pm_mg_chouzi.pname");
+            $chouziinfo ->selectField(" pm_mg_chouzi.*");
 
             if ($pname != "") {
                 $chouziinfo->pname = $pname;
