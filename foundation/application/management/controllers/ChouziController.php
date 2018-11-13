@@ -61,11 +61,11 @@
             $chouziinfo ->selectLimit .= ' AND is_del=0';
 
             // 按照星级倒序，之后按照创建id倒序
-            $chouziinfo ->selectLimit .= " order by star desc,";
+            $chouziinfo ->selectLimit .= " order by pm_mg_chouzi.star desc,";
             if(!empty($srsj)){
                 $chouziinfo ->selectLimit .= " p.zijin_daozhang_datetime asc,";
             }
-            $chouziinfo ->selectLimit .= " id desc";
+            $chouziinfo ->selectLimit .= " pm_mg_chouzi.id desc";
 
             //$chouziinfo ->debugSql =true;
             $chouziinfo = $chouziinfo->get($this->dbhelper);
