@@ -2344,9 +2344,9 @@
 					'pbfhje' =>  $pbhj1,  						   					  // 配比回项目金额
 					'xmzcje' =>  sprintf("%.2f", $zc1[0]['aaa']),  					  // 项目支出金额
 					'xmye' =>  $xmye,  					  							  // 项目余额
-					'zjsrsj'   =>  date('Y-m-d',$pm_mg_infoDAO[0]['zijin_daozhang_datetime']),      // 最近一笔收入时间
+					'zjsrsj'   =>  mb_substr($pm_mg_infoDAO[0]['zijin_daozhang_datetime'],0,10),      // 最近一笔收入时间
 					'zjsrje'   =>  $pm_mg_infoDAO[0]['zijin_daozheng_jiner'],         // 最近一笔收入金额（元）
-					'zjzcsj'   =>  date('Y-m-d',$pm_mg_info_DAO[0]['shiyong_zhichu_datetime']),     // 最近一笔支出时间
+					'zjzcsj'   =>   mb_substr($pm_mg_infoDAO[0]['shiyong_zhichu_datetime'],0,10),     // 最近一笔支出时间
 					'zjzcje'   =>  $pm_mg_info_DAO[0]['shiyong_zhichu_jiner']        // 最近一笔支出金额（元）
 				);
 			}else {
