@@ -2055,11 +2055,14 @@
 					->setCellValue('G1', '增值收益（元）')
 					->setCellValue('H1', '返回项目配比（元）')
 					->setCellValue('I1', '项目支出总额（元）')
-					->setCellValue('J1', '项目余额（元）')
-					->setCellValue('K1', '最近一笔收入时间')
-					->setCellValue('L1', '最近一笔收入金额（元）')
-					->setCellValue('M1', '最近一笔支出时间')
-					->setCellValue('N1', '最近一笔支出金额（元）');
+					->setCellValue('J1', '调账合计（元）')
+					->setCellValue('K1', '项目余额（元）')
+					->setCellValue('L1', '配比收入合计（元）')
+					->setCellValue('M1', '配比支出合计（元）')
+					->setCellValue('N1', '最近一笔收入时间')
+					->setCellValue('O1', '最近一笔收入金额（元）')
+					->setCellValue('P1', '最近一笔支出时间')
+					->setCellValue('Q1', '最近一笔支出金额（元）');
 
 				$ii = 2;
 				foreach($pm_mg_chouzi as $kk => $v){
@@ -2077,11 +2080,14 @@
 							->setCellValue('G'.$ii, $resultArray['zzsyje'])			 // 增值收益金额
 							->setCellValue('H'.$ii, $resultArray['pbfhje'])  		 // 配比回项目金额
 							->setCellValue('I'.$ii, $resultArray['xmzcje'])  		 // 项目支出金额
-							->setCellValue('J'.$ii, $resultArray['xmye'])			 // 项目余额
-							->setCellValue('K'.$ii, $resultArray['zjsrsj'])			 // 最近一笔收入时间
-							->setCellValue('L'.$ii, $resultArray['zjsrje'])			 // 最近一笔收入金额（元）
-							->setCellValue('M'.$ii, $resultArray['zjzcsj'])			 // 最近一笔支出时间
-							->setCellValue('N'.$ii, $resultArray['zjzcje']);		 // 最近一笔支出金额（元）
+							->setCellValue('J'.$ii, $resultArray['tzhj'])  		 	 // 调账合计
+							->setCellValue('K'.$ii, $resultArray['xmye'])			 // 项目余额
+							->setCellValue('L'.$ii, $resultArray['pbhj'])  		 	 // 项目支出金额
+							->setCellValue('M'.$ii, $resultArray['pbzchj'])  		 // 项目支出金额
+							->setCellValue('N'.$ii, $resultArray['zjsrsj'])			 // 最近一笔收入时间
+							->setCellValue('O'.$ii, $resultArray['zjsrje'])			 // 最近一笔收入金额（元）
+							->setCellValue('P'.$ii, $resultArray['zjzcsj'])			 // 最近一笔支出时间
+							->setCellValue('Q'.$ii, $resultArray['zjzcje']);		 // 最近一笔支出金额（元）
 					}
 					$ii++;
 				}
@@ -2353,6 +2359,9 @@
 					'zzsyje' =>  sprintf("%.2f", $zz1[0]['aaa']),  					  // 增值收益金额
 					'pbfhje' =>  $pbhj1,  						   					  // 配比回项目金额
 					'xmzcje' =>  sprintf("%.2f", $zc1[0]['aaa']),  					  // 项目支出金额
+					'tzhj'   =>  $tzhj,  					  						  // 调账合计
+					'pbhj'   =>  $pbhj,  					  						  // 配比收入合计
+					'pbzchj'   =>  $pbzchj,  					  					  // 配比支出合计
 					'xmye' =>  $xmye,  					  							  // 项目余额
 					'zjsrsj'   =>  mb_substr($pm_mg_infoDAO[0]['zijin_daozhang_datetime'],0,10),      // 最近一笔收入时间
 					'zjsrje'   =>  $pm_mg_infoDAO[0]['zijin_daozheng_jiner'],         // 最近一笔收入金额（元）
