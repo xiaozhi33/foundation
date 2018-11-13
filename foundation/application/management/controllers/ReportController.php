@@ -2085,17 +2085,18 @@
 				$pm_mg_chouziDAO = $pm_mg_chouziDAO ->get();
 
 				// 收支统计信息
-				$zhichuinfo = new pm_mg_infoDAO();
-				$zhichuinfo->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
+				$zhichuinfo = $this->orm->createDAO("pm_mg_info");
+				$zhichuinfo->withPm_mg_chouzi(array("pm_name" => "pname"));
+				//$zhichuinfo->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
 				$zhichuinfo->selectField("
                     IF(
                         parent_pm_id = '',
-                        concat(parent_pm_id, '-', c.id),
-                        concat('0-', parent_pm_id, '-', c.id)
+                        concat(parent_pm_id, '-', pm_mg_chouzi.id),
+                        concat('0-', parent_pm_id, '-', pm_mg_chouzi.id)
                     )AS bpath,
-                     c.id as main_id,
-                     c.parent_pm_id,
-                     c.parent_pm_id_path,
+                     pm_mg_chouzi.id as main_id,
+                     pm_mg_chouzi.parent_pm_id,
+                     pm_mg_chouzi.parent_pm_id_path,
                      pm_mg_info.pm_name,
                      pm_mg_info.shiyong_zhichu_datetime,
                      pm_mg_info.shiyong_zhichu_jiner,
@@ -2104,11 +2105,11 @@
                      pm_mg_info.pm_juanzeng_cate,
                      pm_mg_info.jiangli_fanwei,
                      pm_mg_info.jiangli_renshu,
-                     c.department,
-                     c.pm_fzr_mc,
+                     pm_mg_chouzi.department,
+                     pm_mg_chouzi.pm_fzr_mc,
                      pm_mg_info.pm_pp");
 				$zhichuinfo->selectLimit .= " and pm_mg_info.pm_name='".$pm_mg_chouziDAO[0]['pname']."' ";
-				$zhichuinfo->selectLimit .= " and c.id!='' and is_renling=1 ";
+				$zhichuinfo->selectLimit .= " and pm_mg_chouzi.id!='' and is_renling=1 ";
 
 				$zhichuinfo->selectLimit .= " order by bpath";
 				$zhichuinfo = $zhichuinfo->get($this->dbhelper);
