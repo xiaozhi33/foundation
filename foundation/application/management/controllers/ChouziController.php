@@ -63,7 +63,7 @@
             // 按照星级倒序，之后按照创建id倒序
             $chouziinfo ->selectLimit .= " GROUP BY pm_mg_chouzi.id ORDER BY ";
             if(!empty($srsj)){
-                $chouziinfo ->selectLimit .= " pi.zijin_daozhang_datetime asc,";
+                $chouziinfo ->selectLimit .= " pi.zijin_daozhang_datetime ASC,";
             }
             $chouziinfo ->selectLimit .= " pm_mg_chouzi.star desc, pm_mg_chouzi.id desc";
 
