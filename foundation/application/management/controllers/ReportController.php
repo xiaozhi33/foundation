@@ -2003,7 +2003,7 @@
 			$pm_mg_chouzi ->withJjh_mg_department(array("department" => "id"));
 			$pm_mg_chouzi ->withPm_mg_rate(array('id' => "pm_id"));
 			$pm_mg_chouzi ->withJjh_mg_pp(array('pm_fzr' => "pid"));
-			$pm_mg_chouzi ->withPm_mg_info(array('pname' => "pm_name"));
+			$pm_mg_chouzi ->withPm_mg_info(array('pm_name' => "pname"));
 			$pm_mg_chouzi ->select(" pm_mg_chouzi.*, jjh_mg_cate.catename, jjh_mg_department.pname as department_name, pm_mg_rate.pm_rate, jjh_mg_pp.ppname");
 
 			// 过滤逻辑删除的项目
@@ -2014,11 +2014,11 @@
 			}
 
 			// 按照星级倒序，之后按照创建id倒序
-			$pm_mg_chouzi ->selectLimit .= " order by star desc,";
+			$pm_mg_chouzi ->selectLimit .= " GROUP BY pm_mg_chouzi.id ORDER BY ";
 			if(!empty($srsj)){
-				$pm_mg_chouzi ->selectLimit .= " pm_mg_info.zijin_daozhang_datetime asc,";
+				$pm_mg_chouzi ->selectLimit .= " pm_mg_info.zijin_daozhang_datetime ASC,";
 			}
-			$pm_mg_chouzi ->selectLimit .= " id desc";
+			$pm_mg_chouzi ->selectLimit .= " pm_mg_chouzi.star desc, pm_mg_chouzi.id desc";
 			$pm_mg_chouzi = $pm_mg_chouzi->get();
 
 			if (count($pm_mg_chouzi) == 0){
