@@ -2085,7 +2085,6 @@
 				$pm_mg_chouziDAO = $pm_mg_chouziDAO ->get();
 
 				// 收支统计信息
-				require_once '/Models/pm_mg_infoDAO.php';
 				$zhichuinfo = new pm_mg_infoDAO();
 				$zhichuinfo->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
 				$zhichuinfo->selectField("
