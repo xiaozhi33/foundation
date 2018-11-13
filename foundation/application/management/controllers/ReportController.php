@@ -2007,7 +2007,7 @@
 			$pm_mg_chouzi ->select(" pm_mg_chouzi.*, jjh_mg_cate.catename, jjh_mg_department.pname as department_name, pm_mg_rate.pm_rate, jjh_mg_pp.ppname");
 
 			// 过滤逻辑删除的项目
-			$pm_mg_chouzi ->selectLimit .= ' AND is_del=0';
+			$pm_mg_chouzi ->selectLimit .= ' AND is_del=1';
 
 			if(!empty($srsj)){
 				$pm_mg_chouzi ->selectLimit .= " AND pm_mg_info.zijin_daozhang_datetime>'$srsj'";
