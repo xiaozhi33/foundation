@@ -19,7 +19,7 @@
             $chouziinfo = new pm_mg_chouziDAO();
 
             $chouziinfo ->joinTable (" left join pm_mg_rate as r on r.pm_id = pm_mg_chouzi.id");
-            $chouziinfo ->joinTable (" left join pm_mg_info as p on p.pm_name = pm_mg_chouzi.pname");
+            $chouziinfo ->joinTable (" left join pm_mg_info as pi on pi.pm_name = pm_mg_chouzi.pname");
             $chouziinfo ->selectField(" pm_mg_chouzi.*");
 
             if ($pname != "") {
@@ -54,18 +54,18 @@
             }*/
 
             if(!empty($srsj)){
-                $chouziinfo->selectLimit = " AND p.zijin_daozhang_datetime>'$srsj' ";
+                $chouziinfo->selectLimit = " AND pi.zijin_daozhang_datetime>'$srsj' ";
             }
 
             // 过滤逻辑删除的项目
             $chouziinfo ->selectLimit .= ' AND is_del=0';
 
             // 按照星级倒序，之后按照创建id倒序
-            $chouziinfo ->selectLimit .= " order by pm_mg_chouzi.star desc,";
+            $chouziinfo ->selectLimit .= " GROUP BY pm_mg_chouzi.id ORDER BY ";
             if(!empty($srsj)){
-                $chouziinfo ->selectLimit .= " p.zijin_daozhang_datetime asc,";
+                $chouziinfo ->selectLimit .= " pi.zijin_daozhang_datetime asc,";
             }
-            $chouziinfo ->selectLimit .= " pm_mg_chouzi.id desc";
+            $chouziinfo ->selectLimit .= " pm_mg_chouzi.star desc, pm_mg_chouzi.id desc";
 
             //$chouziinfo ->debugSql =true;
             $chouziinfo = $chouziinfo->get($this->dbhelper);
