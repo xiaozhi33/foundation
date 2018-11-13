@@ -2111,7 +2111,7 @@
 
 				// 收支统计信息
 				$zhichuinfo = $this->orm->createDAO("pm_mg_info");
-				$zhichuinfo->withPm_mg_chouzi(array("pm_name" => "pname"));
+				$zhichuinfo->withPm_mg_chouzi(array("pname" => "pm_name"));
 				//$zhichuinfo->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
 				$zhichuinfo->select("
                     IF(
