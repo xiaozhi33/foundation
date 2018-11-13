@@ -2001,6 +2001,7 @@
 			$pm_mg_chouzi ->withJjh_mg_cate(array("cate" => "id"));
 			$pm_mg_chouzi ->withJjh_mg_department(array("department" => "id"));
 			$pm_mg_chouzi ->withPm_mg_rate(array('id' => "pm_id"));
+			$pm_mg_chouzi ->withJjh_mg_pp(array('pid' => "pm_fzr"));
 			$pm_mg_chouzi ->select(" pm_mg_chouzi.*, jjh_mg_cate.catename, jjh_mg_department.pname as department_name, pm_mg_rate.pm_rate");
 
 			// 过滤逻辑删除的项目
@@ -2044,7 +2045,11 @@
 					->setCellValue('G1', '增值收益（元）')
 					->setCellValue('H1', '返回项目配比（元）')
 					->setCellValue('I1', '项目支出总额（元）')
-					->setCellValue('J1', '项目余额（元）');
+					->setCellValue('J1', '项目余额（元）')
+					->setCellValue('K1', '最近一笔收入时间')
+					->setCellValue('L1', '最近一笔收入金额（元）')
+					->setCellValue('M1', '最近一笔支出时间')
+					->setCellValue('N1', '最近一笔支出金额（元）');
 
 				$ii = 2;
 				foreach($pm_mg_chouzi as $kk => $v){
@@ -2057,12 +2062,16 @@
 							->setCellValue('B'.$ii, $v['pname'])
 							->setCellValue('C'.$ii, $v['catename'])
 							->setCellValue('D'.$ii, $v['department_name'])
-							->setCellValue('E'.$ii, $v['pm_fzr'])
+							->setCellValue('E'.$ii, $v['ppname'])
 							->setCellValue('F'.$ii, $resultArray['jzdzje'])  		 // 捐赠到账金额
 							->setCellValue('G'.$ii, $resultArray['zzsyje'])			 // 增值收益金额
 							->setCellValue('H'.$ii, $resultArray['pbfhje'])  		 // 配比回项目金额
 							->setCellValue('I'.$ii, $resultArray['xmzcje'])  		 // 项目支出金额
-							->setCellValue('J'.$ii, $resultArray['xmye']);           // 项目余额
+							->setCellValue('J'.$ii, $resultArray['xmye'])			 // 项目余额
+							->setCellValue('K'.$ii, $resultArray['zjsrsj'])			 // 最近一笔收入时间
+							->setCellValue('L'.$ii, $resultArray['zjsrje'])			 // 最近一笔收入金额（元）
+							->setCellValue('M'.$ii, $resultArray['zjzcsj'])			 // 最近一笔支出时间
+							->setCellValue('N'.$ii, $resultArray['zjzcje']);		 // 最近一笔支出金额（元）
 					}
 					$ii++;
 				}
@@ -2311,12 +2320,33 @@
 
 				//////////////////////////////////////////////////////////////////////////////////////////////
 
+				/////////////////////////////////////////////////////////////////////////////////////////////
+				// 项目最后收支时间和金额
+				$pm_mg_infoDAO = '';
+				$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+				$pm_mg_infoDAO ->select("zijin_daozhang_datetime, zijin_daozheng_jiner");
+				$pm_mg_infoDAO ->selectLimit.= " AND pm_name='".$v['pname']."'";
+				$pm_mg_infoDAO ->selectLimit.= " AND cate_id=0 AND is_renling=1 and zijin_daozheng_jiner!=0";
+				$pm_mg_infoDAO ->selectLimit.= " ORDER BY zijin_daozhang_datetime DESC LIMIT 0,1";
+				$pm_mg_infoDAO = $pm_mg_infoDAO->get();
+
+				$pm_mg_info_DAO = '';
+				$pm_mg_info_DAO = $this->orm->createDAO("pm_mg_info");
+				$pm_mg_info_DAO ->select("shiyong_zhichu_datetime, shiyong_zhichu_jiner");
+				$pm_mg_info_DAO ->selectLimit.= " AND pm_name='".$v['pname']."'";
+				$pm_mg_info_DAO ->selectLimit.= " AND cate_id=1 AND is_renling=1 and shiyong_zhichu_jiner!=0";
+				$pm_mg_info_DAO ->selectLimit.= " ORDER BY shiyong_zhichu_datetime DESC LIMIT 0,1";
+				$pm_mg_info_DAO = $pm_mg_info_DAO->get();
+
 				return array(
-					'jzdzje' =>  sprintf("%.2f", $sr1[0]['aaa']),  // 捐赠到账金额
-					'zzsyje' =>  $_srhj,                           // 增值收益金额
-					'pbfhje' =>  sprintf("%.2f", $zc1[0]['aaa']),  // 配比回项目金额
-					'xmzcje' =>  $pbhj1,						   // 项目支出金额
-					'xmye'   =>  $xmye                             // 项目余额
+					'jzdzje' =>  sprintf("%.2f", $sr1[0]['aaa']),  					  // 捐赠到账金额
+					'zzsyje' =>  sprintf("%.2f", $zz1[0]['aaa']),  					  // 增值收益金额
+					'pbfhje' =>  $pbhj1,  						   					  // 配比回项目金额
+					'xmzcje' =>  sprintf("%.2f", $zc1[0]['aaa']),  					  // 项目支出金额
+					'zjsrsj'   =>  $pm_mg_infoDAO[0]['zijin_daozhang_datetime'],      // 最近一笔收入时间
+					'zjsrje'   =>  $pm_mg_infoDAO[0]['zijin_daozheng_jiner'],         // 最近一笔收入金额（元）
+					'zjzcsj'   =>  $pm_mg_info_DAO[0]['shiyong_zhichu_datetime'],     // 最近一笔支出时间
+					'zjzcje'   =>  $pm_mg_info_DAO[0]['shiyong_zhichu_jiner']        // 最近一笔支出金额（元）
 				);
 			}else {
 				return false;
