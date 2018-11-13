@@ -2002,6 +2002,12 @@
 			$pm_mg_chouzi ->withJjh_mg_department(array("department" => "id"));
 			$pm_mg_chouzi ->withPm_mg_rate(array('id' => "pm_id"));
 			$pm_mg_chouzi ->select(" pm_mg_chouzi.*, jjh_mg_cate.catename, jjh_mg_department.pname as department_name, pm_mg_rate.pm_rate");
+
+			// 过滤逻辑删除的项目
+			$pm_mg_chouzi ->selectLimit .= ' AND is_del=0';
+
+			// 按照星级倒序，之后按照创建id倒序
+			$pm_mg_chouzi ->selectLimit .= " order by star desc, id desc";
 			$pm_mg_chouzi = $pm_mg_chouzi->get();
 
 			if (count($pm_mg_chouzi) == 0){
@@ -2048,10 +2054,10 @@
 					if(!empty($resultArray)){
 						$zijintj->setActiveSheetIndex(0)
 							->setCellValue('A'.$ii, $p_pname)
-							->setCellValue('B'.$ii, $resultArray['pname'])
-							->setCellValue('C'.$ii, $resultArray['catename'])
-							->setCellValue('D'.$ii, $resultArray['department_name'])
-							->setCellValue('E'.$ii, $resultArray['pm_fzr'])
+							->setCellValue('B'.$ii, $v['pname'])
+							->setCellValue('C'.$ii, $v['catename'])
+							->setCellValue('D'.$ii, $v['department_name'])
+							->setCellValue('E'.$ii, $v['pm_fzr'])
 							->setCellValue('F'.$ii, $resultArray['jzdzje'])  		 // 捐赠到账金额
 							->setCellValue('G'.$ii, $resultArray['zzsyje'])			 // 增值收益金额
 							->setCellValue('H'.$ii, $resultArray['pbfhje'])  		 // 配比回项目金额
@@ -2127,7 +2133,7 @@
 
 				/////////////////////////////////////////////////////////////////////////////////////////////////
 				// 签约信息
-				$signDAO = $this->orm->createDAO("pm_mg_sign");
+				/*$signDAO = $this->orm->createDAO("pm_mg_sign");
 				$signDAO ->withPm_mg_chouzi(array("pm_id" => "id"));
 				$like_sql = "";
 				if($pm_mg_chouziDAO[0]['pname'] != "")
@@ -2137,7 +2143,7 @@
 				$like_sql .= " order by id desc";
 				$signDAO->select(" pm_mg_sign.*,pm_mg_chouzi.pname");
 				$signDAO->selectLimit = $like_sql;
-				$signDAO = $signDAO ->get();
+				$signDAO = $signDAO ->get();*/
 				//////////////////////////////////////////////////////////////////////////////////////////////
 
 				/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2306,10 +2312,6 @@
 				//////////////////////////////////////////////////////////////////////////////////////////////
 
 				return array(
-					'pname' =>   $v['pname'],
-					'catename' =>  $v['catename'],
-					'department_name' =>  $v['department_name'],
-					'pm_fzr' =>  $v['pm_fzr'],
 					'jzdzje' =>  sprintf("%.2f", $sr1[0]['aaa']),  // 捐赠到账金额
 					'zzsyje' =>  $_srhj,                           // 增值收益金额
 					'pbfhje' =>  sprintf("%.2f", $zc1[0]['aaa']),  // 配比回项目金额
