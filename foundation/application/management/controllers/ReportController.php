@@ -2003,7 +2003,7 @@
 			$pm_mg_chouzi ->withJjh_mg_department(array("department" => "id"));
 			$pm_mg_chouzi ->withPm_mg_rate(array('id' => "pm_id"));
 			$pm_mg_chouzi ->withJjh_mg_pp(array('pm_fzr' => "pid"));
-			$pm_mg_chouzi ->withPm_mg_info(array('pm_name' => "pname"));
+			$pm_mg_chouzi ->withPm_mg_info(array('pname' => "pm_name"));
 			$pm_mg_chouzi ->select(" pm_mg_chouzi.*, jjh_mg_cate.catename, jjh_mg_department.pname as department_name, pm_mg_rate.pm_rate, jjh_mg_pp.ppname");
 
 			// 过滤逻辑删除的项目
@@ -2111,7 +2111,7 @@
 
 				// 收支统计信息
 				$zhichuinfo = $this->orm->createDAO("pm_mg_info");
-				$zhichuinfo->withPm_mg_chouzi(array("pname" => "pm_name"));
+				$zhichuinfo->withPm_mg_chouzi(array("pm_name" => "pname"));
 				//$zhichuinfo->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
 				$zhichuinfo->select("
                     IF(
