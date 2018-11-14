@@ -2021,7 +2021,7 @@
 			// 按照星级倒序，之后按照创建id倒序
 			$pm_mg_chouzi ->selectLimit .= " GROUP BY pm_mg_chouzi.id ORDER BY ";
 			if(!empty($srsj)){
-				$pm_mg_chouzi ->selectLimit .= " pm_mg_info.zijin_daozhang_datetime DESC,";
+				$pm_mg_chouzi ->selectLimit .= " pm_mg_info.zijin_daozhang_datetime ASC,";
 			}
 			if(!empty($create_time)){
 				$pm_mg_chouzi ->selectLimit .= " pm_mg_chouzi.create_time ASC,";
