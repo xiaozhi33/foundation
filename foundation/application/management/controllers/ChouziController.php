@@ -11,11 +11,13 @@
             $department = HttpUtil::getString("department");
             $cate = HttpUtil::getString("cate");
             $srsj = $_REQUEST['srsj'];
+            $create_time = $_REQUEST['create_time'];
 
             $this->view->assign("pname", $pname);
             $this->view->assign("cate", $cate);
             $this->view->assign("department", $department);
             $this->view->assign("srsj", $srsj);
+            $this->view->assign("create_time", $create_time);
             $chouziinfo = new pm_mg_chouziDAO();
 
             $chouziinfo ->joinTable (" left join pm_mg_rate as r on r.pm_id = pm_mg_chouzi.id");
@@ -56,6 +58,9 @@
             if(!empty($srsj)){
                 $chouziinfo->selectLimit = " AND pi.zijin_daozhang_datetime>'$srsj' ";
             }
+            if(!empty($create_time)){
+                $chouziinfo->selectLimit = " AND pm_mg_chouzi.create_time>'$create_time' ";
+            }
 
             // 过滤逻辑删除的项目
             $chouziinfo ->selectLimit .= ' AND is_del=0';
@@ -63,7 +68,10 @@
             // 按照星级倒序，之后按照创建id倒序
             $chouziinfo ->selectLimit .= " GROUP BY pm_mg_chouzi.id ORDER BY ";
             if(!empty($srsj)){
-                $chouziinfo ->selectLimit .= " pi.zijin_daozhang_datetime ASC,";
+                $chouziinfo ->selectLimit .= " pi.zijin_daozhang_datetime DESC,";
+            }
+            if(!empty($create_time)){
+                $chouziinfo ->selectLimit .= " pm_mg_chouzi.create_time ASC,";
             }
             $chouziinfo ->selectLimit .= " pm_mg_chouzi.star desc, pm_mg_chouzi.id desc";
 

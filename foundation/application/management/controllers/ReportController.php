@@ -1988,6 +1988,7 @@
 			$search_cate = $_REQUEST["cate"];
 			$search_department_id = $_REQUEST["department_id"];
 			$srsj = $_REQUEST["srsj"];
+			$create_time = $_REQUEST["create_time"];
 			$pm_mg_chouzi = $this->orm->createDAO("pm_mg_chouzi");
 			if($pname != ""){
 				$pm_mg_chouzi ->findPname($pname);
@@ -2013,10 +2014,17 @@
 				$pm_mg_chouzi ->selectLimit .= " AND pm_mg_info.zijin_daozhang_datetime>'$srsj'";
 			}
 
+			if(!empty($create_time)){
+				$pm_mg_chouzi ->selectLimit .= " AND pm_mg_chouzi.create_time>'$create_time'";
+			}
+
 			// 按照星级倒序，之后按照创建id倒序
 			$pm_mg_chouzi ->selectLimit .= " GROUP BY pm_mg_chouzi.id ORDER BY ";
 			if(!empty($srsj)){
 				$pm_mg_chouzi ->selectLimit .= " pm_mg_info.zijin_daozhang_datetime DESC,";
+			}
+			if(!empty($create_time)){
+				$pm_mg_chouzi ->selectLimit .= " pm_mg_chouzi.create_time ASC,";
 			}
 			$pm_mg_chouzi ->selectLimit .= " pm_mg_chouzi.star desc, pm_mg_chouzi.id desc";
 			$pm_mg_chouzi = $pm_mg_chouzi->get();
