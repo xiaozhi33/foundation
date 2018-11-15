@@ -2068,10 +2068,11 @@
 					->setCellValue('L1', '返回项目配比合计（元）')
 					->setCellValue('M1', '配比支出合计（元）')
 					->setCellValue('N1', '配比余额（元）')
-					->setCellValue('O1', '最近一笔收入时间')
-					->setCellValue('P1', '最近一笔收入金额（元）')
-					->setCellValue('Q1', '最近一笔支出时间')
-					->setCellValue('R1', '最近一笔支出金额（元）');
+					->setCellValue('O1', '项目可用余额（元）')        // 项目余额 + 配比余额
+					->setCellValue('P1', '最近一笔收入时间')
+					->setCellValue('Q1', '最近一笔收入金额（元）')
+					->setCellValue('R1', '最近一笔支出时间')
+					->setCellValue('S1', '最近一笔支出金额（元）');
 
 				$ii = 2;
 				foreach($pm_mg_chouzi as $kk => $v){
@@ -2094,10 +2095,11 @@
 							->setCellValue('L'.$ii, $resultArray['pbfhje'])  		 // 配比收入合计
 							->setCellValue('M'.$ii, $resultArray['pbzchj'])  		 // 配比支出合计
 							->setCellValue('N'.$ii, $resultArray['pbye'])  		 	 // 配比余额
-							->setCellValue('O'.$ii, $resultArray['zjsrsj'])			 // 最近一笔收入时间
-							->setCellValue('P'.$ii, $resultArray['zjsrje'])			 // 最近一笔收入金额（元）
-							->setCellValue('Q'.$ii, $resultArray['zjzcsj'])			 // 最近一笔支出时间
-							->setCellValue('R'.$ii, $resultArray['zjzcje']);		 // 最近一笔支出金额（元）
+							->setCellValue('O'.$ii, $resultArray['kyye'])  		 	 // 项目可用余额 = 项目余额 + 配比余额
+							->setCellValue('P'.$ii, $resultArray['zjsrsj'])			 // 最近一笔收入时间
+							->setCellValue('Q'.$ii, $resultArray['zjsrje'])			 // 最近一笔收入金额（元）
+							->setCellValue('R'.$ii, $resultArray['zjzcsj'])			 // 最近一笔支出时间
+							->setCellValue('S'.$ii, $resultArray['zjzcje']);		 // 最近一笔支出金额（元）
 					}
 					$ii++;
 				}
@@ -2364,6 +2366,13 @@
 				$pm_mg_info_DAO ->selectLimit.= " ORDER BY shiyong_zhichu_datetime DESC LIMIT 0,1";
 				$pm_mg_info_DAO = $pm_mg_info_DAO->get();
 
+
+				$pbhj = sprintf("%.2f", $pbhj);
+				$pbhj1 = sprintf("%.2f", $pbhj1);
+				$pbzchj = sprintf("%.2f", $pbzchj);
+				$pbye = sprintf("%.2f", $pbye);
+
+				$kyye = sprintf("%.2f", xmye) + $pbye;
 				return array(
 					'jzdzje' =>  sprintf("%.2f", $sr1[0]['aaa']),  					  // 捐赠到账金额
 					'zzsyje' =>  sprintf("%.2f", $zz1[0]['aaa']),  					  // 增值收益金额
@@ -2374,6 +2383,7 @@
 					'pbfhje' =>  $pbhj1,  						   					  // 配比回项目金额
 					'pbzchj' =>  $pbzchj,  					  					  	  // 配比支出
 					'pbye'   =>  $pbye,												  // 配比余额
+					'kyye'   =>  $kyye,												  // 项目可用余额 = 项目余额+配比余额
 					'zjsrsj'   =>  mb_substr($pm_mg_infoDAO[0]['zijin_daozhang_datetime'],0,10),      // 最近一笔收入时间
 					'zjsrje'   =>  $pm_mg_infoDAO[0]['zijin_daozheng_jiner'],         // 最近一笔收入金额（元）
 					'zjzcsj'   =>  mb_substr($pm_mg_info_DAO[0]['shiyong_zhichu_datetime'],0,10),     // 最近一笔支出时间
