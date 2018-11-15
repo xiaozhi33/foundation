@@ -2367,10 +2367,10 @@
 				$pm_mg_info_DAO = $pm_mg_info_DAO->get();
 
 
-				$pbhj = sprintf("%.2f", $pbhj);
-				$pbhj1 = sprintf("%.2f", $pbhj1);
-				$pbzchj = sprintf("%.2f", $pbzchj);
-				$pbye = sprintf("%.2f", $pbye);
+				$pbhj = sprintf("%.2f", (float)$pbhj);
+				$pbhj1 = sprintf("%.2f", (float)$pbhj1);
+				$pbzchj = sprintf("%.2f", (float)$pbzchj);
+				$pbye = sprintf("%.2f", (float)$pbye);
 
 				$kyye = sprintf("%.2f", xmye) + $pbye;
 				return array(
