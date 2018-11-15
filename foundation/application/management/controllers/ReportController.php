@@ -2372,7 +2372,7 @@
 				$pbzchj = sprintf("%.2f", (float)$pbzchj);
 				$pbye = sprintf("%.2f", (float)$pbye);
 
-				$kyye = sprintf("%.2f", xmye) + $pbye;
+				$kyye = sprintf("%.2f", $xmye) + $pbye;
 				return array(
 					'jzdzje' =>  sprintf("%.2f", $sr1[0]['aaa']),  					  // 捐赠到账金额
 					'zzsyje' =>  sprintf("%.2f", $zz1[0]['aaa']),  					  // 增值收益金额
