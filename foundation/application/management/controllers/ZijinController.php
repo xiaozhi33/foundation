@@ -476,6 +476,7 @@
                     $pm_mg_infoDAO ->pm_pp_cate = HttpUtil::postString("pm_pp_cate");   // 捐赠者类型 基金会/企业/校友/社会人士
                     $pm_mg_infoDAO ->zijin_laiyuan_qudao = HttpUtil::postString("zijin_laiyuan_qudao");   // 渠道 境内 境外
                     $pm_mg_infoDAO ->pm_is_school = HttpUtil::postString("pm_is_school");   // 是否校友
+                    $pm_mg_infoDAO ->shiyong_type = HttpUtil::postString("shiyong_type");   // 类型，1，转财务处  2，基金会列支
                     $pm_mg_infoDAO ->beizhu = HttpUtil::postString("other");   // 备注
                     $pm_mg_infoDAO ->is_renling = 1;                            // 是否认领flag 已认领
 
