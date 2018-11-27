@@ -9318,7 +9318,7 @@ ul.chart-legend > li {
   font-weight: 400;
   padding: 5px; }
   ul.chart-legend > li small {
-    color: rgba(255, 255, 255, 0.7);
+    /*color: rgba(255, 255, 255, 0.7);*/
     margin-left: 5px;
     font-size: 12px; }
 
@@ -10421,7 +10421,7 @@ a.submit:hover {
 
 /* morris */
 .morris-chart text {
-  fill: white;
+  /*fill: white;*/
   font-family: "Roboto Slab", serif !important; }
 .morris-chart svg {
   width: 100% !important; }

@@ -1981,13 +1981,17 @@
             exit;
         }
 
+		/**
+		 * @functionname 导出项目列表
+		 * @throws Exception
+		 */
 		public function newschouzitoexcelAction()
 		{
 
 			$pname = $_REQUEST["pname"];
 			$search_cate = $_REQUEST["cate"];
 			$search_department_id = $_REQUEST["department_id"];
-			$srsj = $_REQUEST["srsj"];
+			$srsj = $_REQUEST["srsj"];           											// 第一笔来款时间
 			$create_time = $_REQUEST["create_time"];
 			$pm_mg_chouzi = $this->orm->createDAO("pm_mg_chouzi");
 			if($pname != ""){
@@ -2020,13 +2024,17 @@
 
 			// 按照星级倒序，之后按照创建id倒序
 			$pm_mg_chouzi ->selectLimit .= " GROUP BY pm_mg_chouzi.id ORDER BY ";
-			if(!empty($srsj)){
+			if(!empty($srsj)){    															// 按照第一笔到账时间进行排序
 				$pm_mg_chouzi ->selectLimit .= " pm_mg_info.zijin_daozhang_datetime ASC,";
 			}
-			if(!empty($create_time)){
+			if(!empty($create_time)){														// 创建时间升序
 				$pm_mg_chouzi ->selectLimit .= " pm_mg_chouzi.create_time ASC,";
 			}
-			$pm_mg_chouzi ->selectLimit .= " pm_mg_chouzi.star desc, pm_mg_chouzi.id desc";
+
+			if($this->is_star== 1){
+				$pm_mg_chouzi ->selectLimit .= " pm_mg_chouzi.star desc,";
+			}
+			$pm_mg_chouzi ->selectLimit .= "  pm_mg_chouzi.id desc";
 			$pm_mg_chouzi = $pm_mg_chouzi->get();
 
 			if (count($pm_mg_chouzi) == 0){

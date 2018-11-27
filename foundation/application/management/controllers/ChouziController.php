@@ -73,7 +73,11 @@
             if(!empty($create_time)){
                 $chouziinfo ->selectLimit .= " pm_mg_chouzi.create_time ASC,";
             }
-            $chouziinfo ->selectLimit .= " pm_mg_chouzi.star desc, pm_mg_chouzi.id desc";
+
+            if($this->is_star== 1){
+                $chouziinfo ->selectLimit .= " pm_mg_chouzi.star desc,";
+            }
+            $chouziinfo ->selectLimit .= "  pm_mg_chouzi.id desc";
 
             //$chouziinfo ->debugSql =true;
             $chouziinfo = $chouziinfo->get($this->dbhelper);

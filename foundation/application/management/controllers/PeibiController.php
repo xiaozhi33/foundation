@@ -16,7 +16,10 @@
                 `pm_mg_info`.zijin_daozhang_datetime,
                 `pm_mg_info`.zijin_laiyuan_qudao,
                 `pm_mg_info`.pm_juanzeng_yongtu,
-                `pm_mg_chouzi`.pm_liuben
+                `pm_mg_chouzi`.pm_liuben,
+                `pm_mg_info`.is_peibi,
+                `pm_mg_info`.peibi_result
+
           ");
             $pm_mg_info ->withPm_mg_chouzi(array("pm_name" => "pname"));
             $pm_mg_info ->selectLimit .= ' AND cast(`pm_mg_info`.zijin_daozheng_jiner as SIGNED INTEGER) >= 100000 ';
@@ -444,6 +447,18 @@
             $this->alert_go('删除成功', "/management/peibi/zcindex");
         }
 
+        /**
+         * @param $id
+         * @param string $params_name
+         * @param $params_val
+         */
+        public function ajaxeditpinfoAction($id,$params_name='',$params_val){
+            $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
+            $pm_mg_infoDAO ->findId($id);
+            $pm_mg_infoDAO ->$params_name = $params_val;
+            $pm_mg_infoDAO ->save();
+        }
+
         //权限
         public function acl()
         {
@@ -456,7 +471,8 @@
                 'zcaddrs',
                 'editzc',
                 'rszc',
-                'delzc'
+                'delzc',
+                'ajaxeditpinfo'  // 修改是否申请国家配比，申请结果
             );
             if (in_array($action, $except_actions)) {
                 return;

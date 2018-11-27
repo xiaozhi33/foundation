@@ -3,14 +3,14 @@
 	require_once("sessionutil.php");
 	require_once("httputil.php");
 	require_once("functions.php");
-	require_once 'resizepic.php'; //创建缩略图
+	require_once 'resizepic.php';           //创建缩略图
 	require_once 'uploadpic.php';
 
     // mssql 数据库操作类
     require_once("cw_api.class.php");
     require_once("mssql_db.class.php");
 	
-	$uploadpicpath = __UPLOADPICPATH__;//上传图片路径
+	$uploadpicpath = __UPLOADPICPATH__;       //上传图片路径
 
 	class BaseController extends Zend_Controller_Action
 	{
@@ -20,6 +20,7 @@
         public $renling_weirenling_list = "";
         public $shiyong_weirenling_list = "";
         public $task_init_array = "";
+        public $is_star = 0;                 // 是否开启标星
 
         public $pp_config = array(
             'pp_jzf_cate' => array('个人'=>'个人','企业'=>'企业','公益组织'=>'公益组织','其他'=>'其他'),
@@ -68,7 +69,9 @@
             $this->admininfo = $admininfo['admin_info'];
 
             //捐赠项目金额
-            $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findCate_id(0)->select(" sum(zijin_daozheng_jiner) as allsum")->get();
+            $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findCate_id(0)->select(" sum(zijin_daozheng_jiner) as allsum");
+            $pm_mg_infoDAO ->selectLimit .= " AND is_renling=1";
+            $pm_mg_infoDAO = $pm_mg_infoDAO->get();
 
             //会议活动
             $meetingDAO = $this->orm->createDAO("jjh_meeting")->get();
