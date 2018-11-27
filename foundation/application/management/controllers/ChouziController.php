@@ -11,12 +11,14 @@
             $department = HttpUtil::getString("department");
             $cate = HttpUtil::getString("cate");
             $srsj = $_REQUEST['srsj'];
+            $zcsj = $_REQUEST['zcsj'];
             $create_time = $_REQUEST['create_time'];
 
             $this->view->assign("pname", $pname);
             $this->view->assign("cate", $cate);
             $this->view->assign("department", $department);
             $this->view->assign("srsj", $srsj);
+            $this->view->assign("zcsj", $zcsj);
             $this->view->assign("create_time", $create_time);
             $chouziinfo = new pm_mg_chouziDAO();
 
@@ -48,7 +50,6 @@
                 }
             }
 
-
             /*if (HttpUtil::postString("starttime") != "" && HttpUtil::postString("endtime") != "") {
                 $starttime = HttpUtil::postString("starttime");
                 $endtime = HttpUtil::postString("endtime");
@@ -58,17 +59,24 @@
             if(!empty($srsj)){
                 $chouziinfo->selectLimit = " AND pi.zijin_daozhang_datetime>'$srsj' ";
             }
+            if(!empty($zcsj)){
+                $chouziinfo->selectLimit = " AND (pi.shiyong_zhichu_datetime>='$zcsj' AND pi.shiyong_zhichu_datetime<='".date('Y-m-d',time())."')";
+            }
             if(!empty($create_time)){
                 $chouziinfo->selectLimit = " AND pm_mg_chouzi.create_time>'$create_time' ";
             }
 
             // 过滤逻辑删除的项目
             $chouziinfo ->selectLimit .= ' AND is_del=0';
+            $chouziinfo ->selectLimit .= ' AND pi.is_renling=1';
 
             // 按照星级倒序，之后按照创建id倒序
             $chouziinfo ->selectLimit .= " GROUP BY pm_mg_chouzi.id ORDER BY ";
             if(!empty($srsj)){
                 $chouziinfo ->selectLimit .= " pi.zijin_daozhang_datetime ASC,";
+            }
+            if(!empty($zcsj)){
+                $chouziinfo ->selectLimit .= " pi.shiyong_zhichu_datetime ASC,";
             }
             if(!empty($create_time)){
                 $chouziinfo ->selectLimit .= " pm_mg_chouzi.create_time ASC,";
@@ -79,6 +87,8 @@
             }
             $chouziinfo ->selectLimit .= "  pm_mg_chouzi.id desc";
 
+            //echo $chouziinfo ->selectLimit;exit();
+            //var_dump($chouziinfo->get($this->dbhelper));exit();
             //$chouziinfo ->debugSql =true;
             $chouziinfo = $chouziinfo->get($this->dbhelper);
             $total = count($chouziinfo);

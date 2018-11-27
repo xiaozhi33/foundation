@@ -100,6 +100,23 @@
                     </div>-->
 
                     <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label for="input02">第一笔来款（创建时间）</label>
+                            <input name="create_time" data-date-format="YYYY-MM-DD" id="datepicker" class="btn btn-primary btn-block" type="text" value="<?php echo $this->create_time;?>"/>
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <label for="input02">收入时间（至今）</label>
+                            <input name="srsj" data-date-format="YYYY-MM-DD" id="datepicker1" class="btn btn-primary btn-block" type="text" value="<?php echo $this->srsj;?>"/>
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <label for="input02">支出时间（至今）</label>
+                            <input name="zcsj" data-date-format="YYYY-MM-DD" id="datepicker2" class="btn btn-primary btn-block" type="text" value="<?php echo $this->zcsj;?>"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="form-group col-sm-2">
                             <label for="input01">所属部门：</label>
                             <select class="form-control" name="department">
@@ -120,16 +137,6 @@
                                         <option value="<?php echo $v['id']?>" <?php if($_REQUEST['cate']==$v['id']){echo "selected='selected'";}?>><?php echo $v['catename']?></option>
                                     <?php }}?>
                             </select>
-                        </div>
-
-                        <div class="form-group col-sm-3">
-                            <label for="input02">第一笔来款（创建时间）</label>
-                            <input name="create_time" data-date-format="YYYY-MM-DD" id="datepicker" class="btn btn-primary btn-block" type="text" value="<?php echo $this->create_time;?>"/>
-                        </div>
-
-                        <div class="form-group col-sm-3">
-                            <label for="input02">收入时间（至今）</label>
-                            <input name="srsj" data-date-format="YYYY-MM-DD" id="datepicker1" class="btn btn-primary btn-block" type="text" value="<?php echo $this->srsj;?>"/>
                         </div>
                     </div>
 

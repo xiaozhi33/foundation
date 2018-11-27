@@ -168,8 +168,17 @@
             $pm_mg_infoDAO ->selectLimit .= " AND pm_mg_chouzi.is_del = 0";         // 未删除项目
             $pm_mg_infoDAO ->selectLimit .= " AND pm_mg_info.is_refund = 0";        // 不是退款的来款
             $pm_mg_infoDAO ->selectLimit .= " AND pm_mg_info.is_renling = 1";       // 已经认领的
-            $pm_mg_infoDAO ->selectLimit .= " AND ((pm_mg_info.zijin_daozhang_datetime >= '".$years."-01-01'"." AND pm_mg_info.zijin_daozhang_datetime <= '".$years."-12-31'".") OR (pm_mg_info.shiyong_zhichu_datetime > '".$years."-01-01'"." AND pm_mg_info.shiyong_zhichu_datetime <  '".$years."-12-31'"."))";       // 时间段筛选
+            $pm_mg_infoDAO ->selectLimit .= " AND ((pm_mg_info.zijin_daozhang_datetime >= '".$years."-01-01'"." AND pm_mg_info.zijin_daozhang_datetime <= '".$years."-12-31'"."))";       // 时间段筛选
             $pm_mg_infoDAO = $pm_mg_infoDAO->get();
+
+            $pm_mg_infoDAO1 = $this->orm->createDAO("pm_mg_info");
+            $pm_mg_infoDAO1 ->withPm_mg_chouzi(array("pm_name"=>"pname"));
+            $pm_mg_infoDAO1 ->select("pm_mg_info.*, pm_mg_chouzi.cate, pm_mg_chouzi.department");
+            $pm_mg_infoDAO1 ->selectLimit .= " AND pm_mg_chouzi.is_del = 0";         // 未删除项目
+            $pm_mg_infoDAO1 ->selectLimit .= " AND pm_mg_info.is_refund = 0";        // 不是退款的来款
+            $pm_mg_infoDAO1 ->selectLimit .= " AND pm_mg_info.is_renling = 1";       // 已经认领的
+            $pm_mg_infoDAO1 ->selectLimit .= " AND (pm_mg_info.shiyong_zhichu_datetime > '".$years."-01-01'"." AND pm_mg_info.shiyong_zhichu_datetime <  '".$years."-12-31'".")";    // 时间段筛选
+            $pm_mg_infoDAO1 = $pm_mg_infoDAO1->get();
 
             $jjh_mg_cateDAO = $this->orm->createDAO("jjh_mg_cate")->get();
 
@@ -242,6 +251,21 @@
                         $income_department_pcounts += 1;
                         $income_department_incomes += $value['zijin_daozheng_jiner'];
                     }elseif($value['cate_id'] == 1){
+                        //公益支出情况
+                        /*if(!in_array($value["pm_name"], $pay_array[$value['cate']]['pname'])){
+                            $pay_array[$value['cate']]['pname'][] = $value["pm_name"];
+                            $pay_array[$value['cate']]['counts'] += 1;
+                        }
+                        $pay_array[$value['cate']]['pay'] += $value['shiyong_zhichu_jiner'];
+                        $pay_array[$value['cate']]['jiangli_renshu'] += $value['jiangli_renshu'];
+                        $pay_array['pays'] += $value['shiyong_zhichu_jiner'];*/
+                    }
+                }
+            }
+
+            if(!empty($pm_mg_infoDAO1)){
+                foreach($pm_mg_infoDAO1 as $key => $value){
+                    if($value['cate_id'] == 1){
                         //公益支出情况
                         if(!in_array($value["pm_name"], $pay_array[$value['cate']]['pname'])){
                             $pay_array[$value['cate']]['pname'][] = $value["pm_name"];

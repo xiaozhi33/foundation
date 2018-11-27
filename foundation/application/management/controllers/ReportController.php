@@ -134,6 +134,125 @@
 		
 		//资金
 		public function zijinAction(){
+			$pname = $_REQUEST['pname'];
+			$cate = $_REQUEST['cate'];
+			$department = $_REQUEST['department'];
+			$pm_pp = $_REQUEST["pm_pp"];
+			$pm_is_school = $_REQUEST["pm_is_school"];      // 校友/非校友
+
+			$piaoju =$_REQUEST["piaoju"];					// 为开票
+			//$jindu = $_REQUEST["jindu"];   			 	// 未完成到账
+			//$xieyi_daoqi = $_REQUEST["xieyi_daoqi"]; 		// 协议已到期
+
+			$zijin_daozhang_datetime =  $_REQUEST["start"];
+			$zijin_daozhang_datetime1 =  $_REQUEST["end"];
+
+
+			$zijininfo = new pm_mg_infoDAO();
+			$zijininfo->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
+			$zijininfo->selectField("
+				IF(
+					parent_pm_id = '',
+					concat(parent_pm_id, '-', c.id),
+					concat('0-', parent_pm_id, '-', c.id)
+				)AS bpath,
+				 c.id as main_id,
+				 c.parent_pm_id,
+				 c.parent_pm_id_path,
+				 c.cate,
+				 pm_mg_info.pm_name,
+				 c.department,
+				 pm_mg_info.pm_pp,
+				 pm_mg_info.zijin_daozhang_datetime,
+				 pm_mg_info.zijin_daozheng_jiner,
+				 pm_mg_info.pm_juanzeng_yongtu,
+				 pm_mg_info.pm_pp_cate,
+				 pm_mg_info.pm_is_school,
+				 pm_mg_info.pm_juanzeng_cate,
+				 pm_mg_info.zijin_laiyuan_qudao,
+				 pm_mg_info.shiyong_type,
+				 pm_mg_info.piaoju,
+				 pm_mg_info.piaoju_fph,
+				 pm_mg_info.piaoju_fkfs,
+				 pm_mg_info.piaoju_kddh,
+				 pm_mg_info.renling_name ");
+
+			if ($pname != "") {
+				$zijininfo->selectLimit .= " and pm_mg_info.pm_name='".$pname."'";
+			}
+
+			if ($pm_is_school != "") {
+				$zijininfo->selectLimit .= " and pm_mg_info.pm_is_school='".$pm_is_school."'";
+			}
+
+			if ($cate != "") {
+				//$zijininfo ->pm_juanzeng_cate = $cate;
+				$zijininfo->selectLimit .= " and c.cate=" . $cate;
+			}
+			if ($department != "") {
+				$zijininfo->selectLimit .= " and c.department=" . $department;
+			}
+			if ($zijin_daozhang_datetime != "" && $zijin_daozhang_datetime1 != "") {
+				$zijininfo->selectLimit .= " and zijin_daozhang_datetime between '$zijin_daozhang_datetime' and '$zijin_daozhang_datetime1'";
+			}
+
+			if ($pm_pp != "") {
+				$zijininfo->selectLimit .= " and pm_mg_info.pm_pp like '%" . $pm_pp . "%' ";
+			}
+
+			if ($piaoju != "") {  // 未开票
+				$zijininfo->selectLimit .= " and pm_mg_info.pm_pp!=1 ";
+			}
+
+			// 过滤逻辑删除的项目
+			$zijininfo->selectLimit .= " and c.is_del=0";
+
+			$pm_is_school = HttpUtil::postString("pm_is_school");
+			if ($pm_is_school != "") {
+				$zijininfo->selectLimit .= " and pm_is_school = " . $pm_is_school;
+			}
+
+			$zijininfo->selectLimit .= " and cate_id=0 and is_renling=1 order by ";
+
+			$order = $_REQUEST['order'];
+			if($order == ''){
+				$order = 'zijin_daozhang_datetime DESC';
+			}elseif($order == 'datetime_desc'){
+				$order = 'zijin_daozhang_datetime DESC';
+			}elseif($order == 'datetime_asc'){
+				$order = 'zijin_daozhang_datetime ASC';
+			}elseif($order == 'm_desc'){
+				$order = 'zijin_daozheng_jiner DESC';
+			}elseif($order == 'm_asc'){
+				$order = 'zijin_daozheng_jiner ASC';
+			}
+
+			$zijininfo->selectLimit .= " pm_mg_info.".$order;
+			$zijininfo->selectLimit .= ", bpath";
+			//$zijininfo ->debugSql =true;
+			$zijininfo = $zijininfo->get($this->dbhelper);
+
+			if (count($zijininfo) == 0) {
+				echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+				echo('<script language="JavaScript">');
+				echo("alert('查无结果，请重新查询');");
+				echo('history.back();');
+				echo('</script>');
+				exit;
+			}
+
+			$total = count($zijininfo);
+			$pageDAO = new pageDAO();
+			$pageDAO = $pageDAO->pageHelper($zijininfo, null, "/management/report/zijin/index", null, 'get', 25, 8);
+			$pages = $pageDAO['pageLink']['all'];
+			$pages = str_replace("/index.php", "", $pages);
+
+			$this->view->assign('plistDAO', $pageDAO['pageData']);
+			$this->view->assign('page', $pages);
+			$this->view->assign('total', $total);
+			$this->view->assign('department', $this->department);
+			$this->view->assign('pcatelist', $this->pcatelist);
+
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render("report/zijin_new.phtml");
 			echo $this->view->render("index/footer.phtml");
@@ -146,16 +265,16 @@
                 //error_reporting(E_ERROR);
                 // $type = HttpUtil::postString("type");
 				$pname = $_REQUEST['pname'];
-                $cate = HttpUtil::postString("cate");
-                $department = HttpUtil::postString("department");
-                $pm_pp = HttpUtil::postString("pm_pp");
+                $cate = $_REQUEST["cate"];
+                $department = $_REQUEST["department"];
+                $pm_pp = $_REQUEST["pm_pp"];
 
-                $piaoju = HttpUtil::postString("piaoju");  // 为开票
-                $jindu = HttpUtil::postString("jindu");   // 未完成到账
-                $xieyi_daoqi = HttpUtil::postString("xieyi_daoqi"); // 协议已到期
+                $piaoju = $_REQUEST["piaoju"];  // 为开票
+                $jindu = $_REQUEST["jindu"];   // 未完成到账
+                $xieyi_daoqi = $_REQUEST["xieyi_daoqi"]; // 协议已到期
 
-                $zijin_daozhang_datetime =  HttpUtil::postString("start");
-                $zijin_daozhang_datetime1 =  HttpUtil::postString("end");
+                $zijin_daozhang_datetime =  $_REQUEST["start"];
+                $zijin_daozhang_datetime1 =  $_REQUEST["end"];
 
                 if($pname == ''){   //  all  以父类项目进行统计  --todo
                     $zijininfo = new pm_mg_infoDAO();
@@ -214,7 +333,7 @@
 						$zijininfo ->selectLimit .= " and pm_is_school = ".$pm_is_school;
 					}
 
-                    $zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by pm_mg_info.zijin_daozhang_datetime ASC, bpath";
+                    $zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by pm_mg_info.zijin_daozhang_datetime DESC, bpath";
                     //$zijininfo ->debugSql =true;
                     $zijininfo = $zijininfo->get($this->dbhelper);
 
@@ -508,12 +627,12 @@
 		//支出
 		public function shiyongnewtoexcelAction(){
 			try{
-				$shiyong_type = HttpUtil::postString("shiyong_type");
+				$shiyong_type = $_REQUEST["shiyong_type"];
 				$pname = $_REQUEST['pname'];
-				$cate = HttpUtil::postString("cate");
-				$department = HttpUtil::postString("department");
-				$shiyong_zhichu_datetime =  HttpUtil::postString("start");
-				$shiyong_zhichu_datetime1 =  HttpUtil::postString("end");
+				$cate = $_REQUEST["cate"];
+				$department = $_REQUEST["department"];
+				$shiyong_zhichu_datetime =  $_REQUEST["start"];
+				$shiyong_zhichu_datetime1 =  $_REQUEST["end"];
 
 				if($pname == ''){   //  -- all
 					$zhichuinfo = new pm_mg_infoDAO();
@@ -1992,6 +2111,7 @@
 			$search_cate = $_REQUEST["cate"];
 			$search_department_id = $_REQUEST["department_id"];
 			$srsj = $_REQUEST["srsj"];           											// 第一笔来款时间
+			$zcsj = $_REQUEST["zcsj"];
 			$create_time = $_REQUEST["create_time"];
 			$pm_mg_chouzi = $this->orm->createDAO("pm_mg_chouzi");
 			if($pname != ""){
@@ -2017,7 +2137,9 @@
 			if(!empty($srsj)){
 				$pm_mg_chouzi ->selectLimit .= " AND pm_mg_info.zijin_daozhang_datetime>'$srsj'";
 			}
-
+			if(!empty($zcsj)){
+				$pm_mg_chouzi ->selectLimit .= " AND pm_mg_info.shiyong_zhichu_datetime>'$zcsj'";
+			}
 			if(!empty($create_time)){
 				$pm_mg_chouzi ->selectLimit .= " AND pm_mg_chouzi.create_time>'$create_time'";
 			}
@@ -2026,6 +2148,9 @@
 			$pm_mg_chouzi ->selectLimit .= " GROUP BY pm_mg_chouzi.id ORDER BY ";
 			if(!empty($srsj)){    															// 按照第一笔到账时间进行排序
 				$pm_mg_chouzi ->selectLimit .= " pm_mg_info.zijin_daozhang_datetime ASC,";
+			}
+			if(!empty($zcsj)){    															// 按照第一笔到账时间进行排序
+				$pm_mg_chouzi ->selectLimit .= " pm_mg_info.shiyong_zhichu_datetime ASC,";
 			}
 			if(!empty($create_time)){														// 创建时间升序
 				$pm_mg_chouzi ->selectLimit .= " pm_mg_chouzi.create_time ASC,";
