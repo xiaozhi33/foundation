@@ -15,11 +15,7 @@
                 `pm_mg_info`.zijin_daozheng_jiner,
                 `pm_mg_info`.zijin_daozhang_datetime,
                 `pm_mg_info`.zijin_laiyuan_qudao,
-                `pm_mg_info`.pm_juanzeng_yongtu,
-                `pm_mg_chouzi`.pm_liuben,
-                `pm_mg_info`.is_peibi,
-                `pm_mg_info`.peibi_result
-
+                `pm_mg_info`.pm_juanzeng_yongtu
           ");
             $pm_mg_info ->withPm_mg_chouzi(array("pm_name" => "pname"));
             $pm_mg_info ->selectLimit .= ' AND cast(`pm_mg_info`.zijin_daozheng_jiner as SIGNED INTEGER) >= 100000 ';
