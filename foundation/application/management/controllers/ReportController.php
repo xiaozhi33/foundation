@@ -1165,6 +1165,10 @@
 				$order = 'shiyong_zhichu_jiner DESC';
 			}elseif($order == 'm_asc'){
 				$order = 'shiyong_zhichu_jiner ASC';
+			}elseif($order == 'p_desc'){
+				$order = 'jiangli_renshu DESC';
+			}elseif($order == 'p_asc'){
+				$order = 'jiangli_renshu ASC';
 			}
 
 			$pminfo->selectLimit .= " pm_mg_info.".$order;
@@ -1227,7 +1231,27 @@
 			if($shiyong_zhichu_datetime != "" && $shiyong_zhichu_datetime1 != ""){
 				$pminfo ->selectLimit .= " and shiyong_zhichu_datetime between '$shiyong_zhichu_datetime' and '$shiyong_zhichu_datetime1' ";
 			}
-			$pminfo ->selectLimit .= " and cate_id = 1 order by id desc";
+			$pminfo ->selectLimit .= " and cate_id = 1 order by ";
+
+			$order = $_REQUEST['order'];
+			if($order == ''){
+				$order = 'shiyong_zhichu_datetime DESC';
+			}elseif($order == 'datetime_desc'){
+				$order = 'shiyong_zhichu_datetime DESC';
+			}elseif($order == 'datetime_asc'){
+				$order = 'shiyong_zhichu_datetime ASC';
+			}elseif($order == 'm_desc'){
+				$order = 'shiyong_zhichu_jiner DESC';
+			}elseif($order == 'm_asc'){
+				$order = 'shiyong_zhichu_jiner ASC';
+			}elseif($order == 'p_desc'){
+				$order = 'jiangli_renshu DESC';
+			}elseif($order == 'p_asc'){
+				$order = 'jiangli_renshu ASC';
+			}
+
+			$pminfo->selectLimit .= " pm_mg_info.".$order;
+
 			//$pminfo ->debugSql =true;
 			$pminfo = $pminfo->get($this->dbhelper);
 			

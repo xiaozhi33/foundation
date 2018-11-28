@@ -82,6 +82,8 @@
                                         <option value="datetime_asc" <?php if($_GET['order'] == "datetime_asc"){echo 'selected="selected"';}?>>支出时间升序</option>
                                         <option value="m_desc" <?php if($_GET['order'] == "m_desc"){echo 'selected="selected"';}?>>支出金额降序</option>
                                         <option value="m_asc" <?php if($_GET['order'] == "m_asc"){echo 'selected="selected"';}?>>支出金额升序</option>
+                                        <option value="p_desc" <?php if($_GET['order'] == "p_desc"){echo 'selected="selected"';}?>>奖励人数降序</option>
+                                        <option value="p_asc" <?php if($_GET['order'] == "p_asc"){echo 'selected="selected"';}?>>奖励人数升序</option>
                                     </select>
                                 </div>
                             </div>
@@ -112,14 +114,14 @@
                     <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
                         <thead>
                         <tr>
-                            <td width="14%">项目名称</td>
-                            <td width="8%">所属部门</td>
-                            <td width="8%">项目类型</td>
-                            <td width="8%">支出类型</td>
-                            <td width="8%">支出金额（元）</td>
+                            <td width="22%">项目名称</td>
+                            <td width="14%">所属部门</td>
+                            <td width="12%">支出类型</td>
+                            <td width="12%">支出金额（元）</td>
                             <td width="8%">支出时间</td>
                             <td width="8%">支出对象</td>
                             <td width="8%">奖励人数</td>
+                            <td width="18%">项目类型</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -128,11 +130,7 @@
                             <tr>
                                 <td><a href="/management/chouzi/repminfo?id=<?php echo $v['main_id'];?>" target="_blank"><?php echo $v['pm_name'];?></a></td>
                                 <td><?php echo $this->department[$v[department]];?></td>
-                                <td><?php foreach($this->pcatelist as $key => $value){
-                                        if($value['id'] == $v['cate']){
-                                            echo $value['catename'];
-                                        }
-                                    };?></td>
+
                                 <td><?php if($v['shiyong_type'] == 2){
                                         echo "转财务处";
                                     }elseif($v['shiyong_type'] == 1){
@@ -142,7 +140,11 @@
                                 <td><?php echo date("Y-m-d",strtotime($v['shiyong_zhichu_datetime']));?></td>
                                 <td><?php echo $v['jiangli_fanwei'];?></td>
                                 <td><?php echo $v['jiangli_renshu'];?></td>
-
+                                <td><?php foreach($this->pcatelist as $key => $value){
+                                        if($value['id'] == $v['cate']){
+                                            echo $value['catename'];
+                                        }
+                                    };?></td>
                             </tr>
                         <?php }?>
                         </tbody>
