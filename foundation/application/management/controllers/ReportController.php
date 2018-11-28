@@ -233,7 +233,7 @@
 				echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
 				echo('<script language="JavaScript">');
 				echo("alert('查无结果，请重新查询');");
-				echo('history.back();');
+				echo('window.location.href="/management/report/zijin/index"');
 				echo('</script>');
 				exit;
 			}
@@ -1097,6 +1097,100 @@
 		
 		//使用
 		public function shiyongAction(){
+			$pname = $_REQUEST["pname"];
+
+			$department = $_REQUEST["department"];
+			$shiyong_type = $_REQUEST["shiyong_type"];
+
+			$shiyong_zhichu_datetime = $_REQUEST["start"];
+			$shiyong_zhichu_datetime1 = $_REQUEST["end"];
+			$shiyong_zhichu_jiner = $_REQUEST["shiyong_zhichu_jiner"];
+
+			$pminfo = new pm_mg_infoDAO();
+			$pminfo->joinTable(" left join pm_mg_chouzi as c on pm_mg_info.pm_name=c.pname");
+
+
+			$pminfo->selectField("
+				 c.id as main_id,
+				 c.parent_pm_id,
+				 c.parent_pm_id_path,
+				 c.cate,
+				 pm_mg_info.pm_name,
+				 c.department,
+				 pm_mg_info.pm_pp,
+				 pm_mg_info.shiyong_zhichu_datetime,
+				 pm_mg_info.shiyong_zhichu_jiner,
+				 pm_mg_info.pm_juanzeng_yongtu,
+				 pm_mg_info.pm_pp_cate,
+				 pm_mg_info.pm_is_school,
+				 pm_mg_info.pm_juanzeng_cate,
+				 pm_mg_info.zijin_laiyuan_qudao,
+				 pm_mg_info.shiyong_type,
+				 pm_mg_info.jiangli_fanwei,
+				 pm_mg_info.jiangli_renshu,
+				 pm_mg_info.piaoju_fkfs,
+				 pm_mg_info.piaoju_kddh,
+				 pm_mg_info.renling_name ");
+
+			if($pname != ""){
+				$pminfo ->pm_name = $pname;
+			}
+
+			if($shiyong_zhichu_jiner != ""){
+				$pminfo ->shiyong_zhichu_jiner = $shiyong_zhichu_jiner;
+			}
+
+			if($shiyong_zhichu_datetime != "" && $shiyong_zhichu_datetime1 != ""){
+				$pminfo ->selectLimit .= " and shiyong_zhichu_datetime between '$shiyong_zhichu_datetime' and '$shiyong_zhichu_datetime1' ";
+			}
+
+			if($department != ""){
+				$pminfo ->selectLimit .= " and c.department=".$department;
+			}
+
+			if($shiyong_type != ""){
+				$pminfo ->selectLimit .= " and shiyong_type=".$shiyong_type;
+			}
+
+			$pminfo ->selectLimit .= " and cate_id=1 and is_renling=1 order by ";
+
+			$order = $_REQUEST['order'];
+			if($order == ''){
+				$order = 'shiyong_zhichu_datetime DESC';
+			}elseif($order == 'datetime_desc'){
+				$order = 'shiyong_zhichu_datetime DESC';
+			}elseif($order == 'datetime_asc'){
+				$order = 'shiyong_zhichu_datetime ASC';
+			}elseif($order == 'm_desc'){
+				$order = 'shiyong_zhichu_jiner DESC';
+			}elseif($order == 'm_asc'){
+				$order = 'shiyong_zhichu_jiner ASC';
+			}
+
+			$pminfo->selectLimit .= " pm_mg_info.".$order;
+			$pminfo = $pminfo->get($this->dbhelper);
+
+			if (count($pminfo) == 0) {
+				echo('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+				echo('<script language="JavaScript">');
+				echo("alert('查无结果，请重新查询');");
+				echo('window.location.href="/management/report/shiyong/index"');
+				echo('</script>');
+				exit;
+			}
+
+			$total = count($pminfo);
+			$pageDAO = new pageDAO();
+			$pageDAO = $pageDAO->pageHelper($pminfo, null, "/management/report/shiyong/index", null, 'get', 25, 8);
+			$pages = $pageDAO['pageLink']['all'];
+			$pages = str_replace("/index.php", "", $pages);
+
+			$this->view->assign('plistDAO', $pageDAO['pageData']);
+			$this->view->assign('page', $pages);
+			$this->view->assign('total', $total);
+			$this->view->assign('department', $this->department);
+			$this->view->assign('pcatelist', $this->pcatelist);
+
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render("report/shiyong_new.phtml");
 			echo $this->view->render("index/footer.phtml");
@@ -1104,10 +1198,14 @@
 		
 		//使用统计toExcel
 		public function shiyongtoexcelAction(){
-			$pname = HttpUtil::postString("pname");
-			$shiyong_zhichu_datetime = HttpUtil::postString("shiyong_zhichu_datetime");
-			$shiyong_zhichu_datetime1 = HttpUtil::postString("shiyong_zhichu_datetime1");
-			$shiyong_zhichu_jiner = HttpUtil::postString("shiyong_zhichu_jiner");
+			$pname = $_REQUEST["pname"];
+
+			$department = $_REQUEST["department"];
+			$shiyong_type = $_REQUEST["shiyong_type"];
+
+			$shiyong_zhichu_datetime = $_REQUEST["start"];
+			$shiyong_zhichu_datetime1 = $_REQUEST["end"];
+			$shiyong_zhichu_jiner = $_REQUEST["shiyong_zhichu_jiner"];
 			$pminfo = new pm_mg_infoDAO();
 			
 			if($pname != ""){
@@ -1116,6 +1214,14 @@
 			
 			if($shiyong_zhichu_jiner != ""){
 				$pminfo ->shiyong_zhichu_jiner = $shiyong_zhichu_jiner;
+			}
+
+			if($department != ""){
+				$pminfo ->selectLimit .= " and c.department=".$department;
+			}
+
+			if($shiyong_type != ""){
+				$pminfo ->selectLimit .= " and shiyong_type=".$shiyong_type;
 			}
 			
 			if($shiyong_zhichu_datetime != "" && $shiyong_zhichu_datetime1 != ""){

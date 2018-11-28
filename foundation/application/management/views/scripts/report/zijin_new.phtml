@@ -117,7 +117,8 @@
                         <label class="col-sm-1 control-label" for="input03">排序规则：</label>
                         <div class="col-sm-3">
                             <select class="form-control" name="order">
-                                <option value="datetime_desc" <?php if($_REQUEST['order'] == "datetime_desc"){echo 'selected="selected"';}?> selected="selected">到账时间降序</option>
+                                <option value="">请选择排序规则</option>
+                                <option value="datetime_desc" <?php if($_REQUEST['order'] == "datetime_desc"){echo 'selected="selected"';}?>>到账时间降序</option>
                                 <option value="datetime_asc" <?php if($_REQUEST['order'] == "datetime_asc"){echo 'selected="selected"';}?>>到账时间升序</option>
                                 <option value="m_desc" <?php if($_REQUEST['order'] == "m_desc"){echo 'selected="selected"';}?>>到账金额降序</option>
                                 <option value="m_asc" <?php if($_REQUEST['order'] == "m_asc"){echo 'selected="selected"';}?>>到账金额升序</option>
@@ -126,13 +127,13 @@
                     </div>
 
                      <div class="form-group">
-                             <div class="col-sm-2 control-label">
-                                 <input class="btn btn-greensea" onclick="get_submit()" type="button" value="点击查询"/>
-                             </div>
+                         <div class="col-sm-2 control-label">
+                             <input class="btn btn-greensea" onclick="get_submit()" type="button" value="点击查询"/>
+                         </div>
 
-                            <div class="col-sm-1 control-label">
-                                <input class="btn btn-greensea" onclick="post_submit()" type="button" value="下载excel报表"/>
-                            </div>
+                        <div class="col-sm-1 control-label">
+                            <input class="btn btn-greensea" onclick="post_submit()" type="button" value="下载excel报表"/>
+                        </div>
                      </div>
 
                 </form>
@@ -153,7 +154,7 @@
                         <td width="8%">所属部门</td>
                         <td width="8%">项目类型</td>
                         <td width="8%">来款方</td>
-                        <td width="8%">来款金额</td>
+                        <td width="8%">来款金额（元）</td>
                         <td width="8%">来款时间</td>
                         <td width="8%">捐赠方类型</td>
                         <td width="8%">资金来源</td>

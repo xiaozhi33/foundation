@@ -42,7 +42,7 @@
 			$this->view->assign('shiyonglist',$pageDAO['pageData']);
 			$this->view->assign('page',$pages);	
 			$this->view->assign('total',$total);
-            $this->view->assign('type',$type);
+            //$this->view->assign('type',$type);
 
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render("shiyong/index.phtml");
