@@ -80,10 +80,12 @@
                     <label class="col-sm-1 control-label" for="input01">
                         是否校友：</label>
                     <div class="col-sm-3">
-                        <label> 是
-                            <input type="radio" name="pm_is_school" <?php if($_REQUEST['pm_is_school'] == 1) echo 'checked="checked"';?>  value="1" /></label>
+                        <label>是
+                            <input type="radio" name="pm_is_school" <?php if($_REQUEST['pm_is_school'] == 1) echo 'checked="checked"';?>  value="1" />
+                        </label>
                         <label>否
-                            <input type="radio" name="pm_is_school" <?php if($_REQUEST['pm_is_school'] == 0) echo 'checked="checked"';?>  value="0"/></label>
+                            <input type="radio" name="pm_is_school" <?php if($_REQUEST['pm_is_school'] === 0) echo 'checked="checked"';?>  value="0"/>
+                        </label>
                     </div>
 
                     <label class="col-sm-1 control-label" for="input03">未开票：</label>

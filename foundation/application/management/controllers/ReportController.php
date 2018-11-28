@@ -207,12 +207,7 @@
 			// 过滤逻辑删除的项目
 			$zijininfo->selectLimit .= " and c.is_del=0";
 
-			$pm_is_school = HttpUtil::postString("pm_is_school");
-			if ($pm_is_school != "") {
-				$zijininfo->selectLimit .= " and pm_is_school = " . $pm_is_school;
-			}
-
-			$zijininfo->selectLimit .= " and cate_id=0 and is_renling=1 order by ";
+			$zijininfo->selectLimit .= " and pm_mg_info.cate_id=0 and pm_mg_info.is_renling=1 order by ";
 
 			$order = $_REQUEST['order'];
 			if($order == ''){
@@ -328,7 +323,7 @@
 					// 过滤逻辑删除的项目
 					$zijininfo ->selectLimit .= " and c.is_del=0";
 
-					$pm_is_school = HttpUtil::postString("pm_is_school");
+					$pm_is_school = $_REQUEST["pm_is_school"];
 					if($pm_is_school != ""){
 						$zijininfo ->selectLimit .= " and pm_is_school = ".$pm_is_school;
 					}
