@@ -74,7 +74,7 @@
                 <div class="form-group">
                     <label class="col-sm-1 control-label" for="input01">某一捐赠人的所有捐赠：</label>
                     <div class="col-sm-3">
-                        <input type="text" width="100%" class="btn btn-primary btn-block" value="<?php echo $_REQUEST['pm_pp'];?>" name="pm_pp"/>
+                        <input type="text" width="100%" class="btn btn-primary btn-block"  style="text-align:left;" value="<?php echo $_REQUEST['pm_pp'];?>" name="pm_pp"/>
                     </div>
 
                     <label class="col-sm-1 control-label" for="input01">
@@ -88,7 +88,7 @@
 
                     <label class="col-sm-1 control-label" for="input03">未开票：</label>
                     <div class="col-sm-3">
-                        <input name="piaoju" type="checkbox" value="1" <?php if($_REQUEST['piaoju'] == 0) echo 'checked="checked"';?>>
+                        <input name="piaoju" type="checkbox" value="2" <?php if($_REQUEST['piaoju'] == 2) echo 'checked="checked"';?>>
                     </div>
                 </div>
 
@@ -155,6 +155,7 @@
                         <td width="8%">来款时间</td>
                         <td width="8%">捐赠方类型</td>
                         <td width="8%">资金来源</td>
+                        <td width="8%">未开票</td>
                         <td width="8%">是否校友</td>
                     </tr>
                     </thead>
@@ -174,7 +175,12 @@
                             <td><?php echo date("Y-m-d",strtotime($v['zijin_daozhang_datetime']));?></td>
                             <td><?php echo $v['pm_pp_cate'];?></td>
                             <td><?php echo $v['zijin_laiyuan_qudao'];?></td>
-                            <td><?php if($v['pm_is_school'] == 1){
+                            <td><?php if($v['piaoju'] == 1){
+                                    echo '已开票';
+                                }else{
+                                    echo '未开票';
+                                }?></td>
+                            <td><?php if($v['piaoju'] == 1){
                                     echo  $pm_is_school = '校友';
                                 }else{
                                     echo  $pm_is_school = '非校友';

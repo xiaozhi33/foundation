@@ -200,8 +200,8 @@
 				$zijininfo->selectLimit .= " and pm_mg_info.pm_pp like '%" . $pm_pp . "%' ";
 			}
 
-			if ($piaoju != "") {  // 未开票
-				$zijininfo->selectLimit .= " and pm_mg_info.pm_pp!=1 ";
+			if ($piaoju == 2) {  // 开票
+				$zijininfo->selectLimit .= " and pm_mg_info.piaoju=0 ";
 			}
 
 			// 过滤逻辑删除的项目
@@ -321,8 +321,8 @@
                         $zijininfo ->selectLimit .= " and pm_mg_info.pm_pp like '%".$pm_pp."%' ";
                     }
 
-                    if($piaoju != ""){  // 未开票
-                        $zijininfo ->selectLimit .= " and pm_mg_info.pm_pp!=1 ";
+                    if($piaoju == 2){  // 未开票
+                        $zijininfo ->selectLimit .= " and pm_mg_info.piaoju=0 ";
                     }
 
 					// 过滤逻辑删除的项目
@@ -333,7 +333,25 @@
 						$zijininfo ->selectLimit .= " and pm_is_school = ".$pm_is_school;
 					}
 
-                    $zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by pm_mg_info.zijin_daozhang_datetime DESC, bpath";
+                    //$zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by pm_mg_info.zijin_daozhang_datetime DESC, bpath";
+
+					$zijininfo->selectLimit .= " and cate_id=0 and is_renling=1 order by ";
+
+					$order = $_REQUEST['order'];
+					if($order == ''){
+						$order = 'zijin_daozhang_datetime DESC';
+					}elseif($order == 'datetime_desc'){
+						$order = 'zijin_daozhang_datetime DESC';
+					}elseif($order == 'datetime_asc'){
+						$order = 'zijin_daozhang_datetime ASC';
+					}elseif($order == 'm_desc'){
+						$order = 'zijin_daozheng_jiner DESC';
+					}elseif($order == 'm_asc'){
+						$order = 'zijin_daozheng_jiner ASC';
+					}
+
+					$zijininfo->selectLimit .= " pm_mg_info.".$order;
+					$zijininfo->selectLimit .= ", bpath";
                     //$zijininfo ->debugSql =true;
                     $zijininfo = $zijininfo->get($this->dbhelper);
 
