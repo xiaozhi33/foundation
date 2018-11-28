@@ -215,6 +215,7 @@
             if($(".chosen-single span").html() != "请选择项目名称"){
                 $("#pname_info").val($(".chosen-single span").html());
             }
+            $('#search_form1').attr('action','/management/report/zijinnewtoexcel');
             $('#search_form1').submit();
         }
     </script>
