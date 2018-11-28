@@ -181,8 +181,10 @@
 				$zijininfo->selectLimit .= " and pm_mg_info.pm_name='".$pname."'";
 			}
 
-			if ($pm_is_school != "") {
+			if ($pm_is_school == 1) {
 				$zijininfo->selectLimit .= " and pm_mg_info.pm_is_school='".$pm_is_school."'";
+			}elseif($pm_is_school == 2){
+				$zijininfo->selectLimit .= " and pm_mg_info.pm_is_school=0";
 			}
 
 			if ($cate != "") {
@@ -324,8 +326,10 @@
 					$zijininfo ->selectLimit .= " and c.is_del=0";
 
 					$pm_is_school = $_REQUEST["pm_is_school"];
-					if($pm_is_school != ""){
-						$zijininfo ->selectLimit .= " and pm_is_school = ".$pm_is_school;
+					if ($pm_is_school == 1) {
+						$zijininfo->selectLimit .= " and pm_mg_info.pm_is_school='".$pm_is_school."'";
+					}elseif($pm_is_school == 2){
+						$zijininfo->selectLimit .= " and pm_mg_info.pm_is_school=0";
 					}
 
                     //$zijininfo ->selectLimit .= " and cate_id=0 and is_renling=1 order by pm_mg_info.zijin_daozhang_datetime DESC, bpath";
