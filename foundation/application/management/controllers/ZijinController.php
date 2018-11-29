@@ -825,9 +825,24 @@
             $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
             $pm_signDAO ->withPm_mg_chouzi(array("pm_id" => "id"));
             $pm_signDAO ->findId($id);
-            $pm_signDAO ->select("pm_mg_sign.*,pm_mg_chouzi.pname");
+            $pm_signDAO ->select("pm_mg_sign.*,pm_mg_chouzi.id as main_id,pm_mg_chouzi.pname");
             $pm_signDAO = $pm_signDAO ->get();
             $this->view->assign("signinfo", $pm_signDAO[0]);
+
+            // 获取所有签约列表
+            $_all_sign = $this->orm->createDAO("pm_mg_sign")->findPm_id($pm_signDAO[0]['main_id']);
+            $_all_sign ->selectLimit .= " AND id !=".$id;
+            $_all_sign ->selectLimit .= " order by sign_time DESC";
+            $_all_sign = $_all_sign->get();
+            $this->view->assign("allsign", $_all_sign);
+
+            $ssxy_array = array();
+            if(!empty($_all_sign)){
+                foreach ($_all_sign as $item) {
+                    $ssxy_array[$item['id']] = $item;
+                }
+            }
+            $this->view->assign("ssxy_array", $ssxy_array);
 
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("zijin/newsigninfo_bak.phtml");
@@ -858,18 +873,6 @@
                 exit();
             }
 
-            /*if(HttpUtil::postString("jzys") == 1){
-                if($_FILES['sign_files']['name']=="" || HttpUtil::postString("sign_time")=="" ){
-                    echo "<script>alert('签约时间和电子协议不能为空！');";
-                    echo "javascript:history.go(-1); ";
-                    echo "</script>";
-                    exit();
-                }
-            }*/
-
-            /*			if(!empty($id)){
-                            $pm_signDAO ->findId($pm_id);
-                        }*/
             $pm_signDAO ->pm_id = $pm_id;
             $pm_signDAO ->sign_time = HttpUtil::postString("sign_time");
             $pm_signDAO ->jzys_time = HttpUtil::postString("jzys_time");
@@ -884,7 +887,6 @@
                     if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
                         mkdir(__UPLOADPICPATH__ ."jjh_download/");
                     }
-                    //echo $_FILES['sign_files']['type'];exit();
                     $uploadpic = new uploadPic($_FILES['sign_files']['name'],$_FILES['sign_files']['error'],$_FILES['sign_files']['size'],$_FILES['sign_files']['tmp_name'],$_FILES['sign_files']['type'],2);
                     $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
                     $result = $uploadpic->uploadPic();
@@ -900,7 +902,10 @@
                 }
             }
 
-            $pm_signDAO ->xyje = HttpUtil::postString("xyje");
+            $pm_signDAO ->type = HttpUtil::postString("type");
+            $pm_signDAO ->ssxy = HttpUtil::postString("ssxy");
+
+            $pm_signDAO ->xyje = $_REQUEST["xyje"];
             $pm_signDAO ->jzys = HttpUtil::postString("jzys");
             $pm_signDAO ->adress = HttpUtil::postString("adress");
 
@@ -944,7 +949,7 @@
             {
                 $like_sql .= " AND pm_mg_chouzi.pname like '%".$name."%'";
             }
-            $like_sql .= " order by lastmodify desc";
+            $like_sql .= " order by lastmodify desc, ssxy_path asc, lastmodify desc";
             $signDAO->select(" pm_mg_sign.*,pm_mg_chouzi.pname");
             $signDAO->selectLimit = $like_sql;
             $signDAO = $signDAO ->get();
@@ -971,6 +976,7 @@
             if(!empty($pname)){
                 // 查询该项目是否存在
                 $pminfoDAO = $this->orm->createDAO("pm_mg_chouzi")->findPname($pname)->get();
+
                 if(empty($pminfoDAO)) {
                     $this->alert_back("该项目不存在！");
                 }
@@ -979,10 +985,19 @@
 
                 // 获取所有签约列表
                 $_all_sign = $this->orm->createDAO("pm_mg_sign")->findPm_id($pminfoDAO[0]['id']);
-                $_all_sign ->selectLimit .= " order by sign_time DESC";
-                $_all_sign = $_all_sign->get();
-                $this->view->assign("allsign", $_all_sign);
+                $_all_sign ->selectLimit .= ' order by ssxy_path asc, sign_time DESC';
+                $_all_sign = $_all_sign ->get();
 
+                $this->view->assign("allsign", $_all_sign);
+                
+                $ssxy_array = array();
+                if(!empty($_all_sign)){
+                    foreach ($_all_sign as $item) {
+                        $ssxy_array[$item['id']] = $item;
+                    }
+                }
+                $this->view->assign("ssxy_array", $ssxy_array);
+                
                 echo $this->view->render("index/header.phtml");
                 echo $this->view->render("zijin/newaddsign.phtml");
                 echo $this->view->render("index/footer.phtml");
@@ -1029,9 +1044,6 @@
                 echo "</script>";
                 exit();
             }
-/*			if(!empty($id)){
-				$pm_signDAO ->findId($pm_id);
-			}*/
 			$pm_signDAO ->pm_id = $pm_id;
 			$pm_signDAO ->sign_time = HttpUtil::postString("sign_time");
 
@@ -1139,6 +1151,9 @@
             }
             $this->view->assign("jjh_mg_pp_list", $temp_array);
 
+            $types_array = array('1' => '新','2' => '补','3' => '续','4' => '改');
+            $this->view->assign("types_array", $types_array);
+
             //ini_set("display_errors", "On");
             //error_reporting(E_ERROR);
 		}
@@ -1147,150 +1162,203 @@
          * @throws Exception
          * @name Ajax添加签约协议
          */
-        public function ajaxaddsignAction(){
-            (int)$pm_id = HttpUtil::postString("pm_id");
-            $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
-            if(empty($pm_id)){
-                echo json_encode(array("status"=>"error","message" => "非法请求，请查正后再试！"));
-                exit();
-            }
-
-            $arr_xynf = $_REQUEST['xynf'];
-            foreach($arr_xynf as $value){
-                if(empty($value)){
-                    echo json_encode(array("status"=>"error","message" => "协议年份不能为空！"));
+        public function ajaxaddsignAction()
+        {
+            try{
+                (int)$pm_id = HttpUtil::postString("pm_id");
+                $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
+                if(empty($pm_id)){
+                    echo json_encode(array("status"=>"error","message" => "非法请求，请查正后再试！"));
                     exit();
                 }
-            }
 
-            $arr_zxxynf = $_REQUEST['zxxynf'];
-            foreach($arr_zxxynf as $value){
-                if(empty($value)){
-                    echo json_encode(array("status"=>"error","message" => "执行协议年份不能为空！"));
-                    exit();
+                $arr_xynf = $_REQUEST['xynf'];
+                foreach($arr_xynf as $value){
+                    if(empty($value)){
+                        echo json_encode(array("status"=>"error","message" => "协议年份不能为空！"));
+                        exit();
+                    }
                 }
-            }
 
-            $pm_signDAO ->xynf = json_encode($arr_xynf);
-            $pm_signDAO ->zxxynf = json_encode($arr_zxxynf);
-
-            /*if(HttpUtil::postString("jzys") == 1){
-                if($_FILES['sign_files']['name']=="" || HttpUtil::postString("sign_time")=="" ){
-                    echo "<script>alert('签约时间和电子协议不能为空！');";
-                    echo "javascript:history.go(-1); ";
-                    echo "</script>";
-                    exit();
+                $arr_zxxynf = $_REQUEST['zxxynf'];
+                foreach($arr_zxxynf as $value){
+                    if(empty($value)){
+                        echo json_encode(array("status"=>"error","message" => "执行协议年份不能为空！"));
+                        exit();
+                    }
                 }
-            }*/
 
-            /*			if(!empty($id)){
-                            $pm_signDAO ->findId($pm_id);
-                        }*/
-            $pm_signDAO ->pm_id = $pm_id;
-            $pm_signDAO ->sign_time = HttpUtil::postString("sign_time");
-            $pm_signDAO ->jzys_time = HttpUtil::postString("jzys_time");
-            $pm_signDAO ->xydz_time = HttpUtil::postString("xydz_time");
+                $pm_signDAO ->xynf = json_encode($arr_xynf);
+                $pm_signDAO ->zxxynf = json_encode($arr_zxxynf);
 
-            if($_REQUEST['sid']){
-                $pm_signDAO ->findId($_REQUEST['sid']);
-            }
+                $pm_signDAO ->pm_id = $pm_id;
+                $pm_signDAO ->sign_time = HttpUtil::postString("sign_time");
+                $pm_signDAO ->jzys_time = HttpUtil::postString("jzys_time");
+                $pm_signDAO ->xydz_time = HttpUtil::postString("xydz_time");
 
-            if(empty($_REQUEST['sid'])){
-                if($_FILES['sign_files']['name']!=""){
-                    if($_FILES['sign_files']['error'] != 4){
-                        if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
-                            mkdir(__UPLOADPICPATH__ ."jjh_download/");
+                $pm_signDAO ->type = HttpUtil::postString("type");
+                $pm_signDAO ->ssxy = HttpUtil::postString("ssxy");
+
+
+                // 修改协议
+                if($_REQUEST['sid']){
+                    $pm_signDAO ->findId($_REQUEST['sid']);
+
+                    // 修改协议ssxy_path
+                    if(HttpUtil::postString("type") != 1){
+                        $this->change_ssxy_path(HttpUtil::postString("ssxy"), $_REQUEST['sid']);
+                    }else {
+                        $_pm_signDAO = $this->orm->createDAO("pm_mg_sign");
+                        $_pm_signDAO ->findId($_REQUEST['sid']);
+                        $_pm_signDAO ->ssxy_path = $_REQUEST['sid'];
+                        $_pm_signDAO ->save();
+                    }
+                }
+
+                if(empty($_REQUEST['sid'])){
+                    if($_FILES['sign_files']['name']!=""){
+                        if($_FILES['sign_files']['error'] != 4){
+                            if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+                                mkdir(__UPLOADPICPATH__ ."jjh_download/");
+                            }
+                            //echo $_FILES['sign_files']['type'];exit();
+                            $uploadpic = new uploadPic($_FILES['sign_files']['name'],$_FILES['sign_files']['error'],$_FILES['sign_files']['size'],$_FILES['sign_files']['tmp_name'],$_FILES['sign_files']['type'],2);
+                            $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+                            $result = $uploadpic->uploadPic();
+                            if($result['error']!=0){
+                                echo "<script>alert('".$result['msg']."');";
+                                echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
+                                echo "</script>";
+                                exit();
+                            }else{
+                                $pm_signDAO->sign_files =  __GETPICPATH__."jjh_download/".$result['picname'];
+                                $pm_signDAO->sign_files_name = $_FILES['sign_files']['name'];
+                            }
                         }
-                        //echo $_FILES['sign_files']['type'];exit();
-                        $uploadpic = new uploadPic($_FILES['sign_files']['name'],$_FILES['sign_files']['error'],$_FILES['sign_files']['size'],$_FILES['sign_files']['tmp_name'],$_FILES['sign_files']['type'],2);
-                        $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
-                        $result = $uploadpic->uploadPic();
-                        if($result['error']!=0){
-                            echo "<script>alert('".$result['msg']."');";
-                            echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
-                            echo "</script>";
-                            exit();
-                        }else{
-                            $pm_signDAO->sign_files =  __GETPICPATH__."jjh_download/".$result['picname'];
-                            $pm_signDAO->sign_files_name = $_FILES['sign_files']['name'];
+                    }else {
+                        echo json_encode(array("status"=>"error","message" => "请上传项目协议！！"));
+                        exit();
+                    }
+                }else{
+                    if($_FILES['sign_files']['name']!=""){
+                        if($_FILES['sign_files']['error'] != 4){
+                            if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+                                mkdir(__UPLOADPICPATH__ ."jjh_download/");
+                            }
+                            //echo $_FILES['sign_files']['type'];exit();
+                            $uploadpic = new uploadPic($_FILES['sign_files']['name'],$_FILES['sign_files']['error'],$_FILES['sign_files']['size'],$_FILES['sign_files']['tmp_name'],$_FILES['sign_files']['type'],2);
+                            $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+                            $result = $uploadpic->uploadPic();
+                            if($result['error']!=0){
+                                echo "<script>alert('".$result['msg']."');";
+                                echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
+                                echo "</script>";
+                                exit();
+                            }else{
+                                $pm_signDAO->sign_files =  __GETPICPATH__."jjh_download/".$result['picname'];
+                                $pm_signDAO->sign_files_name = $_FILES['sign_files']['name'];
+                            }
                         }
+                    }
+                }
+
+                if($_REQUEST["xyje"] == ''){
+                    echo json_encode(array("status"=>"error","message" => "请填写协议总捐赠金额！！"));
+                    exit();
+                }
+                if(empty(HttpUtil::postString("jzyt"))){
+                    echo json_encode(array("status"=>"error","message" => "请填写捐赠用途！！"));
+                    exit();
+                }
+                if(empty(HttpUtil::postString("bz"))){
+                    echo json_encode(array("status"=>"error","message" => "请填写备注！！"));
+                    exit();
+                }
+                if(empty(HttpUtil::postString("sign_name"))){
+                    echo json_encode(array("status"=>"error","message" => "请填写协议名称！！"));
+                    exit();
+                }
+
+                $pm_signDAO ->xyje = $_REQUEST["xyje"];
+                $pm_signDAO ->sign_name = $_REQUEST["sign_name"];
+                $pm_signDAO ->jzyt = HttpUtil::postString("jzyt");
+                $pm_signDAO ->sfqy = HttpUtil::postString("sfqy");
+                $pm_signDAO ->sflb = HttpUtil::postString("sflb");
+                $pm_signDAO ->bz = HttpUtil::postString("bz");
+
+                $pm_signDAO ->ndjzje = (float)HttpUtil::postString("ndjzje");            // 年度捐赠金额
+                $pm_signDAO ->xyjzf = implode(",",$_REQUEST["xyjzf"]);                   // 协议捐赠方
+
+
+                $pm_signDAO ->jzys = HttpUtil::postString("jzys");
+                $pm_signDAO ->adress = HttpUtil::postString("adress");
+                $pm_signDAO ->lastmodify = time();
+
+                $pid = $pm_signDAO ->save();
+
+                if($_REQUEST['id']) {
+                    $is_sign = HttpUtil::postString("is_sign");
+                    if ($is_sign == '2') {
+                        $this->changerate($_REQUEST['id'], 'add', 2);
+                    } else {
+                        $this->changerate($_REQUEST['id'], 'del', 2);
+                    }
+                }
+
+                if($pid){                        // 新增
+                    //新增协议，修改ssxy_path
+                    if(HttpUtil::postString("type") != 1){
+                        $this->change_ssxy_path(HttpUtil::postString("ssxy"), $pid);
+                    }else {
+                        $_pm_signDAO = $this->orm->createDAO("pm_mg_sign");
+                        $_pm_signDAO ->findId($pid);
+                        $_pm_signDAO ->ssxy = $pid;
+                        $_pm_signDAO ->ssxy_path = $pid;
+                        $_pm_signDAO ->save();
+                    }
+
+                    ////////////////编辑进度///////////////////////
+                    $is_sign = HttpUtil::postString("is_sign");
+                    if ($is_sign == '2') {
+                        $this->changerate($pid, 'add', 2);
+                    } else {
+                        $this->changerate($pid, 'del', 2);
                     }
                 }else {
-                    echo json_encode(array("status"=>"error","message" => "请上传项目协议！！"));
-                    exit();
-                }
-            }else{
-                if($_FILES['sign_files']['name']!=""){
-                    if($_FILES['sign_files']['error'] != 4){
-                        if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
-                            mkdir(__UPLOADPICPATH__ ."jjh_download/");
-                        }
-                        //echo $_FILES['sign_files']['type'];exit();
-                        $uploadpic = new uploadPic($_FILES['sign_files']['name'],$_FILES['sign_files']['error'],$_FILES['sign_files']['size'],$_FILES['sign_files']['tmp_name'],$_FILES['sign_files']['type'],2);
-                        $uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
-                        $result = $uploadpic->uploadPic();
-                        if($result['error']!=0){
-                            echo "<script>alert('".$result['msg']."');";
-                            echo "window.location.href='/management/zijin/signinfo?id=".$pm_id."'; ";
-                            echo "</script>";
-                            exit();
-                        }else{
-                            $pm_signDAO->sign_files =  __GETPICPATH__."jjh_download/".$result['picname'];
-                            $pm_signDAO->sign_files_name = $_FILES['sign_files']['name'];
-                        }
+                    if(HttpUtil::postString("type") != 1){
+                        $this->change_ssxy_path(HttpUtil::postString("ssxy"), $_REQUEST['sid']);
+                    }else {
+                        $_pm_signDAO = $this->orm->createDAO("pm_mg_sign");
+                        $_pm_signDAO ->findId($_REQUEST['sid']);
+                        $_pm_signDAO ->ssxy = $_REQUEST['sid'];
+                        $_pm_signDAO ->ssxy_path = $_REQUEST['sid'];
+                        $_pm_signDAO ->save();
                     }
                 }
-            }
 
-            if(empty(HttpUtil::postString("xyje"))){
-                echo json_encode(array("status"=>"error","message" => "请填写项目协议金额！！"));
+                echo json_encode(array("status"=>"success","message" => "编辑成功！！"));
                 exit();
+            }catch(Exception $e){
+                echo json_encode(array("status"=>"error","message" => $e));
             }
-            if(empty(HttpUtil::postString("jzyt"))){
-                echo json_encode(array("status"=>"error","message" => "请填写捐赠用途！！"));
-                exit();
-            }
-            if(empty(HttpUtil::postString("bz"))){
-                echo json_encode(array("status"=>"error","message" => "请填写备注！！"));
-                exit();
-            }
+        }
 
-            $pm_signDAO ->xyje = HttpUtil::postString("xyje");
-            $pm_signDAO ->jzyt = HttpUtil::postString("jzyt");
-            $pm_signDAO ->sfqy = HttpUtil::postString("sfqy");
-            $pm_signDAO ->sflb = HttpUtil::postString("sflb");
-            $pm_signDAO ->bz = HttpUtil::postString("bz");
+        /**
+         * @name 修改协议的ssxy_path
+         * @param string $pid  ssxy
+         * @param string $id   id
+         */
+        public function change_ssxy_path($pid='',$id=''){
+            $signDAO = $this->orm->createDAO("pm_mg_sign");
+            $signDAO ->findId($pid);
+            $signDAO = $signDAO->get();
 
-            $pm_signDAO ->ndjzje = HttpUtil::postString("ndjzje");            // 年度捐赠金额
-            $pm_signDAO ->xyjzf = implode(",",$_REQUEST["xyjzf"]); // 协议捐赠方
+            $path = $signDAO[0]['ssxy_path'].','.$id;
 
-
-            $pm_signDAO ->jzys = HttpUtil::postString("jzys");
-            $pm_signDAO ->adress = HttpUtil::postString("adress");
-            $pm_signDAO ->lastmodify = time();
-
-            $pid = $pm_signDAO ->save();
-
-            if($_REQUEST['id']) {
-                $is_sign = HttpUtil::postString("is_sign");
-                if ($is_sign == '2') {
-                    $this->changerate($_REQUEST['id'], 'add', 2);
-                } else {
-                    $this->changerate($_REQUEST['id'], 'del', 2);
-                }
-            }
-
-            if($pid){
-                $is_sign = HttpUtil::postString("is_sign");
-                if ($is_sign == '2') {
-                    $this->changerate($pid, 'add', 2);
-                } else {
-                    $this->changerate($pid, 'del', 2);
-                }
-            }
-
-            echo json_encode(array("status"=>"success","message" => "编辑成功！！"));
-            exit();
+            $_signDAO = $this->orm->createDAO("pm_mg_sign");
+            $_signDAO->findId($id);
+            $_signDAO->ssxy_path = $path;
+            $_signDAO->save();
         }
 
         /**

@@ -74,23 +74,31 @@
                     <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
                         <thead>
                         <tr>
-                            <td width="10%">项目名称</td>
-                            <td width="15%">协议起始年份~终止年份</td>
-                            <td width="15%">执行协议起始年份~终止年份</td>
-                            <td width="10%">签约协议</td>
+                            <td width="14%">项目名称</td>
+                            <td width="12%">协议名称</td>
+                            <td width="11%">协议起始年份~终止年份</td>
+                            <td width="11%">执行协议起始年份~终止年份</td>
+                            <td width="12%">签约协议</td>
                             <td width="10%">协议年度捐赠金额（元）</td>
                             <td width="10%">协议总捐赠金额（元）</td>
-                            <td width="10%">签约时间</td>
+                            <td width="8%">签约时间</td>
                             <td width="10%">操作</td>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
                         foreach($this->signlist as $k=>$v){?>
-                            <tr>
+                            <tr  style="background-color: <?php if($v['type'] == 1 ){echo "white";}else{echo "beige";}?>">
                                 <td>
                                     <!--<a href="/management/chouzi/index?pname=<?php /*echo $v['pname'];*/?>" target="_blank" ><?php /*echo $v['pname'];*/?></a>&nbsp;-->
-                                    <a href="/management/zijin/newaddsign?pname=<?php echo $v['pname'];?>" target="_blank" ><?php echo $v['pname'];?></a>&nbsp;
+                                    <a href="/management/zijin/newaddsign?pname=<?php echo $v['pname'];?>" target="_blank" >
+                                        <?php echo $v['pname'];?>
+                                    </a>&nbsp;
+                                </td>
+
+                                <td>
+                                    <strong><?php if($v['type'] !=1){echo "（".$this->types_array[$v['type']]."）";}?></strong>
+                                    <strong><?php echo $v['sign_name'];?></strong>
                                 </td>
 
                                 <td>
@@ -128,9 +136,9 @@
                                         }?>
                                     </a></td>
 
-                                <td><strong><?php if(!empty($v['ndjzje'])){echo number_format($v['ndjzje'],2);}else{echo "--";}?></strong></td>
+                                <td><strong><?php echo number_format((float)$v['ndjzje'],2);?></strong></td>
 
-                                <td><strong><?php if(!empty($v['xyje'])){echo number_format($v['xyje'],2);}else{echo "--";}?></strong></td>
+                                <td><strong><?php echo number_format((float)$v['xyje'],2);?></strong></td>
 
 
                                 <td><?php echo date("Y-m-d",strtotime($v['sign_time']));?></td>
