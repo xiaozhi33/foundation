@@ -109,7 +109,7 @@
 
         <div class="col-md-12">
             <section class="tile color transparent-white">
-                <tr class="tile-body nopadding">
+
                     <?php if($this->plistDAO != ""){?>
                     <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
                         <thead>
@@ -149,19 +149,19 @@
                         <?php }?>
                         </tbody>
                     </table>
-        </div>
-        <div class="tile-footer">
-            <div class="row">
-                <div class="page col-md-12" align="right">
-                    共  <?php echo $this->total;?> 条项目收入信息          <?php echo $this->page;?></div>
 
-                <?php }else{?>
-                    <div style="padding: 20px;">暂无项目收入信息！<a href="/management/zijin/addzijin">点击添加</a></div>
-                <?php }?>
-            </div>
+                <div class="tile-footer">
+                    <div class="row">
+                        <div class="page col-md-12" align="right">
+                            共  <?php echo $this->total;?> 条项目收入信息          <?php echo $this->page;?></div>
+
+                        <?php }else{?>
+                            <div style="padding: 20px;">暂无项目收入信息！<a href="/management/zijin/addzijin">点击添加</a></div>
+                        <?php }?>
+                    </div>
+                </div>
+            </section>
         </div>
-        </section>
-    </div>
 
     <script src="/include/management/assets/js/jquery.js"></script>
     <script language="javascript">
