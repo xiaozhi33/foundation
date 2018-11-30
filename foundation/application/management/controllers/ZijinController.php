@@ -942,6 +942,18 @@
         {
             $name = HttpUtil::getString("pname");
 
+            $sign_name = $_REQUEST['sign_name'];
+            $type = $_REQUEST["type"];
+            $sign_time = $_REQUEST["sign_time"];
+            $xyje = $_REQUEST["xyje"];
+            $ndjzje = $_REQUEST["ndjzje"];
+            $xyjzf = $_REQUEST["xyjzf"];
+
+            $sfqy = $_REQUEST["sfqy"];
+            $jzyt = $_REQUEST["jzyt"];
+            $bz = $_REQUEST["bz"];
+            $order = $_REQUEST["order"];
+
             $signDAO = $this->orm->createDAO("pm_mg_sign");
             $signDAO ->withPm_mg_chouzi(array("pm_id" => "id"));
             $like_sql = "";
@@ -949,7 +961,65 @@
             {
                 $like_sql .= " AND pm_mg_chouzi.pname like '%".$name."%'";
             }
-            $like_sql .= " order by lastmodify desc, ssxy_path asc, lastmodify desc";
+            if($sign_name != "")
+            {
+                $like_sql .= " AND pm_mg_sign.sign_name like '%".$sign_name."%'";
+            }
+            if($type != "")
+            {
+                $like_sql .= " AND pm_mg_sign.type=".$type;
+            }
+            if($sign_time != "")
+            {
+                $like_sql .= " AND pm_mg_sign.sign_time='".$sign_time."'";
+            }
+            if($xyje != "")
+            {
+                $like_sql .= " AND pm_mg_sign.xyje=".$xyje;
+            }
+            if($ndjzje != "")
+            {
+                $like_sql .= " AND pm_mg_sign.ndjzje=".$ndjzje;
+            }
+            if(!empty($xyjzf) && $xyjzf[0] != ''){
+                foreach($xyjzf as $key => $value){
+                    $like_sql .= ' AND find_in_set('.$value.',xyjzf)';
+                }
+            }
+            if($sfqy != "")
+            {
+                if($sfqy == 2){
+                    $sfqy = 0;
+                }
+                $like_sql .= " AND pm_mg_sign.sfqy=".$sfqy;
+            }
+            if($jzyt != "")
+            {
+                $like_sql .= " AND pm_mg_sign.jzyt like '%".$jzyt."%'";
+            }
+            if($jzyt != "")
+            {
+                $like_sql .= " AND pm_mg_sign.bz like '%".$bz."%'";
+            }
+
+            $like_sql .= " order by ";
+            if($order != "")
+            {
+                if($order == 'lastmodify_desc'){
+                    $like_sql .= " pm_mg_sign.lastmodify desc ";
+                }elseif($order == 'xyje_desc'){
+                    $like_sql .= " pm_mg_sign.xyje desc ";
+                }elseif($order == 'xyje_asc'){
+                    $like_sql .= " pm_mg_sign.xyje asc ";
+                }elseif($order == 'qysj_desc'){
+                    $like_sql .= " pm_mg_sign.sign_time desc ";
+                }elseif($order == 'qysj_asc'){
+                    $like_sql .= " pm_mg_sign.sign_time asc ";
+                }
+            }else{
+                $like_sql .= " lastmodify desc, ssxy_path asc";
+            }
+
             $signDAO->select(" pm_mg_sign.*,pm_mg_chouzi.pname");
             $signDAO->selectLimit = $like_sql;
             $signDAO = $signDAO ->get();
