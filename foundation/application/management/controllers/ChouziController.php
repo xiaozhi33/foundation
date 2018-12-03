@@ -978,6 +978,12 @@
                 $pm_mg_chouziDAO ->findId($pid);
                 $pm_mg_chouziDAO = $pm_mg_chouziDAO ->get();
 
+                //协议年限及金额 - 用途
+                $sign_list_DAO = $this->orm->createDAO("pm_mg_sign")->findPm_id($pid);
+                $sign_list_DAO ->selectLimit .= " order by ssxy_path ASC";
+                $sign_list_DAO = $sign_list_DAO ->get();
+                $this->view->assign("sign_list_DAO",$sign_list_DAO);
+
                 //生产二维码
                 if(!file_exists(__UPLOADPICPATH__ . '/pmqrcode/')) {
                     mkdir(__UPLOADPICPATH__ . '/pmqrcode/' ,0777);

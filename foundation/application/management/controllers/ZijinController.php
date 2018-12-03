@@ -1221,9 +1221,6 @@
             }
             $this->view->assign("jjh_mg_pp_list", $temp_array);
 
-            $types_array = array('1' => '新','2' => '补','3' => '续','4' => '改');
-            $this->view->assign("types_array", $types_array);
-
             //ini_set("display_errors", "On");
             //error_reporting(E_ERROR);
 		}

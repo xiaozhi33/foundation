@@ -113,6 +113,9 @@
                 )
             );
 
+            $types_array = array('1' => '新','2' => '补','3' => '续','4' => '改');
+            $this->view->assign("types_array", $types_array);
+
             $admin_list = $this->orm->createDAO("my_admin")->get();
             foreach($admin_list as $k => $v){
                 $_admin_list[$v['id']] = $v['admin_name'];
