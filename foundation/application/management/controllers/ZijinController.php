@@ -1442,6 +1442,34 @@
             $this->alert_back("删除成功！");
         }
 
+        public function signviewAction(){
+            (int)$id = HttpUtil::getString("id");
+            $pm_signDAO = $this->orm->createDAO("pm_mg_sign");
+            $pm_signDAO ->withPm_mg_chouzi(array("pm_id" => "id"));
+            $pm_signDAO ->findId($id);
+            $pm_signDAO ->select("pm_mg_sign.*,pm_mg_chouzi.id as main_id,pm_mg_chouzi.pname");
+            $pm_signDAO = $pm_signDAO ->get();
+            $this->view->assign("signinfo", $pm_signDAO[0]);
+
+            // 获取所有签约列表
+            $_all_sign = $this->orm->createDAO("pm_mg_sign")->findPm_id($pm_signDAO[0]['main_id']);
+            $_all_sign ->selectLimit .= " AND id !=".$id;
+            $_all_sign ->selectLimit .= " order by sign_time DESC";
+            $_all_sign = $_all_sign->get();
+            $this->view->assign("allsign", $_all_sign);
+
+            $ssxy_array = array();
+            if(!empty($_all_sign)){
+                foreach ($_all_sign as $item) {
+                    $ssxy_array[$item['id']] = $item;
+                }
+            }
+            $this->view->assign("ssxy_array", $ssxy_array);
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("zijin/signview.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
         //权限
         public function acl()
         {
@@ -1467,6 +1495,7 @@
                 'newaddsign',
                 'ajaxaddsign',
                 'delnewsign',
+                'signview'
             );
             if (in_array($action, $except_actions)) {
                 return;

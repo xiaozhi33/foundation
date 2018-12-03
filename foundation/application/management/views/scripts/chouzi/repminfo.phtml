@@ -154,7 +154,11 @@
                                 <?php
                                     foreach($this->sign_list_DAO as $key => $value){?>
                                      <tr>
-                                        <td><?php if($v['type'] !=1){echo "（".$this->types_array[$value['type']]."）";}?><?php echo $value['sign_name'];?></td>
+                                        <td>
+                                            <a href="/management/zijin/signview?id=<?php echo $value['id'];?>" target="_blank">
+                                                <?php if($v['type'] !=1){echo "（".$this->types_array[$value['type']]."）";}?><?php echo $value['sign_name'];?>
+                                            </a>
+                                        </td>
                                          <td>
                                              <?php
                                              $arr_xynf = json_decode($value['xynf']);
