@@ -55,9 +55,12 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="24%">车辆名称</td>
-						<td width="24%">车辆车牌照</td>
-						<td width="20%">车辆信息（颜色、规格）</td>
+						<td width="10%">车辆名称</td>
+						<td width="10%">车辆车牌照</td>
+						<td width="10%">车辆型号</td>
+						<td width="10%">车身颜色</td>
+						<td width="10%">发动机号</td>
+						<td width="10%">车辆识别代码</td>
 						<td width="13%">操作</td>
 					  </tr>
 					</thead>
@@ -67,7 +70,10 @@
 						 <tr>
 						 	<td><?php echo $v['name'];?>&nbsp;</td>
 							<td><?php echo $v['car_number'];?>&nbsp;</td>
-							<td><?php echo $v['description'];?>&nbsp;</td>
+							<td><?php echo $v['clxh'];?>&nbsp;</td>
+							 <td><?php echo $v['csys'];?>&nbsp;</td>
+							 <td><?php echo $v['fdjh'];?>&nbsp;</td>
+							 <td><?php echo $v['clsbdm'];?>&nbsp;</td>
 							<td><a href="/management/car/editcarmain?id=<?php echo $v['id'];?>">
                             <button type="button" class="btn btn-greensea margin-bottom-20">编辑</button></a>
                              <a href="/management/car/delcarmain?id=<?php echo $v['id'];?>">
