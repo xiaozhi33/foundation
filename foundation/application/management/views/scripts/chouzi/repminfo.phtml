@@ -505,6 +505,14 @@
                 </section>
                 <?php }?>
 
+                <section class="tile color-green" id="04">
+                    <div class="tile-body nopadding">
+                        <div class="table-responsive">
+                            <div class="pm-tabletext" style="background-color: gold">项目可用余额 <?php echo number_format($this->xmye + ($this->pbhj1 - $this->pbzchj), 2);?></div>
+                        </div>
+                    </div>
+                </section>
+
 		    </div>
         </div>
 
@@ -520,6 +528,9 @@
                         </div>
                         <div style="padding-top:10px;">
                             配比余额P1 = 配比收入P2 - 配比支出P3
+                        </div>
+                        <div style="padding-top:10px;">
+                            项目可用余额A1 = 项目余额M1 + 配比余额P1
                         </div>
                         <div style="padding-top:10px;">
                             * 项目余额中不含财务借款。
