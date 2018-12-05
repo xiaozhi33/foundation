@@ -63,21 +63,37 @@
     <script type="text/javascript" src="/include/umeditor/lang/zh-cn/zh-cn.js"></script>
 
     <!-- bootstrap-switch-master -->
-    <!--<script type="text/javascript" src="/include/management/bootstrap-switch-master/js/highlight.js"></script>
-    <script src="https://unpkg.com/bootstrap-switch"></script>
-    <script type="text/javascript" src="/include/management/bootstrap-switch-master/js/main.js"></script>
+    <!--<script type="text/javascript" src="/include/management/bootstrap-switch-master/js/highlight.js"></script>-->
+    <!--<script src="https://unpkg.com/bootstrap-switch"></script>-->
+    <!--<script type="text/javascript" src="/include/management/bootstrap-switch-master/js/main.js"></script>
+    <script type="text/javascript" src="/include/management/bootstrap-switch-master/js/bootstrap-switch.js"></script>-->
 
     <script type="text/javascript">
+        /*$('.switch-onText').on('switchChange.bootstrapSwitch', function (event,state) {
+            //console.log($(this).attr("schValue"));
 
-        $('.switch-onText').on('switchChange.bootstrapSwitch', function (event,state) {
+            if(state==true){
+                params_val = 1;
+            }else {
+                params_val = 0;
+            }
+
+            var data_info = {
+                "id": $(this).attr("schValue"),
+                "params_name":$(this).attr("name"),
+                "params_val": params_val
+            };
+
             if(state==true){
                 //启用
                 $.ajax({
                     type: 'POST',
                     url: 'ajaxeditpinfo',
                     dataType:'json',
+                    data: data_info,
                     success:function(data){
                         if(data.success){
+                            alert("编辑成功");
                         }else{
                             alert(data.errorMessage);
                         }
@@ -93,8 +109,10 @@
                     type: 'POST',
                     url: 'ajaxeditpinfo',
                     dataType:'json',
+                    data: data_info,
                     success:function(data){
                         if(data.success){
+                            alert("编辑成功");
                         }else{
                             alert(data.errorMessage);
                             //layer.msg(data.errorMessage);
@@ -105,7 +123,7 @@
                     }
                 })
             }
-        });
+        });*/
 
         //实例化编辑器
         var um = UM.getEditor('beizhu',{
@@ -114,7 +132,7 @@
                 ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
             ]
         });
-    </script>-->
+    </script>
 
     <script>
     $(function(){

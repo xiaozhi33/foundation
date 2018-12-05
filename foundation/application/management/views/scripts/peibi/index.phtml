@@ -17,6 +17,11 @@
 <link rel="stylesheet" href="/include/management/assets/js/vendor/colorpalette/bootstrap-colorpalette.css">
 <link href="/include/management/assets/css/minimal.css" rel="stylesheet">
 
+<!-- bootstrap-switch-master 单选按钮 -->
+<link rel="stylesheet" href="/include/management/bootstrap-switch-master/css/highlight.css">
+<link rel="stylesheet" href="/include/management/bootstrap-switch-master/css/bootstrap-switch.min.css">
+<link rel="stylesheet" href="/include/management/bootstrap-switch-master/css/main.css">
+
 <!-- page header -->
 <div class="pageheader">
 
@@ -45,7 +50,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="form-group col-sm-4">
-                                        <label for="pname" class="col-sm-5 control-label">来款项目：</label>
+                                        <label for="pname" class="control-label">来款项目：</label>
                                         <select class="chosen-select-1 chosen-transparent form-control" name="pname" id="id">
                                             <option value="">请选择来款项目</option>
                                             <?php if($this->chouzi_lists != ""){
@@ -57,13 +62,23 @@
                                     </div>
 
                                     <div class="form-group col-sm-4">
-                                        <label for="pname" class="col-sm-5 control-label">是否完成配比奖励：</label>
-                                        <select class="chosen-select-1 chosen-transparent form-control col-sm-3 " name="is_show" id="id">
+                                        <label for="pname" class="control-label">是否申报国家配比：</label>
+                                        <select class="chosen-select-1 chosen-transparent form-control col-sm-3 " name="is_peibi" id="id">
                                             <option value="">请选择</option>
-                                            <option value="1" <?php if($_REQUEST['is_show'] == 1)echo 'selected="selected"';?>>是</option>
-                                            <option value="0" <?php if($_REQUEST['is_show'] == 0 && $_REQUEST['is_show'] != '')echo 'selected="selected"';?>>否</option>
+                                            <option value="1" <?php if($_REQUEST['is_peibi'] == 1)echo 'selected="selected"';?>>是</option>
+                                            <option value="0" <?php if($_REQUEST['is_peibi'] == 0 && $_REQUEST['is_peibi'] != '')echo 'selected="selected"';?>>否</option>
                                         </select>
                                     </div>
+
+                                    <div class="form-group col-sm-4">
+                                        <label for="pname" class="control-label">国家配比结果：</label>
+                                        <select class="chosen-select-1 chosen-transparent form-control col-sm-3 " name="peibi_result" id="id">
+                                            <option value="">请选择</option>
+                                            <option value="1" <?php if($_REQUEST['peibi_result'] == 1)echo 'selected="selected"';?>>合格</option>
+                                            <option value="0" <?php if($_REQUEST['peibi_result'] == 0 && $_REQUEST['peibi_result'] != '')echo 'selected="selected"';?>>不合格</option>
+                                        </select>
+                                    </div>
+
                                 </div>
 
                                 <!--<div class="row">
@@ -82,12 +97,21 @@
 
                                 <div class="row">
                                     <div class="form-group col-sm-4">
-                                        <label for="pname" class="col-sm-5 control-label">来款时间( 年份 )：</label>
+                                        <label for="pname" class="control-label">来款时间( 年份 )：</label>
                                         <input class="form-control col-sm-3" name="yeartime" data-date-format="YYYY" id="datepicker1"  type="text" value="<?php echo $this->yeartime;?>" class="col-sm-5 control-label"/>
                                     </div>
 
                                     <div class="form-group col-sm-4">
-                                        <label class="col-sm5 control-label">是否回奖助励学金项目：</label>
+                                        <label for="pname" class="control-label">是否完成配比奖励：</label>
+                                        <select class="chosen-select-1 chosen-transparent form-control col-sm-3 " name="is_show" id="id">
+                                            <option value="">请选择</option>
+                                            <option value="1" <?php if($_REQUEST['is_show'] == 1)echo 'selected="selected"';?>>是</option>
+                                            <option value="0" <?php if($_REQUEST['is_show'] == 0 && $_REQUEST['is_show'] != '')echo 'selected="selected"';?>>否</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label">是否回奖助励学金项目：</label>
                                         <select class="chosen-select-1 chosen-transparent form-control col-sm-3 " name="is_income" id="id">
                                             <option value="">请选择</option>
                                             <option value="1" <?php if($_REQUEST['is_income'] == 1)echo 'selected="selected"';?>>是</option>
@@ -96,13 +120,34 @@
                                     </div>
                                 </div>
 
-                               <div class="row">
-                                    <div class="form-group col-sm-3">
-                                        <label for="input02"></label>
-                                        <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
-                                        <!--<label for="input03"></label>
-                                        <a href="/management/peibi/add" target="_blank"><input class="btn btn-primary btn-block" type="botton" value="添加配比信息"/></a>-->
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        <label for="pname" class="control-label">来款金额( 元 )：</label>
+                                        <input class="form-control col-sm-3" name="je" type="text" value="<?php echo $_REQUEST['je'];?>" class="col-sm-5 control-label"/>
                                     </div>
+
+                                    <div class="form-group col-sm-4">
+                                        <label for="input02" class="control-label">排序规则：</label>
+                                        <select class="form-control" name="order">
+                                            <option value="">请选择排序规则</option>
+                                            <option value="datetime_desc" <?php if($_GET['order'] == "datetime_desc"){echo 'selected="selected"';}?>>来款时间降序</option>
+                                            <option value="datetime_asc" <?php if($_GET['order'] == "datetime_asc"){echo 'selected="selected"';}?>>来款时间升序</option>
+                                            <option value="je_desc" <?php if($_GET['order'] == "je_desc"){echo 'selected="selected"';}?>>来款金额降序</option>
+                                            <option value="je_asc" <?php if($_GET['order'] == "je_asc"){echo 'selected="selected"';}?>>来款金额升序</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                               <div class="row">
+                                    <div class="form-group col-sm-2">
+                                        <label for="input02"></label>
+                                        <a href="/management/peibi/index"><input class="btn btn-primary btn-block" type="button" value="清除设置"/></a>
+                                    </div>
+
+                                       <div class="form-group col-sm-2">
+                                           <label for="input02"></label>
+                                           <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                                       </div>
                                 </div>
                             </div>
                         </form>
@@ -118,8 +163,10 @@
 						<td width="24%">来款项目</td>
 						<td width="12%">来款时间</td>
                         <td width="20%">来款方</td>
-                        <td width="20%">来款金额（元）</td>
-                          <td width="20%">操作</td>
+                        <td width="10%">来款金额（元）</td>
+                        <td width="10%">是否申报国家配比</td>
+                        <td width="14%">国家配比结果</td>
+                        <td width="20%">操作</td>
 					  </tr>
 					</thead>
                     <tbody>
@@ -139,14 +186,23 @@
                                  <?php echo number_format($v['zijin_daozheng_jiner'],2);?>
                              </td>
 
-							<td>
-                                <a href="/management/peibi/peibiindex?lk_main_id=<?php echo $v['id'];?>" target="_blank">
-                                    <button class="btn btn-greensea margin-bottom-20" type="button">查看配比信息</button>
-                                </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="/management/peibi/add?id=<?php echo $v['id'];?>">
-                                    <button class="btn btn-greensea margin-bottom-20" type="button">添加配比信息</button>
-                                </a>
-                            </td>
+                             <td><?php //echo $v['is_peibi'];?>
+                                <input class="switch-onText" id="is_peibi_<?php echo $v['id'];?>" type="checkbox" schValue="<?php echo $v['id'];?>" <?php if($v['is_peibi'] ==1){echo 'checked="checked"';}?> data-on-text="是" data-off-text="否" name="is_peibi"/>
+                             </td>
+
+                             <td><?php //echo $v['peibi_result'];?>
+                                 <input data-handle-width="100" id="peibi_result_<?php echo $v['id'];?>" schValue="<?php echo $v['id'];?>" data-label-width="100" style="width: 200px;" class="switch-onText" type="checkbox" <?php if($v['peibi_result'] ==1){echo 'checked="checked"';}?> data-on-text="合格" data-off-text="不合格" name="peibi_result"/>
+                             </td>
+
+                             <td>
+                                 <a href="/management/peibi/peibiindex?lk_main_id=<?php echo $v['id'];?>" target="_blank">
+                                     <button class="btn btn-greensea margin-bottom-20" type="button">查看配比信息</button>
+                                 </a>
+                                 <a href="/management/peibi/add?id=<?php echo $v['id'];?>">
+                                     <button class="btn btn-greensea margin-bottom-20" type="button">添加配比信息</button>
+                                 </a>
+                             </td>
+
 						 </tr>
 					   <?php }?>
                      </tbody>
@@ -179,3 +235,1049 @@
         <script language="javascript">
             $("#xmxxbj").addClass("open");
         </script>
+
+    </div><!-- tab-pane -->
+</div><!-- tab-content -->
+</div>
+</div>
+<!-- Make page fluid-->
+
+</div>
+<!-- Wrap all page content end -->
+<section class="videocontent" id="video"></section>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/include/management/assets/js/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/include/management/assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+
+<?php if($this->controller == "index") {?>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="/include/management/assets/js/vendor/easypiechart/jquery.easypiechart.min.js"></script>
+    <!--<script src="/include/management/assets/js/vendor/flot/jquery.flot.orderBars.js"></script>-->
+
+    <script type="text/javascript" src="/include/management/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+    <script type="text/javascript" src="/include/management/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.time.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.selection.min.js"></script>
+    <script src="/include/management/assets/js/vendor/flot/jquery.flot.animator.min.js"></script>
+
+    <script src="/include/management/assets/js/vendor/rickshaw/raphael-min.js"></script>
+    <script src="/include/management/assets/js/vendor/rickshaw/d3.v2.js"></script>
+    <script src="/include/management/assets/js/vendor/rickshaw/rickshaw.min.js"></script>
+
+    <script src="/include/management/assets/js/vendor/morris/morris.min.js"></script>
+    <script src="/include/management/assets/js/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
+    <script src="/include/management/assets/js/vendor/summernote/summernote.min.js"></script>
+    <script src="/include/management/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+<?php }?>
+
+<script type="text/javascript" src="/include/management/assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+<script type="text/javascript" src="/include/management/assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+<script src="/include/management/assets/js/vendor/summernote/summernote.min.js"></script>
+
+<script src="/include/management/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+
+<script src="/include/management/assets/js/vendor/momentjs/moment-with-langs.min.js"></script>
+<script src="/include/management/assets/js/vendor/datepicker/bootstrap-datetimepicker.min.js"></script>
+
+<script src="/include/management/assets/js/minimal.min.js"></script>
+
+
+<link href="/include/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<!--<script type="text/javascript" src="/include/umeditor/third-party/jquery.min.js"></script>-->
+<script type="text/javascript" charset="utf-8" src="/include/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/include/umeditor/umeditor.min.js"></script>
+<script type="text/javascript" src="/include/umeditor/lang/zh-cn/zh-cn.js"></script>
+
+<!-- bootstrap-switch-master -->
+<script type="text/javascript" src="/include/management/bootstrap-switch-master/js/highlight.js"></script>
+<!--<script src="https://unpkg.com/bootstrap-switch"></script>-->
+<script type="text/javascript" src="/include/management/bootstrap-switch-master/js/main.js"></script>
+<script type="text/javascript" src="/include/management/bootstrap-switch-master/js/bootstrap-switch.js"></script>
+
+<script type="text/javascript">
+    $('.switch-onText').on('switchChange.bootstrapSwitch', function (event,state) {
+        //console.log($(this).attr("schValue"));
+
+        if(state==true){
+            params_val = 1;
+        }else {
+            params_val = 0;
+        }
+
+        var data_info = {
+            "id": $(this).attr("schValue"),
+            "params_name":$(this).attr("name"),
+            "params_val": params_val
+        };
+
+        if(state==true){
+            //启用
+            $.ajax({
+                type: 'POST',
+                url: 'ajaxeditpinfo',
+                dataType:'json',
+                data: data_info,
+                success:function(data){
+                    if(data.success){
+                        alert("编辑成功");
+                    }else{
+                        alert(data.errorMessage);
+                    }
+                },
+                error:function(XMLHttpRequest,textStatus){
+                    alert(textStatus);
+                    //layer.msg(textStatus);
+                }
+            })
+        }else{
+            //停用
+            $.ajax({
+                type: 'POST',
+                url: 'ajaxeditpinfo',
+                dataType:'json',
+                data: data_info,
+                success:function(data){
+                    if(data.success){
+                        alert("编辑成功");
+                    }else{
+                        alert(data.errorMessage);
+                        //layer.msg(data.errorMessage);
+                    }
+                },
+                error:function(XMLHttpRequest,textStatus){
+                    alert(textStatus);
+                }
+            })
+        }
+    });
+
+    //实例化编辑器
+    var um = UM.getEditor('beizhu',{
+        toolbars: [
+            ['source', 'undo', 'redo'],
+            ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
+        ]
+    });
+</script>
+
+<script>
+    $(function(){
+        //initialize datepicker
+        $('#datepicker').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        // Initialize card flip
+        $('.card.hover').hover(function(){
+            $(this).addClass('flip');
+        },function(){
+            $(this).removeClass('flip');
+        });
+
+        $("#datepicker").on("dp.show",function (e) {
+            var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker1').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker1").on("dp.show",function (e) {
+            var newtop1 = $(".bootstrap-datetimepicker-widget").position(relative).top - 45;
+            alert(newtop1);
+            $('.bootstrap-datetimepicker-widget').css('top', newtop1 + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker2').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker2").on("dp.show",function (e) {
+            var newtop2 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop2 + 'px');
+        });
+
+        //initialize datepicker
+        $('#datepicker3').datetimepicker({
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-arrow-up",
+                down: "fa fa-arrow-down"
+            }
+        });
+
+        $("#datepicker3").on("dp.show",function (e) {
+            var newtop3 = $('.bootstrap-datetimepicker-widget').position(relative).top - 45;
+            $('.bootstrap-datetimepicker-widget').css('top', newtop3 + 'px');
+        });
+
+        // Initialize flot chart
+        var d1 =[ [1, 715],
+            [2, 985],
+            [3, 1525],
+            [4, 1254],
+            [5, 1861],
+            [6, 2621],
+            [7, 1987],
+            [8, 2136],
+            [9, 2364],
+            [10, 2851],
+            [11, 1546],
+            [12, 2541]
+        ];
+        var d2 =[ [1, 463],
+            [2, 578],
+            [3, 327],
+            [4, 984],
+            [5, 1268],
+            [6, 1684],
+            [7, 1425],
+            [8, 1233],
+            [9, 1354],
+            [10, 1200],
+            [11, 1260],
+            [12, 1320]
+        ];
+        var months = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+
+        <?php if($this->module == "management" && $this->controller == "index" && $this->action == "index"){?>
+        // flot chart generate
+        /*var plot = $.plotAnimator($("#statistics-chart"),
+         [
+         {
+         label: 'Sales',
+         data: d1,
+         lines: {lineWidth:3},
+         shadowSize:0,
+         color: '#ffffff'
+         },
+         { label: "Visits",
+         data: d2,
+         animator: {steps: 99, duration: 500, start:200, direction: "right"},
+         lines: {
+         fill: .15,
+         lineWidth: 0
+         },
+         color:['#ffffff']
+         },{
+         label: 'Sales',
+         data: d1,
+         points: { show: true, fill: true, radius:6,fillColor:"rgba(0,0,0,.5)",lineWidth:2 },
+         color: '#fff',
+         shadowSize:0
+         },
+         { label: "Visits",
+         data: d2,
+         points: { show: true, fill: true, radius:6,fillColor:"rgba(255,255,255,.2)",lineWidth:2 },
+         color: '#fff',
+         shadowSize:0
+         }
+         ],{
+
+         xaxis: {
+
+         tickLength: 0,
+         tickDecimals: 0,
+         min:1,
+         ticks: [[1,"一月"], [2, "二月"], [3, "三月"], [4, "四月"], [5, "五月"], [6, "六月"], [7, "七月"], [8, "八月"], [9, "九月"], [10, "十月"], [11, "十一月"], [12, "十二月  "]],
+
+         font :{
+         lineHeight: 24,
+         weight: "300",
+         color: "#ffffff",
+         size: 14
+         }
+         },
+
+         yaxis: {
+         ticks: 4,
+         tickDecimals: 0,
+         tickColor: "rgba(255,255,255,.3)",
+
+         font :{
+         lineHeight: 13,
+         weight: "300",
+         color: "#ffffff"
+         }
+         },
+
+         grid: {
+         borderWidth: {
+         top: 0,
+         right: 0,
+         bottom: 1,
+         left: 1
+         },
+         borderColor: 'rgba(255,255,255,.3)',
+         margin:0,
+         minBorderMargin:0,
+         labelMargin:20,
+         hoverable: true,
+         clickable: true,
+         mouseActiveRadius:6
+         },
+
+         legend: { show: false}
+         });*/
+
+
+        $(window).resize(function() {
+            // redraw the graph in the correctly sized div
+            plot.resize();
+            plot.setupGrid();
+            plot.draw();
+        });
+
+        $('#mmenu').on(
+            "opened.mm",
+            function()
+            {
+                // redraw the graph in the correctly sized div
+                plot.resize();
+                plot.setupGrid();
+                plot.draw();
+            }
+        );
+
+        $('#mmenu').on(
+            "closed.mm",
+            function()
+            {
+                // redraw the graph in the correctly sized div
+                plot.resize();
+                plot.setupGrid();
+                plot.draw();
+            }
+        );
+
+        // tooltips showing
+        $("#statistics-chart").bind("plothover", function (event, pos, item) {
+            if (item) {
+                var x = item.datapoint[0],
+                    y = item.datapoint[1];
+
+                $("#tooltip").html('<h1 style="color: #418bca">' + months[x - 1] + '</h1>' + '<strong>' + y + '</strong>' + ' ' + item.series.label)
+                    .css({top: item.pageY-30, left: item.pageX+5})
+                    .fadeIn(200);
+            } else {
+                $("#tooltip").hide();
+            }
+        });
+
+        //tooltips options
+        $("<div id='tooltip'></div>").css({
+            position: "absolute",
+            //display: "none",
+            padding: "10px 20px",
+            "background-color": "#ffffff",
+            "z-index":"99999"
+        }).appendTo("body");
+
+        //generate actual pie charts
+        $('.pie-chart').easyPieChart();
+
+
+        //server load rickshaw chart
+        var graph;
+
+        var seriesData = [ [], []];
+        var random = new Rickshaw.Fixtures.RandomData(50);
+
+        for (var i = 0; i < 50; i++) {
+            random.addData(seriesData);
+        }
+
+        graph = new Rickshaw.Graph( {
+            element: document.querySelector("#serverload-chart"),
+            height: 150,
+            renderer: 'area',
+            series: [
+                {
+                    data: seriesData[0],
+                    color: '#6e6e6e',
+                    name:'File Server'
+                },{
+                    data: seriesData[1],
+                    color: '#fff',
+                    name:'Mail Server'
+                }
+            ]
+        } );
+
+        var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+            graph: graph,
+        });
+
+        setInterval( function() {
+            random.removeData(seriesData);
+            random.addData(seriesData);
+            graph.update();
+
+        },1000);
+
+        // Morris donut chart 饼图
+        Morris.Donut({
+            element: 'browser-usage',
+            data: [
+                <?php
+                $count = count($this->income_sour_array);
+                $k = 0;
+                foreach($this->income_sour_array as $key => $value){?>
+                {label: "<?php echo $key;?>", value: <?php echo $value['counts'];?>}<?php if($k+1 != $count){echo ',';}?>
+                <?php $k++;}?>
+            ],
+            colors: ['#d9544f', '#2fbbe8', '#72cae7', '#00a3d8', '#ffc100']
+        });
+
+        Morris.Donut({
+            element: 'browser-usage1',
+            data: [
+                <?php
+                $count = count($this->income_sour_array);
+                $k = 0;
+                foreach($this->income_sour_array as $key => $value){
+                // 捐赠者类型分析
+                if($key == '个人'){
+                    $donor_array['自然人']['counts'] += $value['counts'];
+                    $donor_array['自然人']['total'] += $value['income'];
+                }else {
+                    $donor_array['法人']['counts'] += $value['counts'];
+                    $donor_array['法人']['total'] += $value['income'];
+                }?>
+
+                <?php $k++;}?>
+                {label: "法人", value: <?php echo $donor_array['法人']['counts'];?>},
+                {label: "自然人", value: <?php echo $donor_array['自然人']['counts'];?>}
+            ],
+            colors: [ '#00a3d8', '#ffc100']
+        });
+
+        Morris.Donut({
+            element: 'browser-usage2',
+            data: [
+                {label: "校友及校友企业捐赠", value: <?php echo $this->income_pp_array[1]['counts'];?>},
+                {label: "非校友捐赠", value: <?php echo $this->income_pp_array[0]['counts'];?>}
+            ],
+            colors: ['#d9544f', '#2fbbe8']
+        });
+
+        $('#browser-usage').find("path[stroke='#ffffff']").attr('stroke', 'rgba(0,0,0,0)');
+        $('#browser-usage1').find("path[stroke='#ffffff']").attr('stroke', 'rgba(0,0,0,0)');
+        $('#browser-usage2').find("path[stroke='#ffffff']").attr('stroke', 'rgba(0,0,0,0)');
+
+        //sparkline charts
+        $('#projectbar1').sparkline('html', {type: 'bar', barColor: '#22beef', barWidth: 4, height: 20});
+        $('#projectbar2').sparkline('html', {type: 'bar', barColor: '#cd97eb', barWidth: 4, height: 20});
+        $('#projectbar3').sparkline('html', {type: 'bar', barColor: '#a2d200', barWidth: 4, height: 20});
+        $('#projectbar4').sparkline('html', {type: 'bar', barColor: '#ffc100', barWidth: 4, height: 20});
+        $('#projectbar5').sparkline('html', {type: 'bar', barColor: '#ff4a43', barWidth: 4, height: 20});
+        $('#projectbar6').sparkline('html', {type: 'bar', barColor: '#a2d200', barWidth: 4, height: 20});
+
+        // sortable table
+        $('.table.table-sortable th.sortable').click(function() {
+            var o = $(this).hasClass('sort-asc') ? 'sort-desc' : 'sort-asc';
+            $('th.sortable').removeClass('sort-asc').removeClass('sort-desc');
+            $(this).addClass(o);
+        });
+
+        //todo's
+        $('#todolist li label').click(function() {
+            $(this).toggleClass('done');
+        });
+
+        // Initialize tabDrop
+        $('.tabdrop').tabdrop({text: '<i class="fa fa-th-list"></i>'});
+
+        //load wysiwyg editor
+        $('#quick-message-content').summernote({
+            toolbar: [
+                //['style', ['style']], // no style button
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                //['insert', ['picture', 'link']], // no insert buttons
+                //['table', ['table']], // no table button
+                //['help', ['help']] //no help button
+            ],
+            height: 143   //set editable area's height
+        });
+
+        //multiselect input
+        $(".chosen-select").chosen({disable_search_threshold: 10});
+
+        <?php }?>
+    })
+
+</script>
+
+<!-- //遮罩层效果 -->
+<style>
+    .theme-popover-mask {
+        z-index: 9998;
+        position:fixed;
+        top:0;  left:0;  width:100%;
+        height:100%;  background:#000;  opacity:0.4;
+        filter:alpha(opacity=40);  display:none;
+    }
+    .theme-popover {
+        z-index:9999;  position:fixed;
+        top:20%;  left:35%;
+        width:45%;
+        max-height:220px;
+        /*margin:-180px 0 0 -330px;*/
+        border-radius:5px;  border:solid 2px #666;
+        display:none;
+        box-shadow: 0 0 10px #666;
+        background-color: #f7f7f7;
+        border-bottom: 1px solid #ebebeb;
+        border-radius: 5px 5px 0 0;
+        font-size: 14px;
+    }
+    .theme-signin{
+        margin-top: 40px;
+    }
+    #popover-close{
+        float: right;
+        margin-right: 12px;
+        margin-top: 12px;
+    }
+    #popover-msg{
+        margin-top: 12px;
+        align-content: center;
+        text-align: center;
+    }
+    #popover-img{
+        margin: 0 auto;
+        text-align: center;
+    }
+    #popover-img img{
+        display: inline;
+        max-width:30%;
+        height:auto;
+
+    }
+
+    /* 添加人员信息弹出框*/
+    .theme1-popover-mask {
+        z-index: 9998;
+        position:fixed;
+        top:0;  left:0;  width:100%;
+        height:100%;  background:#000;  opacity:0.4;
+        filter:alpha(opacity=40);  display:none;
+    }
+    .theme1-popover {
+        z-index:9999;  position:fixed;
+        top:21%;
+        left:35%;
+        width:45%;
+        /*max-height:220px;
+        margin:-180px 0 0 -330px;*/
+        border:solid 2px #999;
+        display:none;
+        box-shadow: 0 0 10px #666;
+        background-color: #f7f7f7;
+        border-radius: 5px;
+        font-size: 14px;
+        padding:5px 15px;
+    }
+    .theme1-signin{
+        margin-top: 40px;
+    }
+    #popover1-close{
+        float: right;
+        margin-right: 12px;
+        margin-top: 12px;
+    }
+    #popover1-msg{
+        margin-top: 12px;
+        align-content: center;
+        text-align: center;
+    }
+    #popover1-img{
+        margin: 0 auto;
+        text-align: center;
+    }
+    #popover1-img img{
+        display: inline;
+        max-width:30%;
+        height:auto;
+
+    }
+    /* 添加标签信息弹出框*/
+    .theme2-popover-mask {
+        z-index: 9998;
+        position:fixed;
+        top:0;  left:0;  width:100%;
+        height:100%;  background:#000;  opacity:0.4;
+        filter:alpha(opacity=40);  display:none;
+    }
+    .theme2-popover {
+        z-index:9999;  position:fixed;
+        top:21%;
+        left:35%;
+        width:30%;
+        /*max-height:220px;
+        margin:-180px 0 0 -330px;*/
+        border:solid 2px #999;
+        display:none;
+        box-shadow: 0 0 10px #666;
+        background-color: #f7f7f7;
+        border-radius: 5px;
+        font-size: 14px;
+        padding:5px 15px;
+    }
+    .theme2-signin{
+        margin-top: 40px;
+    }
+    #popover2-close{
+        float: right;
+        margin-right: 12px;
+        margin-top: 12px;
+    }
+    #popover2-msg{
+        margin-top: 12px;
+        align-content: center;
+        text-align: center;
+    }
+    #popover2-img{
+        margin: 0 auto;
+        text-align: center;
+    }
+    #popover2-img img{
+        display: inline;
+        max-width:30%;
+        height:auto;
+
+    }
+</style>
+
+<div class="theme-popover">
+    <div class="theme-poptit">
+        <a href="javascript:void(0);" title="关闭" class="close" id="popover-close" name="">×</a>
+    </div>
+    <div class="theme-popbod dform">
+        <form class="theme-signin" name="loginform" action="" method="post">
+            <ol>
+                <li id="popover-img"><img src="/include/management/images/warning.png" width="100" height="100" alt=""></li>
+                <li id="popover-msg"><?php echo $mess = "系统消息提示";?></li>
+            </ol>
+        </form>
+    </div>
+</div>
+<div class="theme-popover-mask"></div>
+
+
+<div class="theme1-popover" >
+    <div class="theme1-poptit">
+        <a href="javascript:void(0);" title="关闭" class="close" id="popover1-close" name="">×</a>
+    </div>
+    <div class="theme1-popbod dform">
+        <form class="theme1-signin form-horizontal" id="addpp_form" name="addpp_form" method="post" encType="multipart/form-data">
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input01">姓名/名称：</label>
+                <div class="col-sm-7"><input class="form-control" type="text" name="ppname" /></div>
+                <span class="col-sm-2" > * </span>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input01">联系人类型：</label>
+                <div class="col-sm-7">
+                    <select class="form-control" name="pp_cate" id="pp_cate">
+                        <?php foreach($this->pp_config['pp_cate'] as $k => $v){?>
+                            <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                        <?php }?>
+                    </select>
+                </div>
+                <span class="col-sm-2" > </span>
+                <!--<span class="col-sm-2" > * <a href="/management/pp/addppcate" target="_blank">点击添加类型</a></span>-->
+            </div>
+
+            <!--<div class="form-group jzf">
+                            <label class="col-sm-4 control-label" for="input01">捐赠方类型：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="pp_jzf_cate">
+                                    <option value="">请选择捐赠方类型</option>
+                                    <?php /*foreach($this->pp_config['pp_jzf_cate'] as $k => $v){*/?>
+                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
+                                    <?php /*}*/?>
+                                </select>
+                            </div>
+                        </div>-->
+            <!--<div class="form-group jzf">
+                            <label class="col-sm-4 control-label" for="input01">捐赠方属性一：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="pp_jzf_attr1">
+                                    <option value="">请选择捐赠方属性一</option>
+                                    <?php /*foreach($this->pp_config['pp_jzf_attr1'] as $k => $v){*/?>
+                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
+                                    <?php /*}*/?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group jzf">
+                            <label class="col-sm-4 control-label" for="input01">捐赠方属性二：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="pp_jzf_attr2">
+                                    <option value="">请选择捐赠方属性二</option>
+                                    <?php /*foreach($this->pp_config['pp_jzf_attr2'] as $k => $v){*/?>
+                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
+                                    <?php /*}*/?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group syf" style="display: none;">
+                            <label class="col-sm-4 control-label" for="input01">使用方类型：</label>
+                            <div class="col-sm-8>
+                                <select class="form-control" name="pp_syf_cate">
+                                    <option value="">请选择使用方类型</option>
+                                    <?php /*foreach($this->pp_config['pp_syf_cate'] as $k => $v){*/?>
+                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
+                                    <?php /*}*/?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group yuf" style="display: none;">
+                            <label class="col-sm-4 control-label" for="input01">业务方类型：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="pp_yuf_cate">
+                                    <option value="">请选择业务方类型</option>
+                                    <?php /*foreach($this->pp_config['pp_yuf_cate'] as $k => $v){*/?>
+                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
+                                    <?php /*}*/?>
+                                </select>
+                            </div>
+                        </div>-->
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input01">Email：</label>
+                <div class="col-sm-7"><input class="form-control" type="text" name="ppemail" /></div>
+                <span class="col-sm-2" > </span>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input01">移动电话：</label>
+                <div class="col-sm-7"><input class="form-control" type="text" name="ppmobile" /></div>
+                <span class="col-sm-2" > </span>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input01">办公电话：</label>
+                <div class="col-sm-7"><input class="form-control" type="text" name="ppphone"  size="40"/></div>
+                <!--<span class="col-sm-2" > * 可添加多个，以“,”号隔开</span>-->
+                <span class="col-sm-2" > </span>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input01">联系地址：</label>
+                <div class="col-sm-7"><input class="form-control" type="text" name="pp_address" size="40"/></div>
+                <span class="col-sm-2" > </span>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="input01">备注：</label>
+                <div class="col-sm-9">
+                    <textarea parsley-validation-minlength="1" name="pp_beizhu" parsley-rangelength="[10,100]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group form-footer">
+                <div class="col-sm-offset-5 col-sm-7">
+                    <input class="btn btn-primary" type="button" onclick="javascript:add_pp();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input class="btn btn-default" type="reset" value="重 置" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="theme1-popover-mask"></div>
+
+
+<div class="theme2-popover">
+    <div class="theme2-poptit">
+        <a href="javascript:void(0);" title="关闭" class="close" id="popover-close" name="">×</a>
+    </div>
+    <div class="theme2-popbod dform">
+        <form class="theme-signin" name="" action="#" id="addtag_form" method="post">
+
+            <div class="form-group" style="margin:-9px 14px 27px;">
+                <h4>添加标签信息</h4>
+            </div>
+
+            <section class="tile color transparent-white">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">标签名称：</label>
+                    <div class="col-sm-8" style="margin-left:-60px; margin-top: -5px; ">
+                        <input class="form-control" type="text" name="name" />
+                    </div>
+                    <span class="col-sm-1" > * </span>
+                </div>
+
+                <div class="form-group form-footer" style="padding-top:50px;padding-bottom:40px;">
+                    <div class="col-sm-offset-4 col-sm-7">
+                        <input class="btn btn-primary" type="button" onclick="javascript:addtag();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input class="btn btn-default" type="reset" value="重 置" />
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
+</div>
+<div class="theme2-popover-mask"></div>
+
+
+<script>
+    function noTips(){
+
+        if($(".chosen-single span").html() != "请选择项目名称"){
+            $("#pname_info").val($(".chosen-single span").html());
+        }
+
+        var formParam = $("#form1").serialize();//序列化表格内容为字符串
+        $.ajax({
+            type:'post',
+            url: $("#form1").attr("action"),
+            data:formParam,
+            cache:false,
+            dataType:'json',
+            success:function(data){
+                $('.theme-popover-mask').fadeIn(100);
+                $('.theme-popover').slideDown(200);
+                $('#popover-msg').html(data['msg']);
+                if(data['return_url'] != ''){
+                    $('#popover-close').attr("name", data['return_url']);
+                }
+                if(data['error'] != true){
+                    $('#popover-img img').attr("src", "/include/management/images/yes.png");
+                }
+            },
+            complete:function(data){
+
+            },
+            error:function(data){
+                //console.log(data);
+                $('.theme-popover-mask').fadeIn(100);
+                $('.theme-popover').slideDown(200);
+                $('#popover-msg').html(data['msg']);
+            }
+        });
+    }
+
+    jQuery(document).ready(function($) {
+        // 消息提示框
+        $('.theme-poptit .close').click(function(){
+            $('.theme-popover-mask').fadeOut(100);
+            $('.theme-popover').slideUp(200);
+            if($('#popover-close').attr("name") != '') {
+                location.href = $('#popover-close').attr("name");
+            }
+        });
+
+        // 添加人员信息
+        $('.addpp').click(function(){
+            $('.theme1-popover').show();
+        });
+        $('.theme1-poptit .close').click(function(){
+            $('.theme1-popover-mask').fadeOut(100);
+            $('.theme1-popover').slideUp(200);
+        });
+
+        // 添加标签信息
+        $('.addtag').click(function(){
+            $('.theme2-popover').show();
+        });
+        $('.theme2-poptit .close').click(function(){
+            $('.theme2-popover-mask').fadeOut(100);
+            $('.theme2-popover').slideUp(200);
+        });
+    });
+
+    function add_pp(){
+        var formParam = $("#addpp_form").serialize();//序列化表格内容为字符串
+        $.ajax({
+            type:'post',
+            url: '/management/admin/ajaxaddpp',
+            data:formParam,
+            cache:false,
+            dataType:'json',
+            success:function(data){
+                if(data['status'] == 'error'){
+                    alert(data['message']);
+                }else if(data['status'] == 'success'){
+                    // 加载新数据
+                    $(".chosen-select-1 option[value='"+data['pid']+"']").attr("selected","selected");
+                    <?php if(($this->controller == 'zijin' && $this->action == 'addzijin') || ($this->controller == 'zijin' && $this->action == 'editzijin')){?>
+                    $(".chosen-select-1").append("<option value="+data['ppname']+">"+data['ppname']+"</option>");
+                    <?php }else {?>
+                    $(".chosen-select-1").append("<option value="+data['pid']+">"+data['ppname']+"</option>");
+                    <?php }?>
+                    $(".chosen-select-1").trigger("chosen:updated");
+
+                    alert(data['message']);
+                    $('.theme1-popover-mask').fadeOut(100);
+                    $('.theme1-popover').slideUp(100);
+                }
+            },
+            complete:function(data){
+
+            },
+            error:function(data){
+                //console.log(data);
+                alert('添加失败！');
+            }
+        });
+    }
+
+    function addtag(){
+        var formParam = $("#addtag_form").serialize();//序列化表格内容为字符串
+        $.ajax({
+            type:'post',
+            url: '/management/pp/ajaxaddtag',
+            data:formParam,
+            cache:false,
+            dataType:'json',
+            success:function(data){
+                if(data['status'] == 'error'){
+                    alert(data['message']);
+                }else if(data['status'] == 'success'){
+                    // 加载新数据
+                    $(".chosen-select-2 option[value='"+data['tid']+"']").attr("selected","selected");
+                    $(".chosen-select-2").append("<option value="+data['tid']+">"+data['name']+"</option>");
+                    $(".chosen-select-2").trigger("chosen:updated");
+
+                    alert(data['message']);
+                    $('.theme2-popover-mask').fadeOut(100);
+                    $('.theme2-popover').slideUp(100);
+                }
+            },
+            complete:function(data){
+
+            },
+            error:function(data){
+                //console.log(data);
+                alert('添加失败！');
+            }
+        });
+    }
+
+
+
+
+</script>
+<!-- //遮罩层效果 -->
+
+<style>
+    .margin-bottom-20{
+        margin-bottom: 0px;
+        padding: 2px 12px;
+        font-size: 12px;
+    }
+</style>
+
+<script language="javascript">
+    //搜索功能采用get方式 关键词下拉提示，
+    $(".chosen-select-1").chosen({
+        search_contains: true,
+        no_results_text : "未找到此选项!",
+        //width:"70%",
+        height:"60%",
+        disable_search_threshold: 10
+    });
+
+    $(".chosen-select-2").chosen({
+        search_contains: true,
+        disable_search_threshold: 10
+    });
+
+    $("[name='search_form']").submit(function(){
+        if($(".chosen-single span").html() != "请选择项目名称"){
+            $("#pname_info").val($(".chosen-single span").html());
+        }
+        return true;
+    });
+
+
+    //initialize datepicker
+    $('.datepicker').datetimepicker({
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-arrow-up",
+            down: "fa fa-arrow-down"
+        }
+    });
+
+    $('.addsign').click(function(){
+        $('.theme-sign-popover').show();
+    });
+    $('.theme-sign-poptit .close').click(function(){
+        $('.theme-sign-popover-mask').fadeOut(100);
+        $('.theme-sign-popover').slideUp(200);
+        parent.location.reload(); // 刷新父页面
+    });
+
+    function addsign(){
+        //var formParam = $("#addsign_form").serialize();//序列化表格内容为字符串
+        var form = new FormData(document.getElementById("addsign_form"));
+
+        $.ajax({
+            type:'post',
+            url: '/management/zijin/ajaxaddsign',
+            data: form,
+            cache:false,
+            processData: false,
+            contentType: false,
+            dataType:'json',
+            success:function(data){
+                if(data['status'] == 'error'){
+                    alert(data['message']);
+                }else if(data['status'] == 'success'){
+                    alert(data['message']);
+                    parent.location.reload(); // 刷新父页面
+                }
+            },
+            complete:function(data){
+
+            },
+            error:function(data){
+                console.log(data);
+                alert('添加失败！');
+            }
+        });
+    }
+</script>
+

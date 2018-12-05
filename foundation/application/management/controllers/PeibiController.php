@@ -6,6 +6,10 @@
             $pname = $_REQUEST['pname'];
             $is_show = $_REQUEST['is_show'];
             $is_income = $_REQUEST['is_income'];
+
+            $is_peibi = $_REQUEST["is_peibi"];
+            $peibi_result = $_REQUEST["peibi_result"];
+
             $pm_mg_info = $this->orm->createDAO("pm_mg_info");
             $pm_mg_info ->select("
                 `pm_mg_info`.id,
@@ -15,12 +19,22 @@
                 `pm_mg_info`.zijin_daozheng_jiner,
                 `pm_mg_info`.zijin_daozhang_datetime,
                 `pm_mg_info`.zijin_laiyuan_qudao,
-                `pm_mg_info`.pm_juanzeng_yongtu
+                `pm_mg_info`.pm_juanzeng_yongtu,
+                `pm_mg_chouzi`.pm_liuben,
+                `pm_mg_info`.is_peibi,
+                `pm_mg_info`.peibi_result
           ");
             $pm_mg_info ->withPm_mg_chouzi(array("pm_name" => "pname"));
             $pm_mg_info ->selectLimit .= ' AND cast(`pm_mg_info`.zijin_daozheng_jiner as SIGNED INTEGER) >= 100000 ';
             $pm_mg_info ->selectLimit .= ' AND cate_id = 0';
             $pm_mg_info ->selectLimit .= ' AND peibi = 1';
+
+            if(!empty($is_peibi)){
+                $pm_mg_info ->selectLimit .= ' AND `pm_mg_info`.is_peibi = '.$is_peibi;
+            }
+            if($peibi_result){
+                $pm_mg_info ->selectLimit .= ' AND `pm_mg_info`.peibi_result = '.$peibi_result;
+            }
             $pm_mg_info ->selectLimit .= ' AND `pm_mg_info`.is_show_peibi = 0';
 
             if ($pname != ""){
@@ -36,6 +50,10 @@
                 $pm_mg_info ->selectLimit .= " and `pm_mg_peibi`.is_income = '$is_income'";
             }
 
+            if($_REQUEST['je'] != "") {
+                $pm_mg_info->selectLimit .= " and zijin_daozheng_jiner = '".$_REQUEST['je']."'";
+            }
+
             if($_REQUEST['yeartime'] != ''){
                 $yeartime = date('Y',strtotime($_REQUEST['yeartime'].'-01-01'));
                 $starttime = $yeartime.'-01-01';
@@ -45,12 +63,26 @@
 
             $this->view->assign("yeartime", $_REQUEST['yeartime']);
 
-            $pm_mg_info ->selectLimit .= ' order by zijin_daozhang_datetime desc, `pm_mg_chouzi`.id ';
+            $pm_mg_info ->selectLimit .= ' order by ';
+            if($_REQUEST['order'] != ''){
+                if($_REQUEST['order'] == 'datetime_desc'){
+                    $pm_mg_info ->selectLimit .= 'zijin_daozhang_datetime desc ';
+                }elseif($_REQUEST['order'] == 'datetime_asc'){
+                    $pm_mg_info ->selectLimit .= 'zijin_daozhang_datetime asc ';
+                }elseif($_REQUEST['order'] == 'je_desc'){
+                    $pm_mg_info ->selectLimit .= 'zijin_daozheng_jiner desc ';
+                }elseif($_REQUEST['order'] == 'je_asc'){
+                    $pm_mg_info ->selectLimit .= 'zijin_daozheng_jiner asc ';
+                }
+            }else{
+                $pm_mg_info ->selectLimit .= 'zijin_daozhang_datetime desc, `pm_mg_chouzi`.id ';
+            }
+
             $pm_mg_info->getPager(array('path'=>'/management/peibi/index'))->assignTo($this->view);
 
             echo $this->view->render("index/header.phtml");
             echo $this->view->render("peibi/index.phtml");
-            echo $this->view->render("index/footer.phtml");
+            //echo $this->view->render("index/footer.phtml");
 		}
 
         public function peibiindexAction(){
@@ -444,15 +476,23 @@
         }
 
         /**
-         * @param $id
+         * @name 修改是否申请国家配比，申请结果
+         * @param $id  来款id
          * @param string $params_name
          * @param $params_val
          */
-        public function ajaxeditpinfoAction($id,$params_name='',$params_val){
+        public function ajaxeditpinfoAction(){
+            $id = (int)$_REQUEST['id'];
+            $params_name = $_REQUEST['params_name'];
+            $params_val = $_REQUEST['params_val'];
+
             $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
             $pm_mg_infoDAO ->findId($id);
             $pm_mg_infoDAO ->$params_name = $params_val;
             $pm_mg_infoDAO ->save();
+
+            echo json_encode(array("success" => "true"));
+            exit();
         }
 
         //权限
