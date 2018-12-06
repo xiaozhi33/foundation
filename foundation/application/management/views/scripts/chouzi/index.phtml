@@ -161,7 +161,7 @@
                           <td width="6%">所属部门</td>
                           <td width="14%">项目类型</td>
                           <!--<td width="8%">负责人</td>-->
-                          <td width="15%">总捐赠收入<!--/总协议金额-->/余额（元）</td>
+                          <td width="15%">总捐赠收入/总协议金额/余额（元）</td>
                           <!--<td width="8%">执行年限</td>-->
 
                           <td width="15%">
@@ -229,7 +229,7 @@
                              </td>-->
 
                              <td>
-                                 <?php echo sprintf("%.2f",$v[srhj]);?> / <?php //echo sprintf("%.2f",$v[pm_xieyi_juanzeng_jiner]);?><!-- / --><?php echo sprintf("%.2f",$v[xmye]);?>
+                                 <?php echo sprintf("%.2f",$v[srhj]);?> / <a href="/management/zijin/newaddsign?pname=<?php echo $v['pname'];?>" target="_blank"><?php echo sprintf("%.2f",$v[xyzje]);?></a> / <?php echo sprintf("%.2f",$v[xmye]);?>
                              </td>
 
                              <!--<td>

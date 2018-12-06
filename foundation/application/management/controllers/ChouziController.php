@@ -140,6 +140,17 @@
 
                     $this->view->assign("sjjzf", $sjjzf);*/
                     //////////////////////////////////////////////////////////////////////////////////////////////
+                    $xyzje = 0;
+                    // 协议总捐赠金额
+                    $xy = $this->orm->createDAO("pm_mg_sign")->findPm_id($vvv['id'])->get();
+                    if(!empty($xy)){
+                        foreach($xy as $kyy => $vvl){
+                            $xyzje += $vvl['xyje'];
+                        }
+                    }else {
+                        $xyzje = 0;
+                    }
+                    $pageDAO['pageData'][$kkk]['xyzje'] = $xyzje;
 
                     /////////////////////////////////////////////////////////////////////////////////////////////////
                     // 项目增值
