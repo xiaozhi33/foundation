@@ -181,6 +181,10 @@
 				$zijininfo->selectLimit .= " and pm_mg_info.pm_name='".$pname."'";
 			}
 
+			if ($_REQUEST['je'] != "") {
+				$zijininfo->selectLimit .= " and pm_mg_info.zijin_daozheng_jiner='".$_REQUEST['je']."'";
+			}
+
 			if ($pm_is_school == 1) {
 				$zijininfo->selectLimit .= " and pm_mg_info.pm_is_school='".$pm_is_school."'";
 			}elseif($pm_is_school == 2){
@@ -1136,8 +1140,8 @@
 				$pminfo ->pm_name = $pname;
 			}
 
-			if($shiyong_zhichu_jiner != ""){
-				$pminfo ->shiyong_zhichu_jiner = $shiyong_zhichu_jiner;
+			if($_REQUEST['je'] != ""){
+				$pminfo ->shiyong_zhichu_jiner = $_REQUEST['je'];
 			}
 
 			if($shiyong_zhichu_datetime != "" && $shiyong_zhichu_datetime1 != ""){

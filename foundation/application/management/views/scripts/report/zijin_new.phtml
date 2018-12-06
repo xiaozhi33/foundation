@@ -19,129 +19,124 @@
     </div>
     <!-- /page header -->
 	<div id="main" class="main">
-		<div id="rightstyle02" class="row">
-		<div class="col-md-12">
-        <section class="tile color transparent-black">
 
-		<div class="detailedbox tile-body">
-			<form class="form-horizontal" action="zijinnewtoexcel" method="get" id="search_form1">
+        <div id="rightstyle02" class="row">
 
-               <!-- <div class="form-group">
-                    <label class="col-sm-3 control-label" for="input01">选择类型：</label>
-                    <div class="col-sm-8">
-                        <input type="radio" name="type" value="1" checked="checked"/>以父类项目统计
-                        <input type="radio" name="type" value="2" />以子类项目统计
-                    </div>
-                </div>-->
+            <div class="col-md-12">
+                <section class="tile color transparent-white">
+                    <div class="tile-body">
+                        <form action="shiyongnewtoexcel" method="post" id="search_form1" name="search_form1">
+                            <div class="form-group">
 
-                <div class="form-group">
-                    <label class="col-sm-1 control-label" for="input01">项目名称：</label>
-                    <div class="col-sm-3">
-                        <select class="chosen-select-1 chosen-transparent form-control" id="pname">
-                            <option value="1">请选择项目名称</option>
-                            <?php if($this->pmlist != ""){
-                                foreach ($this->pmlist as $k => $v){
-                                    ?>
-                                    <option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pname'] == $v['pname'])echo 'selected="selected"';?>><?php echo $v['pname'];?></option>
-                                <?php }}?>
-                        </select>
-                        <input id="pname_info" type="hidden" name="pname" value=""/>
-                    </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-3">
+                                        <label for="pname" class="control-label">项目名称：</label>
+                                        <select class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                            <option value="1">请选择项目名称</option>
+                                            <?php if($this->pmlist != ""){
+                                                foreach ($this->pmlist as $k => $v){
+                                                    ?>
+                                                    <option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pname'] == $v['pname'])echo 'selected="selected"';?>><?php echo $v['pname'];?></option>
+                                                <?php }}?>
+                                        </select>
+                                        <input id="pname_info" type="hidden" name="pname" value=""/>
+                                    </div>
 
-                    <label class="col-sm-1 control-label" for="input01">项目类型：</label>
-                    <div class="col-sm-3">
-                        <select class="form-control" name="cate">
-                            <option value="" >请选择类型</option>
-                            <?php if($this->pcatelist != ""){
-                                foreach ($this->pcatelist as $k => $v){?>
-                                    <option value="<?php echo $v['id']?>" <?php if($_REQUEST['cate'] == $v['id']) echo 'selected="selected"';?>><?php echo $v['catename']?></option>
-                                <?php }}?>
-                        </select>
-                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="input02" class="control-label">项目类型：</label>
+                                        <select class="form-control" name="cate">
+                                            <option value="" >请选择类型</option>
+                                            <?php if($this->pcatelist != ""){
+                                                foreach ($this->pcatelist as $k => $v){?>
+                                                    <option value="<?php echo $v['id']?>" <?php if($_REQUEST['cate'] == $v['id']) echo 'selected="selected"';?>><?php echo $v['catename']?></option>
+                                                <?php }}?>
+                                        </select>
+                                    </div>
 
-                    <label class="col-sm-1 control-label" for="input01">所属部门：</label>
-                    <div class="col-sm-3">
-                        <select class="form-control" name="department">
-                            <option value="" >请选择类型</option>
-                            <?php if($this->departmentlist != ""){
-                                foreach ($this->departmentlist as $k => $v){?>
-                                    <option value="<?php echo $v['id']?>" <?php if($_REQUEST['department'] == $v['id']) echo 'selected="selected"';?>><?php echo $v['pname']?></option>
-                                <?php }}?>
-                        </select>
-                    </div>
-                </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="input02" class="control-label">所属部门：</label>
+                                        <select class="form-control" name="department">
+                                            <option value="" >请选择类型</option>
+                                            <?php if($this->departmentlist != ""){
+                                                foreach ($this->departmentlist as $k => $v){?>
+                                                    <option value="<?php echo $v['id']?>" <?php if($_REQUEST['department'] == $v['id']) echo 'selected="selected"';?>><?php echo $v['pname']?></option>
+                                                <?php }}?>
+                                        </select>
+                                    </div>
+                                </div>
 
-                <div class="form-group">
-                    <label class="col-sm-1 control-label" for="input01">某一捐赠人的所有捐赠：</label>
-                    <div class="col-sm-3">
-                        <input type="text" width="100%"  style="text-align:left;" value="<?php echo $_REQUEST['pm_pp'];?>" name="pm_pp"/>
-                    </div>
 
-                    <label class="col-sm-1 control-label" for="input01">
-                        是否校友：</label>
-                    <div class="col-sm-3">
-                        <label>是
-                            <input type="radio" name="pm_is_school" <?php if($_REQUEST['pm_is_school'] == 1) echo 'checked="checked"';?>  value="1" />
-                        </label>
-                        <label>否
-                            <input type="radio" name="pm_is_school" <?php if($_REQUEST['pm_is_school'] == 2) echo 'checked="checked"';?>  value="2"/>
-                        </label>
-                    </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-3">
+                                        <label for="input02" class="control-label">来款金额（元）：</label>
+                                        <input class="form-control" type="text" value="<?php echo $_REQUEST['je'];?>" name="je" />
+                                    </div>
 
-                    <label class="col-sm-1 control-label" for="input03">未开票：</label>
-                    <div class="col-sm-3">
-                        <input name="piaoju" type="checkbox" value="2" <?php if($_REQUEST['piaoju'] == 2) echo 'checked="checked"';?>>
-                    </div>
-                </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="input02" class="control-label">起始时间：</label>
+                                        <input class="form-control" type="text" value="<?php echo $_REQUEST['start'];?>" name="start" data-date-format="YYYY-MM-DD" id="datepicker1"/>
+                                    </div>
 
-                        <!--<div class="form-group">
-                            <label class="col-sm-3 control-label" for="input03">协议已到期：</label>
-                            <div class="col-sm-8">
-                                <input name="xieyi_daoqi" type="checkbox" value="1">
+                                    <div class="form-group col-sm-3">
+                                        <label for="input02" class="control-label">终止时间：</label>
+                                        <input class="form-control" type="text" value="<?php echo $_REQUEST['end'];?>" name="end" data-date-format="YYYY-MM-DD" id="datepicker2" />
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="form-group col-sm-3">
+                                        <label for="input02" class="control-label">某一捐赠人的所有捐赠：</label>
+                                        <input class="form-control" type="text" value="<?php echo $_REQUEST['start'];?>" name="start" data-date-format="YYYY-MM-DD" id="datepicker1"/>
+                                    </div>
+
+                                    <div class="form-group col-sm-3">
+                                        <label for="input02" class="control-label">排序规则：</label>
+                                        <select class="form-control" name="order">
+                                            <option value="">请选择排序规则</option>
+                                            <option value="datetime_desc" <?php if($_REQUEST['order'] == "datetime_desc"){echo 'selected="selected"';}?>>到账时间降序</option>
+                                            <option value="datetime_asc" <?php if($_REQUEST['order'] == "datetime_asc"){echo 'selected="selected"';}?>>到账时间升序</option>
+                                            <option value="m_desc" <?php if($_REQUEST['order'] == "m_desc"){echo 'selected="selected"';}?>>到账金额降序</option>
+                                            <option value="m_asc" <?php if($_REQUEST['order'] == "m_asc"){echo 'selected="selected"';}?>>到账金额升序</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-sm-3">
+                                        <label for="input02" class="control-label">是否校友：</label>
+                                        <label>是
+                                            <input type="radio" name="pm_is_school" <?php if($_REQUEST['pm_is_school'] == 1) echo 'checked="checked"';?>  value="1" />
+                                        </label>
+                                        <label>否
+                                            <input type="radio" name="pm_is_school" <?php if($_REQUEST['pm_is_school'] == 2) echo 'checked="checked"';?>  value="2"/>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group col-sm-3">
+                                        <label for="input02" class="control-label">未开票：</label>
+                                        <input name="piaoju" type="checkbox" value="2" <?php if($_REQUEST['piaoju'] == 2) echo 'checked="checked"';?>>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-1 control-label">
+                                            <input class="btn btn-greensea" onclick="get_submit()" type="button" value="点击查询"/>
+                                        </div>
+
+                                        <div class="col-sm-1 control-label">
+                                            <input class="btn btn-greensea" onclick="post_submit()" type="button" value="下载excel报表"/>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="input03">未完成到账：</label>
-                            <div class="col-sm-8">
-                                <input name="jindu" type="checkbox" value="1">
-                            </div>
-                        </div>-->
-
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label" for="input01">起止时间：</label>
-                        <div class="col-sm-3">
-                            <input type="text" name="start" value="<?php echo $_REQUEST['start'];?>" data-date-format="YYYY-MM-DD" id="datepicker1"/> ~ <input type="text" name="end" data-date-format="YYYY-MM-DD"  value="<?php echo $_REQUEST['end'];?>" id="datepicker2" />
-                        </div>
-
-                        <label class="col-sm-1 control-label" for="input03">排序规则：</label>
-                        <div class="col-sm-3">
-                            <select class="form-control" name="order">
-                                <option value="">请选择排序规则</option>
-                                <option value="datetime_desc" <?php if($_REQUEST['order'] == "datetime_desc"){echo 'selected="selected"';}?>>到账时间降序</option>
-                                <option value="datetime_asc" <?php if($_REQUEST['order'] == "datetime_asc"){echo 'selected="selected"';}?>>到账时间升序</option>
-                                <option value="m_desc" <?php if($_REQUEST['order'] == "m_desc"){echo 'selected="selected"';}?>>到账金额降序</option>
-                                <option value="m_asc" <?php if($_REQUEST['order'] == "m_asc"){echo 'selected="selected"';}?>>到账金额升序</option>
-                            </select>
-                        </div>
+                        </form>
                     </div>
-
-                     <div class="form-group">
-                         <div class="col-sm-2 control-label">
-                             <input class="btn btn-greensea" onclick="get_submit()" type="button" value="点击查询"/>
-                         </div>
-
-                        <div class="col-sm-1 control-label">
-                            <input class="btn btn-greensea" onclick="post_submit()" type="button" value="下载excel报表"/>
-                        </div>
-                     </div>
-
-                </form>
-             </div>
-        </section>
-      </div>
-
-
+                </section>
+            </div>
+        </div>
 
         <div class="col-md-12">
             <section class="tile color transparent-white">
