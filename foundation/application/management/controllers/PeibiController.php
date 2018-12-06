@@ -15,6 +15,7 @@
                 `pm_mg_info`.id,
                 `pm_mg_info`.pm_name,
                 `pm_mg_info`.pm_pp,
+                `pm_mg_info`.jpyy,
                 `pm_mg_info`.pm_pp_cate,
                 `pm_mg_info`.zijin_daozheng_jiner,
                 `pm_mg_info`.zijin_daozhang_datetime,
@@ -495,6 +496,16 @@
             exit();
         }
 
+        public function changejpyyAction(){
+            $signDAO = $this->orm->createDAO('pm_mg_info');
+            $signDAO ->findId($_REQUEST['id']);
+            $signDAO ->jpyy = $_REQUEST['jpyy'];
+            $signDAO ->save();
+
+            $this->alert_back("修改成功！");
+            exit();
+        }
+
         //权限
         public function acl()
         {
@@ -508,7 +519,8 @@
                 'editzc',
                 'rszc',
                 'delzc',
-                'ajaxeditpinfo'  // 修改是否申请国家配比，申请结果
+                'ajaxeditpinfo',  // 修改是否申请国家配比，申请结果
+                'changejpyy'
             );
             if (in_array($action, $except_actions)) {
                 return;

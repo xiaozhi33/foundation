@@ -74,8 +74,9 @@
                                         <label for="pname" class="control-label">国家配比结果：</label>
                                         <select class="chosen-select-1 chosen-transparent form-control col-sm-3 " name="peibi_result" id="id">
                                             <option value="">请选择</option>
+                                            <option value="0" <?php if($_REQUEST['peibi_result'] == 0 && $_REQUEST['peibi_result'] != '')echo 'selected="selected"';?>>待确认</option>
                                             <option value="1" <?php if($_REQUEST['peibi_result'] == 1)echo 'selected="selected"';?>>合格</option>
-                                            <option value="0" <?php if($_REQUEST['peibi_result'] == 0 && $_REQUEST['peibi_result'] != '')echo 'selected="selected"';?>>不合格</option>
+                                            <option value="2" <?php if($_REQUEST['peibi_result'] == 2)echo 'selected="selected"';?>>不合格</option>
                                         </select>
                                     </div>
 
@@ -160,12 +161,13 @@
 					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 					 <thead>
 					  <tr>
-						<td width="24%">来款项目</td>
+						<td width="18%">来款项目</td>
 						<td width="12%">来款时间</td>
-                        <td width="20%">来款方</td>
+                        <td width="18%">来款方</td>
                         <td width="10%">来款金额（元）</td>
                         <td width="10%">是否申报国家配比</td>
-                        <td width="14%">国家配比结果</td>
+                        <td width="12%">国家配比结果</td>
+                        <td width="16%">国家配比拒批原因</td>
                         <td width="20%">操作</td>
 					  </tr>
 					</thead>
@@ -190,9 +192,16 @@
                                 <input class="switch-onText" id="is_peibi_<?php echo $v['id'];?>" type="checkbox" schValue="<?php echo $v['id'];?>" <?php if($v['is_peibi'] ==1){echo 'checked="checked"';}?> data-on-text="是" data-off-text="否" name="is_peibi"/>
                              </td>
 
-                             <td><?php //echo $v['peibi_result'];?>
-                                 <input data-handle-width="100" id="peibi_result_<?php echo $v['id'];?>" schValue="<?php echo $v['id'];?>" data-label-width="100" style="width: 200px;" class="switch-onText" type="checkbox" <?php if($v['peibi_result'] ==1){echo 'checked="checked"';}?> data-on-text="合格" data-off-text="不合格" name="peibi_result"/>
+                             <td>
+                                 <select class="form-control pr" schValue="<?php echo $v['id'];?>" id="pr_<?php echo $v['id'];?>" style="align-content: center;" name="peibi_result">
+                                     <option value="0" schValue="<?php echo $v['id'];?>" <?php if($v['peibi_result'] ==0){echo 'selected="selected"';}?>>待确认</option>
+                                     <option value="1" schValue="<?php echo $v['id'];?>" <?php if($v['peibi_result'] ==1){echo 'selected="selected"';}?>>合格</option>
+                                     <option value="2" schValue="<?php echo $v['id'];?>" <?php if($v['peibi_result'] ==2){echo 'selected="selected"';}?>>不合格</option>
+                                 </select>
+                                 <!--<input data-handle-width="100" id="peibi_result_<?php /*echo $v['id'];*/?>" schValue="<?php /*echo $v['id'];*/?>" data-label-width="100" style="width: 200px;" class="switch-onText" type="checkbox" <?php /*if($v['peibi_result'] ==1){echo 'checked="checked"';}*/?> data-on-text="合格" data-off-text="不合格" name="peibi_result"/>-->
                              </td>
+
+                             <td class="addpr" svhId="<?php echo $v['id'];?>" svhName="jpyy" svhValue="<?php echo $v['jpyy'];?>"><?php if(!empty($v['jpyy'])){echo $v['jpyy'];}else{echo '无';}?></td>
 
                              <td>
                                  <a href="/management/peibi/peibiindex?lk_main_id=<?php echo $v['id'];?>" target="_blank">
@@ -307,6 +316,34 @@
 <script type="text/javascript" src="/include/management/bootstrap-switch-master/js/bootstrap-switch.js"></script>
 
 <script type="text/javascript">
+
+    $(".pr").change(function(){
+        var data_info = {
+            "id": $(this).attr("schValue"),
+            "params_name": 'peibi_result',
+            "params_val": $(this).val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: 'ajaxeditpinfo',
+            dataType:'json',
+            data: data_info,
+            success:function(data){
+                if(data.success){
+                    alert("编辑成功");
+                }else{
+                    alert(data.errorMessage);
+                }
+            },
+            error:function(XMLHttpRequest,textStatus){
+                alert(textStatus);
+                //layer.msg(textStatus);
+            }
+        })
+    });
+
+
     $('.switch-onText').on('switchChange.bootstrapSwitch', function (event,state) {
         //console.log($(this).attr("schValue"));
 
@@ -848,7 +885,7 @@
         z-index:9999;  position:fixed;
         top:21%;
         left:35%;
-        width:30%;
+        width:45%;
         /*max-height:220px;
         margin:-180px 0 0 -330px;*/
         border:solid 2px #999;
@@ -925,64 +962,6 @@
                 <!--<span class="col-sm-2" > * <a href="/management/pp/addppcate" target="_blank">点击添加类型</a></span>-->
             </div>
 
-            <!--<div class="form-group jzf">
-                            <label class="col-sm-4 control-label" for="input01">捐赠方类型：</label>
-                            <div class="col-sm-8">
-                                <select class="form-control" name="pp_jzf_cate">
-                                    <option value="">请选择捐赠方类型</option>
-                                    <?php /*foreach($this->pp_config['pp_jzf_cate'] as $k => $v){*/?>
-                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
-                                    <?php /*}*/?>
-                                </select>
-                            </div>
-                        </div>-->
-            <!--<div class="form-group jzf">
-                            <label class="col-sm-4 control-label" for="input01">捐赠方属性一：</label>
-                            <div class="col-sm-8">
-                                <select class="form-control" name="pp_jzf_attr1">
-                                    <option value="">请选择捐赠方属性一</option>
-                                    <?php /*foreach($this->pp_config['pp_jzf_attr1'] as $k => $v){*/?>
-                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
-                                    <?php /*}*/?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group jzf">
-                            <label class="col-sm-4 control-label" for="input01">捐赠方属性二：</label>
-                            <div class="col-sm-8">
-                                <select class="form-control" name="pp_jzf_attr2">
-                                    <option value="">请选择捐赠方属性二</option>
-                                    <?php /*foreach($this->pp_config['pp_jzf_attr2'] as $k => $v){*/?>
-                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
-                                    <?php /*}*/?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group syf" style="display: none;">
-                            <label class="col-sm-4 control-label" for="input01">使用方类型：</label>
-                            <div class="col-sm-8>
-                                <select class="form-control" name="pp_syf_cate">
-                                    <option value="">请选择使用方类型</option>
-                                    <?php /*foreach($this->pp_config['pp_syf_cate'] as $k => $v){*/?>
-                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
-                                    <?php /*}*/?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group yuf" style="display: none;">
-                            <label class="col-sm-4 control-label" for="input01">业务方类型：</label>
-                            <div class="col-sm-8">
-                                <select class="form-control" name="pp_yuf_cate">
-                                    <option value="">请选择业务方类型</option>
-                                    <?php /*foreach($this->pp_config['pp_yuf_cate'] as $k => $v){*/?>
-                                        <option value="<?php /*echo $k;*/?>"><?php /*echo $v;*/?></option>
-                                    <?php /*}*/?>
-                                </select>
-                            </div>
-                        </div>-->
-
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="input01">Email：</label>
                 <div class="col-sm-7"><input class="form-control" type="text" name="ppemail" /></div>
@@ -1031,25 +1010,66 @@
     <div class="theme2-poptit">
         <a href="javascript:void(0);" title="关闭" class="close" id="popover-close" name="">×</a>
     </div>
-    <div class="theme2-popbod dform">
-        <form class="theme-signin" name="" action="#" id="addtag_form" method="post">
+    <div class="-popbod dform">
+        <form class="theme-signin" name="" action="/management/peibi/changejpyy" id="" method="post">
 
             <div class="form-group" style="margin:-9px 14px 27px;">
-                <h4>添加标签信息</h4>
+                <h4>编辑国家配比拒批原因</h4>
             </div>
 
             <section class="tile color transparent-white">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label" for="input01">标签名称：</label>
-                    <div class="col-sm-8" style="margin-left:-60px; margin-top: -5px; ">
-                        <input class="form-control" type="text" name="name" />
+                <div class="row form-group">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" for="input01"></label>
+                        <div class="col-sm-6">
+                            <textarea id='jpyy' name="jpyy" rows="8" style="width: 180%;"></textarea>
+                        </div>
+                        <span class="col-sm-4" > </span>
                     </div>
-                    <span class="col-sm-1" > * </span>
                 </div>
+
+                <div class="row form-group">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" for="input01"></label>
+                        <style>
+                            a:link, a:visited {
+                                color: #2d64b3;
+                                text-decoration: none;
+                            }
+                            .tag-explist a {
+                                 display: inline-block;
+                                 background-color: rgb(252, 252, 252);
+                                 color: rgb(51, 51, 51);
+                                 margin-left: 10px;
+                                 border-radius: 3px;
+                                 border-width: 1px;
+                                 border-style: solid;
+                                 border-color: rgb(221, 221, 221);
+                                 border-image: initial;
+                                 font: 12px/22px 微软雅黑;
+                                 padding: 0px 14px;
+                             }
+                            a:visited {
+                                color: #2d64b3;
+                                text-decoration: none;
+                            }
+                        </style>
+                        <div class="col-sm-6">
+                            <span class="exp-tag tag-explist">
+                                <a onclick="addtext($(this).attr('suValue'))" suValue="CSS">CSS</a>
+                                <a onclick="addtext($(this).attr('suValue'))" suValue="HTML">HTML</a>
+                                <a onclick="addtext($(this).attr('suValue'))" suValue="设置">设置</a>
+                            </span>
+                        </div>
+                        <span class="col-sm-4" > 常用拒批原因 </span>
+                    </div>
+                </div>
+
+                <input id="svhId" name="id" type="hidden" value="" />
 
                 <div class="form-group form-footer" style="padding-top:50px;padding-bottom:40px;">
                     <div class="col-sm-offset-4 col-sm-7">
-                        <input class="btn btn-primary" type="button" onclick="javascript:addtag();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
                         <input class="btn btn-default" type="reset" value="重 置" />
                     </div>
                 </div>
@@ -1061,6 +1081,12 @@
 
 
 <script>
+    function addtext(suValue){
+        var btnVal = suValue;  //trim函数，去掉空格
+        var str = $('#jpyy').val() + btnVal;
+        $('#jpyy').val(str);
+        return false;
+    }
     function noTips(){
 
         if($(".chosen-single span").html() != "请选择项目名称"){
@@ -1117,7 +1143,11 @@
         });
 
         // 添加标签信息
-        $('.addtag').click(function(){
+        $('.addpr').click(function(){
+            //alert($(this).attr("svhId"));
+            $('#jpyy').val($(this).html().replace(/^\s+|\s+$/g,""));
+            $('#svhId').val($(this).attr("svhId"));
+
             $('.theme2-popover').show();
         });
         $('.theme2-poptit .close').click(function(){
