@@ -108,7 +108,7 @@
                                  <?php echo $v['shiyong_zhichu_jiner'];?> 元
                              </td>
 							<td>
-                                <?php if($this->is_renling == 0){?>
+                                <?php if($_REQUEST['is_renling'] == 0 || $_REQUEST['is_renling'] == ''){?>
                                 <a onclick="javascript:noTips_click(<?php echo $v['id'];?>);">
                                     <button class="btn btn-greensea margin-bottom-20" type="button">认领项目</button>
                                 </a>
