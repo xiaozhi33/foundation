@@ -314,12 +314,15 @@
                 $jiner = HttpUtil::postString("jiner");         //协议捐赠金额
                 $yishi = HttpUtil::postString("yishi");         //项目仪式
 
+
+
                 if(!empty($qishi)){
                     $qishi = $qishi."-01-01 00:00:00";
                 }
                 if(!empty($jiezhi)){
                     $jiezhi = $jiezhi."-12-31 00:00:00";
                 }
+                $introduce = htmlspecialchars($_REQUEST['introduce']);  //项目介绍
                 $beizhu =  htmlspecialchars($_POST['beizhu']);     //备注
                 //$beizhu = HttpUtil::postString("beizhu");         //备注
 
@@ -403,6 +406,8 @@
 
                 $pm_chouziDAO->execute_fzr = $execute_fzr;
                 $pm_chouziDAO->execute_llr = $execute_llr;
+
+                $pm_chouziDAO->introduce = $introduce;
 
                 // pm_id为所属父项目id 如果不为空，则新建子项目
                 $pid = HttpUtil::postString("pm_id"); // $pid 父项目id
@@ -569,6 +574,7 @@
                     $jiezhi = $jiezhi."-12-31 00:00:00";
                 }
 
+                $introduce = htmlspecialchars($_REQUEST['introduce']);
                 $beizhu =  htmlspecialchars($_POST['beizhu']);     //备注
                 //$beizhu = HttpUtil::postString("beizhu");         //备注
                 // $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
@@ -650,6 +656,8 @@
 
                 $pm_chouziDAO->execute_fzr = $execute_fzr;
                 $pm_chouziDAO->execute_llr = $execute_llr;
+
+                $pm_chouziDAO->introduce = $introduce;
 
                 $pid = HttpUtil::postString("pm_id");
                 if(!empty($pid)){

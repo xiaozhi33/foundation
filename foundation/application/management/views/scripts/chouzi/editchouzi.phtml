@@ -180,7 +180,7 @@
                     </div>
 
                     <div class="form-group transparent-editor">
-                        <label class="col-sm-2 control-label" for="input14">执行联络人：</label>
+                        <label class="col-sm-2 control-label" for="input14">使用联络人：</label>
                         <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="execute_llr[]" id="execute_llr">
                                 <?php if($this->jjh_mg_pp_list != ""){
@@ -199,25 +199,25 @@
                         <span class="col-sm-2 addpp" >添加人员信息</span>
                     </div>
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">筹款负责人：</label>
                         <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_ckfzr[]" id="pm_ckfzr">
-                                <?php if($this->jjh_mg_pp_list != ""){
-                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
-                                        <option value="<?php echo $k?>" <?php
-                                        if(!empty($this->chouzi[0]['pm_ckfzr'])){
+                                <?php /*if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){*/?>
+                                        <option value="<?php /*echo $k*/?>" <?php
+/*                                        if(!empty($this->chouzi[0]['pm_ckfzr'])){
                                             foreach(explode(',',$this->chouzi[0]['pm_ckfzr']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
                                             }
-                                        }?>><?php echo $v?></option>
-                                    <?php }}?>
+                                        }*/?>><?php /*echo $v*/?></option>
+                                    <?php /*}}*/?>
                             </select>
                         </div>
                         <span class="col-sm-2 addpp" >添加人员信息</span>
-                    </div>
+                    </div>-->
 
                     <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">筹款负责人邮箱：</label>
@@ -233,25 +233,25 @@
                         </div>
                     </div>-->
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方：</label>
                         <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_jzf[]" id="pm_jzf">
-                                <?php if($this->jjh_mg_pp_list != ""){
-                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
-                                        <option value="<?php echo $k?>" <?php
-                                        if(!empty($this->chouzi[0]['pm_jzf'])){
+                                <?php /*if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){*/?>
+                                        <option value="<?php /*echo $k*/?>" <?php
+/*                                        if(!empty($this->chouzi[0]['pm_jzf'])){
                                             foreach(explode(',',$this->chouzi[0]['pm_jzf']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
                                             }
-                                        }?>><?php echo $v?></option>
-                                    <?php }}?>
+                                        }*/?>><?php /*echo $v*/?></option>
+                                    <?php /*}}*/?>
                             </select>
                         </div>
                         <span class="col-sm-2 addpp" >添加人员信息</span>
-                    </div>
+                    </div>-->
 
                     <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方邮箱：</label>
@@ -267,25 +267,25 @@
                         </div>
                     </div>-->
 
-                    <div class="form-group transparent-editor">
-                        <label class="col-sm-2 control-label" for="input14">捐赠方联络人：</label>
+                    <!--<div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">捐赠联络人：</label>
                         <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_jzfllr[]" id="pm_jzfllr">
-                                <?php if($this->jjh_mg_pp_list != ""){
-                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
-                                        <option value="<?php echo $k?>" <?php
-                                        if(!empty($this->chouzi[0]['pm_jzfllr'])){
+                                <?php /*if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){*/?>
+                                        <option value="<?php /*echo $k*/?>" <?php
+/*                                        if(!empty($this->chouzi[0]['pm_jzfllr'])){
                                             foreach(explode(',',$this->chouzi[0]['pm_jzfllr']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
                                             }
-                                        }?>><?php echo $v?></option>
-                                    <?php }}?>
+                                        }*/?>><?php /*echo $v*/?></option>
+                                    <?php /*}}*/?>
                             </select>
                         </div>
                         <span class="col-sm-2 addpp" >添加人员信息</span>
-                    </div>
+                    </div>-->
 
                     <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠方联络人邮箱：</label>
@@ -301,28 +301,25 @@
                         </div>
                     </div>-->
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方：</label>
-                        <!--<div class="col-sm-3">
-                            <input class="form-control"  value="<?php /*echo $this->chouzi[0]['pm_sjjzf']*/?>"  type="text"  name="pm_sjjzf"  size="14"/>
-                        </div>-->
                         <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_sjjzf[]" id="pm_sjjzf">
-                                <?php if($this->jjh_mg_pp_list != ""){
-                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
-                                        <option value="<?php echo $k?>" <?php
-                                        if(!empty($this->chouzi[0]['pm_sjjzf'])){
+                                <?php /*if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){*/?>
+                                        <option value="<?php /*echo $k*/?>" <?php
+/*                                        if(!empty($this->chouzi[0]['pm_sjjzf'])){
                                             foreach(explode(',',$this->chouzi[0]['pm_sjjzf']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
                                             }
-                                        }?>><?php echo $v?></option>
-                                    <?php }}?>
+                                        }*/?>><?php /*echo $v*/?></option>
+                                    <?php /*}}*/?>
                             </select>
                         </div>
                         <span class="col-sm-2 addpp" >添加人员信息</span>
-                    </div>
+                    </div>-->
 
                     <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方邮箱：</label>
@@ -339,25 +336,25 @@
                     </div>-->
 
 
-                    <div class="form-group transparent-editor">
+                    <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方联络人：</label>
                         <div class="col-sm-6">
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_sjjzfllr[]" id="pm_sjjzfllr">
-                                <?php if($this->jjh_mg_pp_list != ""){
-                                    foreach ($this->jjh_mg_pp_list as $k => $v){?>
-                                        <option value="<?php echo $k?>" <?php
-                                        if(!empty($this->chouzi[0]['pm_sjjzfllr'])){
+                                <?php /*if($this->jjh_mg_pp_list != ""){
+                                    foreach ($this->jjh_mg_pp_list as $k => $v){*/?>
+                                        <option value="<?php /*echo $k*/?>" <?php
+/*                                        if(!empty($this->chouzi[0]['pm_sjjzfllr'])){
                                             foreach(explode(',',$this->chouzi[0]['pm_sjjzfllr']) as $key => $value){
                                                 if($k == $value){
                                                     echo "selected='selected'";
                                                 }
                                             }
-                                        }?>><?php echo $v?></option>
-                                    <?php }}?>
+                                        }*/?>><?php /*echo $v*/?></option>
+                                    <?php /*}}*/?>
                             </select>
                         </div>
                         <span class="col-sm-2 addpp" >添加人员信息</span>
-                    </div>
+                    </div>-->
 
                     <!--<div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">实际捐赠方联络人邮箱：</label>
@@ -434,16 +431,15 @@
 							<span class="col-sm-2" >* 例如：45天。</span>
 					</div>-->
 
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label class="col-sm-2 control-label" for="input09">协议起始年份：</label>
                         <div class="col-sm-4">
                             <select name="qishi" class="form-control">
                                 <option name="qishi" value="">请选择</option>
-                                <?php for($i=1990; $i<2050; $i++){?>
-                                    <option name="qishi" value="<?php echo $i;?>" <?php if($i==$this->chouzi[0]['pm_qishi_datetime']){echo 'selected="selected"';}?>><?php echo $i;?></option>
-                                <?php }?>
+                                <?php /*for($i=1990; $i<2050; $i++){*/?>
+                                    <option name="qishi" value="<?php /*echo $i;*/?>" <?php /*if($i==$this->chouzi[0]['pm_qishi_datetime']){echo 'selected="selected"';}*/?>><?php /*echo $i;*/?></option>
+                                <?php /*}*/?>
                             </select>
-                            <!--<input class="form-control" type="text" value="<?php /*echo $this->chouzi[0]['pm_qishi_datetime'];*/?>"  data-date-format="YYYY" id="datepicker1"  name="qishi"  size="14"/>-->
                         </div>
                         <span class="col-sm-1" > * </span>
                     </div>
@@ -453,11 +449,10 @@
                         <div class="col-sm-4">
                             <select name="jiezhi" class="form-control">
                                 <option name="jiezhi" value="">请选择</option>
-                                <?php for($i=1990; $i<2050; $i++){?>
-                                    <option name="jiezhi" value="<?php echo $i;?>" <?php if($i==$this->chouzi[0]['pm_jiezhi_datetime']){echo 'selected="selected"';}?>><?php echo $i;?></option>
-                                <?php }?>
+                                <?php /*for($i=1990; $i<2050; $i++){*/?>
+                                    <option name="jiezhi" value="<?php /*echo $i;*/?>" <?php /*if($i==$this->chouzi[0]['pm_jiezhi_datetime']){echo 'selected="selected"';}*/?>><?php /*echo $i;*/?></option>
+                                <?php /*}*/?>
                             </select>
-                            <!--<input class="form-control" type="text"  value="<?php /*echo $this->chouzi[0]['pm_jiezhi_datetime'];*/?>" data-date-format="YYYY" id="datepicker2"  name="jiezhi"  size="14"/>-->
                         </div>
                         <span class="col-sm-1" > * </span>
                     </div>
@@ -465,10 +460,10 @@
 					<div class="form-group">
 							<label class="col-sm-2 control-label" for="input11">协议捐赠金额：</label>
 							<div class="col-sm-4">
-								<input class="form-control" type="text"  name="jiner"  value="<?php echo $this->chouzi[0]['pm_xieyi_juanzeng_jiner'];?>" size="14"/> 
+								<input class="form-control" type="text"  name="jiner"  value="<?php /*echo $this->chouzi[0]['pm_xieyi_juanzeng_jiner'];*/?>" size="14"/>
 							</div>
 							<span class="col-sm-2">元&nbsp;&nbsp;&nbsp;&nbsp;  * 例如：3000000元 </span>
-					</div>
+					</div>-->
 
 					<!--<div class="form-group">
 						<label class="col-sm-2 control-label" for="input10">项目负责人：</label>
@@ -509,8 +504,14 @@
                     <div class="form-group transparent-editor">
                         <label class="col-sm-2 control-label" for="input14">捐赠用途（备注）：</label>
                         <div class="col-sm-9">
-                            <!--<textarea parsley-validation-minlength="1" name="beizhu" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"><?php /*echo $this->chouzi[0]['beizhu'];*/?></textarea>-->
                             <script type="text/plain" id="beizhu" name="beizhu" style="width:100%;height:240px;"><?php echo htmlspecialchars_decode($this->chouzi[0]['beizhu']);?></script>
+                        </div>
+                    </div>
+
+                    <div class="form-group transparent-editor">
+                        <label class="col-sm-2 control-label" for="input14">项目介绍：</label>
+                        <div class="col-sm-9">
+                            <script type="text/plain" id="introduce" name="introduce" style="width:100%;height:240px;"><?php echo htmlspecialchars_decode($this->chouzi[0]['introduce']);?></script>
                         </div>
                     </div>
 

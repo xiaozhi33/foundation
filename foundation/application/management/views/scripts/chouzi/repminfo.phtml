@@ -227,7 +227,7 @@
                         </div>
                     </div>
                     <div class="pm-js">
-                    <p>项目介绍：</p>
+                    <p>项目介绍：<p><?php if(empty($this->chouzi[0]['introduce'])){echo '无';}else{echo htmlspecialchars_decode($this->chouzi[0]['introduce']);}?></p></p>
                     </div>
                 </section>
             </div>
