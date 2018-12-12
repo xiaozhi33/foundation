@@ -13,12 +13,16 @@
  * 该页面可以使用PHP开发工具调试，也可以使用写文本函数logResult，该函数已被默认关闭，见alipay_notify_class.php中的函数verifyReturn
  */
 
-require_once("alipay.config.php");
-require_once("lib/alipay_notify.class.php");
+require_once("config.php");
+require_once 'pagepay/service/AlipayTradeService.php';
+
+
+$arr=$_GET;
+$alipaySevice = new AlipayTradeService($config);
+$result = $alipaySevice->check($arr);
 
 // 记录return_url详情
 set_include_path('.' .PATH_SEPARATOR .'../../library');
-require_once '../configs.php';
 $ORM = ORM::getInstance();
 ?>
 <!DOCTYPE HTML>
@@ -84,10 +88,7 @@ $ORM = ORM::getInstance();
             <div class="jjh_sub_con_content" style="height:320px;">
 
                 <?php
-                //计算得出通知验证结果
-                $alipayNotify = new AlipayNotify($alipay_config);
-                $verify_result = $alipayNotify->verifyReturn();
-                if($verify_result) {//验证成功
+                if($result) {//验证成功
                     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     //请在这里加上商户的业务逻辑程序代码
 
