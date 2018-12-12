@@ -28,6 +28,9 @@ error_reporting(E_ALL);*/
 set_include_path('.' .PATH_SEPARATOR .'../../library');
 require_once '../configs.php';
 $ORM = ORM::getInstance();
+
+// 根据订单号查询项目详情
+$orderDAO = $ORM->createDAO("jjh_orders_info")->findJjh_order_id(htmlspecialchars($_GET['out_trade_no']))->get();
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -124,12 +127,14 @@ $ORM = ORM::getInstance();
                         $orders ->save();
                     }
                     else {
-                        echo "trade_status=".$_GET['trade_status'];
+                        //echo "trade_status=".$_GET['trade_status'];
                     }
 
                     //echo "验证成功<br />";
-                    echo '<p class="jjh_font4" style="padding:10px 0 10px 0;">捐赠项目名称：'.$_GET['subject'].'</p>';
-                    echo '<p class="jjh_font4" style="padding:10px 0 10px 0;">订单:'.$out_trade_no.'支付完成！感谢您的捐赠。</p>';
+                    echo '<p class="jjh_font4" style="padding:10px 0 10px 0;">捐赠项目名称：'.$orderDAO[0]['jjh_donors_cname'].'</p>';
+                    echo '<p class="jjh_font4" style="padding:10px 0 10px 0;">订单号：'.$out_trade_no.'</p>';
+                    echo '<p class="jjh_font4" style="padding:10px 0 10px 0;">订单金额：'.$total_amount.'</p>';
+                    echo '<p class="jjh_font4" style="padding:10px 0 10px 0;">支付完成！感谢您的捐赠。</p>';
                     //mecho '<script type="text/javascript">window.location.href="/";</script>';
 
 
