@@ -87,7 +87,7 @@
                            <tr>
    	                           <td class="jjh_font2" height="35">您的捐款总额为： </td>
                                <td>
-                                    <input onkeyup="value=this.value.replace(/\D+/g,'')" class="input_donate" id="Amount" name="Amount" style="width:64px;text-align:center; height:18px;" type="text" value="" /> 元（人民币）<span class="red">*</span>
+                                    <input onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" class="input_donate" id="Amount" name="Amount" style="width:64px;text-align:center; height:18px;" type="text" value="" /> 元（人民币）<span class="red">*</span>
                              		<!-- <input class="input_donate" id="Amount" name="Amount" style="width:64px;text-align:center; height:18px;" type="text" value="" /> 元（人民币）<span class="red">*</span> -->
                              		如果外币捐赠  <a href="/donate/fangshi"><b>请点击这里</b></a>  进行汇款或者转账
                                </td>
