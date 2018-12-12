@@ -45,7 +45,7 @@
 
 			$Amount = HttpUtil::postInsString("Amount");
 			if ($Amount == "" || $Amount < 10){
-				alert_back("请添加要捐赠项目的捐赠总额！并金额不少于10元");
+				//alert_back("请添加要捐赠项目的捐赠总额！并金额不少于10元");
 			}
 			if (is_int((int)$Amount) == false){
 				alert_back("金额必须是正整数。");
