@@ -22,7 +22,11 @@ $alipaySevice = new AlipayTradeService($config);
 $result = $alipaySevice->check($arr);
 
 // 记录return_url详情
+ini_set("display_errors", "On");
+error_reporting(E_ALL);
+
 set_include_path('.' .PATH_SEPARATOR .'../../library');
+require_once '../configs.php';
 $ORM = ORM::getInstance();
 ?>
 <!DOCTYPE HTML>
@@ -96,13 +100,13 @@ $ORM = ORM::getInstance();
                     //获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表
 
                     //商户订单号
-                    $out_trade_no = $_GET['out_trade_no'];
+                    $out_trade_no = htmlspecialchars($_GET['out_trade_no']);
 
                     //付款总金额
-                    $total_fee = $_GET['total_fee'];
+                    $total_fee = htmlspecialchars($_GET['total_amount']);
 
                     //支付宝交易号
-                    $trade_no = $_GET['trade_no'];
+                    $trade_no = htmlspecialchars($_GET['trade_no']);
 
                     //交易状态
                     $trade_status = $_GET['trade_status'];
