@@ -22,8 +22,8 @@ $alipaySevice = new AlipayTradeService($config);
 $result = $alipaySevice->check($arr);
 
 // 记录return_url详情
-ini_set("display_errors", "On");
-error_reporting(E_ALL);
+/*ini_set("display_errors", "On");
+error_reporting(E_ALL);*/
 
 set_include_path('.' .PATH_SEPARATOR .'../../library');
 require_once '../configs.php';
