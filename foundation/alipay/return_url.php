@@ -106,7 +106,7 @@ $orderDAO = $ORM->createDAO("jjh_orders_info")->findJjh_order_id(htmlspecialchar
                     $out_trade_no = htmlspecialchars($_GET['out_trade_no']);
 
                     //付款总金额
-                    $total_fee = htmlspecialchars($_GET['total_amount']);
+                    $total_amount = htmlspecialchars($_GET['total_amount']);
 
                     //支付宝交易号
                     $trade_no = htmlspecialchars($_GET['trade_no']);
@@ -131,10 +131,10 @@ $orderDAO = $ORM->createDAO("jjh_orders_info")->findJjh_order_id(htmlspecialchar
                     }
 
                     //echo "验证成功<br />";
-                    echo '<p class="jjh_font4" style="padding:10px 0 10px 0;">捐赠项目名称：'.$orderDAO[0]['jjh_donors_cname'].'</p>';
-                    echo '<p class="jjh_font4" style="padding:10px 0 10px 0;">订单号：'.$out_trade_no.'</p>';
-                    echo '<p class="jjh_font4" style="padding:10px 0 10px 0;">订单金额：'.$total_amount.'</p>';
-                    echo '<p class="jjh_font4" style="padding:10px 0 10px 0;">支付完成！感谢您的捐赠。</p>';
+                    echo '<p class="jjh_font4" style="padding:10px 0 0px 0;">捐赠项目名称：<strong>'.$orderDAO[0]['jjh_donors_cname'].'</strong></p>';
+                    echo '<p class="jjh_font4">订单号：'.$orderDAO[0]['jjh_order_id'].'</p>';
+                    echo '<p class="jjh_font4">订单金额：'.$orderDAO[0]['jjh_money'].' 元</p>';
+                    echo '<p class="jjh_font3" style="padding:10px 0 10px 0;font-size: 16px;">支付完成！感谢您的捐赠。</p>';
                     //mecho '<script type="text/javascript">window.location.href="/";</script>';
 
 
