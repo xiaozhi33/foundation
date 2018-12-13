@@ -354,7 +354,7 @@
 
                 // $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
 
-                if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
+                if ($pname == "" || $department == "" || $pm_cate == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
                 }
 
@@ -604,7 +604,7 @@
                 //$pm_sjjzfllr_email = HttpUtil::postString("pm_sjjzfllr_email");
                 //$pm_sjjzfllr_tel = HttpUtil::postString("pm_sjjzfllr_tel");
 
-                if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
+                if ($pname == "" || $department == "" || $pm_cate == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
                 }
 
