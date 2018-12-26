@@ -1,0 +1,253 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  /> 
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  /> 
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<link rel="stylesheet" href="/include/management/assets/css/vendor/animate/animate.css">
+<link type="text/css" rel="stylesheet" media="all" href="/include/management/assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+<link rel="stylesheet" href="/include/management/assets/js/vendor/videobackground/css/jquery.videobackground.css">
+<link rel="stylesheet" href="/include/management/assets/css/vendor/bootstrap-checkbox.css">
+
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/summernote/css/summernote-bs3.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen.min.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/chosen/css/chosen-bootstrap.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/datepicker/css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpicker/css/bootstrap-colorpicker.css">
+<link rel="stylesheet" href="/include/management/assets/js/vendor/colorpalette/bootstrap-colorpalette.css">
+<link href="/include/management/assets/css/minimal.css" rel="stylesheet">
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>票据查询</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目信息统计与查询</li>
+            <li class="active">票据查询</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+	<div id="main" class="main">
+		<div id="rightstyle02" class="row">
+
+			<div class="col-md-12">
+			<section class="tile color transparent-white">
+			<div class="tile-body">
+			<form action="#" method="get" name="search_form">
+				<div class="form-group">
+
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label for="pname" class=" control-label">项目名称：</label>
+                            <select class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                <option value="">请选择项目名称</option>
+                                <?php if($this->pmlist != ""){
+                                    foreach ($this->pmlist as $k => $v){
+                                        ?>
+                                        <option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pname'] == $v['pname']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
+                                    <?php }}?>
+                            </select>
+                            <input id="pname_info" type="hidden" name="pname" value=""/>
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <label for="input02">票据类型：</label>
+                            <select class="chosen-select-1 chosen-transparent form-control" name="piaoju">
+                                <option value="" >请选择类型</option>
+                                <?php $this->piaoju = array(0=>" 未开票（默认）",1=>"已开票",2=>"借票");?>
+                                <?php if($this->piaoju != ""){
+                                    foreach ($this->piaoju as $k => $v){?>
+                                        <option value="<?php echo $k?>" <?php if($_GET['piaoju'][0]==$k){echo 'selected="selected"';}?>><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <label for="input02">反馈方式：</label>
+                            <select class="chosen-select-1 chosen-transparent form-control" name="piaoju_fkfs">
+                                <option value="" >请选择反馈方式</option>
+                                <?php $this->piaoju_fkfs = array(1=>"领取",2=>"寄送",3=>"暂存");?>
+                                <?php if($this->piaoju_fkfs != ""){
+                                    foreach ($this->piaoju_fkfs as $k => $v){?>
+                                        <option value="<?php echo $k?>" <?php if($_GET['piaoju_fkfs'][0]==$k){echo 'selected="selected"';}?>><?php echo $v?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <!--<div class="row">
+                       <div class="form-group col-sm-3">
+                                <label for="input03">项目起始日期：</label>
+                                <input name="starttime" data-date-format="YYYY-MM-DD" value="<?php /*echo $_REQUEST['starttime'];*/?>" type="text" class="form-control" id="datepicker">
+                        </div>
+                        <div class="form-group col-sm-3">
+                                <label for="input04">项目截止日期：</label>
+                                <input type="text" name="endtime" data-date-format="YYYY-MM-DD" value="<?php /*echo $_REQUEST['endtime'];*/?>" class="form-control" id="datepicker1">
+                        </div>
+                    </div>-->
+
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label for="input02">快递单号：</label>
+                            <input name="piaoju_kddh" class="btn btn-primary btn-block" type="text" value="<?php echo $_REQUEST['piaoju_kddh'];?>"/>
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <label for="input02">经办人：</label>
+                            <input name="piaoju_jbr" class="btn btn-primary btn-block" type="text" value="<?php echo $_REQUEST['piaoju_jbr'];?>"/>
+                        </div>
+
+                        <!--<div class="form-group col-sm-3">
+                            <label for="input02">收入时间（至今）</label>
+                            <input name="srsj" data-date-format="YYYY-MM-DD" id="datepicker1" class="btn btn-primary btn-block" type="text" value="<?php /*echo $this->srsj;*/?>"/>
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <label for="input02">支出时间（至今）</label>
+                            <input name="zcsj" data-date-format="YYYY-MM-DD" id="datepicker2" class="btn btn-primary btn-block" type="text" value="<?php /*echo $this->zcsj;*/?>"/>
+                        </div>-->
+
+                        <div class="form-group col-sm-3">
+                            <label for="input02" class="control-label">排序规则：</label>
+                            <select class="form-control" name="order">
+                                <option value="">请选择排序规则</option>
+                                <option value="zijin_daozhang_datetime_desc" <?php if($_GET['order'] == "zijin_daozhang_datetime_desc"){echo 'selected="selected"';}?>>来款时间降序</option>
+                                <option value="zijin_daozhang_datetime_asc" <?php if($_GET['order'] == "zijin_daozhang_datetime_asc"){echo 'selected="selected"';}?>>来款时间升序</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            <label for="input02"> </label>
+                            <input class="btn btn-primary btn-block" type="submit" value="搜索"/>
+                        </div>
+                    </div>
+				</div>
+			</form>
+			</div>
+			</section>
+			<section class="tile color transparent-white">
+				<tr class="tile-body nopadding">
+				<?php if($this->pageData != ""){?>
+					<table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+					 <thead>
+					  <tr>
+						  <td width="20%">项目名称</td>
+                          <td width="8%">票据类型</td>
+                          <td width="6%">反馈方式</td>
+                          <td width="18%">快递单号</td>
+                          <td width="14%">经办人</td>
+                          <td width="8%">来款日期</td>
+                          <td width="18%">实际捐赠方</td>
+                          <td width="8%">来款金额（元）</td>
+                          <?php if (in_array($this->admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
+						        <td width="10%">操作</td>
+                          <?php }?>
+					  </tr>
+					</thead>
+                    <tbody>
+					  <?php 
+						foreach($this->pageData as $k=>$v){?>
+						 <tr>
+						 	<td style="padding: 2px;">
+                                <a href="/management/chouzi/index?pname=<?php echo $v['pm_name'];?>" target="_blank">
+                                <?php echo $v['pm_name'];?>
+                                </a>&nbsp;
+                            </td>
+
+                             <td>
+                                 <?php
+                                    $this->piaoju = array(0=>" 未开票（默认）",1=>"已开票",2=>"借票");
+                                    echo $this->piaoju[$v['piaoju']];
+                                 ?>
+                             </td>
+
+                             <td>
+                                 <?php
+                                     if(!empty($v['piaoju_fkfs'])){
+                                         echo $this->piaoju_fkfs[$v['piaoju_fkfs']];
+                                     }else {
+                                         echo '--';
+                                     }
+                                 ?>
+                             </td>
+
+                             <td style="padding: 2px;">
+                                 <?php
+                                     if(!empty($v['piaoju_kddh'])){
+                                         echo $v['piaoju_kddh'];
+                                     }else {
+                                         echo '--';
+                                     }
+                                 ?>
+                             </td>
+
+                             <td style="padding: 2px;">
+                                     <?php
+                                     if(!empty($v['piaoju_jbr'])){
+                                         echo $v['piaoju_jbr'];
+                                     }else {
+                                         echo '--';
+                                     }?>
+                             </td>
+
+                             <td style="padding: 2px;">
+                                     <?php echo mb_substr($v['zijin_daozhang_datetime'], 0,10);?>
+                             </td>
+
+                             <td style="padding: 2px;">
+                                 <?php echo $v['pm_pp'];?>
+                             </td>
+
+                             <td style="padding: 2px;">
+                                 <a href="/management/zijin/editzijin?id=<?php echo $v['id']?>" target="_blank">
+                                     <?php echo sprintf("%.2f",$v['zijin_daozheng_jiner']);?>
+                                 </a>
+                             </td>
+
+
+                             <?php if (in_array($this->admininfo['admin_info']['admin_type'],array(0,1,2,3,4,5))){?>
+                                <td style="padding: 20px 20px 0px 20px;">
+                                    <a href="/management/zijin/editzijin?id=<?php echo $v['id'];?>" target="_blank">
+                                        <button class="btn btn-greensea margin-bottom-20" type="button">编 辑</button>
+                                    </a>
+                                    &nbsp;&nbsp;
+                                    <a href="#" onclick="alert('对不起，项目清单不提供删除功能，请联系管理员');">
+                                       <!-- <button class="btn btn-danger margin-bottom-20" type="button">删除</button>-->
+                                    </a>
+                                </td>
+                             <?php }?>
+						 </tr>
+					   <?php }?>
+                     </tbody>
+					</table>
+
+                    <div class="row" style="margin:10px;">
+                        <div class="page col-md-12" align="right" >
+                            共  <?php echo $this->totalItems;?> 条票据信息         <?php echo $this->page['all'];?></div>
+
+                        <?php }else{?>
+                            <div style="margin: 20px;">暂无票据信息！<a href="/management/zijin" target="_blank">点击添加</a></div>
+                        <?php }?>
+
+					</div>
+
+                    </div>
+				</section>
+		  </div>
+		</div>
+
+
