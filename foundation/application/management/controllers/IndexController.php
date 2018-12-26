@@ -484,11 +484,29 @@
             return $rss;
         }
 
+        public function scAction(){
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("index/sc.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
         //权限
         public function acl()
         {
-            // 不需要权限检查直接返回
-            return;
+            $action = $this->getRequest()->getActionName();
+            $except_actions = array(
+                'sc',
+                'index',
+                'loginview',
+                'login',
+                'logout',
+                'getpasswordpost',
+                'savetodolist',
+            );
+            if (in_array($action, $except_actions)) {
+                return;
+            }
+            parent::acl();
         }
 
 		public function _init(){
