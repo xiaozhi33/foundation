@@ -313,19 +313,58 @@
                         </div>
                     </div>-->
 
-                    <div class="form-group">
+                    <!--<div class="form-group">
 					    <label class="col-sm-2 control-label" for="input03">项目类型：</label>
 						<div class="col-sm-4">
 							<select class="chosen-select chosen-transparent form-control" name="pm_cate">
 								<option value="" >请选择项目类型</option>
-								<?php if($this->pcatelist != ""){
-								foreach ($this->pcatelist as $k => $v){?>
-									<option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
-								<?php }}?>
+								<?php /*if($this->pcatelist != ""){
+								foreach ($this->pcatelist as $k => $v){*/?>
+									<option value="<?php /*echo $v['id']*/?>" ><?php /*echo $v['catename']*/?></option>
+								<?php /*}}*/?>
 							</select>
 						</div>
 						<span class="col-sm-1" > * </span>
-				</div>
+                    </div>-->
+
+                    <?php
+                        /**
+                        * 递归实现无限极分类
+                        * @param $array 分类数据
+                        * @param $pid 父ID
+                        * @param $level 分类级别
+                        * @return $list 分好类的数组 直接遍历即可 $level可以用来遍历缩进
+                        */
+
+                        function generateTree($arr, $id, $step){
+                            static $tree=[];
+                            foreach($arr as $key=>$val) {
+                                if($val['t_cate_pid'] == $id) {
+                                    $flg = str_repeat('|－－',$step);
+                                    $val['t_cate_name'] = $flg.$val['t_cate_name'];
+                                    $tree[] = $val;
+                                    generateTree($arr , $val['t_cate_id'] ,$step+1);
+                                }
+                            }
+                            return $tree;
+                        }
+                    ?>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input03">项目类型：</label>
+                        <div class="col-sm-4">
+                            <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_cate[]" id="pm_cate">
+                                <option value="" >请选择项目类型</option>
+                                <?php if($this->pcatelist != ""){
+                                    $tree = generateTree($this->pcatelist, 0, 0);
+                                    foreach ($tree as $val){
+                                        echo '<option value="'.$val['t_cate_id'].'" >'.$val['t_cate_name'].'</option>';
+                                    }
+                                }?>
+                            </select>
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
 
 				<!--<div class="form-group">
 					    <label class="col-sm-2 control-label" for="input04">宣传推动期：</label>

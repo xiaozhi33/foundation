@@ -40,20 +40,37 @@
                             <input type="hidden" name="lsh" value="<?echo $this->zw_lkrl_logs[0]['lsh'];?>"/>
                             <input type="hidden" name="lrrq	" value="<?echo $this->zw_lkrl_logs[0]['lrrq'];?>"/>
                             <input type="hidden" name="lrr" value="<?echo $this->zw_lkrl_logs[0]['lrr'];?>"/>
+                            <tr>
+                                <td>认领到协议：</td>
+                                <td>
+                                    <select name="sign_id" class="chosen-select-1 chosen-transparent form-control" id="sign_id">
+                                        <option value="">请选择协议名称</option>
+                                        <?php if($this->pm_mg_signDAO != ""){
+                                            foreach ($this->pm_mg_signDAO as $k => $v){
+                                                ?>
+                                                <option value="<?php echo $v['id'];?>_<?php echo $v['pm_id'];?>_<?php echo $v['pname'];?>">
+                                                    <?php if($v['type'] !=1){echo "（".$this->types_array[$v['type']]."）";}?><?php echo $v['sign_name'];?>； 协议金额：<?php echo $v['xyje'];?>元；
+                                                </option>
+                                            <?php }}?>
+                                    </select>
+                                    <input id="pm_sign_id" type="hidden" suvalue="" name="pm_sign_id" value=""/>
+                                </td>
+                            </tr>
 
                             <!-- 项目相关 start-->
                             <tr>
-                                <td>认领到项目：</td>
+                                <td>项目名称：</td>
                                 <td>
-                                    <select name="pm_xmbh" class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                    <!--<select name="pm_xmbh" class="chosen-select-1 chosen-transparent form-control" id="pname">
                                         <option value="">请选择项目名称</option>
-                                        <?php if($this->pmlist != ""){
+                                        <?php /*if($this->pmlist != ""){
                                             foreach ($this->pmlist as $k => $v){
-                                                ?>
-                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
-                                            <?php }}?>
+                                                */?>
+                                                <option value="<?php /*echo $v['id'];*/?>"><?php /*echo $v['pname'];*/?></option>
+                                            <?php /*}}*/?>
                                     </select>
-                                    <input id="pname_info" type="hidden" name="pname" value=""/>
+                                    <input id="pname_info" type="hidden" name="pname" value=""/>-->
+                                    <input id="pname_info12" size="60" readonly="readonly" type="text" name="pname" value=""/>
                                 </td>
                             </tr>
 
@@ -64,26 +81,7 @@
                                     项目编号：<input size="38" type="text" id="zw_xmbh" name="zw_xmbh" value="" readonly/>
                                     项目名称：<input size="38" type="text" id="zw_xmmc" name="zw_xmmc" value="" readonly/>
                                 </td>
-
-                                <!--<input type="text" name="zw_xmbh" id="zw_xmbh" value=""/>-->
                             </tr>
-
-                            <!-- 项目相关 end-->
-                            <!-- 部门相关信息 start-->
-
-                            <!--<tr>
-                                <td>认领到部门：</td>
-                                <td>
-                                    <select class="chosen-select-1 chosen-transparent form-control" name="pm_bmbh" id="department">
-                                        <?php /*if($this->department_list != ""){
-                                            foreach ($this->department_list as $k => $v){
-                                                */?>
-                                                <option value="<?php /*echo $v['id'];*/?>"><?php /*echo $v['pname'];*/?></option>
-                                            <?php /*}}*/?>
-                                    </select>
-                                    <input id="department_id" type="hidden" name="department_id" value=""/>
-                                </td>
-                            </tr>-->
 
                             <tr>
                                 <td>项目系统所在部门：</td>
@@ -104,16 +102,16 @@
                                 <td>确认金额：</td>
                                 <td><input name="je" size="36" type="text" readonly value="<?php echo $this->pm_mg_info[0]['zijin_daozheng_jiner'];?>"/> 元</td>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <td>补充其它信息：</td>
                                 <td><textarea parsley-validation-minlength="1" name="other" parsley-rangelength="[20,200]" parsley-trigger="keyup" rows="6" id="input05" class="form-control parsley-validated"></textarea></td>
-                            </tr>
+                            </tr>-->
                             <tr>
-                                <td>来款方：</td>
+                                <td>实际来款方：</td>
                                 <td><input size="38" name="pm_pp" type="text" readonly value="<?php echo $this->zw_lkrl_logs[0]['fkdw'];?>"/></td>
                             </tr>
                             <tr>
-                                <td>捐赠方类型：</td>
+                                <td>实际捐赠方类型：</td>
                                 <td>
                                     <select class="form-control"  name="pm_pp_cate">
                                         <option value="" >请选择类型</option>
@@ -125,6 +123,43 @@
                                     </select>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td>捐赠方：</td>
+                                <td>
+                                    <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_jzf[]" id="pm_jzf">
+                                        <?php if($this->jjh_mg_pp_list != ""){
+                                            foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                                <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                            <?php }}?>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>捐赠联络人：</td>
+                                <td>
+                                    <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_jzfllr[]" id="pm_jzfllr">
+                                        <?php if($this->jjh_mg_pp_list != ""){
+                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                        <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                        <?php }}?>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>筹资联络人：</td>
+                                <td>
+                                    <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_czllr[]" id="pm_czllr">
+                                        <?php if($this->jjh_mg_pp_list != ""){
+                                            foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                                <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                            <?php }}?>
+                                    </select>
+                                </td>
+                            </tr>
+
                             <tr>
                                 <td>资金来源渠道：</td>
                                 <td> <select class="form-control" name="zijin_laiyuan_qudao">
@@ -137,6 +172,16 @@
                             <tr>
                                 <td>是否是校友：</td>
                                 <td> <select class="form-control" name="pm_is_school">
+                                        <option value="" >请选择是否校友</option>
+                                        <option value="1" >是</option>
+                                        <option value="0" >否</option>
+                                    </select></td>
+                            </tr>
+
+                            <tr>
+                                <td>是否申请配比：</td>
+                                <td> <select class="form-control" name="peibi">
+                                        <option value="" >请选择是否申请国家配比</option>
                                         <option value="1" >是</option>
                                         <option value="0" >否</option>
                                     </select></td>
@@ -146,21 +191,18 @@
                                 <td>来款日期：</td>
                                 <td><input size="38" name="lkrq" type="text" readonly value="<?php echo $this->pm_mg_info[0]['zijin_daozhang_datetime'];?>"/> </td>
                             </tr>
-                            <!--<tr>
-                                <td>认领负责人：</td>
-                                <td>
-                                    <input size="38" name="fzr" type="text"/>
-                                </td>
-                            </tr>-->
+
                             <tr>
                                 <td>选择进度：</td>
                                 <td><input name="jindu" type="checkbox" value="1" />已到帐</td>
                             </tr>
+
                             <!--<tr>
                                 <td>选择进度：</td>
                                 <input type="radio" name="zhengshu" value="1" checked="checked"/> 已开证书
                                 <input type="radio" name="zhengshu" value="0" /> 未开证书
                             </tr>-->
+
                             <tr>
                                 <td>发票状态：</td>
                                 <td>
@@ -195,7 +237,10 @@
                                     <td><input size="38" name="piaoju_kddh" type="text"/></td>
                                 </tr>
                             <tr>
-                                <input  onclick="javascript:noTips();" value="点击认领" class="btn btn-primary btn-block">
+                                <td></td>
+                                <td>
+                                    <input  onclick="javascript:noTips();" value="点击认领" class="btn btn-primary btn-block">
+                                </td>
                             </tr>
                         </tbody>
                         </table>
@@ -212,6 +257,16 @@
             $("#xmxxbj").addClass("open");
 
             $(document).ready(function(){
+                // 选择协议时触发
+                $(".chosen-select-1").change(function(){
+                    var sid = $("#sign_id").val();
+                    var arr = sid.split('_');
+                    if($(".chosen-single span").html() != "请选择协议名称"){
+                        $("#pm_sign_id").val(arr[0]);
+                        GetZWxm( arr[1] );
+                        $("#pname_info12").val( arr[2] );
+                    }
+                });
 
                 $(".addfapiao").hide();
 

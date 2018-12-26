@@ -28,16 +28,28 @@
 			<form class="form-horizontal" id="form1" action="editrszijin" method="post" encType="multipart/form-data">
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                    <label class="col-sm-2 control-label" for="input01">认领到协议：</label>
                     <div class="col-sm-4">
-                        <select class="chosen-select-1 chosen-transparent form-control" name="pname">
-                            <?php if($this->pmlist != ""){
-                                foreach ($this->pmlist as $k => $v){
+                        <select class="chosen-select-1 chosen-transparent form-control" id="sign_id">
+                            <option value="">请选择协议名称</option>
+                            <?php if($this->pm_mg_signDAO != ""){
+                                foreach ($this->pm_mg_signDAO as $k => $v){
                                     ?>
-                                    <option value="<?php echo $v['pname'];?>" <?php if($v['pname'] == $this->zijin[0]['pm_name']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
+                                    <option <?php if($this->zijin[0]['sign_id']==$v['id']){echo "selected='selected'";}?> value="<?php echo $v['id'];?>_<?php echo $v['pm_id'];?>_<?php echo $v['pname'];?>">
+                                        <?php if($v['type'] !=1){echo "（".$this->types_array[$v['type']]."）";}?>
+                                        <?php echo $v['sign_name'];?>； 协议金额：<?php echo $v['xyje'];?>元；
+                                    </option>
                                 <?php }}?>
                         </select>
-                        <input id="pname_info" type="hidden" name="pname" value=""/>
+                        <input id="pm_sign_id" type="hidden" suvalue="" name="pm_sign_id" value="<?php echo $this->zijin[0]['sign_id'];?>"/>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                    <div class="col-sm-4">
+                        <input id="pname_info12" class="form-control" readonly="readonly" type="text" name="pname" value="<?php echo $this->zijin[0]['pm_name'];?>"/>
                     </div>
                     <span class="col-sm-2" > * </span>
                 </div>
@@ -51,39 +63,8 @@
                 </div>
 
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input01">选择进度：</label>
-                    <div class="col-sm-4">
-                        <input name="jindu" type="checkbox" value="1" <?php if($this->zijin[0]['jindu']) echo "checked='checked'";?>/>已到帐
-                    </div>
-                    <!--<span class="col-sm-2" > * </span>-->
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input00">捐赠者类型：</label>
-                    <div class="col-sm-4">
-                        <select class="form-control" name="pm_pp_cate">
-                            <option value="" >请选择类型</option>
-                            <option value="个人" <?php if($this->zijin[0]['pm_pp_cate']=='个人'){echo "selected='selected'";}?>>个人</option>
-                            <option value="企业" <?php if($this->zijin[0]['pm_pp_cate']=='企业'){echo "selected='selected'";}?>>企业</option>
-                            <option value="事业单位" <?php if($this->zijin[0]['pm_pp_cate']=='事业单位'){echo "selected='selected'";}?>>事业单位</option>
-                            <option value="基金会" <?php if($this->zijin[0]['pm_pp_cate']=='基金会'){echo "selected='selected'";}?>> 基金会</option>
-                            <option value="其他组织" <?php if($this->zijin[0]['pm_pp_cate']=='其他组织'){echo "selected='selected'";}?>>其他组织</option>
-                        </select>
-                    </div>
-                    <span class="col-sm-2" >* 个人、企业、事业单位、基金会、其他组织</span>
-                </div>
-
-                <!--<div class="form-group">
-                    <label class="col-sm-2 control-label" for="input00">项目捐赠者：</label>
-                        <div class="col-sm-4">
-                            <input readonly type="text" value="<?php /*echo $this->zijin[0]['pm_pp'];*/?>"  name="pm_pp"  size="14"/>
-                        </div>
-                    <span class="col-sm-2" >* </span>
-                </div>-->
-
                 <div class="form-group transparent-editor">
-                    <label class="col-sm-2 control-label" for="input14">项目捐赠方：</label>
+                    <label class="col-sm-2 control-label" for="input14">实际捐赠方：</label>
                     <div class="col-sm-4">
                         <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_pp[]" id="pm_pp">
                             <?php if($this->jjh_mg_pp_list != ""){
@@ -102,6 +83,80 @@
                     <span class="col-sm-2 addpp" >添加人员信息</span>
                 </div>
 
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input00">实际捐赠方类型：</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" name="pm_pp_cate">
+                            <option value="" >请选择类型</option>
+                            <option value="个人" <?php if($this->zijin[0]['pm_pp_cate']=='个人'){echo "selected='selected'";}?>>个人</option>
+                            <option value="企业" <?php if($this->zijin[0]['pm_pp_cate']=='企业'){echo "selected='selected'";}?>>企业</option>
+                            <option value="事业单位" <?php if($this->zijin[0]['pm_pp_cate']=='事业单位'){echo "selected='selected'";}?>>事业单位</option>
+                            <option value="基金会" <?php if($this->zijin[0]['pm_pp_cate']=='基金会'){echo "selected='selected'";}?>> 基金会</option>
+                            <option value="其他组织" <?php if($this->zijin[0]['pm_pp_cate']=='其他组织'){echo "selected='selected'";}?>>其他组织</option>
+                        </select>
+                    </div>
+                    <span class="col-sm-2" >* 个人、企业、事业单位、基金会、其他组织</span>
+                </div>
+
+                <div class="form-group transparent-editor">
+                    <label class="col-sm-2 control-label" for="input14">捐赠方：</label>
+                    <div class="col-sm-4">
+                        <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_jzf[]" id="pm_jzf">
+                            <?php if($this->jjh_mg_pp_list != ""){
+                                foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                    <option value="<?php echo $v?>" <?php
+                                    if(!empty($this->zijin[0]['pm_jzf'])){
+                                        foreach(explode(',',$this->zijin[0]['pm_jzf']) as $key => $value){
+                                            if($v == $value){
+                                                echo "selected='selected'";
+                                            }
+                                        }
+                                    }?>><?php echo $v?></option>
+                                <?php }}?>
+                        </select>
+                    </div>
+                    <span class="col-sm-2 addpp" >添加人员信息</span>
+                </div>
+
+                <div class="form-group transparent-editor">
+                    <label class="col-sm-2 control-label" for="input14">捐赠联络人：</label>
+                    <div class="col-sm-4">
+                        <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_jzfllr[]" id="pm_jzfllr">
+                            <?php if($this->jjh_mg_pp_list != ""){
+                                foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                    <option value="<?php echo $v?>" <?php
+                                    if(!empty($this->zijin[0]['pm_jzfllr'])){
+                                        foreach(explode(',',$this->zijin[0]['pm_jzfllr']) as $key => $value){
+                                            if($v == $value){
+                                                echo "selected='selected'";
+                                            }
+                                        }
+                                    }?>><?php echo $v?></option>
+                                <?php }}?>
+                        </select>
+                    </div>
+                    <span class="col-sm-2 addpp" >添加人员信息</span>
+                </div>
+
+                <div class="form-group transparent-editor">
+                    <label class="col-sm-2 control-label" for="input14">筹资联络人：</label>
+                    <div class="col-sm-4">
+                        <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_czllr[]" id="pm_czllr">
+                            <?php if($this->jjh_mg_pp_list != ""){
+                                foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                    <option value="<?php echo $v?>" <?php
+                                    if(!empty($this->zijin[0]['pm_czllr'])){
+                                        foreach(explode(',',$this->zijin[0]['pm_czllr']) as $key => $value){
+                                            if($v == $value){
+                                                echo "selected='selected'";
+                                            }
+                                        }
+                                    }?>><?php echo $v?></option>
+                                <?php }}?>
+                        </select>
+                    </div>
+                    <span class="col-sm-2 addpp" >添加人员信息</span>
+                </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">捐赠到账日期：</label>
@@ -123,21 +178,6 @@
                     </div>
                     <span class="col-sm-2" > * </span>
                 </div>
-
-
-                <!--<div class="form-group">
-                    <label class="col-sm-2 control-label" for="input01">项目捐赠类型：</label>
-                    <div class="col-sm-4">
-                        <select class="form-control" name="pm_cate">
-                            <option value="" >请选择类型</option>
-                            <?php /*if($this->pcatelist != ""){
-                                foreach ($this->pcatelist as $k => $v){*/?>
-                                    <option value="<?php /*echo $v['id']*/?>" <?php /*if($v['id'] == $this->zijin[0]['pm_juanzeng_cate']){echo "selected='selected'";}*/?>><?php /*echo $v['catename']*/?></option>
-                                <?php /*}}*/?>
-                        </select>
-                    </div>
-                    <span class="col-sm-2" >  * 教育基金、研究基金等 </span>
-                </div>-->
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">票据状态：</label>
@@ -228,7 +268,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="input01">是否申请配比状态：</label>
+                <label class="col-sm-2 control-label" for="input01">是否申请配比：</label>
                 <div class="col-sm-4">
                     <input  type="radio" name="peibi" value="1" <?php if ($this->zijin[0]['peibi'] == 1)echo "checked='checked'";?>  /> 是
                     <input type="radio" name="peibi" value="0" <?php if ($this->zijin[0]['peibi'] == 0)echo "checked='checked'";?> /> 否
@@ -369,6 +409,17 @@
             }*/
 
             $(document).ready(function(){
+                // 选择协议时触发
+                $(".chosen-select-1").change(function(){
+                    var sid = $("#sign_id").val();
+                    var arr = sid.split('_');
+                    if($(".chosen-single span").html() != "请选择协议名称"){
+                        $("#pm_sign_id").val(arr[0]);
+                        //GetZWxm( arr[1] );
+                        $("#pname_info12").val( arr[2] );
+                    }
+                });
+
                 $(".addfapiao").show();
                 // 切换发票状态
                 $(".radioItem").change(function(){

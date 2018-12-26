@@ -107,7 +107,7 @@
                 alert_back("项目类型不能为空，请到对应到项目筹资中添加项目类型！");
             }
 
-			$pm_zijinDAO = new pm_mg_infoDAO();
+            $pm_zijinDAO = $this->orm->createDAO("pm_mg_info");
 
             // 项目捐赠方
             $pm_pp = implode(",",$_REQUEST['pm_pp']);
@@ -150,6 +150,11 @@
             $pm_zijinDAO ->is_renling = 1;
 			$pm_zijinDAO ->cate_id = 0;
 
+            $pm_zijinDAO ->sign_id = $_REQUEST['pm_sign_id'];    // 绑定协议
+            $pm_zijinDAO ->pm_jzf = implode(",",$_REQUEST['pm_jzf']);         //捐赠方
+            $pm_zijinDAO ->pm_jzfllr = implode(",",$_REQUEST['pm_jzfllr']);   //捐赠联络人
+            $pm_zijinDAO ->pm_czllr = implode(",",$_REQUEST['pm_czllr']);     //筹资联络人
+
             $pm_zijinDAO ->lastmodify = time();
 
 			if($_FILES['pm_files']['name']!=""){
@@ -160,7 +165,7 @@
 					$uploadpic = new uploadPic($_FILES['pm_files']['name'],$_FILES['pm_files']['error'],$_FILES['pm_files']['size'],$_FILES['pm_files']['tmp_name'],$_FILES['pm_files']['type'],2);
 					$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
 					$result = $uploadpic->uploadPic();
-					if($result['error']!=0){					    	
+					if($result['error']!=0){
 					   	alert_back($result['msg']);
 					}else{				             
 					    $pm_zijinDAO->pm_file =  __GETPICPATH__."jjh_download/".$result['picname'];
@@ -218,7 +223,7 @@
 					alert_back("您输入的信息不完整，请查正后继续添加");
 				}
 				
-				$pm_zijinDAO = new pm_mg_infoDAO($_REQUEST['id']);
+				$pm_zijinDAO = $this->orm->createDAO("pm_mg_info")->findId($_REQUEST['id']);
 				$pm_zijinDAO ->pm_name = $pname;
 				$pm_zijinDAO ->pm_pp = $pm_pp;
 				$pm_zijinDAO ->pm_juanzeng_jibie = $pm_juanzeng_jibie;
@@ -263,13 +268,18 @@
 						$uploadpic = new uploadPic($_FILES['pm_files']['name'],$_FILES['pm_files']['error'],$_FILES['pm_files']['size'],$_FILES['pm_files']['tmp_name'],$_FILES['pm_files']['type'],2);
 						$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
 						$result = $uploadpic->uploadPic();
-						if($result['error']!=0){					    	
+						if($result['error']!=0){
 						   	alert_back($result['msg']);
 						}else{				             
 						    $pm_zijinDAO->pm_file =  __GETPICPATH__."jjh_download/".$result['picname'];
 						}		            	    
 					}
 				}
+
+                $pm_zijinDAO ->sign_id = $_REQUEST['pm_sign_id'];    // 绑定协议
+                $pm_zijinDAO ->pm_jzf = implode(",",$_REQUEST['pm_jzf']);         //捐赠方
+                $pm_zijinDAO ->pm_jzfllr = implode(",",$_REQUEST['pm_jzfllr']);   //捐赠联络人
+                $pm_zijinDAO ->pm_czllr = implode(",",$_REQUEST['pm_czllr']);     //筹资联络人
 
                 // 项目捐赠方
                 $pm_pp = implode(",",$_REQUEST['pm_pp']);
@@ -421,6 +431,14 @@
                     alert_back("请选择认领项目和部门 或 该部门没有绑定财务部门，请联系管理员");
                 }
 
+                /*if($_REQUEST["pm_is_school"] == ''){
+                    alert_back("请选择是否校友！");
+                }
+
+                if(HttpUtil::postString("is_peibi") == 1 && (float)$_REQUEST['je'] < 100000){
+                    alert_back("您申请配比来款未满足10万元以上的配比要求，请联系管理员！");
+                }*/
+
                 // 1, 查看项目财务对照表－取得财务对应项目名称和编号
                 $pm_relateDAO = $this->orm->createDAO("zw_pm_related");
                 $pm_relateDAO ->findPm_id($_REQUEST['pm_xmbh']);
@@ -479,6 +497,12 @@
                     $pm_mg_infoDAO ->shiyong_type = HttpUtil::postString("shiyong_type");   // 类型，1，转财务处  2，基金会列支
                     $pm_mg_infoDAO ->beizhu = HttpUtil::postString("other");   // 备注
                     $pm_mg_infoDAO ->is_renling = 1;                            // 是否认领flag 已认领
+
+                    $pm_mg_infoDAO ->sign_id = $_REQUEST['pm_sign_id'];    // 绑定协议
+                    $pm_mg_infoDAO ->peibi = HttpUtil::postString("peibi");   // 是否申请国家配比
+                    $pm_mg_infoDAO ->pm_jzf = implode(",",$_REQUEST['pm_jzf']);         //捐赠方
+                    $pm_mg_infoDAO ->pm_jzfllr = implode(",",$_REQUEST['pm_jzfllr']);   //捐赠联络人
+                    $pm_mg_infoDAO ->pm_czllr = implode(",",$_REQUEST['pm_czllr']);     //筹资联络人
 
                     $pm_mg_infoDAO ->save();
                     if($rs){
@@ -1190,6 +1214,34 @@
 			SessionUtil::sessionStart();
 			SessionUtil::checkmanagement();
             $this->admininfo = SessionUtil::getAdmininfo();
+
+            // 获取所有协议列表
+            $pm_mg_signDAO = $this->orm->createDAO("pm_mg_sign");
+            $pm_mg_signDAO ->select .=" pm_mg_sign.id, pm_mg_sign.pm_id, pm_mg_sign.sign_name, pm_mg_sign.xyje, pm_mg_sign.type ";
+            $pm_mg_signDAO ->selectLimit .= " ORDER BY pm_mg_sign.sign_time DESC";
+            $pm_mg_signDAO = $pm_mg_signDAO ->get();
+
+            //项目名称列表
+            $pm_chouzi = new pm_mg_chouziDAO();
+            $pm_chouzi ->selectLimit .= " AND is_del=0";
+            $pm_chouzi ->selectLimit .= " order by id desc";
+            $pm_chouzi = $pm_chouzi ->get($this->dbhelper);
+
+            if(!empty($pm_chouzi)){
+                $pm_chouzi_array = array();
+                foreach($pm_chouzi as $k => $v){
+                    $pm_chouzi_array[$v['id']] = $v['pname'];
+                }
+            }
+
+            if(!empty($pm_mg_signDAO)){
+                $pm_mg_signDAO_array = array();
+                foreach($pm_mg_signDAO as $key => $value){
+                    $pm_mg_signDAO_array[$value['id']] = $value;
+                    $pm_mg_signDAO_array[$value['id']]['pname'] = $pm_chouzi_array[$value['pm_id']];
+                }
+            }
+            $this->view->assign('pm_mg_signDAO', $pm_mg_signDAO_array);
 			
 			//项目分类
 			$pcatelist = new jjh_mg_cateDAO();

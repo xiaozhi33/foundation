@@ -5,6 +5,112 @@
       <!-- Make page fluid-->
 
     </div>
+
+
+           <!-- <div id="moquu_wxin" class="moquu_wxin"><a href="javascript:void(0)">基金会<div class="moquu_wxinh"></div></a></div>
+            <div id="moquu_wshare" class="moquu_wshare"><a href="javascript:void(0)">基金会<div class="moquu_wshareh"></div></a></div>-->
+            <div id="moquu_wmaps"><a href="javascript:void(0)" class='moquu_wmaps'>基金会</a></div>
+            <a id="moquu_top" href="#wrap"></a>
+
+
+    <style>
+        #moquu_top,#moquu_wxin,#moquu_wshare,#moquu_wmaps {
+            z-index:2;
+            width:50px;
+            height:50px;
+            right:10px;
+            position:fixed;
+            cursor:pointer;
+            _position:absolute;
+            _bottom:auto;
+            _top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)))
+        }
+
+        #moquu_wxin {
+            top:360px;
+            _margin-top:360px
+        }
+        #moquu_wxin a {
+            background:url(/include/management/images/sbtn.png) 0 -0px;
+            right:0;
+            float:left;
+            width:50px;
+            height:50px;
+            text-indent:-9999px
+        }
+        #moquu_wxin a:hover {
+            background:url(/include/management/images/sbtn.png) -50px -0px
+        }
+        #moquu_wshare {
+            top:412px;
+            _margin-top:412px
+        }
+        #moquu_wshare a {
+            background:url(/include/management/images/sbtn.png) 0 -50px;
+            width:50px;
+            height:50px;
+            right:0;
+            float:left;
+            text-indent:-9999px
+        }
+        #moquu_wshare a:hover {
+            background:url(/include/management/images/sbtn.png) -50px -50px
+        }
+        #moquu_wmaps {
+            top:464px;
+            _margin-top:464px
+        }
+        #moquu_wmaps a {
+            background:url(/include/management/images/sbtn.png) 0 -150px;
+            width:50px;
+            height:50px;
+            right:0;
+            float:left;
+            text-indent:-9999px
+        }
+        #moquu_wmaps a:hover {
+            background:url(/include/management/images/sbtn.png) -50px -150px
+        }
+        #moquu_top {
+            top:516px;
+            _margin-top:516px;
+            background:url(/include/management/images/sbtn.png) 0 -101px;
+            width:50px;
+            height:50px
+        }
+        #moquu_top:hover {
+            background:url(/include/management/images/sbtn.png) -50px -101px
+        }
+        .moquu_wxin,.moquu_wshare {
+            position:relative;
+            z-index:2
+        }
+        .moquu_wxin a:hover .moquu_wxinh,.moquu_wshare a:hover .moquu_wshareh {
+            display:block
+        }
+        .moquu_wxin .moquu_wxinh {
+            position:absolute;
+            display:none;
+            left:-280px;
+            top:-200px;
+            width:275px;
+            height:355px;
+            background:url(/include/management/images/moquu_ico.png) -1px -482px no-repeat
+        }
+        .moquu_wshare .moquu_wshareh {
+            position:absolute;
+            display:none;
+            left:-280px;
+            top:-200px;
+            width:275px;
+            height:360px;
+            background:url(/include/management/images/moquu_wshare.png) no-repeat
+        }
+
+    </style>
+
+
+
     <!-- Wrap all page content end -->
 	<section class="videocontent" id="video"></section>
 
@@ -69,6 +175,60 @@
     <script type="text/javascript" src="/include/management/bootstrap-switch-master/js/bootstrap-switch.js"></script>-->
 
     <script type="text/javascript">
+
+        /*$("a.moquu_wmaps").on('click',
+            function() {
+                popWin.showWin("800", "475", "基金会", "#");
+            });*/
+
+        var popWin = {
+            scrolling: "auto",
+            "int": function() {
+                this.mouseClose(),
+                    this.closeMask();
+            },
+            showWin: function(a, b, c, d) {
+                var e = b - 52,
+                    f = a / 2,
+                    g = b / 2,
+                    h = "";
+                    h += '<div id="mask" style="width:100%; height:100%; position:fixed; top:0; left:0; z-inde:1999;background:#cccccc; filter:alpha(opacity=10); -moz-opacity:0.1; -khtml-opacity: 0.1; opacity:0.1;">sc.chinaz.com</div>',
+                    h += '<div id="maskTop" style="width: ' + a + "px; height: " + b + "px; border: #d1d1d1 5px solid; background: #ffffff; color: #333; position: fixed; top: 50%; left: 50%; margin-left: -" + f + "px; margin-top: -" + g + 'px; z-index: 2999; border-radius:5px; ">',
+                    h += '<div id="maskTitle" style="height:35px; line-height: 35px; font-family:宋体; font-size: 14px; font-weight:bold; color: #797979; padding-left: 10px; background: url(/include/management/images/hbbg.png); border-bottom: 1px solid #d1d1d1; position: relative;">',
+                    h += "" + c,
+                    h += '<div id="popWinClose" style="width: 15px; height:15px; cursor: pointer; position: absolute; top:10px; right: 9px; background: url(/include/management/images/closehdtipper.png)"></div>',
+                    h += "</div>",
+                    h += '<iframe width="' + a + '" height="' + e + '" frameborder="0" scrolling="' + this.scrolling + '" src="' + d + '"></iframe>',
+                    $("body").append(h),
+                    this.int();
+            },
+            mouseClose: function() {
+                $("#popWinClose").on("mouseenter",
+                    function() {
+                        $(this).css("background-image", "url(/include/management/images/closehdtipper.png)");
+                    }),
+                    $("#popWinClose").on("mouseleave",
+                        function() {
+                            $(this).css("background-image", "url(/include/management/images/closehdtipper.png)");
+                        })
+            },
+            closeMask: function() {
+                $("#popWinClose").on("click",
+                    function() {
+                        $("#mask,#maskTop").fadeOut(function() {
+                            $(this).remove();
+                        })
+                    })
+            }
+        };
+        //返回顶部
+        function b() {
+            var h = $(window).height();
+            var t = $(document).scrollTop();
+            t > h ? $("#moquu_top").show() : $("#moquu_top").hide();
+            $("#moquu_top").show();
+        }
+
         /*$('.switch-onText').on('switchChange.bootstrapSwitch', function (event,state) {
             //console.log($(this).attr("schValue"));
 
@@ -143,6 +303,10 @@
 
     <script>
     $(function(){
+        $("#moquu_top").click(function(){
+            $("#content").getNiceScroll(0).doScrollTop(0, 0);
+        });
+
     	//initialize datepicker
         $('#datepicker').datetimepicker({
           	icons: {
@@ -321,7 +485,7 @@
       });*/
 
 
-        $(window).resize(function() {
+        /*$(window).resize(function() {
             // redraw the graph in the correctly sized div
             plot.resize();
             plot.setupGrid();
@@ -348,7 +512,7 @@
                 plot.setupGrid();
                 plot.draw();
             }
-        );
+        );*/
 
         // tooltips showing
         $("#statistics-chart").bind("plothover", function (event, pos, item) {

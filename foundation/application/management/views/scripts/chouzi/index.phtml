@@ -117,10 +117,54 @@
                     </div>
 
                     <div class="row">
-                        <div class="form-group col-sm-2">
+
+                        <?php
+                        /**
+                         * 递归实现无限极分类
+                         * @param $array 分类数据
+                         * @param $pid 父ID
+                         * @param $level 分类级别
+                         * @return $list 分好类的数组 直接遍历即可 $level可以用来遍历缩进
+                         */
+
+                        function generateTree($arr, $id, $step){
+                            static $tree=[];
+                            foreach($arr as $key=>$val) {
+                                if($val['t_cate_pid'] == $id) {
+                                    $flg = str_repeat('|－－',$step);
+                                    $val['t_cate_name'] = $flg.$val['t_cate_name'];
+                                    $tree[] = $val;
+                                    generateTree($arr , $val['t_cate_id'] ,$step+1);
+                                }
+                            }
+                            return $tree;
+                        }
+                        ?>
+
+                        <div class="form-group col-sm-4">
+                            <label for="input02">项目类型：<?php //print_r($_REQUEST['pm_cate'])?></label>
+                            <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_cate[]" id="pm_cate">
+                                <option value="" >请选择项目类型</option>
+                                <?php if($this->pcatelist != ""){
+                                    $tree = generateTree($this->pcatelist, 0, 0);
+                                    foreach ($tree as $val){
+                                        echo $str .='<option value="'.$val['t_cate_id'].'"';
+                                        if(in_array($val['t_cate_id'], $_REQUEST['pm_cate']))
+                                        {
+                                            $str .=" selected='selected'";
+                                        }
+                                        $str .= ">".$val['t_cate_name'].'</option>';
+                                        echo $str;
+                                        $str = '';
+                                    }
+                                }?>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-sm-3">
                             <label for="input01">所属部门：</label>
                             <select class="form-control" name="department">
-                                <option value="" >请选择类型</option>
+                                <option value="" >请选择所属部门</option>
                                 <?php if($this->departmentlist != ""){
                                     foreach ($this->departmentlist as $k => $v){?>
                                         <option value="<?php echo $v['id']?>" <?php if($_REQUEST['department']==$v['id']){echo "selected='selected'";}?>><?php echo $v['pname']?></option>
@@ -128,16 +172,18 @@
                             </select>
                         </div>
 
-                        <div class="form-group col-sm-2">
-                            <label for="input02">项目类型：</label>
-                            <select class="form-control" name="cate">
-                                <option value="" >请选择类型</option>
-                                <?php if($this->pcatelist != ""){
-                                    foreach ($this->pcatelist as $k => $v){?>
-                                        <option value="<?php echo $v['id']?>" <?php if($_REQUEST['cate']==$v['id']){echo "selected='selected'";}?>><?php echo $v['catename']?></option>
-                                    <?php }}?>
+                        <!--<div class="form-group col-sm-3">
+                            <label for="input01">排序规则：</label>
+                            <select class="form-control" name="order">
+                                <option value="" >请选择排序规则</option>
+                                <option value="" >总捐赠收入降序</option>
+                                <option value="" >总协议金额降序</option>
+                                <option value="" >余额升序</option>
+                                <option value="" >余额降序</option>
+                                <option value="" >第一笔来款降序</option>
                             </select>
-                        </div>
+                        </div>-->
+
                     </div>
 
                     <div class="row">
@@ -213,9 +259,15 @@
                                  }?>&nbsp;
                              </td>
 
-                             <td style="padding: 2px;"><?php  foreach ($this->pcatelist as $kk => $vv){
-                                     if($vv['id'] == $v['cate']){ echo $vv['catename'];}
-                                 }?>&nbsp;</td>
+                             <td style="padding: 2px;">
+                                 <?php if($this->pcatelist != ""){
+                                     foreach($this->pcatelist as $key => $value){
+                                         if(in_array($value['t_cate_id'],explode(',',$v['cate']))){
+                                             echo $value['t_cate_name']. '，';
+                                         }
+                                     }
+                                 }?>&nbsp;
+                             </td>
 
                              <!--<td>
                                  <?php /* foreach ($this->jjh_mg_pp_list as $kk => $vv){
@@ -229,7 +281,7 @@
                              </td>-->
 
                              <td>
-                                 <?php echo sprintf("%.2f",$v[srhj]);?> / <a href="/management/zijin/newaddsign?pname=<?php echo $v['pname'];?>" target="_blank"><?php echo sprintf("%.2f",$v[xyzje]);?></a> / <?php echo sprintf("%.2f",$v[xmye]);?>
+                                 <?php echo number_format(sprintf("%.2f",$v[srhj]),2);?> / <a href="/management/zijin/newaddsign?pname=<?php echo $v['pname'];?>" target="_blank"><?php echo number_format(sprintf("%.2f",$v[xyzje]),2);?></a> / <?php echo number_format(sprintf("%.2f",$v[xmye]),2);?>
                              </td>
 
                              <!--<td>
@@ -247,7 +299,7 @@
                              <td>
                                 <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
                                     <tr>
-                                        <td width="50%"><?php echo sprintf("%.2f",$v['last_zijin'][1]);?></td>
+                                        <td width="50%"><?php echo number_format(sprintf("%.2f",$v['last_zijin'][1]),2);?></td>
                                         <td width="50%" style="border-right: 1px solid #ddd;"><?php echo substr($v['last_zijin'][0],0,10);?></td>
                                     </tr>
                                 </table>
@@ -257,7 +309,7 @@
                                 <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
                                     <?php if(!empty($v['last_shiyong'][0])){?>
                                         <tr>
-                                            <td width="50%"><?php echo sprintf("%.2f",$v['last_shiyong'][1]);?></td>
+                                            <td width="50%"><?php echo number_format(sprintf("%.2f",$v['last_shiyong'][1]),2);?></td>
                                             <td width="50%" style="border-right: 1px solid #ddd;"><?php echo substr($v['last_shiyong'][0],0,10);?></td>
                                         </tr>
                                     <?php }?>

@@ -23,22 +23,32 @@
 				<section class="tile color transparent-white">
 			<div class="detailedbox tile-body">
 			<form  class="form-horizontal" id="form1"  name="search_form" action="addrsshiyong" method="post" encType="multipart/form-data">
-            
-			<div class="form-group">
-                <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">认领到协议：</label>
                     <div class="col-sm-4">
-                            <select class="chosen-select-1 chosen-transparent form-control" id="pname">
-                                <option value="1">请选择项目名称</option>
-                                <?php if($this->pmlist != ""){
-                                        foreach ($this->pmlist as $k => $v){
+                        <select class="chosen-select-1 chosen-transparent form-control" id="sign_id">
+                            <option value="">请选择协议名称</option>
+                            <?php if($this->pm_mg_signDAO != ""){
+                                foreach ($this->pm_mg_signDAO as $k => $v){
                                     ?>
-                                    <option value="<?php echo $v['pname'];?>"><?php echo $v['pname'];?></option>
+                                    <option value="<?php echo $v['id'];?>_<?php echo $v['pm_id'];?>_<?php echo $v['pname'];?>">
+                                        <?php if($v['type'] !=1){echo "（".$this->types_array[$v['type']]."）";}?><?php echo $v['sign_name'];?>； 协议金额：<?php echo $v['xyje'];?>元；
+                                    </option>
                                 <?php }}?>
-                            </select>
-                            <input id="pname_info" type="hidden" name="pname" value=""/>
+                        </select>
+                        <input id="pm_sign_id" type="hidden" suvalue="" name="pm_sign_id" value=""/>
                     </div>
-                <span class="col-sm-2" > * </span>
-            </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                    <div class="col-sm-4">
+                        <input id="pname_info12" class="form-control" readonly="readonly" type="text" name="pname" value=""/>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">项目支出类型：</label>
@@ -121,13 +131,13 @@
                     </div>
                 </div>
 
-			<!--<div class="form-group">
-                <label class="col-sm-2 control-label" for="input01">相关文档：</label>
+			<div class="form-group">
+                <label class="col-sm-2 control-label" for="input01">上传发放明细：</label>
                 <div class="col-sm-4">
                 <input type="file" name="pm_files"  size="14"/>
                 </div>
-                <span class="col-sm-2" >* 相关文档已打包形式上传 格式为*.rar </span>
-            </div>	-->
+                <!--<span class="col-sm-2" >* 相关文档已打包形式上传 格式为*.rar </span>-->
+            </div>
 
 			<div class="form-group">
                 <label class="col-sm-2 control-label" for="input01">备注：</label>
@@ -138,7 +148,7 @@
 					
 					<div class="form-group form-footer">
 						<div class="col-sm-offset-5 col-sm-7">
-							<input class="btn btn-primary" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+							<!--<input class="btn btn-primary" onclick="javascript:noTips();" value="提 交" />--><input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
 							<input class="btn btn-default" type="reset" value="重 置" /> 
 						</div>
 					</div>
@@ -149,6 +159,18 @@
 		</div>
 
         <script language="javascript">
-            $("#xmxxbj").addClass("open");
+            $(document).ready(function(){
+                $("#xmxxbj").addClass("open");
+                // 选择协议时触发
+                $(".chosen-select-1").change(function(){
+                    var sid = $("#sign_id").val();
+                    var arr = sid.split('_');
+                    if($(".chosen-single span").html() != "请选择协议名称"){
+                        $("#pm_sign_id").val(arr[0]);
+                        //GetZWxm( arr[1] );
+                        $("#pname_info12").val( arr[2] );
+                    }
+                });
+            });
         </script>
 		
