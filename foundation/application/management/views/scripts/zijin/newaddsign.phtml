@@ -118,7 +118,7 @@
                                 foreach($this->allsign as $key => $value){?>
                                     <tr id="addhtml" style="background-color: <?php if($value['type'] == 1 ){echo "white";}else{echo "beige";}?>">
                                         <td>
-                                            <a href="/management/zijin/signview?id=<?php echo $v['id'];?>" target="_blank">
+                                            <a href="/management/zijin/signview?id=<?php echo $value['id'];?>" target="_blank">
                                             <strong>（<?php echo $this->types_array[$value['type']];?>）</strong>
                                             <?php echo $value['sign_name'];?>
                                             </a>
