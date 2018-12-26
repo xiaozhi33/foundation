@@ -171,7 +171,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">年度捐赠金额：</label>
                             <div class="col-sm-5">
-                                <input readonly="readonly" class="form-control" value="<?php echo $this->signinfo['ndjzje'];?>" type="text" name="ndjzje"  onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')"/>
+                                <input readonly="readonly" class="form-control" value="<?php echo number_format($this->signinfo['ndjzje'],2);?>" type="text" name="ndjzje"  onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')"/>
                             </div>
                             <span class="col-sm-1" style="padding-left: 0px;">元  *</span>
                         </div>
@@ -179,7 +179,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">协议总捐赠金额：</label>
                             <div class="col-sm-5">
-                                <input readonly="readonly" class="form-control" value="<?php echo $this->signinfo['xyje'];?>" type="text" name="xyje"  onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')"/>
+                                <input readonly="readonly" class="form-control" value="<?php echo number_format($this->signinfo['xyje'],2);?>" type="text" name="xyje"  onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')"/>
                             </div>
                             <span class="col-sm-1" style="padding-left: 0px;" >元  *</span>
                         </div>
