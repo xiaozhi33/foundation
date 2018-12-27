@@ -37,9 +37,22 @@
                         </thead>
                          <tbody>
                             <input type="hidden" name="pm_id" value="<?php echo $_REQUEST['pm_id'];?>"/>
-                            <!--<input type="hidden" name="lsh" value="<?/*echo $this->zw_mg_pzfl_log[0]['lsh'];*/?>"/>
-                            <input type="hidden" name="lrrq	" value="<?/*echo $this->zw_mg_pzfl_log[0]['lrrq'];*/?>"/>
-                            <input type="hidden" name="lrr" value="<?/*echo $this->zw_mg_pzfl_log[0]['lrr'];*/?>"/>-->
+
+                            <!-- 项目相关 start-->
+                            <tr>
+                                <td>认领到项目：</td>
+                                <td>
+                                    <select name="pm_xmbh" class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                        <option value="">请选择项目名称</option>
+                                        <?php if($this->pmlist != ""){
+                                            foreach ($this->pmlist as $k => $v){
+                                                ?>
+                                                <option <?php if($v['pname'] == $this->pm_mg_info[0]['pm_name']) $pm_id = $v['id'];?> value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                            <?php }}?>
+                                    </select>
+                                    <input id="pname_info" type="hidden" name="pname" value="<?php echo $this->pm_mg_info[0]['pm_name'];?>"/>
+                                </td>
+                            </tr>
 
                             <!-- 项目相关 start-->
                             <tr>
@@ -60,12 +73,12 @@
                             </tr>
 
                             <!-- 项目相关 start-->
-                            <tr>
+                            <!--<tr>
                                 <td>项目名称：</td>
                                 <td>
-                                    <input id="pname_info12" size="60" readonly="readonly" type="text" name="pname" value="<?php echo $this->pm_mg_info[0]['pm_name']?>"/>
+                                    <input id="pname_info12" size="60" readonly="readonly" type="text" name="pname" value="<?php /*echo $this->pm_mg_info[0]['pm_name']*/?>"/>
                                 </td>
-                            </tr>
+                            </tr>-->
 
                             <tr>
                                 <td>项目支出类型：</td>
@@ -150,14 +163,13 @@
             $("#xmxxbj").addClass("open");
 
             $(document).ready(function(){
-
                 // 选择协议时触发
                 $(".chosen-select-1").change(function(){
                     var sid = $("#sign_id").val();
                     var arr = sid.split('_');
                     if($(".chosen-single span").html() != "请选择协议名称"){
                         $("#pm_sign_id").val(arr[0]);
-                        $("#pname_info12").val( arr[2] );
+                        //$("#pname_info12").val( arr[2] );
                     }
                 });
 
@@ -166,6 +178,7 @@
                 // 切换项目ajax对应财务项目信息
                 $("#pname").change(function(){
                     GetZWxm($(this).children('option:selected').val());
+                    $("#pname_info").val($(".chosen-single span").html());
                 });
 
                 // 切换部门ajax对应财务部门信息
@@ -220,7 +233,7 @@
                 });
             }
 
-            /*function GetZWbm(pm_pid){
+            function GetZWbm(pm_pid){
                 $.ajax({
                     type:'post',
                     url: '/management/zijin/ajaxgetzwbm?pm_pid='+pm_pid,
@@ -243,7 +256,7 @@
                     },
                     error:function(){}
                 });
-            }*/
+            }
 
             $("#pname").val('<?php echo $pm_id;?>');//设置值
             $("#pname").trigger("chosen:updated");  //更新选项

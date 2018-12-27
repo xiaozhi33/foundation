@@ -160,6 +160,7 @@
 		}
 		
 		public function editrsshiyongAction(){
+			//var_dump($_REQUEST);exit();
 			if($_REQUEST['id'] != ""){
 				$pname = HttpUtil::postString("pname");  //项目编号
 				$shiyong_zhichu_datetime = HttpUtil::postString("shiyong_zhichu_datetime");		 //项目支出日期
@@ -173,7 +174,11 @@
 				if($pname == "" || $shiyong_zhichu_datetime == "" || $shiyong_zhichu_jiner == ""){
 					$this->alert_back("您输入的信息不完整，请查正后继续添加");
 				}
-				
+
+				if(empty($_REQUEST['pname']) || $_REQUEST['pname'] == '请选择项目名称') {
+					$this->alert_back("请选择项目名称！");
+				}
+
 				$pm_mg_infoDAO = $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findId($_REQUEST['id']);
 				$pm_mg_infoDAO ->beizhu = $beizhu;
 				$pm_mg_infoDAO ->jiangli_renshu = $jiangli_renshu;
@@ -183,6 +188,7 @@
 				$pm_mg_infoDAO ->shiyong_zhichu_datetime = $shiyong_zhichu_datetime;
 				$pm_mg_infoDAO ->shiyong_zhichu_jiner = $shiyong_zhichu_jiner;
 				$pm_mg_infoDAO ->pm_juanzeng_cate = HttpUtil::postString("pm_cate");
+				$pm_mg_infoDAO ->sign_id = $_REQUEST["pm_sign_id"];
 
 				$pm_mg_infoDAO ->lastmodify = time();
 
@@ -361,16 +367,21 @@
 		 */
 		public function savebindingclaimAction(){
 			try{
+				//var_dump($_REQUEST);exit();
 				(int)$sign_id = $_REQUEST['sign_id'];
 				(int)$pm_id = $_REQUEST['pm_id'];
 
-				if(empty($sign_id)) {
-					$this->alert_back("请选择支出对应协议！");
+				if(empty($_REQUEST['pname']) || $_REQUEST['pname'] == '请选择项目名称') {
+					$this->alert_back("请选择项目名称！");
 				}
 
-				if(empty($_REQUEST["fanwei"])) {
+				/*if(empty($sign_id)) {
+					$this->alert_back("请选择支出对应协议！");
+				}*/
+
+				/*if(empty($_REQUEST["fanwei"])) {
 					$this->alert_back("范围不能为空！");
-				}
+				}*/
 
 				// 更新项目来款表
 				$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
