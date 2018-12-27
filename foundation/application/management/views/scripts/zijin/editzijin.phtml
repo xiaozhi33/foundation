@@ -28,6 +28,21 @@
 			<form class="form-horizontal" id="form1" action="editrszijin" method="post" encType="multipart/form-data">
 
                 <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                    <div class="col-sm-4">
+                        <select class="chosen-select-1 chosen-transparent form-control" name="pname" id="pname">
+                            <?php if($this->pmlist != ""){
+                                foreach ($this->pmlist as $k => $v){
+                                    ?>
+                                    <option value="<?php echo $v['pname'];?>" <?php if($v['pname'] == $this->zijin[0]['pm_name']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
+                                <?php }}?>
+                        </select>
+                        <input id="pname_info" type="hidden" name="pname" value="<?php echo $this->zijin[0]['pm_name'];?>"/>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
+
+                <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">认领到协议：</label>
                     <div class="col-sm-4">
                         <select class="chosen-select-1 chosen-transparent form-control" id="sign_id">
@@ -46,13 +61,13 @@
                     <span class="col-sm-2" > * </span>
                 </div>
 
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">项目名称：</label>
                     <div class="col-sm-4">
-                        <input id="pname_info12" class="form-control" readonly="readonly" type="text" name="pname" value="<?php echo $this->zijin[0]['pm_name'];?>"/>
+                        <input id="pname_info12" class="form-control" readonly="readonly" type="text" name="pname" value="<?php /*echo $this->zijin[0]['pm_name'];*/?>"/>
                     </div>
                     <span class="col-sm-2" > * </span>
-                </div>
+                </div>-->
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">捐赠到账金额：</label>
@@ -416,8 +431,12 @@
                     if($(".chosen-single span").html() != "请选择协议名称"){
                         $("#pm_sign_id").val(arr[0]);
                         //GetZWxm( arr[1] );
-                        $("#pname_info12").val( arr[2] );
+                        //$("#pname_info12").val( arr[2] );
                     }
+                });
+
+                $("#pname").change(function(){
+                    $("#pname_info").val($(".chosen-single span").html());
                 });
 
                 $(".addfapiao").show();

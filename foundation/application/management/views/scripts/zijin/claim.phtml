@@ -36,10 +36,27 @@
                               </tr>
                         </thead>
                          <tbody>
-                            <input type="hidden" name="pm_id" value="<?echo $_REQUEST['pm_id'];?>"/>
-                            <input type="hidden" name="lsh" value="<?echo $this->zw_lkrl_logs[0]['lsh'];?>"/>
-                            <input type="hidden" name="lrrq	" value="<?echo $this->zw_lkrl_logs[0]['lrrq'];?>"/>
-                            <input type="hidden" name="lrr" value="<?echo $this->zw_lkrl_logs[0]['lrr'];?>"/>
+                            <input type="hidden" name="pm_id" value="<?php echo $_REQUEST['pm_id'];?>"/>
+                            <input type="hidden" name="lsh" value="<?php echo $this->zw_lkrl_logs[0]['lsh'];?>"/>
+                            <input type="hidden" name="lrrq	" value="<?php echo $this->zw_lkrl_logs[0]['lrrq'];?>"/>
+                            <input type="hidden" name="lrr" value="<?php echo $this->zw_lkrl_logs[0]['lrr'];?>"/>
+
+                            <!-- 项目相关 start-->
+                            <tr>
+                                <td>认领到项目：</td>
+                                <td>
+                                    <select name="pm_xmbh" class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                        <option value="">请选择项目名称</option>
+                                        <?php if($this->pmlist != ""){
+                                            foreach ($this->pmlist as $k => $v){
+                                                ?>
+                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                            <?php }}?>
+                                    </select>
+                                    <input id="pname_info" type="hidden" name="pname" value=""/>
+                                </td>
+                            </tr>
+
                             <tr>
                                 <td>认领到协议：</td>
                                 <td>
@@ -54,23 +71,6 @@
                                             <?php }}?>
                                     </select>
                                     <input id="pm_sign_id" type="hidden" suvalue="" name="pm_sign_id" value=""/>
-                                </td>
-                            </tr>
-
-                            <!-- 项目相关 start-->
-                            <tr>
-                                <td>项目名称：</td>
-                                <td>
-                                    <!--<select name="pm_xmbh" class="chosen-select-1 chosen-transparent form-control" id="pname">
-                                        <option value="">请选择项目名称</option>
-                                        <?php /*if($this->pmlist != ""){
-                                            foreach ($this->pmlist as $k => $v){
-                                                */?>
-                                                <option value="<?php /*echo $v['id'];*/?>"><?php /*echo $v['pname'];*/?></option>
-                                            <?php /*}}*/?>
-                                    </select>
-                                    <input id="pname_info" type="hidden" name="pname" value=""/>-->
-                                    <input id="pname_info12" size="60" readonly="readonly" type="text" name="pname" value=""/>
                                 </td>
                             </tr>
 
@@ -263,8 +263,8 @@
                     var arr = sid.split('_');
                     if($(".chosen-single span").html() != "请选择协议名称"){
                         $("#pm_sign_id").val(arr[0]);
-                        GetZWxm( arr[1] );
-                        $("#pname_info12").val( arr[2] );
+                        //GetZWxm( arr[1] );
+                        //$("#pname_info12").val( arr[2] );
                     }
                 });
 
@@ -273,6 +273,7 @@
                 // 切换项目ajax对应财务项目信息
                 $("#pname").change(function(){
                     GetZWxm($(this).children('option:selected').val());
+                    $("#pname_info").val($(".chosen-single span").html());
                 });
 
                 // 切换部门ajax对应财务部门信息
