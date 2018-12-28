@@ -18,93 +18,177 @@
 
     </div>
     <!-- /page header -->
-	<div id="main" class="main">
-		<div id="rightstyle02" class="row">
-		<div class="col-md-6">
-        <section class="tile color transparent-white">
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
 
-		<div class="detailedbox tile-body">
-			<form class="form-horizontal" action="shiyongnewtoexcel" method="post" id="search_form1">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label" for="input01">项目名称：</label>
-                    <div class="col-sm-8">
-                        <select class="chosen-select-1 chosen-transparent form-control" id="pname">
-                            <option value="1">请选择项目名称</option>
-                            <?php if($this->pmlist != ""){
-                                foreach ($this->pmlist as $k => $v){
-                                    ?>
-                                    <option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pname'] == $v['pname'])echo 'selected="selected"';?>><?php echo $v['pname'];?></option>
-                                <?php }}?>
-                        </select>
-                        <input id="pname_info" type="hidden" name="pname" value=""/>
-                        </div>
-                </div>
+        <div class="col-md-12">
+            <section class="tile color transparent-white">
+                <div class="tile-body">
+                    <form action="shiyongnewtoexcel" method="post" id="search_form1" name="search_form1">
+                        <div class="form-group">
+
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <label for="pname" class="control-label">项目名称：</label>
+                                    <select class="chosen-select-1 chosen-transparent form-control" id="pname">
+                                        <option value="1">请选择项目名称</option>
+                                        <?php if($this->pmlist != ""){
+                                            foreach ($this->pmlist as $k => $v){
+                                                ?>
+                                                <option value="<?php echo $v['pname'];?>" <?php if($_REQUEST['pname'] == $v['pname'])echo 'selected="selected"';?>><?php echo $v['pname'];?></option>
+                                            <?php }}?>
+                                    </select>
+                                    <input id="pname_info" type="hidden" name="pname" value=""/>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="input02" class="control-label">所属部门：</label>
+                                    <select class="form-control" name="department">
+                                        <option value="" >请选择类型</option>
+                                        <?php if($this->departmentlist != ""){
+                                            foreach ($this->departmentlist as $k => $v){?>
+                                                <option value="<?php echo $v['id']?>" <?php if($_REQUEST['department'] == $v['id']) echo 'selected="selected"';?>><?php echo $v['pname']?></option>
+                                            <?php }}?>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="input02" class="control-label">支出性质：</label>
+                                    <select class="form-control" name="shiyong_type">
+                                        <option value="" >请选择类型</option>
+                                        <option value="1" <?php if($_REQUEST['shiyong_type'] == 1) echo 'selected="selected"';?>>基金会列支</option>
+                                        <option value="2" <?php if($_REQUEST['shiyong_type'] == 2) echo 'selected="selected"';?>>转财务处</option>
+                                    </select>
+                                </div>
+                            </div>
 
 
-                <div class="form-group">
-                    <label class="col-sm-3 control-label" for="input01">项目类型：</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" name="cate">
-                            <option value="" >请选择类型</option>
-                            <?php if($this->pcatelist != ""){
-                                foreach ($this->pcatelist as $k => $v){?>
-                                    <option value="<?php echo $v['id']?>" ><?php echo $v['catename']?></option>
-                                <?php }}?>
-                        </select>
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <label for="input02" class="control-label">支出金额（元）：</label>
+                                    <input class="form-control" type="text" value="<?php echo $_REQUEST['je'];?>" name="je" />
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="input02" class="control-label">起始时间：</label>
+                                    <input class="form-control" type="text" value="<?php echo $_REQUEST['start'];?>" name="start" data-date-format="YYYY-MM-DD" id="datepicker1"/>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="input02" class="control-label">终止时间：</label>
+                                    <input class="form-control" type="text" value="<?php echo $_REQUEST['end'];?>" name="end" data-date-format="YYYY-MM-DD" id="datepicker2" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <label for="input02" class="control-label">排序规则：</label>
+                                    <select class="form-control" name="order">
+                                        <option value="">请选择排序规则</option>
+                                        <option value="datetime_desc" <?php if($_GET['order'] == "datetime_desc"){echo 'selected="selected"';}?>>支出时间降序</option>
+                                        <option value="datetime_asc" <?php if($_GET['order'] == "datetime_asc"){echo 'selected="selected"';}?>>支出时间升序</option>
+                                        <option value="m_desc" <?php if($_GET['order'] == "m_desc"){echo 'selected="selected"';}?>>支出金额降序</option>
+                                        <option value="m_asc" <?php if($_GET['order'] == "m_asc"){echo 'selected="selected"';}?>>支出金额升序</option>
+                                        <option value="p_desc" <?php if($_GET['order'] == "p_desc"){echo 'selected="selected"';}?>>奖励人数降序</option>
+                                        <option value="p_asc" <?php if($_GET['order'] == "p_asc"){echo 'selected="selected"';}?>>奖励人数升序</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-1 control-label">
+                                        <input class="btn btn-greensea" onclick="get_submit()" type="button" value="点击查询"/>
+                                    </div>
+
+                                    <div class="col-sm-1 control-label">
+                                        <input class="btn btn-greensea" onclick="post_submit()" type="button" value="下载excel报表"/>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label" for="input01">所属部门：</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" name="department">
-                            <option value="" >请选择类型</option>
-                            <?php if($this->departmentlist != ""){
-                                foreach ($this->departmentlist as $k => $v){?>
-                                    <option value="<?php echo $v['id']?>" ><?php echo $v['pname']?></option>
-                                <?php }}?>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label" for="input01">支出性质：</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" name="shiyong_type">
-                            <option value="" >请选择类型</option>
-                            <option value="1" >基金会列支</option>
-                            <option value="2" >转财务处</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-3 control-label" for="input01">起止时间：</label>
-                    <div class="col-sm-8">
-                        <input type="text" name="start" data-date-format="YYYY-MM-DD" id="datepicker1"/> ~ <input type="text" name="end" data-date-format="YYYY-MM-DD" id="datepicker2" />
-                    </div>
-                </div>
-
-                 <div class="form-group">
-                        <div class="col-sm-3 control-label">
-                            <input class="btn btn-greensea" onclick="post_submit()" type="button" value="下载excel报表"/>
-                        </div>
-                 </div>
-
-			</form>
+			    </form>
             </div>
         </section>
 		</div>	
-	</div>	
+	</div>
+
+
+        <div class="col-md-12">
+            <section class="tile color transparent-white">
+
+                    <?php if($this->plistDAO != ""){?>
+                    <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+                        <thead>
+                        <tr>
+                            <td width="22%">项目名称</td>
+                            <td width="14%">所属部门</td>
+                            <td width="12%">支出类型</td>
+                            <td width="12%">支出金额（元）</td>
+                            <td width="8%">支出时间</td>
+                            <td width="8%">支出对象</td>
+                            <td width="8%">奖励人数</td>
+                            <td width="18%">项目类型</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach($this->plistDAO as $k=>$v){?>
+                            <tr>
+                                <td><a href="/management/chouzi/repminfo?id=<?php echo $v['main_id'];?>" target="_blank"><?php echo $v['pm_name'];?></a></td>
+                                <td><?php echo $this->department[$v[department]];?></td>
+
+                                <td><?php if($v['shiyong_type'] == 2){
+                                        echo "转财务处";
+                                    }elseif($v['shiyong_type'] == 1){
+                                        echo "基金会列支";
+                                    }?></td>
+                                <td><?php echo sprintf("%.2f",$v['shiyong_zhichu_jiner']);?></td>
+                                <td><?php echo date("Y-m-d",strtotime($v['shiyong_zhichu_datetime']));?></td>
+                                <td><?php echo $v['jiangli_fanwei'];?></td>
+                                <td><?php echo $v['jiangli_renshu'];?></td>
+                                <td><?php foreach($this->pcatelist as $key => $value){
+                                        if($value['id'] == $v['cate']){
+                                            echo $value['catename'];
+                                        }
+                                    };?></td>
+                            </tr>
+                        <?php }?>
+                        </tbody>
+                    </table>
+
+                <div class="tile-footer">
+                    <div class="row">
+                        <div class="page col-md-12" align="right">
+                            共  <?php echo $this->total;?> 条项目收入信息          <?php echo $this->page;?></div>
+
+                        <?php }else{?>
+                            <div style="padding: 20px;">暂无项目收入信息！<a href="/management/zijin/addzijin">点击添加</a></div>
+                        <?php }?>
+                    </div>
+                </div>
+            </section>
+        </div>
 
     <script src="/include/management/assets/js/jquery.js"></script>
     <script language="javascript">
         $("#xmxxcxytj").addClass("open");
 
+        function get_submit(){
+            if($(".chosen-single span").html() != "请选择项目名称"){
+                $("#pname_info").val($(".chosen-single span").html());
+            }
+            $('#search_form1').attr('method','get');
+            $('#search_form1').attr('action','/management/report/shiyong/index');
+            $('#search_form1').submit();
+        }
+
         function post_submit(){
             if($(".chosen-single span").html() != "请选择项目名称"){
                 $("#pname_info").val($(".chosen-single span").html());
             }
+            $('#search_form1').attr('method','post');
+            $('#search_form1').attr('action','/management/report/shiyongnewtoexcel');
             $('#search_form1').submit();
         }
     </script>

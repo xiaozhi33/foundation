@@ -1,0 +1,349 @@
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/jquery-ui-1.8.2.custom.css" type="text/css"  />
+<link rel="stylesheet" href="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.css" type="text/css"  />
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/jquery.js"></script>
+<script src="<?= __ADMININCLUDEPATH__;?>datepicker/ui.datepicker.js"></script>
+
+<!-- page header -->
+<div class="pageheader">
+
+    <h2><i class="fa fa-tachometer"></i> Dashboard
+        <span>查看签约信息</span></h2>
+
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li>您的位置</li>
+            <li>项目信息编辑</li>
+            <li class="active">查看签约信息</li>
+        </ol>
+    </div>
+
+</div>
+<!-- /page header -->
+
+
+<div id="main" class="main">
+    <div id="rightstyle02" class="row">
+        <div class="col-md-12">
+            <section class="tile color transparent-white">
+                <div class="detailedbox tile-body">
+                    <form class="form-horizontal" id="" method="post" encType="multipart/form-data">
+                        <div class="form-group">
+                            <?php if(empty($this->signinfo['pname'])){?>
+                                <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                                <div class="col-sm-6">
+                                    <select class="chosen-select-1 chosen-transparent form-control" name="pm_id">
+                                        <option value="">请选择项目名称</option>
+                                        <?php if($this->pmlist != ""){
+                                            foreach ($this->pmlist as $k => $v){
+                                                ?>
+                                                <option value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
+                                            <?php }}?>
+                                    </select>
+                                </div>
+                            <?php }else {?>
+                            <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                            <div class="col-sm-5">
+                                <input readonly="readonly"  class="form-control" class="col-sm-6" readonly name="pname" value="<?php echo $this->signinfo['pname'];?>" type="text"/>
+                                <input readonly="readonly" readonly name="pm_id" value="<?php echo $this->signinfo['pm_id'];?>" type="hidden"/>
+                            </div>
+                            <?php }?>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">协议名称：</label>
+                            <div class="col-sm-5">
+                                <input readonly="readonly" class="form-control" value="<?php echo $this->signinfo['sign_name'];?>" type="text" name="sign_name"/>
+                            </div>
+                            <span class="col-sm-1" style="padding-left: 0px;" > *</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">协议类型：</label>
+                            <div class="col-sm-5">
+                                <input readonly="readonly" class="form-control" value="<?php echo $this->types_array[$this->signinfo['type']];?>签协议" type="text" name="type"/>
+                            </div>
+                            <span class="col-sm-2" style="padding-left: 0px;" >默认为新建协议，如补续改签协议需要选择所属协议</span>
+                        </div>
+
+                        <div class="form-group" <?php if($this->signinfo['type'] == 1){ echo 'style="display: none;"';}?> id="ssxy">
+                            <label class="col-sm-2 control-label" for="input01">所属协议：</label>
+                            <div class="col-sm-5">
+                                <select name="ssxy" id="ssxy" class="form-control control-label">
+                                    <?php
+                                    if(!empty($this->ssxy_array)){
+                                        foreach($this->ssxy_array as $key => $value){?>
+                                            <option value="<?php echo $key?>" <?php if($this->signinfo['ssxy']==$value['ssxy']){ echo 'selected="selected"';}?>>
+                                                <?php echo "（".$this->types_array[$value['type']]."）".$value['sign_name'].';'.$value['xyje'].'元'.';'.$value['sign_time']?>
+                                            </option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-2" style="padding-left: 0px;" ></span>
+                        </div>
+
+
+                        <?php $xynf = json_decode($this->signinfo['xynf']);?>
+                        <div class="form-group xynf">
+                            <label class="col-sm-2 control-label" for="input01">协议年份：</label>
+                            <div class="col-sm-5">
+                                <div class="col-sm-5" style="padding-left: 0px;">
+                                    <input readonly="readonly" data-date-format="YYYY-MM-DD" value="<?php echo $xynf[0];?>" class="col-sm-12 datepicker form-control" style="line-height: 18px;" type="text" name="xynf[]" />
+                                </div>
+                                <div class="col-sm-1" style="padding-left: 0px;">
+                                    ~
+                                </div>
+                                <div class="col-sm-5" style="padding-left: 0px;padding-right: 0px;">
+                                    <input readonly="readonly" data-date-format="YYYY-MM-DD" value="<?php echo $xynf[1];?>" class="col-sm-12 datepicker form-control" style="line-height: 18px;" type="text" name="xynf[]" />
+                                </div>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <span class="col-sm-1" onclick="addxynf()">+</span>
+                            </div>
+                        </div>
+
+
+                        <?php
+                            if(count($xynf) > 2){
+                            for($i=2;$i<(count($xynf)/2)+2;$i=$i+2){
+                        ?>
+                                <div class="form-group xynf">
+                                    <label class="col-sm-2 control-label" for="input01"> </label>
+                                    <div class="col-sm-5">
+                                        <div class="col-sm-5" style="padding-left: 0px;">
+                                            <input readonly="readonly" data-date-format="YYYY-MM-DD" value="<?php echo $xynf[$i];?>" class="col-sm-12 datepicker form-control" style="line-height: 18px;" type="text" name="xynf[]" />
+                                        </div>
+                                        <div class="col-sm-1" style="padding-left: 0px;">
+                                            ~
+                                        </div>
+                                        <div class="col-sm-5" style="padding-left: 0px;padding-right: 0px;">
+                                            <input readonly="readonly" data-date-format="YYYY-MM-DD" value="<?php echo $xynf[$i+1];?>" class="col-sm-12 datepicker form-control" style="line-height: 18px;" type="text" name="xynf[]" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2" style="padding-left: 0px;">
+                                        <span class="col-sm-1 delxynf" onclick="delxynf()">-</span>
+                                    </div>
+                                </div>
+                        <?php }}?>
+
+
+                        <?php $zxxynf = json_decode($this->signinfo['zxxynf']);?>
+                        <div class="form-group zxxynf">
+                            <label class="col-sm-2 control-label" for="input01">执行协议年份：</label>
+                            <div class="col-sm-5">
+                                <div class="col-sm-5" style="padding-left: 0px;">
+                                    <input readonly="readonly" data-date-format="YYYY-MM-DD" value="<?php echo $zxxynf[0];?>" class="col-sm-12 datepicker form-control" style="line-height: 18px;" type="text" name="zxxynf[]" />
+                                </div>
+                                <div class="col-sm-1" style="padding-left: 0px;">
+                                    ~
+                                </div>
+                                <div class="col-sm-5" style="padding-left: 0px;padding-right: 0px;">
+                                    <input readonly="readonly" data-date-format="YYYY-MM-DD" value="<?php echo $zxxynf[1];?>" class="col-sm-12 datepicker form-control" style="line-height: 18px;" type="text" name="zxxynf[]" />
+                                </div>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px;">
+                                <span class="col-sm-1" onclick="addzxxynf()">+</span>
+                            </div>
+                        </div>
+                        <?php
+                        if(count($zxxynf) > 2){
+                        for($i=2;$i<(count($zxxynf)/2)+2;$i=$i+2){
+                        ?>
+                            <div class="form-group zxxynf">
+                                <label class="col-sm-2 control-label" for="input01"> </label>
+                                <div class="col-sm-5">
+                                    <div class="col-sm-5" style="padding-left: 0px;">
+                                        <input readonly="readonly" data-date-format="YYYY-MM-DD" value="<?php echo $zxxynf[$i];?>" class="col-sm-12 datepicker form-control" style="line-height: 18px;" type="text" name="zxxynf[]" />
+                                    </div>
+                                    <div class="col-sm-1" style="padding-left: 0px;">
+                                        ~
+                                    </div>
+                                    <div class="col-sm-5" style="padding-left: 0px;padding-right: 0px;">
+                                        <input readonly="readonly" data-date-format="YYYY-MM-DD" value="<?php echo $zxxynf[$i+1];?>" class="col-sm-12 datepicker form-control" style="line-height: 18px;" type="text" name="zxxynf[]" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-2" style="padding-left: 0px;">
+                                    <span class="col-sm-1 delzxxynf" onclick="delzxxynf()">-</span>
+                                </div>
+                            </div>
+                        <?php }}?>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">年度捐赠金额：</label>
+                            <div class="col-sm-5">
+                                <input readonly="readonly" class="form-control" value="<?php echo number_format($this->signinfo['ndjzje'],2);?>" type="text" name="ndjzje"  onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')"/>
+                            </div>
+                            <span class="col-sm-1" style="padding-left: 0px;">元  *</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">协议总捐赠金额：</label>
+                            <div class="col-sm-5">
+                                <input readonly="readonly" class="form-control" value="<?php echo number_format($this->signinfo['xyje'],2);?>" type="text" name="xyje"  onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')"/>
+                            </div>
+                            <span class="col-sm-1" style="padding-left: 0px;" >元  *</span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">签约时间：</label>
+                            <div class="col-sm-5">
+                                <input readonly="readonly" class="form-control" type="text" value="<?php echo $this->signinfo['sign_time'];?>"  data-date-format="YYYY-MM-DD" id="datepicker1"  name="sign_time"  size="14"/>
+                            </div>
+                            <span class="col-sm-2" > * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">协议到账时间：</label>
+                            <div class="col-sm-4">
+                                <input readonly="readonly" class="form-control" type="text" value="<?php echo $this->signinfo['xydz_time'];?>"  data-date-format="YYYY-MM-DD" id="datepicker2"  name="xydz_time"  size="14"/>
+                            </div>
+                            <span class="col-sm-2" > * </span>
+                        </div>
+
+                        <div class="form-group transparent-editor">
+                            <label class="col-sm-2 control-label" for="input14">协议捐赠方：</label>
+                            <div class="col-sm-5">
+                                <!--data-placeholder="请选择相关人员..."-->
+                                <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="xyjzf[]" id="xyjzf">
+                                    <?php if($this->jjh_mg_pp_list != ""){
+                                        foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                            <option value="<?php echo $k?>" <?php
+                                            if(!empty($this->signinfo['xyjzf'])){
+                                                foreach(explode(',',$this->signinfo['xyjzf']) as $key => $value){
+                                                    if($k == $value){
+                                                        echo "selected='selected'";
+                                                    }
+                                                }
+                                            }?>><?php echo $v?></option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <!--<span class="col-sm-2 addpp" >添加人员信息</span>-->
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">上传协议或补充协议：</label>
+                            <div class="col-sm-5">
+                                <input readonly="readonly" name="sign_files" type="file" value="" />
+                            </div>
+                            <span class="col-sm-2" >  * </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01"></label>
+                            <div class="col-sm-5">
+                                <a href="<?php echo $this->signinfo['sign_files'];?>" target="_blank"><?php echo $this->signinfo['sign_files_name'];?></a>
+                            </div>
+                            <span class="col-sm-2" >  * </span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">是否签约：</label>
+                            <div class="col-sm-5">
+                                是&nbsp;&nbsp;<input readonly="readonly" type="radio" name="sfqy" <?php if($this->signinfo['sfqy']==1){echo 'checked="checked"';}?> value="1"/>
+                                否&nbsp;&nbsp;<input readonly="readonly" type="radio" name="sfqy" <?php if($this->signinfo['sfqy']==0){echo 'checked="checked"';}?> value="0"/>
+                            </div>
+                            <span class="col-sm-2" > </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">捐赠用途：</label>
+                            <div class="col-sm-5">
+                                <textarea readonly parsley-validation-minlength="1" name="jzyt" parsley-rangelength="[10,100]" parsley-trigger="keyup" rows="4" id="input05" class="form-control parsley-validated"><?php echo $this->signinfo['jzyt'];?></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">备注：</label>
+                            <div class="col-sm-5">
+                                <textarea readonly parsley-validation-minlength="1" name="bz" parsley-rangelength="[10,100]" parsley-trigger="keyup" rows="4" id="input05" class="form-control parsley-validated"><?php echo $this->signinfo['bz'];?></textarea>
+                            </div>
+                        </div>
+
+                        <input readonly="readonly" type="hidden" name="sid" value="<?php echo $this->signinfo['id'];?>" />
+
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script language="javascript">
+        $("#xmxxbj").addClass("open");
+
+        function addxynf(){
+            var date_info = '<div class="form-group xynf"> <label class="col-sm-2 control-label" for="input01"> </label> <div class="col-sm-5"> <div class="col-sm-5" style="padding-left: 0px;"> <input readonly="readonly" class="col-sm-12 datepicker" style="line-height: 18px;" data-date-format="YYYY-MM-DD" type="text" name="xynf[]" /> </div> <div class="col-sm-1" style="padding-left: 0px;">~</div><div class="col-sm-5" style="padding-left: 0px;padding-right: 0px;"> <input readonly="readonly" class="col-sm-12 datepicker" data-date-format="YYYY-MM-DD" style="line-height: 18px;" type="text" name="xynf[]" /> </div> </div> <div class="col-sm-2" style="padding-left: 0px;">  <div class="col-sm-1 delxynf" onclick="delxynf();">-</div> </div> </div>';
+
+            $(".xynf:last").after(date_info);
+            //initialize datepicker
+            $('.datepicker').datetimepicker({
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                }
+            });
+        }
+
+        function delxynf(){
+            $("body").on("click", ".delxynf", function() {
+                $(this).parent().parent().remove();
+            });
+        }
+
+        function addzxxynf(){
+            var date_info = '<div class="form-group zxxynf"> <label class="col-sm-2 control-label" for="input01"> </label> <div class="col-sm-5"> <div class="col-sm-5" style="padding-left: 0px;"> <input readonly="readonly" class="col-sm-12 datepicker" data-date-format="YYYY-MM-DD" style="line-height: 18px;" type="text" name="zxxynf[]" /> </div> <div class="col-sm-1" style="padding-left: 0px;">~</div><div class="col-sm-5" style="padding-left: 0px;padding-right: 0px;"> <input readonly="readonly" class="col-sm-12 datepicker" data-date-format="YYYY-MM-DD" style="line-height: 18px;" type="text" name="zxxynf[]" /> </div> </div> <div class="col-sm-2" style="padding-left: 0px;">  <div class="col-sm-1 delzxxynf"  onclick="delzxxynf()">-</div> </div> </div>';
+
+            $(".zxxynf:last").after(date_info);
+            $('.datepicker').datetimepicker({
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-arrow-up",
+                    down: "fa fa-arrow-down"
+                }
+            });
+        }
+
+        function delzxxynf(){
+            $("body").on("click", ".delzxxynf", function() {
+                $(this).parent().parent().remove();
+            });
+        }
+
+        function selecttype(){
+            $("#type").change(function(){
+                //alert($(this).val());
+                if($(this).val() != 1){
+                    <?php
+                    if(empty($this->ssxy_array)){
+                    ?>
+                    alert("当前还没有所属协议，请在添加所属协议之后再进行下一次操作！");
+                    $(this).val(1);return false;
+                    <?php }?>
+                    $("#ssxy").fadeIn();
+                }else{
+                    $("#ssxy").fadeOut();
+                };
+            });
+        }
+
+        $(document).ready(function(){
+
+            <?php if($this->signinfo['jzys'] == 0){?> $(".qianyue").hide();<?php }?>
+            // 切换发票状态
+            $(".jzys").change(function(){
+                var $selectedvalue = $("input[name='jzys']:checked").val();
+                if ($selectedvalue == 0) {
+                    $(".qianyue").hide();
+                } else if($selectedvalue == 1) {
+                    $(".qianyue").show();
+                }
+            });
+
+            selecttype();
+        });
+    </script>

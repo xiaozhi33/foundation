@@ -10,14 +10,21 @@
             $pname = $_REQUEST['pname'];
             $department = HttpUtil::getString("department");
             $cate = HttpUtil::getString("cate");
+            $srsj = $_REQUEST['srsj'];
+            $zcsj = $_REQUEST['zcsj'];
+            $create_time = $_REQUEST['create_time'];
 
             $this->view->assign("pname", $pname);
             $this->view->assign("cate", $cate);
             $this->view->assign("department", $department);
+            $this->view->assign("srsj", $srsj);
+            $this->view->assign("zcsj", $zcsj);
+            $this->view->assign("create_time", $create_time);
             $chouziinfo = new pm_mg_chouziDAO();
 
-            $chouziinfo ->joinTable (" left join pm_mg_rate as r on r.pm_id = id");
-            $chouziinfo ->selectField(" *");
+            $chouziinfo ->joinTable (" left join pm_mg_rate as r on r.pm_id = pm_mg_chouzi.id");
+            $chouziinfo ->joinTable (" left join pm_mg_info as pi on pi.pm_name = pm_mg_chouzi.pname");
+            $chouziinfo ->selectField(" pm_mg_chouzi.*");
 
             if ($pname != "") {
                 $chouziinfo->pname = $pname;
@@ -43,19 +50,57 @@
                 }
             }
 
-
             /*if (HttpUtil::postString("starttime") != "" && HttpUtil::postString("endtime") != "") {
                 $starttime = HttpUtil::postString("starttime");
                 $endtime = HttpUtil::postString("endtime");
                 $chouziinfo->selectLimit = " and pm_qishi_datetime<'$starttime' and pm_jiezhi_datetime>'$endtime'";
             }*/
 
+            if(!empty($_REQUEST['pm_cate'])){
+                $ids = '';
+                foreach($_REQUEST['pm_cate'] as $values){
+                    $ids .= $this->getCateIds($values).',';
+                }
+
+                $ids_array = explode(',', $ids);
+                $ids_array = array_unique($ids_array);
+                $ids = implode(',', $ids_array);
+                $chouziinfo->selectLimit = " AND find_in_set(cate ,'".$ids."') ";
+            }
+
+            if(!empty($srsj)){
+                $chouziinfo->selectLimit = " AND pi.zijin_daozhang_datetime>'$srsj' ";
+            }
+            if(!empty($zcsj)){
+                $chouziinfo->selectLimit = " AND (pi.shiyong_zhichu_datetime>='$zcsj' AND pi.shiyong_zhichu_datetime<='".date('Y-m-d',time())."')";
+            }
+            if(!empty($create_time)){
+                $chouziinfo->selectLimit = " AND pm_mg_chouzi.create_time>'$create_time' ";
+            }
+
             // 过滤逻辑删除的项目
             $chouziinfo ->selectLimit .= ' AND is_del=0';
+            $chouziinfo ->selectLimit .= ' AND pi.is_renling=1';
 
             // 按照星级倒序，之后按照创建id倒序
-            $chouziinfo ->selectLimit .= " order by star desc, id desc";
+            $chouziinfo ->selectLimit .= " GROUP BY pm_mg_chouzi.id ORDER BY ";
+            if(!empty($srsj)){
+                $chouziinfo ->selectLimit .= " pi.zijin_daozhang_datetime ASC,";
+            }
+            if(!empty($zcsj)){
+                $chouziinfo ->selectLimit .= " pi.shiyong_zhichu_datetime ASC,";
+            }
+            if(!empty($create_time)){
+                $chouziinfo ->selectLimit .= " pm_mg_chouzi.create_time ASC,";
+            }
 
+            if($this->is_star== 1){
+                $chouziinfo ->selectLimit .= " pm_mg_chouzi.star desc,";
+            }
+            $chouziinfo ->selectLimit .= "  pm_mg_chouzi.id desc";
+
+            //echo $chouziinfo ->selectLimit;exit();
+            //var_dump($chouziinfo->get($this->dbhelper));exit();
             //$chouziinfo ->debugSql =true;
             $chouziinfo = $chouziinfo->get($this->dbhelper);
             $total = count($chouziinfo);
@@ -107,6 +152,17 @@
 
                     $this->view->assign("sjjzf", $sjjzf);*/
                     //////////////////////////////////////////////////////////////////////////////////////////////
+                    $xyzje = 0;
+                    // 协议总捐赠金额
+                    $xy = $this->orm->createDAO("pm_mg_sign")->findPm_id($vvv['id'])->get();
+                    if(!empty($xy)){
+                        foreach($xy as $kyy => $vvl){
+                            $xyzje += $vvl['xyje'];
+                        }
+                    }else {
+                        $xyzje = 0;
+                    }
+                    $pageDAO['pageData'][$kkk]['xyzje'] = $xyzje;
 
                     /////////////////////////////////////////////////////////////////////////////////////////////////
                     // 项目增值
@@ -258,7 +314,7 @@
                 $bianhao = "jjh" . date("Yhdhis");  //项目编号 自动编号 编号内容为年月日时分秒
 
                 $department = HttpUtil::postString("department");   //相关部门
-                $pm_cate = HttpUtil::postString("pm_cate");  //项目分类
+                $pm_cate = implode(",",$_REQUEST["pm_cate"]);  //项目分类
                 $tuidongqi = HttpUtil::postString("tuidongqi");     //项目推动期
                 $fuhuaqi = HttpUtil::postString("fuhuaqi");  //项目孵化期
                 $liuben = HttpUtil::postString("liuben");  //项目孵化期
@@ -270,12 +326,15 @@
                 $jiner = HttpUtil::postString("jiner");         //协议捐赠金额
                 $yishi = HttpUtil::postString("yishi");         //项目仪式
 
+
+
                 if(!empty($qishi)){
                     $qishi = $qishi."-01-01 00:00:00";
                 }
                 if(!empty($jiezhi)){
                     $jiezhi = $jiezhi."-12-31 00:00:00";
                 }
+                $introduce = htmlspecialchars($_REQUEST['introduce']);  //项目介绍
                 $beizhu =  htmlspecialchars($_POST['beizhu']);     //备注
                 //$beizhu = HttpUtil::postString("beizhu");         //备注
 
@@ -307,7 +366,7 @@
 
                 // $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
 
-                if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
+                if ($pname == "" || $department == "" || $pm_cate == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
                 }
 
@@ -359,6 +418,8 @@
 
                 $pm_chouziDAO->execute_fzr = $execute_fzr;
                 $pm_chouziDAO->execute_llr = $execute_llr;
+
+                $pm_chouziDAO->introduce = $introduce;
 
                 // pm_id为所属父项目id 如果不为空，则新建子项目
                 $pid = HttpUtil::postString("pm_id"); // $pid 父项目id
@@ -506,7 +567,7 @@
                 $bianhao = HttpUtil::postString("bianhao");  //项目编号
                 $pname = HttpUtil::postString("pname");      //项目名称
                 $department = HttpUtil::postString("department");   //相关部门
-                $pm_cate = HttpUtil::postString("pm_cate");  //项目分类
+                $pm_cate = implode(",",$_REQUEST["pm_cate"]);  //项目分类
                 $tuidongqi = HttpUtil::postString("tuidongqi");     //项目推动期
                 $fuhuaqi = HttpUtil::postString("fuhuaqi");  //项目孵化期
                 $liuben = HttpUtil::postString("liuben");  //项目孵化期
@@ -525,6 +586,7 @@
                     $jiezhi = $jiezhi."-12-31 00:00:00";
                 }
 
+                $introduce = htmlspecialchars($_REQUEST['introduce']);
                 $beizhu =  htmlspecialchars($_POST['beizhu']);     //备注
                 //$beizhu = HttpUtil::postString("beizhu");         //备注
                 // $pm_fzr_mc = HttpUtil::postString("fzr");   //项目负责人
@@ -556,7 +618,8 @@
 
                 $percent = HttpUtil::postString("percent");  //项目编号
 
-                if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
+                //if ($pname == "" || $department == "" || $pm_cate == "" || $qishi == "" || $jiner == "") {
+                if ($pname == "" || $department == "" || $pm_cate == "") {
                     alert_back("您输入的信息不完整，请查正后继续添加");
                 }
 
@@ -618,6 +681,8 @@
                 $pm_chouziDAO->execute_llr = $execute_llr;
 
                 $pm_chouziDAO->percent = $percent;
+
+                $pm_chouziDAO->introduce = $introduce;
 
                 $pid = HttpUtil::postString("pm_id");
                 if(!empty($pid)){
@@ -956,6 +1021,12 @@
                 $pm_mg_chouziDAO = $this->orm->createDAO('pm_mg_chouzi');
                 $pm_mg_chouziDAO ->findId($pid);
                 $pm_mg_chouziDAO = $pm_mg_chouziDAO ->get();
+
+                //协议年限及金额 - 用途
+                $sign_list_DAO = $this->orm->createDAO("pm_mg_sign")->findPm_id($pid);
+                $sign_list_DAO ->selectLimit .= " order by ssxy_path ASC";
+                $sign_list_DAO = $sign_list_DAO ->get();
+                $this->view->assign("sign_list_DAO",$sign_list_DAO);
 
                 //生产二维码
                 if(!file_exists(__UPLOADPICPATH__ . '/pmqrcode/')) {
@@ -1330,9 +1401,19 @@
             $this->view->assign("admininfo",$this->admininfo);
 
 			//项目分类
-			$pcatelist = new jjh_mg_cateDAO();
+			/*$pcatelist = new jjh_mg_cateDAO();
 			$pcatelist =  $pcatelist ->get($this->dbhelper);
-			$this->view->assign("pcatelist",$pcatelist);
+			$this->view->assign("pcatelist",$pcatelist);*/
+
+            $cates = $this->orm->createDAO('pm_mg_category')->order('cate_order desc,t_cate_id asc')->get();
+            $prepare_cate = array();
+            foreach($cates as $cate) {
+                $prepare_cate[$cate['t_cate_pid']][] = $cate;
+            }
+
+            $this->view->pcatelist = $cates;
+            /*unset($cates);
+            $this->view->pcatelist = $prepare_cate;*/
 			
 			//所属部门
 			$departmentlist = new jjh_mg_departmentDAO();
@@ -2208,6 +2289,63 @@
             }
         }
 
+        /**
+         * @name 发票查询
+         */
+        public function fapiaoAction()
+        {
+            $fapiaoDAO = $this->orm->createDAO("pm_mg_info");
+
+            if(!empty($_REQUEST['pname'])){
+                $fapiaoDAO ->selectLimit .= " AND pm_name like '%".$_REQUEST['pname']."%'";
+            }
+            if(!empty($_REQUEST['piaoju_fkfs'])){
+                $fapiaoDAO ->selectLimit .= " AND piaoju_fkfs=".$_REQUEST['piaoju_fkfs'];
+            }
+            if(!empty($_REQUEST['piaoju'])){
+                $fapiaoDAO ->selectLimit .= " AND piaoju=".$_REQUEST['piaoju'];
+            }
+            if(!empty($_REQUEST['piaoju_jbr'])){
+                $fapiaoDAO ->selectLimit .= " AND piaoju_jbr like '%".$_REQUEST['piaoju_jbr']."%'";
+            }
+            if(!empty($_REQUEST['piaoju_jbr'])){
+                $fapiaoDAO ->selectLimit .= " AND piaoju_jbr like '%".$_REQUEST['piaoju_jbr']."%'";
+            }
+            if(!empty($_REQUEST['piaoju_kddh'])){
+                $fapiaoDAO ->selectLimit .= " AND piaoju_kddh like '%".$_REQUEST['piaoju_kddh']."%'";
+            }
+
+            $fapiaoDAO ->selectLimit .= " AND cate_id=0 AND is_renling=1 ";
+
+            if(!empty($_REQUEST['order'])){
+                if($_REQUEST['order'] == 'zijin_daozhang_datetime_desc'){
+                    $fapiaoDAO ->selectLimit .= " order by zijin_daozhang_datetime DESC";
+                }elseif($_REQUEST['order'] == 'zijin_daozhang_datetime_asc'){
+                    $fapiaoDAO ->selectLimit .= " order by zijin_daozhang_datetime ASC";
+                }
+            }else{
+                $fapiaoDAO ->selectLimit .= " order by zijin_daozhang_datetime DESC";
+            }
+            $fapiaoDAO ->getPager(array('path'=>'/management/chouzi/fapiao'))->assignTo($this->view);
+
+            echo $this->view->render("index/header.phtml");
+            echo $this->view->render("chouzi/fapiao.phtml");
+            echo $this->view->render("index/footer.phtml");
+        }
+
+        /**
+         * @name 获取分类及其子分类的所有ids
+         * @param $pid
+         * @return array
+         */
+        public function getCateIds($pid)
+        {
+            $SQL_DAO = $this->orm;
+            $SQL = "select GROUP_CONCAT(cast(`t_cate_id` as char(100)) SEPARATOR ',') as ids FROM pm_mg_category WHERE t_cate_id = ".$pid." OR t_cate_pid = ".$pid." OR FIND_IN_SET(".$pid.",t_cate_path)";
+            $SQL_DAO = $SQL_DAO ->query($SQL);
+            return $SQL_DAO[0]['ids'];
+        }
+
         //权限
         public function acl()
         {
@@ -2227,6 +2365,8 @@
                 'compare',
                 'editcompare',
                 'editrscompare',
+                'repminfo',
+                'fapiao'
                 'repminfo',
                 'application-project',
                 'support-info',

@@ -1,0 +1,117 @@
+/*根分类*/
+.root_cate {
+	overflow: hidden;
+	background: url(/include/management/images/tree/home.png) no-repeat center left;
+}
+.root_cate a {
+	float: right;
+}
+
+/*对话框*/
+.ui-dialog-content .content {
+	position: relative;
+	z-index: 9999;
+}
+
+/*添加子分类对话框*/
+#addSub_dia .content table {
+	width: 100%;
+}
+#addSub_dia .content table td {
+	vertical-align: top;
+}
+#addSub_dia .content table fieldset {
+	margin: 0;
+	padding: 0;
+}
+#addSub_dia .content table input,#addSub_dia .content table textarea {
+	width: 90%;
+}
+#addSub_dia .content .cate_image images {
+	width: 50px;
+	height: 50px;
+	display: block;
+	border: 1px solid #ddd;
+	margin: 0 auto;
+	margin-bottom: 15px;
+}
+#addSub_dia .content .cate_image select {
+	margin-left: 24px;
+}
+#addSub_dia .content .cate_image a.btn {
+	display: none;
+}
+
+/*分类树*/
+.tree-cate * {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.tree-cate ul {
+	background: url(/include/management/images/tree/root_bgw.jpg) repeat-y left top;
+	padding-top: 20px;
+	margin-left: 10px;
+	margin-top: 5px;
+}
+.tree-cate ul li {
+	background: url(/include/management/images/tree/tree_bgw.jpg) no-repeat left top;
+	padding-left: 40px;
+	margin-top: 20px;
+}
+.tree-cate ul li.first-li,.tree-cate ul li.firstCollapsable {
+	margin-top: 0px;
+}
+.tree-cate ul li.last,.tree-cate ul li.lastCollapsable {
+	background:white url(/include/management/images/tree/lastTree_bgw.jpg) no-repeat left top;
+}
+.tree-cate ul li .cate_item {
+	border: 1px solid #ddd;
+	padding: 5px;
+	width:260px;
+	position: relative;
+	padding-bottom: 25px;
+	overflow: hidden;
+}
+.tree-cate ul li .cate_item images {
+	float: left;
+	border: 1px solid #ddd;
+	margin-right: 5px;
+}
+.tree-cate ul li .cate_item .c_name {
+	margin-bottom: 5px;
+	font-size: 14px;
+	color: #gray;
+	font-weight: bold;
+}
+.tree-cate ul li .cate_item .c_name .order {
+	font-size: 12px;
+	font-weight: normal;
+}
+.tree-cate ul li .cate_item .c_desc {
+	line-height: 17px;
+	color: #999;
+}
+.tree-cate ul li .cate_item .ctrl {
+	position: absolute;
+	bottom: 4px;
+	left: 8px;
+}
+.tree-cate ul li.collapsable {
+	position: relative;
+}
+.tree-cate ul li.collapsable div.hitarea {
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	top: 5px;
+	left: 290px;
+	cursor: pointer;
+	z-index: 50;
+}
+.tree-cate ul li.collapsable div.collapsable-hitarea {
+	background:url(/include/management/images/delete.png) no-repeat center center;
+}
+.tree-cate ul li.collapsable div.expandable-hitarea {
+	background:url(/include/management/images/add.png) no-repeat center center;
+}

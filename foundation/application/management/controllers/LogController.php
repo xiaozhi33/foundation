@@ -49,9 +49,26 @@
 			
 			$rs = json_decode($loginfo[0]['logMsg'], true);
             $this->view->assign('rs',$rs);
-            echo $this->view->render("index/header.phtml");
-            echo $this->view->render("log/slowone.phtml");
-            echo $this->view->render("index/footer.phtml");
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("log/slowone.phtml");
+			echo $this->view->render("index/footer.phtml");
+		}
+
+		public function updatelogsindexAction()
+		{
+			$updatelogsDAO = $this->orm->createDAO("update_log")->get();
+			$total = count($updatelogsDAO);
+			$pageDAO = new pageDAO();
+			$pageDAO = $pageDAO ->pageHelper($updatelogsDAO,null,"log",null,'get',20,20);
+			$pages = $pageDAO['pageLink']['all'];
+			$pages = str_replace("/index.php","",$pages);
+			$this->view->assign('loglistinfo',$pageDAO['pageData']);
+			$this->view->assign('page',$pages);
+			$this->view->assign('total',$total);
+
+			echo $this->view->render("index/header.phtml");
+			echo $this->view->render("updatelog/index.phtml");
+			echo $this->view->render("index/footer.phtml");
 		}
 		
 		public function _init(){

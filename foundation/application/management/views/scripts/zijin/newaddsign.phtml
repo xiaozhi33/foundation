@@ -95,19 +95,20 @@
                     <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center;padding: 30px;">
                         <thead>
                             <tr>
-                                <td width="12%">协议起始年份~终止年份</td>
-                                <td width="12%">执行协议起始年份~终止年份</td>
-                                <td width="8%">签约时间</td>
+                                <td width="10%">协议名称</td>
+                                <td width="10%">协议起始年份~终止年份</td>
+                                <td width="10%">执行协议起始年份~终止年份</td>
+                                <td width="6%">签约时间</td>
                                 <td width="8%">协议年度捐赠金额（元）</td>
                                 <td width="8%">协议总捐赠金额（元）</td>
                                 <!--<td width="7%">是否留本</td>-->
-                                <td width="12%">协议捐赠人</td>
+                                <td width="8%">协议捐赠人</td>
                                 <td width="8%">捐赠用途</td>
                                 <td width="10%">签约协议</td>
                                 <!--<td width="10%">是否已办捐赠仪式</td>-->
-                                <td width="7%">是否签约</td>
-                                <td width="16%">备注</td>
-                                <td width="5%">操作</td>
+                                <td width="5%">是否签约</td>
+                                <td width="10%">备注</td>
+                                <td width="10%">操作</td>
                             </tr>
                         </thead>
 
@@ -115,7 +116,13 @@
                         <?php
                             if(!empty($this->allsign)){
                                 foreach($this->allsign as $key => $value){?>
-                                    <tr id="addhtml">
+                                    <tr id="addhtml" style="background-color: <?php if($value['type'] == 1 ){echo "white";}else{echo "beige";}?>">
+                                        <td>
+                                            <a href="/management/zijin/signview?id=<?php echo $value['id'];?>" target="_blank">
+                                            <strong>（<?php echo $this->types_array[$value['type']];?>）</strong>
+                                            <?php echo $value['sign_name'];?>
+                                            </a>
+                                        </td>
                                         <td>
                                             <?php
                                                 $arr_xynf = json_decode($value['xynf']);
@@ -146,12 +153,12 @@
                                         </td>
                                         <td>
                                             <strong>
-                                                <?php if(!empty($value['ndjzje'])){echo number_format($value['ndjzje'],2);}else{echo "--";}?>
+                                                <?php echo number_format($value['ndjzje'],2);?>
                                             </strong>
                                         </td>
                                         <td>
                                             <strong>
-                                            <?php if(!empty($value['xyje'])){echo number_format($value['xyje'],2);}else{echo "--";}?>
+                                            <?php echo number_format($value['xyje'],2);?>
                                             </strong>
                                         </td>
 
@@ -198,6 +205,9 @@
                                         </td>
 
                                         <td>
+
+                                            <a href="/management/zijin/editsign?id=<?php echo $value['id']?>" target="_blank">编辑</a>
+                                            ||
                                             <a href="javascript:if(confirm('确实要删除该条签约信息吗?')){location='/management/zijin/delnewsign?id=<?php echo $value['id']?>'}">删除</a>
                                         </td>
                                     </tr>
@@ -249,17 +259,6 @@
                         <a href="#" class="addsign"><p style="text-align:center;font-size: 14px;"><span>+&nbsp; 再添加一条</span></p></a>
                     </div>
 
-                    <!--<div style="border:2px dashed #ccc;border-radius: 5px;clear: both;margin: 0px 30px 20px 30px;">
-                        <a href="#" onclick="addone()"><p style="text-align:center;font-size: 14px;"><span>+&nbsp; 再添加一条</span></p></a>
-                    </div>
-
-                    <div class="form-group form-footer">
-                        <div class="col-sm-offset-5 col-sm-7">
-                            <input class="btn btn-primary" type="submit" onclick="return bubmi();"  value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input class="btn btn-default" type="reset" value="重 置" />
-                        </div>
-                    </div>-->
-
                 </div>
 
             </section>
@@ -272,6 +271,44 @@
         </div>
         <div class="theme-sign-popbod dform">
             <form class="theme-sign-signin form-horizontal" id="addsign_form" name="addsign_form" method="post" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">协议名称：</label>
+                    <div class="col-sm-5">
+                        <input class="form-control" type="text" name="sign_name"/>
+                    </div>
+                    <span class="col-sm-3" style="padding-left: 0px;" >   *</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input01">协议类型：</label>
+                    <div class="col-sm-5">
+                        <select name="type" id="type" class="form-control control-label">
+                            <option value="1">新增协议</option>
+                            <option value="2">补充协议</option>
+                            <option value="3">续签协议</option>
+                            <option value="4">改签协议</option>
+                        </select>
+                    </div>
+                    <span class="col-sm-3" style="padding-left: 0px;" >默认为新建协议，如补续改签协议需要选择所属协议</span>
+                </div>
+
+                <div class="form-group" style="display: none;" id="ssxy">
+                    <label class="col-sm-3 control-label" for="input01">所属协议：</label>
+                    <div class="col-sm-5">
+                        <select name="ssxy" id="ssxy" class="form-control control-label">
+                            <?php
+                            if(!empty($this->ssxy_array)){
+                                foreach($this->ssxy_array as $key => $value){?>
+                                <option value="<?php echo $key?>">
+                                    <?php echo "（".$this->types_array[$value['type']]."）".$value['sign_name'].';'.$value['xyje'].'元;'.';'.$value['sign_time']?>
+                                </option>
+                            <?php }}?>
+                        </select>
+                    </div>
+                    <span class="col-sm-3" style="padding-left: 0px;" ></span>
+                </div>
+
                 <div class="form-group xynf">
                     <label class="col-sm-3 control-label" for="input01">协议年份：</label>
                     <div class="col-sm-6">
@@ -312,14 +349,18 @@
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="input01">年度捐赠金额：</label>
-                    <div class="col-sm-5"><input class="form-control" type="text" name="ndjzje" /></div>
-                    <span class="col-sm-3" style="padding-left: 0px;" >元  * （补充协议或续签等，可酌情调整为0.001元）</span>
+                    <div class="col-sm-5">
+                        <input class="form-control" type="text" name="ndjzje" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')"/>
+                    </div>
+                    <span class="col-sm-3" style="padding-left: 0px;" >元  * （补充协议或续签等，可酌情调整为0元）</span>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="input01">协议总捐赠金额：</label>
-                    <div class="col-sm-5"><input class="form-control" type="text" name="xyje" /></div>
-                    <span class="col-sm-3" style="padding-left: 0px;" >元  * （补充协议或续签等，可酌情调整为0.001元）</span>
+                    <div class="col-sm-5">
+                        <input class="form-control" type="text" name="xyje" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')"/>
+                    </div>
+                    <span class="col-sm-3" style="padding-left: 0px;" >元  * （补充协议或续签等，可酌情调整为0元）</span>
                 </div>
 
                 <div class="form-group">
@@ -449,8 +490,26 @@
             });
         }
 
+        function selecttype(){
+            $("#type").change(function(){
+                //alert($(this).val());
+                if($(this).val() != 1){
+                    <?php
+                    if(empty($this->ssxy_array)){
+                    ?>
+                    alert("当前还没有所属协议，请在添加所属协议之后再进行下一次操作！");
+                    $(this).val(1);return false;
+                    <?php }?>
+                    $("#ssxy").fadeIn();
+                }else{
+                    $("#ssxy").fadeOut();
+                };
+            });
+        }
+
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
+            selecttype();
         });
     </script>
 

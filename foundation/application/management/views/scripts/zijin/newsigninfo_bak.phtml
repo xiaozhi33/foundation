@@ -7,13 +7,13 @@
 <div class="pageheader">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
-        <span>项目信息编辑</span></h2>
+        <span>编辑签约信息</span></h2>
 
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
             <li>项目信息编辑</li>
-            <li class="active">添加签约信息</li>
+            <li class="active">编辑签约信息</li>
         </ol>
     </div>
 
@@ -47,6 +47,43 @@
                                 <input readonly name="pm_id" value="<?php echo $this->signinfo['pm_id'];?>" type="hidden"/>
                             </div>
                             <?php }?>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">协议名称：</label>
+                            <div class="col-sm-5">
+                                <input class="form-control" value="<?php echo $this->signinfo['sign_name'];?>" type="text" name="sign_name"/>
+                            </div>
+                            <span class="col-sm-1" style="padding-left: 0px;" > *</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input01">协议类型：</label>
+                            <div class="col-sm-5">
+                                <select name="type" id="type" class="form-control control-label">
+                                    <option value="1" <?php if($this->signinfo['type'] == 1){echo 'selected="selected"';}?>>新增协议</option>
+                                    <option value="2" <?php if($this->signinfo['type'] == 2){echo 'selected="selected"';}?>>补充协议</option>
+                                    <option value="3" <?php if($this->signinfo['type'] == 3){echo 'selected="selected"';}?>>续签协议</option>
+                                    <option value="4" <?php if($this->signinfo['type'] == 4){echo 'selected="selected"';}?>>改签协议</option>
+                                </select>
+                            </div>
+                            <span class="col-sm-2" style="padding-left: 0px;" >默认为新建协议，如补续改签协议需要选择所属协议</span>
+                        </div>
+
+                        <div class="form-group" <?php if($this->signinfo['type'] == 1){ echo 'style="display: none;"';}?> id="ssxy">
+                            <label class="col-sm-2 control-label" for="input01">所属协议：</label>
+                            <div class="col-sm-5">
+                                <select name="ssxy" id="ssxy" class="form-control control-label">
+                                    <?php
+                                    if(!empty($this->ssxy_array)){
+                                        foreach($this->ssxy_array as $key => $value){?>
+                                            <option value="<?php echo $key?>" <?php if($this->signinfo['ssxy']==$value['ssxy']){ echo 'selected="selected"';}?>>
+                                                <?php echo "（".$this->types_array[$value['type']]."）".$value['sign_name'].';'.$value['xyje'].'元'.';'.$value['sign_time']?>
+                                            </option>
+                                        <?php }}?>
+                                </select>
+                            </div>
+                            <span class="col-sm-2" style="padding-left: 0px;" ></span>
                         </div>
 
 
@@ -138,13 +175,17 @@
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">年度捐赠金额：</label>
-                            <div class="col-sm-5"><input class="form-control" value="<?php echo $this->signinfo['ndjzje'];?>" type="text" name="ndjzje" /></div>
-                            <span class="col-sm-1" style="padding-left: 0px;" >元  *</span>
+                            <div class="col-sm-5">
+                                <input class="form-control" value="<?php echo $this->signinfo['ndjzje'];?>" type="text" name="ndjzje"  onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')"/>
+                            </div>
+                            <span class="col-sm-1" style="padding-left: 0px;">元  *</span>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="input01">协议总捐赠金额：</label>
-                            <div class="col-sm-5"><input class="form-control" value="<?php echo $this->signinfo['xyje'];?>" type="text" name="xyje" /></div>
+                            <div class="col-sm-5">
+                                <input class="form-control" value="<?php echo $this->signinfo['xyje'];?>" type="text" name="xyje"  onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')"/>
+                            </div>
                             <span class="col-sm-1" style="padding-left: 0px;" >元  *</span>
                         </div>
 
@@ -319,7 +360,25 @@
             });
         }
 
+        function selecttype(){
+            $("#type").change(function(){
+                //alert($(this).val());
+                if($(this).val() != 1){
+                    <?php
+                    if(empty($this->ssxy_array)){
+                    ?>
+                    alert("当前还没有所属协议，请在添加所属协议之后再进行下一次操作！");
+                    $(this).val(1);return false;
+                    <?php }?>
+                    $("#ssxy").fadeIn();
+                }else{
+                    $("#ssxy").fadeOut();
+                };
+            });
+        }
+
         $(document).ready(function(){
+
             <?php if($this->signinfo['jzys'] == 0){?> $(".qianyue").hide();<?php }?>
             // 切换发票状态
             $(".jzys").change(function(){
@@ -330,5 +389,7 @@
                     $(".qianyue").show();
                 }
             });
+
+            selecttype();
         });
     </script>

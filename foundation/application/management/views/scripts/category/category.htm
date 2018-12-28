@@ -1,0 +1,152 @@
+﻿
+	<!-- Page content -->
+	<div id="page" style="background-color: #ffffff">
+		<!-- Wrapper -->
+		<div class="wrapper"  style="margin: 20px;">
+			<style>
+				#container {
+					font-size: 20px;
+					display: block;
+					width: 20px;
+					height: 20px;
+					border-radius: 50%;
+					border: 2px solid black;
+					line-height: 16px;
+					text-align: center;
+					-webkit-box-sizing: border-box;
+					-moz-box-sizing: border-box;
+					box-sizing: border-box;
+				}
+			</style>
+
+			<!-- right column/section -->
+			<link rel="stylesheet" type="text/css" href="/include/management/css/topic_category.css" media="all" />
+
+			<hr />
+			<section class="column width6 right_content">
+				<div class="topic_category">
+					<div class="box box-info" style="margin: 10px;padding: 10px 50px 50px 50px; ">
+
+					<p class="root_cate" style="margin: 20px;font-size: 18px;">
+						<!--<div style="float: left;clear:both;margin-left: 130px; "><h4>系统分类</h4></div>-->
+						<a href="#" cid="0" class="addSubCate btn btn-primary">
+							<span class="icon icon-add"> </span>
+							添加子分类
+						</a>
+					</p>
+					<div class="tree-cate">
+					<?php
+						function generateCate(&$cates, $pid = 0) {
+							$str = '<ul>';
+							$last_idx = count($cates[$pid]) - 1;
+							foreach($cates[$pid] as $key=>$cate) {
+								$has_subcate = !empty($cates[$cate['t_cate_id']]);
+								if($has_subcate) {
+									if($last_idx == $key) {
+										$str .= '<li class="collapsable lastCollapsable"><div class="hitarea collapsable-hitarea lastCollapsable-hitarea"></div>';
+									}elseif($key == 0){
+										$str .= '<li class="collapsable firstCollapsable"><div class="hitarea collapsable-hitarea firstCollapsable-hitarea"></div>';
+									}else {
+										$str .= '<li class="collapsable"><div class="hitarea collapsable-hitarea"></div>';
+									}
+								}else {
+									$str .= '<li';
+									if($last_idx == $key) {
+										$str .= ' class="last';
+										if($key == 0) {
+											$str .= ' first-li';
+										}
+										$str .= '"';
+									}elseif($key == 0) {
+										$str .= ' class="first-li"';
+									}
+									$str .='>';
+								}
+								$str .= '<div id="cid_' . $cate['t_cate_id'] . '">';
+								$str .= '<div class="cate_item">';
+								//$str .= '<img width="60px" height="60px" src="' . $cate['t_cate_image'] . '" />';
+								$str .= '<span class="c_name">' . $cate['t_cate_name'] . '</span><span class="order" order="' . $cate['cate_order'] . '">(' . $cate['cate_order'] . ')</span><p class="c_desc">' . $cate['t_cate_desc'] . '</p>';
+								$str .= '<p class="ctrl">' . '<a href="#" class="edit" cid="' . $cate['t_cate_id'] . '">编辑分类</a> <a href="#" class="addSubCate" cid="' . $cate['t_cate_id'] . '">添加子分类</a>';
+								if(!$has_subcate) {
+									$str .= ' <a href="#" class="del" cid="' . $cate['t_cate_id'] . '">删除</a>';
+								}
+								$str .= '</p></div></div>';
+								if($has_subcate) {
+									$str .= generateCate($cates,$cate['t_cate_id']);
+								}
+								$str .= '</li>';
+							}
+							$str .= '</ul>';
+							return $str;
+						}
+						$cates = $this->cates;
+						echo generateCate($cates);
+					?>	
+					</div>
+					<hr />
+					<!-- 添加子分类对话框 -->
+					<div id="addSub_dia" title="添加子分类">
+						<div class="content">
+							<table>
+								<tr>
+									<td colspan="2">
+										<fieldset>
+											<legend>分类设置</legend>
+										</fieldset>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<form action="" method="post" id="sampleform2" target="target_iframe">
+											<p>
+												<label for="input2">分类名称:</label><br>
+												<input type="text" name="t_cate_name" value="" class="half title" id="input2">
+											</p>
+											<p>
+												<label for="input2">分类排序:</label><br>
+												<input type="text" name="cate_order" value="0" class="half title">
+											</p>
+											<p>
+												<label for="area1">分类描述:</label><br>
+												<textarea name="t_cate_desc" class="medium half" id="area2"></textarea>
+											</p>
+											<input type="hidden" name="image" value="" />
+											<input type="hidden" name="pid" />
+										</form>
+									</td>
+									<td width="140">
+										<div class="cate_image">
+											<img src="/include/management/images/1.png" />
+											<select>
+												<option value="/include/management/images/1.png">默认图片</option>
+												<option value="0">自定义</option>
+											</select>
+											<form action="cate-image-upload" target="target_iframe" method="POST" enctype="multipart/form-data">
+												<input type="file" style="display: none;" name="topic_category_image" />
+												<br />
+												<a class="btn file" href="#"><span class="icon icon-add">&nbsp;</span>浏览</a>
+												<a class="btn submit" href="#"><span class="icon icon-ok">&nbsp;</span>上传</a>
+											</form>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- End of right column/section -->
+		</div>
+		<!-- End of Wrapper -->
+	</div>
+	<script type="text/javascript" src="/include/management/js/jquery-1.8.2.js"></script>
+	<script type="text/javascript" src="/include/management/js/jquery-ui-1.9.1.custom.min.js"></script>
+	<script type="text/javascript" src="/include/management/js/default.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/include/management/css/start/jquery-ui-1.9.1.custom.min.css" media="all" />
+	<script type="text/javascript" src="/include/management/js/topic_category.js"></script>
+	<iframe src="" style="display: none;" id="target_iframe" name="target_iframe" frameborder="0"></iframe>
+	<script>
+		$("#ywxggl").addClass("open");
+	</script>
+	<!-- End of Page content -->

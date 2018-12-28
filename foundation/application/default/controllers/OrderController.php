@@ -47,10 +47,13 @@
 			if ($Amount == "" || $Amount < 10){
 				alert_back("请添加要捐赠项目的捐赠总额！并金额不少于10元");
 			}
-			if (is_int((int)$Amount) == false){
+			if (is_int((int)$Amount) == false || (float)$Amount <= 0){
 				alert_back("金额必须是正整数。");
 			}
-			$Amount = (int)$Amount;
+			/*if (is_float((float)$Amount) == false || (float)$Amount <= 0){
+				alert_back("金额必须是正整数。");
+			}*/
+			$Amount = (float)$Amount;
 			$SpecialRequest = HttpUtil::postInsString("SpecialRequest"); //捐赠说明
 			$EventName = HttpUtil::postInsString("EventName"); 			 //相关活动
 			$zs = HttpUtil::postInsString("zs");						 //是否需要证书

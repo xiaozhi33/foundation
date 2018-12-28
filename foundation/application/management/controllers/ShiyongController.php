@@ -42,7 +42,7 @@
 			$this->view->assign('shiyonglist',$pageDAO['pageData']);
 			$this->view->assign('page',$pages);	
 			$this->view->assign('total',$total);
-            $this->view->assign('type',$type);
+            //$this->view->assign('type',$type);
 
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render("shiyong/index.phtml");
@@ -83,14 +83,14 @@
 				$beizhu = HttpUtil::postString("beizhu");  //备注
 
 				if($pname == "" || $shiyong_zhichu_datetime == "" || $shiyong_zhichu_jiner == ""){
-					alert_back("您输入的信息不完整，请查正后继续添加");
+					$this->alert_back("您输入的信息不完整，请查正后继续添加");
 				}
 
 				if($jiangli_renshu == ''){
 					$jiangli_renshu = 0;
 				}
 
-				$pm_mg_infoDAO = new pm_mg_infoDAO();
+				$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
 				$pm_mg_infoDAO ->beizhu = $beizhu;
 				$pm_mg_infoDAO ->jiangli_renshu = $jiangli_renshu;
 				$pm_mg_infoDAO ->jiangli_fanwei = $fanwei;
@@ -105,6 +105,8 @@
 
 				$pm_mg_infoDAO ->lastmodify = time();
 
+				$pm_mg_infoDAO ->sign_id = HttpUtil::postString("pm_sign_id");
+
 				if($_FILES['pm_files']['name']!=""){
 					if($_FILES['pm_files']['error'] != 4){
 						if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
@@ -114,7 +116,7 @@
 						$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
 						$result = $uploadpic->uploadPic();
 						if($result['error']!=0){
-							alert_back($result['msg']);
+							$this->alert_back($result['msg']);
 						}else{
 							$pm_mg_infoDAO->pm_file =  __GETPICPATH__."jjh_download/".$result['picname'];
 						}
@@ -129,7 +131,7 @@
 					$this->changerate("",'add',4,$p_idinfo);
 				}
 
-				alert_go("添加成功","/management/shiyong");
+				$this->alert_go("添加成功","/management/shiyong");
 			}catch(Exception $e){
 				throw $e;
 			}
@@ -158,6 +160,7 @@
 		}
 		
 		public function editrsshiyongAction(){
+			//var_dump($_REQUEST);exit();
 			if($_REQUEST['id'] != ""){
 				$pname = HttpUtil::postString("pname");  //项目编号
 				$shiyong_zhichu_datetime = HttpUtil::postString("shiyong_zhichu_datetime");		 //项目支出日期
@@ -169,10 +172,14 @@
                 $shiyong_type = HttpUtil::postString("shiyong_type");
 					
 				if($pname == "" || $shiyong_zhichu_datetime == "" || $shiyong_zhichu_jiner == ""){
-					alert_back("您输入的信息不完整，请查正后继续添加");
+					$this->alert_back("您输入的信息不完整，请查正后继续添加");
 				}
-				
-				$pm_mg_infoDAO = new pm_mg_infoDAO($_REQUEST['id']);
+
+				if(empty($_REQUEST['pname']) || $_REQUEST['pname'] == '请选择项目名称') {
+					$this->alert_back("请选择项目名称！");
+				}
+
+				$pm_mg_infoDAO = $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info")->findId($_REQUEST['id']);
 				$pm_mg_infoDAO ->beizhu = $beizhu;
 				$pm_mg_infoDAO ->jiangli_renshu = $jiangli_renshu;
 				$pm_mg_infoDAO ->jiangli_fanwei = $fanwei;
@@ -181,6 +188,7 @@
 				$pm_mg_infoDAO ->shiyong_zhichu_datetime = $shiyong_zhichu_datetime;
 				$pm_mg_infoDAO ->shiyong_zhichu_jiner = $shiyong_zhichu_jiner;
 				$pm_mg_infoDAO ->pm_juanzeng_cate = HttpUtil::postString("pm_cate");
+				$pm_mg_infoDAO ->sign_id = $_REQUEST["pm_sign_id"];
 
 				$pm_mg_infoDAO ->lastmodify = time();
 
@@ -192,8 +200,8 @@
 						$uploadpic = new uploadPic($_FILES['pm_files']['name'],$_FILES['pm_files']['error'],$_FILES['pm_files']['size'],$_FILES['pm_files']['tmp_name'],$_FILES['pm_files']['type'],2);
 						$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
 						$result = $uploadpic->uploadPic();
-						if($result['error']!=0){					    	
-						   	alert_back($result['msg']);
+						if($result['error']!=0){
+							$this->alert_back($result['msg']);
 						}else{				             
 						    $pm_mg_infoDAO->pm_file =  __GETPICPATH__."jjh_download/".$result['picname'];
 						}		            	    
@@ -212,9 +220,9 @@
 					$this->changerate("",'del',4,$_REQUEST['id']);
 				}
 
-				alert_go("编辑成功","/management/shiyong");
+				$this->alert_go("编辑成功","/management/shiyong");
 			}else{
-				alert_back("操作失败");
+				$this->alert_back("操作失败");
 			}
 		}
 
@@ -240,7 +248,7 @@
 
 			// 遍历循环插入zw_mg_pzfl_log表中
 			foreach($zwpzfl_list as $k => $v){
-				$pzfl = $this->ispzfl($v['pzrq'],$v['xmbh'],$v['jje']);  // 判断是否重复添加
+				$pzfl = $this->ispzfl($v['pzrq'],$v['xmbh'],$v['jje'],$v['flbh']);  // 判断是否重复添加
 				$xminfo = $zwpzflDAO ->getxminfo($v['bmbh'],$v['xmbh']);  // 获取项目的详细信息  部门编号+项目编号
 
 				if(empty($pzfl)){
@@ -331,7 +339,7 @@
 					$zw_pm_relatedDAO = $zw_pm_relatedDAO->get();
 
 					if(!empty($zw_pm_relatedDAO[0]['pm_name'])){
-						$islog = $this->getisuselog($value['pzrq'],$zw_pm_relatedDAO[0]['pm_name'],$value['jje']);
+						$islog = $this->getisuselog($value['pzrq'],$zw_pm_relatedDAO[0]['pm_name'],$value['jje'],$value['flbh']);
 						if($islog){   // 判断是否已经存在同步记录
 							$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
 							$pm_mg_infoDAO ->cate_id = 1;
@@ -359,11 +367,21 @@
 		 */
 		public function savebindingclaimAction(){
 			try{
+				//var_dump($_REQUEST);exit();
+				(int)$sign_id = $_REQUEST['sign_id'];
 				(int)$pm_id = $_REQUEST['pm_id'];
 
-				if(empty($_REQUEST["fanwei"])) {
-					alert_back("范围不能为空！");
+				if(empty($_REQUEST['pname']) || $_REQUEST['pname'] == '请选择项目名称') {
+					$this->alert_back("请选择项目名称！");
 				}
+
+				/*if(empty($sign_id)) {
+					$this->alert_back("请选择支出对应协议！");
+				}*/
+
+				/*if(empty($_REQUEST["fanwei"])) {
+					$this->alert_back("范围不能为空！");
+				}*/
 
 				// 更新项目来款表
 				$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
@@ -379,8 +397,27 @@
 					$this->changerate("",'add',4,$p_idinfo);
 				}*/
 
+				$pm_mg_infoDAO ->pm_name = $_REQUEST["pname"];
+				$pm_mg_infoDAO ->sign_id = $_REQUEST["pm_sign_id"];
+
 				$pm_mg_infoDAO ->beizhu = $_REQUEST["beizhu"];
 				$pm_mg_infoDAO ->is_renling = 1;                            				// 是否认领flag 已认领
+
+				if($_FILES['pm_files']['name']!=""){
+					if($_FILES['pm_files']['error'] != 4){
+						if(!is_dir(__UPLOADPICPATH__ ."jjh_download/")){
+							mkdir(__UPLOADPICPATH__ ."jjh_download/");
+						}
+						$uploadpic = new uploadPic($_FILES['pm_files']['name'],$_FILES['pm_files']['error'],$_FILES['pm_files']['size'],$_FILES['pm_files']['tmp_name'],$_FILES['pm_files']['type'],2);
+						$uploadpic->FILE_PATH = __UPLOADPICPATH__."jjh_download/" ;
+						$result = $uploadpic->uploadPic();
+						if($result['error']!=0){
+							$this->alert_back($result['msg']);
+						}else{
+							$pm_mg_infoDAO->pm_file =  __GETPICPATH__."jjh_download/".$result['picname'];
+						}
+					}
+				}
 
 				$admininfo = SessionUtil::getAdmininfo();
 
@@ -390,11 +427,11 @@
 				$pm_mg_infoDAO ->lastmodify = time();
 
 				$pm_mg_infoDAO ->save();
-				alert_go("认领成功！", "/management/shiyong");
+				$this->alert_go("认领成功！", "/management/shiyong");
 
 			}catch(Exception $e){
 				throw $e;
-				alert_back("认领失败！请联系管理员");
+				$this->alert_back("认领失败！请联系管理员");
 			}
 		}
 
@@ -416,33 +453,35 @@
 			$this->view->assign('pm_mg_info', $pm_mg_infoDAO);
 
 			// 查看该笔支出是否还有效
-			$pzflDAO = new CW_API();
-			$rs = $pzflDAO ->getlpzfl(date('Ymd',strtotime($pm_mg_infoDAO[0]['shiyong_zhichu_datetime'])), $pm_mg_infoDAO[0]['shiyong_zhichu_jiner'], $pm_mg_infoDAO[0]['beizhu']);
+			/*$pzflDAO = new CW_API();
+			$rs = $pzflDAO ->getlpzfl(date('Ymd',strtotime($pm_mg_infoDAO[0]['shiyong_zhichu_datetime'])), $pm_mg_infoDAO[0]['shiyong_zhichu_jiner'], $pm_mg_infoDAO[0]['beizhu']);*/
 
 			//echo date('Ymd',strtotime($pm_mg_infoDAO[0]['shiyong_zhichu_datetime'])).$pm_mg_infoDAO[0]['shiyong_zhichu_jiner']. $pm_mg_infoDAO[0]['beizhu'];
 			//var_dump($rs);exit();
 
 			if(empty($rs)){
-				$this->alert_back("该笔支出出现异常，请核对财务系统后再试！");
+				//$this->alert_back("该笔支出出现异常，请核对财务系统后再试！");
 			}
 			echo $this->view->render("index/header.phtml");
 			echo $this->view->render("shiyong/claim.phtml");
 			echo $this->view->render("index/footer.phtml");
 		}
 
-		public function ispzfl($pzrq,$xmbh,$jje){
+		public function ispzfl($pzrq,$xmbh,$jje,$flbh){
 			$zw_mg_pzfl_logDAO = $this->orm->createDAO("zw_mg_pzfl_log");
 			$zw_mg_pzfl_logDAO ->findPzrq($pzrq);
 			$zw_mg_pzfl_logDAO ->findXmbh($xmbh);
 			$zw_mg_pzfl_logDAO ->findJje($jje);
+			$zw_mg_pzfl_logDAO ->findFlbh($flbh);
 			return $zw_mg_pzfl_logDAO->get();
 		}
 
-		public function getisuselog($pzrq,$xmmc,$jje){
+		public function getisuselog($pzrq,$xmmc,$jje,$flbh){
 			if(!empty($jje) && !empty($pzrq) && !empty($xmmc)){
 				$pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
 				$pm_mg_infoDAO ->findShiyong_zhichu_jiner($jje);
 				$pm_mg_infoDAO ->findPm_name($xmmc);
+				$pm_mg_infoDAO ->findFlbh($flbh);
 				$pm_mg_infoDAO ->findShiyong_zhichu_datetime(date("Y-m-d H:i:s",strtotime($pzrq)));
 				$pm_mg_infoDAO = $pm_mg_infoDAO->get();
 				if(empty($pm_mg_infoDAO)){
@@ -460,6 +499,36 @@
 			$this ->dbhelper ->connect();
 			SessionUtil::sessionStart();
 			SessionUtil::checkmanagement();
+
+			// 获取所有协议列表
+			$pm_mg_signDAO = $this->orm->createDAO("pm_mg_sign");
+			$pm_mg_signDAO ->select .=" pm_mg_sign.id, pm_mg_sign.pm_id, pm_mg_sign.sign_name, pm_mg_sign.xyje, pm_mg_sign.type ";
+			$pm_mg_signDAO ->selectLimit .= " ORDER BY pm_mg_sign.sign_time DESC";
+			$pm_mg_signDAO = $pm_mg_signDAO ->get();
+
+
+			//项目名称列表
+			$pm_chouzi = new pm_mg_chouziDAO();
+			$pm_chouzi ->selectLimit .= " AND is_del=0";
+			$pm_chouzi ->selectLimit .= " order by id desc";
+			$pm_chouzi = $pm_chouzi ->get($this->dbhelper);
+
+			if(!empty($pm_chouzi)){
+				$pm_chouzi_array = array();
+				foreach($pm_chouzi as $k => $v){
+					$pm_chouzi_array[$v['id']] = $v['pname'];
+				}
+			}
+
+			if(!empty($pm_mg_signDAO)){
+				$pm_mg_signDAO_array = array();
+				foreach($pm_mg_signDAO as $key => $value){
+					$pm_mg_signDAO_array[$value['id']] = $value;
+					$pm_mg_signDAO_array[$value['id']]['pname'] = $pm_chouzi_array[$value['pm_id']];
+				}
+			}
+
+			$this->view->assign('pm_mg_signDAO', $pm_mg_signDAO_array);
 			
 			//项目分类
 			$pcatelist = new jjh_mg_cateDAO();

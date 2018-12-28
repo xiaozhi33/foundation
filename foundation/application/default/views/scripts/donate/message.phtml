@@ -61,8 +61,8 @@
                  </form>
 
                  <?php }elseif($this->PayType == 3){?>
-                      <!--<form name="form1" action="/alipay/pagepay/pagepay.php" target="_blank" method="post">-->
-                      <form name="form1" action="/alipaydonatetradephp/alipayapi.php" target="_blank" method="post">
+                      <form name="form1" action="/alipay/pagepay/pagepay.php" target="_blank" method="post">
+                     <!-- <form name="form1" action="/alipaydonatetradephp/alipayapi.php" target="_blank" method="post">-->
 
                           <input type="hidden" name="WIDout_trade_no" value="<?php echo $this->jjh_order_id;?>"/>
                           <input type="hidden" name="WIDsubject" value="<?php echo $this->orderinfo['jjh_pm'];?>"/>
@@ -84,7 +84,7 @@
                               <input type="hidden" name="WIDout_trade_no" value="<?php echo $this->jjh_order_id;?>"/>
                               <input type="hidden" name="WIDsubject" value="<?php echo $this->orderinfo['jjh_pm'];?>"/>
                               <input type="hidden" name="WIDtotal_amount" value="<?php echo $this->orderinfo['Amount'];?>"/>
-                              <input type="hidden" name="WIDbody" value="支付宝支付"/>
+                              <input type="hidden" name="WIDbody" value="微信支付"/>
                               <input type="submit" class="jjh_donate_submit_bt1" value="确定" />
                               <input type="button" class="jjh_donate_submit_bt1" value="重新支付" onclick="window.open('/donate', '_blank')" />
                               <script>

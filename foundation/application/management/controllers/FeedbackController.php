@@ -79,7 +79,7 @@
                 $pm_mg_feedbackDAO ->bz = $bz;   // 备注
                 $rss = $pm_mg_feedbackDAO ->save();
             }catch (Exception $e){
-                alert_back_old('保存失败！！！！！');
+                alert_back_old($e);
             }
 
             alert_go_old('保存成功', "/management/feedback/index");

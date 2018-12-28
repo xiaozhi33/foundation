@@ -27,49 +27,54 @@
         <section class="tile color transparent-white">
 			<div class="detailedbox tile-body" >
 			<form class="form-horizontal" id="form1" action="editrsshiyong" method="post" encType="multipart/form-data">
-				<div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">项目名称：</label>
-            <div class="col-sm-4">
-            	<select class="chosen-select-1 chosen-transparent form-control" name="pname">
-                    <?php if($this->pmlist != ""){
-                            foreach ($this->pmlist as $k => $v){
-                        ?>
-                        <option value="<?php echo $v['pname'];?>" <?php if($v['pname'] == $this->pm_mg_info[0]['pm_name']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
-                    <?php }}?>
-                </select>
-                <input id="pname_info" type="hidden" name="pname" value=""/>
-            </div>
-            <span class="col-sm-2" > * </span>
-            </div>	
 
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                    <div class="col-sm-4">
+                        <select class="chosen-select-1 chosen-transparent form-control" name="pname" id="pname">
+                            <?php if($this->pmlist != ""){
+                                foreach ($this->pmlist as $k => $v){
+                                    ?>
+                                    <option value="<?php echo $v['pname'];?>" <?php if($v['pname'] == $this->pm_mg_info[0]['pm_name']){echo "selected='selected'";}?>><?php echo $v['pname'];?></option>
+                                <?php }}?>
+                        </select>
+                        <input id="pname_info" type="hidden" name="pname" value="<?php echo $this->pm_mg_info[0]['pm_name'];?>"/>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
 
-			  <!--<div class="form-group">
-            <label class="col-sm-2 control-label" for="input01">项目捐赠类型：</label>
-            <div class="col-sm-8">
-            <select class="form-control" name="pm_cate">
-								<option value="" >请选择类型</option>
-								<?php /*if($this->pcatelist != ""){
-								foreach ($this->pcatelist as $k => $v){*/?>
-									<option value="<?php /*echo $v['id']*/?>" <?php /*if ($this->pm_mg_info[0]['pm_juanzheng_cate'] == $v['id']){echo "selected='selected'";}*/?>><?php /*echo $v['catename']*/?></option>
-								<?php /*}}*/?>
-							</select>
-            </div>
-            <span class="col-sm-2" >* 教育基金、研究基金等</span>
-            </div>	-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">认领到协议：</label>
+                    <div class="col-sm-4">
+                        <select class="chosen-select-1 chosen-transparent form-control" id="sign_id">
+                            <option value="">请选择协议名称</option>
+                            <?php if($this->pm_mg_signDAO != ""){
+                                foreach ($this->pm_mg_signDAO as $k => $v){
+                                    ?>
+                                    <option <?php if($this->pm_mg_info[0]['sign_id']==$v['id']){echo "selected='selected'";}?> value="<?php echo $v['id'];?>_<?php echo $v['pm_id'];?>_<?php echo $v['pname'];?>">
+                                        <?php if($v['type'] !=1){echo "（".$this->types_array[$v['type']]."）";}?>
+                                        <?php echo $v['sign_name'];?>； 协议金额：<?php echo $v['xyje'];?>元；
+                                    </option>
+                                <?php }}?>
+                        </select>
+                        <input id="pm_sign_id" type="hidden" suvalue="" name="pm_sign_id" value="<?php echo $this->pm_mg_info[0]['sign_id'];?>"/>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>
+
+                <!--<div class="form-group">
+                    <label class="col-sm-2 control-label" for="input01">项目名称：</label>
+                    <div class="col-sm-4">
+                        <input id="pname_info12" class="form-control" readonly="readonly" type="text" name="pname" value="<?php /*echo $this->pm_mg_info[0]['pm_name'];*/?>"/>
+                    </div>
+                    <span class="col-sm-2" > * </span>
+                </div>-->
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="input01">项目支出类型：</label>
                     <div class="col-sm-4">
                         <label class="radio-inline"><input type="radio" size="14" <?php if($this->pm_mg_info[0]['shiyong_type'] == 1){?> checked="checked"<?php }?> value="1" name="shiyong_type"> 基金会列支 </label>
                         <label class="radio-inline"><input type="radio" size="14" <?php if($this->pm_mg_info[0]['shiyong_type'] == 2){?> checked="checked"<?php }?>  value="2" name="shiyong_type"> 转财务处 </label>
-                        <?php /*if( $this->pm_mg_info[0]["shiyong_type"] == 1){*/?><!--
-                            <input class="form-control" type="text" value="基金会列支" readonly="readonly" name=""  size="14"/>
-                            <input class="form-control" type="hidden" value="1" readonly="readonly" name="shiyong_type"  size="14"/>
-                        <?php /*}else {*/?>
-                            <input class="form-control" type="text" value="转财务处" readonly="readonly" name=""  size="14"/>
-                            <input class="form-control" type="hidden" value="2" readonly="readonly" name="shiyong_type"  size="14"/>
-                        --><?php /*}*/?>
-
                     </div>
                     <span class="col-sm-2" > </span>
                 </div>
@@ -115,15 +120,15 @@
             <?php //}?>
 
 
-            <!--<div class="form-group">
-                <label class="col-sm-2 control-label" for="input01">相关文档：</label>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input01">上传发放明细：</label>
                 <div class="col-sm-4">
-                    <input class="form-control" type="file" name="pm_files"  size="14"/><font color="#0474d6" > * 相关文档已打包形式上传 格式为*.rar</font><br/>
-                                <?php /*if($this->pm_mg_info[0]['pm_file'] != ""){*/?>
-                                    <a href="<?php /*echo $this->pm_mg_info[0]['pm_file'];*/?>">已经存在该文件如果再次上传,那么之前文件将被覆盖    -- 点击下载源文件</a>
-                                <?php /*}*/?>
+                    <input class="form-control" type="file" name="pm_files"  size="14"/><!--<font color="#0474d6" > * 相关文档已打包形式上传 格式为*.rar</font>--><br/>
+                    <?php if($this->pm_mg_info[0]['pm_file'] != ""){?>
+                        <a href="<?php echo $this->pm_mg_info[0]['pm_file'];?>">已经存在该文件如果再次上传,那么之前文件将被覆盖    -- 点击下载源文件</a>
+                    <?php }?>
                 </div>
-            </div>	-->
+            </div>
 
             <div class="form-group transparent-editor">
                 <label class="col-sm-2 control-label" for="input14">是否执行：</label>
@@ -146,9 +151,9 @@
 					<input type="hidden" name="id" value="<?php echo $this->pm_mg_info[0]['id'];?>"/>
 		<div class="form-group form-footer">
 							<div class="col-sm-offset-5 col-sm-7">
-								<input class="btn btn-primary" onclick="javascript:noTips();" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
-								<input class="btn btn-default" type="reset" value="重 置" /> 
-							</div>
+                                <!--<input class="btn btn-primary" onclick="javascript:noTips();" value="提 交" />--><input class="btn btn-primary" type="submit" value="提 交" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input class="btn btn-default" type="reset" value="重 置" />
+                            </div>
 					</div>
                 
 			</form>
@@ -158,5 +163,22 @@
 		</div>
 
         <script language="javascript">
-            $("#xmxxbj").addClass("open");
+            $(document).ready(function(){
+                $("#xmxxbj").addClass("open");
+                // 选择协议时触发
+                $(".chosen-select-1").change(function(){
+                    var sid = $("#sign_id").val();
+                    var arr = sid.split('_');
+                    if($(".chosen-single span").html() != "请选择协议名称"){
+                        $("#pm_sign_id").val(arr[0]);
+                        //GetZWxm( arr[1] );
+                        //$("#pname_info12").val( arr[2] );
+                    }
+                });
+
+                $("#pname").change(function(){
+                    //GetZWxm($(this).children('option:selected').val());
+                    $("#pname_info").val($(".chosen-single span").html());
+                });
+            });
         </script>

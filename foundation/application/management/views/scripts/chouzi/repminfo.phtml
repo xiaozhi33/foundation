@@ -138,10 +138,77 @@
                         }
                         ?>
                         </p>
-                        <p>协议年限及金额：</p>
+                        <p>协议年限及金额：
+                        <style>
+                            table,table tr th, table tr td { border:1px solid #009999; }
+                        </style>
+                            <?php if(!empty($this->sign_list_DAO)){?>
+                            <table style="margin-top:13px;width: 330px; min-height: 25px; line-height: 25px; text-align: center; border-collapse: collapse;">
+                                <tr>
+                                    <td><strong>协议名称</strong></td>
+                                    <td><strong>协议年份</strong></td>
+                                    <td><strong>执行年份</strong></td>
+                                    <td><strong>总捐赠金额（元）</strong></td>
+                                    <!--<td>年度捐赠金额（元）</td>-->
+                                </tr>
+                                <?php
+                                    foreach($this->sign_list_DAO as $key => $value){?>
+                                     <tr>
+                                        <td>
+                                            <a href="/management/zijin/signview?id=<?php echo $value['id'];?>" target="_blank">
+                                                <?php if($v['type'] !=1){echo "（".$this->types_array[$value['type']]."）";}?><?php echo $value['sign_name'];?>
+                                            </a>
+                                        </td>
+                                         <td>
+                                             <?php
+                                             $arr_xynf = json_decode($value['xynf']);
+                                             foreach($arr_xynf as $kk => $vv){
+                                                 if ($kk % 2 == 0){
+                                                     echo $vv. '~';
+                                                 }else{
+                                                     echo $vv. '<br/>';
+                                                 }
+                                             }
+                                             ?>
+                                         </td>
+                                         <td>
+                                             <?php
+                                             $arr_zxxynf = json_decode($value['zxxynf']);
+                                             foreach($arr_zxxynf as $kk => $vv){
+                                                 if ($kk % 2 == 0){
+                                                     echo $vv. '~';
+                                                 }else{
+                                                     echo $vv. '<br/>';
+                                                 }
+                                             }
+                                             ?>
+                                         </td>
+                                        <td><?php echo number_format($value["xyje"],2);?></td>
+                                        <!--<td><?php /*echo number_format($value["sign_name"],2);*/?></td>-->
+                                     </tr>
+                                    <?php }?>
+                            </table>
+                        <?php }?>
+                        </p>
                         <div class="pm-yt">
-                        <p>用途：<?php echo htmlspecialchars_decode($this->chouzi[0]['beizhu']);?></p>
-                        <p>配比情况：<?php if(empty($this->peibikDAO)){echo '无';}else{
+                            <p><!--用途：-->
+                                <?php if(!empty($this->sign_list_DAO)){?>
+                            <table style="margin:13px 0 13px 0;width: 330px; min-height: 25px; line-height: 25px; text-align: center; border-collapse: collapse;">
+                                <tr>
+                                    <td><strong>用途</strong></td>
+                                </tr>
+                                <?php
+                                foreach($this->sign_list_DAO as $key => $value){?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars_decode($value["jzyt"]);?></td>
+                                    </tr>
+                                <?php }?>
+                            </table>
+                            <?php }?>
+
+                            </p>
+                            <p>配比
+                        <p>配比奖励：<?php if(empty($this->peibikDAO)){echo '无';}else{
                                 //echo "<br/>";
                                 //echo "收入：";
                                 echo number_format($this->pbhj,2)."元<br/>";
@@ -160,7 +227,7 @@
                         </div>
                     </div>
                     <div class="pm-js">
-                    <p>项目介绍：</p>
+                    <p>项目介绍：<p><?php if(empty($this->chouzi[0]['introduce'])){echo '无';}else{echo htmlspecialchars_decode($this->chouzi[0]['introduce']);}?></p></p>
                     </div>
                 </section>
             </div>
@@ -438,6 +505,14 @@
                 </section>
                 <?php }?>
 
+                <section class="tile color-green" id="04">
+                    <div class="tile-body nopadding">
+                        <div class="table-responsive">
+                            <div class="pm-tabletext" style="background-color: gold">项目可用余额 <?php echo number_format($this->xmye + ($this->pbhj1 - $this->pbzchj), 2);?></div>
+                        </div>
+                    </div>
+                </section>
+
 		    </div>
         </div>
 
@@ -455,6 +530,9 @@
                             配比余额P1 = 配比收入P2 - 配比支出P3
                         </div>
                         <div style="padding-top:10px;">
+                            项目可用余额A1 = 项目余额M1 + 配比余额P1
+                        </div>
+                        <div style="padding-top:10px;">
                             * 项目余额中不含财务借款。
                         </div>
                     </div>
@@ -470,7 +548,7 @@
                 <!--<li><a href="#03">签约信息</a></li>-->
                 <li><a href="#04">收支信息</a></li>
                 <!--<li><a href="#05">回馈信息</a></li>-->
-                <li><a href="#06">配比信息</a></li>
+                <li><a href="#06">配比奖励</a></li>
                 <li><a href="#01">返回顶部</a></li>
             </ul>
         </div>

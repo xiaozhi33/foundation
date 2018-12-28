@@ -8,12 +8,11 @@
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
         <span>项目签约</span></h2>
-
     <div class="breadcrumbs">
         <ol class="breadcrumb">
             <li>您的位置</li>
-            <li>项目管理</li>
-            <li class="active">项目签约编辑</li>
+            <li>项目进度管理</li>
+            <li class="active">项目签约</li>
         </ol>
     </div>
 
@@ -30,8 +29,8 @@
                         <div class="form-group">
 
                             <div class="row">
-                                <div class="form-group col-sm-6">
-                                    <label for="pname" class="col-sm-4 control-label">项目名称：</label>
+                                <div class="form-group col-sm-3">
+                                    <label for="pname" class="col-sm-12 control-label">项目名称：</label>
                                     <select class="chosen-select-1 chosen-transparent form-control" id="pname">
                                         <option value="1">请选择项目名称</option>
                                         <?php if($this->pmlist != ""){
@@ -42,12 +41,100 @@
                                     </select>
                                     <input id="pname_info" type="hidden" name="pname" value=""/>
                                 </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="pname" class="col-sm-12 control-label">协议名称：</label>
+                                    <input name="sign_name" value="<?php echo $_REQUEST['sign_name'];?>" class="form-control"/>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="type" class="col-sm-12 control-label">协议类型：</label>
+                                    <select class="form-control" name="type" id="type">
+                                        <option value="">请选择协议类型</option>
+                                        <?php if($this->types_array != ""){
+                                            foreach ($this->types_array as $k => $v){
+                                                ?>
+                                                <option <?php if($_GET['type'] == $k){echo 'selected=selected';}?> value="<?php echo $k;?>"><?php echo $v;?>签协议</option>
+                                            <?php }}?>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="sign_time" class="col-sm-12 control-label">签约时间：</label>
+                                    <input name="sign_time" value="<?php echo $_REQUEST['sign_time'];?>" class="form-control"/>
+                                </div>
                             </div>
 
                             <div class="row">
                                 <div class="form-group col-sm-3">
+                                    <label for="xyje" class="col-sm-12 control-label">协议总捐赠金额：</label>
+                                    <input name="xyje" value="<?php echo $_REQUEST['xyje'];?>" class="form-control"/>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="pname" class="col-sm-12 control-label">协议年度捐赠金额：</label>
+                                    <input name="ndjzje" value="<?php echo $_REQUEST['ndjzje'];?>" class="form-control"/>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="xyjzf" class="col-sm-12 control-label">协议捐赠方：<?php //var_dump($_REQUEST['xyjzf']);?></label>
+                                    <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="xyjzf[]" id="xyjzf">
+                                        <?php if($this->jjh_mg_pp_list != ""){
+                                            foreach ($this->jjh_mg_pp_list as $k => $v){?>
+                                                <option value="<?php echo $k?>" <?php
+                                                if(!empty($_REQUEST['xyjzf'])){
+                                                    foreach($_REQUEST['xyjzf'] as $key => $value){
+                                                        if($k == $value){
+                                                            echo "selected='selected'";
+                                                        }
+                                                    }
+                                                }?>><?php echo $v?></option>
+                                            <?php }}?>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="sign_time" class="col-sm-12 control-label">是否签约：</label>
+                                    是 <input type="radio" name="sfqy" value="1" <?php if($_REQUEST['sfqy']==1){echo 'checked="checked"';}?> class=""/>
+                                    否 <input type="radio" name="sfqy" value="2" <?php if($_REQUEST['sfqy']==2){echo 'checked="checked"';}?> class=""/>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="form-group col-sm-3">
+                                    <label for="jzyt" class="col-sm-12 control-label">捐赠用途：</label>
+                                    <input name="jzyt" value="<?php echo $_REQUEST['jzyt'];?>" class="form-control"/>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="bz" class="col-sm-12 control-label">备注：</label>
+                                    <input name="bz" value="<?php echo $_REQUEST['bz'];?>" class="form-control"/>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label for="order" class="col-sm-12 control-label">排序规则：</label>
+                                    <select class="form-control" name="order" id="order">
+                                        <option value="">请选择排序规则</option>
+                                        <option value="lastmodify_desc" <?php if($_REQUEST['order']=='lastmodify_desc'){echo 'selected="selected"';}?>>最后修改时间降序</option>
+                                        <option value="xyje_desc" <?php if($_REQUEST['order']=='xyje_desc'){echo 'selected="selected"';}?>>协议总捐赠金额降序</option>
+                                        <option value="xyje_asc" <?php if($_REQUEST['order']=='xyje_asc'){echo 'selected="selected"';}?>>协议总捐赠金额升序</option>
+                                        <option value="qysj_desc" <?php if($_REQUEST['order']=='qysj_desc'){echo 'selected="selected"';}?>>签约时间降序</option>
+                                        <option value="qysj_asc" <?php if($_REQUEST['order']=='qysj_asc'){echo 'selected="selected"';}?>>签约时间升序</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="form-group col-sm-3">
                                     <!-- <label for="input02"> </label>-->
                                     <input class="btn btn-primary btn-block" type="submit" value="搜   索"/>
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <!-- <label for="input02"> </label>-->
+                                    <a href="/management/zijin/newsigninfo"><input class="btn btn-primary btn-block" type="button" value="清除搜索条件"/></a>
                                 </div>
 
                     </form>
@@ -74,23 +161,35 @@
                     <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
                         <thead>
                         <tr>
-                            <td width="10%">项目名称</td>
-                            <td width="15%">协议起始年份~终止年份</td>
-                            <td width="15%">执行协议起始年份~终止年份</td>
-                            <td width="10%">签约协议</td>
+                            <td width="14%">项目名称</td>
+                            <td width="12%">协议名称</td>
+                            <td width="11%">协议起始年份~终止年份</td>
+                            <td width="11%">执行协议起始年份~终止年份</td>
+                            <td width="12%">签约协议</td>
                             <td width="10%">协议年度捐赠金额（元）</td>
                             <td width="10%">协议总捐赠金额（元）</td>
-                            <td width="10%">签约时间</td>
+                            <td width="8%">签约时间</td>
                             <td width="10%">操作</td>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
                         foreach($this->signlist as $k=>$v){?>
-                            <tr>
+                            <tr  style="background-color: <?php if($v['type'] == 1 ){echo "white";}else{echo "beige";}?>">
                                 <td>
                                     <!--<a href="/management/chouzi/index?pname=<?php /*echo $v['pname'];*/?>" target="_blank" ><?php /*echo $v['pname'];*/?></a>&nbsp;-->
-                                    <a href="/management/zijin/newaddsign?pname=<?php echo $v['pname'];?>" target="_blank" ><?php echo $v['pname'];?></a>&nbsp;
+                                    <a href="/management/zijin/newaddsign?pname=<?php echo $v['pname'];?>" target="_blank" >
+                                        <?php echo $v['pname'];?>
+                                    </a>&nbsp;
+                                </td>
+
+                                <td>
+                                    <a href="/management/zijin/signview?id=<?php echo $v['id'];?>" target="_blank">
+                                    <strong><?php if($v['type'] !=1){echo "（".$this->types_array[$v['type']]."）";}?></strong>
+                                    <strong><?php echo $v['sign_name'];?></strong>
+                                    </a>
+                                </td>
+
                                 <td>
                                     <?php
                                     $arr_xynf = json_decode($v['xynf']);
@@ -126,17 +225,14 @@
                                         }?>
                                     </a></td>
 
-                                <td><strong><?php if(!empty($v['ndjzje'])){echo number_format($v['ndjzje'],2);}else{echo "--";}?></strong></td>
+                                <td><strong><?php echo number_format((float)$v['ndjzje'],2);?></strong></td>
 
-                                <td><strong><?php if(!empty($v['xyje'])){echo number_format($v['xyje'],2);}else{echo "--";}?></strong></td>
+                                <td><strong><?php echo number_format((float)$v['xyje'],2);?></strong></td>
 
 
                                 <td><?php echo date("Y-m-d",strtotime($v['sign_time']));?></td>
 
                                 <td>
-                                    <!-- <a href="/management/zijin/rateinfo/?pm_id=<?php /*echo $v['id'];*/?>">
-                                 <button class="btn btn-greensea margin-bottom-20" type="button">编辑进度</button>
-                             </a>-->
                                     <a href="/management/zijin/editsign?id=<?php echo $v['id'];?>">
                                         <button class="btn btn-greensea margin-bottom-20" type="button">编辑签订</button>
                                     </a>

@@ -7,7 +7,7 @@
 <div class="pageheader">
 
     <h2><i class="fa fa-tachometer"></i> Dashboard
-        <span>来款认领</span></h2>
+        <span>支出认领</span></h2>
 
     <div class="breadcrumbs">
         <ol class="breadcrumb">
@@ -36,10 +36,7 @@
                               </tr>
                         </thead>
                          <tbody>
-                            <input type="hidden" name="pm_id" value="<?echo $_REQUEST['pm_id'];?>"/>
-                            <!--<input type="hidden" name="lsh" value="<?/*echo $this->zw_mg_pzfl_log[0]['lsh'];*/?>"/>
-                            <input type="hidden" name="lrrq	" value="<?/*echo $this->zw_mg_pzfl_log[0]['lrrq'];*/?>"/>
-                            <input type="hidden" name="lrr" value="<?/*echo $this->zw_mg_pzfl_log[0]['lrr'];*/?>"/>-->
+                            <input type="hidden" name="pm_id" value="<?php echo $_REQUEST['pm_id'];?>"/>
 
                             <!-- 项目相关 start-->
                             <tr>
@@ -53,45 +50,40 @@
                                                 <option <?php if($v['pname'] == $this->pm_mg_info[0]['pm_name']) $pm_id = $v['id'];?> value="<?php echo $v['id'];?>"><?php echo $v['pname'];?></option>
                                             <?php }}?>
                                     </select>
-                                    <input id="pname_info" type="hidden" name="pname" value=""/>
+                                    <input id="pname_info" type="hidden" name="pname" value="<?php echo $this->pm_mg_info[0]['pm_name'];?>"/>
                                 </td>
                             </tr>
 
-                            <!--<tr>
-                                <td>财务系统对应项目：</td>
-                                <td id="zw_xm"><input size="38" type="text" id="zw_xmmc" name="zw_xmmc" value="" readonly/></td>
-                                <input type="hidden" name="zw_xmbh" id="zw_xmbh" value=""/>
-                            </tr>-->
-                            <!-- 项目相关 end-->
-                            <!-- 部门相关信息 start-->
-
-                            <!--<tr>
-                                <td>认领到部门：</td>
-                                <td>
-                                    <select class="chosen-select-1 chosen-transparent form-control" name="pm_bmbh" id="department">
-                                        <?php /*if($this->department_list != ""){
-                                            foreach ($this->department_list as $k => $v){
-                                                */?>
-                                                <option value="<?php /*echo $v['id'];*/?>"><?php /*echo $v['pname'];*/?></option>
-                                            <?php /*}}*/?>
-                                    </select>
-                                    <input id="department_id" type="hidden" name="department_id" value=""/>
-                                </td>
-                            </tr>
-
+                            <!-- 项目相关 start-->
                             <tr>
-                                <td>财务系统对应部门：</td>
-                                <td id="zw_bm"><input size="38" type="text" id="zw_bmmc" name="zw_bmmc" readonly/></td>
-                                <input type="hidden" name="zw_bmbh" id="zw_bmbh"/>
+                                <td>认领到协议：</td>
+                                <td>
+                                    <select name="sign_id" class="chosen-select-1 chosen-transparent form-control" id="sign_id">
+                                        <option value="">请选择协议名称</option>
+                                        <?php if($this->pm_mg_signDAO != ""){
+                                            foreach ($this->pm_mg_signDAO as $k => $v){
+                                                ?>
+                                                <option value="<?php echo $v['id'];?>_<?php echo $v['pm_id'];?>_<?php echo $v['pname'];?>">
+                                                    <?php if($v['type'] !=1){echo "（".$this->types_array[$v['type']]."）";}?><?php echo $v['sign_name'];?>； 协议金额：<?php echo $v['xyje'];?>元；
+                                                </option>
+                                            <?php }}?>
+                                    </select>
+                                    <input id="pm_sign_id" type="hidden" suvalue="" name="pm_sign_id" value="<?php echo $this->pm_mg_info[0]['sign']?>"/>
+                                </td>
+                            </tr>
+
+                            <!-- 项目相关 start-->
+                            <!--<tr>
+                                <td>项目名称：</td>
+                                <td>
+                                    <input id="pname_info12" size="60" readonly="readonly" type="text" name="pname" value="<?php /*echo $this->pm_mg_info[0]['pm_name']*/?>"/>
+                                </td>
                             </tr>-->
-
-                            <!-- 部门相关信息  end-->
-
 
                             <tr>
                                 <td>项目支出类型：</td>
                                 <td>
-                                    <select class="form-control"  name="pm_pp_cate">
+                                    <select class="form-control"  name="shiyong_type">
                                         <option value="1" checked="checked">基金会列支</option>
                                         <option value="2" >转财务处</option>
                                     </select>
@@ -101,7 +93,7 @@
                             <tr>
                                 <td>项目支出日期：</td>
                                 <td>
-                                    <input size="38" type="text" id="shiyong_zhichu_datetime" name="shiyong_zhichu_datetime" value="<?echo $this->pm_mg_info[0]['shiyong_zhichu_datetime'];?>"/>
+                                    <input size="38" type="text" id="shiyong_zhichu_datetime" name="shiyong_zhichu_datetime" value="<?php echo $this->pm_mg_info[0]['shiyong_zhichu_datetime'];?>"/>
                                 </td>
                             </tr>
 
@@ -127,9 +119,20 @@
                             <tr>
                                 <td>资助人数：</td>
                                 <td>
-                                    <input size="38" type="text" id="jiangli_renshu" name="jiangli_renshu" value="<?echo $this->pm_mg_info[0]['jiangli_renshu'];?>"/>
+                                    <input size="38" type="text" id="jiangli_renshu" name="jiangli_renshu" value="<?php echo $this->pm_mg_info[0]['jiangli_renshu'];?>"/>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td>上传发放明细：</td>
+                                <td>
+                                    <input class="form-control" type="file" name="pm_files"  size="14"/><!--<font color="#0474d6" > * 相关文档已打包形式上传 格式为*.rar</font>--><br/>
+                                    <?php if($this->pm_mg_info[0]['pm_file'] != ""){?>
+                                        <a href="<?php echo $this->pm_mg_info[0]['pm_file'];?>">已经存在该文件如果再次上传,那么之前文件将被覆盖    -- 点击下载源文件</a>
+                                    <?php }?>
+                                </td>
+                            </tr>
+
 
                             <!--<tr>
                                 <td>是否执行：</td>
@@ -142,7 +145,8 @@
                             </tr>
 
                             <tr>
-                                <input  onclick="javascript:noTips();" value="点击认领" class="btn btn-primary btn-block">
+                                <td></td>
+                                <td><input type="submit" value="点击认领" class="btn btn-primary btn-block"></td>
                             </tr>
 
                         </tbody>
@@ -155,17 +159,26 @@
          
 		 </div>
 
-
         <script language="javascript">
             $("#xmxxbj").addClass("open");
 
             $(document).ready(function(){
+                // 选择协议时触发
+                $(".chosen-select-1").change(function(){
+                    var sid = $("#sign_id").val();
+                    var arr = sid.split('_');
+                    if($(".chosen-single span").html() != "请选择协议名称"){
+                        $("#pm_sign_id").val(arr[0]);
+                        //$("#pname_info12").val( arr[2] );
+                    }
+                });
 
                 $(".addfapiao").hide();
 
                 // 切换项目ajax对应财务项目信息
                 $("#pname").change(function(){
                     GetZWxm($(this).children('option:selected').val());
+                    $("#pname_info").val($(".chosen-single span").html());
                 });
 
                 // 切换部门ajax对应财务部门信息
@@ -220,7 +233,7 @@
                 });
             }
 
-            /*function GetZWbm(pm_pid){
+            function GetZWbm(pm_pid){
                 $.ajax({
                     type:'post',
                     url: '/management/zijin/ajaxgetzwbm?pm_pid='+pm_pid,
@@ -243,7 +256,7 @@
                     },
                     error:function(){}
                 });
-            }*/
+            }
 
             $("#pname").val('<?php echo $pm_id;?>');//设置值
             $("#pname").trigger("chosen:updated");  //更新选项
