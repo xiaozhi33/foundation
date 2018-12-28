@@ -288,6 +288,28 @@ class Management_supportController extends BaseController {
         $this->alert_go("删除成功！", '/management/support/pmlist?id='.$support_id);
     }
 
+    public function editpwdAction()
+    {
+        echo $this->view->render("index/header.phtml");
+        echo $this->view->render("support/editpwd.phtml");
+        echo $this->view->render("index/footer.phtml");
+    }
+
+
+    public function editrspwdAction(){
+        $id = $_REQUEST['id'];
+        $pwd = $_REQUEST['pwd'];
+
+        if($id !="" && $pwd != ""){
+            $my_admin = $this->orm->createDAO("_support_college_user")->findId($id);
+            $my_admin ->password = substr(md5(serialize($pwd)), 0, 32);
+            $my_admin ->save($this->dbhelper);
+            $this->alert_go("密码修改成功","/management/support");
+        }else{
+            $this->alert_back("请输入管理员名称或密码");
+        }
+    }
+
     //权限
     public function acl()
     {
@@ -301,7 +323,9 @@ class Management_supportController extends BaseController {
             'pmlist',
             'savepmlist',
             'addpm',
-            'delpm'
+            'delpm',
+            'editpwd',
+            'editrspwd'
         );
         if (in_array($action, $except_actions)) {
             return;
