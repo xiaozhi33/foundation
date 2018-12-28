@@ -2366,8 +2366,7 @@
                 'editcompare',
                 'editrscompare',
                 'repminfo',
-                'fapiao'
-                'repminfo',
+                'fapiao',
                 'application-project',
                 'support-info',
                 'savepinfo',
