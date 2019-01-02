@@ -160,7 +160,11 @@
              * 年度捐赠收入/公益支出情况
              * @params $year 统计年度
              */
-            if(!empty($_REQUEST['year'])){$years = $_REQUEST['year'];}else{$years = date("Y",time());}; //默认为当年统计
+            if(!empty($_REQUEST['year'])){
+                $years = $_REQUEST['year'];
+            }else{
+                $years = date("Y",time()) - 1;
+            }; //默认为当年统计
 
             $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
             $pm_mg_infoDAO ->withPm_mg_chouzi(array("pm_name"=>"pname"));
