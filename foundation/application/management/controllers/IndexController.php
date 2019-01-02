@@ -52,10 +52,13 @@
 
             $create_p_count = count($chouziDAO);
 
-            // todolist  待办事宜
-            /*$pm_mg_todolistDAO = $this->orm->createDAO("pm_mg_todolist");
+            // todolist  30天内待办事宜
+            $pm_mg_todolistDAO = $this->orm->createDAO("pm_mg_todolist");
+            $pm_mg_todolistDAO ->selectLimit .= " and date_sub(curdate(), INTERVAL 30 DAY) <= date(`end_time`)";
+            $pm_mg_todolistDAO ->findStatus(0);
+            $pm_mg_todolistDAO ->selectLimit .= " order by end_time ASC limit 0,8";
             $pm_mg_todolistDAO = $pm_mg_todolistDAO ->get();
-            $this->view->assign('todolist', $pm_mg_todolistDAO);*/
+            $this->view->assign('todolist', $pm_mg_todolistDAO);
 
             // 待办事宜提醒
             /*$pm_mg_todolistDAO = $this->orm->createDAO("pm_mg_todolist");
@@ -166,7 +169,11 @@
              * 年度捐赠收入/公益支出情况
              * @params $year 统计年度
              */
-            if(!empty($_REQUEST['year'])){$years = $_REQUEST['year'];}else{$years = date("Y",time());}; //默认为当年统计
+            if(!empty($_REQUEST['year'])){
+                $years = $_REQUEST['year'];
+            }else{
+                $years = date("Y",time()) - 1;
+            }; //默认为当年统计
 
             $pm_mg_infoDAO = $this->orm->createDAO("pm_mg_info");
             $pm_mg_infoDAO ->withPm_mg_chouzi(array("pm_name"=>"pname"));

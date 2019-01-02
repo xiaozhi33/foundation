@@ -14,6 +14,19 @@
             $zcsj = $_REQUEST['zcsj'];
             $create_time = $_REQUEST['create_time'];
 
+            // 我的收藏
+            $pm_mg_collectDAO = $this->orm->createDAO("pm_mg_collect");
+            $pm_mg_collectDAO ->findUid($this->admininfo['admin_info']['id']);
+            $pm_mg_collectDAO = $pm_mg_collectDAO ->select(" pid")->get();
+
+            $_pm_mg_collectDAO = array();
+            if(!empty($pm_mg_collectDAO)){
+                foreach($pm_mg_collectDAO as $key => $value){
+                    $_pm_mg_collectDAO[] = $value['pid'];
+                }
+            }
+            $this->view->assign('collectlist', $_pm_mg_collectDAO);
+
             $this->view->assign("pname", $pname);
             $this->view->assign("cate", $cate);
             $this->view->assign("department", $department);
@@ -24,6 +37,15 @@
 
             $chouziinfo ->joinTable (" left join pm_mg_rate as r on r.pm_id = pm_mg_chouzi.id");
             $chouziinfo ->joinTable (" left join pm_mg_info as pi on pi.pm_name = pm_mg_chouzi.pname");
+
+            //var_dump(implode(',',$_pm_mg_collectDAO));exit();
+
+
+            // 只显示收藏
+            if($_REQUEST['collect'] == 1 && !empty($_pm_mg_collectDAO)){
+                $chouziinfo ->selectLimit .= " AND FIND_IN_SET(pm_mg_chouzi.id, '".implode(',',$_pm_mg_collectDAO)."')";
+            }
+
             $chouziinfo ->selectField(" pm_mg_chouzi.*");
 
             if ($pname != "") {
@@ -2362,6 +2384,46 @@
             return $SQL_DAO[0]['ids'];
         }
 
+        /**
+         * @name 修改是否收藏
+         * @param $id  项目id
+         * @param $collect 是否收藏
+         */
+        public function ajaxcollectAction(){
+            $pid = (int)$_REQUEST['id'];
+            $collect = $_REQUEST['params_val']; // 状态1、0
+            $uid = $this->admininfo['admin_info']['id'];
+
+            $pm_mg_collectDAO = $this->orm->createDAO("pm_mg_collect");
+            $pm_mg_collectDAO ->findPid($pid);
+            $pm_mg_collectDAO ->findUid($uid);
+            $pm_mg_collectDAO = $pm_mg_collectDAO->get();
+
+            if(!empty($pm_mg_collectDAO)){
+                if($collect == 1){
+                    $_pm_mg_collectDAO = $this->orm->createDAO("pm_mg_collect");
+                    $_pm_mg_collectDAO ->uid = $uid;
+                    $_pm_mg_collectDAO ->pid = $pid;
+                    $_pm_mg_collectDAO ->lastmodify = time();
+                    $_pm_mg_collectDAO ->save();
+                }else {
+                    $_pm_mg_collectDAO = $this->orm->createDAO("pm_mg_collect");
+                    $_pm_mg_collectDAO ->findPid($pid);
+                    $_pm_mg_collectDAO ->findUid($uid);
+                    $_pm_mg_collectDAO ->delete();
+                }
+            }else {
+                $_pm_mg_collectDAO = $this->orm->createDAO("pm_mg_collect");
+                $_pm_mg_collectDAO ->uid = $uid;
+                $_pm_mg_collectDAO ->pid = $pid;
+                $_pm_mg_collectDAO ->lastmodify = time();
+                $_pm_mg_collectDAO ->save();
+            }
+
+            echo json_encode(array("success" => "true"));
+            exit();
+        }
+
         public function tosavefeedbackAction()
         {
             if(empty($_REQUEST['contents']) || empty($_REQUEST['id'])){
@@ -2411,6 +2473,8 @@
                 'savepinfoseven',
                 'change-limit',
                 'tosavefeedback',
+                'fapiao',
+                'ajaxcollect',
             );
             if (in_array($action, $except_actions)) {
                 return;
