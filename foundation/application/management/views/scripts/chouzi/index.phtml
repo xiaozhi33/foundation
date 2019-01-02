@@ -277,9 +277,17 @@
 
                              <td style="padding: 2px;">
                                  <?php if($this->pcatelist != ""){
+                                     $_count = count(explode(',',$v['cate']));
+                                     $iii = 1;
                                      foreach($this->pcatelist as $key => $value){
                                          if(in_array($value['t_cate_id'],explode(',',$v['cate']))){
-                                             echo $value['t_cate_name']. '，';
+                                             if($iii < $_count){
+                                                 echo $value['t_cate_name']. '，';
+                                                 $iii ++;
+                                             }else{
+                                                 echo $value['t_cate_name'];
+                                                 $iii ++;
+                                             }
                                          }
                                      }
                                  }?>&nbsp;
@@ -297,7 +305,7 @@
                              </td>-->
 
                              <td>
-                                 <?php echo number_format(sprintf("%.2f",$v[srhj]),2);?> / <a href="/management/zijin/newaddsign?pname=<?php echo $v['pname'];?>" target="_blank"><?php echo number_format(sprintf("%.2f",$v[xyzje]),2);?></a> / <?php echo number_format(sprintf("%.2f",$v[xmye]),2);?>
+                                 <?php echo number_format(sprintf("%.2f",$v['srhj']),2);?> / <a href="/management/zijin/newaddsign?pname=<?php echo $v['pname'];?>" target="_blank"><?php echo number_format(sprintf("%.2f",$v['xyzje']),2);?></a> / <?php echo number_format(sprintf("%.2f",$v['xmye']),2);?>
                              </td>
 
                              <!--<td>
