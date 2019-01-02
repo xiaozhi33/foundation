@@ -50,10 +50,13 @@
 
             $create_p_count = count($chouziDAO);
 
-            // todolist  待办事宜
-            /*$pm_mg_todolistDAO = $this->orm->createDAO("pm_mg_todolist");
+            // todolist  30天内待办事宜
+            $pm_mg_todolistDAO = $this->orm->createDAO("pm_mg_todolist");
+            $pm_mg_todolistDAO ->selectLimit .= " and date_sub(curdate(), INTERVAL 30 DAY) <= date(`end_time`)";
+            $pm_mg_todolistDAO ->findStatus(0);
+            $pm_mg_todolistDAO ->selectLimit .= " order by end_time ASC limit 0,8";
             $pm_mg_todolistDAO = $pm_mg_todolistDAO ->get();
-            $this->view->assign('todolist', $pm_mg_todolistDAO);*/
+            $this->view->assign('todolist', $pm_mg_todolistDAO);
 
             // 待办事宜提醒
             /*$pm_mg_todolistDAO = $this->orm->createDAO("pm_mg_todolist");

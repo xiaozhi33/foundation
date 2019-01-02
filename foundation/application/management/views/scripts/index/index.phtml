@@ -814,10 +814,10 @@
               <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
 
                   <!-- tile -->
-                  <!--<section class="tile transparent">
+                  <section class="tile transparent">
                       <div class="tile-header color redbrown rounded-top-corners text-center">
                           <button class="btn pull-left btn-black-transparent" type="button"><i class="fa fa-caret-square-o-down"></i></button>
-                          <h2>待办事宜 <strong>Todo List</strong></h2>
+                          <h2>30天内待办事宜 <strong>Todo List</strong></h2>
                           <div class="controls">
                               <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
                               <a href="#" class="remove"><i class="fa fa-times"></i></a>
@@ -827,18 +827,59 @@
                       <div class="tile-body color transparent-black rounded-bottom-corners">
                           <input type="text" placeholder="添加新任务..." class="w100p bottommargin">
                           <ul class="nolisttypes" id="todolist">
-                              <?php /*foreach($this->todolist as $k => $v){*/?>
+                              <?php foreach($this->todolist as $k => $v){?>
                                   <li>
                                       <div class="checkbox check-transparent">
-                                          <input type="checkbox" value="<?php /*echo $v['id'];*/?>" onclick="savetodoliststatus(<?php /*echo $v['id'];*/?>,<?php /*echo $v['status'];*/?>)" <?php /*if($v['status'] == 1){echo "checked='checked'";}*/?> id="todo-0<?php /*echo $v['id'];*/?>">
-                                          <label for="todo-0<?php /*echo $v['id'];*/?>"><?php /*echo $v['title'];*/?></label>
+                                          <input type="checkbox" value="<?php echo $v['id'];?>" onclick="savetodoliststatus(<?php echo $v['id'];?>,<?php echo $v['status'];?>)" <?php if($v['status'] == 1){echo "checked='checked'";}?> id="todo-0<?php echo $v['id'];?>">
+                                          <label for="todo-0<?php echo $v['id'];?>"><?php echo $v['title'];?></label>
                                       </div>
                                   </li>
-                              <?php /*}*/?>
+                              <?php }?>
                           </ul>
                       </div>
-                  </section>-->
+                  </section>
                   <!-- /tile -->
+
+                  <?php /*if(!empty($this->tixing)){*/?><!--
+                  <section class="tile color transparent-white">
+
+                      <div class="tile-header">
+                          <h1>待办工作提醒<strong>TodoList</strong> </h1>
+                          <div class="controls">
+                              <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                              <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                          </div>
+                      </div>
+
+                      <div class="tile-body">
+                          <div class="panel-group accordion" id="multi-accordion">
+                              <?php /*$colorarray = array(2=>'drank', 1=>'dutch',4=>'blue',0=>'blue',5=>'green',3=>'red');*/?>
+
+                              <?php /*foreach($this->tixing as $k => $v){*/?>
+                              <div class="panel panel-<?php /*echo $colorarray[$k];*/?>">
+                                  <div class="panel-heading">
+                                      <h4 class="panel-title">
+                                          <a data-toggle="collapse" href="#multicollapse<?php /*echo $v['id'];*/?>" class="collapsed">
+                                              <?php /*echo $v['title'];*/?>
+                                          </a>
+                                      </h4>
+                                  </div>
+                                  <div id="multicollapse<?php /*echo $v['id'];*/?>" class="panel-collapse collapse" style="height: 0px;">
+                                      <div class="panel-body">
+                                          <div>开始时间：<?php /*echo $v['start_time'];*/?> - 结束时间：<?php /*echo $this->tixing[0]['end_time'];*/?></div>
+                                          <div>报送部门：<?php /*echo $v['department'];*/?></div>
+                                          <div>报送途径：<?php /*echo $v['tujing'];*/?></div>
+                                          <div>所需材料：<?php /*echo $v['files'];*/?></div>
+                                          <div>具体流程：<?php /*echo $v['process'];*/?></div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <?php /*}*/?>
+                          </div>
+                      </div>
+
+                  </section>
+                  --><?php /*}*/?>
 
                 <!-- tile -->
                   <section class="tile color transparent-black">
