@@ -327,10 +327,10 @@
                 }
 
                 // 项目名称必须为中文或中文字符
-                /*$_pname = $this->match_chinese($pname);
+                $_pname = $this->match_chinese($pname);
                 if((string)$pname !== (string)$_pname){
                     alert_back("项目名称必须为中英文或数字！");
-                }*/
+                }
 
                 $bianhao = "jjh" . date("Yhdhis");  //项目编号 自动编号 编号内容为年月日时分秒
 
