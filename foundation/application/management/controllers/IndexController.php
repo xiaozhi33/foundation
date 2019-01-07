@@ -2,8 +2,61 @@
 	require_once("BaseController.php");
 	class Management_indexController extends BaseController {
 		private $dbhelper;
+
+        public function isremind($title){
+            $pm_mg_remindDAO = $this->orm->createDAO("pm_mg_remind");
+            $pm_mg_remindDAO = $pm_mg_remindDAO ->findTitle($title)->get();
+            if(empty($pm_mg_remindDAO)){
+                return true;
+            }else {
+                return false;
+            }
+        }
 		public function indexAction(){
 			SessionUtil::checkmanagement();
+
+            // task 计划任务 todoList
+            // 1 项目协议协议到账时间未到账提醒
+            $pm_mg_signDAO = $this->orm->createDAO("pm_mg_sign");
+            $pm_mg_signDAO ->selectLimit .= " AND ndjzje>0";
+            $pm_mg_signDAO ->selectLimit .= " AND date_sub(curdate(), INTERVAL 30 DAY) <= date(`xydz_time`)";
+            $pm_mg_sign1DAO = $pm_mg_signDAO ->get();
+
+            // 处理 ****-01-01
+            $pm_mg_signDAO = $this->orm->createDAO("pm_mg_sign");
+            $pm_mg_signDAO ->selectLimit .= " AND ndjzje>0";
+            $pm_mg_signDAO ->selectLimit .= " AND xydz_time like '%****%'";
+            $pm_mg_sign2DAO = $pm_mg_signDAO ->get();
+
+            if(!empty($pm_mg_sign2DAO)){
+                foreach($pm_mg_sign2DAO as $k => $v){
+                    $xynf = json_decode($v['xynf']);
+                    if(strtotime($xynf[count($xynf)-1]) > time()){
+                        $v['xydz_time'] = str_replace("****", date("Y",time()), $v['xydz_time']);
+                        if( strtotime("+1 month") >= strtotime($v['xydz_time'])){
+                            $_pm_mg_sign2DAO[] = $v;
+                        }
+                    }
+                }
+            }
+            $_pm_mg_signDAO = array_merge($pm_mg_sign1DAO, $_pm_mg_sign2DAO);
+            // var_dump($_pm_mg_signDAO);exit();
+
+            if(!empty($_pm_mg_signDAO)){
+                foreach($_pm_mg_signDAO as $key => $value){
+                    if($this->isremind($value['sign_name'].'；协议到账日期：'.$value['xydz_time']."；金额：".$value['ndjzje'].'元')){
+                        $pm_mg_remindDAO = $this->orm->createDAO("pm_mg_remind");
+                        $pm_mg_remindDAO ->title = $value['sign_name'].'；协议到账日期：'.$value['xydz_time']."；金额：".$value['ndjzje'].'元';
+                        $pm_mg_remindDAO ->type = 1;
+                        $pm_mg_remindDAO ->start_time = time();
+                        $pm_mg_remindDAO ->end_time = $value['xydz_time'];
+                        $pm_mg_remindDAO ->url = "/management/chouzi/repminfo?id=".$value['pm_id'];
+                        $pm_mg_remindDAO ->status = 0;
+                        $pm_mg_remindDAO ->lastmodify = time();
+                        $pm_mg_remindDAO ->save();
+                    }
+                }
+            }
 
             // 系统信息 - 磁盘占用空间数
             $free_df = disk_free_space("/");
@@ -37,10 +90,10 @@
             $chouziDAO = $chouziDAO ->get();
 
             $total = count($chouziDAO);
-            $pageDAO = new pageDAO();
+            /*$pageDAO = new pageDAO();
             $pageDAO = $pageDAO->pageHelper($chouziDAO, null, "/management/index/index", null, 'get', 7, 5);
             $pages = $pageDAO['pageLink']['all'];
-            $pages = str_replace("/index.php", "", $pages);
+            $pages = str_replace("/index.php", "", $pages);*/
 
             // 今年新建立项目
             $chouziDAO = $this->orm->createDAO("pm_mg_chouzi");
@@ -51,12 +104,11 @@
             $create_p_count = count($chouziDAO);
 
             // todolist  30天内待办事宜
-            $pm_mg_todolistDAO = $this->orm->createDAO("pm_mg_todolist");
-            $pm_mg_todolistDAO ->selectLimit .= " and date_sub(curdate(), INTERVAL 30 DAY) <= date(`end_time`)";
-            $pm_mg_todolistDAO ->findStatus(0);
-            $pm_mg_todolistDAO ->selectLimit .= " order by end_time ASC limit 0,8";
-            $pm_mg_todolistDAO = $pm_mg_todolistDAO ->get();
-            $this->view->assign('todolist', $pm_mg_todolistDAO);
+            $pm_mg_remindDAO = $this->orm->createDAO("pm_mg_remind");
+            $pm_mg_remindDAO ->selectLimit .= " and date_sub(curdate(), INTERVAL 30 DAY) <= date(`end_time`)";
+            $pm_mg_remindDAO ->findStatus(0);
+            //$pm_mg_remindDAO ->selectLimit .= " order by end_time ASC limit 0,8";
+            $pm_mg_remindDAO->getPager(array('path' => '/management/index/index/','perPage'=> '5'))->assignTo($this->view);
 
             // 待办事宜提醒
             /*$pm_mg_todolistDAO = $this->orm->createDAO("pm_mg_todolist");
@@ -342,8 +394,8 @@
             $departmentlist = $departmentlist->get($this->dbhelper);
             $this->view->assign("departmentlist",$departmentlist);
 
-            $this->view->assign('chouzilist', $pageDAO['pageData']);
-            $this->view->assign('page', $pages);
+            //$this->view->assign('chouzilist', $pageDAO['pageData']);
+            //$this->view->assign('page', $pages);
             $this->view->assign('total', $total);
 
 			echo $this->view->render("index/header.phtml");
@@ -526,10 +578,10 @@
          * 修改todolist状态
          */
         public function savetodolistAction(){
-            $pm_mg_todolistDAO = $this->orm->createDAO('pm_mg_todolist');
-            $pm_mg_todolistDAO ->findId($_REQUEST["id"]);
-            $pm_mg_todolistDAO ->status = $_REQUEST["status"]==0?1:0;
-            $pm_mg_todolistDAO->save();
+            $pm_mg_remindDAO = $this->orm->createDAO('pm_mg_remind');
+            $pm_mg_remindDAO ->findId($_REQUEST["id"]);
+            $pm_mg_remindDAO ->status = $_REQUEST["status"]==0?1:0;
+            $pm_mg_remindDAO->save();
             exit();
         }
 	}

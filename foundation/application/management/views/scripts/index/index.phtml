@@ -825,18 +825,32 @@
                       </div>
 
                       <div class="tile-body color transparent-black rounded-bottom-corners">
-                          <input type="text" placeholder="添加新任务..." class="w100p bottommargin">
+                          <!--<input type="text" placeholder="添加新任务..." class="w100p bottommargin">-->
                           <ul class="nolisttypes" id="todolist">
-                              <?php foreach($this->todolist as $k => $v){?>
+                              <?php //var_dump($this->page);?>
+                              <?php foreach($this->pageData as $k => $v){?>
                                   <li>
                                       <div class="checkbox check-transparent">
-                                          <input type="checkbox" value="<?php echo $v['id'];?>" onclick="savetodoliststatus(<?php echo $v['id'];?>,<?php echo $v['status'];?>)" <?php if($v['status'] == 1){echo "checked='checked'";}?> id="todo-0<?php echo $v['id'];?>">
-                                          <label for="todo-0<?php echo $v['id'];?>"><?php echo $v['title'];?></label>
+                                          <input type="checkbox" value="<?php echo $v['id'];?>" onclick="if(confirm('你确定提交吗？提交确认后，该条事宜将变为已读状态！')){savetodoliststatus(<?php echo $v['id'];?>,<?php echo $v['status'];?>)}else{window.location.reload();}" <?php if($v['status'] == 1){echo "checked='checked'";}?> id="todo-0<?php echo $v['id'];?>" />
+                                          <a href="<?php echo $v['url'];?>" target="_blank"><label for="todo-0<?php echo $v['id'];?>">
+                                                  <?php if($v['type'] == 1){
+                                                      echo "<fout style='color:red;'>[ 未到账 ]</fout>";
+                                                  }?>
+                                                  <?php echo $v['title'];?>
+
+                                          </label></a>
                                       </div>
                                   </li>
                               <?php }?>
                           </ul>
                       </div>
+
+                      <?php if(count($this->pageData) > 0){?>
+                      <div class="page tile-body color transparent-black rounded-bottom-corners" align="center" style="color:#000000;padding-top: 0px;font-size: 14px;">
+                          共  <?php echo $this->totalItems;?> 条待办事宜 <?php echo $this->page['all'];?>
+                      </div>
+                      <?php }?>
+
                   </section>
                   <!-- /tile -->
 
