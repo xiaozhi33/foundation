@@ -123,6 +123,17 @@
 
                     <div class="row">
 
+                        <div class="form-group col-sm-4">
+                            <label for="input02">项目类型：</label>
+                            <select class="form-control" name="cate">
+                                <option value="" >请选择类型</option>
+                                <?php if($this->pcatelist != ""){
+                                    foreach ($this->pcatelist as $k => $v){?>
+                                        <option value="<?php echo $v['id']?>" <?php if($_REQUEST['cate']==$v['id']){echo "selected='selected'";}?>><?php echo $v['catename']?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+
                         <?php
                         /**
                          * 递归实现无限极分类
@@ -146,11 +157,11 @@
                         }
                         ?>
 
-                        <div class="form-group col-sm-4">
-                            <label for="input02">项目类型：<?php //print_r($_REQUEST['pm_cate'])?></label>
+                        <!--<div class="form-group col-sm-4">
+                            <label for="input02">项目类型：<?php /*//print_r($_REQUEST['pm_cate'])*/?></label>
                             <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_cate[]" id="pm_cate">
                                 <option value="" >请选择项目类型</option>
-                                <?php if($this->pcatelist != ""){
+                                <?php /*if($this->pcatelist != ""){
                                     $tree = generateTree($this->pcatelist, 0, 0);
                                     foreach ($tree as $val){
                                         echo $str .='<option value="'.$val['t_cate_id'].'"';
@@ -162,9 +173,9 @@
                                         echo $str;
                                         $str = '';
                                     }
-                                }?>
+                                }*/?>
                             </select>
-                        </div>
+                        </div>-->
 
                         <div class="form-group col-sm-3">
                             <label for="input01">所属部门：</label>
@@ -275,8 +286,12 @@
                                  }?>&nbsp;
                              </td>
 
-                             <td style="padding: 2px;">
-                                 <?php if($this->pcatelist != ""){
+                             <td style="padding: 2px;"><?php  foreach ($this->pcatelist as $kk => $vv){
+                                     if($vv['id'] == $v['cate']){ echo $vv['catename'];}
+                                 }?>&nbsp;</td>
+
+                             <!--<td style="padding: 2px;">
+                                 <?php /*if($this->pcatelist != ""){
                                      $_count = count(explode(',',$v['cate']));
                                      $iii = 1;
                                      foreach($this->pcatelist as $key => $value){
@@ -290,8 +305,8 @@
                                              }
                                          }
                                      }
-                                 }?>&nbsp;
-                             </td>
+                                 }*/?>&nbsp;
+                             </td>-->
 
                              <!--<td>
                                  <?php /* foreach ($this->jjh_mg_pp_list as $kk => $vv){

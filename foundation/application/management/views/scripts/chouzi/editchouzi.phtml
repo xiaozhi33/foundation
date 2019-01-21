@@ -97,12 +97,12 @@
                         }
                     ?>
 
-					<div class="form-group">
+					<!--<div class="form-group">
 							<label class="col-sm-2 control-label" for="input03">项目分类：</label>
 							<div class="col-sm-4">
                                 <select class="chosen-select-1 chosen-transparent form-control" multiple data-live-search="false" name="pm_cate[]" id="pm_cate">
                                     <option value="" >请选择项目类型</option>
-                                    <?php if($this->pcatelist != ""){
+                                    <?php /*if($this->pcatelist != ""){
                                         $tree = generateTree($this->pcatelist, 0, 0);
                                         foreach ($tree as $val){
                                             echo $str .='<option value="'.$val['t_cate_id'].'"';
@@ -114,11 +114,25 @@
                                             echo $str;
                                             $str = '';
                                         }
-                                    }?>
+                                    }*/?>
                                 </select>
 							</div>
 							<span class="col-sm-1" > * </span>
-					</div>
+					</div>-->
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input03">项目分类：</label>
+                        <div class="col-sm-4">
+                            <select class="chosen-select chosen-transparent form-control" name="pm_cate">
+                                <option value="" >请选择项目分类</option>
+                                <?php if($this->pcatelist != ""){
+                                    foreach ($this->pcatelist as $k => $v){?>
+                                        <option value="<?php echo $v['id']?>" <?php if($this->chouzi[0]['cate'] == $v['id']){echo "selected='selected'";}?>><?php echo $v['catename']?></option>
+                                    <?php }}?>
+                            </select>
+                        </div>
+                        <span class="col-sm-1" > * </span>
+                    </div>
 
 
                     <div class="form-group transparent-editor">
