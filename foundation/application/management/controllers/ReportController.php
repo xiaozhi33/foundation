@@ -1508,8 +1508,8 @@
                 }
 
                 // 最后一次统计合计
-                $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . round($shouru,2));
-                $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . round($zhichu,2));
+                $zhichutj->setActiveSheetIndex(0)->setCellValue('E' . $ii, "来款合计" . round($shouru,2));
+                $zhichutj->setActiveSheetIndex(0)->setCellValue('H' . $ii, "支出合计" . round($zhichu,2));
                 $zhichutj->setActiveSheetIndex(0)->setCellValue('J' . $ii, "余额" . $remaining_sum);
 
                 // 统计总体的收入和支出 － 多项目统计时才统计这一项
@@ -1603,8 +1603,8 @@
                     $zhichu += $v['shiyong_zhichu_jiner'];
                     $shouru += $v['zijin_daozheng_jiner'];
                 }
-                $zhichutj->setActiveSheetIndex(0)->setCellValue('D' . $ii, "来款合计" . round($shouru,2));
-                $zhichutj->setActiveSheetIndex(0)->setCellValue('F' . $ii, "支出合计" . round($zhichu,2));
+                $zhichutj->setActiveSheetIndex(0)->setCellValue('E' . $ii, "来款合计" . round($shouru,2));
+                $zhichutj->setActiveSheetIndex(0)->setCellValue('H' . $ii, "支出合计" . round($zhichu,2));
                 $remaining_sum = '';
                 if($end != ''){
                     // 统计结束日期的项目所有来款 - 所有支出
