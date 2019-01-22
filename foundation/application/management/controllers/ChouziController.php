@@ -588,7 +588,8 @@
                 $bianhao = HttpUtil::postString("bianhao");  //项目编号
                 $pname = HttpUtil::postString("pname");      //项目名称
                 $department = HttpUtil::postString("department");   //相关部门
-                $pm_cate = implode(",",$_REQUEST["pm_cate"]);  //项目分类
+                $pm_cate = $_REQUEST["pm_cate"];
+                //$pm_cate = implode(",",$_REQUEST["pm_cate"]);  //项目分类
                 $tuidongqi = HttpUtil::postString("tuidongqi");     //项目推动期
                 $fuhuaqi = HttpUtil::postString("fuhuaqi");  //项目孵化期
                 $liuben = HttpUtil::postString("liuben");  //项目孵化期
