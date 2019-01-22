@@ -1389,11 +1389,11 @@
 					->setCellValue('C1', '项目名称')
 					->setCellValue('D1', '来款时间')
 					->setCellValue('E1', '来款金额')
-					->setCellValue('F1', '支出时间')
-					->setCellValue('G1', '支出金额')
-                    ->setCellValue('H1', '项目类型')
-                    ->setCellValue('I1', '所属部门')
-                    ->setCellValue('J1', '来款方')
+					->setCellValue('F1', '来款方')
+					->setCellValue('G1', '支出时间')
+                    ->setCellValue('H1', '支出金额')
+                    ->setCellValue('I1', '项目类型')
+                    ->setCellValue('J1', '所属部门')
                     ->setCellValue('K1', '项目负责人');
 
 				$ii = 2;
