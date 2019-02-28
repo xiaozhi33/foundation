@@ -294,6 +294,7 @@
         public function addchouziAction()
         {
             try{
+                error_reporting(E_ALL);
                 echo $this->view->render("index/header.phtml");
                 echo $this->view->render("chouzi/addchouzi.phtml");
                 echo $this->view->render("index/footer.phtml");
