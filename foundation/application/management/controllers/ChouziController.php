@@ -335,7 +335,8 @@
                 $bianhao = "jjh" . date("Yhdhis");  //项目编号 自动编号 编号内容为年月日时分秒
 
                 $department = HttpUtil::postString("department");   //相关部门
-                $pm_cate = implode(",",$_REQUEST["pm_cate"]);  //项目分类
+                //$pm_cate = implode(",",$_REQUEST["pm_cate"]);  //项目分类
+                $pm_cate = $_REQUEST["pm_cate"];
                 $tuidongqi = HttpUtil::postString("tuidongqi");     //项目推动期
                 $fuhuaqi = HttpUtil::postString("fuhuaqi");  //项目孵化期
                 $liuben = HttpUtil::postString("liuben");  //项目孵化期
