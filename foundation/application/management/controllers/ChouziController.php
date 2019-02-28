@@ -294,8 +294,6 @@
         public function addchouziAction()
         {
             try{
-                error_reporting(E_ALL);
-                echo "test info!";exit();
                 echo $this->view->render("index/header.phtml");
                 echo $this->view->render("chouzi/addchouzi.phtml");
                 echo $this->view->render("index/footer.phtml");
@@ -1417,19 +1415,19 @@
             $this->view->assign("admininfo",$this->admininfo);
 
 			//项目分类
-			$pcatelist = new jjh_mg_cateDAO();
+			/*$pcatelist = new jjh_mg_cateDAO();
 			$pcatelist =  $pcatelist ->get($this->dbhelper);
-			$this->view->assign("pcatelist",$pcatelist);
+			$this->view->assign("pcatelist",$pcatelist);*/
 
-           /* $cates = $this->orm->createDAO('pm_mg_category')->order('cate_order desc,t_cate_id asc')->get();
+            $cates = $this->orm->createDAO('pm_mg_category')->order('cate_order desc,t_cate_id asc')->get();
             $prepare_cate = array();
             foreach($cates as $cate) {
                 $prepare_cate[$cate['t_cate_pid']][] = $cate;
             }
 
-            $this->view->pcatelist = $cates;*/
-            /*unset($cates);
-            $this->view->pcatelist = $prepare_cate;*/
+            $this->view->pcatelist = $cates;
+            unset($cates);
+            $this->view->pcatelist = $prepare_cate;
 			
 			//所属部门
 			$departmentlist = new jjh_mg_departmentDAO();
