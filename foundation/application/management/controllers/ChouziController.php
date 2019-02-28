@@ -293,9 +293,14 @@
 
         public function addchouziAction()
         {
-            echo $this->view->render("index/header.phtml");
-            echo $this->view->render("chouzi/addchouzi.phtml");
-            echo $this->view->render("index/footer.phtml");
+            try{
+                echo $this->view->render("index/header.phtml");
+                echo $this->view->render("chouzi/addchouzi.phtml");
+                echo $this->view->render("index/footer.phtml");
+            }catch(Exception $e){
+                throw $e;
+                exit();
+            }
         }
 
         /**
