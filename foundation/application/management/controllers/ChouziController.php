@@ -1425,8 +1425,8 @@
                 $prepare_cate[$cate['t_cate_pid']][] = $cate;
             }
 
-            $this->view->pcatelist = $cates;
-            unset($cates);
+            /*$this->view->pcatelist = $cates;
+            unset($cates);*/
             $this->view->pcatelist = $prepare_cate;
 			
 			//所属部门
