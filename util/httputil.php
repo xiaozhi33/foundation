@@ -70,8 +70,6 @@ class HttpUtil{
             $value = str_replace("'","''",$value);
             $value = str_replace('"','\"',$value);
 
-            var_dump($value);exit();
-
             $keyword = 'select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile|script|document|eval|<|>';
             $arr = explode( '|', $keyword );
 
@@ -85,7 +83,7 @@ class HttpUtil{
                 }
             }
 
-            $value = str_ireplace( $arr, '', $value );
+            echo $value = str_ireplace( $arr, '', $value );exit();
 
             if ( !empty( $value ) ) {
                 if (!get_magic_quotes_gpc()) { // 判断magic_quotes_gpc是否为打开
