@@ -57,47 +57,50 @@ class HttpUtil{
      * 2007-12-19
      */
     public static function getString($field){
+        try{
+            $value = $_GET[$field];
 
-        $value = $_GET[$field];
+            if(isset($value)){
 
-        if(isset($value)){
+                $value = strval($value);
+                $value = stripslashes($value);
+                $value = trim($value);
+                $value = strip_tags($value);
+                $value = str_replace("\\","\\\\",$value);
+                $value = str_replace("'","''",$value);
+                $value = str_replace('"','\"',$value);
 
-            $value = strval($value);
-            $value = stripslashes($value);
-            $value = trim($value);
-            $value = strip_tags($value);
-            $value = str_replace("\\","\\\\",$value);
-            $value = str_replace("'","''",$value);
-            $value = str_replace('"','\"',$value);
+                $keyword = 'select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile|script|document|eval|<|>';
+                $arr = explode( '|', $keyword );
 
-            $keyword = 'select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile|script|document|eval|<|>';
-            $arr = explode( '|', $keyword );
-
-            // 如果含有非法信息，直接跳转到404页面
-            foreach ($arr as $k => $v){
-                if(check_str($value,$v)){
-                    @header("http/1.1 404 not found");
-                    @header("status: 404 not found");
-                    include("http://www.phpernote.com/404.html");//跳转到某一个页面，推荐使用这种方法
-                    exit();
+                // 如果含有非法信息，直接跳转到404页面
+                foreach ($arr as $k => $v){
+                    if(check_str($value,$v)){
+                        @header("http/1.1 404 not found");
+                        @header("status: 404 not found");
+                        include("http://www.phpernote.com/404.html");//跳转到某一个页面，推荐使用这种方法
+                        exit();
+                    }
                 }
-            }
 
-            echo $value = str_ireplace( $arr, '', $value );exit();
+                $value = str_ireplace( $arr, '', $value );
 
-            if ( !empty( $value ) ) {
-                if (!get_magic_quotes_gpc()) { // 判断magic_quotes_gpc是否为打开
-                    $value = addslashes($value); // 进行magic_quotes_gpc没有打开的情况对提交数据的过滤
-                }
+                if ( !empty( $value ) ) {
+                    if (!get_magic_quotes_gpc()) { // 判断magic_quotes_gpc是否为打开
+                        $value = addslashes($value); // 进行magic_quotes_gpc没有打开的情况对提交数据的过滤
+                    }
 //$var = str_replace( "_", "\_", $var ); // 把 '_'过滤掉
-                $value = str_replace("%", "\%", $value); // 把 '%'过滤掉
-                $value = nl2br($value); // 回车转换
-                $value = htmlspecialchars($value); // html标记转换
-            }
+                    $value = str_replace("%", "\%", $value); // 把 '%'过滤掉
+                    $value = nl2br($value); // 回车转换
+                    $value = htmlspecialchars($value); // html标记转换
+                }
 
-            return $value;
-        }else{
-            return '';
+                return $value;
+            }else{
+                return '';
+            }
+        }catch(Exception $e){
+            throw $e;
         }
     }
 
