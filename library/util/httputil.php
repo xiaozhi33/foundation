@@ -77,7 +77,7 @@ class HttpUtil{
 
             // 如果含有非法信息，直接跳转到404页面
             foreach ($arr as $k => $v){
-                if(check_str($value,$v)){
+                if(HttpUtil::check_str($value,$v)){
                     @header("http/1.1 404 not found");
                     @header("status: 404 not found");
                     include("http://www.phpernote.com/404.html");//跳转到某一个页面，推荐使用这种方法
