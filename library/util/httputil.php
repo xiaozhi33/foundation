@@ -72,7 +72,7 @@ class HttpUtil{
             $value = str_replace("'","''",$value);
             $value = str_replace('"','\"',$value);
 
-            $keyword = 'select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile|script|document|eval|<|>';
+            $keyword = 'select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile|script|document|eval|<|>|$|%|@|\"|;|(|)|,|.|CR|LF|+';
             $arr = explode( '|', $keyword );
 
             // 如果含有非法信息，直接跳转到404页面
