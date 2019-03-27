@@ -10,6 +10,7 @@
 		public function indexAction(){
 			try{
 				$cid = HttpUtil::getString("cid");
+				var_dump($cid);exit();
 				$information = new my_informationDAO(null,$cid);
 				$information ->selectLimit = " and my_infor_isdisplay = 1 and my_infor_state = 1 order by my_infor_datetime desc";
 				$information = $information ->get($this->dbhelper);
