@@ -105,7 +105,7 @@ class HttpUtil{
 
     public static function check_str($str, $substr)
     {
-        echo $nums=substr_count($str,$substr);
+        $nums=substr_count($str,$substr);
         if ($nums>=1)
         {
             return true;
