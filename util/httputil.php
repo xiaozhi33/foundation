@@ -59,7 +59,6 @@ class HttpUtil{
     public static function getString($field){
 
         $value = $_GET[$field];
-        var_dump($value);exit();
 
         if(isset($value)){
 
@@ -70,6 +69,8 @@ class HttpUtil{
             $value = str_replace("\\","\\\\",$value);
             $value = str_replace("'","''",$value);
             $value = str_replace('"','\"',$value);
+
+            var_dump($value);exit();
 
             $keyword = 'select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile|script|document|eval|<|>';
             $arr = explode( '|', $keyword );
