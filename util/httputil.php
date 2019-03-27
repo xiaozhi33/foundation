@@ -59,6 +59,7 @@ class HttpUtil{
     public static function getString($field){
 
         $value = $_GET[$field];
+        var_dump($value);exit();
 
         if(isset($value)){
 
