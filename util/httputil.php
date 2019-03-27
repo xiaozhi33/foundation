@@ -73,7 +73,7 @@ class HttpUtil{
             $keyword = 'select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile|script|document|eval|<|>';
             $arr = explode( '|', $keyword );
 
-            /*// 如果含有非法信息，直接跳转到404页面
+            // 如果含有非法信息，直接跳转到404页面
             foreach ($arr as $k => $v){
                 if(check_str($v,$value)){
                     @header("http/1.1 404 not found");
@@ -81,7 +81,7 @@ class HttpUtil{
                     include("http://www.phpernote.com/404.html");//跳转到某一个页面，推荐使用这种方法
                     exit();
                 }
-            }*/
+            }
 
             $value = str_ireplace( $arr, '', $value );
 
@@ -98,6 +98,19 @@ class HttpUtil{
             return $value;
         }else{
             return '';
+        }
+    }
+
+    function check_str($str, $substr)
+    {
+        $nums=substr_count($str,$substr);
+        if ($nums>=1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

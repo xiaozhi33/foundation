@@ -102,6 +102,20 @@ class HttpUtil{
             return $default;
         }
     }
+
+    function check_str($str, $substr)
+    {
+        $nums=substr_count($str,$substr);
+        if ($nums>=1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public static function clearHtml($value){
         if(isset($value)){
             $value = strip_tags($value);
