@@ -65,13 +65,16 @@
 		
 		public function indexinfoAction(){
 			$indexinfo = new pm_mg_infoDAO();
-			if(HttpUtil::getString("c_name")=="zijin"){
-				if(HttpUtil::getString("pname")!=""){
-					$indexinfo ->selectLimit .= " and pm_pp like '%".HttpUtil::getString("pname")."%'";
+			$c_name = HttpUtil::getString("c_name");
+			$pname = HttpUtil::getString("pname");
+
+			if($c_name =="zijin"){
+				if($pname != ""){
+					$indexinfo ->selectLimit .= " and pm_pp like '%". $pname ."%'";
 				}
 				
 				$indexinfo ->selectLimit .= " and is_renling=1 and zijin_daozheng_jiner >= 0 order by zijin_daozhang_datetime desc";
-			}elseif(HttpUtil::getString("c_name")=="shiyong"){
+			}elseif($c_name=="shiyong"){
 				$indexinfo ->selectLimit = " and is_renling=1 and shiyong_zhichu_jiner >= 0 order by shiyong_zhichu_datetime desc";
 			}
 			//$indexinfo ->debugSql = true;
