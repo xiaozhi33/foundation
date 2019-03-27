@@ -103,9 +103,9 @@ class HttpUtil{
         }
     }
 
-    function check_str($str, $substr)
+    public static function check_str($str, $substr)
     {
-        $nums=substr_count($str,$substr);
+        echo $nums=substr_count($str,$substr);
         if ($nums>=1)
         {
             return true;
