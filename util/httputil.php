@@ -92,7 +92,7 @@ class HttpUtil{
 //$var = str_replace( "_", "\_", $var ); // 把 '_'过滤掉
                     $value = str_replace("%", "\%", $value); // 把 '%'过滤掉
                     $value = nl2br($value); // 回车转换
-                    $value = htmlspecialchars($value); // html标记转换
+                    $value = htmlspecialchars($value, ENT_QUOTES); // html标记转换
                 }
 
                 return $value;
