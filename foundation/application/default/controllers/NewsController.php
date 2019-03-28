@@ -64,6 +64,23 @@
 		}
 		
 		public function indexinfoAction(){
+
+			// 防止post xss跨站注入
+			if(!empty($_POST)){
+				@header("http/1.1 404 not found");
+				@header("status: 404 not found");
+				include("http://www.phpernote.com/404.html");//跳转到某一个页面，推荐使用这种方法
+				exit();
+			}
+
+			if (isset($GLOBALS['HTTP_RAW_POST_DATA'])) {
+				@header("http/1.1 404 not found");
+				@header("status: 404 not found");
+				include("http://www.phpernote.com/404.html");//跳转到某一个页面，推荐使用这种方法
+				exit();
+			}
+			// 防止post xss跨站注入
+
 			$indexinfo = new pm_mg_infoDAO();
 			$c_name = HttpUtil::getString("c_name");
 			$pname = HttpUtil::getString("pname");
