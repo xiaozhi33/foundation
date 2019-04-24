@@ -13,9 +13,9 @@
          <div class="jjh_content_sub_right">
               <div class="jjh_sub_con_tit"><span>当前位置：<a href="/heart">捐赠故事</a> >心声感恩</span><em>心声感恩</em></div>
               <div class="jjh_sub_con_content">
-                <div class="jjh_news_detail_tit"><font class="jjh_font3"><?php echo $this->info[0]['my_infor_title'];?></font><br /><font class="jjh_font6"><?php echo $this->info[0]['my_infor_datetime'];?></font> </div>
+                <div class="jjh_news_detail_tit"><font class="jjh_font3"><?php echo $this->info[0]['my_infor_title'];?></font><br /><font class="jjh_font6"><?php echo substr($this->info[0]['my_infor_datetime'],0,10);?></font> </div>
                 <div class="jjh_news_detail_con">
-                 	<?php echo $this->info[0]['my_infor_sumary'];?><br /><br />
+                 	<?php /*echo $this->info[0]['my_infor_sumary'];*/?><!--<br /><br />-->
                   	<?php echo $this->info[0]['my_infor_content'];?>
                 </div>
               </div>
