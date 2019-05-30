@@ -2,7 +2,7 @@
 <div class="jjh_content_sub" style="height:710px;">
          <div class="jjh_content_sub_left">
               <div class="jjh_sub_topimg"><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/project_top_img.jpg" /></div>
-              <div class="jjh_sub_nav_tit"><span>筹资项目</span></div>
+              <div class="jjh_sub_nav_tit"><span>项目介绍</span></div>
               <div class="jjh_sub_nav_con">
                    <ul>
                    	  <?php foreach ($this->my_jjh_pm as $key => $value){
@@ -20,7 +20,7 @@
               </div>
          </div>
 <div class="jjh_content_sub_right">
-             <!--<div class="jjh_sub_con_tit"><em>校友年度捐赠--1985校友基金</em><span>当前位置：<a href="news.html">筹资项目</a> > 推荐项目</span></div>--> 
+             <!--<div class="jjh_sub_con_tit"><em>校友年度捐赠--1985校友基金</em><span>当前位置：<a href="news.html">项目介绍</a> > 推荐项目</span></div>-->
              <div class="jjh_sub_con_content" style="height:520px; padding:0px; width:690px;">
                <div><img src="<?php echo __DEFAULTINCLUDEPATH__;?>images/procomadv2.jpg" /></div><br />
                <div class="jjh_prorecom_detail_left">
