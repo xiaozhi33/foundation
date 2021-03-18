@@ -99,7 +99,12 @@
                              <?php if($this->zizhuinfo != ""){
                          		foreach ($this->zizhuinfo as $key => $value){
                          	?>
-                             	<li><a href=""><?php echo mb_substr($value['pm_pp'],0,8);?> 捐赠 ￥<?php echo $value['zijin_daozheng_jiner'];?></a><span>[<?php echo mb_substr($value['zijin_daozhang_datetime'],0,10);?>]</span></li>
+                             	<li><a href=""><?php echo mb_substr($value['pm_pp'],0,4);?> 捐赠 ￥<?php echo $value['zijin_daozheng_jiner'];?> 项目 <?php
+                                        if(strlen($value['pm_name'])>4){
+                                            echo mb_substr($value['pm_name'], 0, 6).'...';
+                                        }else{
+                                            echo $value['pm_name'];
+                                        };?></a><span>[<?php echo mb_substr($value['zijin_daozhang_datetime'],0,10);?>]</span></li>
                               <?php }}?>
                          </ul>
                     </div>
